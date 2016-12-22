@@ -4,7 +4,7 @@ Add-on features for [Live Counting](https://www.reddit.com/live/ta535s1hq2je) cr
 
 ##Installation
 
-Using GreaseMonkey or TamperMonkey, create and save a new script containing the contents of `client.js`. That's it!
+Using GreaseMonkey or TamperMonkey, create and save a new userscript containing [the contents of client.js](https://raw.githubusercontent.com/co3carbonate/live-counting-extension/master/client.js). That's it!
 
 ##Features
 
