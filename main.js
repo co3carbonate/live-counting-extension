@@ -9,6 +9,8 @@
 	var $lc = $('.liveupdate-listing');
 	var $options = $('#liveupdate-options');
 	var $content = $('div.content');
+	
+	$('#new-update-form').after('<div style="clear:both;"></div>');
 
 	// OPTIONS (GENERAL)
 	$options.append('<br/><br/>'+
