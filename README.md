@@ -1,10 +1,10 @@
-#Live Counting Features
+#Live Counting Extension
 
 Add-on features for [Live Counting](https://www.reddit.com/live/ta535s1hq2je) created by [/u/co3_carbonate](https://www.reddit.com/user/co3_carbonate/).
 
 ##Installation
 
-Using the GreaseMonkey or TamperMonkey extensions, create and save a new script containing the contents of `client.js`. That's it!
+Using GreaseMonkey or TamperMonkey, create and save a new script containing the contents of `client.js`. That's it!
 
 ##Features
 
