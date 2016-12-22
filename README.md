@@ -1,6 +1,6 @@
 #Live Counting Features
 
-Add-on features for [Live Counting](https://www.reddit.com/live/ta535s1hq2je).
+Add-on features for [Live Counting](https://www.reddit.com/live/ta535s1hq2je) created by [/u/co3_carbonate](https://www.reddit.com/user/co3_carbonate/).
 
 ##Installation
 

@@ -10,7 +10,22 @@
 	var $options = $('#liveupdate-options');
 	var $content = $('div.content');
 
-	// COLORS
+	// OPTIONS (GENERAL)
+	$options.append('<br/><br/>'+
+		'<a href="https://github.com/co3carbonate/live-counting-extension" target="_blank">'+
+			'<h1>Live Counting Extension</h1>'+
+		'</a>'
+	);
+
+	// COLORED USERNAMES
+	$options.append(
+		'<label>'+
+			'<input type="checkbox" checked="true" id="checkbox-colored-usernames"/>'+
+			'COLORED USERNAMES'+
+		'</label>'
+	);
+	var useColoredUsernames = true; // enabled / disabled
+
 	// possible colors for users not in userColors
 	var colors = ['Blue', 'Coral', 'DodgerBlue', 'SpringGreen', 'YellowGreen', 'Green', 'OrangeRed', 'Red', 'GoldenRod', 'HotPink', 'CadetBlue', 'SeaGreen', 'Chocolate', 'BlueViolet', 'Firebrick'];
 	for(var i = colors.length - 1; i > 0; i--) {
@@ -35,7 +50,8 @@
 		'/u/artbn': '#e66b00',
 		'/u/amazingpikachu_38':'#e6e600',
 		'/u/qwertylool': "YellowGreen",
-		'/u/TOP_20': 'DeepPink'
+		'/u/TOP_20': 'DeepPink',
+		'/u/QuestoGuy': 'Purple'
 	};
 
 	// DELETE PAST MESSAGES
@@ -85,16 +101,18 @@
 			return;
 		}
 		
-		// Color
-        var author = $node.find('.body a.author').text();
-        if(!userColors.hasOwnProperty(author)) {
-			userColors[author] = colors[currentColor];
-			currentColor++;
-			if(currentColor == colors.length) {
-				currentColor = 0;   
+		// Colored Usernames
+		if(useColoredUsernames) {
+	        var author = $node.find('.body a.author').text();
+	        if(!userColors.hasOwnProperty(author)) {
+				userColors[author] = colors[currentColor];
+				currentColor++;
+				if(currentColor == colors.length) {
+					currentColor = 0;   
+				}
 			}
+			$node.find('.body a.author').css('color', userColors[author]);
 		}
-		$node.find('.body a.author').css('color', userColors[author]);
 
 		// Delete Past Messages
 		if(deletePastMessages) {
@@ -110,6 +128,17 @@
 	$options.on('change', 'input, select', function() {
 		var $this = $(this);
 
+		// Colored Usernames
+		if($this.is('#checkbox-colored-usernames')) {
+			useColoredUsernames = $this.prop('checked');
+		}
+
+
+		// Delete Past Messages
+		if($this.is('#checkbox-delete-past-messages')) {
+			deletePastMessages = $this.prop('checked');
+		}
+
 		// Content Position
 		if($this.is('#select-content-position')) {
 			var pos = $this.val();
@@ -120,12 +149,6 @@
 				else if(pos == 'center') $content.css('margin', '0 auto');
 			}
 		}
-
-		// Delete Past Messages
-		if($this.is('#checkbox-delete-past-messages')) {
-			deletePastMessages = $this.prop('checked');
-		}
-
 
 	});
 
