@@ -1,14 +1,3 @@
-// ==UserScript==
-// @name         Live Counting Extension
-// @namespace    http://tampermonkey.net/
-// @version      1.1
-// @description  Add-on features for Live Counting
-// @author       /u/co3_carbonate
-// @match        https://www.reddit.com/live/ta535s1hq2je
-// @match        https://www.reddit.com/live/ta535s1hq2je/
-// @grant        none
-// ==/UserScript==
-
 (function() {
 	'use strict';
 
@@ -139,6 +128,8 @@
 
 
 	});
+
+
 
 
 })();
