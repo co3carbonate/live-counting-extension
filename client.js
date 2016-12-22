@@ -7,6 +7,6 @@
 // @website      https://github.com/co3carbonate/live-counting-extension
 // @match        https://www.reddit.com/live/ta535s1hq2je
 // @match        https://www.reddit.com/live/ta535s1hq2je/
-// @require      https://cdn.rawgit.com/co3carbonate/live-counting-extension/master/main.js
+// @require      https://co3carbonate.github.io/live-counting-extension/main.js
 // @grant        none
 // ==/UserScript==
