@@ -6,7 +6,7 @@ Add-on features for [Live Counting](https://www.reddit.com/live/ta535s1hq2je) cr
 
 You can install this script through an extension like [Greasemonkey (Firefox)](https://addons.mozilla.org/en-US/firefox/addon/greasemonkey/) or [Tampermonkey (Chrome)](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=en).
 
-Once you have downloaded the extension, create and save a new userscript through [this link](https://gist.github.com/co3carbonate/fcafa1928231d88361147314791867df/raw/77129ddd53b1ed2b4c78129d622eb8bc22498df8/client.user.js).
+Once you have downloaded the extension, you can install the extension script through [this link](https://gist.github.com/co3carbonate/fcafa1928231d88361147314791867df/raw/77129ddd53b1ed2b4c78129d622eb8bc22498df8/client.user.js).
 
 ##Features
 
