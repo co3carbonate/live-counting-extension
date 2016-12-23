@@ -18,8 +18,8 @@ $(document).ready(function() {
 	
 	// OPTIONS (GENERAL)
 	$options.append('<br/><br/>'+
-		'<a href="https://github.com/co3carbonate/live-counting-extension" target="_blank">'+
-			'<h1>Live Counting Extension</h1>'+
+		'<a href="https://github.com/co3carbonate/live-counting-extension/blob/master/README.md#readme" target="_blank">'+
+			'<h1>Live Counting Extension v1.1</h1>'+
 		'</a>'
 	);
 
