@@ -10,8 +10,12 @@ $(document).ready(function() {
 	var $options = $('#liveupdate-options');
 	var $content = $('div.content');
 	
-	$('#new-update-form').after('<div style="clear:both;"></div>');
-
+	if($('#new-update-form').length) {
+		$('#new-update-form').after('<div style="clear:both;"></div>');
+	} else {
+		$options.after('<div style="clear:both;"></div>');
+	}
+	
 	// OPTIONS (GENERAL)
 	$options.append('<br/><br/>'+
 		'<a href="https://github.com/co3carbonate/live-counting-extension" target="_blank">'+
