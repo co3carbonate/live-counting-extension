@@ -34,7 +34,7 @@ var Elements;
 var Styles;
 (function (Styles) {
     // STYLESHEET
-    var $css = $("<style>\n\n\t/* General styles */\n\t#lc-body .liveupdate-listing {\n\t\tmin-width: 0px;\n\t}\n\n\t</style>");
+    var $css = $("<style>\n\n\t/* General styles */\n\t#lc-body .liveupdate-listing {\n\t\tmin-width: 0px;\n\t}\n\n\t/* Prevent the button row from always showing up when screen is small */\n\t#lc-body li.liveupdate ul.buttonrow {\n\t\tdisplay: none !important;\n\t}\n\n\t#lc-body li.liveupdate:hover ul.buttonrow {\n\t\tdisplay: block !important;\n\t}\n\n\t</style>");
     // INITIALIZATION
     $('head').append($css);
     // METHODS
