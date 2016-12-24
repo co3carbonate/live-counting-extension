@@ -15,6 +15,7 @@ var Elements;
     Elements.$content = $('div.content');
     Elements.$updates = $('.liveupdate-listing');
     Elements.$options = $('#liveupdate-options');
+    Elements.$sidebar = $('aside.sidebar');
     // INITIALIZATION
     Elements.$body.attr('id', 'lc-body');
     // Prevent the larger $options from displacing the sidebar
@@ -78,6 +79,32 @@ var Options;
         return $elem;
     }
     Options.addSelect = addSelect;
+    // WINDOW SIZE
+    // If sidebar turns into '[+] more about this live thread',
+    // (or window width < 700px according to CSS),
+    // move options to inside .sidebar
+    var $section = $("<section>\n\t\t<h2>options</h2>\n\t\t<div class='md'></div>\n\t</section>");
+    var $section_md = $section.children('.md');
+    var $header = $('#liveupdate-header');
+    $section.css('display', 'none').css('margin-top', '20px');
+    Elements.$sidebar.children('.sidebar-expand').after($section);
+    $(window).on('load resize', function () {
+        if (window.innerWidth <= 700) {
+            // add the options to '[+] more about this live thread'
+            if ($section.css('display') == 'none') {
+                $section.css('display', '');
+                Elements.$options.detach().appendTo($section_md);
+            }
+        }
+        else {
+            // remove the options from '[+] more about this live thread'
+            if ($section.css('display') != 'none') {
+                $section.css('display', 'none');
+                Elements.$options.detach().insertAfter($header);
+            }
+        }
+    });
+    Styles.add("\n\n\t#lc-body aside.sidebar #liveupdate-options {\n\t\tdisplay: block;\n\t\tfloat: none;\n\t\tmargin: 0;\n\t\tmargin-top: 20px;\n\t}\n\t\n\n\t");
 })(Options || (Options = {}));
 ;
 ///////////////
@@ -260,7 +287,5 @@ var DisplayMode;
     // Styles
     Styles.add("\n\n\t/* Display Minimal */\n\t#lc-body[data-DisplayMode='Minimal'] #header,\n\t#lc-body[data-DisplayMode='Minimal'] #liveupdate-statusbar,\n\t#lc-body[data-DisplayMode='Minimal'] .markdownEditor-wrapper,\n\t#lc-body[data-DisplayMode='Minimal'] #new-update-form .bottom-area,\n\t#lc-body[data-DisplayMode='Minimal'] li.liveupdate time.live-timestamp,\n\t#lc-body[data-DisplayMode='Minimal'] #liveupdate-options, \n\t#lc-body[data-DisplayMode='Minimal'] aside.sidebar {\n\t\tdisplay: none;\n\t}\n\n\t#lc-body[data-DisplayMode='Minimal'] #liveupdate-header,\n\t#lc-body[data-DisplayMode='Minimal'] #new-update-form {\n\t\tmargin-left: 0px;\n\t}\n\n\t#lc-body[data-DisplayMode='Minimal'] li.liveupdate ul.buttonrow {\n\t\tmargin: 0 0 2em 0px;\n\t}\n\n\t#lc-body[data-DisplayMode='Minimal'] div.content {\n\t\twidth: " + $('#new-update-form textarea').outerWidth() + "px;\n\t}\n\n\t");
 })(DisplayMode || (DisplayMode = {}));
-
-
 
 });

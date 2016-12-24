@@ -57,5 +57,49 @@ module Options {
 		return $elem;
 	}
 
+	// WINDOW SIZE
+	// If sidebar turns into '[+] more about this live thread',
+	// (or window width < 700px according to CSS),
+	// move options to inside .sidebar
+	let $section:JQuery = $(
+	`<section>
+		<h2>options</h2>
+		<div class='md'></div>
+	</section>`);
+	let $section_md:JQuery = $section.children('.md');
+	let $header:JQuery = $('#liveupdate-header');
+
+	$section.css('display', 'none').css('margin-top', '20px');
+	Elements.$sidebar.children('.sidebar-expand').after($section);
+
+	$(window).on('load resize', function() {
+		if(window.innerWidth <= 700) {
+			// add the options to '[+] more about this live thread'
+			if($section.css('display') == 'none') {
+				$section.css('display', '');
+				Elements.$options.detach().appendTo($section_md);
+			}
+		} else {
+			// remove the options from '[+] more about this live thread'
+			if($section.css('display') != 'none') {
+				$section.css('display', 'none');
+				Elements.$options.detach().insertAfter($header);
+			}
+		}
+	});
+
+	Styles.add(`
+
+	#lc-body aside.sidebar #liveupdate-options {
+		display: block;
+		float: none;
+		margin: 0;
+		margin-top: 20px;
+	}
+	
+
+	`);
+
+
 
 };
