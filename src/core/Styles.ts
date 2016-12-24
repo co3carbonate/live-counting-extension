@@ -5,7 +5,23 @@
 module Styles {
 
 	// STYLESHEET
-	let $css:JQuery = $('<style></style>');
+	let $css:JQuery = $(`<style>
+
+	/* General styles */
+	#lc-body .liveupdate-listing {
+		min-width: 0px;
+	}
+
+	/* Prevent the button row from always showing up when screen is small */
+	#lc-body li.liveupdate ul.buttonrow {
+		display: none !important;
+	}
+
+	#lc-body li.liveupdate:hover ul.buttonrow {
+		display: block !important;
+	}
+
+	</style>`);
 
 	// INITIALIZATION
 	$('head').append($css);

@@ -48,11 +48,13 @@ module DisplayMode {
 	}
 
 	#lc-body[data-DisplayMode='Minimal'] li.liveupdate ul.buttonrow {
-		margin: 0 0 2em 0px;
+		margin: 0 0 2em 0px !important;
 	}
 
 	#lc-body[data-DisplayMode='Minimal'] div.content {
-		width: ${$('#new-update-form textarea').outerWidth()}px;
+		max-width: ${
+			Math.max(450, $('#new-update-form textarea').outerWidth())
+		}px;
 	}
 
 	`);

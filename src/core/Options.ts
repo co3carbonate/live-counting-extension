@@ -61,6 +61,8 @@ module Options {
 	// If sidebar turns into '[+] more about this live thread',
 	// (or window width < 700px according to CSS),
 	// move options to inside .sidebar
+
+	// New section in the sidebar for options
 	let $section:JQuery = $(
 	`<section>
 		<h2>options</h2>
@@ -72,6 +74,7 @@ module Options {
 	$section.css('display', 'none').css('margin-top', '20px');
 	Elements.$sidebar.children('.sidebar-expand').after($section);
 
+	// Window resized
 	$(window).on('load resize', function() {
 		if(window.innerWidth <= 700) {
 			// add the options to '[+] more about this live thread'
@@ -88,18 +91,15 @@ module Options {
 		}
 	});
 
+	// CSS
 	Styles.add(`
-
+	
 	#lc-body aside.sidebar #liveupdate-options {
 		display: block;
 		float: none;
 		margin: 0;
 		margin-top: 20px;
-	}
-	
-
+	}	
 	`);
-
-
 
 };

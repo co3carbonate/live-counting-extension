@@ -9,6 +9,7 @@ module Elements {
 	export let $content:JQuery = $('div.content');
 	export let $updates:JQuery = $('.liveupdate-listing');
 	export let $options:JQuery = $('#liveupdate-options');
+	export let $sidebar:JQuery = $('aside.sidebar');
 
 	// INITIALIZATION
 	$body.attr('id', 'lc-body');
