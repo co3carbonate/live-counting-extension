@@ -13,7 +13,7 @@ Add-on features for [Live Counting](https://www.reddit.com/live/ta535s1hq2je) cr
 	* Dolphin - install [Tampermonkey](https://tampermonkey.net/?ext=dhdg&browser=dolphin).
 	* UC Browser - install [Tampermonkey](https://tampermonkey.net/?ext=dhdg&browser=ucweb).
 
-2. Once you have downloaded one of those extensions, you can install the script through [this link](https://gist.github.com/co3carbonate/fcafa1928231d88361147314791867df/raw/77129ddd53b1ed2b4c78129d622eb8bc22498df8/client.user.js). That's it!
+2. Once you have downloaded one of those extensions, you can install the script through [this link](https://gist.github.com/co3carbonate/cbf781758d12717721dc125a80a5c785/raw/bd3a0f9926dc17a2bb3e33fc8084dae43d1cb15b/client.user.js). That's it!
 
 ##Features
 
