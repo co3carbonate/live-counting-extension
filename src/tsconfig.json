@@ -10,7 +10,8 @@
 		"core/Update.ts",
 		"features/ColoredUsernames.ts",
 		"features/DeletePastMessages.ts",
+		"features/DisplayMode.ts",
 		"features/ContentPosition.ts",
-		"features/DisplayMode.ts"
+		"features/StandardizeNumberFormat.ts"
 	]
 }

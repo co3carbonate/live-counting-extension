@@ -8,7 +8,7 @@ module Options {
 	// Add header to $options first
 	Elements.$options.append(`
 		<a href="https://github.com/co3carbonate/live-counting-extension/blob/master/README.md#readme" target="_blank">
-			<h1>Live Counting Extension v1.2</h1>
+			<h1>Live Counting Extension v1.3</h1>
 		</a>
 	`);
 

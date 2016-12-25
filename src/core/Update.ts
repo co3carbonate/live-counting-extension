@@ -9,6 +9,7 @@ module Update {
 	export interface info {
 		elem:JQuery;
 		author:string;
+		body_elem:JQuery;
 	}
 
 	// METHODS
@@ -37,10 +38,11 @@ module Update {
 		}
 
 		// Get data about the new update
-		// Note: For now we only need information about the author
+		// Note: For now we only need information about the author and body
 		let data:info = {
 			elem: $node,
-			author: $node.find('.body > .author').text()
+			author: $node.find('.body > .author').text(),
+			body_elem: $node.find('.body > .md')
 		};
 
 		if(data.author) data.author = data.author.trim().replace('/u/', '');

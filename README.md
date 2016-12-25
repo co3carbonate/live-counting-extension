@@ -25,4 +25,6 @@ Here is a complete list of versions and their features.
   - Specify position of main content (left, center, right)
   - Delete past messages to mitigate lag, and reduce the need to constantly refresh
 - v1.2
-  - Change display mode to 'Minimal'
+  - Choose to set display mode to 'Minimal'
+- v1.3
+  - Choose to standardize the formats of numbers from all messages (commas, spaces, etc.)

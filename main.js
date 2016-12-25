@@ -1,5 +1,5 @@
 /**
- * LIVE COUNTING EXTENSION V1.2
+ * LIVE COUNTING EXTENSION V1.3
  * (THIS CODE WAS GENERATED FROM THE TYPESCRIPT .TS FILES IN THE SRC DIRECTORY)
  */
 $(document).ready(function() {
@@ -51,7 +51,7 @@ var Options;
 (function (Options) {
     // INITIALIZATION
     // Add header to $options first
-    Elements.$options.append("\n\t\t<a href=\"https://github.com/co3carbonate/live-counting-extension/blob/master/README.md#readme\" target=\"_blank\">\n\t\t\t<h1>Live Counting Extension v1.2</h1>\n\t\t</a>\n\t");
+    Elements.$options.append("\n\t\t<a href=\"https://github.com/co3carbonate/live-counting-extension/blob/master/README.md#readme\" target=\"_blank\">\n\t\t\t<h1>Live Counting Extension v1.3</h1>\n\t\t</a>\n\t");
     // Styles
     Styles.add("\n\n\t#lc-body label {\n\t\tdisplay: block;\n\t\tmargin-bottom: 10px;\n\t}\n\t\n\t");
     // METHODS
@@ -138,10 +138,11 @@ var Update;
             return;
         }
         // Get data about the new update
-        // Note: For now we only need information about the author
+        // Note: For now we only need information about the author and body
         var data = {
             elem: $node,
-            author: $node.find('.body > .author').text()
+            author: $node.find('.body > .author').text(),
+            body_elem: $node.find('.body > .md')
         };
         if (data.author)
             data.author = data.author.trim().replace('/u/', '');
@@ -249,21 +250,6 @@ var DeletePastMessages;
         $checkbox.prop('checked', false).trigger('change');
     });
 })(DeletePastMessages || (DeletePastMessages = {}));
-////////////////////////
-// ContentPosition.ts //
-////////////////////////
-var ContentPosition;
-(function (ContentPosition) {
-    // INITIALIZATION
-    Elements.$body.attr('data-ContentPosition', 'Center');
-    // Options
-    Options.addSelect('CONTENT POSITION', ['Left', 'Center', 'Right'], 1)
-        .on('change', function () {
-        Elements.$body.attr('data-ContentPosition', $(this).val());
-    });
-    // Styles
-    Styles.add("\n\n\t#lc-body[data-ContentPosition='Left'] div.content {\n\t\tmargin: 0;\n\t}\n\t#lc-body[data-ContentPosition='Center'] div.content {\n\t\tmargin: 0 auto;\n\t}\n\t#lc-body[data-ContentPosition='Right'] div.content {\n\t\tfloat: right;\n\t}\n\n\t");
-})(ContentPosition || (ContentPosition = {}));
 ////////////////////
 // DisplayMode.ts //
 ////////////////////
@@ -290,5 +276,162 @@ var DisplayMode;
     // Styles
     Styles.add("\n\n\t/* Display Minimal */\n\t#lc-body[data-DisplayMode='Minimal'] #header,\n\t#lc-body[data-DisplayMode='Minimal'] #liveupdate-statusbar,\n\t#lc-body[data-DisplayMode='Minimal'] .markdownEditor-wrapper,\n\t#lc-body[data-DisplayMode='Minimal'] #new-update-form .bottom-area,\n\t#lc-body[data-DisplayMode='Minimal'] li.liveupdate time.live-timestamp,\n\t#lc-body[data-DisplayMode='Minimal'] #liveupdate-options, \n\t#lc-body[data-DisplayMode='Minimal'] aside.sidebar {\n\t\tdisplay: none;\n\t}\n\n\t#lc-body[data-DisplayMode='Minimal'] #liveupdate-header,\n\t#lc-body[data-DisplayMode='Minimal'] #new-update-form {\n\t\tmargin-left: 0px;\n\t}\n\n\t#lc-body[data-DisplayMode='Minimal'] li.liveupdate ul.buttonrow {\n\t\tmargin: 0 0 2em 0px !important;\n\t}\n\n\t#lc-body[data-DisplayMode='Minimal'] div.content {\n\t\tmax-width: " + Math.max(450, $('#new-update-form textarea').outerWidth()) + "px;\n\t}\n\n\t");
 })(DisplayMode || (DisplayMode = {}));
+////////////////////////
+// ContentPosition.ts //
+////////////////////////
+var ContentPosition;
+(function (ContentPosition) {
+    // INITIALIZATION
+    Elements.$body.attr('data-ContentPosition', 'Center');
+    // Options
+    Options.addSelect('CONTENT POSITION', ['Left', 'Center', 'Right'], 1)
+        .on('change', function () {
+        Elements.$body.attr('data-ContentPosition', $(this).val());
+    });
+    // Styles
+    Styles.add("\n\n\t#lc-body[data-ContentPosition='Left'] div.content {\n\t\tmargin: 0;\n\t}\n\t#lc-body[data-ContentPosition='Center'] div.content {\n\t\tmargin: 0 auto;\n\t}\n\t#lc-body[data-ContentPosition='Right'] div.content {\n\t\tfloat: right;\n\t}\n\n\t");
+})(ContentPosition || (ContentPosition = {}));
+////////////////////////////////
+// StandardizeNumberFormat.ts //
+////////////////////////////////
+var StandardizeNumberFormat;
+(function (StandardizeNumberFormat) {
+    // UTILITY
+    // Format a number string with a character separator (e.g. 1,000,000)
+    function delimit(str, char) {
+        return str.replace(/\B(?=(\d{3})+(?!\d))/g, char);
+    }
+    // Trim specified leading and trailing characters in a string
+    function trim(str, chars) {
+        var i = 0;
+        var l = str.length;
+        var start = 0;
+        var end = l - 1;
+        for (i = 0; i < l; i++) {
+            if (chars.indexOf(str.charAt(i)) == -1) {
+                start = i;
+                break;
+            }
+        }
+        for (i = l - 1; i >= 0; i--) {
+            if (chars.indexOf(str.charAt(i)) == -1) {
+                end = i;
+                break;
+            }
+        }
+        return str.slice(start, end + 1);
+    }
+    /**
+     * Get the first element in the body that is either
+        * a text node
+        * a node that does not have any children
+     */
+    function first_node(parent) {
+        var contents = parent.childNodes;
+        var i = 0;
+        for (var l = contents.length; i < l; i++) {
+            if (contents[i].nodeType == 3) {
+                // text node
+                // check if empty
+                if (contents[i].textContent.trim().length > 0)
+                    return contents[i];
+            }
+            if (contents[i].nodeType == 1) {
+                // element node
+                var elem = contents[i];
+                if (elem.children.length == 0) {
+                    // no more children
+                    break;
+                }
+                // parent node - recurse to return its first node
+                return first_node(elem);
+            }
+        }
+        return contents[i];
+    }
+    // INITIALIZATION
+    var enabled = false;
+    var format = function (str) { return str; };
+    // Options
+    Options.addSelect('STANDARDIZE NUMBER FORMAT', ['Disable', 'Spaces', 'Commas'])
+        .on('change', function () {
+        var val = $(this).val();
+        if (val == 'Disable') {
+            enabled = false;
+            return;
+        }
+        enabled = true;
+        if (val == 'Commas')
+            format = function (str) { return delimit(str, ','); };
+        if (val == 'Spaces')
+            format = function (str) { return delimit(str, ' '); };
+    });
+    // EVENTS
+    // New update loaded
+    Update.loadedNew(function (data) {
+        if (!enabled)
+            return;
+        var first_elem = first_node(data.body_elem.get(0));
+        var $first_elem = $(first_elem);
+        var body = first_elem.textContent;
+        if (!body)
+            return;
+        // Detect number from string
+        // (This algorithm has a few problems, such as "2,000 2 GETS today"
+        //  producing a detected number of "20002".)
+        var l = body.length;
+        var num = '';
+        var original_num = '';
+        var c;
+        for (var i = 0; i < l; i++) {
+            c = body.charAt(i);
+            if (c == '0' || c == '1' || c == '2' || c == '3' || c == '4' ||
+                c == '5' || c == '6' || c == '7' || c == '8' || c == '9') {
+                num += c;
+                original_num += c;
+                continue;
+            }
+            else if (c == ' ' || c == ',' || c == '.') {
+                // part of number styling preference
+                original_num += c;
+                continue;
+            }
+            else {
+                break;
+            }
+        }
+        if (num.length == 0)
+            num = null;
+        // Replace original_num in first_elem with num
+        if (num == null)
+            return;
+        first_elem.textContent = body.replace(trim(original_num, [' ', ',', '.']), format(num));
+        // Remove formatting of parents of first_elem by changing into span
+        // Also, headers are not wrapped in p, so replace those with p
+        var $parents = $first_elem.parentsUntil('p, div.md');
+        var parentsLen = $parents.length;
+        if (first_elem.nodeType == 1 && !$first_elem.is('p, div.md')) {
+            $parents = $parents.add($first_elem);
+            if (parentsLen == 0) {
+                // not a paragraph, but still no parent? must be a header (h1)
+                // convert to p
+                $first_elem.replaceWith('<p>' + first_elem.textContent + '</p>');
+            }
+        }
+        var $this;
+        $parents.each(function (index, element) {
+            $this = $(this);
+            if ($this.parent().is(data.body_elem)) {
+                // if the direct parent is the body element,
+                // replace to p instead, 
+                // since this is definitely not a p itself
+                $this.replaceWith('<p>' + this.textContent + '</p>');
+                return;
+            }
+            $this.replaceWith('<span>' + this.textContent + '</span>');
+        });
+    });
+})(StandardizeNumberFormat || (StandardizeNumberFormat = {}));
+
 
 });
