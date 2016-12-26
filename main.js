@@ -185,7 +185,8 @@ var ColoredUsernames;
         'qwertylool': "YellowGreen",
         'TOP_20': 'DeepPink',
         'QuestoGuy': 'Purple',
-        'Smartstocks': 'Cyan'
+        'Smartstocks': 'Cyan',
+        'gordonpt8': '#00FF00'
     };
     // Possible colors for other users
     var colors = ['Blue', 'Coral', 'DodgerBlue', 'SpringGreen', 'YellowGreen', 'Green', 'OrangeRed', 'Red', 'GoldenRod', 'HotPink', 'CadetBlue', 'SeaGreen', 'Chocolate', 'BlueViolet', 'Firebrick'];
@@ -352,8 +353,30 @@ var StandardizeNumberFormat;
     // INITIALIZATION
     var enabled = false;
     var format = function (str) { return str; };
+    // Possible format functions
+    // (this is to avoid the use of anonymous functions, improving performance)
+    var FormatFuncs;
+    (function (FormatFuncs) {
+        function Commas(str) {
+            return delimit(str, ',');
+        }
+        FormatFuncs.Commas = Commas;
+        function Spaces(str) {
+            return delimit(str, ' ');
+        }
+        FormatFuncs.Spaces = Spaces;
+        function Periods(str) {
+            return delimit(str, '.');
+        }
+        FormatFuncs.Periods = Periods;
+        function None(str) {
+            return str;
+        }
+        FormatFuncs.None = None;
+    })(FormatFuncs || (FormatFuncs = {}));
+    ;
     // Options
-    Options.addSelect('STANDARDIZE NUMBER FORMAT', ['Disable', 'Spaces', 'Commas'])
+    Options.addSelect('STANDARDIZE NUMBER FORMAT', ['Disable', 'Spaces', 'Periods', 'Commas', 'None'])
         .on('change', function () {
         var val = $(this).val();
         if (val == 'Disable') {
@@ -361,10 +384,7 @@ var StandardizeNumberFormat;
             return;
         }
         enabled = true;
-        if (val == 'Commas')
-            format = function (str) { return delimit(str, ','); };
-        if (val == 'Spaces')
-            format = function (str) { return delimit(str, ' '); };
+        format = FormatFuncs[val];
     });
     // EVENTS
     // New update loaded

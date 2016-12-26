@@ -63,16 +63,32 @@ module StandardizeNumberFormat {
 	// INITIALIZATION
 	let enabled:boolean = false;
 	let format:Function = function(str:string) { return str; };
+	
+	// Possible format functions
+	// (this is to avoid the use of anonymous functions, improving performance)
+	namespace FormatFuncs {
+		export function Commas(str:string) {
+			return delimit(str, ',');
+		}
+		export function Spaces(str:string) {
+			return delimit(str, ' ');
+		}
+		export function Periods(str:string) {
+			return delimit(str, '.');
+		}
+		export function None(str:string) {
+			return str;
+		}
+	};
 
 	// Options
-	Options.addSelect('STANDARDIZE NUMBER FORMAT', ['Disable', 'Spaces', 'Commas'])
+	Options.addSelect('STANDARDIZE NUMBER FORMAT', ['Disable', 'Spaces', 'Periods', 'Commas', 'None'])
 		.on('change', function() {
 			let val:string = $(this).val();
 			if(val == 'Disable') { enabled = false; return; }
 
 			enabled = true;
-			if(val == 'Commas') format = function(str:string) { return delimit(str, ','); };
-			if(val == 'Spaces') format = function(str:string) { return delimit(str, ' '); };
+			format = FormatFuncs[val];
 		});
 
 	// EVENTS
