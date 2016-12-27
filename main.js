@@ -185,7 +185,7 @@ var ColoredUsernames;
         'qwertylool': "YellowGreen",
         'TOP_20': 'DeepPink',
         'QuestoGuy': 'Purple',
-        'Smartstocks': 'Cyan',
+        'Smartstocks': 'MediumSeaGreen',
         'gordonpt8': '#00FF00'
     };
     // Possible colors for other users
