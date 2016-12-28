@@ -176,6 +176,7 @@ var ColoredUsernames;
         'rschaosid': '#008080',
         'live_mentions': 'Black',
         'joinlivecounting': 'Black',
+        'livecounting_sidebar': 'Black',
         'piyushsharma301': 'Red',
         'Tranquilsunrise': 'Orange',
         'dominodan123': 'Blue',
