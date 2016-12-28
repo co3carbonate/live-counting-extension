@@ -229,7 +229,7 @@ var DeletePastMessages;
     var maxMessages = 50;
     // Options
     var enabled = true;
-    var $checkbox = Options.addCheckbox('DELETE PAST MESSAGES (REDUCES LAG)', true)
+    var $checkbox = Options.addCheckbox('CLEAR PAST MESSAGES (REDUCES LAG)', true)
         .on('change', function () {
         enabled = $(this).prop('checked');
     });

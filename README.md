@@ -23,7 +23,7 @@ Here is a complete list of versions and their features.
   - Colored usernames
 - v1.1
   - Specify position of main content (left, center, right)
-  - Delete past messages to mitigate lag, and reduce the need to constantly refresh
+  - Automatically clear past messages to mitigate lag, and reduce the need to constantly refresh
 - v1.2
   - Choose to set display mode to 'Minimal'
 - v1.3
