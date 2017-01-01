@@ -1,10 +1,3 @@
-/**
- * LIVE COUNTING EXTENSION V1.3
- * (THIS CODE WAS GENERATED FROM THE TYPESCRIPT .TS FILES IN THE SRC DIRECTORY)
- */
-$(document).ready(function() {
-
-
 /////////////////
 // Elements.ts //
 /////////////////
@@ -34,7 +27,7 @@ var Elements;
 var Styles;
 (function (Styles) {
     // STYLESHEET
-    var $css = $("<style>\n\n\t/* General styles */\n\t#lc-body .liveupdate-listing {\n\t\tmin-width: 0px;\n\t}\n\n\t/* Prevent the button row from always showing up when screen is small */\n\t#lc-body li.liveupdate ul.buttonrow {\n\t\tdisplay: none !important;\n\t}\n\n\t#lc-body li.liveupdate:hover ul.buttonrow {\n\t\tdisplay: block !important;\n\t}\n\n\t</style>");
+    var $css = $("<style>\n\n\t/* General styles */\n\taudio, source {\n\t\tdisplay: none;\n\t}\n\t#lc-body .liveupdate-listing {\n\t\tmin-width: 0px;\n\t}\n\n\t/* Prevent the button row from always showing up when screen is small */\n\t#lc-body li.liveupdate ul.buttonrow {\n\t\tdisplay: none !important;\n\t}\n\n\t#lc-body li.liveupdate:hover ul.buttonrow {\n\t\tdisplay: block !important;\n\t}\n\n\t</style>");
     // INITIALIZATION
     $('head').append($css);
     // METHODS
@@ -187,7 +180,8 @@ var ColoredUsernames;
         'TOP_20': 'DeepPink',
         'QuestoGuy': 'Purple',
         'Smartstocks': 'MediumSeaGreen',
-        'gordonpt8': '#00FF00'
+        'gordonpt8': '#00FF00',
+        'Mooraell': '#DAA520'
     };
     // Possible colors for other users
     var colors = ['Blue', 'Coral', 'DodgerBlue', 'SpringGreen', 'YellowGreen', 'Green', 'OrangeRed', 'Red', 'GoldenRod', 'HotPink', 'CadetBlue', 'SeaGreen', 'Chocolate', 'BlueViolet', 'Firebrick'];
@@ -453,6 +447,3 @@ var StandardizeNumberFormat;
         });
     });
 })(StandardizeNumberFormat || (StandardizeNumberFormat = {}));
-
-
-});
