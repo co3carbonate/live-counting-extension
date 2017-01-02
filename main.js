@@ -1,3 +1,10 @@
+/**
+ * LIVE COUNTING EXTENSION V1.3
+ * (THIS CODE WAS GENERATED FROM THE TYPESCRIPT .TS FILES IN THE SRC DIRECTORY)
+ */
+$(document).ready(function() {
+
+
 /////////////////
 // Elements.ts //
 /////////////////
@@ -135,6 +142,7 @@ var Update;
         var data = {
             elem: $node,
             author: $node.find('.body > .author').text(),
+            author_elem: $node.find('.body > .author'),
             body_elem: $node.find('.body > .md')
         };
         if (data.author)
@@ -181,7 +189,8 @@ var ColoredUsernames;
         'QuestoGuy': 'Purple',
         'Smartstocks': 'MediumSeaGreen',
         'gordonpt8': '#00FF00',
-        'Mooraell': '#DAA520'
+        'Mooraell': '#DAA520',
+        'randomusername123458': '#00CC99'
     };
     // Possible colors for other users
     var colors = ['Blue', 'Coral', 'DodgerBlue', 'SpringGreen', 'YellowGreen', 'Green', 'OrangeRed', 'Red', 'GoldenRod', 'HotPink', 'CadetBlue', 'SeaGreen', 'Chocolate', 'BlueViolet', 'Firebrick'];
@@ -205,6 +214,10 @@ var ColoredUsernames;
     Update.loadedNew(function (data) {
         if (!enabled)
             return;
+        if (data.author == 'co3_carbonate') {
+            // Creator specials {:}
+            data.author_elem.css('font-weight', 'bold');
+        }
         if (!userColors.hasOwnProperty(data.author)) {
             userColors[data.author] = colors[currentColor];
             currentColor++;
@@ -447,3 +460,6 @@ var StandardizeNumberFormat;
         });
     });
 })(StandardizeNumberFormat || (StandardizeNumberFormat = {}));
+
+
+});

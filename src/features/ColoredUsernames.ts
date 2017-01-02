@@ -22,7 +22,9 @@ module ColoredUsernames {
 		'TOP_20': 'DeepPink',
 		'QuestoGuy': 'Purple',
 		'Smartstocks': 'MediumSeaGreen',
-		'gordonpt8': '#00FF00'
+		'gordonpt8': '#00FF00',
+		'Mooraell': '#DAA520',
+		'randomusername123458': '#00CC99'
 	};
 
 	// Possible colors for other users
@@ -50,6 +52,11 @@ module ColoredUsernames {
 	// New update loaded
 	Update.loadedNew(function(data:Update.info) {
 		if(!enabled) return;
+
+		if(data.author == 'co3_carbonate') {
+			// Creator specials {:}
+			data.author_elem.css('font-weight', 'bold');
+		}
 
 	    if(!userColors.hasOwnProperty(data.author)) {
 			userColors[data.author] = colors[currentColor];

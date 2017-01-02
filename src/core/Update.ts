@@ -10,6 +10,7 @@ module Update {
 		elem:JQuery;
 		author:string;
 		body_elem:JQuery;
+		author_elem:JQuery;
 	}
 
 	// METHODS
@@ -42,6 +43,7 @@ module Update {
 		let data:info = {
 			elem: $node,
 			author: $node.find('.body > .author').text(),
+			author_elem: $node.find('.body > .author'),
 			body_elem: $node.find('.body > .md')
 		};
 
