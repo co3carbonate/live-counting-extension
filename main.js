@@ -214,7 +214,7 @@ var ColoredUsernames;
     Update.loadedNew(function (data) {
         if (!enabled)
             return;
-        if (data.author == 'co3_carbonate') {
+        if (data.author == 'co3_carbonate' || data.author == 'rschaosid') {
             // Creator specials {:}
             data.author_elem.css('font-weight', 'bold');
         }
