@@ -1,10 +1,3 @@
-/**
- * LIVE COUNTING EXTENSION V1.3
- * (THIS CODE WAS GENERATED FROM THE TYPESCRIPT .TS FILES IN THE SRC DIRECTORY)
- */
-$(document).ready(function() {
-
-
 /////////////////
 // Elements.ts //
 /////////////////
@@ -190,10 +183,11 @@ var ColoredUsernames;
         'Smartstocks': 'MediumSeaGreen',
         'gordonpt8': '#00FF00',
         'Mooraell': '#DAA520',
-        'randomusername123458': '#00CC99'
+        'randomusername123458': '#00CC99',
+        'davidjl123': '#6495ED'
     };
     // Possible colors for other users
-    var colors = ['Blue', 'Coral', 'DodgerBlue', 'SpringGreen', 'YellowGreen', 'Green', 'OrangeRed', 'Red', 'GoldenRod', 'HotPink', 'CadetBlue', 'SeaGreen', 'Chocolate', 'BlueViolet', 'Firebrick'];
+    var colors = ['Blue', 'Coral', 'DodgerBlue', 'SpringGreen', 'YellowGreen', 'Green', 'OrangeRed', 'Red', 'GoldenRod', 'CadetBlue', 'SeaGreen', 'Chocolate', 'BlueViolet', 'Firebrick'];
     for (var i = colors.length - 1; i > 0; i--) {
         // use Durstenfeld shuffle algorithm on colors array
         var j = Math.floor(Math.random() * (i + 1));
@@ -460,6 +454,3 @@ var StandardizeNumberFormat;
         });
     });
 })(StandardizeNumberFormat || (StandardizeNumberFormat = {}));
-
-
-});
