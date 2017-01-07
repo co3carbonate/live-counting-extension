@@ -1,3 +1,10 @@
+/**
+ * LIVE COUNTING EXTENSION V1.3
+ * (THIS CODE WAS GENERATED FROM THE TYPESCRIPT .TS FILES IN THE SRC DIRECTORY)
+ */
+$(document).ready(function() {
+
+
 /////////////////
 // Elements.ts //
 /////////////////
@@ -199,18 +206,19 @@ var ColoredUsernames;
     var currentColor = 0;
     // Options
     var enabled = true;
-    Options.addCheckbox('COLORED USERNAMES', true)
-        .on('change', function () {
-        enabled = $(this).prop('checked');
-    });
+    /*Options.addCheckbox('COLORED USERNAMES', true)
+        .on('change', function() {
+            enabled = $(this).prop('checked');
+        });*/
     // EVENTS
     // New update loaded
     Update.loadedNew(function (data) {
         if (!enabled)
             return;
-        if (data.author == 'co3_carbonate' || data.author == 'rschaosid') {
-            // Creator specials {:}
-            data.author_elem.css('font-weight', 'bold');
+        // Special usernames (temp rewards for top in 100k HoC, or other contributions)
+        if (data.author == 'co3_carbonate') {
+            // change co3_carbonate's name to co(1-99)_carbonate
+            data.author_elem.html("/u/co" + Math.floor((Math.random() * 99) + 1) + "_carbonate");
         }
         if (!userColors.hasOwnProperty(data.author)) {
             userColors[data.author] = colors[currentColor];
@@ -454,3 +462,6 @@ var StandardizeNumberFormat;
         });
     });
 })(StandardizeNumberFormat || (StandardizeNumberFormat = {}));
+
+
+});

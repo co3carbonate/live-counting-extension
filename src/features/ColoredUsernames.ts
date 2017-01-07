@@ -24,11 +24,12 @@ module ColoredUsernames {
 		'Smartstocks': 'MediumSeaGreen',
 		'gordonpt8': '#00FF00',
 		'Mooraell': '#DAA520',
-		'randomusername123458': '#00CC99'
+		'randomusername123458': '#00CC99',
+		'davidjl123': '#6495ED'
 	};
 
 	// Possible colors for other users
-	let colors:string[] = ['Blue', 'Coral', 'DodgerBlue', 'SpringGreen', 'YellowGreen', 'Green', 'OrangeRed', 'Red', 'GoldenRod', 'HotPink', 'CadetBlue', 'SeaGreen', 'Chocolate', 'BlueViolet', 'Firebrick'];
+	let colors:string[] = ['Blue', 'Coral', 'DodgerBlue', 'SpringGreen', 'YellowGreen', 'Green', 'OrangeRed', 'Red', 'GoldenRod', 'CadetBlue', 'SeaGreen', 'Chocolate', 'BlueViolet', 'Firebrick'];
 	
 	for(let i:number = colors.length - 1; i > 0; i--) {
 		// use Durstenfeld shuffle algorithm on colors array
@@ -43,19 +44,20 @@ module ColoredUsernames {
 
 	// Options
 	let enabled:boolean = true;
-	Options.addCheckbox('COLORED USERNAMES', true)
+	/*Options.addCheckbox('COLORED USERNAMES', true)
 		.on('change', function() {
 			enabled = $(this).prop('checked');
-		});
+		});*/
 
 	// EVENTS
 	// New update loaded
 	Update.loadedNew(function(data:Update.info) {
 		if(!enabled) return;
 
+		// Special usernames (temp rewards for top in 100k HoC, or other contributions)
 		if(data.author == 'co3_carbonate') {
-			// Creator specials {:}
-			data.author_elem.css('font-weight', 'bold');
+			// change co3_carbonate's name to co(1-99)_carbonate
+			data.author_elem.html(`/u/co${ Math.floor((Math.random()*99) + 1) }_carbonate`);
 		}
 
 	    if(!userColors.hasOwnProperty(data.author)) {

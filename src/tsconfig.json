@@ -3,7 +3,7 @@
 		"outFile": "../main.js"
 	},
 	"files": [
-		"jquery.d.ts",
+		"lib/jquery.d.ts",
 		"core/Elements.ts",
 		"core/Styles.ts",
 		"core/Options.ts",
