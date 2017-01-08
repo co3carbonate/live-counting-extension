@@ -1,6 +1,6 @@
 #Live Counting Extension
 
-Add-on features for [Live Counting](https://www.reddit.com/live/ta535s1hq2je) created by [/u/co3_carbonate](https://www.reddit.com/user/co3_carbonate/).
+Live Counting Extension provides various additional client-side features and functionalities for [Live Counting](https://www.reddit.com/live/ta535s1hq2je) to enhance your overall counting experience and performance. It is created and maintained by [/u/co3_carbonate](https://www.reddit.com/user/co3_carbonate/).
 
 ##Installation
 
@@ -28,3 +28,5 @@ Here is a complete list of versions and their features.
   - Choose to set display mode to 'Minimal'
 - v1.3
   - Choose to standardize the formats of numbers from all messages (commas, spaces, etc.)
+- v1.4
+  - **Use Ctrl+Enter in the textarea to submit a message**

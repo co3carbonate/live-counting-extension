@@ -12,6 +12,7 @@
 		"features/DeletePastMessages.ts",
 		"features/DisplayMode.ts",
 		"features/ContentPosition.ts",
-		"features/StandardizeNumberFormat.ts"
+		"features/StandardizeNumberFormat.ts",
+		"features/CtrlEnter.ts"
 	]
 }

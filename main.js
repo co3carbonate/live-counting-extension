@@ -1,5 +1,5 @@
 /**
- * LIVE COUNTING EXTENSION V1.3
+ * LIVE COUNTING EXTENSION V1.4
  * (THIS CODE WAS GENERATED FROM THE TYPESCRIPT .TS FILES IN THE SRC DIRECTORY)
  */
 $(document).ready(function() {
@@ -51,7 +51,7 @@ var Options;
 (function (Options) {
     // INITIALIZATION
     // Add header to $options first
-    Elements.$options.append("\n\t\t<a href=\"https://github.com/co3carbonate/live-counting-extension/blob/master/README.md#readme\" target=\"_blank\">\n\t\t\t<h1>Live Counting Extension v1.3</h1>\n\t\t</a>\n\t");
+    Elements.$options.append("\n\t\t<a href=\"https://github.com/co3carbonate/live-counting-extension/blob/master/README.md#readme\" target=\"_blank\">\n\t\t\t<h1>Live Counting Extension v1.4</h1>\n\t\t</a>\n\t");
     // Styles
     Styles.add("\n\n\t#lc-body label {\n\t\tdisplay: block;\n\t\tmargin-bottom: 10px;\n\t}\n\t\n\t");
     // METHODS
@@ -463,6 +463,29 @@ var StandardizeNumberFormat;
         });
     });
 })(StandardizeNumberFormat || (StandardizeNumberFormat = {}));
-
+//////////////////
+// CtrlEnter.ts //
+//////////////////
+var CtrlEnter;
+(function (CtrlEnter) {
+    // INITIALIZATION
+    var enabled = true;
+    var $textarea = $('#new-update-form textarea');
+    var $submitBtn = $('#new-update-form .save-button button');
+    // RES already has a ctrl-enter feature since v4.7.8
+    // Skip remaining actions if using a version higher than that
+    var $resVersion = $('#RESConsoleVersion');
+    if ($resVersion.length > 0 && +($resVersion.text().replace(/\D/g, '')) >= 478)
+        enabled = false;
+    // Bind keydown event to the textarea
+    if (enabled) {
+        $textarea.on('keydown', function (e) {
+            if (e.keyCode == 13 && (e.ctrlKey || e.metaKey)) {
+                e.preventDefault();
+                $submitBtn.trigger('click');
+            }
+        });
+    }
+})(CtrlEnter || (CtrlEnter = {}));
 
 });
