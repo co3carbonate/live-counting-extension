@@ -185,13 +185,14 @@ var ColoredUsernames;
         'artbn': '#e66b00',
         'amazingpikachu_38': '#e6e600',
         'qwertylool': "YellowGreen",
-        'TOP_20': 'DeepPink',
+        'TOP_20': '#FFBDD8',
         'QuestoGuy': 'Purple',
         'Smartstocks': 'MediumSeaGreen',
         'gordonpt8': '#00FF00',
         'Mooraell': '#DAA520',
         'randomusername123458': '#00CC99',
-        'davidjl123': '#6495ED'
+        'davidjl123': '#6495ED',
+        'Iamspeedy36': '#00BFFF'
     };
     // Possible colors for other users
     var colors = ['Blue', 'Coral', 'DodgerBlue', 'SpringGreen', 'YellowGreen', 'Green', 'OrangeRed', 'Red', 'GoldenRod', 'CadetBlue', 'SeaGreen', 'Chocolate', 'BlueViolet', 'Firebrick'];
@@ -462,5 +463,6 @@ var StandardizeNumberFormat;
         });
     });
 })(StandardizeNumberFormat || (StandardizeNumberFormat = {}));
+
 
 });
