@@ -26,7 +26,8 @@ module ColoredUsernames {
 		'Mooraell': '#DAA520',
 		'randomusername123458': '#00CC99',
 		'davidjl123': '#6495ED',
-		'Iamspeedy36': '#00BFFF'
+		'Iamspeedy36': '#00BFFF',
+		'Phoenixness': '#ff0000'
 	};
 
 	// Possible colors for other users
