@@ -2,7 +2,7 @@
  * LIVE COUNTING EXTENSION V1.4
  * (THIS CODE WAS GENERATED FROM THE TYPESCRIPT .TS FILES IN THE SRC DIRECTORY)
  */
-$(document).ready(function() {
+$(window).on('load', function() {
 
 
 /////////////////
@@ -50,9 +50,28 @@ var Styles;
 var Options;
 (function (Options) {
     // INITIALIZATION
-    // Add header to $options first
-    Elements.$options.append("\n\t\t<a href=\"https://github.com/co3carbonate/live-counting-extension/blob/master/README.md#readme\" target=\"_blank\">\n\t\t\t<h1>Live Counting Extension v1.4</h1>\n\t\t</a>\n\t");
+    // Initialize new content in the options box
+    var $heading = $("\n\t\t<h1>\n\t\t\t<a href=\"https://github.com/co3carbonate/live-counting-extension/blob/master/README.md#readme\" target=\"_blank\">Live Counting Extension v1.4</a> \n\t\t</h1>\n\t");
+    var $toggle = $("<span>[-]</span>");
+    var $options = $("<div></div>");
+    $heading.append($toggle);
+    Elements.$options.append($heading, $options);
+    // When the toggle button is clicked ([-] and [+])
+    $toggle.on('click', function () {
+        if ($options.css('display') == 'none') {
+            // show
+            $(this).html('[-]');
+            $options.slideDown(500);
+        }
+        else {
+            // hide
+            $(this).html('[+]');
+            $options.slideUp(500);
+        }
+    });
     // Styles
+    $toggle.css('cursor', 'pointer');
+    $heading.css({ 'font-size': '16px', 'font-weight': 'bold' });
     Styles.add("\n\n\t#lc-body label {\n\t\tdisplay: block;\n\t\tmargin-bottom: 10px;\n\t}\n\t\n\t");
     // METHODS
     // Add a checkbox option
@@ -60,7 +79,7 @@ var Options;
     function addCheckbox(label, checked) {
         if (checked === void 0) { checked = false; }
         var $elem = $("<input type=\"checkbox\" checked=\"" + checked + "\"/>");
-        Elements.$options.append($("<label>" + label + "</label>").prepend($elem));
+        $options.append($("<label>" + label + "</label>").prepend($elem));
         return $elem;
     }
     Options.addCheckbox = addCheckbox;
@@ -75,7 +94,7 @@ var Options;
                 "<option value=\"" + options[i] + "\"" + ((i == selectedIndex) ? ' selected="true"' : '') + ">" + options[i] + "</option>";
         }
         $elem.html(elem_contents);
-        Elements.$options.append($("<label>" + label + ": </label>").append($elem));
+        $options.append($("<label>" + label + ": </label>").append($elem));
         return $elem;
     }
     Options.addSelect = addSelect;
@@ -95,14 +114,14 @@ var Options;
             // add the options to '[+] more about this live thread'
             if ($section.css('display') == 'none') {
                 $section.css('display', '');
-                Elements.$options.detach().appendTo($section_md);
+                $options.detach().appendTo($section_md);
             }
         }
         else {
             // remove the options from '[+] more about this live thread'
             if ($section.css('display') != 'none') {
                 $section.css('display', 'none');
-                Elements.$options.detach().insertAfter($header);
+                $options.detach().insertAfter($header);
             }
         }
     });
@@ -488,6 +507,7 @@ var CtrlEnter;
         });
     }
 })(CtrlEnter || (CtrlEnter = {}));
+
 
 
 });

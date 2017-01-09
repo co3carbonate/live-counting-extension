@@ -5,14 +5,35 @@
 module Options {
 
 	// INITIALIZATION
-	// Add header to $options first
-	Elements.$options.append(`
-		<a href="https://github.com/co3carbonate/live-counting-extension/blob/master/README.md#readme" target="_blank">
-			<h1>Live Counting Extension v1.4</h1>
-		</a>
+	// Initialize new content in the options box
+	let $heading:JQuery = $(`
+		<h1>
+			<a href="https://github.com/co3carbonate/live-counting-extension/blob/master/README.md#readme" target="_blank">Live Counting Extension v1.4</a> 
+		</h1>
 	`);
+	let $toggle:JQuery = $(`<span>[-]</span>`);
+	let $options:JQuery = $(`<div></div>`);
+	
+	$heading.append($toggle);
+	Elements.$options.append($heading, $options);
+
+	// When the toggle button is clicked ([-] and [+])
+	$toggle.on('click', function() {
+		if($options.css('display') == 'none') {
+			// show
+			$(this).html('[-]');
+			$options.slideDown(500);
+		} else {
+			// hide
+			$(this).html('[+]');
+			$options.slideUp(500);
+		}
+	})
 
 	// Styles
+	$toggle.css('cursor', 'pointer');
+	$heading.css({'font-size': '16px', 'font-weight': 'bold'});
+
 	Styles.add(`
 
 	#lc-body label {
@@ -29,7 +50,7 @@ module Options {
 								checked:boolean = false):JQuery {
 		let $elem:JQuery = $(`<input type="checkbox" checked="${checked}"/>`);
 
-		Elements.$options.append(
+		$options.append(
 			$(`<label>${label}</label>`).prepend($elem));
 
 		return $elem;
@@ -51,7 +72,7 @@ module Options {
 		}
 
 		$elem.html(elem_contents);
-		Elements.$options.append(
+		$options.append(
 			$(`<label>${label}: </label>`).append($elem));
 
 		return $elem;
@@ -80,13 +101,13 @@ module Options {
 			// add the options to '[+] more about this live thread'
 			if($section.css('display') == 'none') {
 				$section.css('display', '');
-				Elements.$options.detach().appendTo($section_md);
+				$options.detach().appendTo($section_md);
 			}
 		} else {
 			// remove the options from '[+] more about this live thread'
 			if($section.css('display') != 'none') {
 				$section.css('display', 'none');
-				Elements.$options.detach().insertAfter($header);
+				$options.detach().insertAfter($header);
 			}
 		}
 	});
