@@ -47,11 +47,40 @@ module Options {
 	// Add a checkbox option
 	// Returns the newly created checkbox
 	export function addCheckbox(label:string, 
-								checked:boolean = false):JQuery {
-		let $elem:JQuery = $(`<input type="checkbox" checked="${checked}"/>`);
+								...optionalArgs:any[]):JQuery {
+		// Handling optional args
+		let defaultChecked:boolean = false;
+		let onchange:Function = null;
+		if(optionalArgs.length == 1) {
+			if(typeof optionalArgs[0] == 'boolean') defaultChecked = optionalArgs[0];
+			else if(typeof optionalArgs[0] == 'function') onchange = optionalArgs[0];
+		}
+		else if(optionalArgs.length == 2) {
+			[defaultChecked, onchange] = optionalArgs;
+		}
 
+		// Default value handling (cookie)
+		let checked:boolean = defaultChecked; 
+		if(Cookie.saveDefaultOptions && !Cookie.save.options.hasOwnProperty(label))
+			Cookie.save.options[label] = checked;
+		else
+			checked = Cookie.save.options[label];
+
+		// Create label and checkbox
+		let $elem:JQuery = $(`<input type="checkbox"${checked ? ' checked="true"' : ''}/>`);
+		
 		$options.append(
 			$(`<label>${label}</label>`).prepend($elem));
+
+		// Handle onchange
+		$elem.on('change', function() {
+			Cookie.save.options[label] = $(this).prop('checked');
+			Cookie.update();
+			if(onchange != null) onchange.call(this);
+		});
+
+		// Trigger change event if the value != default
+		if(defaultChecked != checked) $elem.trigger('change');
 
 		return $elem;
 	}
@@ -59,21 +88,51 @@ module Options {
 	// Add select option
 	// Returns the newly created select
 	export function addSelect(label:string, 
-							  options:string[], 
-							  selectedIndex:number = 0):JQuery {
+							  options:string[],
+							  ...optionalArgs:any[]):JQuery {
+		// Handling optional args
+		let selectedIndex:number = 0;
+		let onchange:Function = null;
+		if(optionalArgs.length == 1) {
+			if(typeof optionalArgs[0] == 'number') selectedIndex = optionalArgs[0];
+			else if(typeof optionalArgs[0] == 'function') onchange = optionalArgs[0];
+		}
+		else if(optionalArgs.length == 2) {
+			[selectedIndex, onchange] = optionalArgs;
+		}
+
+		// Default value handling (cookie)
+		let defaultVal:string = options[selectedIndex];
+		let selectedVal:string = defaultVal;
+		if(Cookie.saveDefaultOptions && !Cookie.save.options.hasOwnProperty(label))
+			Cookie.save.options[label] = selectedVal;
+		else
+			selectedVal = Cookie.save.options[label];
+
+		// Create label, select, and options
 		let $elem:JQuery = $(`<select></select>`);
 
 		let elem_contents:string = '';
 		for(let i:number = 0; i < options.length; i++) {
 			elem_contents += 
 				`<option value="${options[i]}"${
-					(i == selectedIndex) ? ' selected="true"': ''
+					(options[i] == selectedVal) ? ' selected="true"': ''
 				}>${options[i]}</option>`;
 		}
 
 		$elem.html(elem_contents);
 		$options.append(
 			$(`<label>${label}: </label>`).append($elem));
+
+		// Handle onchange
+		$elem.on('change', function() {
+			Cookie.save.options[label] = $(this).val();
+			Cookie.update();
+			if(onchange != null) onchange.call(this);
+		});
+
+		// Trigger change event if the value != default
+		if(defaultVal != selectedVal) $elem.trigger('change');
 
 		return $elem;
 	}

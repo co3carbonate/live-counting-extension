@@ -21,11 +21,10 @@ module DisplayMode {
 
 	// Options
 	let $select:JQuery =
-		Options.addSelect('DISPLAY MODE', ['Normal', 'Minimal'])
-		.on('change', function() {
-			let pos:string = $(this).val();
-			$returnBtn.css('display', (pos == 'Normal' ? 'none' : 'block'));
-			Elements.$body.attr('data-DisplayMode', pos);
+		Options.addSelect('DISPLAY MODE', ['Normal', 'Minimal'], function() {
+			let display:string = $(this).val();
+			$returnBtn.css('display', (display == 'Normal' ? 'none' : 'block'));
+			Elements.$body.attr('data-DisplayMode', display);
 		});
 
 	// Styles

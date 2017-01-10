@@ -82,14 +82,13 @@ module StandardizeNumberFormat {
 	};
 
 	// Options
-	Options.addSelect('STANDARDIZE NUMBER FORMAT', ['Disable', 'Spaces', 'Periods', 'Commas', 'None'])
-		.on('change', function() {
-			let val:string = $(this).val();
-			if(val == 'Disable') { enabled = false; return; }
+	Options.addSelect('STANDARDIZE NUMBER FORMAT', ['Disable', 'Spaces', 'Periods', 'Commas', 'None'], function() {
+		let val:string = $(this).val();
+		if(val == 'Disable') { enabled = false; return; }
 
-			enabled = true;
-			format = FormatFuncs[val];
-		});
+		enabled = true;
+		format = FormatFuncs[val];
+	});
 
 	// EVENTS
 	// New update loaded

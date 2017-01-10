@@ -2,9 +2,164 @@
  * LIVE COUNTING EXTENSION V1.4
  * (THIS CODE WAS GENERATED FROM THE TYPESCRIPT .TS FILES IN THE SRC DIRECTORY)
  */
-$(window).on('load', function() {
+$(document).on('ready', function() {
 
 
+////////////////
+// Cookies.ts //
+////////////////
+// Adapted TypeScript version of the js-cookie library (https://github.com/js-cookie/js-cookie)
+var Cookies = (function () {
+    function extend() {
+        var args = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            args[_i] = arguments[_i];
+        }
+        var i = 0;
+        var result = {};
+        for (; i < args.length; i++) {
+            var attributes = args[i];
+            for (var key in attributes) {
+                result[key] = attributes[key];
+            }
+        }
+        return result;
+    }
+    function init(converter) {
+        var api = function (key, value, attributes) {
+            var result;
+            if (typeof document === 'undefined') {
+                return;
+            }
+            // Write
+            if (arguments.length > 1) {
+                attributes = extend({
+                    path: '/'
+                }, api.defaults, attributes);
+                if (typeof attributes.expires === 'number') {
+                    var expires = new Date();
+                    expires.setMilliseconds(expires.getMilliseconds() + attributes.expires * 864e+5);
+                    attributes.expires = expires;
+                }
+                try {
+                    result = JSON.stringify(value);
+                    if (/^[\{\[]/.test(result)) {
+                        value = result;
+                    }
+                }
+                catch (e) { }
+                if (!converter.write) {
+                    value = encodeURIComponent(String(value))
+                        .replace(/%(23|24|26|2B|3A|3C|3E|3D|2F|3F|40|5B|5D|5E|60|7B|7D|7C)/g, decodeURIComponent);
+                }
+                else {
+                    value = converter.write(value, key);
+                }
+                key = encodeURIComponent(String(key));
+                key = key.replace(/%(23|24|26|2B|5E|60|7C)/g, decodeURIComponent);
+                key = key.replace(/[\(\)]/g, encodeURI);
+                return (document.cookie = [
+                    key, '=', value,
+                    attributes.expires ? '; expires=' + attributes.expires.toUTCString() : '',
+                    attributes.path ? '; path=' + attributes.path : '',
+                    attributes.domain ? '; domain=' + attributes.domain : '',
+                    attributes.secure ? '; secure' : ''
+                ].join(''));
+            }
+            // Read
+            if (!key) {
+                result = {};
+            }
+            // To prevent the for loop in the first place assign an empty array
+            // in case there are no cookies at all. Also prevents odd result when
+            // calling "get()"
+            var cookies = document.cookie ? document.cookie.split('; ') : [];
+            var rdecode = /(%[0-9A-Z]{2})+/g;
+            var i = 0;
+            for (; i < cookies.length; i++) {
+                var parts = cookies[i].split('=');
+                var cookie = parts.slice(1).join('=');
+                if (cookie.charAt(0) === '"') {
+                    cookie = cookie.slice(1, -1);
+                }
+                try {
+                    var name = parts[0].replace(rdecode, decodeURIComponent);
+                    cookie = converter.read ?
+                        converter.read(cookie, name) : converter(cookie, name) ||
+                        cookie.replace(rdecode, decodeURIComponent);
+                    if (this.json) {
+                        try {
+                            cookie = JSON.parse(cookie);
+                        }
+                        catch (e) { }
+                    }
+                    if (key === name) {
+                        result = cookie;
+                        break;
+                    }
+                    if (!key) {
+                        result[name] = cookie;
+                    }
+                }
+                catch (e) { }
+            }
+            return result;
+        };
+        api.set = api;
+        api.get = function (key) {
+            return api.call(api, key);
+        };
+        api.getJSON = function () {
+            return api.apply({
+                json: true
+            }, [].slice.call(arguments));
+        };
+        api.defaults = {};
+        api.remove = function (key, attributes) {
+            api(key, '', extend(attributes, {
+                expires: -1
+            }));
+        };
+        api.withConverter = init;
+        return api;
+    }
+    return init(function () { });
+})();
+window.Cookies = Cookies; // globalise
+///////////////
+// Cookie.ts //
+///////////////
+// Uses the js-cookie library (lib/cookies.ts) for specialised cookie operations and intialization
+var Cookie;
+(function (Cookie) {
+    // INITIALIZATION
+    var cookieVersion = 'A';
+    // Try to load existing cookie save data, or create a cookie with default data
+    Cookie.saveDefaultOptions = false;
+    Cookie.save = Cookies.getJSON('live-counting-extension');
+    // Create new cookie as it does not exist
+    if (Cookie.save === undefined || Cookie.save === null) {
+        Cookie.saveDefaultOptions = true;
+        Cookie.save = {
+            version: cookieVersion,
+            options: {},
+            stats: {}
+        };
+        //Cookies.set('live-counting-extension', save, {expires: 9000});
+        update();
+    }
+    else if (Cookie.save.version != cookieVersion) {
+        Cookie.saveDefaultOptions = true;
+        Cookie.save.version = cookieVersion;
+    }
+    // METHODS
+    // Set the cookie value to `save`
+    function update() {
+        Cookies.set('live-counting-extension', Cookie.save, { expires: 9000 });
+    }
+    Cookie.update = update;
+})(Cookie || (Cookie = {}));
+window.Cookie = Cookie;
 /////////////////
 // Elements.ts //
 /////////////////
@@ -76,25 +231,90 @@ var Options;
     // METHODS
     // Add a checkbox option
     // Returns the newly created checkbox
-    function addCheckbox(label, checked) {
-        if (checked === void 0) { checked = false; }
-        var $elem = $("<input type=\"checkbox\" checked=\"" + checked + "\"/>");
+    function addCheckbox(label) {
+        var optionalArgs = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            optionalArgs[_i - 1] = arguments[_i];
+        }
+        // Handling optional args
+        var defaultChecked = false;
+        var onchange = null;
+        if (optionalArgs.length == 1) {
+            if (typeof optionalArgs[0] == 'boolean')
+                defaultChecked = optionalArgs[0];
+            else if (typeof optionalArgs[0] == 'function')
+                onchange = optionalArgs[0];
+        }
+        else if (optionalArgs.length == 2) {
+            defaultChecked = optionalArgs[0], onchange = optionalArgs[1];
+        }
+        // Default value handling (cookie)
+        var checked = defaultChecked;
+        if (Cookie.saveDefaultOptions && !Cookie.save.options.hasOwnProperty(label))
+            Cookie.save.options[label] = checked;
+        else
+            checked = Cookie.save.options[label];
+        // Create label and checkbox
+        var $elem = $("<input type=\"checkbox\"" + (checked ? ' checked="true"' : '') + "/>");
         $options.append($("<label>" + label + "</label>").prepend($elem));
+        // Handle onchange
+        $elem.on('change', function () {
+            Cookie.save.options[label] = $(this).prop('checked');
+            Cookie.update();
+            if (onchange != null)
+                onchange.call(this);
+        });
+        // Trigger change event if the value != default
+        if (defaultChecked != checked)
+            $elem.trigger('change');
         return $elem;
     }
     Options.addCheckbox = addCheckbox;
     // Add select option
     // Returns the newly created select
-    function addSelect(label, options, selectedIndex) {
-        if (selectedIndex === void 0) { selectedIndex = 0; }
+    function addSelect(label, options) {
+        var optionalArgs = [];
+        for (var _i = 2; _i < arguments.length; _i++) {
+            optionalArgs[_i - 2] = arguments[_i];
+        }
+        // Handling optional args
+        var selectedIndex = 0;
+        var onchange = null;
+        if (optionalArgs.length == 1) {
+            if (typeof optionalArgs[0] == 'number')
+                selectedIndex = optionalArgs[0];
+            else if (typeof optionalArgs[0] == 'function')
+                onchange = optionalArgs[0];
+        }
+        else if (optionalArgs.length == 2) {
+            selectedIndex = optionalArgs[0], onchange = optionalArgs[1];
+        }
+        // Default value handling (cookie)
+        var defaultVal = options[selectedIndex];
+        var selectedVal = defaultVal;
+        if (Cookie.saveDefaultOptions && !Cookie.save.options.hasOwnProperty(label))
+            Cookie.save.options[label] = selectedVal;
+        else
+            selectedVal = Cookie.save.options[label];
+        // Create label, select, and options
         var $elem = $("<select></select>");
         var elem_contents = '';
         for (var i = 0; i < options.length; i++) {
             elem_contents +=
-                "<option value=\"" + options[i] + "\"" + ((i == selectedIndex) ? ' selected="true"' : '') + ">" + options[i] + "</option>";
+                "<option value=\"" + options[i] + "\"" + ((options[i] == selectedVal) ? ' selected="true"' : '') + ">" + options[i] + "</option>";
         }
         $elem.html(elem_contents);
         $options.append($("<label>" + label + ": </label>").append($elem));
+        // Handle onchange
+        $elem.on('change', function () {
+            Cookie.save.options[label] = $(this).val();
+            Cookie.update();
+            if (onchange != null)
+                onchange.call(this);
+        });
+        // Trigger change event if the value != default
+        if (defaultVal != selectedVal)
+            $elem.trigger('change');
         return $elem;
     }
     Options.addSelect = addSelect;
@@ -227,8 +447,7 @@ var ColoredUsernames;
     var currentColor = 0;
     // Options
     var enabled = true;
-    Options.addCheckbox('COLORED USERNAMES', true)
-        .on('change', function () {
+    Options.addCheckbox('COLORED USERNAMES', true, function () {
         enabled = $(this).prop('checked');
     });
     // EVENTS
@@ -260,8 +479,7 @@ var DeletePastMessages;
     var maxMessages = 50;
     // Options
     var enabled = true;
-    var $checkbox = Options.addCheckbox('CLEAR PAST MESSAGES (REDUCES LAG)', true)
-        .on('change', function () {
+    var $checkbox = Options.addCheckbox('CLEAR PAST MESSAGES (REDUCES LAG)', true, function () {
         enabled = $(this).prop('checked');
     });
     // EVENTS
@@ -299,11 +517,10 @@ var DisplayMode;
         .css('display', 'none');
     Elements.$content.prepend($returnBtn);
     // Options
-    var $select = Options.addSelect('DISPLAY MODE', ['Normal', 'Minimal'])
-        .on('change', function () {
-        var pos = $(this).val();
-        $returnBtn.css('display', (pos == 'Normal' ? 'none' : 'block'));
-        Elements.$body.attr('data-DisplayMode', pos);
+    var $select = Options.addSelect('DISPLAY MODE', ['Normal', 'Minimal'], function () {
+        var display = $(this).val();
+        $returnBtn.css('display', (display == 'Normal' ? 'none' : 'block'));
+        Elements.$body.attr('data-DisplayMode', display);
     });
     // Styles
     Styles.add("\n\n\t/* Display Minimal */\n\t#lc-body[data-DisplayMode='Minimal'] #header,\n\t#lc-body[data-DisplayMode='Minimal'] #liveupdate-statusbar,\n\t#lc-body[data-DisplayMode='Minimal'] .markdownEditor-wrapper,\n\t#lc-body[data-DisplayMode='Minimal'] #new-update-form .bottom-area,\n\t#lc-body[data-DisplayMode='Minimal'] li.liveupdate time.live-timestamp,\n\t#lc-body[data-DisplayMode='Minimal'] #liveupdate-options, \n\t#lc-body[data-DisplayMode='Minimal'] aside.sidebar {\n\t\tdisplay: none;\n\t}\n\n\t#lc-body[data-DisplayMode='Minimal'] #liveupdate-header,\n\t#lc-body[data-DisplayMode='Minimal'] #new-update-form {\n\t\tmargin-left: 0px;\n\t}\n\n\t#lc-body[data-DisplayMode='Minimal'] li.liveupdate ul.buttonrow {\n\t\tmargin: 0 0 2em 0px !important;\n\t}\n\n\t#lc-body[data-DisplayMode='Minimal'] div.content {\n\t\tmax-width: " + Math.max(450, $('#new-update-form textarea').outerWidth()) + "px;\n\t}\n\n\t");
@@ -316,8 +533,7 @@ var ContentPosition;
     // INITIALIZATION
     Elements.$body.attr('data-ContentPosition', 'Center');
     // Options
-    Options.addSelect('CONTENT POSITION', ['Left', 'Center', 'Right'], 1)
-        .on('change', function () {
+    Options.addSelect('CONTENT POSITION', ['Left', 'Center', 'Right'], 1, function () {
         Elements.$body.attr('data-ContentPosition', $(this).val());
     });
     // Styles
@@ -407,8 +623,7 @@ var StandardizeNumberFormat;
     })(FormatFuncs || (FormatFuncs = {}));
     ;
     // Options
-    Options.addSelect('STANDARDIZE NUMBER FORMAT', ['Disable', 'Spaces', 'Periods', 'Commas', 'None'])
-        .on('change', function () {
+    Options.addSelect('STANDARDIZE NUMBER FORMAT', ['Disable', 'Spaces', 'Periods', 'Commas', 'None'], function () {
         var val = $(this).val();
         if (val == 'Disable') {
             enabled = false;
@@ -507,7 +722,6 @@ var CtrlEnter;
         });
     }
 })(CtrlEnter || (CtrlEnter = {}));
-
 
 
 });

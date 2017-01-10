@@ -4,6 +4,8 @@
 	},
 	"files": [
 		"lib/jquery.d.ts",
+		"lib/cookies.ts",
+		"core/Cookie.ts",
 		"core/Elements.ts",
 		"core/Styles.ts",
 		"core/Options.ts",

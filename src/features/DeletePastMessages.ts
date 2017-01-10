@@ -10,8 +10,7 @@ module DeletePastMessages {
 	// Options
 	let enabled:boolean = true;
 	let $checkbox:JQuery =
-		Options.addCheckbox('CLEAR PAST MESSAGES (REDUCES LAG)', true)
-		.on('change', function() {
+		Options.addCheckbox('CLEAR PAST MESSAGES (REDUCES LAG)', true, function() {
 			enabled = $(this).prop('checked');
 		});
 
