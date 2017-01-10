@@ -2,7 +2,6 @@
  * LIVE COUNTING EXTENSION V1.4
  * (THIS CODE WAS GENERATED FROM THE TYPESCRIPT .TS FILES IN THE SRC DIRECTORY)
  */
-$(document).on('ready', function() {
 
 
 ////////////////
@@ -723,5 +722,3 @@ var CtrlEnter;
     }
 })(CtrlEnter || (CtrlEnter = {}));
 
-
-});
