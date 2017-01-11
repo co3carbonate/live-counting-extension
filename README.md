@@ -1,8 +1,8 @@
-#Live Counting Extension
+# Live Counting Extension
 
 Live Counting Extension provides various additional client-side features and functionalities for [Live Counting](https://www.reddit.com/live/ta535s1hq2je) to enhance your overall counting experience and performance. It is created and maintained by [/u/co3_carbonate](https://www.reddit.com/user/co3_carbonate/).
 
-##Installation
+## Installation
 
 1. Install any userscript extension for your browser, as listed below:
 
@@ -15,9 +15,17 @@ Live Counting Extension provides various additional client-side features and fun
 
 2. Once you have downloaded one of those extensions, you can install the script through [this link](https://gist.github.com/co3carbonate/cbf781758d12717721dc125a80a5c785/raw/bd3a0f9926dc17a2bb3e33fc8084dae43d1cb15b/client.user.js). That's it!
 
-##Features
+## Features
 
-Here is a complete list of versions and their features.
+Here is a complete list of features. Note that most of them can be disabled at will.
+
+- Ctrl+Enter shortcut to submit message
+- Colored Usernames
+- Clear Past Messages
+- Minimal Display Mode option
+- Standardize format of numbers from all messages (commas, spaces, etc.)
+
+## Changelog
 
 - v1.0
   - Colored usernames
@@ -29,4 +37,6 @@ Here is a complete list of versions and their features.
 - v1.3
   - Choose to standardize the formats of numbers from all messages (commas, spaces, etc.)
 - v1.4
-  - **Use Ctrl+Enter in the textarea to submit a message**
+  - Support to save options from previously with cookies
+  - Options can be collapsed/expanded to save space
+  - Use Ctrl+Enter in the textarea to submit a message
