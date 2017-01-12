@@ -6,11 +6,14 @@ Live Counting Extension provides various additional client-side features and fun
 
 Here is a list of features. Note that all of them can be disabled at will.
 
-- Ctrl+Enter shortcut to submit message
-- Colored Usernames
-- Clear Past Messages
-- Minimal Display Mode option
-- Standardize format of numbers from all messages (commas, spaces, etc.)
+- Basic
+ - Ctrl+Enter shortcut to submit message
+ - Colored Usernames
+ - Clear Past Messages
+ - Minimal Display Mode option
+- Advanced 
+ - Specify Content Position (left, center, right)
+ - Standardize format of numbers from all messages (commas, spaces, etc.)
 
 ## Installation
 
@@ -39,4 +42,5 @@ Here is a list of features. Note that all of them can be disabled at will.
 - v1.4
   - Support to save options from previously with cookies
   - Options can be collapsed/expanded to save space
+  - Classified options into 'Basic' and 'Advanced'
   - Use Ctrl+Enter in the textarea to submit a message

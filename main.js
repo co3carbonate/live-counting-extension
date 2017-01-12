@@ -124,7 +124,6 @@ var Cookies = (function () {
     }
     return init(function () { });
 })();
-window.Cookies = Cookies; // globalise
 ///////////////
 // Cookie.ts //
 ///////////////
@@ -132,24 +131,31 @@ window.Cookies = Cookies; // globalise
 var Cookie;
 (function (Cookie) {
     // INITIALIZATION
-    var cookieVersion = 'A';
+    var cookieVersion = '2';
     // Try to load existing cookie save data, or create a cookie with default data
     Cookie.saveDefaultOptions = false;
+    var save_default = {
+        version: cookieVersion,
+        options: {},
+        stats: {},
+        collapsed: [false, false, false, true]
+    };
     Cookie.save = Cookies.getJSON('live-counting-extension');
     // Create new cookie as it does not exist
     if (Cookie.save === undefined || Cookie.save === null) {
         Cookie.saveDefaultOptions = true;
-        Cookie.save = {
-            version: cookieVersion,
-            options: {},
-            stats: {}
-        };
-        //Cookies.set('live-counting-extension', save, {expires: 9000});
+        Cookie.save = save_default;
         update();
     }
     else if (Cookie.save.version != cookieVersion) {
         Cookie.saveDefaultOptions = true;
         Cookie.save.version = cookieVersion;
+        // If the current save is missing a few keys, add these keys, set to the default
+        for (var k in save_default) {
+            if (!Cookie.save.hasOwnProperty(k))
+                Cookie.save[k] = save_default[k];
+        }
+        update();
     }
     // METHODS
     // Set the cookie value to `save`
@@ -158,6 +164,7 @@ var Cookie;
     }
     Cookie.update = update;
 })(Cookie || (Cookie = {}));
+window.Cookies = Cookies;
 window.Cookie = Cookie;
 /////////////////
 // Elements.ts //
@@ -205,28 +212,54 @@ var Options;
 (function (Options) {
     // INITIALIZATION
     // Initialize new content in the options box
-    var $heading = $("\n\t\t<h1>\n\t\t\t<a href=\"https://github.com/co3carbonate/live-counting-extension/blob/master/README.md#readme\" target=\"_blank\">Live Counting Extension v1.4</a> \n\t\t</h1>\n\t");
-    var $toggle = $("<span>[-]</span>");
+    var $all_heading = $("\n\t\t<h1>\n\t\t\t<a href=\"https://github.com/co3carbonate/live-counting-extension/blob/master/README.md#readme\" target=\"_blank\">Live Counting Extension v1.4</a> \n\t\t</h1>\n\t");
+    var $options_heading = $("<h2>Options </h2>");
+    var $options_basic_heading = $("<h2>Basic </h2>");
+    var $options_advanced_heading = $("<h2>Advanced </h2>");
+    var $all_toggle = $("<span class=\"toggle-trigger\">[-]</span>");
+    var $options_toggle = $("<span class=\"toggle-trigger\">[-]</span>");
+    var $options_basic_toggle = $("<span class=\"toggle-trigger\">[-]</span>");
+    var $options_advanced_toggle = $("<span class=\"toggle-trigger\">[-]</span>");
+    var $all = $("<div></div>");
     var $options = $("<div></div>");
-    $heading.append($toggle);
-    Elements.$options.append($heading, $options);
-    // When the toggle button is clicked ([-] and [+])
-    $toggle.on('click', function () {
-        if ($options.css('display') == 'none') {
-            // show
-            $(this).html('[-]');
-            $options.slideDown(500);
-        }
-        else {
-            // hide
-            $(this).html('[+]');
-            $options.slideUp(500);
-        }
-    });
-    // Styles
-    $toggle.css('cursor', 'pointer');
-    $heading.css({ 'font-size': '16px', 'font-weight': 'bold' });
-    Styles.add("\n\n\t#lc-body label {\n\t\tdisplay: block;\n\t\tmargin-bottom: 10px;\n\t}\n\t\n\t");
+    var $options_basic = $("<div></div>");
+    var $options_advanced = $("<div></div>");
+    $all_heading.append($all_toggle);
+    $all.append($options_heading, $options);
+    $options_heading.append($options_toggle);
+    $options_basic_heading.append($options_basic_toggle);
+    $options_advanced_heading.append($options_advanced_toggle);
+    $options.append($options_basic_heading, $options_basic, $options_advanced_heading, $options_advanced);
+    Elements.$options.append($all_heading, $all);
+    // Handling toggle buttons ([-] and [+])
+    function toggle($trigger, $change, index) {
+        // bind click event listeners to the trigger
+        $trigger.on('click', function () {
+            if ($change.css('display') == 'none') {
+                // show
+                $trigger.html('[-]');
+                $change.slideDown(500);
+                Cookie.save.collapsed[index] = false;
+            }
+            else {
+                // hide
+                $trigger.html('[+]');
+                $change.slideUp(500);
+                Cookie.save.collapsed[index] = true;
+            }
+            Cookie.update();
+        });
+        // immediately trigger the click event if current cookie save is true
+        if (Cookie.save.collapsed[index])
+            $trigger.trigger('click');
+    }
+    // call
+    toggle($all_toggle, $all, 0);
+    toggle($options_toggle, $options, 1);
+    toggle($options_basic_toggle, $options_basic, 2);
+    toggle($options_advanced_toggle, $options_advanced, 3);
+    // Styles	
+    Styles.add("\n\n\t/* Main heading */\n\t#liveupdate-options h1 {\n\t\tcolor: #369;\n\t\tfont-size: 16px;\n\t\tfont-weight: bold;\n\t\tmargin: 10px 0px;\n\t}\n\n\t/* Subheadings */\n\t#liveupdate-options h2 {\n\t\tcolor: #4F4F4F;\n\t\tfont-size: 14px;\n\t\tfont-weight: bold;\n\t\tmargin: 8px 0px;\n\t}\n\n\t/* Toggle triggers */\n\t#liveupdate-options .toggle-trigger {\n\t\tcursor: pointer;\n\t\tcolor: #656565;\n\t}\n\n\t/* Labels */\n\t#liveupdate-options label {\n\t\tdisplay: block;\n\t\tmargin-bottom: 10px;\n\t}\n\t\n\t");
     // METHODS
     // Add a checkbox option
     // Returns the newly created checkbox
@@ -236,16 +269,16 @@ var Options;
             optionalArgs[_i - 1] = arguments[_i];
         }
         // Handling optional args
+        var section = 'basic';
         var defaultChecked = false;
         var onchange = null;
-        if (optionalArgs.length == 1) {
-            if (typeof optionalArgs[0] == 'boolean')
-                defaultChecked = optionalArgs[0];
-            else if (typeof optionalArgs[0] == 'function')
-                onchange = optionalArgs[0];
-        }
-        else if (optionalArgs.length == 2) {
-            defaultChecked = optionalArgs[0], onchange = optionalArgs[1];
+        for (var i = 0, l = optionalArgs.length; i < l; i++) {
+            if (typeof optionalArgs[i] == 'string')
+                section = optionalArgs[i];
+            else if (typeof optionalArgs[i] == 'boolean')
+                defaultChecked = optionalArgs[i];
+            else if (typeof optionalArgs[i] == 'function')
+                onchange = optionalArgs[i];
         }
         // Default value handling (cookie)
         var checked = defaultChecked;
@@ -255,7 +288,13 @@ var Options;
             checked = Cookie.save.options[label];
         // Create label and checkbox
         var $elem = $("<input type=\"checkbox\"" + (checked ? ' checked="true"' : '') + "/>");
-        $options.append($("<label>" + label + "</label>").prepend($elem));
+        // Add option
+        var $options_section = $options_basic;
+        if (section == 'Basic')
+            $options_section = $options_basic;
+        else if (section == 'Advanced')
+            $options_section = $options_advanced;
+        $options_section.append($("<label>" + label + "</label>").prepend($elem));
         // Handle onchange
         $elem.on('change', function () {
             Cookie.save.options[label] = $(this).prop('checked');
@@ -277,16 +316,16 @@ var Options;
             optionalArgs[_i - 2] = arguments[_i];
         }
         // Handling optional args
+        var section = 'Basic';
         var selectedIndex = 0;
         var onchange = null;
-        if (optionalArgs.length == 1) {
-            if (typeof optionalArgs[0] == 'number')
-                selectedIndex = optionalArgs[0];
-            else if (typeof optionalArgs[0] == 'function')
-                onchange = optionalArgs[0];
-        }
-        else if (optionalArgs.length == 2) {
-            selectedIndex = optionalArgs[0], onchange = optionalArgs[1];
+        for (var i = 0, l = optionalArgs.length; i < l; i++) {
+            if (typeof optionalArgs[i] == 'string')
+                section = optionalArgs[i];
+            else if (typeof optionalArgs[i] == 'number')
+                selectedIndex = optionalArgs[i];
+            else if (typeof optionalArgs[i] == 'function')
+                onchange = optionalArgs[i];
         }
         // Default value handling (cookie)
         var defaultVal = options[selectedIndex];
@@ -298,12 +337,18 @@ var Options;
         // Create label, select, and options
         var $elem = $("<select></select>");
         var elem_contents = '';
-        for (var i = 0; i < options.length; i++) {
+        for (var i_1 = 0; i_1 < options.length; i_1++) {
             elem_contents +=
-                "<option value=\"" + options[i] + "\"" + ((options[i] == selectedVal) ? ' selected="true"' : '') + ">" + options[i] + "</option>";
+                "<option value=\"" + options[i_1] + "\"" + ((options[i_1] == selectedVal) ? ' selected="true"' : '') + ">" + options[i_1] + "</option>";
         }
         $elem.html(elem_contents);
-        $options.append($("<label>" + label + ": </label>").append($elem));
+        // Add option
+        var $options_section = $options_basic;
+        if (section == 'Basic')
+            $options_section = $options_basic;
+        else if (section == 'Advanced')
+            $options_section = $options_advanced;
+        $options_section.append($("<label>" + label + ": </label>").append($elem));
         // Handle onchange
         $elem.on('change', function () {
             Cookie.save.options[label] = $(this).val();
@@ -333,14 +378,14 @@ var Options;
             // add the options to '[+] more about this live thread'
             if ($section.css('display') == 'none') {
                 $section.css('display', '');
-                $options.detach().appendTo($section_md);
+                $all.detach().appendTo($section_md);
             }
         }
         else {
             // remove the options from '[+] more about this live thread'
             if ($section.css('display') != 'none') {
                 $section.css('display', 'none');
-                $options.detach().insertAfter($header);
+                $all.detach().insertAfter($header);
             }
         }
     });
@@ -532,7 +577,7 @@ var ContentPosition;
     // INITIALIZATION
     Elements.$body.attr('data-ContentPosition', 'Center');
     // Options
-    Options.addSelect('CONTENT POSITION', ['Left', 'Center', 'Right'], 1, function () {
+    Options.addSelect('CONTENT POSITION', ['Left', 'Center', 'Right'], 'Advanced', 1, function () {
         Elements.$body.attr('data-ContentPosition', $(this).val());
     });
     // Styles
@@ -622,7 +667,7 @@ var StandardizeNumberFormat;
     })(FormatFuncs || (FormatFuncs = {}));
     ;
     // Options
-    Options.addSelect('STANDARDIZE NUMBER FORMAT', ['Disable', 'Spaces', 'Periods', 'Commas', 'None'], function () {
+    Options.addSelect('STANDARDIZE NUMBER FORMAT', ['Disable', 'Spaces', 'Periods', 'Commas', 'None'], 'Advanced', function () {
         var val = $(this).val();
         if (val == 'Disable') {
             enabled = false;
@@ -721,4 +766,3 @@ var CtrlEnter;
         });
     }
 })(CtrlEnter || (CtrlEnter = {}));
-

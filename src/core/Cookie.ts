@@ -7,25 +7,29 @@
 module Cookie {
 
 	// INITIALIZATION
-	const cookieVersion = 'A';
+	const cookieVersion = '2';
 
 	// Try to load existing cookie save data, or create a cookie with default data
 	export let saveDefaultOptions:boolean = false;
-	export let save:{
+	
+	interface save_struct {
 		version:string;
-		options:any;
-		stats:any;
-	} = Cookies.getJSON('live-counting-extension');
+		options:{ [k:string]: boolean | string };
+		stats:{ [k:string]: any };
+		collapsed:boolean[];
+	}
+	let save_default:save_struct = {
+		version: cookieVersion,
+		options: {},
+		stats: {},
+		collapsed: [false, false, false, true]
+	}
+	export let save:save_struct = Cookies.getJSON('live-counting-extension');
 
 	// Create new cookie as it does not exist
 	if(save === undefined || save === null) {
 		saveDefaultOptions = true;
-		save = {
-			version: cookieVersion,
-			options: {},
-			stats: {}
-		};
-		//Cookies.set('live-counting-extension', save, {expires: 9000});
+		save = save_default;
 		update();
 	}
 
@@ -33,6 +37,13 @@ module Cookie {
 	else if(save.version != cookieVersion) {
 		saveDefaultOptions = true;
 		save.version = cookieVersion;
+
+		// If the current save is missing a few keys, add these keys, set to the default
+		for(let k in save_default) {
+			if(!save.hasOwnProperty(k)) save[k] = save_default[k];
+		}
+
+		update();
 	}
 
 	// METHODS
@@ -44,4 +55,5 @@ module Cookie {
 
 }
 
+(window as any).Cookies = Cookies;
 (window as any).Cookie = Cookie;

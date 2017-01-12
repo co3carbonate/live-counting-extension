@@ -135,5 +135,3 @@ var Cookies = (function () {
 
 	return init(function () {});
 })();
-
-(window as any).Cookies = Cookies; // globalise

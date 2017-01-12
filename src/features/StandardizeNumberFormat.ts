@@ -82,7 +82,7 @@ module StandardizeNumberFormat {
 	};
 
 	// Options
-	Options.addSelect('STANDARDIZE NUMBER FORMAT', ['Disable', 'Spaces', 'Periods', 'Commas', 'None'], function() {
+	Options.addSelect('STANDARDIZE NUMBER FORMAT', ['Disable', 'Spaces', 'Periods', 'Commas', 'None'], 'Advanced', function() {
 		let val:string = $(this).val();
 		if(val == 'Disable') { enabled = false; return; }
 
