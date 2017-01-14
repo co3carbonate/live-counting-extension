@@ -501,9 +501,10 @@ var ColoredUsernames;
             return;
         // Special usernames (temp rewards for top in 100k HoC, or other contributions)
         if (data.author == 'co3_carbonate') {
-            // change co3_carbonate's name to co(1-99)_carbonate
-            data.author_elem.html("/u/co" + Math.floor((Math.random() * 99) + 1) + "_carbonate");
+            // creator specials
+            data.author_elem.css('font-weight', 'bold');
         }
+        // Set username colour
         if (!userColors.hasOwnProperty(data.author)) {
             userColors[data.author] = colors[currentColor];
             currentColor++;
@@ -511,7 +512,7 @@ var ColoredUsernames;
                 currentColor = 0;
             }
         }
-        data.elem.find('.body a.author').css('color', userColors[data.author]);
+        data.author_elem.css('color', userColors[data.author]);
     });
 })(ColoredUsernames || (ColoredUsernames = {}));
 ///////////////////////////
