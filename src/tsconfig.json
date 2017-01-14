@@ -10,11 +10,18 @@
 		"core/Styles.ts",
 		"core/Options.ts",
 		"core/Update.ts",
+
+		// features without options:
+		"features/CtrlEnter.ts",
+
+		// basic options
 		"features/ColoredUsernames.ts",
 		"features/DeletePastMessages.ts",
 		"features/DisplayMode.ts",
+
+		// advanced options
+		"features/LinksOpenNewTab.ts",
 		"features/ContentPosition.ts",
-		"features/StandardizeNumberFormat.ts",
-		"features/CtrlEnter.ts"
+		"features/StandardizeNumberFormat.ts"
 	]
 }

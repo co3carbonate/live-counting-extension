@@ -12,6 +12,7 @@ Here is a list of features. Note that all of them can be disabled at will.
  - Clear Past Messages
  - Minimal Display Mode option
 - Advanced 
+ - Make links open in a new tab
  - Specify Content Position (left, center, right)
  - Standardize format of numbers from all messages (commas, spaces, etc.)
 

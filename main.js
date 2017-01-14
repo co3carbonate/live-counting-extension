@@ -131,7 +131,7 @@ var Cookies = (function () {
 var Cookie;
 (function (Cookie) {
     // INITIALIZATION
-    var cookieVersion = '2';
+    var cookieVersion = '3';
     // Try to load existing cookie save data, or create a cookie with default data
     Cookie.saveDefaultOptions = false;
     var save_default = {
@@ -172,6 +172,7 @@ window.Cookie = Cookie;
 var Elements;
 (function (Elements) {
     // PROPERTIES
+    Elements.$head = $('head');
     Elements.$body = $('body');
     Elements.$content = $('div.content');
     Elements.$updates = $('.liveupdate-listing');
@@ -448,6 +449,30 @@ var Update;
         }
     });
 })(Update || (Update = {}));
+//////////////////
+// CtrlEnter.ts //
+//////////////////
+var CtrlEnter;
+(function (CtrlEnter) {
+    // INITIALIZATION
+    var enabled = true;
+    var $textarea = $('#new-update-form textarea');
+    var $submitBtn = $('#new-update-form .save-button button');
+    // RES already has a ctrl-enter feature since v4.7.8
+    // Skip remaining actions if using a version higher than that
+    var $resVersion = $('#RESConsoleVersion');
+    if ($resVersion.length > 0 && +($resVersion.text().replace(/\D/g, '')) >= 478)
+        enabled = false;
+    // Bind keydown event to the textarea
+    if (enabled) {
+        $textarea.on('keydown', function (e) {
+            if (e.keyCode == 13 && (e.ctrlKey || e.metaKey)) {
+                e.preventDefault();
+                $submitBtn.trigger('click');
+            }
+        });
+    }
+})(CtrlEnter || (CtrlEnter = {}));
 /////////////////////////
 // ColoredUsernames.ts //
 /////////////////////////
@@ -570,6 +595,24 @@ var DisplayMode;
     // Styles
     Styles.add("\n\n\t/* Display Minimal */\n\t#lc-body[data-DisplayMode='Minimal'] #header,\n\t#lc-body[data-DisplayMode='Minimal'] #liveupdate-statusbar,\n\t#lc-body[data-DisplayMode='Minimal'] .markdownEditor-wrapper,\n\t#lc-body[data-DisplayMode='Minimal'] #new-update-form .bottom-area,\n\t#lc-body[data-DisplayMode='Minimal'] li.liveupdate time.live-timestamp,\n\t#lc-body[data-DisplayMode='Minimal'] #liveupdate-options, \n\t#lc-body[data-DisplayMode='Minimal'] aside.sidebar {\n\t\tdisplay: none;\n\t}\n\n\t#lc-body[data-DisplayMode='Minimal'] #liveupdate-header,\n\t#lc-body[data-DisplayMode='Minimal'] #new-update-form {\n\t\tmargin-left: 0px;\n\t}\n\n\t#lc-body[data-DisplayMode='Minimal'] li.liveupdate ul.buttonrow {\n\t\tmargin: 0 0 2em 0px !important;\n\t}\n\n\t#lc-body[data-DisplayMode='Minimal'] div.content {\n\t\tmax-width: " + Math.max(450, $('#new-update-form textarea').outerWidth()) + "px;\n\t}\n\n\t");
 })(DisplayMode || (DisplayMode = {}));
+////////////////////////
+// LinksOpenNewTab.ts //
+////////////////////////
+var LinksOpenNewTab;
+(function (LinksOpenNewTab) {
+    // INITIALIZATION
+    var $base = $('<base target="_blank">');
+    Elements.$head.append($base);
+    // Options
+    var enabled = true;
+    Options.addCheckbox('LINKS OPEN IN A NEW TAB', true, 'Advanced', function () {
+        enabled = $(this).prop('checked');
+        if (enabled)
+            $base.attr('target', '_blank');
+        else
+            $base.attr('target', '_self');
+    });
+})(LinksOpenNewTab || (LinksOpenNewTab = {}));
 ////////////////////////
 // ContentPosition.ts //
 ////////////////////////
@@ -743,27 +786,3 @@ var StandardizeNumberFormat;
         });
     });
 })(StandardizeNumberFormat || (StandardizeNumberFormat = {}));
-//////////////////
-// CtrlEnter.ts //
-//////////////////
-var CtrlEnter;
-(function (CtrlEnter) {
-    // INITIALIZATION
-    var enabled = true;
-    var $textarea = $('#new-update-form textarea');
-    var $submitBtn = $('#new-update-form .save-button button');
-    // RES already has a ctrl-enter feature since v4.7.8
-    // Skip remaining actions if using a version higher than that
-    var $resVersion = $('#RESConsoleVersion');
-    if ($resVersion.length > 0 && +($resVersion.text().replace(/\D/g, '')) >= 478)
-        enabled = false;
-    // Bind keydown event to the textarea
-    if (enabled) {
-        $textarea.on('keydown', function (e) {
-            if (e.keyCode == 13 && (e.ctrlKey || e.metaKey)) {
-                e.preventDefault();
-                $submitBtn.trigger('click');
-            }
-        });
-    }
-})(CtrlEnter || (CtrlEnter = {}));

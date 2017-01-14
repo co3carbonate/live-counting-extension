@@ -5,6 +5,7 @@
 module Elements {
 
 	// PROPERTIES
+	export let $head:JQuery = $('head');
 	export let $body:JQuery = $('body');
 	export let $content:JQuery = $('div.content');
 	export let $updates:JQuery = $('.liveupdate-listing');
