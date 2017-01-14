@@ -221,7 +221,7 @@ var Options;
     var $options_toggle = $("<span class=\"toggle-trigger\">[-]</span>");
     var $options_basic_toggle = $("<span class=\"toggle-trigger\">[-]</span>");
     var $options_advanced_toggle = $("<span class=\"toggle-trigger\">[-]</span>");
-    var $all = $("<div></div>");
+    var $all = $("<div id='live-counting-extension'></div>");
     var $options = $("<div></div>");
     var $options_basic = $("<div></div>");
     var $options_advanced = $("<div></div>");
@@ -260,7 +260,7 @@ var Options;
     toggle($options_basic_toggle, $options_basic, 2);
     toggle($options_advanced_toggle, $options_advanced, 3);
     // Styles	
-    Styles.add("\n\n\t/* Main heading */\n\t#liveupdate-options h1 {\n\t\tcolor: #369;\n\t\tfont-size: 16px;\n\t\tfont-weight: bold;\n\t\tmargin: 10px 0px;\n\t}\n\n\t/* Subheadings */\n\t#liveupdate-options h2 {\n\t\tcolor: #4F4F4F;\n\t\tfont-size: 14px;\n\t\tfont-weight: bold;\n\t\tmargin: 8px 0px;\n\t}\n\n\t/* Toggle triggers */\n\t#liveupdate-options .toggle-trigger {\n\t\tcursor: pointer;\n\t\tcolor: #656565;\n\t}\n\n\t/* Labels */\n\t#liveupdate-options label {\n\t\tdisplay: block;\n\t\tmargin-bottom: 10px;\n\t}\n\t\n\t");
+    Styles.add("\n\n\t/* Main heading */\n\t#live-counting-extension h1 {\n\t\tcolor: #369;\n\t\tfont-size: 16px;\n\t\tfont-weight: bold;\n\t\tmargin: 10px 0px;\n\t}\n\n\t/* Subheadings */\n\t#live-counting-extension h2 {\n\t\tcolor: #4F4F4F;\n\t\tfont-size: 14px;\n\t\tfont-weight: bold;\n\t\tmargin: 8px 0px;\n\t}\n\n\t/* Toggle triggers */\n\t.toggle-trigger {\n\t\tcursor: pointer;\n\t\tcolor: #656565;\n\t}\n\n\t/* Labels */\n\tlabel {\n\t\tdisplay: block;\n\t\tmargin-bottom: 10px;\n\t}\n\t\n\t");
     // METHODS
     // Add a checkbox option
     // Returns the newly created checkbox
@@ -370,7 +370,6 @@ var Options;
     // New section in the sidebar for options
     var $section = $("<section>\n\t\t<h2>options</h2>\n\t\t<div class='md'></div>\n\t</section>");
     var $section_md = $section.children('.md');
-    var $header = $('#liveupdate-header');
     $section.css('display', 'none').css('margin-top', '20px');
     Elements.$sidebar.children('.sidebar-expand').after($section);
     // Window resized
@@ -386,12 +385,10 @@ var Options;
             // remove the options from '[+] more about this live thread'
             if ($section.css('display') != 'none') {
                 $section.css('display', 'none');
-                $all.detach().insertAfter($header);
+                $all.detach().insertAfter($all_heading);
             }
         }
     });
-    // CSS
-    Styles.add("\n\t\n\t#lc-body aside.sidebar #liveupdate-options {\n\t\tdisplay: block;\n\t\tfloat: none;\n\t\tmargin: 0;\n\t\tmargin-top: 20px;\n\t}\t\n\t");
 })(Options || (Options = {}));
 ;
 ///////////////

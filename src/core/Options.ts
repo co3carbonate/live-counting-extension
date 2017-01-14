@@ -20,7 +20,7 @@ module Options {
 	let $options_basic_toggle:JQuery = $(`<span class="toggle-trigger">[-]</span>`);
 	let $options_advanced_toggle:JQuery = $(`<span class="toggle-trigger">[-]</span>`);
 
-	let $all:JQuery = $(`<div></div>`);
+	let $all:JQuery = $(`<div id='live-counting-extension'></div>`);
 	let $options:JQuery = $(`<div></div>`);
 	let $options_basic:JQuery = $(`<div></div>`);
 	let $options_advanced:JQuery = $(`<div></div>`);
@@ -70,7 +70,7 @@ module Options {
 	Styles.add(`
 
 	/* Main heading */
-	#liveupdate-options h1 {
+	#live-counting-extension h1 {
 		color: #369;
 		font-size: 16px;
 		font-weight: bold;
@@ -78,7 +78,7 @@ module Options {
 	}
 
 	/* Subheadings */
-	#liveupdate-options h2 {
+	#live-counting-extension h2 {
 		color: #4F4F4F;
 		font-size: 14px;
 		font-weight: bold;
@@ -86,13 +86,13 @@ module Options {
 	}
 
 	/* Toggle triggers */
-	#liveupdate-options .toggle-trigger {
+	.toggle-trigger {
 		cursor: pointer;
 		color: #656565;
 	}
 
 	/* Labels */
-	#liveupdate-options label {
+	label {
 		display: block;
 		margin-bottom: 10px;
 	}
@@ -214,7 +214,6 @@ module Options {
 		<div class='md'></div>
 	</section>`);
 	let $section_md:JQuery = $section.children('.md');
-	let $header:JQuery = $('#liveupdate-header');
 
 	$section.css('display', 'none').css('margin-top', '20px');
 	Elements.$sidebar.children('.sidebar-expand').after($section);
@@ -231,20 +230,9 @@ module Options {
 			// remove the options from '[+] more about this live thread'
 			if($section.css('display') != 'none') {
 				$section.css('display', 'none');
-				$all.detach().insertAfter($header);
+				$all.detach().insertAfter($all_heading);
 			}
 		}
 	});
-
-	// CSS
-	Styles.add(`
-	
-	#lc-body aside.sidebar #liveupdate-options {
-		display: block;
-		float: none;
-		margin: 0;
-		margin-top: 20px;
-	}	
-	`);
 
 };

@@ -11,7 +11,7 @@
 		"core/Options.ts",
 		"core/Update.ts",
 
-		// features without options:
+		// features without options
 		"features/CtrlEnter.ts",
 
 		// basic options
