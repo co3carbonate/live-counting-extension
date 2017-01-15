@@ -11,18 +11,18 @@
 		"core/Options.ts",
 		"core/Update.ts",
 
-		// features without options
-		"features/CtrlEnter.ts",
+		// hidden options
+		"options/hidden/CtrlEnter.ts",
+		"options/hidden/DisableShortcuts.ts",
 
 		// basic options
-		"features/ColoredUsernames.ts",
-		"features/DeletePastMessages.ts",
-		"features/DisplayMode.ts",
+		"options/basic/ColoredUsernames.ts",
+		"options/basic/DeletePastMessages.ts",
+		"options/basic/DisplayMode.ts",
 
 		// advanced options
-		"features/LinksOpenNewTab.ts",
-		"features/DisableCtrl0.ts",
-		"features/ContentPosition.ts",
-		"features/StandardizeNumberFormat.ts"
+		"options/advanced/LinksOpenNewTab.ts",
+		"options/advanced/ContentPosition.ts",
+		"options/advanced/StandardizeNumberFormat.ts"
 	]
 }

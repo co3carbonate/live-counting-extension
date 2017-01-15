@@ -4,7 +4,7 @@ Live Counting Extension provides various additional client-side features and fun
 
 ## Features
 
-Here is a list of features. All of them can be disabled at will.
+Here is a list of features. Most of them can be disabled at will.
 
 - Basic
  - Ctrl+Enter shortcut to submit message
@@ -13,7 +13,7 @@ Here is a list of features. All of them can be disabled at will.
  - Minimal Display Mode option
 - Advanced 
  - Make all links open in a new tab
- - Disable browser Ctrl+0 (zoom reset) shortcut
+ - Disable obstructive browser shortcuts (Ctrl+0)
  - Specify Content Position (left, center, right)
  - Standardize format of numbers from all messages (commas, spaces, etc.)
 

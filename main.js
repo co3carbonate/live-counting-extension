@@ -131,7 +131,7 @@ var Cookies = (function () {
 var Cookie;
 (function (Cookie) {
     // INITIALIZATION
-    var cookieVersion = '4';
+    var cookieVersion = '5';
     // Try to load existing cookie save data, or create a cookie with default data
     Cookie.saveDefaultOptions = false;
     var save_default = {
@@ -473,6 +473,20 @@ var CtrlEnter;
     }
 })(CtrlEnter || (CtrlEnter = {}));
 /////////////////////////
+// DisableShortcuts.ts //
+/////////////////////////
+// Disabling of certain obstructive browser keyboard shortcuts
+var DisableShortcuts;
+(function (DisableShortcuts) {
+    // EVENTS
+    $(document).on('keydown', function (e) {
+        // Ctrl+0 Zoom Reset
+        if (e.ctrlKey && e.keyCode == 48) {
+            e.preventDefault();
+        }
+    });
+})(DisableShortcuts || (DisableShortcuts = {}));
+/////////////////////////
 // ColoredUsernames.ts //
 /////////////////////////
 var ColoredUsernames;
@@ -617,24 +631,6 @@ var LinksOpenNewTab;
             $base.attr('target', '_self');
     });
 })(LinksOpenNewTab || (LinksOpenNewTab = {}));
-/////////////////////
-// DisableCtrl0.ts //
-/////////////////////
-var DisableCtrl0;
-(function (DisableCtrl0) {
-    // INITIALIZATION
-    // Options
-    var enabled = true;
-    Options.addCheckbox('DISABLE BROWSER CTRL+0 (ZOOM RESET) SHORTCUT', true, 'Advanced', function () {
-        enabled = $(this).prop('checked');
-    });
-    // EVENTS
-    $(document).on('keydown', function (e) {
-        if (enabled && e.ctrlKey && e.keyCode == 48) {
-            e.preventDefault();
-        }
-    });
-})(DisableCtrl0 || (DisableCtrl0 = {}));
 ////////////////////////
 // ContentPosition.ts //
 ////////////////////////
