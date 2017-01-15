@@ -1,9 +1,3 @@
-/**
- * LIVE COUNTING EXTENSION V1.4
- * (THIS CODE WAS GENERATED FROM THE TYPESCRIPT .TS FILES IN THE SRC DIRECTORY)
- */
-
-
 ////////////////
 // Cookies.ts //
 ////////////////
@@ -498,7 +492,8 @@ var ColoredUsernames;
         'randomusername123458': '#00CC99',
         'davidjl123': '#6495ED',
         'Iamspeedy36': '#00BFFF',
-        'Phoenixness': '#ff0000'
+        'Phoenixness': '#ff0000',
+        'jillis6': '#ffd700'
     };
     // Possible colors for other users
     var colors = ['Blue', 'Coral', 'DodgerBlue', 'SpringGreen', 'YellowGreen', 'Green', 'OrangeRed', 'Red', 'GoldenRod', 'CadetBlue', 'SeaGreen', 'Chocolate', 'BlueViolet', 'Firebrick'];
