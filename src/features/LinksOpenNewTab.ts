@@ -10,7 +10,7 @@ module LinksOpenNewTab {
 
 	// Options
 	let enabled:boolean = true;
-	Options.addCheckbox('LINKS OPEN IN A NEW TAB', true, 'Advanced', function() {
+	Options.addCheckbox('MAKE ALL LINKS OPEN IN A NEW TAB', true, 'Advanced', function() {
 		enabled = $(this).prop('checked');
 		
 		if(enabled) $base.attr('target', '_blank');

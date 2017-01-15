@@ -21,6 +21,7 @@
 
 		// advanced options
 		"features/LinksOpenNewTab.ts",
+		"features/DisableCtrl0.ts",
 		"features/ContentPosition.ts",
 		"features/StandardizeNumberFormat.ts"
 	]

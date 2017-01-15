@@ -12,7 +12,8 @@ Here is a list of features. All of them can be disabled at will.
  - Clear Past Messages
  - Minimal Display Mode option
 - Advanced 
- - Make links open in a new tab
+ - Make all links open in a new tab
+ - Disable browser Ctrl+0 (zoom reset) shortcut
  - Specify Content Position (left, center, right)
  - Standardize format of numbers from all messages (commas, spaces, etc.)
 
@@ -46,3 +47,4 @@ Here is a list of features. All of them can be disabled at will.
   - Classified options into 'Basic' and 'Advanced'
   - Feature: Use Ctrl+Enter in the textarea to submit a message
   - Feature: Make all links open in a new tab
+  - Feature: Disable browser Ctrl+0 (zoom reset) shortcut

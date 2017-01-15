@@ -66,7 +66,10 @@ module Options {
 	toggle($options_basic_toggle, $options_basic, 2);
 	toggle($options_advanced_toggle, $options_advanced, 3);
 
-	// Styles	
+	// Styles
+	$all_toggle.css('font-size', '15px');
+
+	// css
 	Styles.add(`
 
 	/* Main heading */
@@ -86,15 +89,20 @@ module Options {
 	}
 
 	/* Toggle triggers */
+	/* Don't specify #live-counting-extension for this, because the first trigger is actually outside the #live-counting-extension element */
+	
 	.toggle-trigger {
 		cursor: pointer;
 		color: #656565;
+		font-weight: normal;
 	}
 
+
 	/* Labels */
-	label {
+	#live-counting-extension label {
 		display: block;
 		margin-bottom: 10px;
+		line-height: 160%;
 	}
 	
 	`);

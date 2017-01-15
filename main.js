@@ -131,7 +131,7 @@ var Cookies = (function () {
 var Cookie;
 (function (Cookie) {
     // INITIALIZATION
-    var cookieVersion = '3';
+    var cookieVersion = '4';
     // Try to load existing cookie save data, or create a cookie with default data
     Cookie.saveDefaultOptions = false;
     var save_default = {
@@ -259,8 +259,10 @@ var Options;
     toggle($options_toggle, $options, 1);
     toggle($options_basic_toggle, $options_basic, 2);
     toggle($options_advanced_toggle, $options_advanced, 3);
-    // Styles	
-    Styles.add("\n\n\t/* Main heading */\n\t#live-counting-extension h1 {\n\t\tcolor: #369;\n\t\tfont-size: 16px;\n\t\tfont-weight: bold;\n\t\tmargin: 10px 0px;\n\t}\n\n\t/* Subheadings */\n\t#live-counting-extension h2 {\n\t\tcolor: #4F4F4F;\n\t\tfont-size: 14px;\n\t\tfont-weight: bold;\n\t\tmargin: 8px 0px;\n\t}\n\n\t/* Toggle triggers */\n\t.toggle-trigger {\n\t\tcursor: pointer;\n\t\tcolor: #656565;\n\t}\n\n\t/* Labels */\n\tlabel {\n\t\tdisplay: block;\n\t\tmargin-bottom: 10px;\n\t}\n\t\n\t");
+    // Styles
+    $all_toggle.css('font-size', '15px');
+    // css
+    Styles.add("\n\n\t/* Main heading */\n\t#live-counting-extension h1 {\n\t\tcolor: #369;\n\t\tfont-size: 16px;\n\t\tfont-weight: bold;\n\t\tmargin: 10px 0px;\n\t}\n\n\t/* Subheadings */\n\t#live-counting-extension h2 {\n\t\tcolor: #4F4F4F;\n\t\tfont-size: 14px;\n\t\tfont-weight: bold;\n\t\tmargin: 8px 0px;\n\t}\n\n\t/* Toggle triggers */\n\t/* Don't specify #live-counting-extension for this, because the first trigger is actually outside the #live-counting-extension element */\n\t\n\t.toggle-trigger {\n\t\tcursor: pointer;\n\t\tcolor: #656565;\n\t\tfont-weight: normal;\n\t}\n\n\n\t/* Labels */\n\t#live-counting-extension label {\n\t\tdisplay: block;\n\t\tmargin-bottom: 10px;\n\t\tline-height: 160%;\n\t}\n\t\n\t");
     // METHODS
     // Add a checkbox option
     // Returns the newly created checkbox
@@ -607,7 +609,7 @@ var LinksOpenNewTab;
     Elements.$head.append($base);
     // Options
     var enabled = true;
-    Options.addCheckbox('LINKS OPEN IN A NEW TAB', true, 'Advanced', function () {
+    Options.addCheckbox('MAKE ALL LINKS OPEN IN A NEW TAB', true, 'Advanced', function () {
         enabled = $(this).prop('checked');
         if (enabled)
             $base.attr('target', '_blank');
@@ -615,6 +617,24 @@ var LinksOpenNewTab;
             $base.attr('target', '_self');
     });
 })(LinksOpenNewTab || (LinksOpenNewTab = {}));
+/////////////////////
+// DisableCtrl0.ts //
+/////////////////////
+var DisableCtrl0;
+(function (DisableCtrl0) {
+    // INITIALIZATION
+    // Options
+    var enabled = true;
+    Options.addCheckbox('DISABLE BROWSER CTRL+0 (ZOOM RESET) SHORTCUT', true, 'Advanced', function () {
+        enabled = $(this).prop('checked');
+    });
+    // EVENTS
+    $(document).on('keydown', function (e) {
+        if (enabled && e.ctrlKey && e.keyCode == 48) {
+            e.preventDefault();
+        }
+    });
+})(DisableCtrl0 || (DisableCtrl0 = {}));
 ////////////////////////
 // ContentPosition.ts //
 ////////////////////////
