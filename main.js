@@ -1,3 +1,9 @@
+/**
+ * LIVE COUNTING EXTENSION V1.4
+ * (THIS CODE WAS GENERATED FROM THE TYPESCRIPT .TS FILES IN THE SRC DIRECTORY)
+ */
+
+
 ////////////////
 // Cookies.ts //
 ////////////////
@@ -517,9 +523,13 @@ var ColoredUsernames;
         if (!enabled)
             return;
         // Special usernames (temp rewards for top in 100k HoC, or other contributions)
+        // creator privileges {:'-D
         if (data.author == 'co3_carbonate') {
-            // creator specials
             data.author_elem.css('font-weight', 'bold');
+        }
+        // /u/gordonpt8 letter spacing
+        if (data.author == 'gordonpt8') {
+            data.author_elem.css({ 'letter-spacing': '4px', 'font-weight': 'bold' });
         }
         // Set username colour
         if (!userColors.hasOwnProperty(data.author)) {
