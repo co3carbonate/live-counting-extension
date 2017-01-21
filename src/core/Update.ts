@@ -140,40 +140,4 @@ module Update {
 	});
 
 
-	/*Elements.$updates.on("DOMNodeInserted", function(e) {
-		let $node:JQuery = $(e.target);
-
-		// Must be a .liveupdate element
-		if(!$node.hasClass('liveupdate')) {
-			return;
-		}
-
-		// Get data about the new update
-		let data:info = {
-			elem: $node,
-			author: $node.find('.body > .author').text(),
-			author_elem: $node.find('.body > .author'),
-			body_elem: $node.find('.body > .md')
-		};
-
-		if(data.author) data.author = data.author.trim().replace('/u/', '');
-
-		// Check if the new message from the top or bottom
-		let index = $node.index();
-		if(index == 0) {
-			// Loaded from top
-			for(var func of funcLoadedTop) {
-				func(data);
-			}
-		} else {
-			// Loaded from bottom
-			for(var func of funcLoadedBottom) {
-				func(data);
-			}
-		}
-		
-
-	});*/
-
-
 }

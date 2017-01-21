@@ -196,7 +196,7 @@ var Elements;
 var Styles;
 (function (Styles) {
     // STYLESHEET
-    var $css = $("<style>\n\n\t/* General styles */\n\t#lc-body .liveupdate-listing {\n\t\tmin-width: 0px;\n\t}\n\n\t/* Prevent the button row from always showing up when screen is small */\n\t#lc-body li.liveupdate ul.buttonrow {\n\t\tdisplay: none !important;\n\t}\n\n\t#lc-body li.liveupdate:hover ul.buttonrow {\n\t\tdisplay: block !important;\n\t}\n\n\t/* Disable transition fade effect when an update is sent */\n\t#lc-body li.liveupdate * {\n\t\ttransition: none;\n\t}\n\n\t</style>");
+    var $css = $("<style>\n\n\t/* General styles */\n\t#lc-body .liveupdate-listing {\n\t\tmin-width: 0px;\n\t}\n\n\t/* Prevent the button row from always showing up when screen is small */\n\t#lc-body li.liveupdate ul.buttonrow {\n\t\tdisplay: none !important;\n\t}\n\n\t#lc-body li.liveupdate:hover ul.buttonrow {\n\t\tdisplay: block !important;\n\t}\n\n\t/* Disable the transition entrance fade effect when an update is sent */\n\t#lc-body li.liveupdate * {\n\t\ttransition: none;\n\t}\n\n\t</style>");
     // INITIALIZATION
     $('head').append($css);
     // METHODS
@@ -473,7 +473,6 @@ var Update;
                 });
             }
             else if (mutation.type == 'attributes') {
-                console.log(mutation);
                 // Setup
                 var $node = $(mutation.target);
                 if (!(mutation.oldValue && $node.attr('class')))
@@ -568,14 +567,15 @@ var ColoredUsernames;
         'qwertylool': "YellowGreen",
         'TOP_20': '#FFBDD8',
         'QuestoGuy': 'Purple',
-        'Smartstocks': 'MediumSeaGreen',
+        'Smartstocks': '#840d0d',
         'gordonpt8': '#00FF00',
         'Mooraell': '#DAA520',
         'randomusername123458': '#00CC99',
         'davidjl123': '#6495ED',
         'Iamspeedy36': '#00BFFF',
         'Phoenixness': '#ff0000',
-        'jillis6': '#ffd700'
+        'jillis6': '#ffd700',
+        'xHOCKEYx12': 'Lime'
     };
     // Possible colors for other users
     var colors = ['Blue', 'Coral', 'DodgerBlue', 'SpringGreen', 'YellowGreen', 'Green', 'OrangeRed', 'Red', 'GoldenRod', 'CadetBlue', 'SeaGreen', 'Chocolate', 'BlueViolet', 'Firebrick'];

@@ -21,7 +21,7 @@ module Styles {
 		display: block !important;
 	}
 
-	/* Disable transition fade effect when an update is sent */
+	/* Disable the transition entrance fade effect when an update is sent */
 	#lc-body li.liveupdate * {
 		transition: none;
 	}

@@ -21,14 +21,15 @@ module ColoredUsernames {
 		'qwertylool': "YellowGreen",
 		'TOP_20': '#FFBDD8',
 		'QuestoGuy': 'Purple',
-		'Smartstocks': 'MediumSeaGreen',
+		'Smartstocks': '#840d0d',
 		'gordonpt8': '#00FF00',
 		'Mooraell': '#DAA520',
 		'randomusername123458': '#00CC99',
 		'davidjl123': '#6495ED',
 		'Iamspeedy36': '#00BFFF',
 		'Phoenixness': '#ff0000',
-		'jillis6': '#ffd700'
+		'jillis6': '#ffd700',
+		'xHOCKEYx12': 'Lime'
 	};
 
 	// Possible colors for other users
