@@ -196,7 +196,7 @@ var Elements;
 var Styles;
 (function (Styles) {
     // STYLESHEET
-    var $css = $("<style>\n\n\t/* General styles */\n\t#lc-body .liveupdate-listing {\n\t\tmin-width: 0px;\n\t}\n\n\t/* Prevent the button row from always showing up when screen is small */\n\t#lc-body li.liveupdate ul.buttonrow {\n\t\tdisplay: none !important;\n\t}\n\n\t#lc-body li.liveupdate:hover ul.buttonrow {\n\t\tdisplay: block !important;\n\t}\n\n\t</style>");
+    var $css = $("<style>\n\n\t/* General styles */\n\t#lc-body .liveupdate-listing {\n\t\tmin-width: 0px;\n\t}\n\n\t/* Prevent the button row from always showing up when screen is small */\n\t#lc-body li.liveupdate ul.buttonrow {\n\t\tdisplay: none !important;\n\t}\n\n\t#lc-body li.liveupdate:hover ul.buttonrow {\n\t\tdisplay: block !important;\n\t}\n\n\t/* Disable transition fade effect when an update is sent */\n\t#lc-body li.liveupdate * {\n\t\ttransition: none;\n\t}\n\n\t</style>");
     // INITIALIZATION
     $('head').append($css);
     // METHODS
@@ -457,7 +457,6 @@ var Update;
                     if ($node.index() == 0) {
                         // Loaded from top
                         // Execute loadedNew() functions
-                        console.log('loadedNew');
                         for (var _i = 0, funcLoadedTop_1 = funcLoadedTop; _i < funcLoadedTop_1.length; _i++) {
                             var func = funcLoadedTop_1[_i];
                             func(data);
@@ -466,7 +465,6 @@ var Update;
                     else {
                         // Loaded from bottom
                         // Execute loadedOld() functions
-                        console.log('loadedOld');
                         for (var _a = 0, funcLoadedBottom_1 = funcLoadedBottom; _a < funcLoadedBottom_1.length; _a++) {
                             var func = funcLoadedBottom_1[_a];
                             func(data);
@@ -475,6 +473,7 @@ var Update;
                 });
             }
             else if (mutation.type == 'attributes') {
+                console.log(mutation);
                 // Setup
                 var $node = $(mutation.target);
                 if (!(mutation.oldValue && $node.attr('class')))
@@ -490,7 +489,6 @@ var Update;
                 if (oldClasses.indexOf('stricken') == -1
                     && newClasses.indexOf('stricken') > -1) {
                     // Execute striked() functions
-                    console.log('striked');
                     for (var _a = 0, funcStriked_1 = funcStriked; _a < funcStriked_1.length; _a++) {
                         var func = funcStriked_1[_a];
                         func(data);
@@ -509,40 +507,6 @@ var Update;
         // observe for these changes (particularly attributes changes) in descendants 
         subtree: true
     });
-    /*Elements.$updates.on("DOMNodeInserted", function(e) {
-        let $node:JQuery = $(e.target);
-
-        // Must be a .liveupdate element
-        if(!$node.hasClass('liveupdate')) {
-            return;
-        }
-
-        // Get data about the new update
-        let data:info = {
-            elem: $node,
-            author: $node.find('.body > .author').text(),
-            author_elem: $node.find('.body > .author'),
-            body_elem: $node.find('.body > .md')
-        };
-
-        if(data.author) data.author = data.author.trim().replace('/u/', '');
-
-        // Check if the new message from the top or bottom
-        let index = $node.index();
-        if(index == 0) {
-            // Loaded from top
-            for(var func of funcLoadedTop) {
-                func(data);
-            }
-        } else {
-            // Loaded from bottom
-            for(var func of funcLoadedBottom) {
-                func(data);
-            }
-        }
-        
-
-    });*/
 })(Update || (Update = {}));
 //////////////////
 // CtrlEnter.ts //
