@@ -48,3 +48,4 @@ Here is a list of features. Most of them can be disabled at will.
   - Feature: Use Ctrl+Enter in the textarea to submit a message
   - Feature: Make all links open in a new tab
   - Feature: Disable browser Ctrl+0 (zoom reset) shortcut
+  - Changed the update detection system to use MutationObserver instead of MutationEvents

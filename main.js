@@ -398,8 +398,25 @@ var Options;
 ///////////////
 var Update;
 (function (Update) {
+    // UTILITY
+    // Get information about an update node
+    function getUpdateInfo($node) {
+        var data = {
+            elem: $node,
+            author: $node.find('.body > .author').text(),
+            author_elem: $node.find('.body > .author'),
+            body_elem: $node.find('.body > .md')
+        };
+        if (data.author)
+            data.author = data.author.trim().replace('/u/', '');
+        return data;
+    }
     // METHODS
-    // Bind function to execute when a new update is made
+    // Bind functions to execute in the following events:
+    // - loadedNew(): When a new update is sent
+    // - loadedOld(): When an old update is loaded
+    // - striked(): When an update is striked 
+    // - TODO: deleted(): When an update is deleted
     // loaded from top (new updates sent)
     var funcLoadedTop = [];
     function loadedNew(func) {
@@ -412,41 +429,120 @@ var Update;
         funcLoadedBottom.push(func);
     }
     Update.loadedOld = loadedOld;
+    // striked
+    var funcStriked = [];
+    function striked(func) {
+        funcStriked.push(func);
+    }
+    Update.striked = striked;
     // EVENTS
-    // Mutation observer on list of updates
-    Elements.$updates.on("DOMNodeInserted", function (e) {
-        var $node = $(e.target);
+    // Setup MutationObserver on Elements.$updates
+    var observer = new MutationObserver(function (mutations) {
+        // Loop through MutationRecords and call the functions in various arrays based on .type
+        for (var _i = 0, mutations_1 = mutations; _i < mutations_1.length; _i++) {
+            var mutation = mutations_1[_i];
+            // Addition / removal of child elements
+            // Executes loadedNew(), loadedOld(), deleted() functions accordingly
+            if (mutation.type == 'childList') {
+                // Setup variables for new updates or deleted updates
+                var $addedNodes = $(mutation.addedNodes).filter('.liveupdate');
+                var $removedNodes = $(mutation.removedNodes).filter('.liveupdate');
+                // Loop through new updates (if any)
+                $addedNodes.each(function (index, element) {
+                    var $node = $(element);
+                    // Get data about the new update
+                    var data = getUpdateInfo($node);
+                    // Check if the update was loaded from top or bottom
+                    // Execute loadedNew() or loadedOld() functions accordingly
+                    if ($node.index() == 0) {
+                        // Loaded from top
+                        // Execute loadedNew() functions
+                        console.log('loadedNew');
+                        for (var _i = 0, funcLoadedTop_1 = funcLoadedTop; _i < funcLoadedTop_1.length; _i++) {
+                            var func = funcLoadedTop_1[_i];
+                            func(data);
+                        }
+                    }
+                    else {
+                        // Loaded from bottom
+                        // Execute loadedOld() functions
+                        console.log('loadedOld');
+                        for (var _a = 0, funcLoadedBottom_1 = funcLoadedBottom; _a < funcLoadedBottom_1.length; _a++) {
+                            var func = funcLoadedBottom_1[_a];
+                            func(data);
+                        }
+                    }
+                });
+            }
+            else if (mutation.type == 'attributes') {
+                // Setup
+                var $node = $(mutation.target);
+                if (!(mutation.oldValue && $node.attr('class')))
+                    return;
+                var oldClasses = mutation.oldValue.split(' ');
+                var newClasses = $node.attr('class').split(' ');
+                // Must be a .liveupdate element
+                if (!$node.hasClass('liveupdate'))
+                    return;
+                // Get data about the update
+                var data = getUpdateInfo($node);
+                // Check if the update had only now been stricken
+                if (oldClasses.indexOf('stricken') == -1
+                    && newClasses.indexOf('stricken') > -1) {
+                    // Execute striked() functions
+                    console.log('striked');
+                    for (var _a = 0, funcStriked_1 = funcStriked; _a < funcStriked_1.length; _a++) {
+                        var func = funcStriked_1[_a];
+                        func(data);
+                    }
+                }
+            }
+        }
+    });
+    observer.observe(Elements.$updates.get(0), {
+        // observe for insertion / removal of children updates
+        childList: true,
+        // observe for change in the 'class' attribute value
+        attributes: true,
+        attributeOldValue: true,
+        attributeFilter: ['class'],
+        // observe for these changes (particularly attributes changes) in descendants 
+        subtree: true
+    });
+    /*Elements.$updates.on("DOMNodeInserted", function(e) {
+        let $node:JQuery = $(e.target);
+
         // Must be a .liveupdate element
-        if (!$node.hasClass('liveupdate')) {
+        if(!$node.hasClass('liveupdate')) {
             return;
         }
+
         // Get data about the new update
-        // Note: For now we only need information about the author and body
-        var data = {
+        let data:info = {
             elem: $node,
             author: $node.find('.body > .author').text(),
             author_elem: $node.find('.body > .author'),
             body_elem: $node.find('.body > .md')
         };
-        if (data.author)
-            data.author = data.author.trim().replace('/u/', '');
+
+        if(data.author) data.author = data.author.trim().replace('/u/', '');
+
         // Check if the new message from the top or bottom
-        var index = $node.index();
-        if (index == 0) {
+        let index = $node.index();
+        if(index == 0) {
             // Loaded from top
-            for (var _i = 0, funcLoadedTop_1 = funcLoadedTop; _i < funcLoadedTop_1.length; _i++) {
-                var func = funcLoadedTop_1[_i];
+            for(var func of funcLoadedTop) {
                 func(data);
             }
-        }
-        else {
+        } else {
             // Loaded from bottom
-            for (var _a = 0, funcLoadedBottom_1 = funcLoadedBottom; _a < funcLoadedBottom_1.length; _a++) {
-                var func = funcLoadedBottom_1[_a];
+            for(var func of funcLoadedBottom) {
                 func(data);
             }
         }
-    });
+        
+
+    });*/
 })(Update || (Update = {}));
 //////////////////
 // CtrlEnter.ts //
