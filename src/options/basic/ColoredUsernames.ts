@@ -58,14 +58,18 @@ module ColoredUsernames {
 		if(!enabled) return;
 
 		// Special usernames (temp rewards for top in 100k HoC, or other contributions)
-		// creator privileges {:'-D
+		// creator privileges
 		if(data.author == 'co3_carbonate') {
 			data.author_elem.css('font-weight', 'bold');
 		}
 
-		// /u/gordonpt8 letter spacing
-		if(data.author == 'gordonpt8') {
-			data.author_elem.css({'letter-spacing': '4px', 'font-weight': 'bold'});
+		// /u/TOP_20 username special
+		if(data.author == 'TOP_20') {
+			data.author_elem.html('\u2764 Whitney \u2764');
+			data.author_elem.css({
+				'color': 'HotPink',
+				'font-weight': 'bold'});
+			return; // since we manually set the colour here, prevent script from resetting it
 		}
 
 		// Set username colour
