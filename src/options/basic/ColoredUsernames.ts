@@ -29,7 +29,9 @@ module ColoredUsernames {
 		'Iamspeedy36': '#00BFFF',
 		'Phoenixness': '#ff0000',
 		'jillis6': '#ffd700',
-		'xHOCKEYx12': 'Lime'
+		'xHOCKEYx12': 'Lime',
+		'_ntrpy': '#FF6600',
+		'o99o99': '#2BBDFF'
 	};
 
 	// Possible colors for other users
