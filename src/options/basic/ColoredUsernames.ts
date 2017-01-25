@@ -68,9 +68,7 @@ module ColoredUsernames {
 		// /u/TOP_20 username special
 		if(data.author == 'TOP_20') {
 			data.author_elem.html('\u2764 Whitney \u2764');
-			data.author_elem.css({
-				'color': 'HotPink',
-				'font-weight': 'bold'});
+			data.author_elem.css('color', 'HotPink');
 			return; // since we manually set the colour here, prevent script from resetting it
 		}
 
