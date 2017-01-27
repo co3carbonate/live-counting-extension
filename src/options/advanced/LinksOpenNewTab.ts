@@ -10,11 +10,16 @@ module LinksOpenNewTab {
 
 	// Options
 	let enabled:boolean = true;
-	Options.addCheckbox('MAKE ALL LINKS OPEN IN A NEW TAB', true, 'Advanced', function() {
-		enabled = $(this).prop('checked');
-		
-		if(enabled) $base.attr('target', '_blank');
-		else $base.attr('target', '_self');
+	Options.addCheckbox({
+		label: 'MAKE ALL LINKS OPEN IN A NEW TAB',
+		default: true,
+		section: 'Advanced',
+		onchange: function() {
+			enabled = this.prop('checked');
+			
+			if(enabled) $base.attr('target', '_blank');
+			else $base.attr('target', '_self');
+		}
 	});
 
 

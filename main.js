@@ -196,7 +196,7 @@ var Elements;
 var Styles;
 (function (Styles) {
     // STYLESHEET
-    var $css = $("<style>\n\n\t/* General styles */\n\t#lc-body .liveupdate-listing {\n\t\tmin-width: 0px;\n\t}\n\n\t/* Prevent the button row from always showing up when screen is small */\n\t#lc-body li.liveupdate ul.buttonrow {\n\t\tdisplay: none !important;\n\t}\n\n\t#lc-body li.liveupdate:hover ul.buttonrow {\n\t\tdisplay: block !important;\n\t}\n\n\t/* Disable the transition entrance fade effect when an update is sent */\n\t#lc-body li.liveupdate * {\n\t\ttransition: none;\n\t}\n\n\t</style>");
+    var $css = $("<style>\n\n\t/* General styles */\n\t#lc-body, #lc-body .liveupdate-listing {\n\t\tmin-width: 0px;\n\t}\n\n\t/* Prevent the button row from always showing up when screen is small */\n\t#lc-body li.liveupdate ul.buttonrow {\n\t\tdisplay: none !important;\n\t}\n\n\t#lc-body li.liveupdate:hover ul.buttonrow {\n\t\tdisplay: block !important;\n\t}\n\n\t/* Disable the transition entrance fade effect when an update is sent */\n\t#lc-body li.liveupdate * {\n\t\ttransition: none;\n\t}\n\n\t</style>");
     // INITIALIZATION
     $('head').append($css);
     // METHODS
@@ -266,23 +266,15 @@ var Options;
     // METHODS
     // Add a checkbox option
     // Returns the newly created checkbox
-    function addCheckbox(label) {
-        var optionalArgs = [];
-        for (var _i = 1; _i < arguments.length; _i++) {
-            optionalArgs[_i - 1] = arguments[_i];
-        }
-        // Handling optional args
-        var section = 'basic';
-        var defaultChecked = false;
-        var onchange = null;
-        for (var i = 0, l = optionalArgs.length; i < l; i++) {
-            if (typeof optionalArgs[i] == 'string')
-                section = optionalArgs[i];
-            else if (typeof optionalArgs[i] == 'boolean')
-                defaultChecked = optionalArgs[i];
-            else if (typeof optionalArgs[i] == 'function')
-                onchange = optionalArgs[i];
-        }
+    function addCheckbox(properties) {
+        // Handling properties
+        if (!properties.hasOwnProperty('section'))
+            properties.section = 'Basic';
+        if (!properties.hasOwnProperty('onchange'))
+            properties.onchange = null;
+        if (!properties.hasOwnProperty('default'))
+            properties["default"] = false;
+        var label = properties["label"], section = properties["section"], onchange = properties["onchange"], defaultChecked = properties["default"];
         // Default value handling (cookie)
         var checked = defaultChecked;
         if (Cookie.saveDefaultOptions && !Cookie.save.options.hasOwnProperty(label))
@@ -300,10 +292,10 @@ var Options;
         $options_section.append($("<label>" + label + "</label>").prepend($elem));
         // Handle onchange
         $elem.on('change', function () {
-            Cookie.save.options[label] = $(this).prop('checked');
+            Cookie.save.options[label] = $elem.prop('checked');
             Cookie.update();
             if (onchange != null)
-                onchange.call(this);
+                onchange.call($elem);
         });
         // Trigger change event if the value != default
         if (defaultChecked != checked)
@@ -313,23 +305,15 @@ var Options;
     Options.addCheckbox = addCheckbox;
     // Add select option
     // Returns the newly created select
-    function addSelect(label, options) {
-        var optionalArgs = [];
-        for (var _i = 2; _i < arguments.length; _i++) {
-            optionalArgs[_i - 2] = arguments[_i];
-        }
-        // Handling optional args
-        var section = 'Basic';
-        var selectedIndex = 0;
-        var onchange = null;
-        for (var i = 0, l = optionalArgs.length; i < l; i++) {
-            if (typeof optionalArgs[i] == 'string')
-                section = optionalArgs[i];
-            else if (typeof optionalArgs[i] == 'number')
-                selectedIndex = optionalArgs[i];
-            else if (typeof optionalArgs[i] == 'function')
-                onchange = optionalArgs[i];
-        }
+    function addSelect(properties) {
+        // Handling properties
+        if (!properties.hasOwnProperty('section'))
+            properties.section = 'Basic';
+        if (!properties.hasOwnProperty('onchange'))
+            properties.onchange = null;
+        if (!properties.hasOwnProperty('default'))
+            properties["default"] = 0;
+        var label = properties["label"], options = properties["options"], section = properties["section"], onchange = properties["onchange"], selectedIndex = properties["default"];
         // Default value handling (cookie)
         var defaultVal = options[selectedIndex];
         var selectedVal = defaultVal;
@@ -340,13 +324,13 @@ var Options;
         // Create label, select, and options
         var $elem = $("<select></select>");
         var elem_contents = '';
-        for (var i_1 = 0; i_1 < options.length; i_1++) {
+        for (var i = 0; i < options.length; i++) {
             elem_contents +=
-                "<option value=\"" + options[i_1] + "\"" + ((options[i_1] == selectedVal) ? ' selected="true"' : '') + ">" + options[i_1] + "</option>";
+                "<option value=\"" + options[i] + "\"" + ((options[i] == selectedVal) ? ' selected="true"' : '') + ">" + options[i] + "</option>";
         }
         $elem.html(elem_contents);
         // Add option
-        var $options_section = $options_basic;
+        var $options_section;
         if (section == 'Basic')
             $options_section = $options_basic;
         else if (section == 'Advanced')
@@ -354,10 +338,10 @@ var Options;
         $options_section.append($("<label>" + label + ": </label>").append($elem));
         // Handle onchange
         $elem.on('change', function () {
-            Cookie.save.options[label] = $(this).val();
+            Cookie.save.options[label] = $elem.val();
             Cookie.update();
             if (onchange != null)
-                onchange.call(this);
+                onchange.call($elem);
         });
         // Trigger change event if the value != default
         if (defaultVal != selectedVal)
@@ -592,8 +576,12 @@ var ColoredUsernames;
     var currentColor = 0;
     // Options
     var enabled = true;
-    Options.addCheckbox('COLORED USERNAMES', true, function () {
-        enabled = $(this).prop('checked');
+    Options.addCheckbox({
+        label: 'COLORED USERNAMES',
+        "default": true,
+        onchange: function () {
+            enabled = this.prop('checked');
+        }
     });
     // EVENTS
     // New update loaded
@@ -631,8 +619,12 @@ var DeletePastMessages;
     var maxMessages = 50;
     // Options
     var enabled = true;
-    var $checkbox = Options.addCheckbox('CLEAR PAST MESSAGES (REDUCES LAG)', true, function () {
-        enabled = $(this).prop('checked');
+    var $checkbox = Options.addCheckbox({
+        label: 'CLEAR PAST MESSAGES (REDUCES LAG)',
+        "default": true,
+        onchange: function () {
+            enabled = this.prop('checked');
+        }
     });
     // EVENTS
     // New update loaded
@@ -669,10 +661,14 @@ var DisplayMode;
         .css('display', 'none');
     Elements.$content.prepend($returnBtn);
     // Options
-    var $select = Options.addSelect('DISPLAY MODE', ['Normal', 'Minimal'], function () {
-        var display = $(this).val();
-        $returnBtn.css('display', (display == 'Normal' ? 'none' : 'block'));
-        Elements.$body.attr('data-DisplayMode', display);
+    var $select = Options.addSelect({
+        label: 'DISPLAY MODE',
+        options: ['Normal', 'Minimal'],
+        onchange: function () {
+            var display = this.val();
+            $returnBtn.css('display', (display == 'Normal' ? 'none' : 'block'));
+            Elements.$body.attr('data-DisplayMode', display);
+        }
     });
     // Styles
     Styles.add("\n\n\t/* Display Minimal */\n\t#lc-body[data-DisplayMode='Minimal'] #header,\n\t#lc-body[data-DisplayMode='Minimal'] #liveupdate-statusbar,\n\t#lc-body[data-DisplayMode='Minimal'] .markdownEditor-wrapper,\n\t#lc-body[data-DisplayMode='Minimal'] #new-update-form .bottom-area,\n\t#lc-body[data-DisplayMode='Minimal'] li.liveupdate time.live-timestamp,\n\t#lc-body[data-DisplayMode='Minimal'] #liveupdate-options, \n\t#lc-body[data-DisplayMode='Minimal'] aside.sidebar {\n\t\tdisplay: none;\n\t}\n\n\t#lc-body[data-DisplayMode='Minimal'] #liveupdate-header,\n\t#lc-body[data-DisplayMode='Minimal'] #new-update-form {\n\t\tmargin-left: 0px;\n\t}\n\n\t#lc-body[data-DisplayMode='Minimal'] li.liveupdate ul.buttonrow {\n\t\tmargin: 0 0 2em 0px !important;\n\t}\n\n\t#lc-body[data-DisplayMode='Minimal'] div.content {\n\t\tmax-width: " + Math.max(450, $('#new-update-form textarea').outerWidth()) + "px;\n\t}\n\n\t");
@@ -687,12 +683,17 @@ var LinksOpenNewTab;
     Elements.$head.append($base);
     // Options
     var enabled = true;
-    Options.addCheckbox('MAKE ALL LINKS OPEN IN A NEW TAB', true, 'Advanced', function () {
-        enabled = $(this).prop('checked');
-        if (enabled)
-            $base.attr('target', '_blank');
-        else
-            $base.attr('target', '_self');
+    Options.addCheckbox({
+        label: 'MAKE ALL LINKS OPEN IN A NEW TAB',
+        "default": true,
+        section: 'Advanced',
+        onchange: function () {
+            enabled = this.prop('checked');
+            if (enabled)
+                $base.attr('target', '_blank');
+            else
+                $base.attr('target', '_self');
+        }
     });
 })(LinksOpenNewTab || (LinksOpenNewTab = {}));
 ////////////////////////
@@ -703,8 +704,14 @@ var ContentPosition;
     // INITIALIZATION
     Elements.$body.attr('data-ContentPosition', 'Center');
     // Options
-    Options.addSelect('CONTENT POSITION', ['Left', 'Center', 'Right'], 'Advanced', 1, function () {
-        Elements.$body.attr('data-ContentPosition', $(this).val());
+    Options.addSelect({
+        label: 'CONTENT POSITION',
+        options: ['Left', 'Center', 'Right'],
+        section: 'Advanced',
+        "default": 1,
+        onchange: function () {
+            Elements.$body.attr('data-ContentPosition', this.val());
+        }
     });
     // Styles
     Styles.add("\n\n\t#lc-body[data-ContentPosition='Left'] div.content {\n\t\tmargin: 0;\n\t}\n\t#lc-body[data-ContentPosition='Center'] div.content {\n\t\tmargin: 0 auto;\n\t}\n\t#lc-body[data-ContentPosition='Right'] div.content {\n\t\tfloat: right;\n\t}\n\n\t");
@@ -793,14 +800,19 @@ var StandardizeNumberFormat;
     })(FormatFuncs || (FormatFuncs = {}));
     ;
     // Options
-    Options.addSelect('STANDARDIZE NUMBER FORMAT', ['Disable', 'Spaces', 'Periods', 'Commas', 'None'], 'Advanced', function () {
-        var val = $(this).val();
-        if (val == 'Disable') {
-            enabled = false;
-            return;
+    Options.addSelect({
+        label: 'STANDARDIZE NUMBER FORMAT',
+        options: ['Disable', 'Spaces', 'Periods', 'Commas', 'None'],
+        section: 'Advanced',
+        onchange: function () {
+            var val = this.val();
+            if (val == 'Disable') {
+                enabled = false;
+                return;
+            }
+            enabled = true;
+            format = FormatFuncs[val];
         }
-        enabled = true;
-        format = FormatFuncs[val];
     });
     // EVENTS
     // New update loaded

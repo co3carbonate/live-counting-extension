@@ -8,7 +8,7 @@ module Styles {
 	let $css:JQuery = $(`<style>
 
 	/* General styles */
-	#lc-body .liveupdate-listing {
+	#lc-body, #lc-body .liveupdate-listing {
 		min-width: 0px;
 	}
 

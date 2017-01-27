@@ -8,8 +8,14 @@ module ContentPosition {
 	Elements.$body.attr('data-ContentPosition', 'Center');
 
 	// Options
-	Options.addSelect('CONTENT POSITION', ['Left', 'Center', 'Right'], 'Advanced', 1, function(){
-		Elements.$body.attr('data-ContentPosition', $(this).val());
+	Options.addSelect({
+		label: 'CONTENT POSITION',
+		options: ['Left', 'Center', 'Right'],
+		section: 'Advanced',
+		default: 1,
+		onchange: function(){
+			Elements.$body.attr('data-ContentPosition', this.val());
+		}
 	});
 
 	// Styles

@@ -110,17 +110,22 @@ module Options {
 	// METHODS
 	// Add a checkbox option
 	// Returns the newly created checkbox
-	export function addCheckbox(label:string, 
-								...optionalArgs:any[]):JQuery {
-		// Handling optional args
-		let section:string = 'basic';
-		let defaultChecked:boolean = false;
-		let onchange:Function = null;
-		for(var i = 0, l = optionalArgs.length; i < l; i++) {
-			if(typeof optionalArgs[i] == 'string') section = optionalArgs[i];
-			else if(typeof optionalArgs[i] == 'boolean') defaultChecked = optionalArgs[i];
-			else if(typeof optionalArgs[i] == 'function') onchange = optionalArgs[i];
-		}
+	export function addCheckbox(properties: {
+		label:string;
+		section?:string;
+		onchange?:Function;
+		default?:boolean;
+	}):JQuery {
+		// Handling properties
+		if(!properties.hasOwnProperty('section')) properties.section = 'Basic';
+		if(!properties.hasOwnProperty('onchange')) properties.onchange = null;
+		if(!properties.hasOwnProperty('default')) properties.default = false;
+		const {
+			'label': label,
+			'section': section,
+			'onchange': onchange,
+			'default': defaultChecked
+		} = properties;
 
 		// Default value handling (cookie)
 		let checked:boolean = defaultChecked; 
@@ -142,9 +147,9 @@ module Options {
 
 		// Handle onchange
 		$elem.on('change', function() {
-			Cookie.save.options[label] = $(this).prop('checked');
+			Cookie.save.options[label] = $elem.prop('checked');
 			Cookie.update();
-			if(onchange != null) onchange.call(this);
+			if(onchange != null) onchange.call($elem);
 		});
 
 		// Trigger change event if the value != default
@@ -155,18 +160,24 @@ module Options {
 
 	// Add select option
 	// Returns the newly created select
-	export function addSelect(label:string, 
-							  options:string[],
-							  ...optionalArgs:any[]):JQuery {
-		// Handling optional args
-		let section:string = 'Basic';
-		let selectedIndex:number = 0;
-		let onchange:Function = null;
-		for(var i = 0, l = optionalArgs.length; i < l; i++) {
-			if(typeof optionalArgs[i] == 'string') section = optionalArgs[i];
-			else if(typeof optionalArgs[i] == 'number') selectedIndex = optionalArgs[i];
-			else if(typeof optionalArgs[i] == 'function') onchange = optionalArgs[i];
-		}
+	export function addSelect(properties: {
+		label:string;
+		options:string[];
+		section?:string;
+		default?:number;
+		onchange?:Function;
+	}):JQuery {
+		// Handling properties
+		if(!properties.hasOwnProperty('section')) properties.section = 'Basic';
+		if(!properties.hasOwnProperty('onchange')) properties.onchange = null;
+		if(!properties.hasOwnProperty('default')) properties.default = 0;
+		const {
+			'label': label,
+			'options': options,
+			'section': section,
+			'onchange': onchange,
+			'default': selectedIndex
+		} = properties;
 
 		// Default value handling (cookie)
 		let defaultVal:string = options[selectedIndex];
@@ -190,7 +201,7 @@ module Options {
 		$elem.html(elem_contents);
 
 		// Add option
-		let $options_section:JQuery = $options_basic;
+		let $options_section:JQuery;
 		if(section == 'Basic') $options_section = $options_basic;
 		else if(section == 'Advanced') $options_section = $options_advanced;
 		
@@ -199,9 +210,9 @@ module Options {
 
 		// Handle onchange
 		$elem.on('change', function() {
-			Cookie.save.options[label] = $(this).val();
+			Cookie.save.options[label] = $elem.val();
 			Cookie.update();
-			if(onchange != null) onchange.call(this);
+			if(onchange != null) onchange.call($elem);
 		});
 
 		// Trigger change event if the value != default

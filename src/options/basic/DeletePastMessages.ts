@@ -9,10 +9,13 @@ module DeletePastMessages {
 
 	// Options
 	let enabled:boolean = true;
-	let $checkbox:JQuery =
-		Options.addCheckbox('CLEAR PAST MESSAGES (REDUCES LAG)', true, function() {
-			enabled = $(this).prop('checked');
-		});
+	let $checkbox:JQuery = Options.addCheckbox({
+		label: 'CLEAR PAST MESSAGES (REDUCES LAG)',
+		default: true,
+		onchange: function() {
+			enabled = this.prop('checked');
+		}
+	});
 
 	// EVENTS
 	// New update loaded

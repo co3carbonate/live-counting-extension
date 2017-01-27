@@ -50,8 +50,12 @@ module ColoredUsernames {
 
 	// Options
 	let enabled:boolean = true;
-	Options.addCheckbox('COLORED USERNAMES', true, function() {
-		enabled = $(this).prop('checked');
+	Options.addCheckbox({
+		label: 'COLORED USERNAMES',
+		default: true,
+		onchange: function() {
+			enabled = this.prop('checked');
+		}
 	});
 
 	// EVENTS

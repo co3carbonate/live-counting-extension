@@ -20,12 +20,15 @@ module DisplayMode {
 
 
 	// Options
-	let $select:JQuery =
-		Options.addSelect('DISPLAY MODE', ['Normal', 'Minimal'], function() {
-			let display:string = $(this).val();
+	let $select:JQuery = Options.addSelect({
+		label: 'DISPLAY MODE',
+		options: ['Normal', 'Minimal'],
+		onchange: function() {
+			let display:string = this.val();
 			$returnBtn.css('display', (display == 'Normal' ? 'none' : 'block'));
 			Elements.$body.attr('data-DisplayMode', display);
-		});
+		}
+	});
 
 	// Styles
 	Styles.add(`
