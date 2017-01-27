@@ -12,6 +12,7 @@ Here is a list of features. Most of them can be disabled at will.
  - Clear Past Messages
  - Minimal Display Mode option
 - Advanced 
+ - Disable username links
  - Make all links open in a new tab
  - Disable obstructive browser shortcuts (Ctrl+0)
  - Specify Content Position (left, center, right)
@@ -49,3 +50,4 @@ Here is a list of features. Most of them can be disabled at will.
   - Feature: Make all links open in a new tab
   - Feature: Disable browser Ctrl+0 (zoom reset) shortcut
   - Changed the element modification detection system to use MutationObserver instead of MutationEvents
+  - Feature: Disable username links

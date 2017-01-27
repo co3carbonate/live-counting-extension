@@ -131,7 +131,7 @@ var Cookies = (function () {
 var Cookie;
 (function (Cookie) {
     // INITIALIZATION
-    var cookieVersion = '5';
+    var cookieVersion = '6';
     // Try to load existing cookie save data, or create a cookie with default data
     Cookie.saveDefaultOptions = false;
     var save_default = {
@@ -673,6 +673,24 @@ var DisplayMode;
     // Styles
     Styles.add("\n\n\t/* Display Minimal */\n\t#lc-body[data-DisplayMode='Minimal'] #header,\n\t#lc-body[data-DisplayMode='Minimal'] #liveupdate-statusbar,\n\t#lc-body[data-DisplayMode='Minimal'] .markdownEditor-wrapper,\n\t#lc-body[data-DisplayMode='Minimal'] #new-update-form .bottom-area,\n\t#lc-body[data-DisplayMode='Minimal'] li.liveupdate time.live-timestamp,\n\t#lc-body[data-DisplayMode='Minimal'] #liveupdate-options, \n\t#lc-body[data-DisplayMode='Minimal'] aside.sidebar {\n\t\tdisplay: none;\n\t}\n\n\t#lc-body[data-DisplayMode='Minimal'] #liveupdate-header,\n\t#lc-body[data-DisplayMode='Minimal'] #new-update-form {\n\t\tmargin-left: 0px;\n\t}\n\n\t#lc-body[data-DisplayMode='Minimal'] li.liveupdate ul.buttonrow {\n\t\tmargin: 0 0 2em 0px !important;\n\t}\n\n\t#lc-body[data-DisplayMode='Minimal'] div.content {\n\t\tmax-width: " + Math.max(450, $('#new-update-form textarea').outerWidth()) + "px;\n\t}\n\n\t");
 })(DisplayMode || (DisplayMode = {}));
+/////////////////////////////
+// DisableUsernameLinks.ts //
+/////////////////////////////
+var DisableUsernameLinks;
+(function (DisableUsernameLinks) {
+    // INITIALIZATION
+    Elements.$body.attr('data-DisableUsernameLinks', 'false');
+    // Options
+    Options.addCheckbox({
+        label: 'DISABLE USERNAME LINKS',
+        section: 'Advanced',
+        onchange: function () {
+            Elements.$body.attr('data-DisableUsernameLinks', this.prop('checked').toString());
+        }
+    });
+    // Styles
+    Styles.add("\n\n\t#lc-body[data-DisableUsernameLinks='true'] li.liveupdate > .body > .author {\n\t\tpointer-events: none;\n\t\tcursor: auto;\n\t}\n\n\t");
+})(DisableUsernameLinks || (DisableUsernameLinks = {}));
 ////////////////////////
 // LinksOpenNewTab.ts //
 ////////////////////////

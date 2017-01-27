@@ -21,6 +21,7 @@
 		"options/basic/DisplayMode.ts",
 
 		// advanced options
+		"options/advanced/DisableUsernameLinks.ts",
 		"options/advanced/LinksOpenNewTab.ts",
 		"options/advanced/ContentPosition.ts",
 		"options/advanced/StandardizeNumberFormat.ts"
