@@ -11,6 +11,7 @@ module DisableUsernameLinks {
 	Options.addCheckbox({
 		label: 'DISABLE USERNAME LINKS',
 		section: 'Advanced',
+		help: 'Disables the redirection to a user\'s profile upon clicking on his/her username. This is convenient to prevent yourself from accidentally going to one\'s profile page when trying to strike or delete a message.',
 		onchange: function() {
 			Elements.$body.attr('data-DisableUsernameLinks', this.prop('checked').toString());
 		}

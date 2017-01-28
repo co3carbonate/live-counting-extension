@@ -8,7 +8,7 @@ module Options {
 	// Initialize new content in the options box
 	let $all_heading:JQuery = $(`
 		<h1>
-			<a href="https://github.com/co3carbonate/live-counting-extension/blob/master/README.md#readme" target="_blank">Live Counting Extension v1.4</a> 
+			<a href="https://github.com/co3carbonate/live-counting-extension/blob/master/README.md#readme" target="_blank">Live Counting Extension v1.5</a> 
 		</h1>
 	`);
 	let $options_heading:JQuery = $(`<h2>Options </h2>`);
@@ -115,16 +115,19 @@ module Options {
 		section?:string;
 		onchange?:Function;
 		default?:boolean;
+		help?:string;
 	}):JQuery {
 		// Handling properties
 		if(!properties.hasOwnProperty('section')) properties.section = 'Basic';
 		if(!properties.hasOwnProperty('onchange')) properties.onchange = null;
 		if(!properties.hasOwnProperty('default')) properties.default = false;
+		if(!properties.hasOwnProperty('help')) properties.help = '';
 		const {
 			'label': label,
 			'section': section,
 			'onchange': onchange,
-			'default': defaultChecked
+			'default': defaultChecked,
+			'help': help
 		} = properties;
 
 		// Default value handling (cookie)
@@ -143,7 +146,10 @@ module Options {
 		else if(section == 'Advanced') $options_section = $options_advanced;
 		
 		$options_section.append(
-			$(`<label>${label}</label>`).prepend($elem));
+			$(`<label>${label}</label>`)
+				.attr('title', help)
+				.prepend($elem)
+		);
 
 		// Handle onchange
 		$elem.on('change', function() {
@@ -166,17 +172,20 @@ module Options {
 		section?:string;
 		default?:number;
 		onchange?:Function;
+		help?:string;
 	}):JQuery {
 		// Handling properties
 		if(!properties.hasOwnProperty('section')) properties.section = 'Basic';
 		if(!properties.hasOwnProperty('onchange')) properties.onchange = null;
 		if(!properties.hasOwnProperty('default')) properties.default = 0;
+		if(!properties.hasOwnProperty('help')) properties.help = '';
 		const {
 			'label': label,
 			'options': options,
 			'section': section,
 			'onchange': onchange,
-			'default': selectedIndex
+			'default': selectedIndex,
+			'help': help
 		} = properties;
 
 		// Default value handling (cookie)
@@ -206,7 +215,10 @@ module Options {
 		else if(section == 'Advanced') $options_section = $options_advanced;
 		
 		$options_section.append(
-			$(`<label>${label}: </label>`).append($elem));
+			$(`<label>${label}: </label>`)
+				.attr('title', help)
+				.append($elem)
+		);
 
 		// Handle onchange
 		$elem.on('change', function() {

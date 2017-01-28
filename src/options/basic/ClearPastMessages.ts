@@ -1,8 +1,8 @@
-///////////////////////////
-// DeletePastMessages.ts //
-///////////////////////////
+//////////////////////////
+// ClearPastMessages.ts //
+//////////////////////////
 
-module DeletePastMessages {
+module ClearPastMessages {
 
 	// INITIALIZATION
 	const maxMessages:number = 50;
@@ -12,6 +12,7 @@ module DeletePastMessages {
 	let $checkbox:JQuery = Options.addCheckbox({
 		label: 'CLEAR PAST MESSAGES (REDUCES LAG)',
 		default: true,
+		help: 'Frequently clears past messages from the page, which drastically negates lag and reduces the need to refresh constantly.',
 		onchange: function() {
 			enabled = this.prop('checked');
 		}

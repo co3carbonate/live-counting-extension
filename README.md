@@ -4,19 +4,22 @@ Live Counting Extension provides various additional client-side features and fun
 
 ## Features
 
-Here is a list of features. Most of them can be disabled at will.
+Here is a list of features. Besides the 'innate' features, all of them can be disabled at will.
 
 - Basic
- - Ctrl+Enter shortcut to submit message
- - Colored Usernames
- - Clear Past Messages
- - Minimal Display Mode option
+ - Colored Usernames: Makes the username in each message gain a unique color
+ - Clear Past Messages: Frequently clears past messages from the page, which drastically negates lag and reduces the need to refresh constantly
+ - Display Mode: Changes the display interface of the page to your preference
+
 - Advanced 
- - Disable username links
- - Make all links open in a new tab
- - Disable obstructive browser shortcuts (Ctrl+0)
- - Specify Content Position (left, center, right)
- - Standardize format of numbers from all messages (commas, spaces, etc.)
+ - Disable Username Links: Disables the redirection to a user\'s profile upon clicking on his/her username
+ - Make All Links Open In A New Tab: Makes all links on the page open in a new tab
+ - Content Position: Adjusts the position of the main content section
+ - Standardize Number Format: Standardizes the number count in each message to a format of your choice
+ 
+- Innate
+ - Ctrl+Enter Shortcut: Enables the use of a single shortcut Ctrl+Enter to conveniently send a message
+ - Disable Obstructive Shortcuts: Disables certain obstructive browser keyboard shortcuts; only disables Ctrl+0 (Zoom Reset) at the moment
 
 ## Installation
 
@@ -29,7 +32,7 @@ Here is a list of features. Most of them can be disabled at will.
 	* Dolphin - install [Tampermonkey](https://tampermonkey.net/?ext=dhdg&browser=dolphin).
 	* UC Browser - install [Tampermonkey](https://tampermonkey.net/?ext=dhdg&browser=ucweb).
 
-2. Once you have downloaded one of those extensions, you can install the script through [this link](https://gist.github.com/co3carbonate/cbf781758d12717721dc125a80a5c785/raw/bd3a0f9926dc17a2bb3e33fc8084dae43d1cb15b/client.user.js). That's it!
+2. Once you have downloaded one of those extensions, you can install the script through [this link](https://gist.github.com/co3carbonate/cbf781758d12717721dc125a80a5c785/raw/bd3a0f9926dc17a2bb3e33fc8084dae43d1cb15b/client.user.js). That's it! The latest version of the script will also be fetched and used each time, so there is no need for you to frequently update it manually.
 
 ## Changelog
 
@@ -51,3 +54,5 @@ Here is a list of features. Most of them can be disabled at will.
   - Feature: Disable browser Ctrl+0 (zoom reset) shortcut
   - Changed the element modification detection system to use MutationObserver instead of MutationEvents
   - Feature: Disable username links
+- v1.5
+  - Added tooltips to every option for clear information on what they do

@@ -14,6 +14,7 @@ module LinksOpenNewTab {
 		label: 'MAKE ALL LINKS OPEN IN A NEW TAB',
 		default: true,
 		section: 'Advanced',
+		help: 'Makes all links on the page open in a new tab.',
 		onchange: function() {
 			enabled = this.prop('checked');
 			

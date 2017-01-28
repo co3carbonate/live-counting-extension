@@ -1,5 +1,5 @@
 /**
- * LIVE COUNTING EXTENSION V1.4
+ * LIVE COUNTING EXTENSION V1.5
  * (THIS CODE WAS GENERATED FROM THE TYPESCRIPT .TS FILES IN THE SRC DIRECTORY)
  */
 
@@ -213,7 +213,7 @@ var Options;
 (function (Options) {
     // INITIALIZATION
     // Initialize new content in the options box
-    var $all_heading = $("\n\t\t<h1>\n\t\t\t<a href=\"https://github.com/co3carbonate/live-counting-extension/blob/master/README.md#readme\" target=\"_blank\">Live Counting Extension v1.4</a> \n\t\t</h1>\n\t");
+    var $all_heading = $("\n\t\t<h1>\n\t\t\t<a href=\"https://github.com/co3carbonate/live-counting-extension/blob/master/README.md#readme\" target=\"_blank\">Live Counting Extension v1.5</a> \n\t\t</h1>\n\t");
     var $options_heading = $("<h2>Options </h2>");
     var $options_basic_heading = $("<h2>Basic </h2>");
     var $options_advanced_heading = $("<h2>Advanced </h2>");
@@ -274,7 +274,9 @@ var Options;
             properties.onchange = null;
         if (!properties.hasOwnProperty('default'))
             properties["default"] = false;
-        var label = properties["label"], section = properties["section"], onchange = properties["onchange"], defaultChecked = properties["default"];
+        if (!properties.hasOwnProperty('help'))
+            properties.help = '';
+        var label = properties["label"], section = properties["section"], onchange = properties["onchange"], defaultChecked = properties["default"], help = properties["help"];
         // Default value handling (cookie)
         var checked = defaultChecked;
         if (Cookie.saveDefaultOptions && !Cookie.save.options.hasOwnProperty(label))
@@ -289,7 +291,9 @@ var Options;
             $options_section = $options_basic;
         else if (section == 'Advanced')
             $options_section = $options_advanced;
-        $options_section.append($("<label>" + label + "</label>").prepend($elem));
+        $options_section.append($("<label>" + label + "</label>")
+            .attr('title', help)
+            .prepend($elem));
         // Handle onchange
         $elem.on('change', function () {
             Cookie.save.options[label] = $elem.prop('checked');
@@ -313,7 +317,9 @@ var Options;
             properties.onchange = null;
         if (!properties.hasOwnProperty('default'))
             properties["default"] = 0;
-        var label = properties["label"], options = properties["options"], section = properties["section"], onchange = properties["onchange"], selectedIndex = properties["default"];
+        if (!properties.hasOwnProperty('help'))
+            properties.help = '';
+        var label = properties["label"], options = properties["options"], section = properties["section"], onchange = properties["onchange"], selectedIndex = properties["default"], help = properties["help"];
         // Default value handling (cookie)
         var defaultVal = options[selectedIndex];
         var selectedVal = defaultVal;
@@ -335,7 +341,9 @@ var Options;
             $options_section = $options_basic;
         else if (section == 'Advanced')
             $options_section = $options_advanced;
-        $options_section.append($("<label>" + label + ": </label>").append($elem));
+        $options_section.append($("<label>" + label + ": </label>")
+            .attr('title', help)
+            .append($elem));
         // Handle onchange
         $elem.on('change', function () {
             Cookie.save.options[label] = $elem.val();
@@ -579,6 +587,7 @@ var ColoredUsernames;
     Options.addCheckbox({
         label: 'COLORED USERNAMES',
         "default": true,
+        help: 'Makes the username in each message gain a unique color.\n\nCertain users who have specified their preferred username colors to /u/co3_carbonaate get that fixed color all the time. Otherwise, your color will be random and appear differently for everyone using the extension.',
         onchange: function () {
             enabled = this.prop('checked');
         }
@@ -610,11 +619,11 @@ var ColoredUsernames;
         data.author_elem.css('color', userColors[data.author]);
     });
 })(ColoredUsernames || (ColoredUsernames = {}));
-///////////////////////////
-// DeletePastMessages.ts //
-///////////////////////////
-var DeletePastMessages;
-(function (DeletePastMessages) {
+//////////////////////////
+// ClearPastMessages.ts //
+//////////////////////////
+var ClearPastMessages;
+(function (ClearPastMessages) {
     // INITIALIZATION
     var maxMessages = 50;
     // Options
@@ -622,6 +631,7 @@ var DeletePastMessages;
     var $checkbox = Options.addCheckbox({
         label: 'CLEAR PAST MESSAGES (REDUCES LAG)',
         "default": true,
+        help: 'Frequently clears past messages from the page, which drastically negates lag and reduces the need to refresh constantly.',
         onchange: function () {
             enabled = this.prop('checked');
         }
@@ -643,7 +653,7 @@ var DeletePastMessages;
             return;
         $checkbox.prop('checked', false).trigger('change');
     });
-})(DeletePastMessages || (DeletePastMessages = {}));
+})(ClearPastMessages || (ClearPastMessages = {}));
 ////////////////////
 // DisplayMode.ts //
 ////////////////////
@@ -664,6 +674,7 @@ var DisplayMode;
     var $select = Options.addSelect({
         label: 'DISPLAY MODE',
         options: ['Normal', 'Minimal'],
+        help: 'Changes the display interface of the page to your preference.',
         onchange: function () {
             var display = this.val();
             $returnBtn.css('display', (display == 'Normal' ? 'none' : 'block'));
@@ -684,6 +695,7 @@ var DisableUsernameLinks;
     Options.addCheckbox({
         label: 'DISABLE USERNAME LINKS',
         section: 'Advanced',
+        help: 'Disables the redirection to a user\'s profile upon clicking on his/her username. This is convenient to prevent yourself from accidentally going to one\'s profile page when trying to strike or delete a message.',
         onchange: function () {
             Elements.$body.attr('data-DisableUsernameLinks', this.prop('checked').toString());
         }
@@ -705,6 +717,7 @@ var LinksOpenNewTab;
         label: 'MAKE ALL LINKS OPEN IN A NEW TAB',
         "default": true,
         section: 'Advanced',
+        help: 'Makes all links on the page open in a new tab.',
         onchange: function () {
             enabled = this.prop('checked');
             if (enabled)
@@ -727,6 +740,7 @@ var ContentPosition;
         options: ['Left', 'Center', 'Right'],
         section: 'Advanced',
         "default": 1,
+        help: 'Adjusts the position of the main content section.',
         onchange: function () {
             Elements.$body.attr('data-ContentPosition', this.val());
         }
@@ -822,6 +836,7 @@ var StandardizeNumberFormat;
         label: 'STANDARDIZE NUMBER FORMAT',
         options: ['Disable', 'Spaces', 'Periods', 'Commas', 'None'],
         section: 'Advanced',
+        help: 'Standardizes the number count in each message to a format of your choice. Also removes special formatting on the number.',
         onchange: function () {
             var val = this.val();
             if (val == 'Disable') {

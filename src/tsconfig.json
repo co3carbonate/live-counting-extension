@@ -17,7 +17,7 @@
 
 		// basic options
 		"options/basic/ColoredUsernames.ts",
-		"options/basic/DeletePastMessages.ts",
+		"options/basic/ClearPastMessages.ts",
 		"options/basic/DisplayMode.ts",
 
 		// advanced options

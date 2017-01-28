@@ -13,6 +13,7 @@ module ContentPosition {
 		options: ['Left', 'Center', 'Right'],
 		section: 'Advanced',
 		default: 1,
+		help: 'Adjusts the position of the main content section.',
 		onchange: function(){
 			Elements.$body.attr('data-ContentPosition', this.val());
 		}

@@ -53,6 +53,7 @@ module ColoredUsernames {
 	Options.addCheckbox({
 		label: 'COLORED USERNAMES',
 		default: true,
+		help: 'Makes the username in each message gain a unique color.\n\nCertain users who have specified their preferred username colors to /u/co3_carbonaate get that fixed color all the time. Otherwise, your color will be random and appear differently for everyone using the extension.',
 		onchange: function() {
 			enabled = this.prop('checked');
 		}

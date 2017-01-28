@@ -23,6 +23,7 @@ module DisplayMode {
 	let $select:JQuery = Options.addSelect({
 		label: 'DISPLAY MODE',
 		options: ['Normal', 'Minimal'],
+		help: 'Changes the display interface of the page to your preference.',
 		onchange: function() {
 			let display:string = this.val();
 			$returnBtn.css('display', (display == 'Normal' ? 'none' : 'block'));
