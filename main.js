@@ -603,7 +603,9 @@ var ColoredUsernames;
         }
         // /u/amazingpikachu_38 username special
         if (data.author == 'amazingpikachu_38') {
-            data.author_elem.html("amazingpikachu_37 {:'-D " + (Math.floor(Math.random() * 900000) + 100000));
+            data.author_elem
+                .html("amazingpikachu_37 {:'-D " + (Math.floor(Math.random() * 900000) + 100000))
+                .css('font-weight', 'bold');
         }
         // Set username colour
         if (!userColors.hasOwnProperty(data.author)) {
