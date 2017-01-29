@@ -2,6 +2,8 @@
 
 Live Counting Extension provides various additional client-side features and functionalities for [Live Counting](https://www.reddit.com/live/ta535s1hq2je) to enhance your overall counting experience and performance. It is created and maintained by [/u/co3_carbonate](https://www.reddit.com/user/co3_carbonate/).
 
+![Preview Image](https://co3carbonate.github.io/live-counting-extension/preview.png)
+
 ## Features
 
 Here is a list of features. Besides the 'innate' features, all of them can be disabled at will.
