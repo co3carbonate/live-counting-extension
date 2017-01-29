@@ -4,6 +4,8 @@ Live Counting Extension provides various additional client-side features and fun
 
 ![Preview Image](https://co3carbonate.github.io/live-counting-extension/preview.png)
 
+All the features are displayed on the top-right corner of the page. You can always hide sections of the display by using the collapse button [-]. 
+
 ## Features
 
 Here is a list of features. Besides the 'innate' features, all of them can be disabled at will.
