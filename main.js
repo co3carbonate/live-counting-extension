@@ -213,11 +213,11 @@ var Options;
 (function (Options) {
     // INITIALIZATION
     // Initialize new content in the options box
-    var $all_heading = $("\n\t\t<h1>\n\t\t\t<a href=\"https://github.com/co3carbonate/live-counting-extension/blob/master/README.md#readme\" target=\"_blank\">Live Counting Extension v1.5</a> \n\t\t</h1>\n\t");
+    var $all_heading = $("\n\t\t<h1 style=\"font-size:16px;\">\n\t\t\t<a href=\"https://github.com/co3carbonate/live-counting-extension/blob/master/README.md#readme\" target=\"_blank\">Live Counting Extension v1.5.0</a> \n\t\t</h1>\n\t");
     var $options_heading = $("<h2>Options </h2>");
     var $options_basic_heading = $("<h2>Basic </h2>");
     var $options_advanced_heading = $("<h2>Advanced </h2>");
-    var $all_toggle = $("<span class=\"toggle-trigger\">[-]</span>");
+    var $all_toggle = $("<span class=\"toggle-trigger\" style=\"font-size:15px;\">[-]</span>");
     var $options_toggle = $("<span class=\"toggle-trigger\">[-]</span>");
     var $options_basic_toggle = $("<span class=\"toggle-trigger\">[-]</span>");
     var $options_advanced_toggle = $("<span class=\"toggle-trigger\">[-]</span>");
@@ -260,9 +260,7 @@ var Options;
     toggle($options_basic_toggle, $options_basic, 2);
     toggle($options_advanced_toggle, $options_advanced, 3);
     // Styles
-    $all_toggle.css('font-size', '15px');
-    // css
-    Styles.add("\n\n\t/* Main heading */\n\t#live-counting-extension h1 {\n\t\tcolor: #369;\n\t\tfont-size: 16px;\n\t\tfont-weight: bold;\n\t\tmargin: 10px 0px;\n\t}\n\n\t/* Subheadings */\n\t#live-counting-extension h2 {\n\t\tcolor: #4F4F4F;\n\t\tfont-size: 14px;\n\t\tfont-weight: bold;\n\t\tmargin: 8px 0px;\n\t}\n\n\t/* Toggle triggers */\n\t/* Don't specify #live-counting-extension for this, because the first trigger is actually outside the #live-counting-extension element */\n\t\n\t.toggle-trigger {\n\t\tcursor: pointer;\n\t\tcolor: #656565;\n\t\tfont-weight: normal;\n\t}\n\n\n\t/* Labels */\n\t#live-counting-extension label {\n\t\tdisplay: block;\n\t\tmargin-bottom: 10px;\n\t\tline-height: 160%;\n\t}\n\t\n\t");
+    Styles.add("\n\n\t/* Subheadings */\n\t#live-counting-extension h2 {\n\t\tcolor: #4F4F4F;\n\t\tfont-size: 14px;\n\t\tfont-weight: bold;\n\t\tmargin: 8px 0px;\n\t}\n\n\t/* Toggle triggers */\n\t/* Don't specify #live-counting-extension for this, because the first trigger is actually outside the #live-counting-extension element */\n\t\n\t.toggle-trigger {\n\t\tcursor: pointer;\n\t\tcolor: #656565;\n\t\tfont-weight: normal;\n\t}\n\n\n\t/* Labels */\n\t#live-counting-extension label {\n\t\tdisplay: block;\n\t\tmargin-bottom: 10px;\n\t\tline-height: 160%;\n\t}\n\t\n\t");
     // METHODS
     // Add a checkbox option
     // Returns the newly created checkbox
@@ -569,7 +567,8 @@ var ColoredUsernames;
         'jillis6': '#ffd700',
         'xHOCKEYx12': 'Lime',
         '_ntrpy': '#FF6600',
-        'o99o99': '#2BBDFF'
+        'o99o99': '#2BBDFF',
+        'afaintsmellofcurry': '#6799A0'
     };
     // Possible colors for other users
     var colors = ['Blue', 'Coral', 'DodgerBlue', 'SpringGreen', 'YellowGreen', 'Green', 'OrangeRed', 'Red', 'GoldenRod', 'CadetBlue', 'SeaGreen', 'Chocolate', 'BlueViolet', 'Firebrick'];
@@ -598,8 +597,8 @@ var ColoredUsernames;
         if (!enabled)
             return;
         // Special usernames (temp rewards for top in 100k HoC, or other contributions)
-        // creator privileges
-        if (data.author == 'co3_carbonate') {
+        // Bot-maker privileges
+        if (data.author == 'co3_carbonate' || data.author == 'rschaosid') {
             data.author_elem.css('font-weight', 'bold');
         }
         // /u/TOP_20 username special

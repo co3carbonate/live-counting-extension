@@ -12,7 +12,7 @@ Here is a list of features. Besides the 'innate' features, all of them can be di
  - Display Mode: Changes the display interface of the page to your preference
 
 - Advanced 
- - Disable Username Links: Disables the redirection to a user\'s profile upon clicking on his/her username
+ - Disable Username Links: Disables the redirection to a user's profile upon clicking on his/her username
  - Make All Links Open In A New Tab: Makes all links on the page open in a new tab
  - Content Position: Adjusts the position of the main content section
  - Standardize Number Format: Standardizes the number count in each message to a format of your choice
@@ -32,7 +32,7 @@ Here is a list of features. Besides the 'innate' features, all of them can be di
 	* Dolphin - install [Tampermonkey](https://tampermonkey.net/?ext=dhdg&browser=dolphin).
 	* UC Browser - install [Tampermonkey](https://tampermonkey.net/?ext=dhdg&browser=ucweb).
 
-2. Once you have downloaded one of those extensions, you can install the script through [this link](https://gist.github.com/co3carbonate/cbf781758d12717721dc125a80a5c785/raw/bd3a0f9926dc17a2bb3e33fc8084dae43d1cb15b/client.user.js). That's it! The latest version of the script will also be fetched and used each time, so there is no need for you to frequently update it manually.
+2. Once you have downloaded one of those extensions, you can install the script through [this link](https://gist.github.com/co3carbonate/cbf781758d12717721dc125a80a5c785/raw/bd3a0f9926dc17a2bb3e33fc8084dae43d1cb15b/client.user.js). That's it! The latest version of the script will also be fetched and used each time the page is loaded, so there is no need for you to frequently update it manually.
 
 ## Changelog
 
@@ -55,4 +55,5 @@ Here is a list of features. Besides the 'innate' features, all of them can be di
   - Changed the element modification detection system to use MutationObserver instead of MutationEvents
   - Feature: Disable username links
 - v1.5
-  - Added tooltips to every option for clear information on what they do
+  - v1.5.0: Added tooltips to every option for clear information on what they do
+  - v1.5.0: Started adding minor versioning

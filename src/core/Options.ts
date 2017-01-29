@@ -7,15 +7,15 @@ module Options {
 	// INITIALIZATION
 	// Initialize new content in the options box
 	let $all_heading:JQuery = $(`
-		<h1>
-			<a href="https://github.com/co3carbonate/live-counting-extension/blob/master/README.md#readme" target="_blank">Live Counting Extension v1.5</a> 
+		<h1 style="font-size:16px;">
+			<a href="https://github.com/co3carbonate/live-counting-extension/blob/master/README.md#readme" target="_blank">Live Counting Extension v1.5.0</a> 
 		</h1>
 	`);
 	let $options_heading:JQuery = $(`<h2>Options </h2>`);
 	let $options_basic_heading:JQuery = $(`<h2>Basic </h2>`);
 	let $options_advanced_heading:JQuery = $(`<h2>Advanced </h2>`);
 
-	let $all_toggle:JQuery = $(`<span class="toggle-trigger">[-]</span>`);
+	let $all_toggle:JQuery = $(`<span class="toggle-trigger" style="font-size:15px;">[-]</span>`);
 	let $options_toggle:JQuery = $(`<span class="toggle-trigger">[-]</span>`);
 	let $options_basic_toggle:JQuery = $(`<span class="toggle-trigger">[-]</span>`);
 	let $options_advanced_toggle:JQuery = $(`<span class="toggle-trigger">[-]</span>`);
@@ -67,18 +67,7 @@ module Options {
 	toggle($options_advanced_toggle, $options_advanced, 3);
 
 	// Styles
-	$all_toggle.css('font-size', '15px');
-
-	// css
 	Styles.add(`
-
-	/* Main heading */
-	#live-counting-extension h1 {
-		color: #369;
-		font-size: 16px;
-		font-weight: bold;
-		margin: 10px 0px;
-	}
 
 	/* Subheadings */
 	#live-counting-extension h2 {

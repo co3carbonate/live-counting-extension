@@ -31,7 +31,8 @@ module ColoredUsernames {
 		'jillis6': '#ffd700',
 		'xHOCKEYx12': 'Lime',
 		'_ntrpy': '#FF6600',
-		'o99o99': '#2BBDFF'
+		'o99o99': '#2BBDFF',
+		'afaintsmellofcurry': '#6799A0'
 	};
 
 	// Possible colors for other users
@@ -65,8 +66,8 @@ module ColoredUsernames {
 		if(!enabled) return;
 
 		// Special usernames (temp rewards for top in 100k HoC, or other contributions)
-		// creator privileges
-		if(data.author == 'co3_carbonate') {
+		// Bot-maker privileges
+		if(data.author == 'co3_carbonate' || data.author == 'rschaosid') {
 			data.author_elem.css('font-weight', 'bold');
 		}
 
