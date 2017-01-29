@@ -17,9 +17,9 @@ module ColoredUsernames {
 		'dominodan123': 'Blue',
 		'co3_carbonate': 'Grey',
 		'artbn': '#e66b00',
-		'amazingpikachu_38':'#e6e600',
+		'amazingpikachu_38':'#DBDB00',
 		'qwertylool': "YellowGreen",
-		'TOP_20': '#FFBDD8',
+		'TOP_20': '#FF9A9A',
 		'QuestoGuy': 'Purple',
 		'Smartstocks': '#840d0d',
 		'gordonpt8': '#00FF00',
@@ -32,7 +32,8 @@ module ColoredUsernames {
 		'xHOCKEYx12': 'Lime',
 		'_ntrpy': '#FF6600',
 		'o99o99': '#2BBDFF',
-		'afaintsmellofcurry': '#6799A0'
+		'afaintsmellofcurry': '#6799A0',
+		'KingCaspianX': '#191970'
 	};
 
 	// Possible colors for other users
@@ -73,7 +74,9 @@ module ColoredUsernames {
 
 		// /u/amazingpikachu_38 username special
 		if(data.author == 'amazingpikachu_38') {
-			data.author_elem.html(`amazingpikachu_37 {:'-D ${Math.floor(Math.random() * 900000) + 100000}`);
+			data.author_elem
+				.html(`amazingpikachu_37 {:'-D ${Math.floor(Math.random() * 900000) + 100000}`)
+				.css('font-weight', 'bold');
 		}
 
 		// Set username colour

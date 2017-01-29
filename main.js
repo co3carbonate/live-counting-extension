@@ -568,7 +568,8 @@ var ColoredUsernames;
         'xHOCKEYx12': 'Lime',
         '_ntrpy': '#FF6600',
         'o99o99': '#2BBDFF',
-        'afaintsmellofcurry': '#6799A0'
+        'afaintsmellofcurry': '#6799A0',
+        'KingCaspianX': '#191970'
     };
     // Possible colors for other users
     var colors = ['Blue', 'Coral', 'DodgerBlue', 'SpringGreen', 'YellowGreen', 'Green', 'OrangeRed', 'Red', 'GoldenRod', 'CadetBlue', 'SeaGreen', 'Chocolate', 'BlueViolet', 'Firebrick'];
