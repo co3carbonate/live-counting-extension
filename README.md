@@ -2,7 +2,7 @@
 
 Live Counting Extension provides various additional client-side features and functionalities for [Live Counting](https://www.reddit.com/live/ta535s1hq2je) to enhance your overall counting experience and performance. It is created and maintained by [/u/co3_carbonate](https://www.reddit.com/user/co3_carbonate/).
 
-![Preview Image](https://co3carbonate.github.io/live-counting-extension/preview.png)
+![Preview Image](https://co3carbonate.github.io/live-counting-extension/preview.png?v=2 "Preview Image")
 
 All the features are displayed on the top-right corner of the page. You can always hide sections of the display by using the collapse button [-]. 
 
