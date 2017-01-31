@@ -36,7 +36,7 @@ Here is a list of features. Besides the 'innate' features, all of them can be di
 	* Dolphin - install [Tampermonkey](https://tampermonkey.net/?ext=dhdg&browser=dolphin).
 	* UC Browser - install [Tampermonkey](https://tampermonkey.net/?ext=dhdg&browser=ucweb).
 
-2. **Once you have downloaded one of those extensions, you can install the script through [this link](https://gist.github.com/co3carbonate/cbf781758d12717721dc125a80a5c785/raw/bd3a0f9926dc17a2bb3e33fc8084dae43d1cb15b/client.user.js). That's it! The latest version of the script will also be fetched and used each time the page is loaded, so there is no need for you to frequently update it manually.**
+2. **Once you have downloaded one of those extensions, you can install the script through [this link](https://gist.github.com/co3carbonate/cbf781758d12717721dc125a80a5c785/raw/bd3a0f9926dc17a2bb3e33fc8084dae43d1cb15b/client.user.js).** That's it! The latest version of the script will also be fetched and used each time the page is loaded, so there is no need for you to frequently update it manually.
 
 ## Changelog
 

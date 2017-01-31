@@ -553,7 +553,7 @@ var ColoredUsernames;
         'dominodan123': 'Blue',
         'co3_carbonate': 'Grey',
         'artbn': '#e66b00',
-        'amazingpikachu_38': '#DBDB00',
+        'amazingpikachu_38': '#F2F209',
         'qwertylool': "YellowGreen",
         'TOP_20': '#FF9A9A',
         'QuestoGuy': 'Purple',
