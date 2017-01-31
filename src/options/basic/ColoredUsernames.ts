@@ -33,7 +33,10 @@ module ColoredUsernames {
 		'_ntrpy': '#FF6600',
 		'o99o99': '#2BBDFF',
 		'afaintsmellofcurry': '#6799A0',
-		'KingCaspianX': '#191970'
+		'KingCaspianX': '#191970',
+		'MewDP': '#FFFF33',
+		'DaveTheDave_': '#00BFFF',
+		'Luigi86101': '#006400'
 	};
 
 	// Possible colors for other users
