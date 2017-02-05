@@ -36,7 +36,8 @@ module ColoredUsernames {
 		'KingCaspianX': '#191970',
 		'MewDP': '#FFFF33',
 		'DaveTheDave_': '#00BFFF',
-		'Luigi86101': '#006400'
+		'Luigi86101': '#006400',
+		'thetiredlemur': '#464942'
 	};
 
 	// Possible colors for other users
