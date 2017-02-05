@@ -605,11 +605,16 @@ var ColoredUsernames;
         if (data.author == 'co3_carbonate' || data.author == 'rschaosid') {
             data.author_elem.css('font-weight', 'bold');
         }
-        // /u/amazingpikachu_38 username special
-        if (data.author == 'amazingpikachu_38') {
-            data.author_elem
-                .html("amazingpikachu_37 {:'-D " + (Math.floor(Math.random() * 900000) + 100000))
-                .css('font-weight', 'bold');
+        // /u/dominodan123 username special (upside-down)
+        if (data.author == 'dominodan123') {
+            data.author_elem.css({
+                '-moz-transform': 'rotate(-180deg)',
+                '-o-transform': 'rotate(-180deg)',
+                '-webkit-transform': 'rotate(-180deg)',
+                'transform': 'rotate(-180deg)',
+                'display': 'inline-block',
+                'vertical-align': 'middle'
+            });
         }
         // Set username colour
         if (!userColors.hasOwnProperty(data.author)) {

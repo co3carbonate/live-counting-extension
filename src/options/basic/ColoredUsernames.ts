@@ -17,7 +17,7 @@ module ColoredUsernames {
 		'dominodan123': 'Blue',
 		'co3_carbonate': 'Grey',
 		'artbn': '#e66b00',
-		'amazingpikachu_38':'#DBDB00',
+		'amazingpikachu_38':'#F2F209',
 		'qwertylool': "YellowGreen",
 		'TOP_20': '#FF9A9A',
 		'QuestoGuy': 'Purple',
@@ -75,11 +75,16 @@ module ColoredUsernames {
 			data.author_elem.css('font-weight', 'bold');
 		}
 
-		// /u/amazingpikachu_38 username special
-		if(data.author == 'amazingpikachu_38') {
-			data.author_elem
-				.html(`amazingpikachu_37 {:'-D ${Math.floor(Math.random() * 900000) + 100000}`)
-				.css('font-weight', 'bold');
+		// /u/dominodan123 username special (upside-down)
+		if(data.author == 'dominodan123') {
+			data.author_elem.css({
+				'-moz-transform': 'rotate(-180deg)',
+				'-o-transform': 'rotate(-180deg)',
+				'-webkit-transform': 'rotate(-180deg)',
+				'transform': 'rotate(-180deg)',
+				'display': 'inline-block',
+				'vertical-align': 'middle'
+			});
 		}
 
 		// Set username colour
