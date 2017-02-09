@@ -37,7 +37,8 @@ module ColoredUsernames {
 		'MewDP': '#FFFF33',
 		'DaveTheDave_': '#00BFFF',
 		'Luigi86101': '#006400',
-		'thetiredlemur': '#464942'
+		'thetiredlemur': '#464942',
+		'TheGlobeIsRound': '#0080ff'
 	};
 
 	// Possible colors for other users
