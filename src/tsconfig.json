@@ -13,7 +13,6 @@
 
 		// hidden options
 		"options/hidden/CtrlEnter.ts",
-		"options/hidden/DisableShortcuts.ts",
 
 		// basic options
 		"options/basic/ColoredUsernames.ts",
@@ -23,6 +22,7 @@
 		// advanced options
 		"options/advanced/DisableUsernameLinks.ts",
 		"options/advanced/LinksOpenNewTab.ts",
+		"options/advanced/DisableShortcuts.ts",
 		"options/advanced/ContentPosition.ts",
 		"options/advanced/StandardizeNumberFormat.ts"
 	]

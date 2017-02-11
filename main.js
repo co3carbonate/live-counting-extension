@@ -131,7 +131,7 @@ var Cookies = (function () {
 var Cookie;
 (function (Cookie) {
     // INITIALIZATION
-    var cookieVersion = '6';
+    var cookieVersion = '7';
     // Try to load existing cookie save data, or create a cookie with default data
     Cookie.saveDefaultOptions = false;
     var save_default = {
@@ -213,7 +213,7 @@ var Options;
 (function (Options) {
     // INITIALIZATION
     // Initialize new content in the options box
-    var $all_heading = $("\n\t\t<h1 style=\"font-size:16px;\">\n\t\t\t<a href=\"https://github.com/co3carbonate/live-counting-extension/blob/master/README.md#readme\" target=\"_blank\">Live Counting Extension v1.5.0</a> \n\t\t</h1>\n\t");
+    var $all_heading = $("\n\t\t<h1 style=\"font-size:16px;\">\n\t\t\t<a href=\"https://github.com/co3carbonate/live-counting-extension/blob/master/README.md#readme\" target=\"_blank\">Live Counting Extension v1.5.1</a> \n\t\t</h1>\n\t");
     var $options_heading = $("<h2>Options </h2>");
     var $options_basic_heading = $("<h2>Basic </h2>");
     var $options_advanced_heading = $("<h2>Advanced </h2>");
@@ -522,20 +522,6 @@ var CtrlEnter;
     }
 })(CtrlEnter || (CtrlEnter = {}));
 /////////////////////////
-// DisableShortcuts.ts //
-/////////////////////////
-// Disabling of certain obstructive browser keyboard shortcuts
-var DisableShortcuts;
-(function (DisableShortcuts) {
-    // EVENTS
-    $(document).on('keydown', function (e) {
-        // Ctrl+0 Zoom Reset
-        if (e.ctrlKey && e.keyCode == 48) {
-            e.preventDefault();
-        }
-    });
-})(DisableShortcuts || (DisableShortcuts = {}));
-/////////////////////////
 // ColoredUsernames.ts //
 /////////////////////////
 var ColoredUsernames;
@@ -730,6 +716,33 @@ var LinksOpenNewTab;
         }
     });
 })(LinksOpenNewTab || (LinksOpenNewTab = {}));
+/////////////////////////
+// DisableShortcuts.ts //
+/////////////////////////
+var DisableShortcuts;
+(function (DisableShortcuts) {
+    // INITIALIZATION
+    // Options
+    var enabled = true;
+    Options.addCheckbox({
+        label: 'DISABLE OBSTRUCTIVE BROWSER SHORTCUTS',
+        "default": true,
+        section: 'Advanced',
+        help: 'Disables certain obstructive browser keyboard shortcuts. This currently disables the following: Ctrl+0 (Zoom Reset)',
+        onchange: function () {
+            enabled = this.prop('checked');
+        }
+    });
+    // EVENTS
+    $(document).on('keydown', function (e) {
+        if (!enabled)
+            return;
+        // Ctrl+0 (Zoom Reset)
+        if (e.ctrlKey && e.keyCode == 48) {
+            e.preventDefault();
+        }
+    });
+})(DisableShortcuts || (DisableShortcuts = {}));
 ////////////////////////
 // ContentPosition.ts //
 ////////////////////////
