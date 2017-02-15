@@ -3,14 +3,20 @@
 		"outFile": "../main.js"
 	},
 	"files": [
+		"pre.ts",
+
+		// library
 		"lib/jquery.d.ts",
 		"lib/cookies.ts",
+
+		// core
 		"core/Cookie.ts",
 		"core/Elements.ts",
 		"core/Styles.ts",
 		"core/Options.ts",
 		"core/Update.ts",
 
+		// options
 		// hidden options
 		"options/hidden/CtrlEnter.ts",
 

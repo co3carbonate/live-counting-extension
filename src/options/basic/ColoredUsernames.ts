@@ -77,13 +77,21 @@ module ColoredUsernames {
 			data.author_elem.css('font-weight', 'bold');
 		}
 
-		// /u/amazingpikachu_38 username special (no username)
-		if(data.author == 'amazingpikachu_38') {
-			data.author_elem.css('display', 'none');
+		// /u/dominodan123 username special (upside down and bold)
+		if(data.author == 'dominodan123') {
+			data.author_elem.css({
+				'font-weight': 'bold',
+				'-moz-transform': 'rotate(-180deg)',
+				 '-o-transform': 'rotate(-180deg)',
+				 '-webkit-transform': 'rotate(-180deg)',
+				 'transform': 'rotate(-180deg)',
+				 'display': 'inline-block',
+				 'vertical-align': 'middle'
+			});
 		}
 
 		// Set username colour
-	    if(!userColors.hasOwnProperty(data.author)) {
+		if(!userColors.hasOwnProperty(data.author)) {
 			userColors[data.author] = colors[currentColor];
 			currentColor++;
 			if(currentColor == colors.length) {
