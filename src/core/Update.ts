@@ -70,6 +70,7 @@ module Update {
 				// Loop through new updates (if any)
 				$addedNodes.each(function(index, element) {
 					let $node:JQuery = $(element);
+					if($node.hasClass('preview')) return; // ignore preview messages (RemoveSubmissionLag.ts)
 
 					// Get data about the new update
 					let data:info = getUpdateInfo($node);

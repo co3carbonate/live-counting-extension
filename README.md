@@ -8,7 +8,7 @@ All the features are displayed on the top-right corner of the page. You can alwa
 
 ## Features
 
-Here is a list of features. Besides the 'innate' features, all of them can be disabled at will.
+Here is a list of features. Besides the 'hidden' features, all of them can be disabled at will.
 
 - Basic
  - Colored Usernames: Makes the username in each message gain a unique color
@@ -18,11 +18,12 @@ Here is a list of features. Besides the 'innate' features, all of them can be di
 - Advanced 
  - Disable Username Links: Disables the redirection to a user's profile upon clicking on his/her username
  - Make All Links Open In A New Tab: Makes all links on the page open in a new tab
+ - Remove Submission Lag [experimental]: When submitting a message, the textbox is immediately cleared to allow you to enter new contents without waiting for the submission to be processed
  - Disable Obstructive Browser Shortcuts: Disables certain obstructive browser keyboard shortcuts. This currently disables the following: Ctrl+0 (Zoom Reset)
  - Content Position: Adjusts the position of the main content section
  - Standardize Number Format: Standardizes the number count in each message to a format of your choice
  
-- Innate
+- Hidden
  - Ctrl+Enter Shortcut: Enables the use of a single shortcut Ctrl+Enter to conveniently send a message
 
 ## Installation

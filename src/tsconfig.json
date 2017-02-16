@@ -28,6 +28,7 @@
 		// advanced options
 		"options/advanced/DisableUsernameLinks.ts",
 		"options/advanced/LinksOpenNewTab.ts",
+		"options/advanced/RemoveSubmissionLag.ts",
 		"options/advanced/DisableShortcuts.ts",
 		"options/advanced/ContentPosition.ts",
 		"options/advanced/StandardizeNumberFormat.ts"

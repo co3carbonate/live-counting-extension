@@ -1,5 +1,5 @@
 /**
- * LIVE COUNTING EXTENSION V1.5.1
+ * LIVE COUNTING EXTENSION V1.5.2
  * (THIS CODE WAS GENERATED FROM THE TYPESCRIPT .TS FILES IN THE SRC DIRECTORY)
  */
 ////////////////
@@ -129,7 +129,7 @@ var Cookies = (function () {
 var Cookie;
 (function (Cookie) {
     // INITIALIZATION
-    var cookieVersion = '7';
+    var cookieVersion = '8';
     // Try to load existing cookie save data, or create a cookie with default data
     Cookie.saveDefaultOptions = false;
     var save_default = {
@@ -211,7 +211,7 @@ var Options;
 (function (Options) {
     // INITIALIZATION
     // Initialize new content in the options box
-    var $all_heading = $("\n\t\t<h1 style=\"font-size:16px;\">\n\t\t\t<a href=\"https://github.com/co3carbonate/live-counting-extension/blob/master/README.md#readme\" target=\"_blank\">Live Counting Extension v1.5.1</a> \n\t\t</h1>\n\t");
+    var $all_heading = $("\n\t\t<h1 style=\"font-size:16px;\">\n\t\t\t<a href=\"https://github.com/co3carbonate/live-counting-extension/blob/master/README.md#readme\" target=\"_blank\">Live Counting Extension v1.5.2</a> \n\t\t</h1>\n\t");
     var $options_heading = $("<h2>Options </h2>");
     var $options_basic_heading = $("<h2>Basic </h2>");
     var $options_advanced_heading = $("<h2>Advanced </h2>");
@@ -438,6 +438,8 @@ var Update;
                 // Loop through new updates (if any)
                 $addedNodes.each(function (index, element) {
                     var $node = $(element);
+                    if ($node.hasClass('preview'))
+                        return; // ignore preview messages (RemoveSubmissionLag.ts)
                     // Get data about the new update
                     var data = getUpdateInfo($node);
                     // Check if the update was loaded from top or bottom
@@ -722,6 +724,34 @@ var LinksOpenNewTab;
         }
     });
 })(LinksOpenNewTab || (LinksOpenNewTab = {}));
+////////////////////////////
+// RemoveSubmissionLag.ts //
+////////////////////////////
+var RemoveSubmissionLag;
+(function (RemoveSubmissionLag) {
+    // INITIALIZATION
+    var enabled = false;
+    var $textarea = $('#new-update-form textarea');
+    var $submitBtn = $('#new-update-form .save-button button');
+    // Options
+    Options.addCheckbox({
+        label: 'REMOVE SUBMISSION LAG [EXPERIMENTAL]',
+        section: 'Advanced',
+        "default": false,
+        help: 'When submitting a message, the textbox is immediately cleared to allow you to enter new contents without waiting for the submission to be processed.\n\nNote that this is still in the experimental state, as a mechanism to recover messages that are never processed has yet to be implemented.',
+        onchange: function () {
+            enabled = this.prop('checked');
+        }
+    });
+    // EVENTS
+    // When message is submitted
+    $submitBtn.on('click', function (e) {
+        if (!enabled)
+            return;
+        // Clear textbox
+        $textarea.val('');
+    });
+})(RemoveSubmissionLag || (RemoveSubmissionLag = {}));
 /////////////////////////
 // DisableShortcuts.ts //
 /////////////////////////

@@ -7,7 +7,7 @@
 module Cookie {
 
 	// INITIALIZATION
-	const cookieVersion = '7';
+	const cookieVersion = '8';
 
 	// Try to load existing cookie save data, or create a cookie with default data
 	export let saveDefaultOptions:boolean = false;
@@ -51,7 +51,6 @@ module Cookie {
 	export function update() {
 		Cookies.set('live-counting-extension', save, {expires: 9000});
 	}
-
 
 }
 

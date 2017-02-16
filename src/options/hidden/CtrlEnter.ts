@@ -7,7 +7,7 @@ module CtrlEnter {
 	// INITIALIZATION
 	let enabled:boolean = true;
 	let $textarea:JQuery = $('#new-update-form textarea');
-	let $submitBtn:JQuery = $('#new-update-form .save-button button')
+	let $submitBtn:JQuery = $('#new-update-form .save-button button');
 
 	// RES already has a ctrl-enter feature since v4.7.8
 	// Skip remaining actions if using a version higher than that

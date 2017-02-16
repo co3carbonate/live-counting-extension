@@ -8,7 +8,7 @@ module Options {
 	// Initialize new content in the options box
 	let $all_heading:JQuery = $(`
 		<h1 style="font-size:16px;">
-			<a href="https://github.com/co3carbonate/live-counting-extension/blob/master/README.md#readme" target="_blank">Live Counting Extension v1.5.1</a> 
+			<a href="https://github.com/co3carbonate/live-counting-extension/blob/master/README.md#readme" target="_blank">Live Counting Extension v1.5.2</a> 
 		</h1>
 	`);
 	let $options_heading:JQuery = $(`<h2>Options </h2>`);
