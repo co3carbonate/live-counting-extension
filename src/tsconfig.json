@@ -3,7 +3,7 @@
 		"outFile": "../main.js"
 	},
 	"files": [
-		"pre.ts",
+		"globals.ts",
 
 		// library
 		"lib/jquery.d.ts",

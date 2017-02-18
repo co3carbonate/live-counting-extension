@@ -57,6 +57,7 @@ module Update {
 	// Setup MutationObserver on Elements.$updates
 	let observer:MutationObserver = new MutationObserver(function(mutations:MutationRecord[]) {
 		// Loop through MutationRecords and call the functions in various arrays based on .type
+		// (Honestly the MutationRecord[] usually only contains one, but whatever)
 		for(let mutation of mutations) {
 
 			// Addition / removal of child elements

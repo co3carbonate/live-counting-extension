@@ -2,6 +2,7 @@
  * LIVE COUNTING EXTENSION V1.5.2
  * (THIS CODE WAS GENERATED FROM THE TYPESCRIPT .TS FILES IN THE SRC DIRECTORY)
  */
+var VERSION = 'v1.5.2';
 ////////////////
 // Cookies.ts //
 ////////////////
@@ -170,22 +171,29 @@ window.Cookie = Cookie;
 var Elements;
 (function (Elements) {
     // PROPERTIES
+    // Important elements
     Elements.$head = $('head');
     Elements.$body = $('body');
     Elements.$content = $('div.content');
     Elements.$updates = $('.liveupdate-listing');
     Elements.$options = $('#liveupdate-options');
     Elements.$sidebar = $('aside.sidebar');
+    Elements.$form = $('#new-update-form');
+    Elements.$textarea = Elements.$form.find('textarea');
+    Elements.$submitBtn = Elements.$form.find('.save-button button');
+    Elements.$submitError = Elements.$form.find('.save-button .error');
     // INITIALIZATION
     Elements.$body.attr('id', 'lc-body');
     // Prevent the larger $options from displacing the sidebar
     // with different behaviour depending on whether or not textbox exists
-    if ($('#new-update-form').length) {
-        $('#new-update-form').after('<div style="clear:both;"></div>');
+    if (Elements.$form.length) {
+        Elements.$form.after('<div style="clear:both;"></div>');
     }
     else {
         Elements.$options.after('<div style="clear:both;"></div>');
     }
+    // Make the submitError display default to none (important in RemoveSubmissionLag)
+    Elements.$submitError.css('display', 'inline');
 })(Elements || (Elements = {}));
 ;
 ///////////////
@@ -211,7 +219,7 @@ var Options;
 (function (Options) {
     // INITIALIZATION
     // Initialize new content in the options box
-    var $all_heading = $("\n\t\t<h1 style=\"font-size:16px;\">\n\t\t\t<a href=\"https://github.com/co3carbonate/live-counting-extension/blob/master/README.md#readme\" target=\"_blank\">Live Counting Extension v1.5.2</a> \n\t\t</h1>\n\t");
+    var $all_heading = $("\n\t\t<h1 style=\"font-size:16px;\">\n\t\t\t<a href=\"https://github.com/co3carbonate/live-counting-extension/blob/master/README.md#readme\" target=\"_blank\">Live Counting Extension " + VERSION + "</a> \n\t\t</h1>\n\t");
     var $options_heading = $("<h2>Options </h2>");
     var $options_basic_heading = $("<h2>Basic </h2>");
     var $options_advanced_heading = $("<h2>Advanced </h2>");
@@ -427,6 +435,7 @@ var Update;
     // Setup MutationObserver on Elements.$updates
     var observer = new MutationObserver(function (mutations) {
         // Loop through MutationRecords and call the functions in various arrays based on .type
+        // (Honestly the MutationRecord[] usually only contains one, but whatever)
         for (var _i = 0, mutations_1 = mutations; _i < mutations_1.length; _i++) {
             var mutation = mutations_1[_i];
             // Addition / removal of child elements
@@ -730,9 +739,8 @@ var LinksOpenNewTab;
 var RemoveSubmissionLag;
 (function (RemoveSubmissionLag) {
     // INITIALIZATION
+    var lastInput = '';
     var enabled = false;
-    var $textarea = $('#new-update-form textarea');
-    var $submitBtn = $('#new-update-form .save-button button');
     // Options
     Options.addCheckbox({
         label: 'REMOVE SUBMISSION LAG [EXPERIMENTAL]',
@@ -745,11 +753,44 @@ var RemoveSubmissionLag;
     });
     // EVENTS
     // When message is submitted
-    $submitBtn.on('click', function (e) {
+    Elements.$submitBtn.on('click', function (e) {
         if (!enabled)
             return;
         // Clear textbox
-        $textarea.val('');
+        Elements.$textarea.val('');
+        // This is a way to work around the issue where Reddit automatically clears the textbox
+        // when the update had been successfully delivered, although we just cleared it here.
+        // Call backupInput() whenever the textarea content is changed
+        Elements.$textarea.on('keydown keyup input', backupInput);
+    });
+    // In backupInput(), keep track of the last backed up textarea content, by storing in lastInput
+    function backupInput() {
+        lastInput = Elements.$textarea.val();
+    }
+    // Use MutationObserver on the 'error message' to detect when Reddit had cleared the textbox.
+    // When the error message's style changes from 'display: inline;' to 'display: none;', it
+    // is clear that Reddit had cleared the textbox.
+    // At this point, use the last backed-up input
+    var observer = new MutationObserver(function (mutations) {
+        if (!enabled)
+            return;
+        if (mutations.length != 1)
+            return;
+        // Exit if we think that Reddit had not cleared the textbox
+        var mutation = mutations[0];
+        if (!(mutation.oldValue == 'display: inline;' &&
+            Elements.$submitError.attr('style') == 'display: none;'))
+            return;
+        // Use the last backed-up input
+        Elements.$textarea.off('keydown keyup input', backupInput);
+        Elements.$textarea.val(lastInput);
+        lastInput = '';
+    });
+    observer.observe(Elements.$submitError.get(0), {
+        // observe for change in 'style' attribute value
+        attributes: true,
+        attributeOldValue: true,
+        attributeFilter: ['style']
     });
 })(RemoveSubmissionLag || (RemoveSubmissionLag = {}));
 /////////////////////////
