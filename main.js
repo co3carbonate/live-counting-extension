@@ -756,12 +756,14 @@ var RemoveSubmissionLag;
     Elements.$submitBtn.on('click', function (e) {
         if (!enabled)
             return;
-        // Clear textbox
-        Elements.$textarea.val('');
-        // This is a way to work around the issue where Reddit automatically clears the textbox
-        // when the update had been successfully delivered, although we just cleared it here.
-        // Call backupInput() whenever the textarea content is changed
-        Elements.$textarea.on('keydown keyup input', backupInput);
+        setTimeout(function () {
+            // Clear textbox
+            Elements.$textarea.val('');
+            // This is a way to work around the issue where Reddit automatically clears the textbox
+            // when the update had been successfully delivered, although we just cleared it here.
+            // Call backupInput() whenever the textarea content is changed
+            Elements.$textarea.on('keydown keyup input', backupInput);
+        }, 0);
     });
     // In backupInput(), keep track of the last backed up textarea content, by storing in lastInput
     function backupInput() {
