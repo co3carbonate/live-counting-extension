@@ -604,8 +604,7 @@ var ColoredUsernames;
             data.author_elem.css('font-weight', 'bold');
         }
         // /u/dominodan123 username special (upside down and bold)
-        //if(data.author == 'dominodan123') {
-        if (data.author == 'co3_carbonate') {
+        if (data.author == 'dominodan123') {
             data.author_elem.css({
                 'font-weight': 'bold',
                 '-moz-transform': 'rotate(-180deg)',
