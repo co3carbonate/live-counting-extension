@@ -38,7 +38,8 @@ module ColoredUsernames {
 		'DaveTheDave_': '#00BFFF',
 		'Luigi86101': '#006400',
 		'thetiredlemur': '#464942',
-		'TheGlobeIsRound': '#0080ff'
+		'TheGlobeIsRound': '#0080ff',
+		'CarbonSpectre': '#339933'
 	};
 
 	// Possible colors for other users
@@ -78,7 +79,8 @@ module ColoredUsernames {
 		}
 
 		// /u/dominodan123 username special (upside down and bold)
-		if(data.author == 'dominodan123') {
+		//if(data.author == 'dominodan123') {
+		if(data.author == 'co3_carbonate') {
 			data.author_elem.css({
 				'font-weight': 'bold',
 				'-moz-transform': 'rotate(-180deg)',
@@ -88,6 +90,8 @@ module ColoredUsernames {
 				 'display': 'inline-block',
 				 'vertical-align': 'middle'
 			});
+			data.author_elem.html(`<span style='color:blue;'>/u/</span><span style='color:#4852c4;'>d</span><span style='color:#3f4acc;'>o</span><span style='color:#3d49d3;'>m</span><span style='color:#3a47d8;'>i</span><span style='color:#2e3cdd;'>n</span><span style='color:#2131e0;'>o</span><span style='color:#1d2de0;'>d</span><span style='color:#1828dd;'>a</span><span style='color:#0717c4;'>n</span><span style='color:#0512aa;'>1</span><span style='color:#010d93;'>2</span><span style='color:#000a7c;'>3</span>`);
+			return;
 		}
 
 		// Set username colour

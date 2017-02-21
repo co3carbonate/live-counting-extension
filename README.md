@@ -18,7 +18,7 @@ Here is a list of features. Besides the 'hidden' features, all of them can be di
 - Advanced 
  - Disable Username Links: Disables the redirection to a user's profile upon clicking on his/her username
  - Make All Links Open In A New Tab: Makes all links on the page open in a new tab
- - Remove Submission Lag [experimental]: When submitting a message, the textbox is immediately cleared to allow you to enter new contents without waiting for the submission to be processed
+ - Remove Submission Lag [Experimental]: When submitting a message, the textbox is immediately cleared to allow you to enter new contents without waiting for the submission to be processed
  - Disable Obstructive Browser Shortcuts: Disables certain obstructive browser keyboard shortcuts. This currently disables the following: Ctrl+0 (Zoom Reset)
  - Content Position: Adjusts the position of the main content section
  - Standardize Number Format: Standardizes the number count in each message to a format of your choice
@@ -63,3 +63,4 @@ Here is a list of features. Besides the 'hidden' features, all of them can be di
   - v1.5.0: Added tooltips to every option for clear information on what they do
   - v1.5.0: Started using minor versioning
   - v1.5.1: Made the "Disable Obstructive Browser Shortcuts" option visible and under Advanced
+  - v1.5.2: Added an experimental "Remove Submission Lag" feature
