@@ -614,7 +614,7 @@ var ColoredUsernames;
                 'display': 'inline-block',
                 'vertical-align': 'middle'
             });
-            data.author_elem.html("<span style='color:blue;'>/u/</span><span style='color:#4852c4;'>d</span><span style='color:#3f4acc;'>o</span><span style='color:#3d49d3;'>m</span><span style='color:#3a47d8;'>i</span><span style='color:#2e3cdd;'>n</span><span style='color:#2131e0;'>o</span><span style='color:#1d2de0;'>d</span><span style='color:#1828dd;'>a</span><span style='color:#0717c4;'>n</span><span style='color:#0512aa;'>1</span><span style='color:#010d93;'>2</span><span style='color:#000a7c;'>3</span>");
+            data.author_elem.html("<span style='color:#ccccff;'>/u/</span><span style='color:#b3b3ff;'>d</span><span style='color:#9999ff;'>o</span><span style='color:#8080ff;'>m</span><span style='color:#6666ff;'>i</span><span style='color:#4d4dff;'>n</span><span style='color:#3333ff;'>o</span><span style='color:#1a1aff;'>d</span><span style='color:#0000ff;'>a</span><span style='color:#0000e6;'>n</span><span style='color:#0000b3;'>1</span><span style='color:#000080;'>2</span><span style='color:#000033;'>3</span>");
             return;
         }
         // Set username colour
@@ -810,7 +810,7 @@ var DisableShortcuts;
         label: 'DISABLE OBSTRUCTIVE BROWSER SHORTCUTS',
         "default": true,
         section: 'Advanced',
-        help: 'Disables certain obstructive browser keyboard shortcuts. This currently disables the following: Ctrl+0 (Zoom Reset)',
+        help: 'Disables certain obstructive browser keyboard shortcuts. This currently disables the following: Ctrl+0 (Zoom Reset), Ctrl+[1-9] (Switch Tabs)',
         onchange: function () {
             enabled = this.prop('checked');
         }
@@ -819,9 +819,14 @@ var DisableShortcuts;
     $(document).on('keydown', function (e) {
         if (!enabled)
             return;
-        // Ctrl+0 (Zoom Reset)
-        if (e.ctrlKey && e.keyCode == 48) {
-            e.preventDefault();
+        // Ctrl Hotkeys
+        if (e.ctrlKey) {
+            // Ctrl+0 (Zoom Reset)
+            if (e.keyCode == 48)
+                e.preventDefault();
+            // Ctrl+[1-9] (Switch Tabs)
+            if (e.keyCode >= 49 && e.keyCode <= 57)
+                e.preventDefault();
         }
     });
 })(DisableShortcuts || (DisableShortcuts = {}));

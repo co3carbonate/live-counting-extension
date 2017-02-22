@@ -11,7 +11,7 @@ module DisableShortcuts {
 		label: 'DISABLE OBSTRUCTIVE BROWSER SHORTCUTS',
 		default: true,
 		section: 'Advanced',
-		help: 'Disables certain obstructive browser keyboard shortcuts. This currently disables the following: Ctrl+0 (Zoom Reset)',
+		help: 'Disables certain obstructive browser keyboard shortcuts. This currently disables the following: Ctrl+0 (Zoom Reset), Ctrl+[1-9] (Switch Tabs)',
 		onchange: function() {
 			enabled = this.prop('checked');
 		}
@@ -21,9 +21,14 @@ module DisableShortcuts {
 	$(document).on('keydown', function(e) {
 		if(!enabled) return;
 
-		// Ctrl+0 (Zoom Reset)
-		if(e.ctrlKey && e.keyCode == 48) {
-			e.preventDefault();
+		// Ctrl Hotkeys
+		if(e.ctrlKey) {
+			
+			// Ctrl+0 (Zoom Reset)
+			if(e.keyCode == 48) e.preventDefault();
+
+			// Ctrl+[1-9] (Switch Tabs)
+			if(e.keyCode >= 49 && e.keyCode <= 57) e.preventDefault();
 		}
 
 		
