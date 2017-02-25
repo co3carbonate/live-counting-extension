@@ -603,19 +603,15 @@ var ColoredUsernames;
         if (data.author == 'co3_carbonate' || data.author == 'rschaosid') {
             data.author_elem.css('font-weight', 'bold');
         }
-        // /u/dominodan123 username special (upside down and bold)
-        if (data.author == 'dominodan123') {
+        // /u/amazingpikachu_38 username special (bold, italic, underline, stricken, superscript)
+        if (data.author == 'amazingpikachu_38') {
             data.author_elem.css({
-                'font-weight': 'bold',
-                '-moz-transform': 'rotate(-180deg)',
-                '-o-transform': 'rotate(-180deg)',
-                '-webkit-transform': 'rotate(-180deg)',
-                'transform': 'rotate(-180deg)',
-                'display': 'inline-block',
-                'vertical-align': 'middle'
+                fontWeight: 'bold',
+                textDecoration: 'line-through',
+                fontStyle: 'italic',
+                verticalAlign: 'super',
+                fontSize: '10px'
             });
-            data.author_elem.html("<span style='color:#ccccff;'>/u/</span><span style='color:#b3b3ff;'>d</span><span style='color:#9999ff;'>o</span><span style='color:#8080ff;'>m</span><span style='color:#6666ff;'>i</span><span style='color:#4d4dff;'>n</span><span style='color:#3333ff;'>o</span><span style='color:#1a1aff;'>d</span><span style='color:#0000ff;'>a</span><span style='color:#0000e6;'>n</span><span style='color:#0000b3;'>1</span><span style='color:#000080;'>2</span><span style='color:#000033;'>3</span>");
-            return;
         }
         // Set username colour
         if (!userColors.hasOwnProperty(data.author)) {
