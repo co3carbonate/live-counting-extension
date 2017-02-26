@@ -603,7 +603,7 @@ var ColoredUsernames;
         if (data.author == 'co3_carbonate' || data.author == 'rschaosid') {
             data.author_elem.css('font-weight', 'bold');
         }
-        // /u/amazingpikachu_38 username special (bold, italic, underline, stricken, superscript)
+        // /u/amazingpikachu_38 username special (bold, italic, underline, stricken, superscript, and change to 'amazingpikachu_37')
         if (data.author == 'amazingpikachu_38') {
             data.author_elem.css({
                 fontWeight: 'bold',
@@ -612,6 +612,7 @@ var ColoredUsernames;
                 verticalAlign: 'super',
                 fontSize: '10px'
             });
+            data.author_elem.html('/u/amazingpikachu_37');
         }
         // Set username colour
         if (!userColors.hasOwnProperty(data.author)) {
