@@ -7,7 +7,8 @@
 
 		// library
 		"lib/jquery.d.ts",
-		"lib/cookies.ts",
+		"lib/Cookies.ts",
+		"lib/SnuOwnd.ts",
 
 		// core
 		"core/Cookie.ts",
@@ -22,13 +23,13 @@
 
 		// basic options
 		"options/basic/ColoredUsernames.ts",
+		"options/basic/RemoveSubmissionLag.ts",
 		"options/basic/ClearPastMessages.ts",
 		"options/basic/DisplayMode.ts",
 
 		// advanced options
 		"options/advanced/DisableUsernameLinks.ts",
 		"options/advanced/LinksOpenNewTab.ts",
-		"options/advanced/RemoveSubmissionLag.ts",
 		"options/advanced/DisableShortcuts.ts",
 		"options/advanced/ContentPosition.ts",
 		"options/advanced/StandardizeNumberFormat.ts"

@@ -19,8 +19,8 @@ module Update {
 		let data:info = {
 			elem: $node,
 			author: $node.find('.body > .author').text(),
-			author_elem: $node.find('.body > .author'),
-			body_elem: $node.find('.body > .md')
+			body_elem: $node.find('.body > .md'),
+			author_elem: $node.find('.body > .author')
 		};
 
 		if(data.author) data.author = data.author.trim().replace('/u/', '');

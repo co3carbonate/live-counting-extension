@@ -7,7 +7,7 @@
 module Cookie {
 
 	// INITIALIZATION
-	const cookieVersion = '8';
+	const cookieVersion = '9';
 
 	// Try to load existing cookie save data, or create a cookie with default data
 	export let saveDefaultOptions:boolean = false;

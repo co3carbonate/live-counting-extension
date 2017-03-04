@@ -12,13 +12,13 @@ Here is a list of features. Besides the 'hidden' features, all of them can be di
 
 - Basic
  - Colored Usernames: Makes the username in each message gain a unique color
+ - Remove Submission Lag: Upon submitting a message, the textbox is immediately cleared to allow you to enter new contents without waiting for your previous submission to be processed
  - Clear Past Messages: Frequently clears past messages from the page, which drastically negates lag and reduces the need to refresh constantly
  - Display Mode: Changes the display interface of the page to your preference
 
 - Advanced 
  - Disable Username Links: Disables the redirection to a user's profile upon clicking on his/her username
  - Make All Links Open In A New Tab: Makes all links on the page open in a new tab
- - Remove Submission Lag [Experimental]: When submitting a message, the textbox is immediately cleared to allow you to enter new contents without waiting for the submission to be processed
  - Disable Obstructive Browser Shortcuts: Disables certain obstructive browser keyboard shortcuts. This currently disables the following: Ctrl+0 (Zoom Reset), Ctrl+\[1-9\] (Switch Tabs)
  - Content Position: Adjusts the position of the main content section
  - Standardize Number Format: Standardizes the number count in each message to a format of your choice
@@ -65,3 +65,4 @@ Here is a list of features. Besides the 'hidden' features, all of them can be di
   - v1.5.1: Made the "Disable Obstructive Browser Shortcuts" option visible and under Advanced
   - v1.5.2: Added an experimental "Remove Submission Lag" feature
   - v1.5.2: Made the "Disable Obstructive Browser Shortcuts" option disable Ctrl+\[1-9\] (Switch Tabs) shortcut
+  - v1.5.3: Added a preview message mechanism for the "Remove Submission Lag" feature, made it "Basic" and no longer experimental
