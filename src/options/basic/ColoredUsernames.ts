@@ -78,16 +78,9 @@ module ColoredUsernames {
 			data.author_elem.css('font-weight', 'bold');
 		}
 
-		// /u/amazingpikachu_38 username special (bold, italic, underline, stricken, superscript, and change to 'amazingpikachu_37')
+		// /u/amazingpikachu_38 username special (blinking username)
 		if(data.author == 'amazingpikachu_38') {
-			data.author_elem.css({
-				fontWeight: 'bold',
-				textDecoration: 'line-through',
-				fontStyle: 'italic',
-				verticalAlign: 'super',
-				fontSize: '10px'
-			});
-			data.author_elem.html('/u/amazingpikachu_37');
+			data.author_elem.addClass('amazingpikachu_38')
 		}
 
 		// Set username colour
@@ -95,10 +88,21 @@ module ColoredUsernames {
 			userColors[data.author] = colors[currentColor];
 			currentColor++;
 			if(currentColor == colors.length) {
-				currentColor = 0;   
+				currentColor = 0;
 			}
 		}
 		data.author_elem.css('color', userColors[data.author]);
 	});
 
+	// /u/amazingpikachu_38 username blinking css class
+	Styles.add(`
+
+	.amazingpikachu_38 {
+		animation: blinker 1s linear infinite;
+	}
+	@keyframes blinker {
+		50% { opacity: 0; }
+	}
+
+	`);
 }

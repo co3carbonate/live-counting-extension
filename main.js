@@ -603,16 +603,9 @@ var ColoredUsernames;
         if (data.author == 'co3_carbonate' || data.author == 'rschaosid') {
             data.author_elem.css('font-weight', 'bold');
         }
-        // /u/amazingpikachu_38 username special (bold, italic, underline, stricken, superscript, and change to 'amazingpikachu_37')
+        // /u/amazingpikachu_38 username special (blinking username)
         if (data.author == 'amazingpikachu_38') {
-            data.author_elem.css({
-                fontWeight: 'bold',
-                textDecoration: 'line-through',
-                fontStyle: 'italic',
-                verticalAlign: 'super',
-                fontSize: '10px'
-            });
-            data.author_elem.html('/u/amazingpikachu_37');
+            data.author_elem.addClass('amazingpikachu_38');
         }
         // Set username colour
         if (!userColors.hasOwnProperty(data.author)) {
@@ -624,6 +617,8 @@ var ColoredUsernames;
         }
         data.author_elem.css('color', userColors[data.author]);
     });
+    // /u/amazingpikachu_38 username blinking css class
+    Styles.add("\n\n\t.amazingpikachu_38 {\n\t\tanimation: blinker 1s linear infinite;\n\t}\n\t@keyframes blinker {\n\t\t50% { opacity: 0; }\n\t}\n\n\t");
 })(ColoredUsernames || (ColoredUsernames = {}));
 //////////////////////////
 // ClearPastMessages.ts //
