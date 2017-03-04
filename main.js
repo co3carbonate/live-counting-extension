@@ -319,6 +319,12 @@ var SnuOwnd = {};
             if (src[i] == '/' && !secure) {
                 out.s += '/';
             }
+            else if (src[i] == '\'') {
+                out.s += '\'';
+            }
+            else if (src[i] == '"') {
+                out.s += '"';
+            }
             else if (HTML_ESCAPE_TABLE[src.charCodeAt(i)] == 7) {
             }
             else {

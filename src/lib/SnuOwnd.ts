@@ -211,6 +211,10 @@ let SnuOwnd:any = {};
 			/* The forward slash is only escaped in secure mode */
 			if (src[i] == '/' && !secure) {
 				out.s += '/';
+			} else if(src[i] == '\'') {
+				out.s += '\'';
+			} else if(src[i] == '"') {
+				out.s += '"';
 			} else if (HTML_ESCAPE_TABLE[src.charCodeAt(i)] == 7) {
 				/* skip control characters */
 			} else {
