@@ -1054,7 +1054,7 @@ var SnuOwnd = {};
     exports.createCustomRenderer = createCustomRenderer;
     function defaultRenderState() {
         return {
-            nofollow: 0,
+            nofollow: /*0*/ 1,
             target: null,
             tocData: {
                 headerCount: 0,
@@ -4347,8 +4347,10 @@ var RemoveSubmissionLag;
         // loop through the preview messages (trimmed and without linebreaks),
         // and if the contents are the same, delete the preview message
         var body = data.body_elem.html().replace(/(\r\n|\n|\r)/gm, "").trim();
+        console.log(body);
         var to_delete = -1;
         for (var i = 0; i < previews.length; i++) {
+            console.log(previews[i].html.trim().replace(/(\r\n|\n|\r)/gm, ""));
             if (previews[i].html.trim().replace(/(\r\n|\n|\r)/gm, "") == body) {
                 to_delete = i;
                 break;

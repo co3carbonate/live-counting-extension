@@ -140,9 +140,11 @@ module RemoveSubmissionLag {
 		// loop through the preview messages (trimmed and without linebreaks),
 		// and if the contents are the same, delete the preview message
 		let body:string = data.body_elem.html().replace(/(\r\n|\n|\r)/gm,"").trim();
+		console.log(body);
 
 		let to_delete:number = -1;
 		for(let i:number = 0; i < previews.length; i++) {
+			console.log(previews[i].html.trim().replace(/(\r\n|\n|\r)/gm,""));
 			if(previews[i].html.trim().replace(/(\r\n|\n|\r)/gm,"") == body) {
 				to_delete = i;
 				break;

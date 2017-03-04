@@ -994,7 +994,7 @@ let SnuOwnd:any = {};
 
 	function defaultRenderState() {
 		return {
-			nofollow: 0,
+			nofollow: /*0*/1,
 			target: null,
 			tocData: {
 				headerCount: 0,
