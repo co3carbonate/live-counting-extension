@@ -8,13 +8,15 @@ module DisplayMode {
 	Elements.$body.attr('data-DisplayMode', 'Normal');
 
 	// "Return to Normal Display" button
-	let $returnBtn:JQuery = $('<input type="button" value="&lt; Return to Normal Display"/>');
+	let $returnBtn:JQuery = $('<input type="button" value="Return to Normal Display"/>');
 	$returnBtn.on('click', function() {
 		$select.children('option[value="Normal"]').prop('selected', true).trigger('change');
 	});
-	$returnBtn
-		.css('margin-bottom', '20px')
-		.css('display', 'none');
+	$returnBtn.css({
+		marginBottom: '20px',
+		display: 'none',
+		margin: '0 auto'
+	});
 
 	Elements.$content.prepend($returnBtn);
 

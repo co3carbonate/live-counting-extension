@@ -7,10 +7,11 @@
 module Cookie {
 
 	// INITIALIZATION
+	const cookieName = `LCE_${THREAD}`;
 	const cookieVersion = '9';
 
 	// Try to load existing cookie save data, or create a cookie with default data
-	export let saveDefaultOptions:boolean = false;
+	export let saveDefaultOptions:boolean = true;
 	
 	interface save_struct {
 		version:string;
@@ -24,7 +25,21 @@ module Cookie {
 		stats: {},
 		collapsed: [false, false, false, true]
 	}
-	export let save:save_struct = Cookies.getJSON('live-counting-extension');
+	export let save:save_struct = Cookies.getJSON(cookieName);
+	
+	// In versions prior to 1.5.3, the extension used the cookie 'live-counting-extension'
+	// instead of 'LCE_{THREAD}'.
+	// To provide support for clients who had last used the extension at that point in time,
+	// we shall copy the contents of the cookie 'live-counting-extension' to 'LCE_{THREAD}'.
+	let oldCookie:string = Cookies.get('live-counting-extension');
+	if(oldCookie !== undefined && oldCookie !== null) {
+		if(save === undefined || save === null) {
+			Cookies.set(cookieName, oldCookie, {expires: 9000, path: ''});
+			save = Cookies.getJSON(cookieName);
+		}
+		Cookies.remove('live-counting-extension', {path: ''});
+	}
+
 
 	// Create new cookie as it does not exist
 	if(save === undefined || save === null) {
@@ -44,15 +59,14 @@ module Cookie {
 		}
 
 		update();
-	}
+	} 
 
 	// METHODS
 	// Set the cookie value to `save`
 	export function update() {
-		Cookies.set('live-counting-extension', save, {expires: 9000});
+		Cookies.set(cookieName, save, {expires: 9000, path: ''});
 	}
 
 }
 
 (window as any).Cookies = Cookies;
-(window as any).Cookie = Cookie;

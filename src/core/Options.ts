@@ -121,8 +121,10 @@ module Options {
 
 		// Default value handling (cookie)
 		let checked:boolean = defaultChecked; 
-		if(Cookie.saveDefaultOptions && !Cookie.save.options.hasOwnProperty(label))
+		if(Cookie.saveDefaultOptions && !Cookie.save.options.hasOwnProperty(label)) {
 			Cookie.save.options[label] = checked;
+			Cookie.update();
+		}
 		else
 			checked = Cookie.save.options[label] as boolean;
 
@@ -180,8 +182,10 @@ module Options {
 		// Default value handling (cookie)
 		let defaultVal:string = options[selectedIndex];
 		let selectedVal:string = defaultVal;
-		if(Cookie.saveDefaultOptions && !Cookie.save.options.hasOwnProperty(label))
+		if(Cookie.saveDefaultOptions && !Cookie.save.options.hasOwnProperty(label)) {
 			Cookie.save.options[label] = selectedVal;
+			Cookie.update();
+		}
 		else
 			selectedVal = Cookie.save.options[label] as string;
 

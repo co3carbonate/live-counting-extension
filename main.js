@@ -2,8 +2,20 @@
  * LIVE COUNTING EXTENSION V1.5.3
  * (THIS CODE WAS GENERATED FROM THE TYPESCRIPT .TS FILES IN THE SRC DIRECTORY)
  */
+// CONSTANTS
+// Extension version
 var VERSION = 'v1.5.3';
+// Client's username
 var USER = $('#header .user a[href]').html();
+// Thread ID
+var THREAD = (function () {
+    var components = window.location.pathname.split('/');
+    for (var i = components.length - 1; i >= 0; i--) {
+        var component = components[i].trim();
+        if (component.length > 0)
+            return component.replace(/^.*\/([^/]*)/, "$1");
+    }
+})();
 ////////////////
 // Cookies.ts //
 ////////////////
@@ -3752,16 +3764,29 @@ var SnuOwnd = {};
 var Cookie;
 (function (Cookie) {
     // INITIALIZATION
+    var cookieName = "LCE_" + THREAD;
     var cookieVersion = '9';
     // Try to load existing cookie save data, or create a cookie with default data
-    Cookie.saveDefaultOptions = false;
+    Cookie.saveDefaultOptions = true;
     var save_default = {
         version: cookieVersion,
         options: {},
         stats: {},
         collapsed: [false, false, false, true]
     };
-    Cookie.save = Cookies.getJSON('live-counting-extension');
+    Cookie.save = Cookies.getJSON(cookieName);
+    // In versions prior to 1.5.3, the extension used the cookie 'live-counting-extension'
+    // instead of 'LCE_{THREAD}'.
+    // To provide support for clients who had last used the extension at that point in time,
+    // we shall copy the contents of the cookie 'live-counting-extension' to 'LCE_{THREAD}'.
+    var oldCookie = Cookies.get('live-counting-extension');
+    if (oldCookie !== undefined && oldCookie !== null) {
+        if (Cookie.save === undefined || Cookie.save === null) {
+            Cookies.set(cookieName, oldCookie, { expires: 9000, path: '' });
+            Cookie.save = Cookies.getJSON(cookieName);
+        }
+        Cookies.remove('live-counting-extension', { path: '' });
+    }
     // Create new cookie as it does not exist
     if (Cookie.save === undefined || Cookie.save === null) {
         Cookie.saveDefaultOptions = true;
@@ -3781,12 +3806,11 @@ var Cookie;
     // METHODS
     // Set the cookie value to `save`
     function update() {
-        Cookies.set('live-counting-extension', Cookie.save, { expires: 9000 });
+        Cookies.set(cookieName, Cookie.save, { expires: 9000, path: '' });
     }
     Cookie.update = update;
 })(Cookie || (Cookie = {}));
 window.Cookies = Cookies;
-window.Cookie = Cookie;
 /////////////////
 // Elements.ts //
 /////////////////
@@ -3905,8 +3929,10 @@ var Options;
         var label = properties["label"], section = properties["section"], onchange = properties["onchange"], defaultChecked = properties["default"], help = properties["help"];
         // Default value handling (cookie)
         var checked = defaultChecked;
-        if (Cookie.saveDefaultOptions && !Cookie.save.options.hasOwnProperty(label))
+        if (Cookie.saveDefaultOptions && !Cookie.save.options.hasOwnProperty(label)) {
             Cookie.save.options[label] = checked;
+            Cookie.update();
+        }
         else
             checked = Cookie.save.options[label];
         // Create label and checkbox
@@ -3949,8 +3975,10 @@ var Options;
         // Default value handling (cookie)
         var defaultVal = options[selectedIndex];
         var selectedVal = defaultVal;
-        if (Cookie.saveDefaultOptions && !Cookie.save.options.hasOwnProperty(label))
+        if (Cookie.saveDefaultOptions && !Cookie.save.options.hasOwnProperty(label)) {
             Cookie.save.options[label] = selectedVal;
+            Cookie.update();
+        }
         else
             selectedVal = Cookie.save.options[label];
         // Create label, select, and options
@@ -4412,13 +4440,15 @@ var DisplayMode;
     // INITIALIZATION
     Elements.$body.attr('data-DisplayMode', 'Normal');
     // "Return to Normal Display" button
-    var $returnBtn = $('<input type="button" value="&lt; Return to Normal Display"/>');
+    var $returnBtn = $('<input type="button" value="Return to Normal Display"/>');
     $returnBtn.on('click', function () {
         $select.children('option[value="Normal"]').prop('selected', true).trigger('change');
     });
-    $returnBtn
-        .css('margin-bottom', '20px')
-        .css('display', 'none');
+    $returnBtn.css({
+        marginBottom: '20px',
+        display: 'none',
+        margin: '0 auto'
+    });
     Elements.$content.prepend($returnBtn);
     // Options
     var $select = Options.addSelect({
