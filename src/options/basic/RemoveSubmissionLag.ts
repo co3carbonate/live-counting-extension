@@ -27,7 +27,7 @@ module RemoveSubmissionLag {
 	Styles.add(`
 
 	.liveupdate-listing li.liveupdate.preview {
-		opacity: 0.5;
+		opacity: 0.75;
 	}
 	.liveupdate-listing li.liveupdate.preview .live-timestamp {
 		visibility: hidden;
@@ -65,7 +65,7 @@ module RemoveSubmissionLag {
 				</li>
 			`).append($buttonRow);
 			previews.push({
-				html: html,
+				html: html.trim().replace(/(\r\n|\n|\r)/gm,""),
 				elem: $elem
 			});
 			Elements.$updates.prepend($elem);
@@ -130,22 +130,34 @@ module RemoveSubmissionLag {
 		attributeFilter: ['style']
 	});
 
-	// When new message is loaded and is by this user,
-	// check if we can delete a preview message
+	// When new message is loaded and is by this user, check if we can delete the corresponding 
+	// preview message.
+	// If it is by another user, push all the preview messages to the front (in the right order), 
+	// so that they seem to always be on top.
 	Update.loadedNew(function(data:Update.info) {
 		if(!enabled) return;
-		if(data.author != USER) return; // message must be from this user
+
+		let l:number = previews.length; // number of preview messages
+
+		if(data.author != USER) {
+			// Message not from this user
+			// Attempt to bring all the preview messages to the front and exit
+			for(let i:number = 0; i < l; i++) {
+				Elements.$updates.prepend(previews[i].elem);
+			}
+			return;
+		}
 
 		// Get the contents of the user's message (trimmed and without linebreaks),
 		// loop through the preview messages (trimmed and without linebreaks),
 		// and if the contents are the same, delete the preview message
 		let body:string = data.body_elem.html().replace(/(\r\n|\n|\r)/gm,"").trim();
-		console.log(body);
+		//console.log(body);
 
 		let to_delete:number = -1;
-		for(let i:number = 0; i < previews.length; i++) {
-			console.log(previews[i].html.trim().replace(/(\r\n|\n|\r)/gm,""));
-			if(previews[i].html.trim().replace(/(\r\n|\n|\r)/gm,"") == body) {
+		for(let i:number = 0; i < l; i++) {
+			//console.log(previews[i].html);
+			if(previews[i].html == body) {
 				to_delete = i;
 				break;
 			}

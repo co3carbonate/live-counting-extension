@@ -4262,7 +4262,7 @@ var RemoveSubmissionLag;
         }
     });
     // Styles
-    Styles.add("\n\n\t.liveupdate-listing li.liveupdate.preview {\n\t\topacity: 0.5;\n\t}\n\t.liveupdate-listing li.liveupdate.preview .live-timestamp {\n\t\tvisibility: hidden;\n\t}\n\n\t");
+    Styles.add("\n\n\t.liveupdate-listing li.liveupdate.preview {\n\t\topacity: 0.75;\n\t}\n\t.liveupdate-listing li.liveupdate.preview .live-timestamp {\n\t\tvisibility: hidden;\n\t}\n\n\t");
     // EVENTS
     // When message is submitted
     Elements.$submitBtn.on('click', function (e) {
@@ -4279,7 +4279,7 @@ var RemoveSubmissionLag;
             var $buttonRow = $("\n\t\t\t\t<ul class=\"buttonrow\">\n\t\t\t\t\t<li><button>retry</button></li>\n\t\t\t\t\t<li><button>cancel</button></li>\n\t\t\t\t</ul>\n\t\t\t");
             var $elem = $("\n\t\t\t\t<li class=\"liveupdate preview\">\n\t\t\t\t\t<a href=\"#\"><time class=\"live-timestamp\"></time></a>\n\t\t\t\t\t<div class=\"body\">\n\t\t\t\t\t\t<div class=\"md\">\n\t\t\t\t\t\t\t" + html + "\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</li>\n\t\t\t").append($buttonRow);
             previews.push({
-                html: html,
+                html: html.trim().replace(/(\r\n|\n|\r)/gm, ""),
                 elem: $elem
             });
             Elements.$updates.prepend($elem);
@@ -4336,22 +4336,31 @@ var RemoveSubmissionLag;
         attributeOldValue: true,
         attributeFilter: ['style']
     });
-    // When new message is loaded and is by this user,
-    // check if we can delete a preview message
+    // When new message is loaded and is by this user, check if we can delete the corresponding 
+    // preview message.
+    // If it is by another user, push all the preview messages to the front (in the right order), 
+    // so that they seem to always be on top.
     Update.loadedNew(function (data) {
         if (!enabled)
             return;
-        if (data.author != USER)
-            return; // message must be from this user
+        var l = previews.length; // number of preview messages
+        if (data.author != USER) {
+            // Message not from this user
+            // Attempt to bring all the preview messages to the front and exit
+            for (var i = 0; i < l; i++) {
+                Elements.$updates.prepend(previews[i].elem);
+            }
+            return;
+        }
         // Get the contents of the user's message (trimmed and without linebreaks),
         // loop through the preview messages (trimmed and without linebreaks),
         // and if the contents are the same, delete the preview message
         var body = data.body_elem.html().replace(/(\r\n|\n|\r)/gm, "").trim();
-        console.log(body);
+        //console.log(body);
         var to_delete = -1;
-        for (var i = 0; i < previews.length; i++) {
-            console.log(previews[i].html.trim().replace(/(\r\n|\n|\r)/gm, ""));
-            if (previews[i].html.trim().replace(/(\r\n|\n|\r)/gm, "") == body) {
+        for (var i = 0; i < l; i++) {
+            //console.log(previews[i].html);
+            if (previews[i].html == body) {
                 to_delete = i;
                 break;
             }
