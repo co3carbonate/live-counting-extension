@@ -3765,7 +3765,7 @@ var Cookie;
 (function (Cookie) {
     // INITIALIZATION
     var cookieName = "LCE_" + THREAD;
-    var cookieVersion = '9';
+    var cookieVersion = '10';
     // Try to load existing cookie save data, or create a cookie with default data
     Cookie.saveDefaultOptions = true;
     var save_default = {
@@ -4275,17 +4275,20 @@ var RemoveSubmissionLag;
     // INITIALIZATION
     var lastInput = '';
     var enabled = true;
+    var ghostEnabled = true;
     var previews = [];
     // Options
-    Options.addCheckbox({
+    Options.addSelect({
         label: 'REMOVE SUBMISSION LAG',
-        section: 'Basic',
-        "default": true,
-        help: 'Upon submitting a message, the textbox is immediately cleared to allow you to enter new contents without waiting for your previous submission to be processed.',
+        options: ['Enabled', 'Enabled without Ghost Messages', 'Disabled'],
+        "default": 0,
+        help: 'Upon submitting a message, the textbox is immediately cleared to allow you to enter new contents without waiting for your previous submission to be processed.\n\nThe ghost messages are to prevent messages from being permanently lost if they had failed to deliver. You can enable the feature without ghost messages if you find them too distracting.',
         onchange: function () {
-            enabled = this.prop('checked');
+            var display = this.val();
+            enabled = display == 'Enabled' || display == 'Enabled without Ghost Messages';
+            ghostEnabled = display == 'Enabled';
         }
-    });
+    }).css('max-width', '100px');
     // Styles
     Styles.add("\n\n\t.liveupdate-listing li.liveupdate.preview {\n\t\topacity: 0.75;\n\t}\n\t.liveupdate-listing li.liveupdate.preview .live-timestamp {\n\t\tvisibility: hidden;\n\t}\n\n\t");
     // EVENTS
@@ -4297,33 +4300,35 @@ var RemoveSubmissionLag;
             var val = Elements.$textarea.val();
             if (val.length == 0)
                 return;
-            // Add preview element, a faded message containing the contents of the new message
+            // Add preview element, a "ghost" message containing the contents of the new message
             // until it has been delivered.
             // Prevents permanent loss of messages if delivery fails
-            var html = SnuOwnd.getParser().render(val);
-            var $buttonRow = $("\n\t\t\t\t<ul class=\"buttonrow\">\n\t\t\t\t\t<li><button>retry</button></li>\n\t\t\t\t\t<li><button>cancel</button></li>\n\t\t\t\t</ul>\n\t\t\t");
-            var $elem = $("\n\t\t\t\t<li class=\"liveupdate preview\">\n\t\t\t\t\t<a href=\"#\"><time class=\"live-timestamp\"></time></a>\n\t\t\t\t\t<div class=\"body\">\n\t\t\t\t\t\t<div class=\"md\">\n\t\t\t\t\t\t\t" + html + "\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</li>\n\t\t\t").append($buttonRow);
-            previews.push({
-                html: html.trim().replace(/(\r\n|\n|\r)/gm, ""),
-                elem: $elem
-            });
-            Elements.$updates.prepend($elem);
-            // Setup event listeners for the buttons of the preview message
-            var $buttons = $buttonRow.find('button');
-            // "Retry" button
-            $buttons.eq(0).on('click', function () {
-                Elements.$textarea.val(val).focus();
-            });
-            // "Cancel" button
-            $buttons.eq(1).on('click', function () {
-                for (var i = 0; i < previews.length; i++) {
-                    if ($elem == previews[i].elem) {
-                        $elem.remove();
-                        previews.splice(i, 1);
-                        break;
+            if (ghostEnabled) {
+                var html = SnuOwnd.getParser().render(val);
+                var $buttonRow = $("\n\t\t\t\t\t<ul class=\"buttonrow\">\n\t\t\t\t\t\t<li><button>retry</button></li>\n\t\t\t\t\t\t<li><button>cancel</button></li>\n\t\t\t\t\t</ul>\n\t\t\t\t");
+                var $elem_1 = $("\n\t\t\t\t\t<li class=\"liveupdate preview\">\n\t\t\t\t\t\t<a href=\"#\"><time class=\"live-timestamp\"></time></a>\n\t\t\t\t\t\t<div class=\"body\">\n\t\t\t\t\t\t\t<div class=\"md\">\n\t\t\t\t\t\t\t\t" + html + "\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</li>\n\t\t\t\t").append($buttonRow);
+                previews.push({
+                    html: html.trim().replace(/(\r\n|\n|\r)/gm, ""),
+                    elem: $elem_1
+                });
+                Elements.$updates.prepend($elem_1);
+                // Setup event listeners for the buttons of the preview message
+                var $buttons = $buttonRow.find('button');
+                // "Retry" button
+                $buttons.eq(0).on('click', function () {
+                    Elements.$textarea.val(val).focus();
+                });
+                // "Cancel" button
+                $buttons.eq(1).on('click', function () {
+                    for (var i = 0; i < previews.length; i++) {
+                        if ($elem_1 == previews[i].elem) {
+                            $elem_1.remove();
+                            previews.splice(i, 1);
+                            break;
+                        }
                     }
-                }
-            });
+                });
+            }
             // Clear textbox
             Elements.$textarea.val('');
             // This is a way to work around the issue where Reddit automatically clears the textbox
@@ -4365,8 +4370,9 @@ var RemoveSubmissionLag;
     // preview message.
     // If it is by another user, push all the preview messages to the front (in the right order), 
     // so that they seem to always be on top.
+    // (Only if preview messages are enabled)
     Update.loadedNew(function (data) {
-        if (!enabled)
+        if (!enabled || !ghostEnabled)
             return;
         var l = previews.length; // number of preview messages
         if (data.author != USER) {
@@ -4643,7 +4649,7 @@ var StandardizeNumberFormat;
     // Options
     Options.addSelect({
         label: 'STANDARDIZE NUMBER FORMAT',
-        options: ['Disable', 'Spaces', 'Periods', 'Commas', 'None'],
+        options: ['Disabled', 'Spaces', 'Periods', 'Commas', 'None'],
         section: 'Advanced',
         help: 'Standardizes the number count in each message to a format of your choice. Also removes special formatting on the number.',
         onchange: function () {

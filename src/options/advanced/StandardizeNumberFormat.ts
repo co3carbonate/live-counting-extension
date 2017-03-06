@@ -84,7 +84,7 @@ module StandardizeNumberFormat {
 	// Options
 	Options.addSelect({
 		label: 'STANDARDIZE NUMBER FORMAT',
-		options: ['Disable', 'Spaces', 'Periods', 'Commas', 'None'],
+		options: ['Disabled', 'Spaces', 'Periods', 'Commas', 'None'],
 		section: 'Advanced',
 		help: 'Standardizes the number count in each message to a format of your choice. Also removes special formatting on the number.',
 		onchange: function() {

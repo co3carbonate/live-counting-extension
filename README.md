@@ -66,3 +66,4 @@ Here is a list of features. Besides the 'hidden' features, all of them can be di
   - v1.5.2: Added an experimental "Remove Submission Lag" feature
   - v1.5.2: Made the "Disable Obstructive Browser Shortcuts" option disable Ctrl+\[1-9\] (Switch Tabs) shortcut
   - v1.5.3: Added a preview message mechanism for the "Remove Submission Lag" feature, made it "Basic" and no longer experimental
+  - v1.5.3: Made the preview message mechanism disableable

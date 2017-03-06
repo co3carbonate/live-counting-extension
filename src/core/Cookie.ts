@@ -8,7 +8,7 @@ module Cookie {
 
 	// INITIALIZATION
 	const cookieName = `LCE_${THREAD}`;
-	const cookieVersion = '9';
+	const cookieVersion = '10';
 
 	// Try to load existing cookie save data, or create a cookie with default data
 	export let saveDefaultOptions:boolean = true;

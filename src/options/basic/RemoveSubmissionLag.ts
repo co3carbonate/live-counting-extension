@@ -7,21 +7,24 @@ module RemoveSubmissionLag {
 	// INITIALIZATION
 	let lastInput:string = '';
 	let enabled:boolean = true;
+	let ghostEnabled:boolean = true;
 	let previews:{
 		html:string;
 		elem:JQuery
 	}[] = [];
 	
 	// Options
-	Options.addCheckbox({
+	Options.addSelect({
 		label: 'REMOVE SUBMISSION LAG',
-		section: 'Basic',
-		default: true,
-		help: 'Upon submitting a message, the textbox is immediately cleared to allow you to enter new contents without waiting for your previous submission to be processed.',
+		options: ['Enabled', 'Enabled without Ghost Messages', 'Disabled'],
+		default: 0,
+		help: 'Upon submitting a message, the textbox is immediately cleared to allow you to enter new contents without waiting for your previous submission to be processed.\n\nThe ghost messages are to prevent messages from being permanently lost if they had failed to deliver. You can enable the feature without ghost messages if you find them too distracting.',
 		onchange: function() {
-			enabled = this.prop('checked');
+			let display:string = this.val();
+			enabled = display == 'Enabled' || display == 'Enabled without Ghost Messages';
+			ghostEnabled = display == 'Enabled';
 		}
-	});
+	}).css('max-width', '100px');
 
 	// Styles
 	Styles.add(`
@@ -44,50 +47,52 @@ module RemoveSubmissionLag {
 			let val:string = Elements.$textarea.val();
 			if(val.length == 0) return;
 
-			// Add preview element, a faded message containing the contents of the new message
+			// Add preview element, a "ghost" message containing the contents of the new message
 			// until it has been delivered.
 			// Prevents permanent loss of messages if delivery fails
-			let html:string = SnuOwnd.getParser().render(val);
-			let $buttonRow:JQuery = $(`
-				<ul class="buttonrow">
-					<li><button>retry</button></li>
-					<li><button>cancel</button></li>
-				</ul>
-			`);
-			let $elem:JQuery = $(`
-				<li class="liveupdate preview">
-					<a href="#"><time class="live-timestamp"></time></a>
-					<div class="body">
-						<div class="md">
-							${html}
+			if(ghostEnabled) {
+				let html:string = SnuOwnd.getParser().render(val);
+				let $buttonRow:JQuery = $(`
+					<ul class="buttonrow">
+						<li><button>retry</button></li>
+						<li><button>cancel</button></li>
+					</ul>
+				`);
+				let $elem:JQuery = $(`
+					<li class="liveupdate preview">
+						<a href="#"><time class="live-timestamp"></time></a>
+						<div class="body">
+							<div class="md">
+								${html}
+							</div>
 						</div>
-					</div>
-				</li>
-			`).append($buttonRow);
-			previews.push({
-				html: html.trim().replace(/(\r\n|\n|\r)/gm,""),
-				elem: $elem
-			});
-			Elements.$updates.prepend($elem);
+					</li>
+				`).append($buttonRow);
+				previews.push({
+					html: html.trim().replace(/(\r\n|\n|\r)/gm,""),
+					elem: $elem
+				});
+				Elements.$updates.prepend($elem);
 
-			// Setup event listeners for the buttons of the preview message
-			let $buttons = $buttonRow.find('button');
-			
-			// "Retry" button
-			$buttons.eq(0).on('click', function() {
-				Elements.$textarea.val(val).focus();
-			});
+				// Setup event listeners for the buttons of the preview message
+				let $buttons = $buttonRow.find('button');
+				
+				// "Retry" button
+				$buttons.eq(0).on('click', function() {
+					Elements.$textarea.val(val).focus();
+				});
 
-			// "Cancel" button
-			$buttons.eq(1).on('click', function() {
-				for(let i:number = 0; i < previews.length; i++) {
-					if($elem == previews[i].elem) {
-						$elem.remove();
-						previews.splice(i, 1);
-						break;
+				// "Cancel" button
+				$buttons.eq(1).on('click', function() {
+					for(let i:number = 0; i < previews.length; i++) {
+						if($elem == previews[i].elem) {
+							$elem.remove();
+							previews.splice(i, 1);
+							break;
+						}
 					}
-				}
-			});
+				});
+			}
 
 			// Clear textbox
 			Elements.$textarea.val('');
@@ -134,8 +139,9 @@ module RemoveSubmissionLag {
 	// preview message.
 	// If it is by another user, push all the preview messages to the front (in the right order), 
 	// so that they seem to always be on top.
+	// (Only if preview messages are enabled)
 	Update.loadedNew(function(data:Update.info) {
-		if(!enabled) return;
+		if(!enabled || !ghostEnabled) return;
 
 		let l:number = previews.length; // number of preview messages
 
