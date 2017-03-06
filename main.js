@@ -3810,7 +3810,6 @@ var Cookie;
     }
     Cookie.update = update;
 })(Cookie || (Cookie = {}));
-window.Cookies = Cookies;
 /////////////////
 // Elements.ts //
 /////////////////
@@ -4253,9 +4252,9 @@ var ColoredUsernames;
         if (data.author == 'co3_carbonate' || data.author == 'rschaosid') {
             data.author_elem.css('font-weight', 'bold');
         }
-        // /u/amazingpikachu_38 username special (blinking username)
-        if (data.author == 'amazingpikachu_38') {
-            data.author_elem.addClass('amazingpikachu_38');
+        // /u/gordonpt8 username special (letter spacing + bold)
+        if (data.author == 'gordonpt8') {
+            data.author_elem.css({ 'letter-spacing': '4px', 'font-weight': 'bold' });
         }
         // Set username colour
         if (!userColors.hasOwnProperty(data.author)) {
@@ -4267,8 +4266,6 @@ var ColoredUsernames;
         }
         data.author_elem.css('color', userColors[data.author]);
     });
-    // /u/amazingpikachu_38 username blinking css class
-    Styles.add("\n\n\t.amazingpikachu_38 {\n\t\tanimation: blinker 1s linear infinite;\n\t}\n\t@keyframes blinker {\n\t\t50% { opacity: 0; }\n\t}\n\n\t");
 })(ColoredUsernames || (ColoredUsernames = {}));
 ////////////////////////////
 // RemoveSubmissionLag.ts //

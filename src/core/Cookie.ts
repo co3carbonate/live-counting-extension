@@ -68,5 +68,3 @@ module Cookie {
 	}
 
 }
-
-(window as any).Cookies = Cookies;
