@@ -3864,6 +3864,7 @@ var Options;
 (function (Options) {
     // INITIALIZATION
     // Initialize new content in the options box
+    // TODO: move the $all to another core file since it will be used for stats as well
     var $all_heading = $("\n\t\t<h1 style=\"font-size:16px;\">\n\t\t\t<a href=\"https://github.com/co3carbonate/live-counting-extension/blob/master/README.md#readme\" target=\"_blank\">Live Counting Extension " + VERSION + "</a> \n\t\t</h1>\n\t");
     var $options_heading = $("<h2>Options </h2>");
     var $options_basic_heading = $("<h2>Basic </h2>");
@@ -3883,6 +3884,8 @@ var Options;
     $options_advanced_heading.append($options_advanced_toggle);
     $options.append($options_basic_heading, $options_basic, $options_advanced_heading, $options_advanced);
     Elements.$options.append($all_heading, $all);
+    var all_innerWidth = $all.innerWidth();
+    var all_offsetLeft = $all.offset().left;
     // Handling toggle buttons ([-] and [+])
     function toggle($trigger, $change, index) {
         // bind click event listeners to the trigger
@@ -3980,16 +3983,9 @@ var Options;
         }
         else
             selectedVal = Cookie.save.options[label];
-        // Create label, select, and options
-        var $elem = $("<select></select>");
-        var elem_contents = '';
-        for (var i = 0; i < options.length; i++) {
-            elem_contents +=
-                "<option value=\"" + options[i] + "\"" + ((options[i] == selectedVal) ? ' selected="true"' : '') + ">" + options[i] + "</option>";
-        }
-        $elem.html(elem_contents);
-        // Add option
+        // Create label and select
         var $options_section;
+        var $elem = $("<select></select>");
         if (section == 'Basic')
             $options_section = $options_basic;
         else if (section == 'Advanced')
@@ -3997,6 +3993,16 @@ var Options;
         $options_section.append($("<label>" + label + ": </label>")
             .attr('title', help)
             .append($elem));
+        // Configure the max-width of the select to ensure that it doesn't end up getting wrapped
+        // onto the next line
+        $elem.css('max-width', all_innerWidth - ($elem.offset().left - all_offsetLeft) + 'px');
+        // Set options of select
+        var elem_contents = '';
+        for (var i = 0; i < options.length; i++) {
+            elem_contents +=
+                "<option value=\"" + options[i] + "\"" + ((options[i] == selectedVal) ? ' selected="true"' : '') + ">" + options[i] + "</option>";
+        }
+        $elem.html(elem_contents);
         // Handle onchange
         $elem.on('change', function () {
             Cookie.save.options[label] = $elem.val();
@@ -4267,6 +4273,73 @@ var ColoredUsernames;
         data.author_elem.css('color', userColors[data.author]);
     });
 })(ColoredUsernames || (ColoredUsernames = {}));
+//////////////////////////
+// ClearPastMessages.ts //
+//////////////////////////
+var ClearPastMessages;
+(function (ClearPastMessages) {
+    // INITIALIZATION
+    var maxMessages = 50;
+    // Options
+    var enabled = true;
+    var $checkbox = Options.addCheckbox({
+        label: 'CLEAR PAST MESSAGES (REDUCES LAG)',
+        "default": true,
+        help: 'Frequently clears past messages from the page, which drastically negates lag and reduces the need to refresh constantly.',
+        onchange: function () {
+            enabled = this.prop('checked');
+        }
+    });
+    // EVENTS
+    // New update loaded
+    Update.loadedNew(function (data) {
+        if (!enabled)
+            return;
+        var $screenMessages = Elements.$updates.children('.liveupdate');
+        if ($screenMessages.length > maxMessages) {
+            $screenMessages.slice(maxMessages).remove();
+        }
+    });
+    // Old update loaded (scrolled to bottom)
+    Update.loadedOld(function (data) {
+        // disable
+        if (!enabled)
+            return;
+        $checkbox.prop('checked', false).trigger('change');
+    });
+})(ClearPastMessages || (ClearPastMessages = {}));
+////////////////////
+// DisplayMode.ts //
+////////////////////
+var DisplayMode;
+(function (DisplayMode) {
+    // INITIALIZATION
+    Elements.$body.attr('data-DisplayMode', 'Normal');
+    // "Return to Normal Display" button
+    var $returnBtn = $('<input type="button" value="Return to Normal Display"/>');
+    $returnBtn.on('click', function () {
+        $select.children('option[value="Normal"]').prop('selected', true).trigger('change');
+    });
+    $returnBtn.css({
+        marginBottom: '20px',
+        display: 'none',
+        margin: '0 auto'
+    });
+    Elements.$content.prepend($returnBtn);
+    // Options
+    var $select = Options.addSelect({
+        label: 'DISPLAY MODE',
+        options: ['Normal', 'Minimal'],
+        help: 'Changes the display interface of the page to your preference.',
+        onchange: function () {
+            var display = this.val();
+            $returnBtn.css('display', (display == 'Normal' ? 'none' : 'block'));
+            Elements.$body.attr('data-DisplayMode', display);
+        }
+    });
+    // Styles
+    Styles.add("\n\n\t/* Display Minimal */\n\t#lc-body[data-DisplayMode='Minimal'] #header,\n\t#lc-body[data-DisplayMode='Minimal'] #liveupdate-statusbar,\n\t#lc-body[data-DisplayMode='Minimal'] .markdownEditor-wrapper,\n\t#lc-body[data-DisplayMode='Minimal'] #new-update-form .bottom-area,\n\t#lc-body[data-DisplayMode='Minimal'] li.liveupdate time.live-timestamp,\n\t#lc-body[data-DisplayMode='Minimal'] #liveupdate-options, \n\t#lc-body[data-DisplayMode='Minimal'] aside.sidebar {\n\t\tdisplay: none;\n\t}\n\n\t#lc-body[data-DisplayMode='Minimal'] #liveupdate-header,\n\t#lc-body[data-DisplayMode='Minimal'] #new-update-form {\n\t\tmargin-left: 0px;\n\t}\n\n\t#lc-body[data-DisplayMode='Minimal'] li.liveupdate ul.buttonrow {\n\t\tmargin: 0 0 2em 0px !important;\n\t}\n\n\t#lc-body[data-DisplayMode='Minimal'] div.content {\n\t\tmax-width: " + Math.max(450, $('#new-update-form textarea').outerWidth()) + "px;\n\t}\n\n\t");
+})(DisplayMode || (DisplayMode = {}));
 ////////////////////////////
 // RemoveSubmissionLag.ts //
 ////////////////////////////
@@ -4288,7 +4361,7 @@ var RemoveSubmissionLag;
             enabled = display == 'Enabled' || display == 'Enabled without Ghost Messages';
             ghostEnabled = display == 'Enabled';
         }
-    }).css('max-width', '100px');
+    });
     // Styles
     Styles.add("\n\n\t.liveupdate-listing li.liveupdate.preview {\n\t\topacity: 0.75;\n\t}\n\t.liveupdate-listing li.liveupdate.preview .live-timestamp {\n\t\tvisibility: hidden;\n\t}\n\n\t");
     // EVENTS
@@ -4400,73 +4473,6 @@ var RemoveSubmissionLag;
             previews.splice(to_delete, 1)[0].elem.remove();
     });
 })(RemoveSubmissionLag || (RemoveSubmissionLag = {}));
-//////////////////////////
-// ClearPastMessages.ts //
-//////////////////////////
-var ClearPastMessages;
-(function (ClearPastMessages) {
-    // INITIALIZATION
-    var maxMessages = 50;
-    // Options
-    var enabled = true;
-    var $checkbox = Options.addCheckbox({
-        label: 'CLEAR PAST MESSAGES (REDUCES LAG)',
-        "default": true,
-        help: 'Frequently clears past messages from the page, which drastically negates lag and reduces the need to refresh constantly.',
-        onchange: function () {
-            enabled = this.prop('checked');
-        }
-    });
-    // EVENTS
-    // New update loaded
-    Update.loadedNew(function (data) {
-        if (!enabled)
-            return;
-        var $screenMessages = Elements.$updates.children('.liveupdate');
-        if ($screenMessages.length > maxMessages) {
-            $screenMessages.slice(maxMessages).remove();
-        }
-    });
-    // Old update loaded (scrolled to bottom)
-    Update.loadedOld(function (data) {
-        // disable
-        if (!enabled)
-            return;
-        $checkbox.prop('checked', false).trigger('change');
-    });
-})(ClearPastMessages || (ClearPastMessages = {}));
-////////////////////
-// DisplayMode.ts //
-////////////////////
-var DisplayMode;
-(function (DisplayMode) {
-    // INITIALIZATION
-    Elements.$body.attr('data-DisplayMode', 'Normal');
-    // "Return to Normal Display" button
-    var $returnBtn = $('<input type="button" value="Return to Normal Display"/>');
-    $returnBtn.on('click', function () {
-        $select.children('option[value="Normal"]').prop('selected', true).trigger('change');
-    });
-    $returnBtn.css({
-        marginBottom: '20px',
-        display: 'none',
-        margin: '0 auto'
-    });
-    Elements.$content.prepend($returnBtn);
-    // Options
-    var $select = Options.addSelect({
-        label: 'DISPLAY MODE',
-        options: ['Normal', 'Minimal'],
-        help: 'Changes the display interface of the page to your preference.',
-        onchange: function () {
-            var display = this.val();
-            $returnBtn.css('display', (display == 'Normal' ? 'none' : 'block'));
-            Elements.$body.attr('data-DisplayMode', display);
-        }
-    });
-    // Styles
-    Styles.add("\n\n\t/* Display Minimal */\n\t#lc-body[data-DisplayMode='Minimal'] #header,\n\t#lc-body[data-DisplayMode='Minimal'] #liveupdate-statusbar,\n\t#lc-body[data-DisplayMode='Minimal'] .markdownEditor-wrapper,\n\t#lc-body[data-DisplayMode='Minimal'] #new-update-form .bottom-area,\n\t#lc-body[data-DisplayMode='Minimal'] li.liveupdate time.live-timestamp,\n\t#lc-body[data-DisplayMode='Minimal'] #liveupdate-options, \n\t#lc-body[data-DisplayMode='Minimal'] aside.sidebar {\n\t\tdisplay: none;\n\t}\n\n\t#lc-body[data-DisplayMode='Minimal'] #liveupdate-header,\n\t#lc-body[data-DisplayMode='Minimal'] #new-update-form {\n\t\tmargin-left: 0px;\n\t}\n\n\t#lc-body[data-DisplayMode='Minimal'] li.liveupdate ul.buttonrow {\n\t\tmargin: 0 0 2em 0px !important;\n\t}\n\n\t#lc-body[data-DisplayMode='Minimal'] div.content {\n\t\tmax-width: " + Math.max(450, $('#new-update-form textarea').outerWidth()) + "px;\n\t}\n\n\t");
-})(DisplayMode || (DisplayMode = {}));
 /////////////////////////////
 // DisableUsernameLinks.ts //
 /////////////////////////////

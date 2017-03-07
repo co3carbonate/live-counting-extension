@@ -6,6 +6,7 @@ module Options {
 
 	// INITIALIZATION
 	// Initialize new content in the options box
+	// TODO: move the $all to another core file since it will be used for stats as well
 	let $all_heading:JQuery = $(`
 		<h1 style="font-size:16px;">
 			<a href="https://github.com/co3carbonate/live-counting-extension/blob/master/README.md#readme" target="_blank">Live Counting Extension ${VERSION}</a> 
@@ -35,6 +36,9 @@ module Options {
 					$options_advanced_heading, $options_advanced);
 	
 	Elements.$options.append($all_heading, $all);
+
+	let all_innerWidth:number = $all.innerWidth();
+	let all_offsetLeft:number = $all.offset().left;
 
 	// Handling toggle buttons ([-] and [+])
 	function toggle($trigger:JQuery, $change:JQuery, index:number) {
@@ -189,9 +193,23 @@ module Options {
 		else
 			selectedVal = Cookie.save.options[label] as string;
 
-		// Create label, select, and options
+		// Create label and select
+		let $options_section:JQuery;
 		let $elem:JQuery = $(`<select></select>`);
+		if(section == 'Basic') $options_section = $options_basic;
+		else if(section == 'Advanced') $options_section = $options_advanced;
+		
+		$options_section.append(
+			$(`<label>${label}: </label>`)
+				.attr('title', help)
+				.append($elem)
+		);
 
+		// Configure the max-width of the select to ensure that it doesn't end up getting wrapped
+		// onto the next line
+		$elem.css('max-width', all_innerWidth - ($elem.offset().left - all_offsetLeft) + 'px');
+
+		// Set options of select
 		let elem_contents:string = '';
 		for(let i:number = 0; i < options.length; i++) {
 			elem_contents += 
@@ -201,17 +219,6 @@ module Options {
 		}
 
 		$elem.html(elem_contents);
-
-		// Add option
-		let $options_section:JQuery;
-		if(section == 'Basic') $options_section = $options_basic;
-		else if(section == 'Advanced') $options_section = $options_advanced;
-		
-		$options_section.append(
-			$(`<label>${label}: </label>`)
-				.attr('title', help)
-				.append($elem)
-		);
 
 		// Handle onchange
 		$elem.on('change', function() {

@@ -24,7 +24,7 @@ module RemoveSubmissionLag {
 			enabled = display == 'Enabled' || display == 'Enabled without Ghost Messages';
 			ghostEnabled = display == 'Enabled';
 		}
-	}).css('max-width', '100px');
+	});
 
 	// Styles
 	Styles.add(`

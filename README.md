@@ -12,9 +12,9 @@ Here is a list of features. Besides the 'hidden' features, all of them can be di
 
 - Basic
  - Colored Usernames: Makes the username in each message gain a unique color
- - Remove Submission Lag: Upon submitting a message, the textbox is immediately cleared to allow you to enter new contents without waiting for your previous submission to be processed
  - Clear Past Messages: Frequently clears past messages from the page, which drastically negates lag and reduces the need to refresh constantly
  - Display Mode: Changes the display interface of the page to your preference
+ - Remove Submission Lag: Upon submitting a message, the textbox is immediately cleared to allow you to enter new contents without waiting for your previous submission to be processed
 
 - Advanced 
  - Disable Username Links: Disables the redirection to a user's profile upon clicking on his/her username

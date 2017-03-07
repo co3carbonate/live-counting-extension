@@ -23,9 +23,9 @@
 
 		// basic options
 		"options/basic/ColoredUsernames.ts",
-		"options/basic/RemoveSubmissionLag.ts",
 		"options/basic/ClearPastMessages.ts",
 		"options/basic/DisplayMode.ts",
+		"options/basic/RemoveSubmissionLag.ts",
 
 		// advanced options
 		"options/advanced/DisableUsernameLinks.ts",
