@@ -4258,9 +4258,16 @@ var ColoredUsernames;
         if (data.author == 'co3_carbonate' || data.author == 'rschaosid') {
             data.author_elem.css('font-weight', 'bold');
         }
-        // /u/gordonpt8 username special (letter spacing + bold)
-        if (data.author == 'gordonpt8') {
-            data.author_elem.css({ 'letter-spacing': '4px', 'font-weight': 'bold' });
+        // /u/davidjl123 username special (letter spacing + bold + underline + italic + rainbow + rocket emojis)
+        if (data.author == 'davidjl123') {
+            data.author_elem.css({
+                'letter-spacing': '4px',
+                'font-weight': 'bold',
+                'text-decoration': 'underline',
+                'font-style': 'italic'
+            });
+            data.author_elem.html('🚀<span style="color:#FF0000">d</span><span style="color:#E2571E">a</span><span style="color:#FF7F00">v</span><span style="color:#E6D300">i</span><span style="color:#FFFF00">d</span><span style="color:#00FF00">j</span><span style="color:#96bf33">l</span><span style="color:#0000FF">1</span><span style="color:#4B0082">2</span><span style="color:#8B00FF">3</span>🚀');
+            return;
         }
         // Set username colour
         if (!userColors.hasOwnProperty(data.author)) {
