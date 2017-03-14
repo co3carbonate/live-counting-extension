@@ -73,8 +73,8 @@ module ColoredUsernames {
 		if(!enabled) return;
 
 		// Special usernames (temp rewards for top in 100k HoC, or other contributions)
-		// Bot-maker privileges
-		if(data.author == 'co3_carbonate' || data.author == 'rschaosid') {
+		// Bot-maker privileges (/u/co3_carbonate, /u/rschaosid, /u/piyushsharma301)
+		if(data.author == 'co3_carbonate' || data.author == 'rschaosid' || data.author == 'piyushsharma301') {
 			data.author_elem.css('font-weight', 'bold');
 		}
 
