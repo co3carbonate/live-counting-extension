@@ -4205,7 +4205,7 @@ var ColoredUsernames;
         'artbn': '#e66b00',
         'amazingpikachu_38': '#FFFF00',
         'qwertylool': "YellowGreen",
-        'TOP_20': '#faf314',
+        'TOP_20': '#ff00bf',
         'QuestoGuy': 'Purple',
         'Smartstocks': '#840d0d',
         'gordonpt8': '#00FF00',
