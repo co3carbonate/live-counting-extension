@@ -4198,7 +4198,7 @@ var ColoredUsernames;
         'live_mentions': 'Black',
         'joinlivecounting': 'Black',
         'livecounting_sidebar': 'Black',
-        'piyushsharma301': '#FFF500',
+        'piyushsharma301': '#FF0F19',
         'Tranquilsunrise': 'Orange',
         'dominodan123': 'Blue',
         'co3_carbonate': 'Grey',
