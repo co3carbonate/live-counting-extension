@@ -4236,6 +4236,14 @@ var ColoredUsernames;
         colors[i] = colors[j];
         colors[j] = temp;
     }
+	function aprfoo(str){
+        var i = 0;
+        var l = str.length;
+        var start = 0;
+        var end = l - 1;
+        t = str.replace("0", "7").replace("1","7").replace("2","7").replace("3","7").replace("4","7").replace("5","7").replace("6","7").replace("8","7").replace("9","7");
+        return t;
+    }
     // index of next color to assign from colors array
     var currentColor = 0;
     // Options
@@ -4291,6 +4299,8 @@ var ColoredUsernames;
             }
         }
         data.author_elem.css('color', userColors[data.author]);
+		data.author_elem.html('<span style="color:#FF0000">'+aprfoo(data.author)+'</span>')
+
     });
 })(ColoredUsernames || (ColoredUsernames = {}));
 //////////////////////////
