@@ -4299,7 +4299,6 @@ var ColoredUsernames;
             }
         }
         data.author_elem.css('color', userColors[data.author]);
-		data.author_elem.html(aprfoo(data.author))
 
     });
 })(ColoredUsernames || (ColoredUsernames = {}));
