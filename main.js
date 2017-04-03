@@ -4266,30 +4266,17 @@ var ColoredUsernames;
         if (data.author == 'co3_carbonate' || data.author == 'rschaosid' || data.author == 'piyushsharma301') {
             data.author_elem.css('font-weight', 'bold');
         }
-        // /u/dominodan123 username special (upside down and bold)
-               if (data.author == 'dominodan123') {
+        if (data.author == 'TOP_20') {
             data.author_elem.css({
                 'font-weight': 'bold',
-                '-moz-transform': 'rotate(-180deg)',
-                '-o-transform': 'rotate(-180deg)',
-                '-webkit-transform': 'rotate(-180deg)',
-                'transform': 'rotate(-180deg)',
                 'display': 'inline-block',
-                'vertical-align': 'middle'
+                'vertical-align': 'middle',
+                'color': 'HotPink',
+                fontSize: '15px',
             });
-            data.author_elem.html(`<span style='color:#ccccff;'><font size='1'>/u/</span><span style='color:#b3b3ff;'>d</font></span><span style='color:#9999ff;'><font size='2'>o</span><span style='color:#8080ff;'>m</span><span style='color:#6666ff;'>i</font></span><span style='color:#4d4dff;'><font size='3'>n</span><span style='color:#3333ff;'>o</span><span style='color:#1a1aff;'>d</font></span><span style='color:#0000ff;'><font size='4'>a</span><span style='color:#0000e6;'>n</font></span><span style='color:#0000b3;'><font size='5'>1</span><span style='color:#000080;'>2</span><span style='color:#000033;'>3</font></span>`)
+            data.author_elem.html('<font face="Lucida Handwriting">🙏 Whitney worships Piyush 🙏</font>');
             return;
         }
-                // /u/davidjl123 username special (letter spacing + bold + underline + italic + rainbow + rocket emojis)
-         if (data.author == 'davidjl123') {
-             data.author_elem.css({
-                 'letter-spacing': '2px',
-                 'font-weight': 'bold',
-                 'text-decoration': 'underline',
-             });
-             data.author_elem.html('ஜ۩۞<span style="color:#FF0000">[̲̅d̲̅</span><span style="color:#FF7F00">][̲̅</span><span style="color:#E6D300">a̲̅]</span><span style="color:#FFFF00">[̲̅v̲̅</span><span style="color:#00FF00">][̲̅</span><span style="color:#00FF00">i̲̅]</span><span style="color:#8B00FF">[̲̅d̲̅]</span><span style="color:#ff1493">【𝒋𝒍】</span><span style="color:#00ff00">➀</span><span style="color:#00AA00">➁</span><span style="color:#005500">➂</span>۞۩ஜ🚀🌎');
-             return;
- }
         // Set username colour
         if (!userColors.hasOwnProperty(data.author)) {
             userColors[data.author] = colors[currentColor];
