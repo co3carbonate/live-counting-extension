@@ -4274,7 +4274,7 @@ var ColoredUsernames;
                 'color': 'HotPink',
                 fontSize: '15px',
             });
-            data.author_elem.html('<font face="Lucida Handwriting">🙏 Whitney worships Piyush 🙏</font>');
+            data.author_elem.html('<font face="Lucida Handwriting">🐬 Whitney worships Piyush 🐬</font>');
             return;
         }
         // Set username colour
