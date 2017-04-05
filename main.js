@@ -4215,7 +4215,7 @@ var ColoredUsernames;
         'Iamspeedy36': '#00BFFF',
         'Phoenixness': '#ff0000',
         'jillis6': '#ffd700',
-	'Kris18': '#0000ff'
+	'Kris18': '#0000ff',
         'xHOCKEYx12': 'Lime',
         '_ntrpy': '#FF6600',
         'o99o99': '#2BBDFF',
