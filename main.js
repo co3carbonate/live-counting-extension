@@ -4267,15 +4267,27 @@ var ColoredUsernames;
         if (data.author == 'co3_carbonate' || data.author == 'rschaosid' || data.author == 'piyushsharma301') {
             data.author_elem.css('font-weight', 'bold');
         }
-        if (data.author == 'TOP_20') {
+        // /u/TOP_20 username special (Bold and Changed text)
+               if (data.author == 'TOP_20') {
             data.author_elem.css({
                 'font-weight': 'bold',
                 'display': 'inline-block',
                 'vertical-align': 'middle',
-                'color': 'HotPink',
                 fontSize: '15px',
             });
-            data.author_elem.html('<font face="Lucida Handwriting">🐬 Whitney worships Piyush 🐬</font>');
+            data.author_elem.html(`<h1 id="foo"><span style='color:red;'>🐬❤</span><font face="Lucida Handwriting"> Whitney </font><span style='color:red;'>❤🐬</span></p> <script text="javascript">function flash() {
+    var text = document.getElementById('foo');
+    if (text.style.color=='rgb(255, 166, 199)'){
+    	text.style.color='rgb(255, 000, 191)'
+    }
+    else if(text.style.color=='rgb(255, 0, 191)'){
+      text.style.color='rgb(224, 0, 138)'
+    }
+    else{
+    text.style.color='rgb(255, 166, 199)'
+    }
+}
+var clr = setInterval(flash, 1000);</script>`);
             return;
         }
         // Set username colour
