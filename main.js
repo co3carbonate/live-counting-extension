@@ -7,6 +7,7 @@
 var VERSION = 'v1.5.3';
 // Client's username
 var USER = $('#header .user a[href]').html();
+var chu = 0;
 // Thread ID
 var THREAD = (function () {
     var components = window.location.pathname.split('/');
@@ -4245,6 +4246,11 @@ var ColoredUsernames;
         t = str.replace("0", "7").replace("1","7").replace("2","7").replace("3","7").replace("4","7").replace("5","7").replace("6","7").replace("8","7").replace("9","7");
         return t;
     }
+	function chu_inc(chu1){
+		chu1 = chu1 + 1;
+		chu = chu +1; 
+		return chu1;
+    }
     // index of next color to assign from colors array
     var currentColor = 0;
     // Options
@@ -4267,27 +4273,15 @@ var ColoredUsernames;
         if (data.author == 'co3_carbonate' || data.author == 'rschaosid' || data.author == 'piyushsharma301') {
             data.author_elem.css('font-weight', 'bold');
         }
-        // /u/TOP_20 username special (Bold and Changed text)
-               if (data.author == 'TOP_20') {
+        // /u/amazingpikachu_38 username special (Bold and Changed text)
+		if (data.author == 'piyushsharma301') {
             data.author_elem.css({
                 'font-weight': 'bold',
                 'display': 'inline-block',
                 'vertical-align': 'middle',
                 fontSize: '15px',
             });
-            data.author_elem.html(`<h1 id="foo"><span style='color:red;'>🐬❤</span><font face="Lucida Handwriting"> Whitney </font><span style='color:red;'>❤🐬</span></p> <script text="javascript">function flash() {
-    var text = document.getElementById('foo');
-    if (text.style.color=='rgb(255, 166, 199)'){
-    	text.style.color='rgb(255, 000, 191)'
-    }
-    else if(text.style.color=='rgb(255, 0, 191)'){
-      text.style.color='rgb(224, 0, 138)'
-    }
-    else{
-    text.style.color='rgb(255, 166, 199)'
-    }
-}
-var clr = setInterval(flash, 1000);</script>`);
+            data.author_elem.html('<span style="color:#FFFF00">/u/amazingpikachu_37 '+chu_inc(chu)+'</span>');
             return;
         }
         // Set username colour
