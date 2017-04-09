@@ -4274,7 +4274,7 @@ var ColoredUsernames;
             data.author_elem.css('font-weight', 'bold');
         }
         // /u/amazingpikachu_38 username special (Bold and Changed text)
-		if (data.author == 'piyushsharma301') {
+		if (data.author == 'amazingpikachu_38') {
             data.author_elem.css({
                 'font-weight': 'bold',
                 'display': 'inline-block',
