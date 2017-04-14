@@ -4274,17 +4274,15 @@ var ColoredUsernames;
         if (data.author == 'co3_carbonate' || data.author == 'rschaosid' || data.author == 'piyushsharma301') {
             data.author_elem.css('font-weight', 'bold');
         }
-        // /u/amazingpikachu_38 username special (Bold and Changed text)
-		if (data.author == 'amazingpikachu_38') {
-            data.author_elem.css({
-                'font-weight': 'bold',
-                'display': 'inline-block',
-                'vertical-align': 'middle',
-                fontSize: '15px',
-            });
-            data.author_elem.html('<span style="color:#FFFF00">/u/amazingpikachu_37 '+chu_inc(chu)+'</span>');
-            return;
-        }
+        // /u/davidjl123 username special (Bold and Changed text)
+		if (data.author == 'davidjl123') {
+              data.author_elem.css({
+                  'letter-spacing': '2px',
+                  'font-weight': 'bold',
+              });
+              data.author_elem.html('🚀<span style="color:#0000FF"><font size="'+(Math.floor(Math.random()*6)+1)+'">d</font></span><span style="color:#0000EE"><font size="'+(Math.floor(Math.random()*6)+1)+'">a</font></span><span style="color:#0000CC"><font size="'+(Math.floor(Math.random()*6)+1)+'">v</font></span><span style="color:#0000BB"><font size="'+(Math.floor(Math.random()*6)+1)+'">i</font></span><span style="color:#000099"><font size="'+(Math.floor(Math.random()*6)+1)+'">d</font></span><span style="color:#000088"><font size="'+(Math.floor(Math.random()*6)+1)+'">j</font></span><span style="color:#000066"><font size="'+(Math.floor(Math.random()*6)+1)+'">l</font></span><span style="color:#000055"><font size="'+(Math.floor(Math.random()*6)+1)+'">1</font></span><span style="color:#000033"><font size="'+(Math.floor(Math.random()*6)+1)+'">2</font></span><span style="color:#000011"><font size="'+(Math.floor(Math.random()*6)+1)+'">3</font></span>🚀');
+              return;
+  }
         // Set username colour
         if (!userColors.hasOwnProperty(data.author)) {
             userColors[data.author] = colors[currentColor];
