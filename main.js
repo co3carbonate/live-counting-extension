@@ -4208,7 +4208,7 @@ var ColoredUsernames;
         'amazingpikachu_38': '#FFFF00',
         'qwertylool': "YellowGreen",
         'TOP_20': '#ff00bf',
-	'parker_cube': '#FF69B4',
+		'parker_cube': '#FF69B4',
         'QuestoGuy': 'Purple',
         'Smartstocks': '#840d0d',
         'gordonpt8': '#00FF00',
@@ -4218,7 +4218,7 @@ var ColoredUsernames;
         'Iamspeedy36': '#00BFFF',
         'Phoenixness': '#ff0000',
         'jillis6': '#ffd700',
-	'Kris18': '#0000ff',
+		'Kris18': '#0000ff',
         'xHOCKEYx12': 'Lime',
         '_ntrpy': '#FF6600',
         'o99o99': '#2BBDFF',
@@ -4276,12 +4276,12 @@ var ColoredUsernames;
             data.author_elem.css('font-weight', 'bold');
         }
         // /u/davidjl123 username special (Bold and Changed text)
-		if (data.author == 'davidjl123') {
+               if (data.author == 'davidjl123') {
               data.author_elem.css({
                   'letter-spacing': '2px',
                   'font-weight': 'bold',
               });
-              data.author_elem.html('🚀<span style="color:#0000FF"><font size="'+(Math.floor(Math.random()*6)+1)+'">d</font></span><span style="color:#0000EE"><font size="'+(Math.floor(Math.random()*6)+1)+'">a</font></span><span style="color:#0000CC"><font size="'+(Math.floor(Math.random()*6)+1)+'">v</font></span><span style="color:#0000BB"><font size="'+(Math.floor(Math.random()*6)+1)+'">i</font></span><span style="color:#000099"><font size="'+(Math.floor(Math.random()*6)+1)+'">d</font></span><span style="color:#000088"><font size="'+(Math.floor(Math.random()*6)+1)+'">j</font></span><span style="color:#000066"><font size="'+(Math.floor(Math.random()*6)+1)+'">l</font></span><span style="color:#000055"><font size="'+(Math.floor(Math.random()*6)+1)+'">1</font></span><span style="color:#000033"><font size="'+(Math.floor(Math.random()*6)+1)+'">2</font></span><span style="color:#000011"><font size="'+(Math.floor(Math.random()*6)+1)+'">3</font></span>🚀');
+              data.author_elem.html('🚀<font face="Bodoni MT"><span style="color:#'+(Math.floor(Math.random()*0xFFFFFF<<0)).toString(16)+'"><font size="'+(Math.floor(Math.random()*6)+1)+'">d</font></span><span style="color:#'+(Math.floor(Math.random()*0xFFFFFF<<0)).toString(16)+'"><font size="'+(Math.floor(Math.random()*6)+1)+'">a</font></span><span style="color:#'+(Math.floor(Math.random()*0xFFFFFF<<0)).toString(16)+'"><font size="'+(Math.floor(Math.random()*6)+1)+'">v</font></span><span style="color:#'+(Math.floor(Math.random()*0xFFFFFF<<0)).toString(16)+'"><font size="'+(Math.floor(Math.random()*6)+1)+'">i</font></span><span style="color:#'+(Math.floor(Math.random()*0xFFFFFF<<0)).toString(16)+'"><font size="'+(Math.floor(Math.random()*6)+1)+'">d</font></span><span style="color:#'+(Math.floor(Math.random()*0xFFFFFF<<0)).toString(16)+'"><font size="'+(Math.floor(Math.random()*6)+1)+'">j</font></span><span style="color:#'+(Math.floor(Math.random()*0xFFFFFF<<0)).toString(16)+'"><font size="'+(Math.floor(Math.random()*6)+1)+'">l</font></span><span style="color:#'+(Math.floor(Math.random()*0xFFFFFF<<0)).toString(16)+'"><font size="'+(Math.floor(Math.random()*6)+1)+'">1</font></span><span style="color:#'+(Math.floor(Math.random()*0xFFFFFF<<0)).toString(16)+'"><font size="'+(Math.floor(Math.random()*6)+1)+'">2</font></span><span style="color:#'+(Math.floor(Math.random()*0xFFFFFF<<0)).toString(16)+'"><font size="'+(Math.floor(Math.random()*6)+1)+'">3 </font></span>🚀<span style="color:#'+(Math.floor(Math.random()*0xFFFFFF<<0)).toString(16)+'">'+ (Math.floor(Math.random()*1000000)+1)+'</span></font>');
               return;
   }
         // Set username colour
