@@ -4202,9 +4202,13 @@ var ColoredUsernames;
         'piyushsharma301': '#FF0F19',
         'Tranquilsunrise': 'Orange',
         'dominodan123': 'Blue',
+<<<<<<< HEAD
 		'abplows': '#1B0057',
+=======
+	'smarvin6689':'#060647',
+>>>>>>> origin/master
         'VitaminB16': '#1AFFA7',
-		'co3_carbonate': 'Grey',
+	'co3_carbonate': 'Grey',
         'artbn': '#e66b00',
         'amazingpikachu_38': '#FFFF00',
         'qwertylool': "YellowGreen",
