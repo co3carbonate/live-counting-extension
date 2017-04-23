@@ -722,7 +722,6 @@ var SnuOwnd = {};
     }
     /**
     Initialize a Callbacks object.
-
     @constructor
     @param {Object.<string, ?function>} callbacks A set of callbacks to use as the methods on this object.
     */
@@ -737,9 +736,7 @@ var SnuOwnd = {};
     Callbacks.prototype = {
         /**
         Renders a code block.
-
         Syntax highlighting specific to lanugage may be performed here.
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {Buffer} text The input text.
@@ -749,7 +746,6 @@ var SnuOwnd = {};
         blockcode: null,
         /**
         Renders a blockquote.
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {Buffer} text The input text.
@@ -758,7 +754,6 @@ var SnuOwnd = {};
         blockquote: null,
         /**
         Renders a block of HTML code.
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {Buffer} text The input text.
@@ -767,7 +762,6 @@ var SnuOwnd = {};
         blockhtml: null,
         /**
         Renders a header.
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {Buffer} text The input text.
@@ -777,7 +771,6 @@ var SnuOwnd = {};
         header: null,
         /**
         Renders a horizontal rule.
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {?Object} context A renderer specific context object.
@@ -791,11 +784,8 @@ var SnuOwnd = {};
         already have occured on text pased to the method . All that it is intended
         to do is to wrap the text parameter in anything needed.
         </p>
-
         @example
         out.s += "&lt;ul&gt;" + text.s + "&lt;/ul&gt;"
-
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {Buffer} text The input that goes inside the list.
@@ -808,11 +798,8 @@ var SnuOwnd = {};
         <p>
         Wraps the text in a list element.
         </p>
-
         @example
         out.s += "&lt;li&gt;" + text.s + "&lt;/li&gt;"
-
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {Buffer} text The contents of the list element.
@@ -822,11 +809,8 @@ var SnuOwnd = {};
         listitem: null,
         /**
         Renders a paragraph.
-
         @example
-
         out.s += "&lt;p&gt;" + text.s + "&lt;/p&gt;";
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {Buffer} text The input text.
@@ -835,15 +819,12 @@ var SnuOwnd = {};
         paragraph: null,
         /**
         Renders a table.
-
         @example
-
         out.s += "<table><thead>";
         out.s += header.s;
         out.s += "</thead><tbody>";
         out.s += body.s;
         out.s += "</tbody></table>";
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {Buffer} head The table header.
@@ -853,11 +834,8 @@ var SnuOwnd = {};
         table: null,
         /**
         Renders a table row.
-
         @example
-
         out.s += "&lt;tr&gt;" + text.s + "&lt;/tr&gt;";
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {Buffer} text The input text.
@@ -866,11 +844,8 @@ var SnuOwnd = {};
         table_row: null,
         /**
         Renders a table cell.
-
         @example
-
         out.s += "&lt;td&gt;" + text.s + "&lt;/td&gt;";
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {Buffer} text The input text.
@@ -880,11 +855,8 @@ var SnuOwnd = {};
         table_cell: null,
         /**
         Renders a link that was autodetected.
-
         @example
-
         out.s += "&lt;a href=\""+ text.s + "\"&gt;" + text.s + "&lt;/a&gt;";
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {Buffer} text The address being linked to.
@@ -895,7 +867,6 @@ var SnuOwnd = {};
         autolink: null,
         /**
         Renders inline code.
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {Buffer} text The text being wrapped.
@@ -905,7 +876,6 @@ var SnuOwnd = {};
         codespan: null,
         /**
         Renders text with double emphasis. Default is equivalent to the HTML &lt;strong&gt; tag.
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {Buffer} text The text being wrapped.
@@ -915,7 +885,6 @@ var SnuOwnd = {};
         double_emphasis: null,
         /**
         Renders text with single emphasis. Default is equivalent to the HTML &lt;em&gt; tag.
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {Buffer} text The text being wrapped.
@@ -925,11 +894,8 @@ var SnuOwnd = {};
         emphasis: null,
         /**
         Renders an image.
-
         @example
-
         out.s = "&lt;img src=\"" + link.s + "\" title=\"" + title.s + "\"  alt=\"" + alt.s + "\"/&gt;";"
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {Buffer} link The address of the image.
@@ -941,11 +907,8 @@ var SnuOwnd = {};
         image: null,
         /**
         Renders line break.
-
         @example
-
         out.s += "&lt;br/&gt;";
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {?Object} context A renderer specific context object.
@@ -954,11 +917,8 @@ var SnuOwnd = {};
         linebreak: null,
         /**
         Renders a link.
-
         @example
-
         out.s = "&lt;a href=\"" + link.s + "\" title=\"" + title.s + "\"&gt;" + content.s + "&lt;/a&gt;";
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {Buffer} link The link address.
@@ -970,7 +930,6 @@ var SnuOwnd = {};
         link: null,
         /**
         Copies and potentially escapes some HTML.
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {Buffer} text The input text.
@@ -980,7 +939,6 @@ var SnuOwnd = {};
         raw_html_tag: null,
         /**
         Renders text with triple emphasis. Default is equivalent to both the &lt;em&gt; and &lt;strong&gt; HTML tags.
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {Buffer} text The text being wrapped.
@@ -990,7 +948,6 @@ var SnuOwnd = {};
         triple_emphasis: null,
         /**
         Renders text crossd out.
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {Buffer} text The text being wrapped.
@@ -1000,7 +957,6 @@ var SnuOwnd = {};
         strikethrough: null,
         /**
         Renders text as superscript.
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {Buffer} text The text being wrapped.
@@ -1010,7 +966,6 @@ var SnuOwnd = {};
         superscript: null,
         /**
         Escapes an HTML entity.
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {Buffer} text The text being wrapped.
@@ -1019,7 +974,6 @@ var SnuOwnd = {};
         entity: null,
         /**
         Renders plain text.
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {Buffer} text The text being rendered.
@@ -1028,7 +982,6 @@ var SnuOwnd = {};
         normal_text: null,
         /**
         Creates opening boilerplate for a table of contents.
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {?Object} context A renderer specific context object.
@@ -1036,7 +989,6 @@ var SnuOwnd = {};
         doc_header: null,
         /**
         Creates closing boilerplate for a table of contents.
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {?Object} context A renderer specific context object.
@@ -1045,7 +997,6 @@ var SnuOwnd = {};
     };
     /**
     A renderer object
-
     @constructor
     @param {Callbacks} callbacks The callbacks object to use for the renderer.
     @param {?Callbacks} context Renderer specific context information.
@@ -1056,7 +1007,6 @@ var SnuOwnd = {};
     }
     /**
     Instantiates a custom Renderer object.
-
     @param {Callbacks} callbacks The callbacks object to use for the renderer.
     @param {?Callbacks} context Renderer specific context information.
     @returns {Renderer}
@@ -1130,7 +1080,6 @@ var SnuOwnd = {};
     exports.getTocRenderer = getTocRenderer;
     /**
     Create a Callbacks object with the given callback table.
-
     @param {Object.<string, function>} callbacks A table of callbacks to place int a callbacks object.
     @returns {Callbacks} A callbacks object holding the provided callbacks.
     */
@@ -3632,7 +3581,6 @@ var SnuOwnd = {};
     }
     /**
     Render markdown code to HTML.
-
     @param {string} source Markdown code.
     @returns {string} HTML code.
     */
@@ -3676,9 +3624,7 @@ var SnuOwnd = {};
     Markdown.prototype['render'] = render;
     /**
     Create a parser object using the given configuration parameters.
-
     To get a Reddit equivelent configuration, pass no arguments.
-
     @param {?Renderer=} renderer A renderer object.
     @param {?Number=} extensions A series of OR'd extension flags. (Extension flags start with MKDEXT_)
     @param {?Number=} nestingLimit The maximum depth to which inline elements can be nested.
@@ -4202,11 +4148,7 @@ var ColoredUsernames;
         'piyushsharma301': '#FF0F19',
         'Tranquilsunrise': 'Orange',
         'dominodan123': 'Blue',
-<<<<<<< HEAD
-		'abplows': '#1B0057',
-=======
 	'smarvin6689':'#060647',
->>>>>>> origin/master
         'VitaminB16': '#1AFFA7',
 	'co3_carbonate': 'Grey',
         'artbn': '#e66b00',
