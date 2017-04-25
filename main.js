@@ -4223,12 +4223,12 @@ var ColoredUsernames;
             data.author_elem.css('font-weight', 'bold');
         }
         // /u/davidjl123 username special (Bold and Changed text)
-               if (data.author == 'davidjl123') {
+              if (data.author == 'TOP_20') {
               data.author_elem.css({
                   'letter-spacing': '2px',
                   'font-weight': 'bold',
               });
-              data.author_elem.html('🚀<font face="Bodoni MT"><span style="color:#'+(Math.floor(Math.random()*0xFFFFFF<<0)).toString(16)+'"><font size="'+(Math.floor(Math.random()*6)+1)+'">d</font></span><span style="color:#'+(Math.floor(Math.random()*0xFFFFFF<<0)).toString(16)+'"><font size="'+(Math.floor(Math.random()*6)+1)+'">a</font></span><span style="color:#'+(Math.floor(Math.random()*0xFFFFFF<<0)).toString(16)+'"><font size="'+(Math.floor(Math.random()*6)+1)+'">v</font></span><span style="color:#'+(Math.floor(Math.random()*0xFFFFFF<<0)).toString(16)+'"><font size="'+(Math.floor(Math.random()*6)+1)+'">i</font></span><span style="color:#'+(Math.floor(Math.random()*0xFFFFFF<<0)).toString(16)+'"><font size="'+(Math.floor(Math.random()*6)+1)+'">d</font></span><span style="color:#'+(Math.floor(Math.random()*0xFFFFFF<<0)).toString(16)+'"><font size="'+(Math.floor(Math.random()*6)+1)+'">j</font></span><span style="color:#'+(Math.floor(Math.random()*0xFFFFFF<<0)).toString(16)+'"><font size="'+(Math.floor(Math.random()*6)+1)+'">l</font></span><span style="color:#'+(Math.floor(Math.random()*0xFFFFFF<<0)).toString(16)+'"><font size="'+(Math.floor(Math.random()*6)+1)+'">1</font></span><span style="color:#'+(Math.floor(Math.random()*0xFFFFFF<<0)).toString(16)+'"><font size="'+(Math.floor(Math.random()*6)+1)+'">2</font></span><span style="color:#'+(Math.floor(Math.random()*0xFFFFFF<<0)).toString(16)+'"><font size="'+(Math.floor(Math.random()*6)+1)+'">3 </font></span>🚀<span style="color:#'+(Math.floor(Math.random()*0xFFFFFF<<0)).toString(16)+'">'+ (Math.floor(Math.random()*1000000)+1)+'</span></font>');
+              data.author_elem.html('<span style="color:#ff00bf">❤❤❤</span><span style="color:#648CB0"><font size="'+(Math.floor(Math.random()*6)+1)+'">W</font><font size="'+(Math.floor(Math.random()*6)+1)+'">h</font><font size="'+(Math.floor(Math.random()*6)+1)+'">i</font><font size="'+(Math.floor(Math.random()*6)+1)+'">t</font><font size="'+(Math.floor(Math.random()*6)+1)+'">n</font><font size="'+(Math.floor(Math.random()*6)+1)+'">e</font><font size="'+(Math.floor(Math.random()*6)+1)+'">y</font></span><span style="color:#ff00bf">❤❤❤</span>');
               return;
   }
         // Set username colour
