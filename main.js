@@ -4228,7 +4228,7 @@ var ColoredUsernames;
                   'letter-spacing': '2px',
                   'font-weight': 'bold',
               });
-              data.author_elem.html('<span style="color:#ff00bf">❤❤❤</span><span style="color:#648CB0"><font size="'+(Math.floor(Math.random()*6)+1)+'">W</font><font size="'+(Math.floor(Math.random()*6)+1)+'">h</font><font size="'+(Math.floor(Math.random()*6)+1)+'">i</font><font size="'+(Math.floor(Math.random()*6)+1)+'">t</font><font size="'+(Math.floor(Math.random()*6)+1)+'">n</font><font size="'+(Math.floor(Math.random()*6)+1)+'">e</font><font size="'+(Math.floor(Math.random()*6)+1)+'">y</font></span><span style="color:#ff00bf">❤❤❤</span>');
+              data.author_elem.html('<span style="color:#ff00bf">❤❤❤</span><span style="color:#648CB0"><font face="Comic Sans"><font size="'+(Math.floor(Math.random()*6)+1)+'">W</font><font size="'+(Math.floor(Math.random()*6)+1)+'">h</font><font size="'+(Math.floor(Math.random()*6)+1)+'">i</font><font size="'+(Math.floor(Math.random()*6)+1)+'">t</font><font size="'+(Math.floor(Math.random()*6)+1)+'">n</font><font size="'+(Math.floor(Math.random()*6)+1)+'">e</font><font size="'+(Math.floor(Math.random()*6)+1)+'">y</font></span></font><span style="color:#ff00bf">❤❤❤</span>');
               return;
   }
         // Set username colour
