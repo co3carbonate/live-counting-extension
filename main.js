@@ -4162,7 +4162,7 @@ var ColoredUsernames;
         'Mooraell': '#DAA520',
         'randomusername123458': '#00CC99',
         'davidjl123': '#6495ED',
-		'abplows':'#1B0057',
+		'abplows':'#2B0090',
         'Iamspeedy36': '#00BFFF',
         'Phoenixness': '#ff0000',
         'jillis6': '#ffd700',
