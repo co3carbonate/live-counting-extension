@@ -4223,15 +4223,19 @@ var ColoredUsernames;
         if (data.author == 'co3_carbonate' || data.author == 'rschaosid' || data.author == 'piyushsharma301') {
             data.author_elem.css('font-weight', 'bold');
         }
-        // /u/davidjl123 username special (Bold and Changed text)
-              if (data.author == 'TOP_20') {
+        // /u/dominodan123 username special (Bold and Changed text)
+               if (data.author == 'dominodan123') {
               data.author_elem.css({
-                  'letter-spacing': '2px',
                   'font-weight': 'bold',
+                  '-moz-transform': 'rotate(-180deg)',
+                 '-o-transform': 'rotate(-180deg)',
+                 '-webkit-transform': 'rotate(-180deg)',
+                 'transform': 'rotate(-180deg)',                  'display': 'inline-block',
+                  'vertical-align': 'middle'
               });
-              data.author_elem.html('<span style="color:#ff00bf">❤❤❤<font face="Comic Sans"><font size="'+(Math.floor(Math.random()*6)+1)+'">W</font><font size="'+(Math.floor(Math.random()*6)+1)+'">h</font><font size="'+(Math.floor(Math.random()*6)+1)+'">i</font><font size="'+(Math.floor(Math.random()*6)+1)+'">t</font><font size="'+(Math.floor(Math.random()*6)+1)+'">n</font><font size="'+(Math.floor(Math.random()*6)+1)+'">e</font><font size="'+(Math.floor(Math.random()*6)+1)+'">y</font></font>❤❤❤</span>');
-              return;
-  }
+             data.author_elem.html(`<span style='color:#ccccff;'><font size='1'>/u/</span><span style='color:#b3b3ff;'>d</font></span><span style='color:#9999ff;'><font size='2'>o</span><span style='color:#8080ff;'>m</span><span style='color:#6666ff;'>i</font></span><span style='color:#4d4dff;'><font size='3'>n</span><span style='color:#3333ff;'>o</span><span style='color:#1a1aff;'>d</font></span><span style='color:#0000ff;'><font size='4'>a</span><span style='color:#0000e6;'>n</font></span><span style='color:#0000b3;'><font size='5'>🔢</span>`)
+             return;
+          }
         // Set username colour
         if (!userColors.hasOwnProperty(data.author)) {
             userColors[data.author] = colors[currentColor];
