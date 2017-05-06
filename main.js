@@ -4149,6 +4149,7 @@ var ColoredUsernames;
         'Tranquilsunrise': 'Orange',
         'dominodan123': 'Blue',
 	'smarvin6689':'#060647',
+	'rideride':'#069420',
         'VitaminB16': '#1AFFA7',
 	'co3_carbonate': 'Grey',
         'artbn': '#e66b00',
