@@ -4150,6 +4150,7 @@ var ColoredUsernames;
         'dominodan123': 'Blue',
 	'smarvin6689':'#060647',
 	'rideride':'#069420',
+	'nomaur2':'#8A2BE2',
         'VitaminB16': '#1AFFA7',
 	'co3_carbonate': 'Grey',
         'artbn': '#e66b00',
