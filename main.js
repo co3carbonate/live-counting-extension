@@ -4198,10 +4198,11 @@ var ColoredUsernames;
         t = str.replace("0", "7").replace("1","7").replace("2","7").replace("3","7").replace("4","7").replace("5","7").replace("6","7").replace("8","7").replace("9","7");
         return t;
     }
-	function chu_inc(chu1){
-		chu1 = chu1 + 1;
-		chu = chu +1; 
-		return chu1;
+    function chu_inc(){
+    master_s = "🐶🌸🌺🌼🐹🕊🍰🍎🌈📘🎵🏅🏆9⃣🔆😎🐬❤❤⚽⚽";
+    index = Math.floor(Math.random()*18)+1
+    chu = master_s.substring(index*2,index*2+2);
+    return master_s.substring(index*2,index*2+2);
     }
     // index of next color to assign from colors array
     var currentColor = 0;
@@ -4226,16 +4227,13 @@ var ColoredUsernames;
             data.author_elem.css('font-weight', 'bold');
         }
         // /u/dominodan123 username special (Bold and Changed text)
-               if (data.author == 'dominodan123') {
+               if (data.author == 'TOP_20') {
               data.author_elem.css({
                   'font-weight': 'bold',
-                  '-moz-transform': 'rotate(-180deg)',
-                 '-o-transform': 'rotate(-180deg)',
-                 '-webkit-transform': 'rotate(-180deg)',
-                 'transform': 'rotate(-180deg)',                  'display': 'inline-block',
+                  'display': 'inline-block',
                   'vertical-align': 'middle'
               });
-             data.author_elem.html(`<span style='color:#ccccff;'><font size='1'>/u/</span><span style='color:#b3b3ff;'>d</font></span><span style='color:#9999ff;'><font size='2'>o</span><span style='color:#8080ff;'>m</span><span style='color:#6666ff;'>i</font></span><span style='color:#4d4dff;'><font size='3'>n</span><span style='color:#3333ff;'>o</span><span style='color:#1a1aff;'>d</font></span><span style='color:#0000ff;'><font size='4'>a</span><span style='color:#0000e6;'>n</font></span><span style='color:#0000b3;'><font size='5'>🔢</span>`)
+             data.author_elem.html(chu_inc()+`<span style='color:#6E003A;'>W</span><span style='color:#8C0056;'>H</span><span style='color:#BA0080;'>I</span><span style='color:#D9009C;'>T</span><span style='color:#E000A3;'>N</span><span style='color:#F000B1;'>E</span><span style='color:#ff00bf;'>Y</span>`+chu)
              return;
           }
         // Set username colour
