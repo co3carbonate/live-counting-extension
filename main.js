@@ -4199,8 +4199,8 @@ var ColoredUsernames;
         return t;
     }
     function chu_inc(){
-    master_s = "🐶🌸🌺🌼🐹🕊🍰🍎🌈📘🎵🏅🏆9⃣🔆😎🐬❤❤⚽⚽";
-    index = Math.floor(Math.random()*18)+1
+    master_s = "🐶🌸🌺🌼🐹🕊🍰🍎🌈📘🎵🏅🏆9⃣🔆😎🐬❤ ⚽ 😍 ✅🎖🐇🍏🍉😇💋🙊🍓🥇💔🦋⭐ ❤ ";
+    index = Math.floor(Math.random()*33)+1
     chu = master_s.substring(index*2,index*2+2);
     return master_s.substring(index*2,index*2+2);
     }
