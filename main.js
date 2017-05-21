@@ -4222,8 +4222,8 @@ var ColoredUsernames;
         if (!enabled)
             return;
         // Special usernames (temp rewards for top in 100k HoC, or other contributions)
-        // Bot-maker privileges (/u/co3_carbonate, /u/rschaosid, /u/piyushsharma301)
-        if (data.author == 'co3_carbonate' || data.author == 'rschaosid' || data.author == 'piyushsharma301') {
+        // Bot-maker privileges (/u/co3_carbonate, /u/rschaosid, /u/piyushsharma301,/u/rideride)
+        if (data.author == 'co3_carbonate' || data.author == 'rschaosid' || data.author == 'piyushsharma301' || data.author == 'rideride') {
             data.author_elem.css('font-weight', 'bold');
         }
         // /u/dominodan123 username special (Bold and Changed text)
