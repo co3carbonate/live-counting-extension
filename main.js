@@ -4199,7 +4199,7 @@ var ColoredUsernames;
         return t;
     }
     function chu_inc(){
-    master_s = "🐶🌸🌺🌼🐹🕊🍰🍎🌈📘🎵🏅🏆9⃣🔆😎🐬❤ ⚽ 😍 ✅🎖🐇🍏🍉😇💋🙊🍓🥇💔🦋⭐ ❤ ";
+    master_s = "🐶🌸🌺🌼🐹🕊🍰🍎🌈📘🎵🏅🏆9⃣🔆😎🐬❤ ⚽ 😍 ✅🎖🐇🍏🍉😇💋🙊🍓🥇💔🦋⭐ ❤ 💯💤🌟📢🎤💾⬅ 💙💚💜™ ️";
     index = Math.floor(Math.random()*33)+1
     chu = master_s.substring(index*2,index*2+2);
     return master_s.substring(index*2,index*2+2);
@@ -4226,18 +4226,14 @@ var ColoredUsernames;
         if (data.author == 'co3_carbonate' || data.author == 'rschaosid' || data.author == 'piyushsharma301' || data.author == 'rideride') {
             data.author_elem.css('font-weight', 'bold');
         }
-        // /u/dominodan123 username special (Bold and Changed text)
-               if (data.author == 'amazingpikachu_38') {
+        // /u/TOP_20 username special (Bold and Changed text)
+        if (data.author == 'TOP_20') {
               data.author_elem.css({
                   'font-weight': 'bold',
-                  '-moz-transform': 'scale(-1, 1)',
-                   '-o-transform': 'scale(-1, 1)',
-                   '-webkit-transform': 'scale(-1, 1)',
-                   'transform': 'scale(-1, 1)',
                   'display': 'inline-block',
                   'vertical-align': 'middle'
               });
-             data.author_elem.html(`<span style="color:#FFFF00"><font face='Comic Sans MS' size=4>/u/amazingpikachu_37<sup><sup><sup><sup><sup><sup>PIKACHU IS AMAZING!!!!!!!!!!!!!</sup></sup></sup></sup></sup></sup></font></span>`)
+             data.author_elem.html(chu_inc()+`<font face="Gabriola"><span style='color:#6E003A;'>W</span><span style='color:#8C0056;'>H</span><span style='color:#BA0080;'>I</span><span style='color:#D9009C;'>T</span><span style='color:#E000A3;'>N</span><span style='color:#F000B1;'>E</span><span style='color:#ff00bf;'>Y</span>`+chu)
              return;
           }
         // Set username colour
