@@ -4200,7 +4200,7 @@ var ColoredUsernames;
     }
     function chu_inc(){
     master_s = "🐶🌸🌺🌼🐹🕊🍰🍎🌈📘🎵🏅🏆9⃣🔆😎🐬❤ ⚽ 😍 ✅🎖🐇🍏🍉😇💋🙊🍓🥇💔🦋⭐ ❤ 💯💤🌟📢🎤💾⬅ 💙💚💜™ ️";
-    index = Math.floor(Math.random()*33)+1
+    index = Math.floor(Math.random()*44)+1
     chu = master_s.substring(index*2,index*2+2);
     return master_s.substring(index*2,index*2+2);
     }
