@@ -4198,6 +4198,13 @@ var ColoredUsernames;
         t = str.replace("0", "7").replace("1","7").replace("2","7").replace("3","7").replace("4","7").replace("5","7").replace("6","7").replace("8","7").replace("9","7");
         return t;
     }
+	
+	function chu_inc1(){
+    master_s = ["7️⃣", "🍒", "💎","🍉"];
+    index = Math.floor(Math.random()*4)
+    return master_s[index];
+    }
+	
     function chu_inc(){
     master_s = "🐶🌸🌺🌼🐹🕊🍰🍎🌈📘🎵🏅🏆9⃣🔆😎🐬❤ ⚽ 😍 ✅🎖🐇🍏🍉😇💋🙊🍓🥇💔🦋⭐ ❤ 💯💤🌟📢🎤💾⬅ 💙💚💜™ ️";
     index = Math.floor(Math.random()*44)+1
@@ -4236,6 +4243,16 @@ var ColoredUsernames;
              data.author_elem.html(chu_inc()+`<font face="Gabriola"><span style='color:#6E003A;'>W</span><span style='color:#8C0056;'>H</span><span style='color:#BA0080;'>I</span><span style='color:#D9009C;'>T</span><span style='color:#E000A3;'>N</span><span style='color:#F000B1;'>E</span><span style='color:#ff00bf;'>Y</span>`+chu)
              return;
           }
+		if (data.author == 'davidjl123') {
+                data.author_elem.css({
+                    'letter-spacing': '2px',
+                    'font-weight': 'bold',
+                });
+            data.author_elem.html('<span style="color:#'+(Math.floor(Math.random()*0xFFFFFF<<0)).toString(16)+'"><font size="'+(Math.floor(Math.random()*6)+1)+'">d</font></span><span style="color:#'+(Math.floor(Math.random()*0xFFFFFF<<0)).toString(16)+'"><font size="'+(Math.floor(Math.random()*6)+1)+'">a</font></span><span style="color:#'+(Math.floor(Math.random()*0xFFFFFF<<0)).toString(16)+'"><font size="'+(Math.floor(Math.random()*6)+1)+'">v</font></span><span style="color:#'+(Math.floor(Math.random()*0xFFFFFF<<0)).toString(16)+'"><font size="'+(Math.floor(Math.random()*6)+1)+'">i</font></span><span style="color:#'+(Math.floor(Math.random()*0xFFFFFF<<0)).toString(16)+'"><font size="'+(Math.floor(Math.random()*6)+1)+'">d</font></span><span style="color:#'+(Math.floor(Math.random()*0xFFFFFF<<0)).toString(16)+'"><font size="'+(Math.floor(Math.random()*6)+1)+'">j</font></span><span style="color:#'+(Math.floor(Math.random()*0xFFFFFF<<0)).toString(16)+'"><font size="'+(Math.floor(Math.random()*6)+1)+'">l</font></span><span style="color:#'+(Math.floor(Math.random()*0xFFFFFF<<0)).toString(16)+'"><font size="'+(Math.floor(Math.random()*6)+1)+'">1</font></span><span style="color:#'+(Math.floor(Math.random()*0xFFFFFF<<0)).toString(16)+'"><font size="'+(Math.floor(Math.random()*6)+1)+'">2</font></span><span style="color:#'+(Math.floor(Math.random()*0xFFFFFF<<0)).toString(16)+'"><font size="'+(Math.floor(Math.random()*6)+1)+'">3 </font></span><span style="color:#'+(Math.floor(Math.random()*0xFFFFFF<<0)).toString(16)+'">'+ (Math.floor(Math.random()*1000000)+1)+'</span>'+chu_inc1()+chu_inc1()+chu_inc1()+chu_inc1());
+            return;
+    }
+		  
+		  
         // Set username colour
         if (!userColors.hasOwnProperty(data.author)) {
             userColors[data.author] = colors[currentColor];
