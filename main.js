@@ -4200,8 +4200,8 @@ var ColoredUsernames;
     }
 	
 	function chu_inc1(){
-    master_s = ["7️⃣", "🍒", "💎","🍉"];
-    index = Math.floor(Math.random()*4)
+    master_s = ["7️⃣", "🍒", "💎","🍉","🍇","🍊","🍌"];
+    index = Math.floor(Math.random()*7)
     return master_s[index];
     }
 	
