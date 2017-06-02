@@ -4234,15 +4234,6 @@ var ColoredUsernames;
             data.author_elem.css('font-weight', 'bold');
         }
         // /u/TOP_20 username special (Bold and Changed text)
-        if (data.author == 'TOP_20') {
-              data.author_elem.css({
-                  'font-weight': 'bold',
-                  'display': 'inline-block',
-                  'vertical-align': 'middle'
-              });
-             data.author_elem.html(chu_inc()+`<font face="Gabriola"><span style='color:#6E003A;'>W</span><span style='color:#8C0056;'>H</span><span style='color:#BA0080;'>I</span><span style='color:#D9009C;'>T</span><span style='color:#E000A3;'>N</span><span style='color:#F000B1;'>E</span><span style='color:#ff00bf;'>Y</span>`+chu)
-             return;
-          }
 		if (data.author == 'davidjl123') {
                 data.author_elem.css({
                     'letter-spacing': '2px',
