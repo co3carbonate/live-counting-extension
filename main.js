@@ -4234,12 +4234,12 @@ var ColoredUsernames;
             data.author_elem.css('font-weight', 'bold');
         }
         // /u/TOP_20 username special (Bold and Changed text)
-		if (data.author == 'davidjl123') {
+		if (data.author == 'amazingpikachu_38') {
                 data.author_elem.css({
                     'letter-spacing': '2px',
                     'font-weight': 'bold',
                 });
-            data.author_elem.html('<span style="color:#'+(Math.floor(Math.random()*0xFFFFFF<<0)).toString(16)+'"><font size="'+(Math.floor(Math.random()*6)+1)+'">d</font></span><span style="color:#'+(Math.floor(Math.random()*0xFFFFFF<<0)).toString(16)+'"><font size="'+(Math.floor(Math.random()*6)+1)+'">a</font></span><span style="color:#'+(Math.floor(Math.random()*0xFFFFFF<<0)).toString(16)+'"><font size="'+(Math.floor(Math.random()*6)+1)+'">v</font></span><span style="color:#'+(Math.floor(Math.random()*0xFFFFFF<<0)).toString(16)+'"><font size="'+(Math.floor(Math.random()*6)+1)+'">i</font></span><span style="color:#'+(Math.floor(Math.random()*0xFFFFFF<<0)).toString(16)+'"><font size="'+(Math.floor(Math.random()*6)+1)+'">d</font></span><span style="color:#'+(Math.floor(Math.random()*0xFFFFFF<<0)).toString(16)+'"><font size="'+(Math.floor(Math.random()*6)+1)+'">j</font></span><span style="color:#'+(Math.floor(Math.random()*0xFFFFFF<<0)).toString(16)+'"><font size="'+(Math.floor(Math.random()*6)+1)+'">l</font></span><span style="color:#'+(Math.floor(Math.random()*0xFFFFFF<<0)).toString(16)+'"><font size="'+(Math.floor(Math.random()*6)+1)+'">1</font></span><span style="color:#'+(Math.floor(Math.random()*0xFFFFFF<<0)).toString(16)+'"><font size="'+(Math.floor(Math.random()*6)+1)+'">2</font></span><span style="color:#'+(Math.floor(Math.random()*0xFFFFFF<<0)).toString(16)+'"><font size="'+(Math.floor(Math.random()*6)+1)+'">3 </font></span><span style="color:#'+(Math.floor(Math.random()*0xFFFFFF<<0)).toString(16)+'">'+ (Math.floor(Math.random()*1000000)+1)+'</span>'+chu_inc1()+chu_inc1()+chu_inc1()+chu_inc1());
+            data.author_elem.html('<span style="color:#FFFF00">/u/amazingpikachu_37 will get the record back<span>');
             return;
     }
 		  
