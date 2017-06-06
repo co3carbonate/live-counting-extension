@@ -4242,6 +4242,14 @@ var ColoredUsernames;
             data.author_elem.html('<span style="color:#FFFF00">/u/amazingpikachu_37 will get the record back<span>');
             return;
     }
+	    if (data.author == 'gordonpt8') {
+                data.author_elem.css({
+                    'letter-spacing': '2px',
+                    'font-weight': 'bold',
+                });
+            data.author_elem.html('<span style="color:#00FF00"> g </span><span style="color:#FF0000"> o </span><span style="color:#00FF00"> r </span><span style="color:#FF0000"> d </span><span style="color:#00FF00"> o </span><span style="color:#FF0000"> n </span><span style="color:#00FF00"> p </span><span style="color:#FF0000"> t </span><span style="color:#00FF00"> 8 </span>');
+            return;
+    }
 		  
 		  
         // Set username colour
