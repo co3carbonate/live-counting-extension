@@ -1,4 +1,5 @@
 /**
+/**
  * LIVE COUNTING EXTENSION V1.5.3
  * (THIS CODE WAS GENERATED FROM THE TYPESCRIPT .TS FILES IN THE SRC DIRECTORY)
  */
@@ -4233,15 +4234,7 @@ var ColoredUsernames;
         if (data.author == 'co3_carbonate' || data.author == 'rschaosid' || data.author == 'piyushsharma301' || data.author == 'rideride') {
             data.author_elem.css('font-weight', 'bold');
         }
-        // /u/TOP_20 username special (Bold and Changed text)
-		if (data.author == 'amazingpikachu_38') {
-                data.author_elem.css({
-                    'letter-spacing': '2px',
-                    'font-weight': 'bold',
-                });
-            data.author_elem.html('<span style="color:#FFFF00">/u/amazingpikachu_37 will get the record back<span>');
-            return;
-    }
+        // /u/gordonpt8 username special (Bold and Changed text)
 	    if (data.author == 'gordonpt8') {
                 data.author_elem.css({
                     'letter-spacing': '2px',
