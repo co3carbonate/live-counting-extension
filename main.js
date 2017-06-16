@@ -4235,12 +4235,13 @@ var ColoredUsernames;
             data.author_elem.css('font-weight', 'bold');
         }
         // /u/gordonpt8 username special (Bold and Changed text)
-	    if (data.author == 'gordonpt8') {
+        if (data.author == 'smarvin6689') {
                 data.author_elem.css({
                     'letter-spacing': '2px',
                     'font-weight': 'bold',
+                    'background-color': 'Black',
                 });
-            data.author_elem.html('<span style="color:#00FF00"> g </span><span style="color:#FF0000"> o </span><span style="color:#00FF00"> r </span><span style="color:#FF0000"> d </span><span style="color:#00FF00"> o </span><span style="color:#FF0000"> n </span><span style="color:#00FF00"> p </span><span style="color:#FF0000"> t </span><span style="color:#00FF00"> 8 </span>');
+            data.author_elem.html('🚔<span style="color:#FF0000">s</span><span style="color:#FFFFFF">m</span><span style="color:#0000FF">a</span><span style="color:#FF0000">r</span><span style="color:#FFFFFF">v</span><span style="color:#0000FF">i</span><span style="color:#FF0000">n</span><span style="color:#FFFFFF">6</span><span style="color:#0000FF">6</span><span style="color:#FF0000">8</span><span style="color:#FFFFFF">9</span>🚔');
             return;
     }
 		  
