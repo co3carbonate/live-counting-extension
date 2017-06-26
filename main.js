@@ -4235,12 +4235,12 @@ var ColoredUsernames;
             data.author_elem.css('font-weight', 'bold');
         }
         // /u/gordonpt8 username special (Bold and Changed text)
-	    if (data.author == 'gordonpt8') {
+        if (data.author == 'Smartstocks') {
                 data.author_elem.css({
                     'letter-spacing': '2px',
                     'font-weight': 'bold',
                 });
-            data.author_elem.html('<span style="color:#00FF00"> g </span><span style="color:#FF0000"> o </span><span style="color:#00FF00"> r </span><span style="color:#FF0000"> d </span><span style="color:#00FF00"> o </span><span style="color:#FF0000"> n </span><span style="color:#00FF00"> p </span><span style="color:#FF0000"> t </span><span style="color:#00FF00"> 8 </span>');
+            data.author_elem.html(`<span style ="color:#F5DEB3">━</span><span style ="color:#840D0D">{:'-D🍆{:}🍍{:'D🌰</span><span style ="color:#D4AF37">{Smartstocks}</span><span style ="color:#840d0d">🍥{:'}🍅{:D🌽}:'-D</span><span style ="color:#F5DEB3">━</span>`);
             return;
     }
 		  
