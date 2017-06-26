@@ -4235,12 +4235,21 @@ var ColoredUsernames;
             data.author_elem.css('font-weight', 'bold');
         }
         // /u/gordonpt8 username special (Bold and Changed text)
+<<<<<<< HEAD
         if (data.author == 'Smartstocks') {
+=======
+        if (data.author == 'smarvin6689') {
+>>>>>>> origin/master
                 data.author_elem.css({
                     'letter-spacing': '2px',
                     'font-weight': 'bold',
+                    'background-color': 'Black',
                 });
+<<<<<<< HEAD
             data.author_elem.html(`<span style ="color:#F5DEB3">━</span><span style ="color:#840D0D">{:'-D🍆{:}🍍{:'D🌰</span><span style ="color:#D4AF37">{Smartstocks}</span><span style ="color:#840d0d">🍥{:'}🍅{:D🌽}:'-D</span><span style ="color:#F5DEB3">━</span>`);
+=======
+            data.author_elem.html('🚔<span style="color:#FF0000">s</span><span style="color:#FFFFFF">m</span><span style="color:#0000FF">a</span><span style="color:#FF0000">r</span><span style="color:#FFFFFF">v</span><span style="color:#0000FF">i</span><span style="color:#FF0000">n</span><span style="color:#FFFFFF">6</span><span style="color:#0000FF">6</span><span style="color:#FF0000">8</span><span style="color:#FFFFFF">9</span>🚔');
+>>>>>>> origin/master
             return;
     }
 		  
