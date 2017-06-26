@@ -4234,7 +4234,7 @@ var ColoredUsernames;
         if (data.author == 'co3_carbonate' || data.author == 'rschaosid' || data.author == 'piyushsharma301' || data.author == 'rideride') {
             data.author_elem.css('font-weight', 'bold');
         }
-        // /u/gordonpt8 username special (Bold and Changed text)
+        // /u/Smartstocks username special (Bold and Changed text)
         if (data.author == 'Smartstocks') {
                 data.author_elem.css({
                     'letter-spacing': '2px',
