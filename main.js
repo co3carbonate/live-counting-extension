@@ -4161,6 +4161,7 @@ var ColoredUsernames;
 		'parker_cube': '#FF69B4',
         'QuestoGuy': 'Purple',
         'Smartstocks': '#840d0d',
+		'DemonBurritoCat':'#890003',
         'gordonpt8': '#00FF00',
         'Mooraell': '#DAA520',
         'randomusername123458': '#00CC99',
