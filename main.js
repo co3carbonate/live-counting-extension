@@ -4236,14 +4236,6 @@ var ColoredUsernames;
             data.author_elem.css('font-weight', 'bold');
         }
         // /u/Smartstocks username special (Bold and Changed text)
-        if (data.author == 'Smartstocks') {
-                data.author_elem.css({
-                    'letter-spacing': '2px',
-                    'font-weight': 'bold',
-                });
-            data.author_elem.html(`<span style ="color:#F5DEB3">━</span><span style ="color:#840D0D">{:'-D🍆{:}🍍{:'D🌰</span><span style ="color:#D4AF37">{Smartstocks}</span><span style ="color:#840d0d">🍥{:'}🍅{:D🌽}:'-D</span><span style ="color:#F5DEB3">━</span>`);
-            return;
-    }
 		  
 		  
         // Set username colour
