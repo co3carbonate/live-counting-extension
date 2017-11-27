@@ -1,4 +1,5 @@
 /**
+/**
  * LIVE COUNTING EXTENSION V1.5.3
  * (THIS CODE WAS GENERATED FROM THE TYPESCRIPT .TS FILES IN THE SRC DIRECTORY)
  */
@@ -7,6 +8,7 @@
 var VERSION = 'v1.5.3';
 // Client's username
 var USER = $('#header .user a[href]').html();
+var chu = 0;
 // Thread ID
 var THREAD = (function () {
     var components = window.location.pathname.split('/');
@@ -721,7 +723,6 @@ var SnuOwnd = {};
     }
     /**
     Initialize a Callbacks object.
-
     @constructor
     @param {Object.<string, ?function>} callbacks A set of callbacks to use as the methods on this object.
     */
@@ -736,9 +737,7 @@ var SnuOwnd = {};
     Callbacks.prototype = {
         /**
         Renders a code block.
-
         Syntax highlighting specific to lanugage may be performed here.
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {Buffer} text The input text.
@@ -748,7 +747,6 @@ var SnuOwnd = {};
         blockcode: null,
         /**
         Renders a blockquote.
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {Buffer} text The input text.
@@ -757,7 +755,6 @@ var SnuOwnd = {};
         blockquote: null,
         /**
         Renders a block of HTML code.
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {Buffer} text The input text.
@@ -766,7 +763,6 @@ var SnuOwnd = {};
         blockhtml: null,
         /**
         Renders a header.
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {Buffer} text The input text.
@@ -776,7 +772,6 @@ var SnuOwnd = {};
         header: null,
         /**
         Renders a horizontal rule.
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {?Object} context A renderer specific context object.
@@ -790,11 +785,8 @@ var SnuOwnd = {};
         already have occured on text pased to the method . All that it is intended
         to do is to wrap the text parameter in anything needed.
         </p>
-
         @example
         out.s += "&lt;ul&gt;" + text.s + "&lt;/ul&gt;"
-
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {Buffer} text The input that goes inside the list.
@@ -807,11 +799,8 @@ var SnuOwnd = {};
         <p>
         Wraps the text in a list element.
         </p>
-
         @example
         out.s += "&lt;li&gt;" + text.s + "&lt;/li&gt;"
-
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {Buffer} text The contents of the list element.
@@ -821,11 +810,8 @@ var SnuOwnd = {};
         listitem: null,
         /**
         Renders a paragraph.
-
         @example
-
         out.s += "&lt;p&gt;" + text.s + "&lt;/p&gt;";
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {Buffer} text The input text.
@@ -834,15 +820,12 @@ var SnuOwnd = {};
         paragraph: null,
         /**
         Renders a table.
-
         @example
-
         out.s += "<table><thead>";
         out.s += header.s;
         out.s += "</thead><tbody>";
         out.s += body.s;
         out.s += "</tbody></table>";
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {Buffer} head The table header.
@@ -852,11 +835,8 @@ var SnuOwnd = {};
         table: null,
         /**
         Renders a table row.
-
         @example
-
         out.s += "&lt;tr&gt;" + text.s + "&lt;/tr&gt;";
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {Buffer} text The input text.
@@ -865,11 +845,8 @@ var SnuOwnd = {};
         table_row: null,
         /**
         Renders a table cell.
-
         @example
-
         out.s += "&lt;td&gt;" + text.s + "&lt;/td&gt;";
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {Buffer} text The input text.
@@ -879,11 +856,8 @@ var SnuOwnd = {};
         table_cell: null,
         /**
         Renders a link that was autodetected.
-
         @example
-
         out.s += "&lt;a href=\""+ text.s + "\"&gt;" + text.s + "&lt;/a&gt;";
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {Buffer} text The address being linked to.
@@ -894,7 +868,6 @@ var SnuOwnd = {};
         autolink: null,
         /**
         Renders inline code.
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {Buffer} text The text being wrapped.
@@ -904,7 +877,6 @@ var SnuOwnd = {};
         codespan: null,
         /**
         Renders text with double emphasis. Default is equivalent to the HTML &lt;strong&gt; tag.
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {Buffer} text The text being wrapped.
@@ -914,7 +886,6 @@ var SnuOwnd = {};
         double_emphasis: null,
         /**
         Renders text with single emphasis. Default is equivalent to the HTML &lt;em&gt; tag.
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {Buffer} text The text being wrapped.
@@ -924,11 +895,8 @@ var SnuOwnd = {};
         emphasis: null,
         /**
         Renders an image.
-
         @example
-
         out.s = "&lt;img src=\"" + link.s + "\" title=\"" + title.s + "\"  alt=\"" + alt.s + "\"/&gt;";"
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {Buffer} link The address of the image.
@@ -940,11 +908,8 @@ var SnuOwnd = {};
         image: null,
         /**
         Renders line break.
-
         @example
-
         out.s += "&lt;br/&gt;";
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {?Object} context A renderer specific context object.
@@ -953,11 +918,8 @@ var SnuOwnd = {};
         linebreak: null,
         /**
         Renders a link.
-
         @example
-
         out.s = "&lt;a href=\"" + link.s + "\" title=\"" + title.s + "\"&gt;" + content.s + "&lt;/a&gt;";
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {Buffer} link The link address.
@@ -969,7 +931,6 @@ var SnuOwnd = {};
         link: null,
         /**
         Copies and potentially escapes some HTML.
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {Buffer} text The input text.
@@ -979,7 +940,6 @@ var SnuOwnd = {};
         raw_html_tag: null,
         /**
         Renders text with triple emphasis. Default is equivalent to both the &lt;em&gt; and &lt;strong&gt; HTML tags.
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {Buffer} text The text being wrapped.
@@ -989,7 +949,6 @@ var SnuOwnd = {};
         triple_emphasis: null,
         /**
         Renders text crossd out.
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {Buffer} text The text being wrapped.
@@ -999,7 +958,6 @@ var SnuOwnd = {};
         strikethrough: null,
         /**
         Renders text as superscript.
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {Buffer} text The text being wrapped.
@@ -1009,7 +967,6 @@ var SnuOwnd = {};
         superscript: null,
         /**
         Escapes an HTML entity.
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {Buffer} text The text being wrapped.
@@ -1018,7 +975,6 @@ var SnuOwnd = {};
         entity: null,
         /**
         Renders plain text.
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {Buffer} text The text being rendered.
@@ -1027,7 +983,6 @@ var SnuOwnd = {};
         normal_text: null,
         /**
         Creates opening boilerplate for a table of contents.
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {?Object} context A renderer specific context object.
@@ -1035,7 +990,6 @@ var SnuOwnd = {};
         doc_header: null,
         /**
         Creates closing boilerplate for a table of contents.
-
         @method
         @param {Buffer} out The output string buffer to append to.
         @param {?Object} context A renderer specific context object.
@@ -1044,7 +998,6 @@ var SnuOwnd = {};
     };
     /**
     A renderer object
-
     @constructor
     @param {Callbacks} callbacks The callbacks object to use for the renderer.
     @param {?Callbacks} context Renderer specific context information.
@@ -1055,7 +1008,6 @@ var SnuOwnd = {};
     }
     /**
     Instantiates a custom Renderer object.
-
     @param {Callbacks} callbacks The callbacks object to use for the renderer.
     @param {?Callbacks} context Renderer specific context information.
     @returns {Renderer}
@@ -1129,7 +1081,6 @@ var SnuOwnd = {};
     exports.getTocRenderer = getTocRenderer;
     /**
     Create a Callbacks object with the given callback table.
-
     @param {Object.<string, function>} callbacks A table of callbacks to place int a callbacks object.
     @returns {Callbacks} A callbacks object holding the provided callbacks.
     */
@@ -3631,7 +3582,6 @@ var SnuOwnd = {};
     }
     /**
     Render markdown code to HTML.
-
     @param {string} source Markdown code.
     @returns {string} HTML code.
     */
@@ -3675,9 +3625,7 @@ var SnuOwnd = {};
     Markdown.prototype['render'] = render;
     /**
     Create a parser object using the given configuration parameters.
-
     To get a Reddit equivelent configuration, pass no arguments.
-
     @param {?Renderer=} renderer A renderer object.
     @param {?Number=} extensions A series of OR'd extension flags. (Extension flags start with MKDEXT_)
     @param {?Number=} nestingLimit The maximum depth to which inline elements can be nested.
@@ -4198,23 +4146,31 @@ var ColoredUsernames;
         'live_mentions': 'Black',
         'joinlivecounting': 'Black',
         'livecounting_sidebar': 'Black',
-        'piyushsharma301': 'Red',
+        'piyushsharma301': '#FF0F19',
         'Tranquilsunrise': 'Orange',
         'dominodan123': 'Blue',
-        'co3_carbonate': 'Grey',
+	'smarvin6689':'#060647',
+	'rideride':'#069420',
+	'nomaur2':'#8A2BE2',
+        'VitaminB16': '#1AFFA7',
+	'co3_carbonate': 'Grey',
         'artbn': '#e66b00',
-        'amazingpikachu_38': '#F2F209',
+        'amazingpikachu_38': '#FFFF00',
         'qwertylool': "YellowGreen",
-        'TOP_20': '#FF9A9A',
+        'TOP_20': '#ff00bf',
+		'parker_cube': '#FF69B4',
         'QuestoGuy': 'Purple',
         'Smartstocks': '#840d0d',
+		'DemonBurritoCat':'#890003',
         'gordonpt8': '#00FF00',
         'Mooraell': '#DAA520',
         'randomusername123458': '#00CC99',
         'davidjl123': '#6495ED',
+		'abplows':'#2B0090',
         'Iamspeedy36': '#00BFFF',
         'Phoenixness': '#ff0000',
         'jillis6': '#ffd700',
+		'Kris18': '#0000ff',
         'xHOCKEYx12': 'Lime',
         '_ntrpy': '#FF6600',
         'o99o99': '#2BBDFF',
@@ -4236,6 +4192,27 @@ var ColoredUsernames;
         colors[i] = colors[j];
         colors[j] = temp;
     }
+	function aprfoo(str){
+        var i = 0;
+        var l = str.length;
+        var start = 0;
+        var end = l - 1;
+        t = str.replace("0", "7").replace("1","7").replace("2","7").replace("3","7").replace("4","7").replace("5","7").replace("6","7").replace("8","7").replace("9","7");
+        return t;
+    }
+	
+	function chu_inc1(){
+    master_s = ["7️⃣", "🍒", "💎","🍉","🍇","🍊","🍌"];
+    index = Math.floor(Math.random()*7)
+    return master_s[index];
+    }
+	
+    function chu_inc(){
+    master_s = "🐶🌸🌺🌼🐹🕊🍰🍎🌈📘🎵🏅🏆9⃣🔆😎🐬❤ ⚽ 😍 ✅🎖🐇🍏🍉😇💋🙊🍓🥇💔🦋⭐ ❤ 💯💤🌟📢🎤💾⬅ 💙💚💜™ ️";
+    index = Math.floor(Math.random()*44)+1
+    chu = master_s.substring(index*2,index*2+2);
+    return master_s.substring(index*2,index*2+2);
+    }
     // index of next color to assign from colors array
     var currentColor = 0;
     // Options
@@ -4254,22 +4231,13 @@ var ColoredUsernames;
         if (!enabled)
             return;
         // Special usernames (temp rewards for top in 100k HoC, or other contributions)
-        // Bot-maker privileges (/u/co3_carbonate, /u/rschaosid, /u/piyushsharma301)
-        if (data.author == 'co3_carbonate' || data.author == 'rschaosid' || data.author == 'piyushsharma301') {
+        // Bot-maker privileges (/u/co3_carbonate, /u/rschaosid, /u/piyushsharma301,/u/rideride)
+        if (data.author == 'co3_carbonate' || data.author == 'rschaosid' || data.author == 'piyushsharma301' || data.author == 'rideride') {
             data.author_elem.css('font-weight', 'bold');
         }
-        // /u/dominodan123 username special (upside down and bold)
-        if (data.author == 'dominodan123') {
-            data.author_elem.css({
-                'font-weight': 'bold',
-                '-moz-transform': 'rotate(-180deg)',
-                '-o-transform': 'rotate(-180deg)',
-                '-webkit-transform': 'rotate(-180deg)',
-                'transform': 'rotate(-180deg)',
-                'display': 'inline-block',
-                'vertical-align': 'middle'
-            });
-        }
+        // /u/Smartstocks username special (Bold and Changed text)
+		  
+		  
         // Set username colour
         if (!userColors.hasOwnProperty(data.author)) {
             userColors[data.author] = colors[currentColor];
@@ -4279,6 +4247,7 @@ var ColoredUsernames;
             }
         }
         data.author_elem.css('color', userColors[data.author]);
+
     });
 })(ColoredUsernames || (ColoredUsernames = {}));
 //////////////////////////
