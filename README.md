@@ -11,20 +11,20 @@ All the features are displayed on the top-right corner of the page. You can alwa
 Here is a list of features. Besides the 'hidden' features, all of them can be disabled at will.
 
 - Basic
- - Colored Usernames: Makes the username in each message gain a unique color
- - Clear Past Messages: Frequently clears past messages from the page, which drastically negates lag and reduces the need to refresh constantly
- - Display Mode: Changes the display interface of the page to your preference
- - Remove Submission Lag: Upon submitting a message, the textbox is immediately cleared to allow you to enter new contents without waiting for your previous submission to be processed
+  - Colored Usernames: Makes the username in each message gain a unique color
+  - Clear Past Messages: Frequently clears past messages from the page, which drastically negates lag and reduces the need to refresh constantly
+  - Display Mode: Changes the display interface of the page to your preference
+  - Remove Submission Lag: Upon submitting a message, the textbox is immediately cleared to allow you to enter new contents without waiting for your previous submission to be processed
 
 - Advanced 
- - Disable Username Links: Disables the redirection to a user's profile upon clicking on his/her username
- - Make All Links Open In A New Tab: Makes all links on the page open in a new tab
- - Disable Obstructive Browser Shortcuts: Disables certain obstructive browser keyboard shortcuts. This currently disables the following: Ctrl+0 (Zoom Reset), Ctrl+\[1-9\] (Switch Tabs)
- - Content Position: Adjusts the position of the main content section
- - Standardize Number Format: Standardizes the number count in each message to a format of your choice
+  - Disable Username Links: Disables the redirection to a user's profile upon clicking on his/her username
+  - Make All Links Open In A New Tab: Makes all links on the page open in a new tab
+  - Disable Obstructive Browser Shortcuts: Disables certain obstructive browser keyboard shortcuts. This currently disables the following: Ctrl+0 (Zoom Reset), Ctrl+\[1-9\] (Switch Tabs)
+  - Content Position: Adjusts the position of the main content section
+  - Standardize Number Format: Standardizes the number count in each message to a format of your choice
  
 - Hidden
- - Ctrl+Enter Shortcut: Enables the use of a single shortcut Ctrl+Enter to conveniently send a message
+  - Ctrl+Enter Shortcut: Enables the use of a single shortcut Ctrl+Enter to conveniently send a message
 
 ## Installation
 
