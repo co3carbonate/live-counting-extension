@@ -4149,11 +4149,11 @@ var ColoredUsernames;
         'piyushsharma301': '#FF0F19',
         'Tranquilsunrise': 'Orange',
         'dominodan123': 'Blue',
-	'smarvin6689':'#060647',
-	'rideride':'#069420',
-	'nomaur2':'#8A2BE2',
+		'smarvin6689':'#060647',
+		'rideride':'#069420',
+		'nomaur2':'#8A2BE2',
         'VitaminB16': '#1AFFA7',
-	'co3_carbonate': 'Grey',
+		'co3_carbonate': 'Grey',
         'artbn': '#e66b00',
         'amazingpikachu_38': '#FFFF00',
         'qwertylool': "YellowGreen",
@@ -4238,6 +4238,10 @@ var ColoredUsernames;
         if (data.author == 'co3_carbonate' || data.author == 'rschaosid' || data.author == 'piyushsharma301' || data.author == 'rideride') {
             data.author_elem.css('font-weight', 'bold');
         }
+		
+		if (data.author == 'Whit4You'){
+			data.author_elem.html(`<span style ="color:#ff00bf">TOP_20 alt</span>`)
+		}
         // /u/Smartstocks username special (Bold and Changed text)
 		  
 		  
