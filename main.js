@@ -4238,19 +4238,6 @@ var ColoredUsernames;
         if (data.author == 'co3_carbonate' || data.author == 'rschaosid' || data.author == 'piyushsharma301' || data.author == 'rideride') {
             data.author_elem.css('font-weight', 'bold');
         }
-		
-		if (data.author == 'Whit4You'){
-			data.author_elem.html(`<span style ="color:#ff00bf">TOP_20 alt</span>`)
-		}
-        // /u/chalupa_dad username special (Bold and Changed text)
-		  if (data.author == 'Chalupa_Dad') {
-			data.author_elem.css({
-                      'letter-spacing': '2px',
-                      'font-weight': 'bold',
-					  'background-color': 'Black',
-                  });
-				  data.author_elem.html(`🌯🌮🏀<span style="color:#E13A3E">C</span><span style="color:#C4CED4">h</span><span style="color:#E13A3E">a</span><span style="color:#C4CED4">l</span><span style="color:#E13A3E">u</span><span style="color:#C4CED4">p</span><span style="color:#E13A3E">a</span><span style="color:#C4CED4">_</span><span style="color:#E13A3E">D</span><span style="color:#C4CED4">a</span><span style="color:#E13A3E">d</span>`+chu_inc1()+chu_inc1()+chu_inc1()+chu_inc1());
-		  }
 		  
         // Set username colour
         if (!userColors.hasOwnProperty(data.author)) {
