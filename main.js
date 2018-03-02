@@ -4152,7 +4152,7 @@ var ColoredUsernames;
 		'smarvin6689':'#060647',
 		'rideride':'#069420',
 		'nomaur2':'#8A2BE2',
-        'VitaminB16': '#1AFFA7',
+        'VitaminB16': '#75CEAF',
 		'co3_carbonate': 'Grey',
         'artbn': '#e66b00',
         'amazingpikachu_38': '#FFFF00',
