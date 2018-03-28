@@ -4153,6 +4153,7 @@ var ColoredUsernames;
 		'rideride':'#069420',
 		'nomaur2':'#8A2BE2',
         'VitaminB16': '#75CEAF',
+		'LeinadSpoon': '#520063',
 		'co3_carbonate': 'Grey',
         'artbn': '#e66b00',
         'amazingpikachu_38': '#FFFF00',
