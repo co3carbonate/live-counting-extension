@@ -4159,6 +4159,7 @@ var ColoredUsernames;
         'amazingpikachu_38': '#FFFF00',
         'qwertylool': "YellowGreen",
         'TOP_20': '#ff00bf',
+		'MrBahr12': '#00f20a',
 		'parker_cube': '#FF69B4',
         'QuestoGuy': 'Purple',
         'Smartstocks': '#840d0d',
