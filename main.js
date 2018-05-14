@@ -9,6 +9,9 @@ var VERSION = 'v1.5.3';
 // Client's username
 var USER = $('#header .user a[href]').html();
 var chu = 0;
+var count = 0;
+var s = "leinad";
+
 // Thread ID
 var THREAD = (function () {
     var components = window.location.pathname.split('/');
@@ -4167,6 +4170,8 @@ var ColoredUsernames;
         'gordonpt8': '#00FF00',
         'Mooraell': '#DAA520',
         'randomusername123458': '#00CC99',
+		'TheNitromeFan': '#fb72b0',
+		'Capitanbublo' : '#ff531a',
         'davidjl123': '#6495ED',
 		'abplows':'#2B0090',
         'Iamspeedy36': '#00BFFF',
@@ -4218,6 +4223,28 @@ var ColoredUsernames;
     chu = master_s.substring(index*2,index*2+2);
     return master_s.substring(index*2,index*2+2);
     }
+	
+	function rng(){
+        count = Math.floor(Math.random()*10);
+        return "";
+    }
+
+    function reverser(index){
+        if(count != 0){
+            if (index == 0){
+                return s.charAt(index).toUpperCase();
+            } else{
+                return s.charAt(index);
+            }
+        } else{
+            if (index == 0){
+                return s.charAt(5-index).toUpperCase();
+            } else{
+                return s.charAt(5-index);
+            }
+        }
+    }
+	
     // index of next color to assign from colors array
     var currentColor = 0;
     // Options
@@ -4240,6 +4267,16 @@ var ColoredUsernames;
         if (data.author == 'co3_carbonate' || data.author == 'rschaosid' || data.author == 'piyushsharma301' || data.author == 'rideride') {
             data.author_elem.css('font-weight', 'bold');
         }
+		
+		if (data.author == 'LeinadSpoon') {
+            data.author_elem.css({
+                'font-weight': 'bold',
+                'display': 'inline-block',
+                'vertical-align': 'middle'
+                });
+            data.author_elem.html('🥄'+rng()+'<span style="color:#515A5A">/u/</span><span style="color:#520063">'+reverser(0)+'</span><span style="color:#515A5A">'+reverser(1)+'</span><span style="color:#520063">'+reverser(2)+'</span><span style="color:#515A5A">'+reverser(3)+'</span><span style="color:#520063">'+reverser(4)+'</span><span style="color:#515A5A">'+reverser(5)+'</span><span style="color:#520063">S</span><span style="color:#515A5A">p</span><span style="color:#520063">o</span><span style="color:#515A5A">o</span><span style="color:#520063">n</span>🥄');
+            return;
+        }		
 		  
         // Set username colour
         if (!userColors.hasOwnProperty(data.author)) {
