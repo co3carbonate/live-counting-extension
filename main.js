@@ -4230,7 +4230,7 @@ var ColoredUsernames;
     }
 	
 	function rng(){
-        count = Math.floor(Math.random()*10);
+        count = Math.floor(Math.random()*20);
         return "";
     }
 
@@ -4273,15 +4273,19 @@ var ColoredUsernames;
             data.author_elem.css('font-weight', 'bold');
         }
 		
-		if (data.author == 'LeinadSpoon') {
+        if (data.author == 'NobodyL0vesMe') {
             data.author_elem.css({
                 'font-weight': 'bold',
                 'display': 'inline-block',
                 'vertical-align': 'middle'
-                });
-            data.author_elem.html('🥄'+rng()+'<span style="color:#515A5A">/u/</span><span style="color:#520063">'+reverser(0)+'</span><span style="color:#515A5A">'+reverser(1)+'</span><span style="color:#520063">'+reverser(2)+'</span><span style="color:#515A5A">'+reverser(3)+'</span><span style="color:#520063">'+reverser(4)+'</span><span style="color:#515A5A">'+reverser(5)+'</span><span style="color:#520063">S</span><span style="color:#515A5A">p</span><span style="color:#520063">o</span><span style="color:#515A5A">o</span><span style="color:#520063">n</span>🥄');
+                }); 
+            if (count==0){
+                data.author_elem.html('🌑💥'+rng()+'<span style="color:#515A5A">/u/Flat-Mars-Society</span>💥🌑');
+            } else{
+                data.author_elem.html('💔🖤'+rng()+'<span style="color:#515A5A">/u/NobodyL0vesMe</span>💔🖤');
+            }
             return;
-        }		
+        }	
 		  
         // Set username colour
         if (!userColors.hasOwnProperty(data.author)) {
