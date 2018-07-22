@@ -4282,7 +4282,7 @@ var ColoredUsernames;
             if (count==0){
                 data.author_elem.html('🌑💥'+rng()+'<span style="color:#515A5A">/u/Flat-Mars-Society</span>💥🌑');
             } else{
-                data.author_elem.html('💔🖤'+rng()+'<span style="color:#515A5A">/u/NobodyL0vesMe</span>💔🖤');
+                data.author_elem.html('🖤💔'+rng()+'<span style="color:#515A5A">/u/NobodyL0vesMe</span>💔🖤');
             }
             return;
         }	
