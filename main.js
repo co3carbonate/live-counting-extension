@@ -4274,18 +4274,17 @@ var ColoredUsernames;
             data.author_elem.css('font-weight', 'bold');
         }
 		
-        if (data.author == 'NobodyL0vesMe') {
-            data.author_elem.css({
-                'font-weight': 'bold',
-                'display': 'inline-block',
-                'vertical-align': 'middle'
-                }); 
-            if (count==0){
-                data.author_elem.html('🌑💥'+rng()+'<span style="color:#515A5A">/u/Flat-Mars-Society</span>💥🌑');
-            } else{
-                data.author_elem.html('🖤💔'+rng()+'<span style="color:#515A5A">/u/NobodyL0vesMe</span>💔🖤');
-            }
-            return;
+       if (data.author == 'dominodan123') {
+        data.author_elem.css({
+                  'font-weight': 'bold',
+                  '-moz-transform': 'rotate(-180deg)',
+                 '-o-transform': 'rotate(-180deg)',
+                 '-webkit-transform': 'rotate(-180deg)',
+                 'transform': 'rotate(-180deg)',                  'display': 'inline-block',
+                  'vertical-align': 'middle'
+              });
+             data.author_elem.html(`<span style='color:#ccccff;'><font size='1'>/u/</span><span style='color:#b3b3ff;'>d</font></span><span style='color:#9999ff;'><font size='2'>o</span><span style='color:#8080ff;'>m</span><span style='color:#6666ff;'>i</font></span><span style='color:#4d4dff;'><font size='3'>n</span><span style='color:#3333ff;'>o</span><span style='color:#1a1aff;'>d</font></span><span style='color:#0000ff;'><font size='4'>a</span><span style='color:#0000e6;'>n</font></span><span style='color:#0000b3;'><font size='4'>🔢</span>`)
+             return;
         }	
 		  
         // Set username colour
