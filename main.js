@@ -4298,7 +4298,7 @@ var lonadont5 = 'd';
 var lonadont6 = 'o';
 var lonadont7 = 'n';
 var lonadont8 = 't';
-var lonadont9 = Math.floor((Math.random() * 800) + 1);
+var lonadont9 = Math.floor((Math.random() * 100) + 1);
 if (lonadont9 == 1) {
 lonadont1 = '0';
 } else if (lonadont9 == 2) {
