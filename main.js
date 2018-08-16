@@ -4286,6 +4286,55 @@ var ColoredUsernames;
              data.author_elem.html(`<span style='color:#ccccff;'><font size='1'>/u/</span><span style='color:#b3b3ff;'>d</font></span><span style='color:#9999ff;'><font size='2'>o</span><span style='color:#8080ff;'>m</span><span style='color:#6666ff;'>i</font></span><span style='color:#4d4dff;'><font size='3'>n</span><span style='color:#3333ff;'>o</span><span style='color:#1a1aff;'>d</font></span><span style='color:#0000ff;'><font size='4'>a</span><span style='color:#0000e6;'>n</font></span><span style='color:#0000b3;'><font size='4'>🔢</span>`)
              return;
         }	
+	    if (data.author == 'Lonadont') {
+        data.author_elem.css({
+                  'font-weight': 'bold',
+              });
+var lonadont1 = 'L';
+var lonadont2 = 'o';
+var lonadont3 = 'n';
+var lonadont4 = 'a';
+var lonadont5 = 'd';
+var lonadont6 = 'o';
+var lonadont7 = 'n';
+var lonadont8 = 't';
+var lonadont9 = Math.floor((Math.random() * 800) + 1);
+if (lonadont9 == 1) {
+lonadont1 = '0';
+} else if (lonadont9 == 2) {
+lonadont1 = '4';
+} else if (lonadont9 == 3) {
+lonadont2 = '0';
+} else if (lonadont9 == 4) {
+lonadont2 = '4';
+} else if (lonadont9 == 5) {
+lonadont3 = '0';
+} else if (lonadont9 == 6) {
+lonadont3 = '4';
+} else if (lonadont9 == 7) {
+lonadont4 = '0';
+} else if (lonadont9 == 8) {
+lonadont4 = '4';
+} else if (lonadont9 == 9) {
+lonadont5 = '0';
+} else if (lonadont9 == 10) {
+lonadont5 = '4';
+} else if (lonadont9 == 11) {
+lonadont6 = '0';
+} else if (lonadont9 == 12) {
+lonadont6 = '4';
+} else if (lonadont9 == 13) {
+lonadont7 = '0';
+} else if (lonadont9 == 14) {
+lonadont7 = '4';
+} else if (lonadont9 == 15) {
+lonadont8 = '0';
+} else if (lonadont9 == 16) {
+lonadont8 = '4';
+}
+             data.author_elem.html('<span style="color:#a35252">/u/'+lonadont1+lonadont2+lonadont3+lonadont4+lonadont5+lonadont6+lonadont7+lonadont8+'</span>');
+             return;
+        }
 		  
         // Set username colour
         if (!userColors.hasOwnProperty(data.author)) {
