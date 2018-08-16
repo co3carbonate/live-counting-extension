@@ -4007,7 +4007,8 @@ var Update;
             elem: $node,
             author: $node.find('.body > .author').text(),
             body_elem: $node.find('.body > .md'),
-            author_elem: $node.find('.body > .author')
+            author_elem: $node.find('.body > .author'),
+            href_elem: $node.find('.body > .md > p > em > a')
         };
         if (data.author)
             data.author = data.author.trim().replace('/u/', '');
@@ -4345,7 +4346,14 @@ lonadont8 = '4';
             }
         }
         data.author_elem.css('color', userColors[data.author]);
-
+if(window.location.href.indexOf("110t4ltqqzi35") > -1) { 
+var lcchats = data.href_elem.attr('href');
+lcchats = lcchats.trim().replace('/u/', '');
+data.href_elem.css('color', userColors[lcchats]);
+if (lcchats == 'co3_carbonate' || lcchats == 'rschaosid' || lcchats == 'piyushsharma301' || lcchats == 'rideride' || lcchats == 'LeinadSpoon' || lcchats == 'artbn') {
+            data.href_elem.css('font-weight', 'bold');
+        }
+}
     });
 })(ColoredUsernames || (ColoredUsernames = {}));
 //////////////////////////
