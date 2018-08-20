@@ -4198,7 +4198,8 @@ var ColoredUsernames;
         'thetiredlemur': '#464942',
         'TheGlobeIsRound': '#0080ff',
         'CarbonSpectre': '#339933',
-	'Lonadont': '#a35252'
+	'Lonadont': '#a35252',
+	'TehVulpez': '#c42c0a'
     };
     // Possible colors for other users
     var colors = ['Blue', 'Coral', 'DodgerBlue', 'SpringGreen', 'YellowGreen', 'Green', 'OrangeRed', 'Red', 'GoldenRod', 'CadetBlue', 'SeaGreen', 'Chocolate', 'BlueViolet', 'Firebrick'];
