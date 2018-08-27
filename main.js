@@ -4199,7 +4199,8 @@ var ColoredUsernames;
         'TheGlobeIsRound': '#0080ff',
         'CarbonSpectre': '#339933',
 	'Lonadont': '#a35252',
-	'TehVulpez': '#c42c0a'
+	'TehVulpez': '#c42c0a',
+	'LC_Chats': '#dddddd'
     };
     // Possible colors for other users
     var colors = ['Blue', 'Coral', 'DodgerBlue', 'SpringGreen', 'YellowGreen', 'Green', 'OrangeRed', 'Red', 'GoldenRod', 'CadetBlue', 'SeaGreen', 'Chocolate', 'BlueViolet', 'Firebrick'];
