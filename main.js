@@ -4326,6 +4326,16 @@ if (thishref == 'co3_carbonate' || thishref == 'rschaosid' || thishref == 'piyus
             $(this).css('font-weight', 'bold');
         }
 });
+	Update.loadedOld(function () {
+$('a[href*="/u/"]').each(function() {
+var thishref2 = $(this).attr('href');
+thishref2 = thishref2.trim().replace('/u/', '');
+    $(this).css('color', userColors[thishref2]).css('fontStyle','initial').css('fontSize','13px');
+if (thishref2 == 'co3_carbonate' || thishref2 == 'rschaosid' || thishref2 == 'piyushsharma301' || thishref2 == 'rideride' || thishref2 == 'LeinadSpoon' || thishref2 == 'artbn') {
+            $(this).css('font-weight', 'bold');
+        }
+});
+});
 })(ColoredUsernames || (ColoredUsernames = {}));
 //////////////////////////
 // ClearPastMessages.ts //
