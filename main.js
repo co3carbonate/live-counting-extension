@@ -4311,12 +4311,21 @@ var pikachurandomcolor = '#' + Math.random().toString(16).slice(2, 8).toUpperCas
 if(window.location.href.indexOf("110t4ltqqzi35") > -1) { 
 var lcchats = data.href_elem.attr('href');
 lcchats = lcchats.trim().replace('/u/', '');
-data.href_elem.css('color', userColors[lcchats]);
+data.href_elem.css('color', userColors[lcchats]).css('fontStyle','initial').css('fontSize','13px');
 if (lcchats == 'co3_carbonate' || lcchats == 'rschaosid' || lcchats == 'piyushsharma301' || lcchats == 'rideride' || lcchats == 'LeinadSpoon' || lcchats == 'artbn') {
             data.href_elem.css('font-weight', 'bold');
         }
 }
     });
+
+$('a[href*="/u/"]').each(function() {
+var thishref = $(this).attr('href');
+thishref = thishref.trim().replace('/u/', '');
+    $(this).css('color', userColors[thishref]).css('fontStyle','initial').css('fontSize','13px');
+if (thishref == 'co3_carbonate' || thishref == 'rschaosid' || thishref == 'piyushsharma301' || thishref == 'rideride' || thishref == 'LeinadSpoon' || thishref == 'artbn') {
+            $(this).css('font-weight', 'bold');
+        }
+});
 })(ColoredUsernames || (ColoredUsernames = {}));
 //////////////////////////
 // ClearPastMessages.ts //
