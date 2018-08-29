@@ -4317,7 +4317,7 @@ if (lcchats == 'co3_carbonate' || lcchats == 'rschaosid' || lcchats == 'piyushsh
         }
 }
     });
-
+if(window.location.href.indexOf("110t4ltqqzi35") > -1) { 
 $('a[href*="/u/"]').each(function() {
 var thishref = $(this).attr('href');
 thishref = thishref.trim().replace('/u/', '');
@@ -4336,6 +4336,7 @@ if (thishref2 == 'co3_carbonate' || thishref2 == 'rschaosid' || thishref2 == 'pi
         }
 });
 });
+}
 })(ColoredUsernames || (ColoredUsernames = {}));
 //////////////////////////
 // ClearPastMessages.ts //
