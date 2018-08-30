@@ -4280,7 +4280,41 @@ userColors.LC_Chats = 'white';
             data.author_elem.css('font-weight', 'bold');
         }
 		
+        // /u/MrBahr12 username special
+        if (data.author == 'MrBahr12') {
+ var mrbar = Math.floor(Math.random() * 10) + 1;
+if (mrbar == 1) {
+        data.author_elem.css({
+                  'font-weight': 'bold',
+                  'display': 'inline-block',
+'color': 'black',
+'font-size': '15px'
+              });
+             data.author_elem.html(`<span>-MrBar-</span>`)
+             return;
+} else {
+var randomBahr = ['#ff33cc', '#e60000', '#0000ff', '#00ff00', '#996600', '#008000', '#ff8000'];
+var randomBahrColor1 = randomBahr[Math.floor(Math.random() * randomBahr.length)];
+var randomBahrColor2 = randomBahr[Math.floor(Math.random() * randomBahr.length)];
+var randomBahrColor3 = randomBahr[Math.floor(Math.random() * randomBahr.length)];
+var randomBahrColor4 = randomBahr[Math.floor(Math.random() * randomBahr.length)];
+var randomBahrColor5 = randomBahr[Math.floor(Math.random() * randomBahr.length)];
+var randomBahrColor6 = randomBahr[Math.floor(Math.random() * randomBahr.length)];
+var randomBahrColor7 = randomBahr[Math.floor(Math.random() * randomBahr.length)];
+var randomBahrColor8 = randomBahr[Math.floor(Math.random() * randomBahr.length)];
+var randomBahrColor9 = randomBahr[Math.floor(Math.random() * randomBahr.length)];
+var randomBahrColor10 = randomBahr[Math.floor(Math.random() * randomBahr.length)];
+var randomBahrColor11 = randomBahr[Math.floor(Math.random() * randomBahr.length)];
+        data.author_elem.css({
+                  'font-weight': 'bold',
+                  'display': 'inline-block'
 
+              });
+             data.author_elem.html(`<span style='color:` + randomBahrColor9 + `;'>/</span><span style='color:` + randomBahrColor10 + `;'>u</span><span style='color:` + randomBahrColor11 + `;'>/</span><span style='color:` + randomBahrColor1 + `;'>M</span><span style='color:` + randomBahrColor2 + `;'>r</span><span style='color:` + randomBahrColor3 + `;'>B</span><span style='color:` + randomBahrColor4 + `;'>a</span><span style='color:` + randomBahrColor5 + `;'>h</span><span style='color:` + randomBahrColor6 + `;'>r</span><span style='color:` + randomBahrColor7 + `;'>1</span><span style='color:` + randomBahrColor8 + `;'>2</span>`)
+             return;
+}
+        }
+		
 		  
         // Set username colour
         if (!userColors.hasOwnProperty(data.author)) {
