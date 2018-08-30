@@ -4280,24 +4280,7 @@ userColors.LC_Chats = 'white';
             data.author_elem.css('font-weight', 'bold');
         }
 		
-        // /u/amazingpikachu_38 username special (Random username and color)
-        if (data.author == 'amazingpikachu_38') {
-var pikachurandomcolor = '#' + Math.random().toString(16).slice(2, 8).toUpperCase();
- var pikachuchars = "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz1234567890-_";
- var pikachustring_length = Math.floor(Math.random() * 18) + 3;
- var pikachurandomstring = '';
- for (var i=0; i<pikachustring_length; i++) {
-  var pikachurnum = Math.floor(Math.random() * pikachuchars.length);
-  pikachurandomstring += pikachuchars.substring(pikachurnum,pikachurnum+1);
-}
-        data.author_elem.css({
-                  'font-weight': 'bold',
-                  'display': 'inline-block'
 
-              });
-             data.author_elem.html(`<span style='color:` + pikachurandomcolor + `;'>/u/`+ pikachurandomstring +`</span>`)
-             return;
-        }
 		  
         // Set username colour
         if (!userColors.hasOwnProperty(data.author)) {
