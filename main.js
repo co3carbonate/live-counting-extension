@@ -4284,13 +4284,20 @@ userColors.LC_Chats = 'white';
         if (data.author == 'MrBahr12') {
  var mrbar = Math.floor(Math.random() * 10) + 1;
 if (mrbar == 1) {
+ var pikachuchars = "-";
+ var pikachustring_length = Math.floor(Math.random() * 3) + 3;
+ var pikachurandomstring = '';
+ for (var i=0; i<pikachustring_length; i++) {
+  var pikachurnum = Math.floor(Math.random() * pikachuchars.length);
+  pikachurandomstring += pikachuchars.substring(pikachurnum,pikachurnum+1);
+}
         data.author_elem.css({
                   'font-weight': 'bold',
                   'display': 'inline-block',
 'color': 'black',
 'font-size': '15px'
               });
-             data.author_elem.html(`<span>-MrBar-</span>`)
+             data.author_elem.html(`<span>`+ pikachurandomstring +`MrBar`+ pikachurandomstring + `</span>`)
              return;
 } else {
 var randomBahr = ['#ff33cc', '#e60000', '#0000ff', '#00ff00', '#996600', '#008000', '#ff8000'];
