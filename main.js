@@ -4282,9 +4282,9 @@ userColors.LC_Chats = 'white';
 	    
 		// /u/dominodan123 username special
         if (data.author == 'dominodan123') {
-var danSize1 = Math.floor(Math.random() * 21) + 5;
-var danSize2 = Math.floor(Math.random() * 21) + 5;
-var danSize3 = Math.floor(Math.random() * 21) + 5;
+var danSize1 = Math.floor(Math.random() * 16) + 5;
+var danSize2 = Math.floor(Math.random() * 16) + 5;
+var danSize3 = Math.floor(Math.random() * 16) + 5;
 if (chu == 0) {
 var rotater = '';
 chu++;
