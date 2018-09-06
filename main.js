@@ -4200,7 +4200,8 @@ var ColoredUsernames;
         'CarbonSpectre': '#339933',
 	'Lonadont': '#a35252',
 	'TehVulpez': '#c42c0a',
-	'LC_Chats': '#dddddd'
+	'LC_Chats': '#dddddd',
+	'LC-3P0': 'Black'
     };
 	if (USER == 'VitaminB16') {
 userColors.LC_Chats = 'white';
