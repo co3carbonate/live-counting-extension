@@ -4343,9 +4343,7 @@ var lonaFlag = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACAEAYAAACTrr
         data.author_elem.css({
                   'font-weight': 'bold',
                   'display': 'inline-block',
-                  'vertical-align': 'middle',
-                  'position': 'absolute',
-                  'margin-left': '5px'
+                  'vertical-align': 'middle'
               });
              data.author_elem.html(lonaLeftH+`<span id=lonaname style='color:#a35252; font-size:`+lonaSize+`px;'>/u/Lonadont</span><img id=lonaimg></img>`+lonaRightH)
 //var elem = document.createElement("img");
