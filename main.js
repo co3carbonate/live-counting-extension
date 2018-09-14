@@ -4277,7 +4277,7 @@ userColors.LC_Chats = 'white';
             return;
         // Special usernames (temp rewards for top in 100k HoC, or other contributions)
         // Bot-maker privileges (/u/co3_carbonate, /u/rschaosid, /u/piyushsharma301,/u/rideride)
-        if (data.author == 'co3_carbonate' || data.author == 'rschaosid' || data.author == 'piyushsharma301' || data.author == 'rideride' || data.author == 'LeinadSpoon' || data.author == 'artbn') {
+        if (data.author == 'co3_carbonate' || data.author == 'rschaosid' || data.author == 'piyushsharma301' || data.author == 'rideride' || data.author == 'LeinadSpoon' || data.author == 'artbn' || data.author == 'dominodan123') {
             data.author_elem.css('font-weight', 'bold');
         }
 		
@@ -4294,7 +4294,7 @@ whitheart = whitheart[Math.floor(Math.random() * whitheart.length)];
               });
              data.author_elem.html(`<span id=totalwhit><span id=whitlessthan3></span><span id=whitname>Whitney</span><span id=whitdash> - </span><span id=whitchu></span></span>`)
 if (whitRandomName == 1) {
-var whitnamer = ['/u/DontCareILoveIt', '/u/Whit4You', '/u/TOP_20', '/u/stalkcm', '/u/CharterMember'];
+var whitnamer = ['/u/DontCareILoveIt', '/u/Whit4You', '/u/TOP_20', '/u/stalkcm', 'CharterMember'];
 whitnamer = whitnamer[Math.floor(Math.random() * whitnamer.length)];
 document.getElementById("whitname").innerHTML = whitnamer;
 } else {
@@ -4326,62 +4326,7 @@ document.getElementById("whitchu").innerHTML = pikachurandomstring;
 document.getElementById("totalwhit").style.cssText = 'font-size:'+whitSize+'px;';
 return;
         }
-// /u/Lonadont username special
-        if (data.author == 'Lonadont') {
-var lonaSize = Math.floor(Math.random() * 16) + 5;
-var lonaLeft = Math.floor(Math.random() * 20) + 1;
-var lonaRight = Math.floor(Math.random() * 20) + 1;
-var lonaLeftH = '';
-var lonaRightH = '';
-if (lonaLeft == 1) {
-lonaLeftH = '<img id=lonaimg2></img>';
-}
-if (lonaRight == 1) {
-lonaRightH = '<img id=lonaimg3></img>';
-}
-var lonaFlag = 'data:image/png;base64,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';
-        data.author_elem.css({
-                  'font-weight': 'bold',
-                  'display': 'inline-block',
-                  'vertical-align': 'middle',
-              });
-             data.author_elem.html(lonaLeftH+`<span id=lonaname style='color:#a35252; font-size:`+lonaSize+`px;'>/u/Lonadont</span><img id=lonaimg></img>`+lonaRightH)
-//var elem = document.createElement("img");
-var elem = document.getElementById("lonaimg");
-elem.setAttribute("src", lonaFlag);
-elem.setAttribute("height", lonaSize);
-elem.setAttribute("width", lonaSize);
-elem.style.position = "relative";
-elem.style.marginLeft = "3px";
-elem.style.marginBottom = "1px";
-elem.style.verticalAlign = "bottom";
-elem.src = lonaFlag;  
-if (lonaLeft == 1) {
-var elem2 = document.getElementById("lonaimg2");
-elem2.setAttribute("src", lonaFlag);
-elem2.setAttribute("height", lonaSize);
-elem2.setAttribute("width", lonaSize);
-elem2.style.position = "relative";
-elem2.style.marginLeft = "3px";
-elem2.style.marginBottom = "1px";
-elem2.style.verticalAlign = "bottom";
-elem2.src = lonaFlag;     
-}  
-if (lonaRight == 1) {
-var elem3 = document.getElementById("lonaimg3");
-elem3.setAttribute("src", lonaFlag);
-elem3.setAttribute("height", lonaSize);
-elem3.setAttribute("width", lonaSize);
-elem3.style.position = "relative";
-elem3.style.marginLeft = "3px";
-elem3.style.marginBottom = "1px";
-elem3.style.verticalAlign = "bottom";
-elem3.src = lonaFlag;    
-} 
-return;
-}
-
-		
+	    
         // Set username colour
         if (!userColors.hasOwnProperty(data.author)) {
             userColors[data.author] = colors[currentColor];
@@ -4395,7 +4340,7 @@ if(window.location.href.indexOf("110t4ltqqzi35") > -1) {
 var lcchats = data.href_elem.attr('href');
 lcchats = lcchats.trim().replace('/u/', '');
 data.href_elem.css('color', userColors[lcchats]).css('fontStyle','initial').css('fontSize','13px');
-if (lcchats == 'co3_carbonate' || lcchats == 'rschaosid' || lcchats == 'piyushsharma301' || lcchats == 'rideride' || lcchats == 'LeinadSpoon' || lcchats == 'artbn') {
+if (lcchats == 'co3_carbonate' || lcchats == 'rschaosid' || lcchats == 'piyushsharma301' || lcchats == 'rideride' || lcchats == 'LeinadSpoon' || lcchats == 'artbn' || lcchats == 'dominodan123') {
             data.href_elem.css('font-weight', 'bold');
         }
 }
@@ -4405,7 +4350,7 @@ $('a[href*="/u/"]').each(function() {
 var thishref = $(this).attr('href');
 thishref = thishref.trim().replace('/u/', '');
     $(this).css('color', userColors[thishref]).css('fontStyle','initial').css('fontSize','13px');
-if (thishref == 'co3_carbonate' || thishref == 'rschaosid' || thishref == 'piyushsharma301' || thishref == 'rideride' || thishref == 'LeinadSpoon' || thishref == 'artbn') {
+if (thishref == 'co3_carbonate' || thishref == 'rschaosid' || thishref == 'piyushsharma301' || thishref == 'rideride' || thishref == 'LeinadSpoon' || thishref == 'artbn' || thishref == 'dominodan123') {
             $(this).css('font-weight', 'bold');
         }
 });
@@ -4414,7 +4359,7 @@ $('a[href*="/u/"]').each(function() {
 var thishref2 = $(this).attr('href');
 thishref2 = thishref2.trim().replace('/u/', '');
     $(this).css('color', userColors[thishref2]).css('fontStyle','initial').css('fontSize','13px');
-if (thishref2 == 'co3_carbonate' || thishref2 == 'rschaosid' || thishref2 == 'piyushsharma301' || thishref2 == 'rideride' || thishref2 == 'LeinadSpoon' || thishref2 == 'artbn') {
+if (thishref2 == 'co3_carbonate' || thishref2 == 'rschaosid' || thishref2 == 'piyushsharma301' || thishref2 == 'rideride' || thishref2 == 'LeinadSpoon' || thishref2 == 'artbn' || thishref2 == 'dominodan123') {
             $(this).css('font-weight', 'bold');
         }
 });
