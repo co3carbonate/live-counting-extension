@@ -4201,7 +4201,8 @@ var ColoredUsernames;
 	'Lonadont': '#a35252',
 	'TehVulpez': '#c42c0a',
 	'LC_Chats': '#dddddd',
-	'LC-3P0': 'Black'
+	'LC-3P0': 'Black',
+	'MaybeNotWrong': '#066666'
     };
 	if (USER == 'VitaminB16') {
 userColors.LC_Chats = 'white';
