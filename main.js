@@ -4425,8 +4425,8 @@ document.getElementById("leinemoji2").innerHTML = '&#x2708';
 document.getElementById("leinemoji1").innerHTML = '&#x1f6cf';
 document.getElementById("leinemoji2").innerHTML = '&#x1f6cf';
 } else if (count1testlol == '888') {
-document.getElementById("leinemoji1").innerHTML = '&#x1f381';
-document.getElementById("leinemoji2").innerHTML = '&#x1f381';
+document.getElementById("leinemoji1").innerHTML = '&#x1f3B1';
+document.getElementById("leinemoji2").innerHTML = '&#x1f3B1';
 } else if (count1testlol == '889') {
 document.getElementById("leinemoji1").innerHTML = '&#x1f3a5';
 document.getElementById("leinemoji2").innerHTML = '&#x1f3a5';
