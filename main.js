@@ -4446,52 +4446,7 @@ return;
         }
 	
 
-	    
-// /u/TOP_20 username special
-if (data.author == 'TOP_20') {
- var whitheart = ['&#x1F49D', '&#x1F498', '&#x1F493', '&#x1F494', '&#x1F495', '&#x1F499', '&#x1F49A', '&#x1F49B', '&#x1F49C'];
-var whitSize = Math.floor(Math.random() * 12) + 6;
-var whitRandomName = Math.floor(Math.random() * 10) + 1;
-whitheart = whitheart[Math.floor(Math.random() * whitheart.length)];
-        data.author_elem.css({
-                  'font-weight': 'bold',
-                  'display': 'inline-block',
-                  'vertical-align': 'middle'
-              });
-             data.author_elem.html(`<span id=totalwhit><span id=whitlessthan3></span><span id=whitname>Whitney</span><span id=whitdash> - </span><span id=whitchu></span></span>`)
-if (whitRandomName == 1) {
-var whitnamer = ['/u/DontCareILoveIt', '/u/Whit4You', '/u/TOP_20', '/u/stalkcm', 'CharterMember'];
-whitnamer = whitnamer[Math.floor(Math.random() * whitnamer.length)];
-document.getElementById("whitname").innerHTML = whitnamer;
-} else {
-document.getElementById("whitname").innerHTML = "Whitney";
-}
- var pikachuchars = "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz1234567890-_";
-// var pikachuvowels = aeiou";
- var pikachustring_length = Math.floor(Math.random() * 5) + 3;
- var pikachurandomstring = '';
- for (var i=0; i<pikachustring_length; i++) {
-   var pikachurnum = Math.floor(Math.random() * pikachuchars.length);
-  pikachurandomstring += pikachuchars.substring(pikachurnum,pikachurnum+1);
-  var pikacheckvowel = pikachurandomstring.includes("a") || pikachurandomstring.includes("e") || pikachurandomstring.includes("i") || pikachurandomstring.includes("o") || pikachurandomstring.includes("u") || pikachurandomstring.includes("A") || pikachurandomstring.includes("E") || pikachurandomstring.includes("I") || pikachurandomstring.includes("O") || pikachurandomstring.includes("U");
-  if ( pikacheckvowel == false) {
- pikachurandomstring = '';
- pikachustring_length = Math.floor(Math.random() * 5) + 3;
- i=0;
-// pikachurnum = Math.floor(Math.random() * pikachuchars.length);
-pikachurandomstring += pikachuchars.substring(pikachurnum,pikachurnum+1);
-//pikacheckvowel = pikachurandomstring.includes("a") || pikachurandomstring.includes("e") || pikachurandomstring.includes("i") || pikachurandomstring.includes("o") || pikachurandomstring.includes("u") || pikachurandomstring.includes("A") || pikachurandomstring.includes("E") || pikachurandomstring.includes("I") || pikachurandomstring.includes("O") || pikachurandomstring.includes("U");
-} 
-  }
- 
-document.getElementById("whitname").style.cssText = 'color: transparent; background: linear-gradient(to right, #660033, #ff33cc); -webkit-background-clip: text!important;';			 
-document.getElementById("whitchu").style.cssText = 'color: transparent; background: linear-gradient(to right, #660033, #ff33cc); -webkit-background-clip: text!important;';			 
-document.getElementById("whitdash").style.cssText = 'color: black;';		 
-document.getElementById("whitlessthan3").innerHTML = whitheart;
-document.getElementById("whitchu").innerHTML = pikachurandomstring;
-document.getElementById("totalwhit").style.cssText = 'font-size:'+whitSize+'px;';
-return;
-        }
+
 	    
         // Set username colour
         if (!userColors.hasOwnProperty(data.author)) {
