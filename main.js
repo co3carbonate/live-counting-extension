@@ -4203,7 +4203,8 @@ var ColoredUsernames;
 	'LC_Chats': '#dddddd',
 	'LC-3P0': 'Black',
 	'MaybeNotWrong': '#066666',
-	'ElliottB1': '#00FFDD'
+	'ElliottB1': '#00FFDD',
+	'treje': '#ffc130'
     };
 	if (USER == 'VitaminB16') {
 userColors.LC_Chats = 'white';
