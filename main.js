@@ -4284,165 +4284,50 @@ userColors.LC_Chats = 'white';
             data.author_elem.css('font-weight', 'bold');
         }
 		
-	    // /u/LeinadSpoon username special
-if (data.author == 'LeinadSpoon') {
-    var count1testlol = data.body_elem.text();
-count1testlol = count1testlol.substring(0, 9);
-    count1testlol = count1testlol.replace(/[A-Za-z]/g, '');
-    count1testlol = count1testlol.replace(/,/g, '');
-    count1testlol = count1testlol.replace(/ /g, '');
-count1testlol = count1testlol.substr(count1testlol.length - 3);
-data.author_elem.css({
+// /u/MaybeNotWrong username special
+if (data.author == 'MaybeNotWrong') {
+var mayberand = Math.floor((Math.random() * 2) + 1);
+var notrand = Math.floor((Math.random() * 2) + 1);
+var wrongrand = Math.floor((Math.random() * 2) + 1);
+var colorrand = Math.floor((Math.random() * 2) + 1);
+var okcolor = '#e02';
+var okmaybe = 'Maybe';
+var oknot = 'Not';
+var okwrong = 'Wrong';
+ if (mayberand == 1) {
+      okmaybe = '';
+}
+if (notrand == 1) {
+      oknot = '';
+}
+if (wrongrand == 1) {
+      okwrong = 'Right';
+}
+
+if (mayberand === 1) {
+if (notrand === 2) {
+if (wrongrand === 2) {
+okcolor = '#0f4';
+}}}
+
+if (mayberand === 1 && notrand === 1 && wrongrand === 1) {
+okcolor = '#0f4';
+}
+
+
+
+if (mayberand == 2) {
+if (colorrand == 1) {
+okcolor = '#0f4';
+}
+}
+
+ data.author_elem.css({
                   'font-weight': 'bold',
-//                  'display': 'inline-block',
-//                  'vertical-align': 'middle',
-                  'color': '#520063'
+                  'display': 'inline-block'
               });
-
-data.author_elem.html(`<span id=leinemoji1></span><span id=leinname>/u/LeinadSpoon</span><span id=leinemoji2></span>`)
-if (count1testlol == '000') {
-document.getElementById("leinemoji1").innerHTML = '&#x1f3c6';
-document.getElementById("leinemoji2").innerHTML = '&#x1f3c6';
-} else if (count1testlol == '001') {
-document.getElementById("leinemoji1").innerHTML = '&#x1f947';
-document.getElementById("leinemoji2").innerHTML = '&#x1f947';
-} else if (count1testlol == '007') {
-document.getElementById("leinemoji1").innerHTML = '&#x1f378';
-document.getElementById("leinemoji2").innerHTML = '&#x1f378';
-} else if (count1testlol == '008') {
-document.getElementById("leinemoji1").innerHTML = '&#x1f52e';
-document.getElementById("leinemoji2").innerHTML = '&#x1f52e';
-} else if (count1testlol == '032') {
-document.getElementById("leinemoji1").innerHTML = '&#x2744';
-document.getElementById("leinemoji2").innerHTML = '&#x2744';
-} else if (count1testlol == '037') {
-document.getElementById("leinemoji1").innerHTML = '&#x26a1';
-document.getElementById("leinemoji2").innerHTML = '&#x26a1';
-} else if (count1testlol == '051') {
-document.getElementById("leinemoji1").innerHTML = '&#x1f47d';
-document.getElementById("leinemoji2").innerHTML = '&#x1f47d';
-} else if (count1testlol == '053') {
-document.getElementById("leinemoji1").innerHTML = '&#x1f0cf';
-document.getElementById("leinemoji2").innerHTML = '&#x1f0cf';
-} else if (count1testlol == '100') {
-document.getElementById("leinemoji1").innerHTML = '&#x1f4af';
-document.getElementById("leinemoji2").innerHTML = '&#x1f4af';
-} else if (count1testlol == '101') {
-document.getElementById("leinemoji1").innerHTML = '&#x1f43e';
-document.getElementById("leinemoji2").innerHTML = '&#x1f43e';
-} else if (count1testlol == '123') {
-document.getElementById("leinemoji1").innerHTML = '&#x1f524';
-document.getElementById("leinemoji2").innerHTML = '&#x1f524';
-} else if (count1testlol == '144') {
-document.getElementById("leinemoji1").innerHTML = '&#x1f004';
-document.getElementById("leinemoji2").innerHTML = '&#x1f004';
-} else if (count1testlol == '189') {
-document.getElementById("leinemoji1").innerHTML = '&#x1f1e8&#x1f1ed';
-document.getElementById("leinemoji2").innerHTML = '&#x1f1ed&#x1f1e8';
-} else if (count1testlol == '206') {
-document.getElementById("leinemoji1").innerHTML = '&#x1f9b4';
-document.getElementById("leinemoji2").innerHTML = '&#x1f9b4';
-} else if (count1testlol == '214') {
-document.getElementById("leinemoji1").innerHTML = '&#x1f495';
-document.getElementById("leinemoji2").innerHTML = '&#x1f495';
-} else if (count1testlol == '219') {
-document.getElementById("leinemoji1").innerHTML = '&#x2b06';
-document.getElementById("leinemoji2").innerHTML = '&#x2b06';
-} else if (count1testlol == '220') {
-document.getElementById("leinemoji1").innerHTML = '&#x1f32e';
-document.getElementById("leinemoji2").innerHTML = '&#x1f34b';
-} else if (count1testlol == '221') {
-document.getElementById("leinemoji1").innerHTML = '&#x2b07';
-document.getElementById("leinemoji2").innerHTML = '&#x2b07';
-} else if (count1testlol == '239') {
-document.getElementById("leinemoji1").innerHTML = '&#x2622';
-document.getElementById("leinemoji2").innerHTML = '&#x2622';
-} else if (count1testlol == '312') {
-document.getElementById("leinemoji1").innerHTML = '&#x1f37a';
-document.getElementById("leinemoji2").innerHTML = '&#x1f37a';
-} else if (count1testlol == '314') {
-document.getElementById("leinemoji1").innerHTML = '&#x1f469';
-document.getElementById("leinemoji2").innerHTML = '&#x1f469';
-} else if (count1testlol == '317') {
-document.getElementById("leinemoji1").innerHTML = '&#x2618';
-document.getElementById("leinemoji2").innerHTML = '&#x2618';
-} else if (count1testlol == '333') {
-document.getElementById("leinemoji1").innerHTML = '&#x1f531';
-document.getElementById("leinemoji2").innerHTML = '&#x1f531';
-} else if (count1testlol == '369') {
-document.getElementById("leinemoji1").innerHTML = '&#x2139';
-document.getElementById("leinemoji2").innerHTML = '&#x2139';
-} else if (count1testlol == '403') {
-document.getElementById("leinemoji1").innerHTML = '&#x1f512';
-document.getElementById("leinemoji2").innerHTML = '&#x1f512';
-} else if (count1testlol == '404') {
-document.getElementById("leinemoji1").innerHTML = '&#x1f1eb&#x1f1ee';
-document.getElementById("leinemoji2").innerHTML = '&#x1f1eb&#x1f1ee';
-} else if (count1testlol == '418') {
-document.getElementById("leinemoji1").innerHTML = '&#x1f375';
-document.getElementById("leinemoji2").innerHTML = '&#x1f375';
-} else if (count1testlol == '420') {
-document.getElementById("leinemoji1").innerHTML = '&#x1f332';
-document.getElementById("leinemoji2").innerHTML = '&#x1f332';
-} else if (count1testlol == '444') {
-document.getElementById("leinemoji1").innerHTML = '&#x26b0';
-document.getElementById("leinemoji2").innerHTML = '&#x26b0';
-} else if (count1testlol == '450') {
-document.getElementById("leinemoji1").innerHTML = '&#x1f51e';
-document.getElementById("leinemoji2").innerHTML = '&#x1f51e';
-} else if (count1testlol == '496') {
-document.getElementById("leinemoji1").innerHTML = '&#x2795';
-document.getElementById("leinemoji2").innerHTML = '&#x2795';
-} else if (count1testlol == '500') {
-document.getElementById("leinemoji1").innerHTML = '&#x1f313';
-document.getElementById("leinemoji2").innerHTML = '&#x1f313';
-} else if (count1testlol == '501') {
-document.getElementById("leinemoji1").innerHTML = '&#x1f38a';
-document.getElementById("leinemoji2").innerHTML = '&#x1f38a';
-} else if (count1testlol == '538') {
-document.getElementById("leinemoji1").innerHTML = '&#x2611';
-document.getElementById("leinemoji2").innerHTML = '&#x2611';
-} else if (count1testlol == '571') {
-document.getElementById("leinemoji1").innerHTML = '&#x1f30a';
-document.getElementById("leinemoji2").innerHTML = '&#x1f30a';
-} else if (count1testlol == '587') {
-document.getElementById("leinemoji1").innerHTML = '&#x1f4e7';
-document.getElementById("leinemoji2").innerHTML = '&#x1f4e7';
-} else if (count1testlol == '602') {
-document.getElementById("leinemoji1").innerHTML = '&#x1f52c';
-document.getElementById("leinemoji2").innerHTML = '&#x1f52c';
-} else if (count1testlol == '616') {
-document.getElementById("leinemoji1").innerHTML = '&#x1f577';
-document.getElementById("leinemoji2").innerHTML = '&#x1f577';
-} else if (count1testlol == '666') {
-document.getElementById("leinemoji1").innerHTML = '&#x1f608';
-document.getElementById("leinemoji2").innerHTML = '&#x1f608';
-} else if (count1testlol == '723') {
-document.getElementById("leinemoji1").innerHTML = '&#x1f382';
-document.getElementById("leinemoji2").innerHTML = '&#x1f382';
-} else if (count1testlol == '747') {
-document.getElementById("leinemoji1").innerHTML = '&#x2708';
-document.getElementById("leinemoji2").innerHTML = '&#x2708';
-} else if (count1testlol == '777') {
-document.getElementById("leinemoji1").innerHTML = '&#x1f6cf';
-document.getElementById("leinemoji2").innerHTML = '&#x1f6cf';
-} else if (count1testlol == '888') {
-document.getElementById("leinemoji1").innerHTML = '&#x1f3B1';
-document.getElementById("leinemoji2").innerHTML = '&#x1f3B1';
-} else if (count1testlol == '889') {
-document.getElementById("leinemoji1").innerHTML = '&#x1f3a5';
-document.getElementById("leinemoji2").innerHTML = '&#x1f3a5';
-} else if (count1testlol == '911') {
-document.getElementById("leinemoji1").innerHTML = '&#x1f46e';
-document.getElementById("leinemoji2").innerHTML = '&#x1f46e';
-} else if (count1testlol == '930') {
-document.getElementById("leinemoji1").innerHTML = '&#x1f564';
-document.getElementById("leinemoji2").innerHTML = '&#x1f564';
-} else if (count1testlol == '999') {
-document.getElementById("leinemoji1").innerHTML = '&#x23ed';
-document.getElementById("leinemoji2").innerHTML = '&#x23ed';
-} 
-
+             data.author_elem.html(`<div style="color:`+okcolor+`;">`+okmaybe+oknot+okwrong+`</div>`)
+}
 return;
         }
 	
