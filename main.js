@@ -4327,7 +4327,7 @@ okcolor = '#0f4';
                   'display': 'inline-block'
               });
              data.author_elem.html(`<div style="color:`+okcolor+`;">`+okmaybe+oknot+okwrong+`</div>`)
-}
+
 return;
         }
 	
