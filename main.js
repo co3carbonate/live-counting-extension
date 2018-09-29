@@ -4286,16 +4286,6 @@ userColors.LC_Chats = 'white';
         }
 		
 // /u/MaybeNotWrong username special
-	    if (data.author == 'dominodan123') {
-
-
- data.author_elem.css({
-                  'font-weight': 'bold',
-                  'display': 'inline-block'
-              });
-data.author_elem.html(`<div style="color:blue;"><span style="font-weight: initial;">/u/</span><span style="font-weight:initial;">d</span><span style="font-weight: initial;"></span><span style="font-weight:bold;">o</span><span style="font-weight: initial;">m</span><span style="font-weight:bold;">i</span><span style="font-weight: initial;">n</span><span style="font-weight:bold;">o</span><span style="font-weight: initial;">d</span><span style="font-weight:bold;">a</span><span style="font-weight: initial;">n</span><span style="font-weight:bold;">1</span><span style="font-weight: initial;">2</span><span style="font-weight:bold;">3</span></div>`)
-            
-}
 if (data.author == 'MaybeNotWrong') {
 var mayberand = Math.floor((Math.random() * 2) + 1);
 var notrand = Math.floor((Math.random() * 2) + 1);
