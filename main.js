@@ -4205,7 +4205,8 @@ var ColoredUsernames;
 	'MaybeNotWrong': '#066666',
 	'ElliottB1': '#00FFDD',
 	'treje': '#ffc130',
-	'sakima11': '#0cd1ad' 
+	'sakima11': '#0cd1ad',
+	'amazingpiakchu_38': '#FFFF00'
     };
 	if (USER == 'VitaminB16') {
 userColors.LC_Chats = 'white';
