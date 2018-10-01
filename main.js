@@ -4450,13 +4450,13 @@ var RemoveSubmissionLag;
     // INITIALIZATION
     var lastInput = '';
     var enabled = true;
-    var ghostEnabled = true;
+    var ghostEnabled = false;
     var previews = [];
     // Options
     Options.addSelect({
         label: 'REMOVE SUBMISSION LAG',
         options: ['Enabled', 'Enabled without Ghost Messages', 'Disabled'],
-        "default": 0,
+        "default": 1,
         help: 'Upon submitting a message, the textbox is immediately cleared to allow you to enter new contents without waiting for your previous submission to be processed.\n\nThe ghost messages are to prevent messages from being permanently lost if they had failed to deliver. You can enable the feature without ghost messages if you find them too distracting.',
         onchange: function () {
             var display = this.val();
