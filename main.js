@@ -4239,7 +4239,10 @@ var ColoredUsernames;
 	'ElliottB1': '#00FFDD',
 	'treje': '#ffc130',
 	'sakima11': '#0cd1ad',
-	'amazingpiakchu_38': '#FFFF00'
+	'amazingpiakchu_38': '#FFFF00',
+	'royalpurplesky': '#800080',
+	'Mac_cy': '#FF8C00',
+	'iwannaplay5050': '#B22222'
     };
 	if (USER == 'VitaminB16') {
 userColors.LC_Chats = 'white';
