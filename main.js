@@ -11,39 +11,6 @@ var USER = $('#header .user a[href]').html();
 var chu = 0;
 var count = 0;
 var s = "leinad";
-var maybenumbers = {
-    "001":"/u/rschaosid",
-    "008":"/u/gordonpt8",
-    "018":"/u/Kris18",
-    "036":"/u/Iamspeedy36",
-    "037":"/u/amazingpikachu_38",
-    "047":"/u/kdiuro13",
-    "100":"/u/abplows",
-    "123":"random123",
-    "151":"/u/MewDP",
-    "200":"/u/QuestoGuy",
-    "212":"/u/MrBahr12",
-    "217":"/u/Lonadont",
-    "220":"/u/Chalupa_Dad",
-    "222":"/u/treje",
-    "234":"/u/ElliottB1",
-    "301":"/u/piyushsharma301",
-    "333":"/u/Majestic_Bear",
-    "369":"/u/TOP_20",
-    "404":"random404",
-    "471":"/u/albert471",
-    "501":"/u/LeinadSpoon",
-    "515":"/u/NobodyL0vesMe",
-    "555":"/u/PrinceCrinkle",
-    "615":"/u/parker_cube",
-    "616":"/u/DemonBurritoCat",
-    "666":"/u/rideride",
-    "689":"/u/smarvin6689",
-    "777":"/u/artbn",
-    "845":"/u/noduorg",
-    "973":"/u/Smartstocks",
-    "998":"/u/qwertylool"
-};
 
 // Thread ID
 var THREAD = (function () {
@@ -4331,21 +4298,22 @@ count1testlol = count1testlol.substring(0, 9);
     count1testlol = count1testlol.replace(/,/g, '');
     count1testlol = count1testlol.replace(/ /g, '');
 count1testlol = count1testlol.substr(count1testlol.length - 3);
-var maybename = maybenumbers[count1testlol];
-if (maybename == null) {
-maybename = '/u/MaybeNotWrong';
-var maybecolor = '#066666';
-} else {
-if (maybename == "random123") {var randomx = Math.floor((Math.random() * 2) + 1);if (randomx == 1) {maybename = '/u/davidjl123';} else {maybename = '/u/dominodan123';}}
-if (maybename == "random404") {var randomx = Math.floor((Math.random() * 2) + 1);if (randomx == 1) {maybename = '/u/Tranquilsunrise';} else {maybename = '/u/KingCaspianX';}}
-var maybenamet = maybename.trim().replace('/u/', '');;
-var maybecolor = userColors[maybenamet];
+var maybename = 'MNW_';
+var mayberandom = (Math.floor(Math.random() * 1000) + 1000).toString().substring(1);
+//This makes it so the random number can be "000" instead of just "0" I think. 
+var maybecolor = '#' + Math.random().toString(16).slice(2, 8).toUpperCase();
+maybename = maybename + mayberandom;
+if (mayberandom == count1testlol) {
+maybename = 'MaybeNotWrong';
+} 
+if (mayberandom == "373") {
+maybecolor = '#066666';
 }
  data.author_elem.css({
                   'font-weight': 'bold',
                   'display': 'inline-block'
               });
-data.author_elem.html(`<div style="color:`+maybecolor+`;">`+maybename+`</div>`)
+data.author_elem.html(`<div style="color:`+maybecolor+`;">/u/`+maybename+`</div>`)
             
 }
 	
