@@ -4242,7 +4242,8 @@ var ColoredUsernames;
 	'amazingpiakchu_38': '#FFFF00',
 	'royalpurplesky': '#800080',
 	'Mac_cy': '#FF8C00',
-	'iwannaplay5050': '#B22222'
+	'iwannaplay5050': '#B22222',
+	'ludrol': '#191970'
     };
 	if (USER == 'VitaminB16') {
 userColors.LC_Chats = 'white';
