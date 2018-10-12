@@ -4704,6 +4704,9 @@ var DisableShortcuts;
             // Ctrl+[1-9] (Switch Tabs)
             if (e.keyCode >= 49 && e.keyCode <= 57)
                 e.preventDefault();
+            // Ctrl+[numpad0-9] (as above)
+            if (e.keyCode >= 96 && e.keyCode <= 105)
+                e.preventDefault();
         }
     });
 })(DisableShortcuts || (DisableShortcuts = {}));
