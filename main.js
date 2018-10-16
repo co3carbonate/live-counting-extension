@@ -4294,31 +4294,109 @@ userColors.LC_Chats = 'white';
         }
 		
 // /u/MaybeNotWrong username special
-if (data.author == 'MaybeNotWrong') {
-    var count1testlol = data.body_elem.text();
-count1testlol = count1testlol.substring(0, 9);
-    count1testlol = count1testlol.replace(/[A-Za-z]/g, '');
-    count1testlol = count1testlol.replace(/,/g, '');
-    count1testlol = count1testlol.replace(/ /g, '');
-count1testlol = count1testlol.substr(count1testlol.length - 3);
-var maybename = 'MNW_';
-var mayberandom = (Math.floor(Math.random() * 1000) + 1000).toString().substring(1);
-//This makes it so the random number can be "000" instead of just "0" I think. 
-var maybecolor = '#' + Math.random().toString(16).slice(2, 8).toUpperCase();
-maybename = maybename + mayberandom;
-if (mayberandom == count1testlol) {
-maybename = 'MaybeNotWrong';
-} 
-if (mayberandom == "373") {
-maybecolor = '#066666';
+        if (data.author == 'MaybeNotWrong') {
+var pikachurandomcolor = '#066666';
+var visible = 0;
+ var random1 = Math.floor((Math.random() * 2) + 1);
+if (random1 == 1) {
+random1 = 'M';
+visible++;
 }
- data.author_elem.css({
+var random2 = Math.floor((Math.random() * 2) + 1);
+if (random2 == 1) {
+random2 = 'a';
+visible++;
+}
+var random3 = Math.floor((Math.random() * 2) + 1);
+if (random3 == 1) {
+random3 = 'y';
+visible++;
+}
+var random4 = Math.floor((Math.random() * 2) + 1);
+if (random4 == 1) {
+random4 = 'b';
+visible++;
+}
+var random5 = Math.floor((Math.random() * 2) + 1);
+if (random5 == 1) {
+random5 = 'e';
+visible++;
+}
+var random6 = Math.floor((Math.random() * 2) + 1);
+if (random6 == 1) {
+random6 = 'N';
+visible++;
+}
+var random7 = Math.floor((Math.random() * 2) + 1);
+if (random7 == 1) {
+random7 = 'o';
+visible++;
+}
+var random8 = Math.floor((Math.random() * 2) + 1);
+if (random8 == 1) {
+random8 = 't';
+visible++;
+}
+var random9 = Math.floor((Math.random() * 2) + 1);
+if (random9 == 1) {
+random9 = 'W';
+visible++;
+}
+var random10 = Math.floor((Math.random() * 2) + 1);
+if (random10 == 1) {
+random10 = 'r';
+visible++;
+}
+var random11 = Math.floor((Math.random() * 2) + 1);
+if (random11 == 1) {
+random11 = 'o';
+visible++;
+}
+var random12 = Math.floor((Math.random() * 2) + 1);
+if (random12 == 1) {
+random12 = 'n';
+visible++;
+}
+var random13 = Math.floor((Math.random() * 2) + 1);
+if (random13 == 1) {
+random13 = 'g';
+visible++;
+}
+if (visible == 1) {
+pikachurandomcolor = '#000000';
+} else if (visible == 2) {
+pikachurandomcolor = '#2e7f7f';
+} else if (visible == 3) {
+pikachurandomcolor = '#011111';
+} else if (visible == 4) {
+pikachurandomcolor = '#579898';
+} else if (visible == 5) {
+pikachurandomcolor = '#022222';
+} else if (visible == 6) {
+pikachurandomcolor = '#80b1b1';
+} else if (visible == 7) {
+pikachurandomcolor = '#033333';
+} else if (visible == 8) {
+pikachurandomcolor = '#a9caca';
+} else if (visible == 9) {
+pikachurandomcolor = '#044444';
+} else if (visible == 10) {
+pikachurandomcolor = '#d2e3e3';
+} else if (visible == 11) {
+pikachurandomcolor = '#055555';
+} else if (visible == 12) {
+pikachurandomcolor = '#ffffff';
+}
+
+var maybename = random1 + random2 + random3 + random4 + random5 + random6 + random7 + random8 + random9 + random10 + random11 + random12 + random13;
+maybename = maybename.replace(/[0-9]/g, '');
+        data.author_elem.css({
                   'font-weight': 'bold',
                   'display': 'inline-block'
+
               });
-data.author_elem.html(`<div style="color:`+maybecolor+`;">/u/`+maybename+`</div>`)
-            
-}
+             data.author_elem.html(`<span style='color:` + pikachurandomcolor + `;'>/u/`+maybename+`</span>`)
+        }
 	
 // /u/NobodyL0vesMe username special
 if (data.author == 'NobodyL0vesMe') {
