@@ -12,7 +12,6 @@ var chu = 0;
 var count = 0;
 var s = "leinad";
 
-if (USER == 'NobodyL0vesMe') {
 //////////////////////////////////TEAM COMMAS
 /*$.ajax({
         method: 'GET',
@@ -87,7 +86,7 @@ $("#team2").css('padding','3px 3px 3px 3px').css('background','#006000').css('co
 
 
 //////////////////////////////////
-}
+
 
 
 // Thread ID
