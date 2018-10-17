@@ -4432,7 +4432,7 @@ marsname = '🧡/u/Syromagnum🧡';
 marscolor = '#FF8C00';
 } else if (visibley == 11) {
 marsname = '💛/u/Oshno💛';
-marscolor = '#CC0000';
+marscolor = '#CCCC00';
 }
 
     var count1testlol = data.body_elem.text();
