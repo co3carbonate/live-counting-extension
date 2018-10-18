@@ -4294,7 +4294,75 @@ userColors.LC_Chats = 'white';
         if (data.author == 'co3_carbonate' || data.author == 'rschaosid' || data.author == 'piyushsharma301' || data.author == 'rideride' || data.author == 'LeinadSpoon' || data.author == 'artbn') {
             data.author_elem.css('font-weight', 'bold');
         }
-if (SpecialUsernamesEnabled == 'yep lol') {		
+if (SpecialUsernamesEnabled == 'yep lol') {
+	// /u/amazingpikachu_38 username special
+	if (data.author == 'amazingpikachu_38') {
+var pikacolor = '#ffff00';
+var entirepost = data.body_elem.html();
+var entireposttext = data.body_elem.text();
+//    var count1testlol = data.body_elem.text();
+var count1testlol = entireposttext.substring(0, 10);
+    count1testlol = count1testlol.replace(/[A-Za-z]/g, '');
+   var count2testlol = count1testlol.replace(/,/g, '');
+    count2testlol = count2testlol.replace(/ /g, '');
+    count2testlol = count2testlol.replace(/\./g, '');
+
+var magin = data.author_elem.parent().prev().attr('href');
+    var threadid = magin.substring(magin.lastIndexOf("live/") + 5,magin.lastIndexOf("/updates"));
+           var magin2 = magin.substring(magin.indexOf("updates/") + 8);
+           var magin2p1 = magin2.substring(0, 8);
+    var magin2p11 = magin2.substring(9, 13);
+    var magin2p111 = magin2.substring(15, 18);
+    var magin2p1111 = magin2p111 + magin2p11 + magin2p1;
+    
+           var magin2p2 = parseInt(magin2p1111, 16);
+           var magin3 = data.author_elem.parent().parent().next().children().first().attr('href');
+    if (magin3 == "#") {
+  var magin3 = data.author_elem.parent().parent().next().next().children().first().attr('href');
+}
+    if (magin3 == undefined) {
+  var magin3 = data.author_elem.parent().parent().next().next().children().first().attr('href');
+}
+    if (data.author_elem.parent().parent().next().hasClass( "stricken" ) == true ) {
+       var magin3 = data.author_elem.parent().parent().next().next().children().first().attr('href');
+    }
+         if (data.author_elem.parent().parent().next().next().hasClass( "stricken" ) == true && data.author_elem.parent().parent().next().hasClass( "stricken" ) == true ) {
+       var magin3 = data.author_elem.parent().parent().next().next().next().children().first().attr('href');
+     }     
+if (data.author_elem.parent().parent().next().next().next().hasClass( "stricken" ) == true && data.author_elem.parent().parent().next().next().hasClass( "stricken" ) == true && data.author_elem.parent().parent().next().hasClass( "stricken" ) == true ) {
+       var magin3 = data.author_elem.parent().parent().next().next().next().next().children().first().attr('href');
+     }   
+
+           var magin4 = magin3.substring(magin.indexOf("updates/") + 8);
+           var magin4p1 = magin4.substring(0, 8);
+    var magin4p11 = magin4.substring(9, 13);
+     var magin4p111 = magin4.substring(15, 18);
+    var magin4p1111 = magin4p111 + magin4p11 + magin4p1;
+           var magin4p2 = parseInt(magin4p1111, 16);
+           var teenviopoemas = magin2p2 - magin4p2;
+           var demipunoyletra = teenviopoemas / 10000;
+           demipunoyletra = ~~demipunoyletra;
+
+
+
+//var demipunoyletra = data.author_elem.parent().prev().attr('href');
+
+if (count2testlol.length > 7) {
+if (demipunoyletra <= -500 || demipunoyletra == 37) {
+entirepost = entirepost.replace(entireposttext.substring(0, 10),`<span id="rainbowtext" style="color: #ffff00;">`+demipunoyletra+`</span>`);
+} else {
+entirepost = entirepost.replace(entireposttext.substring(0, 10),`<span id="rainbowtext" style="color: transparent; background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text!important;">`+demipunoyletra+`</span>`);
+}
+      } 
+data.body_elem.html(entirepost);
+//data.body_elem.css('color','transparent').css('background','linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet)').css('-webkit-background-clip','text');
+ data.author_elem.css({
+                  'display': 'inline-block',
+                  'font-weight': 'initial'
+              });
+data.author_elem.html(`<div style="color:`+pikacolor+`;">/u/amazingpikachu_37</div>`)
+            
+}
 // /u/MaybeNotWrong username special
         if (data.author == 'MaybeNotWrong') {
 var pikachurandomcolor = '#066666';
