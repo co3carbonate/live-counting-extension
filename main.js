@@ -11,6 +11,7 @@ var USER = $('#header .user a[href]').html();
 var chu = 0;
 var count = 0;
 var s = "leinad";
+var SpecialUsernamesEnabled;
 
 
 
@@ -4293,7 +4294,7 @@ userColors.LC_Chats = 'white';
         if (data.author == 'co3_carbonate' || data.author == 'rschaosid' || data.author == 'piyushsharma301' || data.author == 'rideride' || data.author == 'LeinadSpoon' || data.author == 'artbn') {
             data.author_elem.css('font-weight', 'bold');
         }
-		
+if (SpecialUsernamesEnabled == 'yep lol') {		
 // /u/MaybeNotWrong username special
         if (data.author == 'MaybeNotWrong') {
 var pikachurandomcolor = '#066666';
@@ -4454,7 +4455,7 @@ marsname = '/u/Etzer 8)';
              data.author_elem.html(`<span style='color:` + marscolor+ `;'>`+marsname+`</span>`)
         }
 
-	    
+} // SpecialUsernamesEnabled ending	    
         // Set username colour
         if (!userColors.hasOwnProperty(data.author)) {
             userColors[data.author] = colors[currentColor];
@@ -4772,6 +4773,29 @@ var DisableShortcuts;
         }
     });
 })(DisableShortcuts || (DisableShortcuts = {}));
+//////////////////////////
+// SpecialUsernames.ts //
+//////////////////////////
+var SpecialUsernames;
+var SpecialUsernamesEnabled;
+(function (SpecialUsernames) {
+    // Options
+    var enabled = true;
+    var $checkbox = Options.addCheckbox({
+        label: 'SPECIAL 100K USERNAMES',
+        section: 'Advanced',
+        "default": true,
+        help: 'Enable or disable the special 100k usernames.',
+        onchange: function () {
+            enabled = this.prop('checked');
+        }
+    });
+        if (enabled == true) {
+        SpecialUsernamesEnabled = 'yep lol';
+        } else {
+        SpecialUsernamesEnabled = 'nope lol';
+        }
+})(SpecialUsernames || (SpecialUsernames = {}));
 ////////////////////////
 // ContentPosition.ts //
 ////////////////////////
