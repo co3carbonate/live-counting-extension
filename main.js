@@ -4349,7 +4349,7 @@ if (data.author_elem.parent().parent().next().next().next().hasClass( "stricken"
 
 if (count2testlol.length > 7) {
 if (demipunoyletra <= -500 || demipunoyletra == 37) {
-entirepost = entirepost.replace(entireposttext.substring(0, 10),`<span id="rainbowtext" style="color: #ffff00;">`+demipunoyletra+`</span>`);
+entirepost = entirepost.replace(entireposttext.substring(0, 10),`<span id="rainbowtext" style="color: #ffff00;">`+count1testlol+`</span>`);
 } else {
 entirepost = entirepost.replace(entireposttext.substring(0, 10),`<span id="rainbowtext" style="color: transparent; background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text!important;">`+count1testlol+`</span>`);
 }
