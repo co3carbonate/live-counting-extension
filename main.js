@@ -4215,7 +4215,8 @@ var ColoredUsernames;
 	'iwannaplay5050': '#B22222',
 	'ludrol': '#191970',
 	'thegreatestminer': '#4F9D82',
-	'dogcatcowpig': '#1162f9'
+	'dogcatcowpig': '#1162f9',
+	'ItzTaken': '#32ff95'
     };
 	if (USER == 'VitaminB16') {
 userColors.LC_Chats = 'white';
