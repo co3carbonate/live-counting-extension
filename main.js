@@ -4217,7 +4217,8 @@ var ColoredUsernames;
 	'ludrol': '#191970',
 	'thegreatestminer': '#4F9D82',
 	'dogcatcowpig': '#1162f9',
-	'ItzTaken': '#32ff95'
+	'ItzTaken': '#32ff95',
+	'Noob2137': '#ff69bf'
     };
 	if (USER == 'VitaminB16') {
 userColors.LC_Chats = 'white';
