@@ -12,7 +12,8 @@ var chu = 0;
 var count = 0;
 var s = "leinad";
 var SpecialUsernamesEnabled;
-
+var rotater = -3;
+var flakecount = 1;
 
 
 
@@ -4298,6 +4299,57 @@ userColors.LC_Chats = 'white';
             data.author_elem.css('font-weight', 'bold');
         }
 if (SpecialUsernamesEnabled == 'yep lol') {
+		// /u/dominodan123 username special
+if (data.author == 'dominodan123') {
+var flake1;
+var flake2;
+rotater = rotater + 3;
+if (flakecount == 1) {
+flake1 = `<span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span>`;
+flake2 = `<span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span>`;
+flakecount++;
+} else if (flakecount == 2) {
+flake1 = `<span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span>`;
+flake2 = `<span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span>`;
+flakecount++;
+} else if (flakecount == 3) {
+flake1 = `<span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span>`;
+flake2 = `<span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span>`;
+flakecount++;
+} else if (flakecount == 4) {
+flake1 = `<span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span>`;
+flake2 = `<span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span>`;
+flakecount++;
+} else if (flakecount == 5) {
+flake1 = `<span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span>`;
+flake2 = `<span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span>`;
+flakecount++;
+} else if (flakecount == 6) {
+flake1 = `<span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span>`;
+flake2 = `<span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span>`;
+flakecount++;
+} else if (flakecount == 7) {
+flake1 = `<span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span>`;
+flake2 = `<span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span>`;
+flakecount++;
+} else if (flakecount == 8) {
+flake1 = `<span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span>`;
+flake2 = `<span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span>`;
+flakecount = 1;
+}
+
+ data.author_elem.css({
+                 'font-weight': 'bold',
+                 '-moz-transform': 'rotate(-180deg)',
+                 '-o-transform': 'rotate(-180deg)',
+                 '-webkit-transform': 'rotate(-180deg)',
+                 'transform': 'rotate(-180deg)',
+                 'display': 'inline-block'
+              });
+
+data.author_elem.html(`<div style="color:blue;">`+flake1+`/u/dominodan123`+flake2+`</div>`)
+           
+}	
 	// /u/amazingpikachu_38 username special
 	if (data.author == 'amazingpikachu_38') {
 var pikacolor = '#ffff00';
