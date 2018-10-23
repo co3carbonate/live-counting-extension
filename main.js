@@ -12,7 +12,7 @@ var chu = 0;
 var count = 0;
 var s = "leinad";
 var SpecialUsernamesEnabled;
-var rotater = -3;
+var rotater = -12;
 var flakecount = 1;
 
 
@@ -4303,7 +4303,7 @@ if (SpecialUsernamesEnabled == 'yep lol') {
 if (data.author == 'dominodan123') {
 var flake1;
 var flake2;
-rotater = rotater + 3;
+rotater = rotater + 12;
 if (flakecount == 1) {
 flake1 = `<span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span>`;
 flake2 = `<span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span>`;
