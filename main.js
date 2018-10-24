@@ -4305,13 +4305,14 @@ var takenname = '🎃🎃🎃ItzTaken🎃🎃🎃';
 var takencolor = '#ff9100';
 
   var count1testlol = data.body_elem.text();
+var count1text = count1testlol;
 count1testlol = count1testlol.substring(0, 10);
     count1testlol = count1testlol.replace(/[A-Za-z]/g, '');
     count1testlol = count1testlol.replace(/,/g, '');
     count1testlol = count1testlol.replace(/ /g, '');
 count1testlol = count1testlol.replace(/\./g, '');
 count1testlol = count1testlol.substr(count1testlol.length - 3);
-if (count1testlol == '666') {
+if (count1testlol == '666' || count1text.includes("spook")) {
 takenname = '👻👻👻SPOOK👻👻👻';
 takencolor = '#000000';
 }
