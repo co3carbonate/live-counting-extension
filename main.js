@@ -4295,7 +4295,7 @@ userColors.LC_Chats = 'white';
             return;
         // Special usernames (temp rewards for top in 100k HoC, or other contributions)
         // Bot-maker privileges (/u/co3_carbonate, /u/rschaosid, /u/piyushsharma301,/u/rideride)
-        if (data.author == 'co3_carbonate' || data.author == 'rschaosid' || data.author == 'piyushsharma301' || data.author == 'rideride' || data.author == 'LeinadSpoon' || data.author == 'artbn') {
+        if (data.author == 'MaybeNotWrong' || data.author == 'co3_carbonate' || data.author == 'rschaosid' || data.author == 'piyushsharma301' || data.author == 'rideride' || data.author == 'LeinadSpoon' || data.author == 'artbn') {
             data.author_elem.css('font-weight', 'bold');
         }
 if (SpecialUsernamesEnabled == 'yep lol') {
@@ -4434,7 +4434,7 @@ if(window.location.href.indexOf("110t4ltqqzi35") > -1) {
 var lcchats = data.href_elem.attr('href');
 lcchats = lcchats.trim().replace('/u/', '');
 data.href_elem.css('color', userColors[lcchats]).css('fontStyle','initial').css('fontSize','13px');
-if (lcchats == 'co3_carbonate' || lcchats == 'rschaosid' || lcchats == 'piyushsharma301' || lcchats == 'rideride' || lcchats == 'LeinadSpoon' || lcchats == 'artbn') {
+if (lcchats == 'MaybeNotWrong' || lcchats == 'co3_carbonate' || lcchats == 'rschaosid' || lcchats == 'piyushsharma301' || lcchats == 'rideride' || lcchats == 'LeinadSpoon' || lcchats == 'artbn') {
             data.href_elem.css('font-weight', 'bold');
         }
 }
@@ -4444,7 +4444,7 @@ $('a[href*="/u/"]').each(function() {
 var thishref = $(this).attr('href');
 thishref = thishref.trim().replace('/u/', '');
     $(this).css('color', userColors[thishref]).css('fontStyle','initial').css('fontSize','13px');
-if (thishref == 'co3_carbonate' || thishref == 'rschaosid' || thishref == 'piyushsharma301' || thishref == 'rideride' || thishref == 'LeinadSpoon' || thishref == 'artbn') {
+if (thishref == 'MaybeNotWrong' || thishref == 'co3_carbonate' || thishref == 'rschaosid' || thishref == 'piyushsharma301' || thishref == 'rideride' || thishref == 'LeinadSpoon' || thishref == 'artbn') {
             $(this).css('font-weight', 'bold');
         }
 });
@@ -4453,7 +4453,7 @@ $('a[href*="/u/"]').each(function() {
 var thishref2 = $(this).attr('href');
 thishref2 = thishref2.trim().replace('/u/', '');
     $(this).css('color', userColors[thishref2]).css('fontStyle','initial').css('fontSize','13px');
-if (thishref2 == 'co3_carbonate' || thishref2 == 'rschaosid' || thishref2 == 'piyushsharma301' || thishref2 == 'rideride' || thishref2 == 'LeinadSpoon' || thishref2 == 'artbn') {
+if (thishref2 == 'MaybeNotWrong' || thishref2 == 'co3_carbonate' || thishref2 == 'rschaosid' || thishref2 == 'piyushsharma301' || thishref2 == 'rideride' || thishref2 == 'LeinadSpoon' || thishref2 == 'artbn') {
             $(this).css('font-weight', 'bold');
         }
 });
