@@ -4301,7 +4301,7 @@ userColors.LC_Chats = 'white';
 if (SpecialUsernamesEnabled == 'yep lol') {
 // /u/NobodyL0vesMe username special
 	if (data.author == 'NobodyL0vesMe') {
-var marsname = ['/u/lamepikachu_38ffff00', '/u/BOTTOM_20ff00bf', '/u/DanielKnife520063', '/u/Chalupa_Sonf08080', '/u/Dumbstocks840d0d', '/u/QuestoGal800080', '/u/Lonayesa35252', '/u/EverybodyL0vesMe730099', '/u/TranquilSundownFFA500', '/u/AngelBurritoDog890003', '/u/CertainlyNotRight066666', '/u/Iamslow3600BFFF', '/u/Pathetic_Bear4682B4', '/u/ItzAvailable32ff95', '/u/LiquidGoldMagikarp008080'];
+var marsname = ['/u/lamepikachu_38ffff00', '/u/BOTTOM_20ff00bf', '/u/DanielKnife520063', '/u/Chalupa_Sonf08080', '/u/Dumbstocks840d0d', '/u/QuestoGal800080', '/u/Lonadoa35252', '/u/EverybodyL0vesMe730099', '/u/TranquilsundownFFA500', '/u/AngelBurritoDog890003', '/u/CertainlyNotRight066666', '/u/Iamslow3600BFFF', '/u/Pathetic_Bear4682B4', '/u/ItzAvailable32ff95', '/u/LiquidGoldMagikarp008080'];
 marsname = marsname[Math.floor(Math.random() * marsname.length)];
 var marscolor = '#' + marsname.substr(-6);
 marsname = marsname.slice(0, -6);
