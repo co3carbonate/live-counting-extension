@@ -4299,6 +4299,22 @@ userColors.LC_Chats = 'white';
             data.author_elem.css('font-weight', 'bold');
         }
 if (SpecialUsernamesEnabled == 'yep lol') {
+// /u/NobodyL0vesMe username special
+	if (data.author == 'NobodyL0vesMe') {
+var marsname = ['/u/lamepikachu_38ffff00', '/u/BOTTOM_20ff00bf', '/u/DanielKnife520063', '/u/Chalupa_Sonf08080', '/u/Dumbstocks840d0d', '/u/QuestoGal800080', '/u/Lonayesa35252', '/u/EverybodyL0vesMe730099', '/u/TranquilSundownFFA500', '/u/AngelBurritoDog890003', '/u/CertainlyNotRight066666', '/u/Iamslow3600BFFF', '/u/Pathetic_Bear4682B4', '/u/ItzAvailable32ff95', '/u/LiquidGoldMagikarp008080'];
+marsname = marsname[Math.floor(Math.random() * marsname.length)];
+var marscolor = '#' + marsname.substr(-6);
+marsname = marsname.slice(0, -6);
+
+
+ data.author_elem.css({
+                 'font-weight': 'bold',
+                 'display': 'inline-block'
+              });
+
+data.author_elem.html(`<div style="color:`+marscolor+`;">`+marsname+`</div>`)
+           
+}
 	// /u/ItzTaken username special
 	if (data.author == 'ItzTaken') {
 var takenname = '🎃🎃🎃ItzTaken🎃🎃🎃';
@@ -4325,60 +4341,6 @@ takencolor = '#000000';
 data.author_elem.html(`<div style="color:`+takencolor+`;">`+takenname+`</div>`)
            
 }
-		// /u/dominodan123 username special
-if (data.author == 'dominodan123') {
-var flake1;
-var flake2;
-rotater = rotater + 12;
-if (flakecount == 1) {
-flake1 = `<span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span>`;
-flake2 = `<span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span>`;
-flakecount++;
-} else if (flakecount == 2) {
-flake1 = `<span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span>`;
-flake2 = `<span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span>`;
-flakecount++;
-} else if (flakecount == 3) {
-flake1 = `<span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span>`;
-flake2 = `<span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span>`;
-flakecount++;
-} else if (flakecount == 4) {
-flake1 = `<span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span>`;
-flake2 = `<span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span>`;
-flakecount++;
-} else if (flakecount == 5) {
-flake1 = `<span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span>`;
-flake2 = `<span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span>`;
-flakecount++;
-} else if (flakecount == 6) {
-flake1 = `<span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span>`;
-flake2 = `<span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span>`;
-flakecount++;
-} else if (flakecount == 7) {
-flake1 = `<span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span>`;
-flake2 = `<span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span>`;
-flakecount++;
-} else if (flakecount == 8) {
-flake1 = `<span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span>`;
-flake2 = `<span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span><span class=azsenatorjeff  style="display: inline-block; -moz-transform: rotate(`+rotater+`deg);-o-transform:rotate(`+rotater+`deg);-webkit-transform:rotate(`+rotater+`deg);">❄️</span>`;
-flakecount = 1;
-}
-
- data.author_elem.css({
-                 'font-weight': 'bold',
-                 '-moz-transform': 'rotate(-180deg)',
-                 '-o-transform': 'rotate(-180deg)',
-                 '-webkit-transform': 'rotate(-180deg)',
-                 'transform': 'rotate(-180deg)',
-                 'display': 'inline-block'
-              });
-
-data.author_elem.html(`<div style="color:blue;">`+flake1+`/u/dominodan123`+flake2+`</div>`)
-           
-}	
-
-
-
 } // SpecialUsernamesEnabled ending	    
         // Set username colour
         if (!userColors.hasOwnProperty(data.author)) {
