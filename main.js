@@ -4726,6 +4726,7 @@ var TeamBarsEnabled;
         }
 
 //////////////////////////////////TEAM COMMAS
+if(window.location.href.indexOf("ta535s1hq2je") > -1) {
 if (TeamBarsEnabled == 'yep lol') {
 var hmmyy;
 var checky;
@@ -4776,6 +4777,7 @@ $("#team2").css('padding','3px 3px 3px 3px').css('background','#006000').css('co
         }
     });
 } //TeamBarsEnabled end
+}
 //////////////////////////////////
 })(TeamBars || (TeamBars = {}));
 ////////////////////////
