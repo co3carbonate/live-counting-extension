@@ -4731,6 +4731,7 @@ if (TeamBarsEnabled == 'yep lol') {
 var hmmyy;
 var checky;
 var checky2;
+setInterval(function(){ 
 $.ajax({
         method: 'GET',
         dataType: 'text',
@@ -4776,6 +4777,7 @@ $("#team2").css('padding','3px 3px 3px 3px').css('background','#006000').css('co
             alert('Error ' +data.status+ ' while loading Live Counting Extension: ' +data.statusText+ '\n\nPlease refresh to try again.');
         }
     });
+}, 60500);
 } //TeamBarsEnabled end
 }
 //////////////////////////////////
