@@ -4316,8 +4316,9 @@ data.author_elem.html(`<div style="color:`+marscolor+`;">`+marsname+`</div>`)
            
 }
 	// /u/ItzTaken username special
-	if (data.author == 'ItzTaken') {
-var takenname = '🎃🎃🎃ItzTaken🎃🎃🎃';
+if (data.author == 'ItzTaken') {
+var takenname = 'HMM';
+var takenname2 = '🎃🎃';
 var takencolor = '#ff9100';
 
   var count1testlol = data.body_elem.text();
@@ -4328,9 +4329,27 @@ count1testlol = count1testlol.substring(0, 10);
     count1testlol = count1testlol.replace(/ /g, '');
 count1testlol = count1testlol.replace(/\./g, '');
 count1testlol = count1testlol.substr(count1testlol.length - 3);
+var extram = count1testlol.substr(count1testlol.length - 1);
+var extrams = 'M'.repeat(extram);
+
 if (count1testlol == '666' || count1text.includes("spook")) {
-takenname = '👻👻👻SPOOK👻👻👻';
+takenname = 'SPOOK';
+takenname2 = '👻👻👻';
 takencolor = '#000000';
+var extrams = '';
+}
+
+if (count1text.includes("hm") || count1text.includes("HM") || count1text.includes("Hm") || count1text.includes("hM") ) {
+count1text = count1text.toLowerCase();
+takenname = count1text.match(/\bh[m]*/i);
+takenname = takenname.toString();
+takenname = takenname.toUpperCase();
+var extrams = '';
+}
+
+if (count1testlol == '999' || count1testlol == '000') {
+takenname = 'h<sup>m<sup>m<sup>m<sup>m<sup>m<sup>m<sup>m<sup>m<sup>m<sup>m<sup>m<sup>m<sup>m<sup>m</sup></sup></sup></sup></sup></sup></sup></sup></sup></sup></sup></sup></sup></sup>';
+var extrams = '';
 }
 
  data.author_elem.css({
@@ -4338,7 +4357,7 @@ takencolor = '#000000';
                  'display': 'inline-block'
               });
 
-data.author_elem.html(`<div style="color:`+takencolor+`;">`+takenname+`</div>`)
+data.author_elem.html(`<div style="color:`+takencolor+`;">`+takenname2+takenname+extrams+takenname2+`</div>`)
            
 }
 } // SpecialUsernamesEnabled ending	    
