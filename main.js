@@ -4155,6 +4155,7 @@ var ColoredUsernames;
         'live_mentions': 'Black',
         'joinlivecounting': 'Black',
         'livecounting_sidebar': 'Black',
+	'live_lc_bot': 'Black',
         'piyushsharma301': '#FF0F19',
         'Tranquilsunrise': 'Orange',
         'dominodan123': 'Blue',
