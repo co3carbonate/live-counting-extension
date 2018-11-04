@@ -4702,6 +4702,82 @@ var SpecialUsernamesEnabled;
         SpecialUsernamesEnabled = 'nope lol';
         }
 })(SpecialUsernames || (SpecialUsernames = {}));
+//////////////////////////
+// TeamBars.ts //
+//////////////////////////
+var TeamBars;
+var TeamBarsEnabled;
+(function (TeamBars) {
+    // Options
+    var enabled = true;
+    var $checkbox = Options.addCheckbox({
+        label: 'TEAM BARS',
+        section: 'Advanced',
+        "default": true,
+        help: 'Enable or disable the team bars.',
+        onchange: function () {
+            enabled = this.prop('checked');
+        }
+    });
+        if (enabled == true) {
+        TeamBarsEnabled = 'yep lol';
+        } else {
+        TeamBarsEnabled = 'nope lol';
+        }
+
+//////////////////////////////////TEAM COMMAS
+if (TeamBarsEnabled == 'yep lol') {
+var hmmyy;
+var checky;
+var checky2;
+$.ajax({
+        method: 'GET',
+        dataType: 'text',
+        cache: false,
+        url: 'https://raw.githubusercontent.com/MaybeNotWrong/lc-sep/master/data.txt',
+        success: function(data) {
+checky = `<div id="commacount"></div><div id="noncommacount"></div>`;
+hmmyy = data;
+checky2 = data;
+checky2 = checky2.replace(/[0-9]+/g, '');
+if (checky != checky2) {
+alert('Something has gone wrong in the verification of the data. Please PM /u/rideride. To stop showing this message, disable the option for now until it is fixed');
+} else {
+$("<div id=loadtest></div><div id=teamdisplay><div id=team1>Team Commas</div><div id=team1count></div><div id=team2count></div><div id=team2>Team Noncommas</div></div>").insertBefore("#liveupdate-description");
+document.getElementById('loadtest').innerHTML = hmmyy;
+$("#loadtest").css('display','none');
+var commacounts = parseInt(document.getElementById('commacount').innerHTML);
+var noncommacounts = parseInt(document.getElementById('noncommacount').innerHTML);
+var totalcounts = commacounts + noncommacounts;
+var commapercent = (commacounts / totalcounts) * 100;
+commapercent = Math.round( commapercent * 10 ) / 10;
+var noncommapercent = (noncommacounts / totalcounts) * 100;
+noncommapercent = Math.round( noncommapercent * 10 ) / 10;
+document.getElementById('team1count').innerHTML = commacounts;
+document.getElementById('team2count').innerHTML = noncommacounts;
+$("#teamdisplay").css('display','flex').css('font-size','14px');
+$("#team1count").css('flex',commapercent + '0 1 0px').css('background','blue').css('text-align','center').css('color','transparent').css('padding-top','3px');
+$("#team2count").css('flex',noncommapercent + '0 1 0px').css('background','green').css('text-align','center').css('color','transparent').css('padding-top','3px');
+$( "#teamdisplay" ).hover(function() {
+         document.getElementById("team1count").style.color = 'white';
+         document.getElementById("team2count").style.color = 'white';
+       }, function() {
+         document.getElementById("team1count").style.color = 'transparent';
+         document.getElementById("team2count").style.color = 'transparent';
+  });
+$("#team1").css('padding','3px 3px 3px 3px').css('background','#0000cf').css('color','white');
+$("#team2").css('padding','3px 3px 3px 3px').css('background','#006000').css('color','white');
+    var csshead = $(`<style>#team1:before {-webkit-transition: all 0.3s;transition: all 0.3s;transition-delay: 0.3s;-webkit-transition-delay: 0.3s;transition-delay: 0.3s;content: "`+commapercent+`%";width: 10px;height: 12px;display: inline-block;position: absolute;left: 0px;text-align: center;top: 3px;text-indent: 3px;font-size: 14px;} #team1:hover::before {-webkit-transition: all 0.3s;transition: all 0.3s;transition-delay: 0s;-webkit-transition-delay: 0.0s;transition-delay: 0.0s;font-size:0px;} #team2:before {-webkit-transition: all 0.3s;transition: all 0.3s;transition-delay: 0.3s;-webkit-transition-delay: 0.3s;transition-delay: 0.3s;content: "`+noncommapercent+`%";width: 10px;height: 12px;display: inline-block;position: absolute;left: 0px;text-align: center;top: 3px;text-indent: 3px;font-size: 14px;} #team2:hover::before {-webkit-transition: all 0.3s;transition: all 0.3s;transition-delay: 0s;-webkit-transition-delay: 0.0s;transition-delay: 0.0s;font-size:0px;} #team1 {background: #0000cf;color: white;z-index: 99999;min-width: 45px;max-width: 45px;height: 17px;line-height: 14px;border-top-left-radius: 14px;border: none;overflow: hidden;padding: 0;vertical-align: middle;font-size: 0px;position: relative;text-indent: 0px;-webkit-transition: all 0.3s;transition: all 0.3s;transition-delay: 0s;-webkit-transition-delay: 0.1s;transition-delay: 0.1s;cursor: help;border-bottom-left-radius: 14px;} #team1:hover {font-size: 14px;max-width: 500px;padding: 0 5px;color: #fff} #team2 {background: #0000cf;color: white;z-index: 99999;min-width: 45px;max-width: 45px;height: 17px;line-height: 14px;border-top-right-radius: 14px;border: none;overflow: hidden;padding: 0;vertical-align: middle;font-size: 0px;position: relative;text-indent: 0px;-webkit-transition: all 0.3s;transition: all 0.3s;transition-delay: 0s;-webkit-transition-delay: 0.1s;transition-delay: 0.1s;cursor: help;border-bottom-right-radius: 14px;} #team2:hover {font-size: 14px;max-width: 500px;padding: 0 5px;color: #fff}</style>`);
+    // INITIALIZATION
+    $('head').append(csshead);
+        }},
+        error: function(data) {
+            alert('Error ' +data.status+ ' while loading Live Counting Extension: ' +data.statusText+ '\n\nPlease refresh to try again.');
+        }
+    });
+} //TeamBarsEnabled end
+//////////////////////////////////
+})(TeamBars || (TeamBars = {}));
 ////////////////////////
 // ContentPosition.ts //
 ////////////////////////
