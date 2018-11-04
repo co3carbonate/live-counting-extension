@@ -4768,7 +4768,9 @@ $( "#teamdisplay" ).hover(function() {
   });
 $("#team1").css('padding','3px 3px 3px 3px').css('background','#0000cf').css('color','white');
 $("#team2").css('padding','3px 3px 3px 3px').css('background','#006000').css('color','white');
-    var csshead = $(`<style>#team1:before {-webkit-transition: all 0.3s;transition: all 0.3s;transition-delay: 0.3s;-webkit-transition-delay: 0.3s;transition-delay: 0.3s;content: "`+commapercent+`%";width: 10px;height: 12px;display: inline-block;position: absolute;left: 0px;text-align: center;top: 3px;text-indent: 3px;font-size: 14px;} #team1:hover::before {-webkit-transition: all 0.3s;transition: all 0.3s;transition-delay: 0s;-webkit-transition-delay: 0.0s;transition-delay: 0.0s;font-size:0px;} #team2:before {-webkit-transition: all 0.3s;transition: all 0.3s;transition-delay: 0.3s;-webkit-transition-delay: 0.3s;transition-delay: 0.3s;content: "`+noncommapercent+`%";width: 10px;height: 12px;display: inline-block;position: absolute;left: 0px;text-align: center;top: 3px;text-indent: 3px;font-size: 14px;} #team2:hover::before {-webkit-transition: all 0.3s;transition: all 0.3s;transition-delay: 0s;-webkit-transition-delay: 0.0s;transition-delay: 0.0s;font-size:0px;} #team1 {background: #0000cf;color: white;z-index: 99999;min-width: 45px;max-width: 45px;height: 17px;line-height: 14px;border-top-left-radius: 14px;border: none;overflow: hidden;padding: 0;vertical-align: middle;font-size: 0px;position: relative;text-indent: 0px;-webkit-transition: all 0.3s;transition: all 0.3s;transition-delay: 0s;-webkit-transition-delay: 0.1s;transition-delay: 0.1s;cursor: help;border-bottom-left-radius: 14px;} #team1:hover {font-size: 14px;max-width: 500px;padding: 0 5px;color: #fff} #team2 {background: #0000cf;color: white;z-index: 99999;min-width: 45px;max-width: 45px;height: 17px;line-height: 14px;border-top-right-radius: 14px;border: none;overflow: hidden;padding: 0;vertical-align: middle;font-size: 0px;position: relative;text-indent: 0px;-webkit-transition: all 0.3s;transition: all 0.3s;transition-delay: 0s;-webkit-transition-delay: 0.1s;transition-delay: 0.1s;cursor: help;border-bottom-right-radius: 14px;} #team2:hover {font-size: 14px;max-width: 500px;padding: 0 5px;color: #fff}</style>`);
+    var csshead = $(`<style>#team1:before {-webkit-transition: all 0.3s;transition: all 0.3s;transition-delay: 0.3s;-webkit-transition-delay: 0.3s;transition-delay: 0.3s;content: attr(data-before);width: 10px;height: 12px;display: inline-block;position: absolute;left: 0px;text-align: center;top: 3px;text-indent: 3px;font-size: 14px;} #team1:hover::before {-webkit-transition: all 0.3s;transition: all 0.3s;transition-delay: 0s;-webkit-transition-delay: 0.0s;transition-delay: 0.0s;font-size:0px;} #team2:before {-webkit-transition: all 0.3s;transition: all 0.3s;transition-delay: 0.3s;-webkit-transition-delay: 0.3s;transition-delay: 0.3s;content:attr(data-before);width: 10px;height: 12px;display: inline-block;position: absolute;left: 0px;text-align: center;top: 3px;text-indent: 3px;font-size: 14px;} #team2:hover::before {-webkit-transition: all 0.3s;transition: all 0.3s;transition-delay: 0s;-webkit-transition-delay: 0.0s;transition-delay: 0.0s;font-size:0px;} #team1 {background: #0000cf;color: white;z-index: 99999;min-width: 45px;max-width: 45px;height: 17px;line-height: 14px;border-top-left-radius: 14px;border: none;overflow: hidden;padding: 0;vertical-align: middle;font-size: 0px;position: relative;text-indent: 0px;-webkit-transition: all 0.3s;transition: all 0.3s;transition-delay: 0s;-webkit-transition-delay: 0.1s;transition-delay: 0.1s;cursor: help;border-bottom-left-radius: 14px;} #team1:hover {font-size: 14px;max-width: 500px;padding: 0 5px;color: #fff} #team2 {background: #0000cf;color: white;z-index: 99999;min-width: 45px;max-width: 45px;height: 17px;line-height: 14px;border-top-right-radius: 14px;border: none;overflow: hidden;padding: 0;vertical-align: middle;font-size: 0px;position: relative;text-indent: 0px;-webkit-transition: all 0.3s;transition: all 0.3s;transition-delay: 0s;-webkit-transition-delay: 0.1s;transition-delay: 0.1s;cursor: help;border-bottom-right-radius: 14px;} #team2:hover {font-size: 14px;max-width: 500px;padding: 0 5px;color: #fff}</style>`);
+$("#team1").attr('data-before',commapercent+"%");
+$("#team2").attr('data-before',noncommapercent+"%");
     // INITIALIZATION
     $('head').append(csshead);
         }},
@@ -4776,6 +4778,44 @@ $("#team2").css('padding','3px 3px 3px 3px').css('background','#006000').css('co
             alert('Error ' +data.status+ ' while loading Live Counting Extension: ' +data.statusText+ '\n\nPlease refresh to try again.');
         }
     });
+setInterval(function(){ 
+var hmmyy;
+var checky;
+var checky2;
+$.ajax({
+        method: 'GET',
+        dataType: 'text',
+        cache: false,
+        url: 'https://raw.githubusercontent.com/MaybeNotWrong/lc-sep/master/data.txt',
+        success: function(data) {
+checky = `<div id="commacount"></div><div id="noncommacount"></div>`;
+hmmyy = data;
+checky2 = data;
+checky2 = checky2.replace(/[0-9]+/g, '');
+if (checky != checky2) {
+alert('Something has gone wrong in the verification of the data. Please PM /u/rideride. To stop showing this message, disable the option for now until it is fixed');
+} else {
+document.getElementById('loadtest').innerHTML = hmmyy;
+var commacounts = parseInt(document.getElementById('commacount').innerHTML);
+var noncommacounts = parseInt(document.getElementById('noncommacount').innerHTML);
+var totalcounts = commacounts + noncommacounts;
+var commapercent = (commacounts / totalcounts) * 100;
+commapercent = Math.round( commapercent * 10 ) / 10;
+var noncommapercent = (noncommacounts / totalcounts) * 100;
+noncommapercent = Math.round( noncommapercent * 10 ) / 10;
+document.getElementById('team1count').innerHTML = commacounts;
+document.getElementById('team2count').innerHTML = noncommacounts;
+$("#team1count").css('flex',commapercent + '0 1 0px');
+$("#team2count").css('flex',noncommapercent + '0 1 0px');
+$("#team1").attr('data-before',commapercent+"%");
+$("#team2").attr('data-before',noncommapercent+"%");
+}},
+        error: function(data) {
+            alert('Error ' +data.status+ ' while loading Live Counting Extension: ' +data.statusText+ '\n\nPlease refresh to try again.');
+        }
+    });
+}, 5000);
+//document.getElementById("team1").style.cssText = 'background:#0000cf;color:white;z-index: 99999;min-width: 14px;max-width: 14px;height: 14px;line-height: 14px;border-radius: 14px;border: none;overflow: hidden;padding: 0;vertical-align: middle;font-size: 11px !important;position: relative;text-indent: 12px;-webkit-transition: all 0.3s;transition: all 0.3s;-webkit-transition-delay: 0.1s;transition-delay: 0.1s;cursor:help;';
 } //TeamBarsEnabled end
 }
 //////////////////////////////////
