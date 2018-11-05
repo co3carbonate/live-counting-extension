@@ -4300,12 +4300,29 @@ userColors.LC_Chats = 'white';
             data.author_elem.css('font-weight', 'bold');
         }
 if (SpecialUsernamesEnabled == 'yep lol') {
-// /u/NobodyL0vesMe username special
-	if (data.author == 'NobodyL0vesMe') {
-var marsname = ['/u/dicecharlie1230000ff', '/u/lamepikachu_38ffff00', '/u/BOTTOM_20ff00bf', '/u/DanielKnife520063', '/u/Chalupa_Sonf08080', '/u/Dumbstocks840d0d', '/u/QuestoGal800080', '/u/Lonadoa35252', '/u/EverybodyL0vesMe730099', '/u/TranquilsundownFFA500', '/u/AngelBurritoDog890003', '/u/CertainlyNotRight066666', '/u/Iamslow3600BFFF', '/u/Pathetic_Bear4682B4', '/u/ItzAvailable32ff95', '/u/LiquidGoldMagikarp008080'];
-marsname = marsname[Math.floor(Math.random() * marsname.length)];
-var marscolor = '#' + marsname.substr(-6);
-marsname = marsname.slice(0, -6);
+// /u/gordonpt8 username special
+	if (data.author == 'gordonpt8') {
+var uchance = Math.floor(Math.random() * 100) + 1;
+if (uchance <= 7) {uchance = '/ u / ';} else {uchance = '';}
+var gordoncolor2 = Math.floor(Math.random() * 100) + 1;
+if (gordoncolor2 == 1) {gordoncolor2 = '#ff00ff';} else if (2 <= gordoncolor2 && gordoncolor2 < 41) {gordoncolor2 = '#00ff00';} else {gordoncolor2 = '#ff0000';}
+var gordoncolor3 = Math.floor(Math.random() * 100) + 1;
+if (gordoncolor3 == 1) {gordoncolor3 = '#ff00ff';} else if (2 <= gordoncolor3 && gordoncolor3 < 41) {gordoncolor3 = '#00ff00';} else {gordoncolor3 = '#ff0000';}
+var gordoncolor4 = Math.floor(Math.random() * 100) + 1;
+if (gordoncolor4 == 1) {gordoncolor4 = '#ff00ff';} else if (2 <= gordoncolor4 && gordoncolor4 < 41) {gordoncolor4 = '#00ff00';} else {gordoncolor4 = '#ff0000';}
+var gordoncolor5 = Math.floor(Math.random() * 100) + 1;
+if (gordoncolor5 == 1) {gordoncolor5 = '#ff00ff';} else if (2 <= gordoncolor5 && gordoncolor5 < 41) {gordoncolor5 = '#00ff00';} else {gordoncolor5 = '#ff0000';}
+var gordoncolor6 = Math.floor(Math.random() * 100) + 1;
+if (gordoncolor6 == 1) {gordoncolor6 = '#ff00ff';} else if (2 <= gordoncolor6 && gordoncolor6 < 41) {gordoncolor6 = '#00ff00';} else {gordoncolor6 = '#ff0000';}
+var gordoncolor7 = Math.floor(Math.random() * 100) + 1;
+if (gordoncolor7 == 1) {gordoncolor7 = '#ff00ff';} else if (2 <= gordoncolor7 && gordoncolor7 < 41) {gordoncolor7 = '#00ff00';} else {gordoncolor7 = '#ff0000';}
+var gordoncolor8 = Math.floor(Math.random() * 100) + 1;
+if (gordoncolor8 == 1) {gordoncolor8 = '#ff00ff';} else if (2 <= gordoncolor8 && gordoncolor8 < 41) {gordoncolor8 = '#00ff00';} else {gordoncolor8 = '#ff0000';}
+var gordoncolor9 = Math.floor(Math.random() * 100) + 1;
+if (gordoncolor9 == 1) {gordoncolor9 = '#ff00ff';} else if (2 <= gordoncolor9 && gordoncolor9 < 41) {gordoncolor9 = '#00ff00';} else {gordoncolor9 = '#ff0000';}
+var gordoncolor1 = Math.floor(Math.random() * 1000) + 1;
+if (gordoncolor1 == 1) {gordoncolor1 = '#ff00ff';gordoncolor2 = '#ff00ff';gordoncolor3 = '#ff00ff';gordoncolor4 = '#ff00ff';gordoncolor5 = '#ff00ff';gordoncolor6 = '#ff00ff';gordoncolor7 = '#ff00ff';gordoncolor8 = '#ff00ff';gordoncolor9 = '#ff00ff';} else if (2 <= gordoncolor1 && gordoncolor1 < 132) {gordoncolor1 = '#00ff00';} else if (132 <= gordoncolor1 && gordoncolor1 < 262) {gordoncolor1 = '#ff9900';} else if (262 <= gordoncolor1 && gordoncolor1 < 392) {gordoncolor1 = '#ffff00';} else {gordoncolor1 = '#ff0000';}
+
 
 
  data.author_elem.css({
@@ -4313,8 +4330,7 @@ marsname = marsname.slice(0, -6);
                  'display': 'inline-block'
               });
 
-data.author_elem.html(`<div style="color:`+marscolor+`;">`+marsname+`</div>`)
-           
+data.author_elem.html(`<span style="color:red;">`+uchance+` </span><span class="gordon" style="color:`+gordoncolor1+`;">g </span><span class="gordon" style="color:`+gordoncolor2+`;">o </span><span class="gordon" style="color:`+gordoncolor3+`;">r </span><span class="gordon" style="color:`+gordoncolor4+`;">d </span><span class="gordon" style="color:`+gordoncolor5+`;">o </span><span class="gordon" style="color:`+gordoncolor6+`;">n </span><span class="gordon" style="color:`+gordoncolor7+`;">p </span><span class="gordon" style="color:`+gordoncolor8+`;">t </span><span class="gordon" style="color:`+gordoncolor9+`;">8 </span>`)         
 }
 	// /u/ItzTaken username special
 if (data.author == 'ItzTaken') {
