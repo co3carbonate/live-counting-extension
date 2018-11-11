@@ -4300,37 +4300,63 @@ userColors.LC_Chats = 'white';
             data.author_elem.css('font-weight', 'bold');
         }
 if (SpecialUsernamesEnabled == 'yep lol') {
-// /u/gordonpt8 username special
-	if (data.author == 'gordonpt8') {
-var uchance = Math.floor(Math.random() * 100) + 1;
-if (uchance <= 7) {uchance = '/ u / ';} else {uchance = '';}
-var gordoncolor2 = Math.floor(Math.random() * 100) + 1;
-if (gordoncolor2 == 1) {gordoncolor2 = '#ff00ff';} else if (2 <= gordoncolor2 && gordoncolor2 < 41) {gordoncolor2 = '#00ff00';} else {gordoncolor2 = '#ff0000';}
-var gordoncolor3 = Math.floor(Math.random() * 100) + 1;
-if (gordoncolor3 == 1) {gordoncolor3 = '#ff00ff';} else if (2 <= gordoncolor3 && gordoncolor3 < 41) {gordoncolor3 = '#00ff00';} else {gordoncolor3 = '#ff0000';}
-var gordoncolor4 = Math.floor(Math.random() * 100) + 1;
-if (gordoncolor4 == 1) {gordoncolor4 = '#ff00ff';} else if (2 <= gordoncolor4 && gordoncolor4 < 41) {gordoncolor4 = '#00ff00';} else {gordoncolor4 = '#ff0000';}
-var gordoncolor5 = Math.floor(Math.random() * 100) + 1;
-if (gordoncolor5 == 1) {gordoncolor5 = '#ff00ff';} else if (2 <= gordoncolor5 && gordoncolor5 < 41) {gordoncolor5 = '#00ff00';} else {gordoncolor5 = '#ff0000';}
-var gordoncolor6 = Math.floor(Math.random() * 100) + 1;
-if (gordoncolor6 == 1) {gordoncolor6 = '#ff00ff';} else if (2 <= gordoncolor6 && gordoncolor6 < 41) {gordoncolor6 = '#00ff00';} else {gordoncolor6 = '#ff0000';}
-var gordoncolor7 = Math.floor(Math.random() * 100) + 1;
-if (gordoncolor7 == 1) {gordoncolor7 = '#ff00ff';} else if (2 <= gordoncolor7 && gordoncolor7 < 41) {gordoncolor7 = '#00ff00';} else {gordoncolor7 = '#ff0000';}
-var gordoncolor8 = Math.floor(Math.random() * 100) + 1;
-if (gordoncolor8 == 1) {gordoncolor8 = '#ff00ff';} else if (2 <= gordoncolor8 && gordoncolor8 < 41) {gordoncolor8 = '#00ff00';} else {gordoncolor8 = '#ff0000';}
-var gordoncolor9 = Math.floor(Math.random() * 100) + 1;
-if (gordoncolor9 == 1) {gordoncolor9 = '#ff00ff';} else if (2 <= gordoncolor9 && gordoncolor9 < 41) {gordoncolor9 = '#00ff00';} else {gordoncolor9 = '#ff0000';}
-var gordoncolor1 = Math.floor(Math.random() * 1000) + 1;
-if (gordoncolor1 == 1) {gordoncolor1 = '#ff00ff';gordoncolor2 = '#ff00ff';gordoncolor3 = '#ff00ff';gordoncolor4 = '#ff00ff';gordoncolor5 = '#ff00ff';gordoncolor6 = '#ff00ff';gordoncolor7 = '#ff00ff';gordoncolor8 = '#ff00ff';gordoncolor9 = '#ff00ff';} else if (2 <= gordoncolor1 && gordoncolor1 < 132) {gordoncolor1 = '#00ff00';} else if (132 <= gordoncolor1 && gordoncolor1 < 262) {gordoncolor1 = '#ff9900';} else if (262 <= gordoncolor1 && gordoncolor1 < 392) {gordoncolor1 = '#ffff00';} else {gordoncolor1 = '#ff0000';}
+// /u/dominodan123 username special
+	if (data.author == 'dominodan123') {
+ data.author_elem.css({
+                 '-moz-transform': 'rotate(-180deg)',
+                 '-o-transform': 'rotate(-180deg)',
+                 '-webkit-transform': 'rotate(-180deg)',
+                 'transform': 'rotate(-180deg)',
+                 'display': 'inline-block'
+              });
+data.author_elem.html(`<div style="color:blue;">/u/dominodan123</div>`)
+           
+}	
 
+	// /u/ItzTaken username special
+if (data.author == 'ItzTaken') {
+//var nextname = data.author_elem.parent().parent().next().find('.body > .author').text();
+//var nextname = data.author_elem.parent().text();
+var nextname = data.author_elem.parent().parent().next().find('.body > .author').attr('href');
+nextname = nextname.toUpperCase();
+nextname = nextname.trim().replace('/USER/', '');
+
+
+var takenname = 'HI ';
+var takenname2 = '👋';
+var takencolor = '#32ff95';
+var takenspooky = '';
+
+  var count1testlol = data.body_elem.text();
+var count1text = count1testlol;
+count1testlol = count1testlol.substring(0, 10);
+    count1testlol = count1testlol.replace(/[A-Za-z]/g, '');
+    count1testlol = count1testlol.replace(/,/g, '');
+    count1testlol = count1testlol.replace(/ /g, '');
+count1testlol = count1testlol.replace(/\./g, '');
+count1testlol = count1testlol.substr(count1testlol.length - 3);
+
+
+if (count1testlol == '666' || count1text.includes("spook")) {
+takenspooky = 'SPOOKY '
+takenname2 = '👻👻👻';
+takencolor = '#000000';
+}
+
+if (count1testlol == '666' && count1text.includes("spook")) {
+takenspooky = 'SPOOK'
+takenname2 = '👻👻👻';
+takencolor = '#000000';
+nextname = '';
+takenname = '';
+}
 
 
  data.author_elem.css({
                  'font-weight': 'bold',
                  'display': 'inline-block'
               });
-
-data.author_elem.html(`<span style="color:red;">`+uchance+` </span><span class="gordon" style="color:`+gordoncolor1+`;">g </span><span class="gordon" style="color:`+gordoncolor2+`;">o </span><span class="gordon" style="color:`+gordoncolor3+`;">r </span><span class="gordon" style="color:`+gordoncolor4+`;">d </span><span class="gordon" style="color:`+gordoncolor5+`;">o </span><span class="gordon" style="color:`+gordoncolor6+`;">n </span><span class="gordon" style="color:`+gordoncolor7+`;">p </span><span class="gordon" style="color:`+gordoncolor8+`;">t </span><span class="gordon" style="color:`+gordoncolor9+`;">8 </span>`)         
+data.author_elem.html(`<div style="color:`+takencolor+`;">`+takenname2+takenname+takenspooky+nextname+takenname2+`</div>`)           
 }
 } // SpecialUsernamesEnabled ending	    
         // Set username colour
