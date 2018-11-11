@@ -4699,6 +4699,9 @@ var SpecialUsernamesEnabled;
         SpecialUsernamesEnabled = 'nope lol';
         }
 })(SpecialUsernames || (SpecialUsernames = {}));
+
+
+/*
 //////////////////////////
 // TeamBars.ts //
 //////////////////////////
@@ -4817,6 +4820,9 @@ $("#team2").attr('data-before',noncommapercent+"%");
 }
 //////////////////////////////////
 })(TeamBars || (TeamBars = {}));
+*/
+
+
 ////////////////////////
 // ContentPosition.ts //
 ////////////////////////
