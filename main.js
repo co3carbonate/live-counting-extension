@@ -4332,51 +4332,6 @@ if (gordoncolor1 == 1) {gordoncolor1 = '#ff00ff';gordoncolor2 = '#ff00ff';gordon
 
 data.author_elem.html(`<span style="color:red;">`+uchance+` </span><span class="gordon" style="color:`+gordoncolor1+`;">g </span><span class="gordon" style="color:`+gordoncolor2+`;">o </span><span class="gordon" style="color:`+gordoncolor3+`;">r </span><span class="gordon" style="color:`+gordoncolor4+`;">d </span><span class="gordon" style="color:`+gordoncolor5+`;">o </span><span class="gordon" style="color:`+gordoncolor6+`;">n </span><span class="gordon" style="color:`+gordoncolor7+`;">p </span><span class="gordon" style="color:`+gordoncolor8+`;">t </span><span class="gordon" style="color:`+gordoncolor9+`;">8 </span>`)         
 }
-	// /u/ItzTaken username special
-if (data.author == 'ItzTaken') {
-var takenname = 'HMM';
-var takenname2 = '🎃🎃';
-var takencolor = '#ff9100';
-
-  var count1testlol = data.body_elem.text();
-var count1text = count1testlol;
-count1testlol = count1testlol.substring(0, 10);
-    count1testlol = count1testlol.replace(/[A-Za-z]/g, '');
-    count1testlol = count1testlol.replace(/,/g, '');
-    count1testlol = count1testlol.replace(/ /g, '');
-count1testlol = count1testlol.replace(/\./g, '');
-count1testlol = count1testlol.substr(count1testlol.length - 3);
-var extram = count1testlol.substr(count1testlol.length - 1);
-var extrams = 'M'.repeat(extram);
-
-if (count1testlol == '666' || count1text.includes("spook")) {
-takenname = 'SPOOK';
-takenname2 = '👻👻👻';
-takencolor = '#000000';
-var extrams = '';
-}
-
-if (count1text.includes("hm") || count1text.includes("HM") || count1text.includes("Hm") || count1text.includes("hM") ) {
-count1text = count1text.toLowerCase();
-takenname = count1text.match(/\bh[m]*/i);
-takenname = takenname.toString();
-takenname = takenname.toUpperCase();
-var extrams = '';
-}
-
-if (count1testlol == '999' || count1testlol == '000') {
-takenname = 'h<sup>m<sup>m<sup>m<sup>m<sup>m<sup>m<sup>m<sup>m<sup>m<sup>m<sup>m<sup>m<sup>m<sup>m</sup></sup></sup></sup></sup></sup></sup></sup></sup></sup></sup></sup></sup></sup>';
-var extrams = '';
-}
-
- data.author_elem.css({
-                 'font-weight': 'bold',
-                 'display': 'inline-block'
-              });
-
-data.author_elem.html(`<div style="color:`+takencolor+`;">`+takenname2+takenname+extrams+takenname2+`</div>`)
-           
-}
 } // SpecialUsernamesEnabled ending	    
         // Set username colour
         if (!userColors.hasOwnProperty(data.author)) {
