@@ -4300,7 +4300,8 @@ userColors.LC_Chats = 'white';
             data.author_elem.css('font-weight', 'bold');
         }
 if (SpecialUsernamesEnabled == 'yep lol') {
-// /u/dominodan123 username special
+/*
+	// /u/dominodan123 username special
 	if (data.author == 'dominodan123') {
  data.author_elem.css({
                  '-moz-transform': 'rotate(-180deg)',
@@ -4358,6 +4359,7 @@ takenname = '';
               });
 data.author_elem.html(`<div style="color:`+takencolor+`;">`+takenname2+takenname+takenspooky+nextname+takenname2+`</div>`)           
 }
+*/
 } // SpecialUsernamesEnabled ending	    
         // Set username colour
         if (!userColors.hasOwnProperty(data.author)) {
