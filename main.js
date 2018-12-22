@@ -4300,20 +4300,22 @@ userColors.LC_Chats = 'white';
             data.author_elem.css('font-weight', 'bold');
         }
 if (SpecialUsernamesEnabled == 'yep lol') {
-/*
-	// /u/dominodan123 username special
-	if (data.author == 'dominodan123') {
- data.author_elem.css({
-                 '-moz-transform': 'rotate(-180deg)',
-                 '-o-transform': 'rotate(-180deg)',
-                 '-webkit-transform': 'rotate(-180deg)',
-                 'transform': 'rotate(-180deg)',
-                 'display': 'inline-block'
-              });
-data.author_elem.html(`<div style="color:blue;">/u/dominodan123</div>`)
-           
-}	
 
+	// /u/NobodyL0vesMe username special
+if (data.author == 'NobodyL0vesMe') {
+var conty = Math.floor(Math.random() * 10) + 1;
+            data.author_elem.css({
+                'font-weight': 'bold',
+                'display': 'inline-block',
+                'vertical-align': 'middle'
+                }); 
+            if (conty==1){
+                data.author_elem.html('🌑💥<span style="color:#515A5A">/u/Flat-Mars-Society</span>💥🌑');
+            } else{
+                data.author_elem.html('💔🖤<span style="color:#515A5A">/u/NobodyL0vesMe</span>💔🖤');
+            }
+} 
+	/*
 	// /u/ItzTaken username special
 if (data.author == 'ItzTaken') {
 //var nextname = data.author_elem.parent().parent().next().find('.body > .author').text();
