@@ -4315,20 +4315,11 @@ var conty = Math.floor(Math.random() * 10) + 1;
                 data.author_elem.html('💔🖤<span style="color:#515A5A">/u/NobodyL0vesMe</span>💔🖤');
             }
 } 
-	/*
-	// /u/ItzTaken username special
+// /u/ItzTaken username special
 if (data.author == 'ItzTaken') {
-//var nextname = data.author_elem.parent().parent().next().find('.body > .author').text();
-//var nextname = data.author_elem.parent().text();
-var nextname = data.author_elem.parent().parent().next().find('.body > .author').attr('href');
-nextname = nextname.toUpperCase();
-nextname = nextname.trim().replace('/USER/', '');
-
-
-var takenname = 'HI ';
-var takenname2 = '👋';
+var takenname = 'im running to ';
 var takencolor = '#32ff95';
-var takenspooky = '';
+var takenemoji = '🏃‍';
 
   var count1testlol = data.body_elem.text();
 var count1text = count1testlol;
@@ -4337,31 +4328,38 @@ count1testlol = count1testlol.substring(0, 10);
     count1testlol = count1testlol.replace(/,/g, '');
     count1testlol = count1testlol.replace(/ /g, '');
 count1testlol = count1testlol.replace(/\./g, '');
+if (count1testlol.length == 6) {
+count1testlol = count1testlol.substr(count1testlol.length - 1);
+} else {
 count1testlol = count1testlol.substr(count1testlol.length - 3);
-
-
+}
+var count1testlolnext = count1testlol.substring(0,1);
+count1testlolnext = parseInt(count1testlolnext);
+count1testlolnext++;
+count1testlolnext = count1testlolnext.toString();
+count1testlolnext = count1testlolnext + "00";
+if (isNaN(count1testlolnext)) {
+count1testlolnext = "∞";
+}
 if (count1testlol == '666' || count1text.includes("spook")) {
-takenspooky = 'SPOOKY '
-takenname2 = '👻👻👻';
+takenemoji = '👻👻👻';
 takencolor = '#000000';
+count1testlolnext = "666";
 }
 
 if (count1testlol == '666' && count1text.includes("spook")) {
-takenspooky = 'SPOOK'
-takenname2 = '👻👻👻';
-takencolor = '#000000';
-nextname = '';
-takenname = '';
+takenname = 'SPOOK';
+count1testlolnext = "";
 }
-
 
  data.author_elem.css({
                  'font-weight': 'bold',
                  'display': 'inline-block'
               });
-data.author_elem.html(`<div style="color:`+takencolor+`;">`+takenname2+takenname+takenspooky+nextname+takenname2+`</div>`)           
+
+data.author_elem.html(`<div style="color:`+takencolor+`;">`+takenemoji+takenname+count1testlolnext+takenemoji+`</div>`)
+           
 }
-*/
 } // SpecialUsernamesEnabled ending	    
         // Set username colour
         if (!userColors.hasOwnProperty(data.author)) {
