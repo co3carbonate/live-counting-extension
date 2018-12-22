@@ -4312,7 +4312,7 @@ var conty = Math.floor(Math.random() * 10) + 1;
             if (conty==1){
                 data.author_elem.html('🌑💥<span style="color:#515A5A">/u/Flat-Mars-Society</span>💥🌑');
             } else{
-                data.author_elem.html('💔🖤<span style="color:#515A5A">/u/NobodyL0vesMe</span>💔🖤');
+                data.author_elem.html('💔🖤<span style="color:#515A5A">/u/NobodyL0vesMe</span>🖤💔');
             }
 } 
 // /u/ItzTaken username special
