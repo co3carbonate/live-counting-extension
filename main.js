@@ -36,6 +36,7 @@ var maybenumbers = {
     "301":"/u/piyushsharma301",
     "333":"/u/Majestic_Bear",
     "369":"/u/TOP_20",
+    "373":"/u/MaybeNotWrong",
     "404":"random404",
     "471":"/u/albert471",
     "501":"/u/LeinadSpoon",
@@ -4448,9 +4449,10 @@ pikarand = 'Record';
 
 if (pikarand == 1) {
 data.author_elem.css({
-                 'display': 'inline-block'
+                 'display': 'inline-block',
+	'font-weight': 'bold'
 });
-data.author_elem.html(`<div style="color:yellow;">/u/co` + Math.floor((Math.random() * 99) + 1) + `_carbonate</div>`);
+data.author_elem.html(`<div style="color:yellow;">/u/amazingpikachu_` + Math.floor((Math.random() * 99) + 1) + `</div>`);
 } else if (pikarand == 2) {
 data.author_elem.css({
                  'display': 'inline-block',
