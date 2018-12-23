@@ -4376,9 +4376,15 @@ pikarand = 50;
 count1testlol = count1testlol + "yea";
 recordback = 'lol';
 }
+	
+if (count1text.includes("spook") && recordback != 'lol') {
+var takentotal = ['27','48','50','53'];
+pikarand = takentotal[Math.floor(Math.random() * takentotal.length)];
+recordback = 'override';
+}
 
 var maybename = maybenumbers[count1testlol];
-if (maybename != null) {
+if (maybename != null && recordback != 'override') {
 if (maybename == "random123") {var randomx = Math.floor((Math.random() * 2) + 1);if (randomx == 1) {maybename = '/u/davidjl123';} else {maybename = '/u/dominodan123';}}
 if (maybename == "random404") {var randomx = Math.floor((Math.random() * 2) + 1);if (randomx == 1) {maybename = '/u/Tranquilsunrise';} else {maybename = '/u/KingCaspianX';}}
 var maybenamet = maybename.trim().replace('/u/', '');;
