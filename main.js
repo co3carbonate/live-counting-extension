@@ -12,7 +12,7 @@ var specialnumber = 5;
 var kname1 = 'MaybeNotWrong';
 var kname2 = 'amazingpikachu_38';
 var kname3 = 'NobodyL0vesMe';
-var kname4 = 'ItzTaken';
+var kname4 = 'noduorg';
 var kname5 = 'treje';
 
 // Client's username
@@ -5772,50 +5772,37 @@ var conty = Math.floor(Math.random() * 10) + 1;
             }
 } 
 } // SpecialUsernamesEnabled3 ending	
-// /u/ItzTaken username special
+// /u/noduorg username special
     if (SpecialUsernamesEnabled4 == 'yep lol') {
 if (data.author == kname4) {
-var takenname = 'im running to ';
-var takencolor = '#32ff95';
-var takenemoji = '🏃‍';
-
-  var count1testlol = data.body_elem.text();
-var count1text = count1testlol;
-count1testlol = count1testlol.substring(0, 10);
-    count1testlol = count1testlol.replace(/[A-Za-z]/g, '');
-    count1testlol = count1testlol.replace(/,/g, '');
-    count1testlol = count1testlol.replace(/ /g, '');
-count1testlol = count1testlol.replace(/\./g, '');
-if (count1testlol.length == 6) {
-count1testlol = count1testlol.substr(count1testlol.length - 1);
-} else {
-count1testlol = count1testlol.substr(count1testlol.length - 3);
+//var nodutime = new Date().getTime();
+var nodutime = new Date();
+nodutime = nodutime.getUTCHours();
+var noduname = ' n o d u o r g ';
+var noduemoji = '💎💎';
+var noduprst = Math.floor(Math.random() * 1000) + 1;
+if (noduprst == 1) {
+noduname = ' n o d p r s t ';
+} else if (noduprst == 2) {
+noduname = ' n o p r s t g ';
+} else if (noduprst == 3) {
+noduname = ' n p r s t r g ';
+} else if (noduprst == 4) {
+noduname = ' p r s t o r g ';
 }
-var count1testlolnext = count1testlol.substring(0,1);
-count1testlolnext = parseInt(count1testlolnext);
-count1testlolnext++;
-count1testlolnext = count1testlolnext.toString();
-count1testlolnext = count1testlolnext + "00";
-if (isNaN(count1testlolnext)) {
-count1testlolnext = "∞";
-}
-if (count1testlol == '666' || count1text.includes("spook")) {
-takenemoji = '👻👻👻';
-takencolor = '#000000';
-count1testlolnext = "666";
-}
-
-if (count1testlol == '666' && count1text.includes("spook")) {
-takenname = 'SPOOK';
-count1testlolnext = "";
-}
-
  data.author_elem.css({
                  'font-weight': 'bold',
-                 'display': 'inline-block'
+                 'display': 'inline-block',
+                 'font-style': 'italic',
+                 'font-family': 'Arial',
+                 'text-decoration': 'underline'
               });
 
-data.author_elem.html(`<div style="color:`+takencolor+`;">`+takenemoji+takenname+count1testlolnext+takenemoji+`</div>`)
+if (nodutime < 5) {
+noduemoji = '💤💤';
+} 
+
+data.author_elem.html(`<div style="color:#0d2d89;">`+noduemoji+noduname+noduemoji+`</div>`);
            
 }    
 } // SpecialUsernamesEnabled4 ending	
