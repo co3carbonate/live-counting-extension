@@ -8,7 +8,7 @@
 var VERSION = 'v1.5.3';
 
 
-var specialnumber = 2;
+var specialnumber = 4;
 var kname1 = 'MaybeNotWrong';
 var kname2 = 'amazingpikachu_38';
 var kname3 = 'NobodyL0vesMe';
