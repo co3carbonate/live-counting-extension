@@ -4351,6 +4351,65 @@ function chu_inc1(){
             data.author_elem.css('font-weight', 'bold');
         }
 if (SpecialUsernamesEnabled == 'yep lol') {
+	///u/MaybeNotWrong username special
+	if (data.author == 'MaybeNotWrong') {
+var randomrate = Math.floor(Math.random() * 6001) / 1000;
+var maybespeed = 360/randomrate;
+var spindirection = Math.floor((Math.random() * 2) + 1);
+var maybecolora = 6;
+var maybecolorb = 102;
+var maybecolorc = 102;
+if (randomrate > 3) {
+maybecolora = 6 - (6 * ((randomrate - 3) / 3));
+maybecolora = Math.round(maybecolora);
+maybecolora = maybecolora.toString(16);
+maybecolorb = 102 - (102 * ((randomrate - 3) / 3));
+maybecolorb = Math.round(maybecolorb);
+maybecolorb = maybecolorb.toString(16);
+maybecolorc = 102 - (102 * ((randomrate - 3) / 3));
+maybecolorc = Math.round(maybecolorc);
+maybecolorc = maybecolorc.toString(16);
+if (maybecolora.length < 2) {       maybecolora = "0" + maybecolora; }
+if (maybecolorb.length < 2) {       maybecolorb = "0" + maybecolorb; }
+if (maybecolorc.length < 2) {       maybecolorc = "0" + maybecolorc; }
+maybecolor = maybecolora + maybecolorb + maybecolorc;
+} else if (randomrate < 3) {
+maybecolora = 255 - (83 * randomrate);
+maybecolorb = 255 - (63 * randomrate);
+maybecolorc = 255 - (63 * randomrate);
+maybecolora = Math.round(maybecolora);
+maybecolora = maybecolora.toString(16);
+maybecolorb = Math.round(maybecolorb);
+maybecolorb = maybecolorb.toString(16);
+maybecolorc = Math.round(maybecolorc);
+maybecolorc = maybecolorc.toString(16);
+if (maybecolora.length < 2) {       maybecolora = "0" + maybecolora; }
+if (maybecolorb.length < 2) {       maybecolorb = "0" + maybecolorb; }
+if (maybecolorc.length < 2) {       maybecolorc = "0" + maybecolorc; }
+maybecolor = maybecolora + maybecolorb + maybecolorc;
+
+} else {
+maybecolor = "066666";
+}
+
+    if (spindirection == 1) {
+spindirection = 'initial';
+} else {
+spindirection = 'reverse';
+randomrate = -randomrate;
+}
+data.author_elem.css({
+                 'display': 'inline-table',
+'font-weight': 'bold'
+});
+var chancy = Math.floor(Math.random() * 100);
+if (chancy == 47) {
+data.author_elem.html(`<div class="maybe" style="position:absolute;color:#`+maybecolor+`;-webkit-animation: mymove2 `+maybespeed+`s infinite;animation: mymove2 `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">/u/MaybeNotWrong</div>`);
+} else {
+data.author_elem.html(`<div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">/</div><div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">u</div><div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">/</div><div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">M</div><div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">a</div><div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">y</div><div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">b</div><div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">e</div><div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">N</div><div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">o</div><div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">t</div><div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">W</div><div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">r</div><div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">o</div><div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">n</div><div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">g</div>`);
+}
+}
+	
 // /u/amazingpikachu_38 username special
 if (data.author == 'amazingpikachu_38') {
 
@@ -5847,6 +5906,9 @@ var DisplayMode;
     });
     // Styles
     Styles.add("\n\n\t/* Display Minimal */\n\t#lc-body[data-DisplayMode='Minimal'] #header,\n\t#lc-body[data-DisplayMode='Minimal'] #liveupdate-statusbar,\n\t#lc-body[data-DisplayMode='Minimal'] .markdownEditor-wrapper,\n\t#lc-body[data-DisplayMode='Minimal'] #new-update-form .bottom-area,\n\t#lc-body[data-DisplayMode='Minimal'] li.liveupdate time.live-timestamp,\n\t#lc-body[data-DisplayMode='Minimal'] #liveupdate-options, \n\t#lc-body[data-DisplayMode='Minimal'] aside.sidebar {\n\t\tdisplay: none;\n\t}\n\n\t#lc-body[data-DisplayMode='Minimal'] #liveupdate-header,\n\t#lc-body[data-DisplayMode='Minimal'] #new-update-form {\n\t\tmargin-left: 0px;\n\t}\n\n\t#lc-body[data-DisplayMode='Minimal'] li.liveupdate ul.buttonrow {\n\t\tmargin: 0 0 2em 0px !important;\n\t}\n\n\t#lc-body[data-DisplayMode='Minimal'] div.content {\n\t\tmax-width: " + Math.max(450, $('#new-update-form textarea').outerWidth()) + "px;\n\t}\n\n\t");
+    Styles.add(`@keyframes mymove {0% {font-size: 13px;transform:rotate(0deg);}50% {font-size: 78px;transform:rotate(180deg);}100% {font-size: 13px;transform:rotate(360deg);}}`);
+    Styles.add(`@keyframes mymove2 {0% {font-size: 13px;transform:rotate(0deg);opacity:1;}50% {font-size: 78px;transform:rotate(180deg);opacity:0;}100% {font-size: 13px;transform:rotate(360deg);opacity:1;}}`);
+
 })(DisplayMode || (DisplayMode = {}));
 ////////////////////////////
 // RemoveSubmissionLag.ts //
