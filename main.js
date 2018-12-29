@@ -5793,36 +5793,26 @@ noduname = ' p r s t o r g ';
  data.author_elem.css({
                  'font-weight': 'bold',
                  'display': 'inline-block',
-                 'font-style': 'italic',
                  'font-family': 'Arial',
-                 'text-decoration': 'underline'
+                 'text-decoration': 'underline',
+                 'font-size': '16px'
               });
 
 if (nodutime < 5) {
 noduemoji = '💤💤';
 } 
 
-data.author_elem.html(`<div style="color:#0d2d89;">`+noduemoji+noduname+noduemoji+`</div>`);
+data.author_elem.html(`<span>`+noduemoji+`</span><span style="color:#0d2d89;font-style:italic;">`+noduname+`</span><span>`+noduemoji+`</span>`);
            
 }    
-} // SpecialUsernamesEnabled4 ending	
+} // SpecialUsernamesEnabled4 ending		
 	    // /u/treje username special
     if (SpecialUsernamesEnabled5 == 'yep lol') {
 if (data.author == kname5) {
-var upsidedown = Math.floor(Math.random() * 2) + 1;
 
 var testArray = ['t','r','e','j','e'];
 Shuffle(testArray);
 
-if (upsidedown == 1) {
-        data.author_elem.css({
-
-                 '-moz-transform': 'rotate(-180deg)',
-                 '-o-transform': 'rotate(-180deg)',
-                 '-webkit-transform': 'rotate(-180deg)',
-                 'transform': 'rotate(-180deg)'
-              });
-}
         data.author_elem.css({
                   'font-weight': 'bold',
                   'display': 'inline-block',
