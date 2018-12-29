@@ -14,6 +14,7 @@ var kname2 = 'amazingpikachu_38';
 var kname3 = 'NobodyL0vesMe';
 var kname4 = 'noduorg';
 var kname5 = 'treje';
+var kname6 = '';
 
 // Client's username
 var USER = $('#header .user a[href]').html();
@@ -5760,17 +5761,66 @@ data.author_elem.html(`<div style="color:grey;">Ok rideride messsed up lol</div>
 	// /u/NobodyL0vesMe username special
 if (SpecialUsernamesEnabled3 == 'yep lol') {
 if (data.author == kname3) {
-var conty = Math.floor(Math.random() * 10) + 1;
-            data.author_elem.css({
-                'font-weight': 'bold',
-                'display': 'inline-block',
-                'vertical-align': 'middle'
-                }); 
-            if (conty==1){
-                data.author_elem.html('🌑💥<span style="color:#515A5A">/u/Flat-Mars-Society</span>💥🌑');
-            } else{
-                data.author_elem.html('💔🖤<span style="color:#515A5A">/u/NobodyL0vesMe</span>🖤💔');
-            }
+vvar marscolor = '#616161';
+var entirepost = data.body_elem.html();
+var entireposttext = data.body_elem.text();
+var count1testlol = entireposttext.substring(0, 10);
+    count1testlol = count1testlol.replace(/[A-Za-z]/g, '');
+var count2testlol = count1testlol.replace(/,/g, '');
+    count2testlol = count2testlol.replace(/ /g, '');
+    count2testlol = count2testlol.replace(/\./g, '');
+var count3testlol = count2testlol.substr(count2testlol.length - 3);
+var textcolor;
+
+if (count2testlol.length > 7) {
+if (count3testlol == 000) {
+textcolor = '#4CAF50';
+} else if (count3testlol == 123) {
+var marschance = Math.floor(Math.random() * 2) + 1;
+if (marschance == 1) {
+textcolor = 'Blue';
+} else {
+textcolor = '#6495ED';
+}
+} else if (count3testlol == 220) {
+textcolor = '#F08080';
+} else if (count3testlol == 222) {
+textcolor = '#ffc130';
+} else if (count3testlol == 301) {
+textcolor = '#FF0F19';
+} else if (count3testlol == 333) {
+textcolor = '#FFFF00';
+} else if (count3testlol == 369) {
+textcolor = '#ff00bf';
+} else if (count3testlol == 404) {
+textcolor = 'Orange';
+} else if (count3testlol == 501) {
+textcolor = '#520063';
+} else if (count3testlol == 666) {
+var marschance = Math.floor(Math.random() * 2) + 1;
+if (marschance == 1) {
+textcolor = '#069420';
+} else {
+textcolor = '#32ff95';
+}
+} else if (count3testlol == 888) {
+textcolor = 'transparent; background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text!important;';
+} else if (count3testlol == 999) {
+textcolor = '#FBC02D';
+} else if (count3testlol % 2 == 0) {
+textcolor = '#7E57C2';
+} else {
+textcolor = '#F4511E';
+}
+
+entirepost = entirepost.replace(entireposttext.substring(0, count1testlol.length),`<span id="rainbowtext" style="color: `+textcolor+`;">`+count1testlol+`</span>`);
+      } 
+data.body_elem.html(entirepost);
+ data.author_elem.css({
+                  'display': 'inline-block',
+                  'font-weight': 'bold'
+              });
+data.author_elem.html(`<div style="color:`+marscolor+`;">🖤/u/NobodyL0vesMe🖤</div>`)
 } 
 } // SpecialUsernamesEnabled3 ending	
 // /u/noduorg username special
@@ -6256,7 +6306,28 @@ var SpecialUsernamesEnabled5;
         }
 })(SpecialUsernames5 || (SpecialUsernames5 = {}));
 }
-
+if (specialnumber > 5) {
+var SpecialUsernames6;
+var SpecialUsernamesEnabled6;
+(function (SpecialUsernames6) {
+    // Options
+    var enabled6 = true;
+    var $checkbox = Options.addCheckbox({
+        label: kname6 + ' 100K USERNAME',
+        section: 'Advanced',
+        "default": true,
+        help: 'Enable or disable the special 100k usernames.',
+        onchange: function () {
+            enabled6 = this.prop('checked');
+        }
+    });
+        if (enabled6 == true) {
+        SpecialUsernamesEnabled6 = 'yep lol';
+        } else {
+        SpecialUsernamesEnabled6 = 'nope lol';
+        }
+})(SpecialUsernames6 || (SpecialUsernames6 = {}));
+}
 /*
 //////////////////////////
 // TeamBars.ts //
