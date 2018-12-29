@@ -5871,6 +5871,10 @@ Shuffle(testArray);
               });
 
              data.author_elem.html(`<div style='color:#ffc130'>¡<span id=shuffled>`+testArray.join("")+`</span>!</div>`)
+	var testArray2 = testArray.join("");
+if (testArray2 == 'treje') {
+             data.author_elem.html(`<span id="rainbowtext" style="color: transparent; background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text!important;">¡ t r e j e !</span>`);
+}
 }
 } // SpecialUsernamesEnabled5 ending	
         // Set username colour
