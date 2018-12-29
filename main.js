@@ -6557,3 +6557,26 @@ var StandardizeNumberFormat;
         });
     });
 })(StandardizeNumberFormat || (StandardizeNumberFormat = {}));
+////////////////////////
+// OptionPosition.ts //
+////////////////////////
+
+var OptionPosition;
+(function (OptionPosition) {
+    // INITIALIZATION
+    $('#liveupdate-options').attr('data-OptionPosition', 'HIGHER');
+    // Options
+    Options.addSelect({
+        label: 'OPTION POSITION',
+        options: ['HIGHER', 'DEFAULT'],
+        section: 'Advanced',
+        "default": 0,
+        help: 'Adjusts the position of the options.',
+        onchange: function () {
+            $('#liveupdate-options').attr('data-OptionPosition', this.val());
+        }
+    });
+    // Styles
+    Styles.add("\n\n\t#liveupdate-options[data-OptionPosition='HIGHER'] {margin-top: -11em;}\n\n\t#liveupdate-options[data-OptionPosition='DEFAULT'] {margin-top: -2em;}");
+})(OptionPosition || (OptionPosition = {}));
+
