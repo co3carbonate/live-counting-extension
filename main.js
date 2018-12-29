@@ -5761,7 +5761,7 @@ data.author_elem.html(`<div style="color:grey;">Ok rideride messsed up lol</div>
 	// /u/NobodyL0vesMe username special
 if (SpecialUsernamesEnabled3 == 'yep lol') {
 if (data.author == kname3) {
-vvar marscolor = '#616161';
+var marscolor = '#616161';
 var entirepost = data.body_elem.html();
 var entireposttext = data.body_elem.text();
 var count1testlol = entireposttext.substring(0, 10);
