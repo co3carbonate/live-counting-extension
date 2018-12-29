@@ -5781,7 +5781,7 @@ var nodutime = new Date();
 nodutime = nodutime.getUTCHours();
 var noduname = ' n o d u o r g ';
 var noduemoji = '💎💎';
-var noduprst = Math.floor(Math.random() * 1000) + 1;
+var noduprst = Math.floor(Math.random() * 400) + 1;
 if (noduprst == 1) {
 noduname = ' n o d p r s t ';
 } else if (noduprst == 2) {
