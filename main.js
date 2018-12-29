@@ -6,6 +6,15 @@
 // CONSTANTS
 // Extension version
 var VERSION = 'v1.5.3';
+
+
+var specialnumber = 4;
+var kname1 = 'MaybeNotWrong';
+var kname2 = 'amazingpikachu_38';
+var kname3 = 'NobodyL0vesMe';
+var kname4 = 'ItzTaken';
+var kname5 = '';
+
 // Client's username
 var USER = $('#header .user a[href]').html();
 var chu = 0;
@@ -4350,9 +4359,9 @@ function chu_inc1(){
         if (data.author == 'MaybeNotWrong' || data.author == 'co3_carbonate' || data.author == 'rschaosid' || data.author == 'piyushsharma301' || data.author == 'rideride' || data.author == 'LeinadSpoon' || data.author == 'artbn') {
             data.author_elem.css('font-weight', 'bold');
         }
-if (SpecialUsernamesEnabled == 'yep lol') {
+if (SpecialUsernamesEnabled1 == 'yep lol') {
 	///u/MaybeNotWrong username special
-	if (data.author == 'MaybeNotWrong') {
+	if (data.author == kname1) {
 var randomrate = Math.floor(Math.random() * 6001) / 1000;
 var maybespeed = 360/randomrate;
 var spindirection = Math.floor((Math.random() * 2) + 1);
@@ -4409,9 +4418,11 @@ data.author_elem.html(`<div class="maybe" style="position:absolute;color:#`+mayb
 data.author_elem.html(`<div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">/</div><div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">u</div><div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">/</div><div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">M</div><div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">a</div><div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">y</div><div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">b</div><div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">e</div><div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">N</div><div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">o</div><div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">t</div><div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">W</div><div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">r</div><div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">o</div><div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">n</div><div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">g</div>`);
 }
 }
+} // SpecialUsernamesEnabled1 ending	
 	
-// /u/amazingpikachu_38 username special
-if (data.author == 'amazingpikachu_38') {
+if (SpecialUsernamesEnabled2 == 'yep lol') {
+	///u/amazingpikachu_38 username special
+	if (data.author == kname2) {
 
 var pikarand = Math.floor(Math.random() * 54) + 1;
 var recordback = Math.floor(Math.random() * 1000) + 1;
@@ -5739,8 +5750,11 @@ data.author_elem.css({
 data.author_elem.html(`<div style="color:grey;">Ok rideride messsed up lol</div>`);
 }
 } // Ending to pika name	
+
+} // SpecialUsernamesEnabled2 ending	
 	// /u/NobodyL0vesMe username special
-if (data.author == 'NobodyL0vesMe') {
+if (SpecialUsernamesEnabled3 == 'yep lol') {
+if (data.author == kname3) {
 var conty = Math.floor(Math.random() * 10) + 1;
             data.author_elem.css({
                 'font-weight': 'bold',
@@ -5753,8 +5767,10 @@ var conty = Math.floor(Math.random() * 10) + 1;
                 data.author_elem.html('💔🖤<span style="color:#515A5A">/u/NobodyL0vesMe</span>🖤💔');
             }
 } 
+} // SpecialUsernamesEnabled3 ending	
 // /u/ItzTaken username special
-if (data.author == 'ItzTaken') {
+    if (SpecialUsernamesEnabled4 == 'yep lol') {
+if (data.author == kname4) {
 var takenname = 'im running to ';
 var takencolor = '#32ff95';
 var takenemoji = '🏃‍';
@@ -5797,8 +5813,8 @@ count1testlolnext = "";
 
 data.author_elem.html(`<div style="color:`+takencolor+`;">`+takenemoji+takenname+count1testlolnext+takenemoji+`</div>`)
            
-}
-} // SpecialUsernamesEnabled ending	    
+}    
+} // SpecialUsernamesEnabled4 ending	
         // Set username colour
         if (!userColors.hasOwnProperty(data.author)) {
             userColors[data.author] = colors[currentColor];
@@ -6124,27 +6140,114 @@ var DisableShortcuts;
 //////////////////////////
 // SpecialUsernames.ts //
 //////////////////////////
-var SpecialUsernames;
-var SpecialUsernamesEnabled;
-(function (SpecialUsernames) {
+var SpecialUsernames1;
+var SpecialUsernamesEnabled1;
+(function (SpecialUsernames1) {
     // Options
-    var enabled = true;
+    var enabled1 = true;
     var $checkbox = Options.addCheckbox({
-        label: 'SPECIAL 100K USERNAMES',
+        label: kname1 + ' 100K USERNAME',
         section: 'Advanced',
         "default": true,
         help: 'Enable or disable the special 100k usernames.',
         onchange: function () {
-            enabled = this.prop('checked');
+            enabled1 = this.prop('checked');
         }
     });
-        if (enabled == true) {
-        SpecialUsernamesEnabled = 'yep lol';
+        if (enabled1 == true) {
+        SpecialUsernamesEnabled1 = 'yep lol';
         } else {
-        SpecialUsernamesEnabled = 'nope lol';
+        SpecialUsernamesEnabled1 = 'nope lol';
         }
-})(SpecialUsernames || (SpecialUsernames = {}));
-
+})(SpecialUsernames1 || (SpecialUsernames1 = {}));
+if (specialnumber > 1) {
+var SpecialUsernames2;
+var SpecialUsernamesEnabled2;
+(function (SpecialUsernames2) {
+    // Options
+    var enabled2 = true;
+    var $checkbox = Options.addCheckbox({
+        label: kname2 + ' 100K USERNAME',
+        section: 'Advanced',
+        "default": true,
+        help: 'Enable or disable the special 100k usernames.',
+        onchange: function () {
+            enabled2 = this.prop('checked');
+        }
+    });
+        if (enabled2 == true) {
+        SpecialUsernamesEnabled2 = 'yep lol';
+        } else {
+        SpecialUsernamesEnabled2 = 'nope lol';
+        }
+})(SpecialUsernames2 || (SpecialUsernames2 = {}));
+}
+if (specialnumber > 2) {
+var SpecialUsernames3;
+var SpecialUsernamesEnabled3;
+(function (SpecialUsernames3) {
+    // Options
+    var enabled3 = true;
+    var $checkbox = Options.addCheckbox({
+        label: kname3 + ' 100K USERNAME',
+        section: 'Advanced',
+        "default": true,
+        help: 'Enable or disable the special 100k usernames.',
+        onchange: function () {
+            enabled3 = this.prop('checked');
+        }
+    });
+        if (enabled3 == true) {
+        SpecialUsernamesEnabled3 = 'yep lol';
+        } else {
+        SpecialUsernamesEnabled3 = 'nope lol';
+        }
+})(SpecialUsernames3 || (SpecialUsernames3 = {}));
+}
+if (specialnumber > 3) {
+var SpecialUsernames4;
+var SpecialUsernamesEnabled4;
+(function (SpecialUsernames2) {
+    // Options
+    var enabled4 = true;
+    var $checkbox = Options.addCheckbox({
+        label: kname4 + ' 100K USERNAME',
+        section: 'Advanced',
+        "default": true,
+        help: 'Enable or disable the special 100k usernames.',
+        onchange: function () {
+            enabled4 = this.prop('checked');
+        }
+    });
+        if (enabled4 == true) {
+        SpecialUsernamesEnabled4 = 'yep lol';
+        } else {
+        SpecialUsernamesEnabled4 = 'nope lol';
+        }
+})(SpecialUsernames4 || (SpecialUsernames4 = {}));
+}
+if (specialnumber > 4) {
+var SpecialUsernames5;
+var SpecialUsernamesEnabled5;
+(function (SpecialUsernames5) {
+    // Options
+    var enabled5 = true;
+    var $checkbox = Options.addCheckbox({
+        label: kname5 + ' 100K USERNAME',
+        section: 'Advanced',
+        "default": true,
+        help: 'Enable or disable the special 100k usernames.',
+        onchange: function () {
+            enabled5 = this.prop('checked');
+        }
+    });
+        if (enabled5 == true) {
+        SpecialUsernamesEnabled5 = 'yep lol';
+        } else {
+        SpecialUsernamesEnabled5 = 'nope lol';
+        }
+})(SpecialUsernames5 || (SpecialUsernames5 = {}));
+}
 
 /*
 //////////////////////////
