@@ -5796,7 +5796,7 @@ noduname = ' p r s t o r g ';
                  'display': 'inline-block',
                  'font-family': 'Arial',
                  'text-decoration': 'underline',
-                 'font-size': '16px'
+                 'font-size': '15px'
               });
 
 if (nodutime < 5) {
