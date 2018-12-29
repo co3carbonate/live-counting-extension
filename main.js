@@ -8,12 +8,12 @@
 var VERSION = 'v1.5.3';
 
 
-var specialnumber = 4;
+var specialnumber = 5;
 var kname1 = 'MaybeNotWrong';
 var kname2 = 'amazingpikachu_38';
 var kname3 = 'NobodyL0vesMe';
 var kname4 = 'ItzTaken';
-var kname5 = '';
+var kname5 = 'treje';
 
 // Client's username
 var USER = $('#header .user a[href]').html();
@@ -4336,6 +4336,10 @@ function chu_inc1(){
             }
         }
     }
+	function Shuffle(o) {
+	for(var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+	return o;
+};
 	
     // index of next color to assign from colors array
     var currentColor = 0;
@@ -5815,6 +5819,32 @@ data.author_elem.html(`<div style="color:`+takencolor+`;">`+takenemoji+takenname
            
 }    
 } // SpecialUsernamesEnabled4 ending	
+	    // /u/treje username special
+    if (SpecialUsernamesEnabled5 == 'yep lol') {
+if (data.author == kname5) {
+var upsidedown = Math.floor(Math.random() * 2) + 1;
+
+var testArray = ['t','r','e','j','e'];
+Shuffle(testArray);
+
+if (upsidedown == 1) {
+        data.author_elem.css({
+
+                 '-moz-transform': 'rotate(-180deg)',
+                 '-o-transform': 'rotate(-180deg)',
+                 '-webkit-transform': 'rotate(-180deg)',
+                 'transform': 'rotate(-180deg)'
+              });
+}
+        data.author_elem.css({
+                  'font-weight': 'bold',
+                  'display': 'inline-block',
+'font-size': '15px'
+              });
+
+             data.author_elem.html(`<div style='color:#ffc130'>¡<span id=shuffled>`+testArray.join("")+`</span>!</div>`)
+}
+} // SpecialUsernamesEnabled5 ending	
         // Set username colour
         if (!userColors.hasOwnProperty(data.author)) {
             userColors[data.author] = colors[currentColor];
