@@ -5878,9 +5878,9 @@ if (testArray2 == 'treje') {
 }
 } // SpecialUsernamesEnabled5 ending	
 	    
-	    	    // /u/treje username special
-    if (SpecialUsernamesEnabled5 == 'yep lol') {
-if (data.author == kname5) {
+	    	    // /u/ItzTaken username special
+    if (SpecialUsernamesEnabled6 == 'yep lol') {
+if (data.author == kname6) {
 	var takenname = 'im running to ';
 var takencolor = '#32ff95';
 var takenemoji = '🏃‍';
