@@ -4365,66 +4365,84 @@ function chu_inc1(){
         if (data.author == 'MaybeNotWrong' || data.author == 'co3_carbonate' || data.author == 'rschaosid' || data.author == 'piyushsharma301' || data.author == 'rideride' || data.author == 'LeinadSpoon' || data.author == 'artbn') {
             data.author_elem.css('font-weight', 'bold');
         }
-if (SpecialUsernamesEnabled1 == 'yep lol') {
-	///u/MaybeNotWrong username special
-	if (data.author == kname1) {
-var randomrate = Math.floor(Math.random() * 6001) / 1000;
-var maybespeed = 360/randomrate;
-var spindirection = Math.floor((Math.random() * 2) + 1);
-var maybecolora = 6;
-var maybecolorb = 102;
-var maybecolorc = 102;
-if (randomrate > 3) {
-maybecolora = 6 - (6 * ((randomrate - 3) / 3));
-maybecolora = Math.round(maybecolora);
-maybecolora = maybecolora.toString(16);
-maybecolorb = 102 - (102 * ((randomrate - 3) / 3));
-maybecolorb = Math.round(maybecolorb);
-maybecolorb = maybecolorb.toString(16);
-maybecolorc = 102 - (102 * ((randomrate - 3) / 3));
-maybecolorc = Math.round(maybecolorc);
-maybecolorc = maybecolorc.toString(16);
-if (maybecolora.length < 2) {       maybecolora = "0" + maybecolora; }
-if (maybecolorb.length < 2) {       maybecolorb = "0" + maybecolorb; }
-if (maybecolorc.length < 2) {       maybecolorc = "0" + maybecolorc; }
-maybecolor = maybecolora + maybecolorb + maybecolorc;
-} else if (randomrate < 3) {
-maybecolora = 255 - (83 * randomrate);
-maybecolorb = 255 - (63 * randomrate);
-maybecolorc = 255 - (63 * randomrate);
-maybecolora = Math.round(maybecolora);
-maybecolora = maybecolora.toString(16);
-maybecolorb = Math.round(maybecolorb);
-maybecolorb = maybecolorb.toString(16);
-maybecolorc = Math.round(maybecolorc);
-maybecolorc = maybecolorc.toString(16);
-if (maybecolora.length < 2) {       maybecolora = "0" + maybecolora; }
-if (maybecolorb.length < 2) {       maybecolorb = "0" + maybecolorb; }
-if (maybecolorc.length < 2) {       maybecolorc = "0" + maybecolorc; }
-maybecolor = maybecolora + maybecolorb + maybecolorc;
-
-} else {
-maybecolor = "066666";
-}
-
-    if (spindirection == 1) {
-spindirection = 'initial';
-} else {
-spindirection = 'reverse';
-randomrate = -randomrate;
-}
-data.author_elem.css({
-                 'display': 'inline-table',
-'font-weight': 'bold'
-});
-var chancy = Math.floor(Math.random() * 100);
-if (chancy == 47) {
-data.author_elem.html(`<div class="maybe" style="position:absolute;color:#`+maybecolor+`;-webkit-animation: mymove2 `+maybespeed+`s infinite;animation: mymove2 `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">/u/MaybeNotWrong</div>`);
-} else {
-data.author_elem.html(`<div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">/</div><div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">u</div><div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">/</div><div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">M</div><div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">a</div><div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">y</div><div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">b</div><div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">e</div><div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">N</div><div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">o</div><div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">t</div><div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">W</div><div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">r</div><div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">o</div><div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">n</div><div class="maybe" style="color:#`+maybecolor+`;-webkit-animation: mymove `+maybespeed+`s infinite;animation: mymove `+maybespeed+`s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `+spindirection+`;">g</div>`);
-}
-}
-} // SpecialUsernamesEnabled1 ending	
+        if (SpecialUsernamesEnabled1 == 'yep lol') {
+            // /u/MaybeNotWrong username special
+            if (data.author == kname1) {
+                let username = "/u/MaybeNotWrong";
+                let colorfunc = function(value){
+                    let color = "000000";
+                    if(value  > 3){
+                        let helper = (a,b) => a - (a * (b/3 - 1));
+                        let red = Math.round(helper(6,value));
+                        let green = Math.round(helper(102,value));
+                        red = red < 16 ? "0" + red.toString(16) : red.toString(16);
+                        green = green < 16 ? "0" + green.toString(16) : green.toString(16);
+                        let blue = green;
+                        color = red + green + blue;
+                    }
+                    else if (value  < 3){
+                        let helper = (a,b) => 255 - (a*b)
+                        let red = Math.round(helper(83,value));
+                        let green = Math.round(helper(63,value));
+                        red = red < 16 ? "0" + red.toString(16) : red.toString(16);
+                        green = green < 16 ? "0" + green.toString(16) : green.toString(16);
+                        let blue = green;
+                        color = red + green + blue;
+                    }
+                    else color = "066666";
+                    return color;
+                }
+                let template = function(color, time, dir, text){
+                    let div = `<div class="maybe" style="float:left;color:#`;
+                    div += color;
+                    if (time > 0){
+                        div += `;-webkit-animation: mymove `;
+                        div += time;
+                        div += `s infinite;animation: mymove `;
+                        div += time;
+                        div += `s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `
+                        div += dir;
+                    }
+                    div += `;">`
+                    div += text
+                    div += `</div>`
+                    return div
+                }
+                username = username.split("").map((letter)=>{
+                    let rand_rate = Math.floor(Math.random() * 6001) / 1000;
+                    let rand_time = rand_rate == 0 ? 0 : 360 / rand_rate;
+                    let rand_dir  = Math.floor((Math.random() * 2) + 1);
+                    let dir_str   = rand_dir == 1 ? 'initial' : 'reverse';
+                    let rand_clr  = colorfunc(rand_rate);
+                    return template(rand_clr,rand_time,dir_str,letter);
+                }).join("");
+                data.author_elem.css({
+                    'display': 'inline-table',
+                    'font-weight': 'bold'
+                });
+                let rand_rate = Math.floor(Math.random() * 6001) / 1000;
+                let rand_time = rand_rate == 0 ? 0 : 360 / rand_rate;
+                let rand_dir  = Math.floor((Math.random() * 2) + 1);
+                let dir_str   = rand_dir == 1 ? 'initial' : 'reverse';
+                wrapper = `<div class="maybe" style="transform: translateY(-50%);position:absolute`
+                let special = Math.floor(Math.random() * 100);
+                if (special == 1) {
+                    wrapper += `;"><div class="maybe" style="-webkit-animation: mymove2 `;
+                    wrapper += rand_time;
+                    wrapper += `s infinite;animation: mymove2 `;
+                    wrapper += rand_time;
+                    wrapper += `s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `;
+                    wrapper += dir_str;
+                }
+                wrapper += `;">`
+                wrapper += username
+                wrapper += `</div>`;
+                if (special < 50) {
+                    wrapper += `</div>`;
+                }
+                data.author_elem.html(wrapper);
+            }
+        } // SpecialUsernamesEnabled1 ending	
 	
 if (SpecialUsernamesEnabled2 == 'yep lol') {
 	///u/amazingpikachu_38 username special
