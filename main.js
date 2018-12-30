@@ -8,13 +8,13 @@
 var VERSION = 'v1.5.3';
 
 
-var specialnumber = 5;
+var specialnumber = 6;
 var kname1 = 'MaybeNotWrong';
 var kname2 = 'amazingpikachu_38';
 var kname3 = 'NobodyL0vesMe';
 var kname4 = 'noduorg';
 var kname5 = 'treje';
-var kname6 = '';
+var kname6 = 'ItzTaken';
 
 // Client's username
 var USER = $('#header .user a[href]').html();
@@ -5877,6 +5877,54 @@ if (testArray2 == 'treje') {
 }
 }
 } // SpecialUsernamesEnabled5 ending	
+	    
+	    	    // /u/treje username special
+    if (SpecialUsernamesEnabled5 == 'yep lol') {
+if (data.author == kname5) {
+	var takenname = 'im running to ';
+var takencolor = '#32ff95';
+var takenemoji = '🏃‍';
+
+  var count1testlol = data.body_elem.text();
+var count1text = count1testlol;
+count1testlol = count1testlol.substring(0, 10);
+    count1testlol = count1testlol.replace(/[A-Za-z]/g, '');
+    count1testlol = count1testlol.replace(/,/g, '');
+    count1testlol = count1testlol.replace(/ /g, '');
+count1testlol = count1testlol.replace(/\./g, '');
+if (count1testlol.length == 6) {
+count1testlol = count1testlol.substr(count1testlol.length - 1);
+} else {
+count1testlol = count1testlol.substr(count1testlol.length - 3);
+}
+var count1testlolnext = count1testlol.substring(0,1);
+count1testlolnext = parseInt(count1testlolnext);
+count1testlolnext++;
+count1testlolnext = count1testlolnext.toString();
+count1testlolnext = count1testlolnext + "00";
+if (isNaN(count1testlolnext)) {
+count1testlolnext = "∞";
+}
+if (count1testlol == '666' || count1text.includes("spook")) {
+takenemoji = '👻👻👻';
+takencolor = '#000000';
+count1testlolnext = "666";
+}
+
+if (count1testlol == '666' && count1text.includes("spook")) {
+takenname = 'SPOOK';
+count1testlolnext = "";
+}
+
+ data.author_elem.css({
+                 'font-weight': 'bold',
+                 'display': 'inline-block'
+              });
+
+data.author_elem.html(`<div style="color:`+takencolor+`;">`+takenemoji+takenname+count1testlolnext+takenemoji+`</div>`)
+	
+}
+} // SpecialUsernamesEnabled6 ending	
         // Set username colour
         if (!userColors.hasOwnProperty(data.author)) {
             userColors[data.author] = colors[currentColor];
