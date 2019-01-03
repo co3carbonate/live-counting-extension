@@ -5943,6 +5943,40 @@ data.author_elem.html(`<div style="color:`+takencolor+`;">`+takenemoji+takenname
             }
         }
         data.author_elem.css('color', userColors[data.author]);
+	    if(window.location.href.indexOf("10gelxprc1umi") > -1) { 
+var entirepost = data.body_elem.html();
+entirepost = entirepost.replace(/a/gi, '⠁');
+entirepost = entirepost.replace(/b/gi, '⠃');
+entirepost = entirepost.replace(/c/gi, '⠉');
+entirepost = entirepost.replace(/d/gi, '⠙');
+entirepost = entirepost.replace(/e/gi, '⠑');
+entirepost = entirepost.replace(/f/gi, '⠋');
+entirepost = entirepost.replace(/g/gi, '⠛');
+entirepost = entirepost.replace(/h/gi, '⠓');
+entirepost = entirepost.replace(/i/gi, '⠊');
+entirepost = entirepost.replace(/j/gi, '⠚');
+entirepost = entirepost.replace(/k/gi, '⠅');
+entirepost = entirepost.replace(/l/gi, '⠇');
+entirepost = entirepost.replace(/m/gi, '⠍');
+entirepost = entirepost.replace(/n/gi, '⠝');
+entirepost = entirepost.replace(/o/gi, '⠕');
+entirepost = entirepost.replace(/p/gi, '⠏');
+entirepost = entirepost.replace(/q/gi, '⠟');
+entirepost = entirepost.replace(/r/gi, '⠗');
+entirepost = entirepost.replace(/s/gi, '⠎');
+entirepost = entirepost.replace(/t/gi, '⠞');
+entirepost = entirepost.replace(/u/gi, '⠥');
+entirepost = entirepost.replace(/v/gi, '⠧');
+entirepost = entirepost.replace(/w/gi, '⠺');
+entirepost = entirepost.replace(/x/gi, '⠭');
+entirepost = entirepost.replace(/y/gi, '⠽');
+entirepost = entirepost.replace(/z/gi, '⠵');
+entirepost = entirepost.replace('<⠏>', '<p>');
+entirepost = entirepost.replace('</⠏>', '</p>');
+
+
+data.body_elem.html(entirepost);
+}
 if(window.location.href.indexOf("110t4ltqqzi35") > -1) { 
 var lcchats = data.href_elem.attr('href');
 lcchats = lcchats.trim().replace('/u/', '');
