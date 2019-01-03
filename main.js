@@ -5791,7 +5791,7 @@ var count2testlol = count1testlol.replace(/,/g, '');
 var count3testlol = count2testlol.replace(/[^8]/g, "").length;
 var count4testlol = count2testlol.substr(count2testlol.length - 3);
 var textcolor = '#7E57C2';
-var marsfont;
+var marsfont = '';
 var eightcolor = '#B39DDB';
 
 if (count2testlol.length > 7) {
