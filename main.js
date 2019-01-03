@@ -5788,48 +5788,22 @@ var count1testlol = entireposttext.substring(0, 10);
 var count2testlol = count1testlol.replace(/,/g, '');
     count2testlol = count2testlol.replace(/ /g, '');
     count2testlol = count2testlol.replace(/\./g, '');
-var count3testlol = count2testlol.substr(count2testlol.length - 3);
+var count3testlol = count2testlol.replace(/[^8]/g, "").length;
 var textcolor;
 
 if (count2testlol.length > 7) {
-if (count3testlol == 000) {
-textcolor = '#4CAF50';
-} else if (count3testlol == 123) {
-var marschance = Math.floor(Math.random() * 2) + 1;
-if (marschance == 1) {
-textcolor = 'Blue';
-} else {
-textcolor = '#6495ED';
-}
-} else if (count3testlol == 220) {
-textcolor = '#F08080';
-} else if (count3testlol == 222) {
-textcolor = '#ffc130';
-} else if (count3testlol == 301) {
-textcolor = '#FF0F19';
-} else if (count3testlol == 333) {
-textcolor = '#FFFF00';
-} else if (count3testlol == 369) {
-textcolor = '#ff00bf';
-} else if (count3testlol == 404) {
-textcolor = 'Orange';
-} else if (count3testlol == 501) {
-textcolor = '#520063';
-} else if (count3testlol == 666) {
-var marschance = Math.floor(Math.random() * 2) + 1;
-if (marschance == 1) {
-textcolor = '#069420';
-} else {
-textcolor = '#32ff95';
-}
-} else if (count3testlol == 888) {
-textcolor = 'transparent; background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text!important;';
-} else if (count3testlol == 999) {
-textcolor = '#FBC02D';
-} else if (count3testlol % 2 == 0) {
+if (count3testlol == 1) {
+textcolor = '#D1C4E9';
+} else if (count3testlol == 2) {
+textcolor = '#B39DDB';
+} else if (count3testlol == 3) {
+textcolor = '#9575CD';
+} else if (count3testlol == 4) {
 textcolor = '#7E57C2';
+} else if (count3testlol > 4) {
+textcolor = 'transparent; background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text!important;';
 } else {
-textcolor = '#F4511E';
+textcolor = '';
 }
 
 entirepost = entirepost.replace(entireposttext.substring(0, count1testlol.length),`<span id="rainbowtext" style="color: `+textcolor+`;">`+count1testlol+`</span>`);
