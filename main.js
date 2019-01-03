@@ -5789,31 +5789,47 @@ var count2testlol = count1testlol.replace(/,/g, '');
     count2testlol = count2testlol.replace(/ /g, '');
     count2testlol = count2testlol.replace(/\./g, '');
 var count3testlol = count2testlol.replace(/[^8]/g, "").length;
-var textcolor;
+var count4testlol = count2testlol.substr(count2testlol.length - 3);
+var textcolor = '#7E57C2';
+var marsfont;
+var eightcolor = '#B39DDB';
 
 if (count2testlol.length > 7) {
 if (count3testlol == 1) {
-textcolor = '#D1C4E9';
+marsfont = `font-size: 15.5px;`;
 } else if (count3testlol == 2) {
-textcolor = '#B39DDB';
+marsfont = `font-size: 17px;`;
 } else if (count3testlol == 3) {
-textcolor = '#9575CD';
+marsfont = `font-size: 18.5px;`;
 } else if (count3testlol == 4) {
-textcolor = '#7E57C2';
-} else if (count3testlol > 4) {
-textcolor = 'transparent; background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text!important;';
-} else {
-textcolor = '';
-}
+marsfont = `font-size: 20px;`;
+} else if (count3testlol == 5) {
+marsfont = `font-size: 21.5px;`;
+} else if (count3testlol == 6) {
+marsfont = `font-size: 23px;`;
+} else if (count3testlol == 7) {
+marsfont = `font-size: 24.5px;`;
+} else if (count3testlol == 8) {
+marsfont = `font-size: 26px;`;
+} 
 
-entirepost = entirepost.replace(entireposttext.substring(0, count1testlol.length),`<span id="rainbowtext" style="color: `+textcolor+`;">`+count1testlol+`</span>`);
+if (count4testlol == '888') {
+eightcolor = '';
+textcolor = 'transparent; background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text!important;';
+} 
+
+//    count1testlol = count1testlol.replace(/8/g, `<span style="color: `+eightcolor+`;">8</span>`);
+var count5testlol = count1testlol;
+    count1testlol = count1testlol.replace(/8/g, `<span style="color: `+eightcolor+`;">8</span>`);
+
+entirepost = entirepost.replace(entireposttext.substring(0, count5testlol.length),`<span id="rainbowtext" style="`+marsfont+`color: `+textcolor+`;">`+count1testlol+`</span>`);
       } 
 data.body_elem.html(entirepost);
  data.author_elem.css({
                   'display': 'inline-block',
                   'font-weight': 'bold'
               });
-data.author_elem.html(`<div style="color:`+marscolor+`;">🖤/u/NobodyL0vesMe🖤</div>`)
+data.author_elem.html(`<div style="color:`+marscolor+`;`+marsfont+`">🖤/u/NobodyL0vesMe🖤</div>`)
 } 
 } // SpecialUsernamesEnabled3 ending	
 // /u/noduorg username special
