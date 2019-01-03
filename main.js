@@ -4270,7 +4270,8 @@ var ColoredUsernames;
 	'dogcatcowpig': '#1162f9',
 	'ItzTaken': '#32ff95',
 	'Noob2137': '#ff69ff',
-	'PaleRepresentative': 'Grey'
+	'PaleRepresentative': 'Grey',
+	'andrewtheredditor': '#2bdb6c'	 
     };
 	if (USER == 'VitaminB16') {
 userColors.LC_Chats = 'white';
