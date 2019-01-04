@@ -64,13 +64,6 @@ var maybenumbers = {
     "998":"/u/qwertylool"
 };
 
-
-	    if(window.location.href.indexOf("10gelxprc1umi") > -1) { 
-	    	if (USER == 'amazingpikachu_38') {
-$('.save-button').css('display','none');
-}
-	    }
-
 // Thread ID
 var THREAD = (function () {
     var components = window.location.pathname.split('/');
@@ -6428,7 +6421,6 @@ var SpecialUsernamesEnabled6;
         }
 })(SpecialUsernames6 || (SpecialUsernames6 = {}));
 }
-/*
 //////////////////////////
 // TeamBars.ts //
 //////////////////////////
@@ -6438,10 +6430,10 @@ var TeamBarsEnabled;
     // Options
     var enabled = true;
     var $checkbox = Options.addCheckbox({
-        label: 'TEAM BARS',
+        label: 'DAILY HALL OF COUNTERS',
         section: 'Advanced',
         "default": true,
-        help: 'Enable or disable the team bars.',
+        help: 'Enable or disable the daily Hall of Counters.',
         onchange: function () {
             enabled = this.prop('checked');
         }
@@ -6464,43 +6456,100 @@ $.ajax({
         cache: false,
         url: 'https://raw.githubusercontent.com/MaybeNotWrong/lc-sep/master/data.txt',
         success: function(data) {
-checky = `<div id="commacount"></div><div id="noncommacount"></div>`;
+//checky = `<div id="commacount"></div><div id="noncommacount"></div>`;
 hmmyy = data;
 checky2 = data;
+checky2 = checky2.replace(`{"hoc": [`, ``);
+checky2 = checky2.replace(/{"author": "/g, ``);
+checky2 = checky2.replace(/", "counts": /g, ``);
+checky2 = checky2.replace(/}, /g, ``);
+checky2 = checky2.replace(`}]}`, ``);
+checky2 = checky2.replace(/[A-Za-z]/g, ``);
+checky2 = checky2.replace(/[-]/g, ``);
+checky2 = checky2.replace(/[_]/g, ``);
 checky2 = checky2.replace(/[0-9]+/g, '');
-if (checky != checky2) {
+
+if (checky2.length > 0) {
 alert('Something has gone wrong in the verification of the data. Please PM /u/rideride. To stop showing this message, disable the option for now until it is fixed');
 } else {
-$("<div id=loadtest></div><div id=teamdisplay><div id=team1>Team Commas</div><div id=team1count></div><div id=team2count></div><div id=team2>Team Noncommas</div></div>").insertBefore("#liveupdate-description");
+// For this you need to add another } before the error
+
+//$(`<div id=loadtest></div><table id="dailyhoctable"><tr><th>Firstname</th><th>Lastname</th><th>Age</th></tr><tr><td>Jill</td><td>Smith</td><td>50</td></tr><tr><td>Eve</td><td>Jackson</td><td>94</td></tr><tr><td>John</td><td>Doe</td><td>80</td></tr></table>`).insertBefore("#liveupdate-description");
+$(`<div id=loadtest></div>`).insertBefore("#liveupdate-resources .md");
+hmmyy = hmmyy.replace(`{"hoc": [`, `<div id=dailyenabler>Daily Hall of Counters [+]</div><table id="dailyhoctable"><tr id="tablenames"><td>User</td><td>Counts</td></tr>`);
+hmmyy = hmmyy.replace(/{"author": "/g, `<tr><td><a class="authoro">/u/`);
+hmmyy = hmmyy.replace(/", "counts": /g, `</a></td><td>`);
+hmmyy = hmmyy.replace(/}, /g, `</td></tr>`);
+hmmyy = hmmyy.replace(`}]}`, `</td></tr></table>`);
+hmmyy = hmmyy.replace(`<tr><td><a class="authoro">/u/`+USER, `<tr style="font-weight:bold;"><td><a class="authoro">/u/`+USER);
 document.getElementById('loadtest').innerHTML = hmmyy;
-$("#loadtest").css('display','none');
-var commacounts = parseInt(document.getElementById('commacount').innerHTML);
-var noncommacounts = parseInt(document.getElementById('noncommacount').innerHTML);
-var totalcounts = commacounts + noncommacounts;
-var commapercent = (commacounts / totalcounts) * 100;
-commapercent = Math.round( commapercent * 10 ) / 10;
-var noncommapercent = (noncommacounts / totalcounts) * 100;
-noncommapercent = Math.round( noncommapercent * 10 ) / 10;
-document.getElementById('team1count').innerHTML = commacounts;
-document.getElementById('team2count').innerHTML = noncommacounts;
-$("#teamdisplay").css('display','flex').css('font-size','14px');
-$("#team1count").css('flex',commapercent + '0 1 0px').css('background','blue').css('text-align','center').css('color','transparent').css('padding-top','3px');
-$("#team2count").css('flex',noncommapercent + '0 1 0px').css('background','green').css('text-align','center').css('color','transparent').css('padding-top','3px');
-$( "#teamdisplay" ).hover(function() {
-         document.getElementById("team1count").style.color = 'white';
-         document.getElementById("team2count").style.color = 'white';
-       }, function() {
-         document.getElementById("team1count").style.color = 'transparent';
-         document.getElementById("team2count").style.color = 'transparent';
-  });
-$("#team1").css('padding','3px 3px 3px 3px').css('background','#0000cf').css('color','white');
-$("#team2").css('padding','3px 3px 3px 3px').css('background','#006000').css('color','white');
-    var csshead = $(`<style>#team1:before {-webkit-transition: all 0.3s;transition: all 0.3s;transition-delay: 0.3s;-webkit-transition-delay: 0.3s;transition-delay: 0.3s;content: attr(data-before);width: 10px;height: 12px;display: inline-block;position: absolute;left: 0px;text-align: center;top: 3px;text-indent: 3px;font-size: 14px;} #team1:hover::before {-webkit-transition: all 0.3s;transition: all 0.3s;transition-delay: 0s;-webkit-transition-delay: 0.0s;transition-delay: 0.0s;font-size:0px;} #team2:before {-webkit-transition: all 0.3s;transition: all 0.3s;transition-delay: 0.3s;-webkit-transition-delay: 0.3s;transition-delay: 0.3s;content:attr(data-before);width: 10px;height: 12px;display: inline-block;position: absolute;left: 0px;text-align: center;top: 3px;text-indent: 3px;font-size: 14px;} #team2:hover::before {-webkit-transition: all 0.3s;transition: all 0.3s;transition-delay: 0s;-webkit-transition-delay: 0.0s;transition-delay: 0.0s;font-size:0px;} #team1 {background: #0000cf;color: white;z-index: 99999;min-width: 45px;max-width: 45px;height: 17px;line-height: 14px;border-top-left-radius: 14px;border: none;overflow: hidden;padding: 0;vertical-align: middle;font-size: 0px;position: relative;text-indent: 0px;-webkit-transition: all 0.3s;transition: all 0.3s;transition-delay: 0s;-webkit-transition-delay: 0.1s;transition-delay: 0.1s;cursor: help;border-bottom-left-radius: 14px;} #team1:hover {font-size: 14px;max-width: 500px;padding: 0 5px;color: #fff} #team2 {background: #0000cf;color: white;z-index: 99999;min-width: 45px;max-width: 45px;height: 17px;line-height: 14px;border-top-right-radius: 14px;border: none;overflow: hidden;padding: 0;vertical-align: middle;font-size: 0px;position: relative;text-indent: 0px;-webkit-transition: all 0.3s;transition: all 0.3s;transition-delay: 0s;-webkit-transition-delay: 0.1s;transition-delay: 0.1s;cursor: help;border-bottom-right-radius: 14px;} #team2:hover {font-size: 14px;max-width: 500px;padding: 0 5px;color: #fff}</style>`);
-$("#team1").attr('data-before',commapercent+"%");
-$("#team2").attr('data-before',noncommapercent+"%");
-    // INITIALIZATION
-    $('head').append(csshead);
-        }},
+
+
+ $("#dailyhoctable tbody tr:nth-child(2)").css({
+'background': 'gold'
+              });
+ $("#dailyhoctable tbody tr:nth-child(3)").css({
+'background': 'silver'
+              });
+ $("#dailyhoctable tbody tr:nth-child(4)").css({
+'background': '#cd7f32'
+              });
+
+//$("#loadtest").css('display','none');
+ $("#dailyhoctable").css({
+//'position': 'absolute',
+'border': '1px solid black',
+'width': '100%',
+'text-align': 'center'
+              });
+ $("#dailyhoctable tr td").css({
+'border': '1px solid black'
+              });
+ $("#loadtest").css({
+'overflow': 'hidden',
+'height': dailysizereal,
+'font-size': '1em'
+              });
+ $("#dailyenabler").css({
+'cursor': 'pointer',
+'color': '#000',
+'font-size': '14px',
+'font-weight': 'bold',
+'margin-bottom': '3px'
+              });
+ $("#tablenames").css({
+'color': '#000',
+'font-size': '14px',
+'font-weight': 'bold'
+              });
+if (dailysize == 0) {
+document.getElementById("dailyenabler").innerHTML = "Daily Hall of Counters [+]";
+} else {
+document.getElementById("dailyenabler").innerHTML = "Daily Hall of Counters [-]";
+}
+                $("#dailyenabler").on('click', function () {
+if (dailysize == 0) {
+dailysize++;
+document.getElementById("dailyenabler").innerHTML = "Daily Hall of Counters [-]";
+dailysizereal = '100%';
+ $("#loadtest").css({
+'height': dailysizereal
+              });
+} else {
+dailysize--;
+document.getElementById("dailyenabler").innerHTML = "Daily Hall of Counters [+]";
+dailysizereal = '90px';
+ $("#loadtest").css({
+'height': dailysizereal
+              });
+}
+                });
+$(".authoro").each(function() {
+  $(this).attr("href", "https://reddit.com" + $(this).text());
+});
+
+
+        }},   //////this is where you put the checky bracket
         error: function(data) {
             alert('Error ' +data.status+ ' while loading Live Counting Extension: ' +data.statusText+ '\n\nPlease refresh to try again.');
         }
@@ -6515,27 +6564,94 @@ $.ajax({
         cache: false,
         url: 'https://raw.githubusercontent.com/MaybeNotWrong/lc-sep/master/data.txt',
         success: function(data) {
-checky = `<div id="commacount"></div><div id="noncommacount"></div>`;
 hmmyy = data;
 checky2 = data;
+checky2 = checky2.replace(`{"hoc": [`, ``);
+checky2 = checky2.replace(/{"author": "/g, ``);
+checky2 = checky2.replace(/", "counts": /g, ``);
+checky2 = checky2.replace(/}, /g, ``);
+checky2 = checky2.replace(`}]}`, ``);
+checky2 = checky2.replace(/[A-Za-z]/g, ``);
+checky2 = checky2.replace(/[-]/g, ``);
+checky2 = checky2.replace(/[_]/g, ``);
 checky2 = checky2.replace(/[0-9]+/g, '');
-if (checky != checky2) {
+
+if (checky2.length > 0) {
 alert('Something has gone wrong in the verification of the data. Please PM /u/rideride. To stop showing this message, disable the option for now until it is fixed');
 } else {
+// For this you need to add another } before the error
+
+//$(`<div id=loadtest></div><table id="dailyhoctable"><tr><th>Firstname</th><th>Lastname</th><th>Age</th></tr><tr><td>Jill</td><td>Smith</td><td>50</td></tr><tr><td>Eve</td><td>Jackson</td><td>94</td></tr><tr><td>John</td><td>Doe</td><td>80</td></tr></table>`).insertBefore("#liveupdate-description");
+hmmyy = hmmyy.replace(`{"hoc": [`, `<div id=dailyenabler>Daily Hall of Counters [+]</div><table id="dailyhoctable"><tr id="tablenames"><td>User</td><td>Counts</td></tr>`);
+hmmyy = hmmyy.replace(/{"author": "/g, `<tr><td><a class="authoro">/u/`);
+hmmyy = hmmyy.replace(/", "counts": /g, `</a></td><td>`);
+hmmyy = hmmyy.replace(/}, /g, `</td></tr>`);
+hmmyy = hmmyy.replace(`}]}`, `</td></tr></table>`);
+hmmyy = hmmyy.replace(`<tr><td><a class="authoro">/u/`+USER, `<tr style="font-weight:bold;"><td><a class="authoro">/u/`+USER);
 document.getElementById('loadtest').innerHTML = hmmyy;
-var commacounts = parseInt(document.getElementById('commacount').innerHTML);
-var noncommacounts = parseInt(document.getElementById('noncommacount').innerHTML);
-var totalcounts = commacounts + noncommacounts;
-var commapercent = (commacounts / totalcounts) * 100;
-commapercent = Math.round( commapercent * 10 ) / 10;
-var noncommapercent = (noncommacounts / totalcounts) * 100;
-noncommapercent = Math.round( noncommapercent * 10 ) / 10;
-document.getElementById('team1count').innerHTML = commacounts;
-document.getElementById('team2count').innerHTML = noncommacounts;
-$("#team1count").css('flex',commapercent + '0 1 0px');
-$("#team2count").css('flex',noncommapercent + '0 1 0px');
-$("#team1").attr('data-before',commapercent+"%");
-$("#team2").attr('data-before',noncommapercent+"%");
+ $("#dailyhoctable tbody tr:nth-child(2)").css({
+'background': 'gold'
+              });
+ $("#dailyhoctable tbody tr:nth-child(3)").css({
+'background': 'silver'
+              });
+ $("#dailyhoctable tbody tr:nth-child(4)").css({
+'background': '#cd7f32'
+              });
+
+//$("#loadtest").css('display','none');
+ $("#dailyhoctable").css({
+//'position': 'absolute',
+'border': '1px solid black',
+'width': '100%',
+'text-align': 'center'
+              });
+ $("#dailyhoctable tr td").css({
+'border': '1px solid black'
+              });
+ $("#loadtest").css({
+'overflow': 'hidden',
+'height': dailysizereal,
+'font-size': '1em'
+              });
+ $("#dailyenabler").css({
+'cursor': 'pointer',
+'color': '#000',
+'font-size': '14px',
+'font-weight': 'bold',
+'margin-bottom': '3px'
+              });
+ $("#tablenames").css({
+'color': '#000',
+'font-size': '14px',
+'font-weight': 'bold'
+              });
+if (dailysize == 0) {
+document.getElementById("dailyenabler").innerHTML = "Daily Hall of Counters [+]";
+} else {
+document.getElementById("dailyenabler").innerHTML = "Daily Hall of Counters [-]";
+}
+                $("#dailyenabler").on('click', function () {
+if (dailysize == 0) {
+dailysize++;
+document.getElementById("dailyenabler").innerHTML = "Daily Hall of Counters [-]";
+dailysizereal = '100%';
+ $("#loadtest").css({
+'height': dailysizereal
+              });
+} else {
+dailysize--;
+document.getElementById("dailyenabler").innerHTML = "Daily Hall of Counters [+]";
+dailysizereal = '90px';
+ $("#loadtest").css({
+'height': dailysizereal
+              });
+}
+                });
+$(".authoro").each(function() {
+  $(this).attr("href", "https://reddit.com" + $(this).text());
+});
+// Same thing with the another } before error
 }},
         error: function(data) {
             alert('Error ' +data.status+ ' while loading Live Counting Extension: ' +data.statusText+ '\n\nPlease refresh to try again.');
@@ -6547,7 +6663,6 @@ $("#team2").attr('data-before',noncommapercent+"%");
 }
 //////////////////////////////////
 })(TeamBars || (TeamBars = {}));
-*/
 
 
 ////////////////////////
