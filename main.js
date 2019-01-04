@@ -65,6 +65,11 @@ var maybenumbers = {
 };
 
 
+	    if(window.location.href.indexOf("10gelxprc1umi") > -1) { 
+	    	if (USER == 'amazingpikachu_38') {
+$('.save-button').css('display','none');
+}
+	    }
 
 // Thread ID
 var THREAD = (function () {
