@@ -27,6 +27,8 @@ var flakecount = 1;
 var chucount = 0;
 var count2 = 0;
 var danr = 0;
+var dailysize = 0;
+var dailysizereal = '90px';
 var maybenumbers = {
     "001":"/u/rschaosid",
     "008":"/u/gordonpt8",
