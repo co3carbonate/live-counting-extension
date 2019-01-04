@@ -29,6 +29,7 @@ var count2 = 0;
 var danr = 0;
 var dailysize = 0;
 var dailysizereal = '90px';
+var tablenumba = 1;
 var maybenumbers = {
     "001":"/u/rschaosid",
     "008":"/u/gordonpt8",
@@ -6423,6 +6424,7 @@ var SpecialUsernamesEnabled6;
         }
 })(SpecialUsernames6 || (SpecialUsernames6 = {}));
 }
+
 //////////////////////////
 // TeamBars.ts //
 //////////////////////////
@@ -6478,23 +6480,26 @@ alert('Something has gone wrong in the verification of the data. Please PM /u/ri
 
 //$(`<div id=loadtest></div><table id="dailyhoctable"><tr><th>Firstname</th><th>Lastname</th><th>Age</th></tr><tr><td>Jill</td><td>Smith</td><td>50</td></tr><tr><td>Eve</td><td>Jackson</td><td>94</td></tr><tr><td>John</td><td>Doe</td><td>80</td></tr></table>`).insertBefore("#liveupdate-description");
 $(`<div id=loadtest></div>`).insertBefore("#liveupdate-resources .md");
-hmmyy = hmmyy.replace(`{"hoc": [`, `<div id=dailyenabler>Daily Hall of Counters [+]</div><table id="dailyhoctable"><tr id="tablenames"><td>User</td><td>Counts</td></tr>`);
-hmmyy = hmmyy.replace(/{"author": "/g, `<tr><td><a class="authoro">/u/`);
+hmmyy = hmmyy.replace(`{"hoc": [`, `<div id=dailyenabler>Daily Hall of Counters [+]</div><table id="dailyhoctable"><tr id="tablenames"><td>#</td><td>User</td><td>Counts</td></tr>`);
+hmmyy = hmmyy.replace(/{"author": "/g, `<tr><td class="numba"></td><td><a class="authoro">/u/`);
 hmmyy = hmmyy.replace(/", "counts": /g, `</a></td><td>`);
 hmmyy = hmmyy.replace(/}, /g, `</td></tr>`);
 hmmyy = hmmyy.replace(`}]}`, `</td></tr></table>`);
-hmmyy = hmmyy.replace(`<tr><td><a class="authoro">/u/`+USER, `<tr style="font-weight:bold;"><td><a class="authoro">/u/`+USER);
+hmmyy = hmmyy.replace(`<tr><td class="numba"></td><td><a class="authoro">/u/`+USER, `<tr style="font-weight:bold;"><td class="numba"></td><td><a class="authoro">/u/`+USER);
 document.getElementById('loadtest').innerHTML = hmmyy;
 
 
- $("#dailyhoctable tbody tr:nth-child(2)").css({
-'background': 'gold'
+ $("#dailyhoctable tbody tr:nth-child(2) .numba").css({
+'background': 'gold',
+'color': 'black'
               });
- $("#dailyhoctable tbody tr:nth-child(3)").css({
-'background': 'silver'
+ $("#dailyhoctable tbody tr:nth-child(3) .numba").css({
+'background': 'silver',
+'color': 'black'
               });
- $("#dailyhoctable tbody tr:nth-child(4)").css({
-'background': '#cd7f32'
+ $("#dailyhoctable tbody tr:nth-child(4) .numba").css({
+'background': '#cd7f32',
+'color': 'black'
               });
 
 //$("#loadtest").css('display','none');
@@ -6549,7 +6554,10 @@ dailysizereal = '90px';
 $(".authoro").each(function() {
   $(this).attr("href", "https://reddit.com" + $(this).text());
 });
-
+$(".numba").each(function() {
+  $(this).text(tablenumba);
+tablenumba++;
+});
 
         }},   //////this is where you put the checky bracket
         error: function(data) {
@@ -6584,21 +6592,24 @@ alert('Something has gone wrong in the verification of the data. Please PM /u/ri
 // For this you need to add another } before the error
 
 //$(`<div id=loadtest></div><table id="dailyhoctable"><tr><th>Firstname</th><th>Lastname</th><th>Age</th></tr><tr><td>Jill</td><td>Smith</td><td>50</td></tr><tr><td>Eve</td><td>Jackson</td><td>94</td></tr><tr><td>John</td><td>Doe</td><td>80</td></tr></table>`).insertBefore("#liveupdate-description");
-hmmyy = hmmyy.replace(`{"hoc": [`, `<div id=dailyenabler>Daily Hall of Counters [+]</div><table id="dailyhoctable"><tr id="tablenames"><td>User</td><td>Counts</td></tr>`);
-hmmyy = hmmyy.replace(/{"author": "/g, `<tr><td><a class="authoro">/u/`);
+hmmyy = hmmyy.replace(`{"hoc": [`, `<div id=dailyenabler>Daily Hall of Counters [+]</div><table id="dailyhoctable"><tr id="tablenames"><td>#</td><td>User</td><td>Counts</td></tr>`);
+hmmyy = hmmyy.replace(/{"author": "/g, `<tr><td class="numba"></td><td><a class="authoro">/u/`);
 hmmyy = hmmyy.replace(/", "counts": /g, `</a></td><td>`);
 hmmyy = hmmyy.replace(/}, /g, `</td></tr>`);
 hmmyy = hmmyy.replace(`}]}`, `</td></tr></table>`);
-hmmyy = hmmyy.replace(`<tr><td><a class="authoro">/u/`+USER, `<tr style="font-weight:bold;"><td><a class="authoro">/u/`+USER);
+hmmyy = hmmyy.replace(`<tr><td class="numba"></td><td><a class="authoro">/u/`+USER, `<tr style="font-weight:bold;"><td class="numba"></td><td><a class="authoro">/u/`+USER);
 document.getElementById('loadtest').innerHTML = hmmyy;
- $("#dailyhoctable tbody tr:nth-child(2)").css({
-'background': 'gold'
+ $("#dailyhoctable tbody tr:nth-child(2) .numba").css({
+'background': 'gold',
+'color': 'black'
               });
- $("#dailyhoctable tbody tr:nth-child(3)").css({
-'background': 'silver'
+ $("#dailyhoctable tbody tr:nth-child(3) .numba").css({
+'background': 'silver',
+'color': 'black'
               });
- $("#dailyhoctable tbody tr:nth-child(4)").css({
-'background': '#cd7f32'
+ $("#dailyhoctable tbody tr:nth-child(4) .numba").css({
+'background': '#cd7f32',
+'color': 'black'
               });
 
 //$("#loadtest").css('display','none');
@@ -6652,6 +6663,11 @@ dailysizereal = '90px';
                 });
 $(".authoro").each(function() {
   $(this).attr("href", "https://reddit.com" + $(this).text());
+});
+tablenumba = 1;
+$(".numba").each(function() {
+  $(this).text(tablenumba);
+tablenumba++;
 });
 // Same thing with the another } before error
 }},
