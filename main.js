@@ -8,13 +8,13 @@
 var VERSION = 'v1.5.3';
 
 
-var specialnumber = 6;
-var kname1 = 'MaybeNotWrong';
-var kname2 = 'amazingpikachu_38';
-var kname3 = 'NobodyL0vesMe';
-var kname4 = 'noduorg';
-var kname5 = 'treje';
-var kname6 = 'ItzTaken';
+var specialnumber = 2;
+var kname1 = 'amazingpikachu_38';
+var kname2 = 'NobodyL0vesMe';
+var kname3 = '';
+var kname4 = '';
+var kname5 = '';
+var kname6 = '';
 
 // Client's username
 var USER = $('#header .user a[href]').html();
@@ -4367,88 +4367,11 @@ function chu_inc1(){
         if (data.author == 'MaybeNotWrong' || data.author == 'co3_carbonate' || data.author == 'rschaosid' || data.author == 'piyushsharma301' || data.author == 'rideride' || data.author == 'LeinadSpoon' || data.author == 'artbn') {
             data.author_elem.css('font-weight', 'bold');
         }
-        if (SpecialUsernamesEnabled1 == 'yep lol') {
-            // /u/MaybeNotWrong username special
-            if (data.author == kname1) {
-                let username = "/u/MaybeNotWrong";
-                let colorfunc = function(value){
-                    let color = "000000";
-                    if(value  > 3){
-                        let helper = (a,b) => a - (a * (b/3 - 1));
-                        let red = Math.round(helper(6,value));
-                        let green = Math.round(helper(102,value));
-                        red = red < 16 ? "0" + red.toString(16) : red.toString(16);
-                        green = green < 16 ? "0" + green.toString(16) : green.toString(16);
-                        let blue = green;
-                        color = red + green + blue;
-                    }
-                    else if (value  < 3){
-                        let helper = (a,b) => 255 - (a*b)
-                        let red = Math.round(helper(83,value));
-                        let green = Math.round(helper(63,value));
-                        red = red < 16 ? "0" + red.toString(16) : red.toString(16);
-                        green = green < 16 ? "0" + green.toString(16) : green.toString(16);
-                        let blue = green;
-                        color = red + green + blue;
-                    }
-                    else color = "066666";
-                    return color;
-                }
-                let template = function(color, time, dir, text){
-                    let div = `<div class="maybe" style="float:left;color:#`;
-                    div += color;
-                    if (time > 0){
-                        div += `;-webkit-animation: mymove `;
-                        div += time;
-                        div += `s infinite;animation: mymove `;
-                        div += time;
-                        div += `s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `
-                        div += dir;
-                    }
-                    div += `;">`
-                    div += text
-                    div += `</div>`
-                    return div
-                }
-                username = username.split("").map((letter)=>{
-                    let rand_rate = Math.floor(Math.random() * 6001) / 1000;
-                    let rand_time = rand_rate == 0 ? 0 : 360 / rand_rate;
-                    let rand_dir  = Math.floor((Math.random() * 2) + 1);
-                    let dir_str   = rand_dir == 1 ? 'initial' : 'reverse';
-                    let rand_clr  = colorfunc(rand_rate);
-                    return template(rand_clr,rand_time,dir_str,letter);
-                }).join("");
-                data.author_elem.css({
-                    'display': 'inline-table',
-                    'font-weight': 'bold'
-                });
-                let rand_rate = Math.floor(Math.random() * 6001) / 1000;
-                let rand_time = rand_rate == 0 ? 0 : 360 / rand_rate;
-                let rand_dir  = Math.floor((Math.random() * 2) + 1);
-                let dir_str   = rand_dir == 1 ? 'initial' : 'reverse';
-                wrapper = `<div class="maybe" style="transform: translateY(-50%);position:absolute`
-                let special = Math.floor(Math.random() * 100);
-                if (special == 1) {
-                    wrapper += `;"><div class="maybe" style="-webkit-animation: mymove2 `;
-                    wrapper += rand_time;
-                    wrapper += `s infinite;animation: mymove2 `;
-                    wrapper += rand_time;
-                    wrapper += `s infinite;animation-timing-function: linear;display: inline-table;animation-direction: `;
-                    wrapper += dir_str;
-                }
-                wrapper += `;">`
-                wrapper += username
-                wrapper += `</div>`;
-                if (special < 50) {
-                    wrapper += `</div>`;
-                }
-                data.author_elem.html(wrapper);
-            }
-        } // SpecialUsernamesEnabled1 ending	
+ 
 	
-if (SpecialUsernamesEnabled2 == 'yep lol') {
+if (SpecialUsernamesEnabled1 == 'yep lol') {
 	///u/amazingpikachu_38 username special
-	if (data.author == kname2) {
+	if (data.author == kname1) {
 
 var pikarand = Math.floor(Math.random() * 54) + 1;
 var recordback = Math.floor(Math.random() * 1000) + 1;
@@ -5777,10 +5700,10 @@ data.author_elem.html(`<div style="color:grey;">Ok rideride messsed up lol</div>
 }
 } // Ending to pika name	
 
-} // SpecialUsernamesEnabled2 ending	
+} // SpecialUsernamesEnabled1 ending	
 	// /u/NobodyL0vesMe username special
-if (SpecialUsernamesEnabled3 == 'yep lol') {
-if (data.author == kname3) {
+if (SpecialUsernamesEnabled2 == 'yep lol') {
+if (data.author == kname2) {
 var marscolor = '#616161';
 var entirepost = data.body_elem.html();
 var entireposttext = data.body_elem.text();
@@ -5832,109 +5755,7 @@ data.body_elem.html(entirepost);
               });
 data.author_elem.html(`<div style="color:`+marscolor+`;`+marsfont+`">🖤/u/NobodyL0vesMe🖤</div>`)
 } 
-} // SpecialUsernamesEnabled3 ending	
-// /u/noduorg username special
-    if (SpecialUsernamesEnabled4 == 'yep lol') {
-if (data.author == kname4) {
-//var nodutime = new Date().getTime();
-var nodutime = new Date();
-nodutime = nodutime.getUTCHours();
-var noduname = ' n o d u o r g ';
-var noduemoji = '💎💎';
-var noduprst = Math.floor(Math.random() * 400) + 1;
-if (noduprst == 1) {
-noduname = ' n o d p r s t ';
-} else if (noduprst == 2) {
-noduname = ' n o p r s t g ';
-} else if (noduprst == 3) {
-noduname = ' n p r s t r g ';
-} else if (noduprst == 4) {
-noduname = ' p r s t o r g ';
-}
- data.author_elem.css({
-                 'font-weight': 'bold',
-                 'display': 'inline-block',
-                 'font-family': 'Arial',
-                 'text-decoration': 'underline',
-                 'font-size': '15px'
-              });
-
-if (nodutime < 5) {
-noduemoji = '💤💤';
-} 
-
-data.author_elem.html(`<span>`+noduemoji+`</span><span style="color:#0d2d89;font-style:italic;">`+noduname+`</span><span>`+noduemoji+`</span>`);
-           
-}    
-} // SpecialUsernamesEnabled4 ending		
-	    // /u/treje username special
-    if (SpecialUsernamesEnabled5 == 'yep lol') {
-if (data.author == kname5) {
-
-var testArray = ['t','r','e','j','e'];
-Shuffle(testArray);
-
-        data.author_elem.css({
-                  'font-weight': 'bold',
-                  'display': 'inline-block',
-'font-size': '15px'
-              });
-
-             data.author_elem.html(`<div style='color:#ffc130'>¡<span id=shuffled>`+testArray.join("")+`</span>!</div>`)
-	var testArray2 = testArray.join("");
-if (testArray2 == 'treje') {
-             data.author_elem.html(`<span id="rainbowtext" style="color: transparent; background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text!important;">¡ t r e j e !</span>`);
-}
-}
-} // SpecialUsernamesEnabled5 ending	
-	    
-	    	    // /u/ItzTaken username special
-    if (SpecialUsernamesEnabled6 == 'yep lol') {
-if (data.author == kname6) {
-	var takenname = 'im running to ';
-var takencolor = '#32ff95';
-var takenemoji = '🏃‍';
-
-  var count1testlol = data.body_elem.text();
-var count1text = count1testlol;
-count1testlol = count1testlol.substring(0, 10);
-    count1testlol = count1testlol.replace(/[A-Za-z]/g, '');
-    count1testlol = count1testlol.replace(/,/g, '');
-    count1testlol = count1testlol.replace(/ /g, '');
-count1testlol = count1testlol.replace(/\./g, '');
-if (count1testlol.length == 6) {
-count1testlol = count1testlol.substr(count1testlol.length - 1);
-} else {
-count1testlol = count1testlol.substr(count1testlol.length - 3);
-}
-var count1testlolnext = count1testlol.substring(0,1);
-count1testlolnext = parseInt(count1testlolnext);
-count1testlolnext++;
-count1testlolnext = count1testlolnext.toString();
-count1testlolnext = count1testlolnext + "00";
-if (isNaN(count1testlolnext)) {
-count1testlolnext = "∞";
-}
-if (count1testlol == '666' || count1text.includes("spook")) {
-takenemoji = '👻👻👻';
-takencolor = '#000000';
-count1testlolnext = "666";
-}
-
-if (count1testlol == '666' && count1text.includes("spook")) {
-takenname = 'SPOOK';
-count1testlolnext = "";
-}
-
- data.author_elem.css({
-                 'font-weight': 'bold',
-                 'display': 'inline-block'
-              });
-
-data.author_elem.html(`<div style="color:`+takencolor+`;">`+takenemoji+takenname+count1testlolnext+takenemoji+`</div>`)
-	
-}
-} // SpecialUsernamesEnabled6 ending	
+} // SpecialUsernamesEnabled2 ending	
         // Set username colour
         if (!userColors.hasOwnProperty(data.author)) {
             userColors[data.author] = colors[currentColor];
