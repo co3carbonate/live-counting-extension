@@ -11,7 +11,7 @@ var VERSION = 'v1.5.3';
 var specialnumber = 2;
 var kname1 = 'amazingpikachu_38';
 var kname2 = 'NobodyL0vesMe';
-var kname3 = '';
+var kname3 = 'MaybeNotWrong';
 var kname4 = '';
 var kname5 = '';
 var kname6 = '';
@@ -5756,6 +5756,99 @@ data.body_elem.html(entirepost);
 data.author_elem.html(`<div style="color:`+marscolor+`;`+marsfont+`">🖤/u/NobodyL0vesMe🖤</div>`)
 } 
 } // SpecialUsernamesEnabled2 ending	
+	   
+	            if (SpecialUsernamesEnabled3 == 'yep lol') {
+            // /u/MaybeNotWrong username special
+            if (data.author == kname3) {
+
+var entirepost = data.body_elem.html();
+var entireposttext = data.body_elem.text();
+var count1testlol = entireposttext.substring(0, 10);
+    count1testlol = count1testlol.replace(/[A-Za-z]/g, '');
+var count2testlol = count1testlol.replace(/,/g, '');
+    count2testlol = count2testlol.replace(/ /g, '');
+    count2testlol = count2testlol.replace(/\./g, '');
+var count3testlol = count2testlol.replace(/[^8]/g, "").length;
+var count4testlol = count2testlol.substr(count2testlol.length - 3);
+var count5testlol = parseInt(count2testlol);
+var maybeuser = '/u/MaybeNotWrong';
+var maybecolor = '#066666';
+  var randomreverse = Math.floor((Math.random() * 100) + 1);
+
+
+if (entireposttext.match(/[A-Za-z]/)) {
+  var randommaybe = Math.floor((Math.random() * 2) + 1);
+if (randommaybe == 1) {
+maybeuser = 'Wrong';
+maybecolor = 'Red';
+} else {
+maybeuser = 'Right';
+maybecolor = 'Green';
+}
+}
+
+var maybename = maybenumbers[count4testlol];
+if (maybename != null) {
+if (maybename == "random123") {var randomx = Math.floor((Math.random() * 2) + 1);if (randomx == 1) {maybename = '/u/davidjl123';} else {maybename = '/u/dominodan123';}}
+if (maybename == "random404") {var randomx = Math.floor((Math.random() * 2) + 1);if (randomx == 1) {maybename = '/u/Tranquilsunrise';} else {maybename = '/u/KingCaspianX';}}
+var maybenamet = maybename.trim().replace('/u/', '');;
+maybecolor = userColors[maybenamet];
+if (maybename == "/u/amazingpikachu_37") {
+maybecolor = 'yellow';
+}
+}
+data.author_elem.css({
+                  'font-weight': 'bold',
+                  'display': 'inline-block'
+              });
+data.author_elem.html(`<div id="maybediv" style="color:`+maybecolor+`;">`+maybeuser+`</div>`);
+
+var entirepost = data.body_elem.html();
+var maybenhtml = data.author_elem.html();
+
+
+
+if (randomreverse == 1) {
+data.author_elem.addClass('flipped');
+data.author_elem.css({
+                  'font-weight': 'initial',
+                  'display': 'inline-block',
+                  'font-size': '14px',
+                  'float': 'left'
+              });
+$('#maybediv').css('color','#222222');
+data.body_elem.css({
+                  'font-weight': 'bold',
+                  'display': 'inline-block',
+                  'font-size': '13px',
+                  'color': maybecolor
+              });
+}
+
+if (count5testlol % 373 === 0 || count4testlol == '373') {
+data.author_elem.addClass('blink');
+
+                let template = function(time, text){
+                    let div = `<span class="maybe" style="animation: blinkerm `;
+                        div += time;
+                        div += `s infinite;animation-timing-function: linear;`
+                    div += `;">`
+                    div += text
+                    div += `</span>`
+                    return div
+                }
+                maybeuser = maybeuser.split("").map((letter)=>{
+                    let rand_time = Math.floor(Math.random()*(637)+737) / 1000;
+                    return template(rand_time,letter);
+                }).join("");
+
+data.author_elem.html(`<div id="maybediv" style="color:`+maybecolor+`;">`+maybeuser+`</div>`);
+}
+
+
+            }
+        } // SpecialUsernamesEnabled3 ending	
+	    
         // Set username colour
         if (!userColors.hasOwnProperty(data.author)) {
             userColors[data.author] = colors[currentColor];
@@ -5829,7 +5922,10 @@ if (thishref2 == 'MaybeNotWrong' || thishref2 == 'co3_carbonate' || thishref2 ==
 });
 }
 	    Styles.add("\n\n\t.amazingpikachu_38 {\n\t\tanimation: blinker 1s linear infinite;\n\t}\n\t@keyframes blinker {\n\t\t50% { opacity: 0; }\n\t}\n\n\t");
+    Styles.add(`li.stricken > div > a[href="/user/MaybeNotWrong"].author.flipped {animation: flippa 1s linear infinite;} @keyframes flippa {50% { float:initial; } 100%{ float:left; } }}`);
+    Styles.add(`li > div > a[href="/user/MaybeNotWrong"].author.blink {animation: blinkerm 1s linear infinite;} @keyframes blinkerm {50% { opacity:0; } 100%{ opacity:1; } }`);
 
+	
 })(ColoredUsernames || (ColoredUsernames = {}));
 //////////////////////////
 // ClearPastMessages.ts //
