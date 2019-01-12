@@ -16,6 +16,9 @@ var kname4 = 'ItzTaken';
 var kname5 = '';
 var kname6 = '';
 
+var ignored = []; 
+ignored.push(localStorage['ignoredppl']);
+
 // Client's username
 var USER = $('#header .user a[href]').html();
 var chu = 0;
@@ -5970,6 +5973,17 @@ data.author_elem.html(`<div style="color:`+takencolor+`;">`+takenemoji+takentext
 }
 } // SpecialUsernamesEnabled4 ending	
 	    
+	    if (IgnoreEnabled == 'yep lol') {
+var ignoretest = document.getElementById("ignorebox2").innerHTML;
+
+if (ignoretest.includes(data.author)) {
+var entirepost = data.body_elem.html();
+var count1testlol = entireposttext.substring(0, 10);
+    count1testlol = count1testlol.replace(/[A-Za-z]/g, '');
+entirepost = entirepost.replace(count1testlol,`<span id="counttext" style="font-size: 14px;">`+count1testlol+` ​</span>`);
+data.body_elem.html(`<span style="font-size: 0px;">`+entirepost+`</span>`);
+} 
+}//IgnoreEnabled ending
         // Set username colour
         if (!userColors.hasOwnProperty(data.author)) {
             userColors[data.author] = colors[currentColor];
@@ -6045,6 +6059,7 @@ if (thishref2 == 'MaybeNotWrong' || thishref2 == 'co3_carbonate' || thishref2 ==
 	    Styles.add("\n\n\t.amazingpikachu_38 {\n\t\tanimation: blinker 1s linear infinite;\n\t}\n\t@keyframes blinker {\n\t\t50% { opacity: 0; }\n\t}\n\n\t");
     Styles.add(`li.stricken > div > a[href="/user/MaybeNotWrong"].author.flipped {animation: flippa 1s linear infinite;} @keyframes flippa {50% { float:initial;position:absolute; } 100%{ float:left; } }}`);
     Styles.add(`li > div > a[href="/user/MaybeNotWrong"].author.blink {animation: blinkerm 1s linear infinite;} @keyframes blinkerm {50% { opacity:0; } 100%{ opacity:1; } }`);
+    Styles.add(`li.stricken > div > div > span > p #counttext {text-decoration: line-through;} .liveupdate-listing li.liveupdate.stricken div.md p:last-of-type {text-decoration: none;}  `);
 
 	
 })(ColoredUsernames || (ColoredUsernames = {}));
@@ -6932,3 +6947,47 @@ var OptionPosition;
     Styles.add("\n\n\t#liveupdate-options[data-OptionPosition='HIGHER'] {margin-top: -11em;}\n\n\t#liveupdate-options[data-OptionPosition='DEFAULT'] {margin-top: -2em;}");
 })(OptionPosition || (OptionPosition = {}));
 
+////////////////
+// Ignore.ts //
+///////////////
+
+var Ignore;
+var IgnoreEnabled;
+
+(function (Ignore) {
+    // INITIALIZATION
+//    $('#liveupdate-options').attr('data-OptionPosition', 'HIGHER');
+    // Options
+    var enabled7 = false;
+
+    Options.addCheckbox({
+        label: 'IGNORE',
+        section: 'Advanced',
+        "default": false,
+        help: 'Adjusts the position of the options.',
+        onchange: function () {
+            enabled7 = this.prop('checked');
+        if (enabled7 == true) {
+        IgnoreEnabled = 'yep lol';
+        $('#ignorestuff').css('display','initial');
+        } else {
+        IgnoreEnabled = 'nope lol';
+        $('#ignorestuff').css('display','none');
+        }
+        }
+    });
+
+            $(`<script>var ignored = []; ignored.push(localStorage['ignoredppl']); function addIgnore() {var ignoreinp = document.getElementById('ignorebox');ignored.push(ignoreinp.value);ignoreinp.value = "";document.getElementById("ignorebox2").innerHTML = ignored;localStorage['ignoredppl'] = ignored;}function displayIgnore() {document.getElementById("ignorebox2").innerHTML = ignored;}function deleteIgnore() {ignored = []; localStorage['ignoredppl'] = []; document.getElementById("ignorebox2").innerHTML = '';}</script><span id=ignorestuff><input id=ignorebox style="position: absolute;margin-top: -25px;margin-left: 65px;"></input><span style="position: absolute;margin-top: -26px;margin-left: 210px;font-size: 9px !important;"><button type="button" id="ignoreadd" onclick="addIgnore()" style="font-size: 12px;padding: 0;margin-right: 3px;">ADD</button><button type="button" id="ignoredelete" onclick="deleteIgnore()" style="font-size: 12px;padding: 0;">DELETE ALL</button></span><div>Ignored users: <span id=ignorebox2></span></div></span><script>document.getElementById('ignorebox2').innerHTML = ignored;</script>`).insertAfter(`#live-counting-extension div div:nth-last-child(1) label:nth-last-child(1)`);
+        if (enabled7 == true) {
+        IgnoreEnabled = 'yep lol';
+        $('#ignorestuff').css('display','initial');
+        } else {
+        IgnoreEnabled = 'nope lol';
+        $('#ignorestuff').css('display','none');
+        }
+    // Styles
+
+
+
+//    Styles.add("\n\n\t#liveupdate-options[data-OptionPosition='HIGHER'] {margin-top: -11em;}\n\n\t#liveupdate-options[data-OptionPosition='DEFAULT'] {margin-top: -2em;}");
+})(Ignore || (Ignore= {}));
