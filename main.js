@@ -5974,7 +5974,7 @@ data.author_elem.html(`<div style="color:`+takencolor+`;">`+takenemoji+takentext
 } // SpecialUsernamesEnabled4 ending	
 	    
 	    if (IgnoreEnabled == 'yep lol') {
-var ignoretest = document.getElementById("ignorebox2").innerHTML;
+var ignoretest = ignored;
 
 if (ignoretest.includes(data.author)) {
 var entirepost = data.body_elem.html();
