@@ -6501,6 +6501,7 @@ $.ajax({
 //checky = `<div id="commacount"></div><div id="noncommacount"></div>`;
 hmmyy = data;
 checky2 = data;
+checky2 = checky2.replace(/null/g, `""`);
 checky2 = checky2.replace(`{"hoc": [`, ``);
 checky2 = checky2.replace(/{"author": "/g, ``);
 checky2 = checky2.replace(/", "counts": /g, ``);
@@ -6617,6 +6618,7 @@ $.ajax({
         success: function(data) {
 hmmyy = data;
 checky2 = data;
+checky2 = checky2.replace(/null/g, `""`);
 checky2 = checky2.replace(`{"hoc": [`, ``);
 checky2 = checky2.replace(/{"author": "/g, ``);
 checky2 = checky2.replace(/", "counts": /g, ``);
