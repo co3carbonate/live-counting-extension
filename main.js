@@ -6522,6 +6522,8 @@ alert('Something has gone wrong in the verification of the data. Please PM /u/ri
 
 //$(`<div id=loadtest></div><table id="dailyhoctable"><tr><th>Firstname</th><th>Lastname</th><th>Age</th></tr><tr><td>Jill</td><td>Smith</td><td>50</td></tr><tr><td>Eve</td><td>Jackson</td><td>94</td></tr><tr><td>John</td><td>Doe</td><td>80</td></tr></table>`).insertBefore("#liveupdate-description");
 $(`<div id=loadtest></div>`).insertBefore("#liveupdate-resources .md");
+	
+hmmyy = hmmyy.replace(/null/g, `""`);
 hmmyy = hmmyy.replace(`{"hoc": [`, `<div id=dailyenabler>Daily Hall of Counters [+]</div><table id="dailyhoctable"><tr id="tablenames"><td>#</td><td>User</td><td>Counts</td></tr>`);
 hmmyy = hmmyy.replace(/{"author": "/g, `<tr><td class="numba"></td><td><a class="authoro">/u/`);
 hmmyy = hmmyy.replace(/", "counts": /g, `</a></td><td>`);
@@ -6638,6 +6640,8 @@ alert('Something has gone wrong in the verification of the data. Please PM /u/ri
 // For this you need to add another } before the error
 
 //$(`<div id=loadtest></div><table id="dailyhoctable"><tr><th>Firstname</th><th>Lastname</th><th>Age</th></tr><tr><td>Jill</td><td>Smith</td><td>50</td></tr><tr><td>Eve</td><td>Jackson</td><td>94</td></tr><tr><td>John</td><td>Doe</td><td>80</td></tr></table>`).insertBefore("#liveupdate-description");
+
+hmmyy = hmmyy.replace(/null/g, `""`);
 hmmyy = hmmyy.replace(`{"hoc": [`, `<div id=dailyenabler>Daily Hall of Counters [+]</div><table id="dailyhoctable"><tr id="tablenames"><td>#</td><td>User</td><td>Counts</td></tr>`);
 hmmyy = hmmyy.replace(/{"author": "/g, `<tr><td class="numba"></td><td><a class="authoro">/u/`);
 hmmyy = hmmyy.replace(/", "counts": /g, `</a></td><td>`);
