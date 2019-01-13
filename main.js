@@ -3875,23 +3875,27 @@ var Options;
     // Initialize new content in the options box
     // TODO: move the $all to another core file since it will be used for stats as well
     var $all_heading = $("\n\t\t<h1 style=\"font-size:16px;\">\n\t\t\t<a href=\"https://github.com/co3carbonate/live-counting-extension/blob/master/README.md#readme\" target=\"_blank\">Live Counting Extension " + VERSION + "</a> \n\t\t</h1>\n\t");
-    var $options_heading = $("<h2>Options </h2>");
+//    var $options_heading = $("<h2>Options </h2>");
     var $options_basic_heading = $("<h2>Basic </h2>");
     var $options_advanced_heading = $("<h2>Advanced </h2>");
+    var $options_advanced2_heading = $("<h2>Advanced 2 </h2>");
     var $all_toggle = $("<span class=\"toggle-trigger\" style=\"font-size:15px;\">[-]</span>");
     var $options_toggle = $("<span class=\"toggle-trigger\">[-]</span>");
     var $options_basic_toggle = $("<span class=\"toggle-trigger\">[-]</span>");
     var $options_advanced_toggle = $("<span class=\"toggle-trigger\">[-]</span>");
+    var $options_advanced2_toggle = $("<span class=\"toggle-trigger\">[-]</span>");
     var $all = $("<div id='live-counting-extension'></div>");
     var $options = $("<div></div>");
     var $options_basic = $("<div></div>");
     var $options_advanced = $("<div></div>");
+    var $options_advanced2 = $("<div></div>");
     $all_heading.append($all_toggle);
-    $all.append($options_heading, $options);
-    $options_heading.append($options_toggle);
+    $all.append($options);
+//    $options_heading.append($options_toggle);
     $options_basic_heading.append($options_basic_toggle);
     $options_advanced_heading.append($options_advanced_toggle);
-    $options.append($options_basic_heading, $options_basic, $options_advanced_heading, $options_advanced);
+    $options_advanced2_heading.append($options_advanced2_toggle);
+    $options.append($options_basic_heading, $options_basic, $options_advanced_heading, $options_advanced, $options_advanced2_heading, $options_advanced2);
     Elements.$options.append($all_heading, $all);
     var all_innerWidth = $all.innerWidth();
     var all_offsetLeft = $all.offset().left;
@@ -3922,6 +3926,7 @@ var Options;
     toggle($options_toggle, $options, 1);
     toggle($options_basic_toggle, $options_basic, 2);
     toggle($options_advanced_toggle, $options_advanced, 3);
+    toggle($options_advanced2_toggle, $options_advanced2, 4);
     // Styles
     Styles.add("\n\n\t/* Subheadings */\n\t#live-counting-extension h2 {\n\t\tcolor: #4F4F4F;\n\t\tfont-size: 14px;\n\t\tfont-weight: bold;\n\t\tmargin: 8px 0px;\n\t}\n\n\t/* Toggle triggers */\n\t/* Don't specify #live-counting-extension for this, because the first trigger is actually outside the #live-counting-extension element */\n\t\n\t.toggle-trigger {\n\t\tcursor: pointer;\n\t\tcolor: #656565;\n\t\tfont-weight: normal;\n\t}\n\n\n\t/* Labels */\n\t#live-counting-extension label {\n\t\tdisplay: block;\n\t\tmargin-bottom: 10px;\n\t\tline-height: 160%;\n\t}\n\t\n\t");
     // METHODS
@@ -3954,6 +3959,8 @@ var Options;
             $options_section = $options_basic;
         else if (section == 'Advanced')
             $options_section = $options_advanced;
+        else if (section == 'Advanced 2')
+            $options_section = $options_advanced2;
         $options_section.append($("<label>" + label + "</label>")
             .attr('title', help)
             .prepend($elem));
@@ -3999,6 +4006,8 @@ var Options;
             $options_section = $options_basic;
         else if (section == 'Advanced')
             $options_section = $options_advanced;
+        else if (section == 'Advanced 2')
+            $options_section = $options_advanced2;
         $options_section.append($("<label>" + label + ": </label>")
             .attr('title', help)
             .append($elem));
