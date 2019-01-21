@@ -4285,7 +4285,8 @@ var ColoredUsernames;
 	'Noob2137': '#ff69ff',
 	'PaleRepresentative': 'Grey',
 	'andrewtheredditor': '#2bdb6c',
-	'Whit4You': '#ff99ff'
+	'Whit4You': '#ff99ff',
+	'Rajalaxo': '#485432'
     };
 	if (USER == 'VitaminB16') {
 userColors.LC_Chats = 'white';
