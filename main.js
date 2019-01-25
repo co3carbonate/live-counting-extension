@@ -10,9 +10,9 @@ var VERSION = 'v1.5.3';
 
 var specialnumber = 4;
 var kname1 = 'amazingpikachu_38';
-var kname2 = 'NobodyL0vesMe';
-var kname3 = 'MaybeNotWrong';
-var kname4 = 'ItzTaken';
+var kname2 = 'ItzTaken';
+var kname3 = '';
+var kname4 = '';
 var kname5 = '';
 var kname6 = '';
 
@@ -4286,7 +4286,9 @@ var ColoredUsernames;
 	'PaleRepresentative': 'Grey',
 	'andrewtheredditor': '#2bdb6c',
 	'Whit4You': '#ff99ff',
-	'Rajalaxo': '#485432'
+	'Rajalaxo': '#485432',
+	'NikinCZ': '#86D8CA',
+	'SecretAsianMa': '#373267'
     };
 	if (USER == 'VitaminB16') {
 userColors.LC_Chats = 'white';
@@ -5715,156 +5717,10 @@ data.author_elem.html(`<div style="color:grey;">Ok rideride messsed up lol</div>
 } // Ending to pika name	
 
 } // SpecialUsernamesEnabled1 ending	
-	// /u/NobodyL0vesMe username special
-if (SpecialUsernamesEnabled2 == 'yep lol') {
-if (data.author == kname2) {
-var marscolor = '#616161';
-var entirepost = data.body_elem.html();
-var entireposttext = data.body_elem.text();
-var count1testlol = entireposttext.substring(0, 10);
-    count1testlol = count1testlol.replace(/[A-Za-z]/g, '');
-var count2testlol = count1testlol.replace(/,/g, '');
-    count2testlol = count2testlol.replace(/ /g, '');
-    count2testlol = count2testlol.replace(/\./g, '');
-var count3testlol = count2testlol.replace(/[^8]/g, "").length;
-var count4testlol = count2testlol.substr(count2testlol.length - 3);
-var textcolor = '#7E57C2';
-var marsfont = '';
-var eightcolor = '#B39DDB';
 
-if (count2testlol.length > 7) {
-if (count3testlol == 1) {
-marsfont = `font-size: 15.5px;`;
-} else if (count3testlol == 2) {
-marsfont = `font-size: 17px;`;
-} else if (count3testlol == 3) {
-marsfont = `font-size: 18.5px;`;
-} else if (count3testlol == 4) {
-marsfont = `font-size: 20px;`;
-} else if (count3testlol == 5) {
-marsfont = `font-size: 21.5px;`;
-} else if (count3testlol == 6) {
-marsfont = `font-size: 23px;`;
-} else if (count3testlol == 7) {
-marsfont = `font-size: 24.5px;`;
-} else if (count3testlol == 8) {
-marsfont = `font-size: 26px;`;
-} 
-
-if (count4testlol == '888') {
-eightcolor = '';
-textcolor = 'transparent; background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text!important;';
-} 
-
-//    count1testlol = count1testlol.replace(/8/g, `<span style="color: `+eightcolor+`;">8</span>`);
-var count5testlol = count1testlol;
-    count1testlol = count1testlol.replace(/8/g, `<span style="color: `+eightcolor+`;">8</span>`);
-
-entirepost = entirepost.replace(entireposttext.substring(0, count5testlol.length),`<span id="rainbowtext" style="`+marsfont+`color: `+textcolor+`;">`+count1testlol+`</span>`);
-      } 
-data.body_elem.html(entirepost);
- data.author_elem.css({
-                  'display': 'inline-block',
-                  'font-weight': 'bold'
-              });
-data.author_elem.html(`<div style="color:`+marscolor+`;`+marsfont+`">🖤/u/NobodyL0vesMe🖤</div>`)
-} 
-} // SpecialUsernamesEnabled2 ending	
-	   
-	            if (SpecialUsernamesEnabled3 == 'yep lol') {
-            // /u/MaybeNotWrong username special
-            if (data.author == kname3) {
-
-var entirepost = data.body_elem.html();
-var entireposttext = data.body_elem.text();
-var count1testlol = entireposttext.substring(0, 10);
-    count1testlol = count1testlol.replace(/[A-Za-z]/g, '');
-var count2testlol = count1testlol.replace(/,/g, '');
-    count2testlol = count2testlol.replace(/ /g, '');
-    count2testlol = count2testlol.replace(/\./g, '');
-var count3testlol = count2testlol.replace(/[^8]/g, "").length;
-var count4testlol = count2testlol.substr(count2testlol.length - 3);
-var count5testlol = parseInt(count2testlol);
-var maybeuser = '/u/MaybeNotWrong';
-var maybecolor = '#066666';
-  var randomreverse = Math.floor((Math.random() * 100) + 1);
-
-
-if (entireposttext.match(/[A-Za-z]/)) {
-  var randommaybe = Math.floor((Math.random() * 2) + 1);
-if (randommaybe == 1) {
-maybeuser = 'Wrong';
-maybecolor = 'Red';
-} else {
-maybeuser = 'Right';
-maybecolor = 'Green';
-}
-}
-
-var maybename = maybenumbers[count4testlol];
-if (maybename != null) {
-if (maybename == "random123") {var randomx = Math.floor((Math.random() * 2) + 1);if (randomx == 1) {maybename = '/u/davidjl123';} else {maybename = '/u/dominodan123';}}
-if (maybename == "random404") {var randomx = Math.floor((Math.random() * 2) + 1);if (randomx == 1) {maybename = '/u/Tranquilsunrise';} else {maybename = '/u/KingCaspianX';}}
-var maybenamet = maybename.trim().replace('/u/', '');;
-maybecolor = userColors[maybenamet];
-if (maybename == "/u/amazingpikachu_37") {
-maybecolor = 'yellow';
-}
-}
-data.author_elem.css({
-                  'font-weight': 'bold',
-                  'display': 'inline-block'
-              });
-data.author_elem.html(`<div id="maybediv" style="color:`+maybecolor+`;">`+maybeuser+`</div>`);
-
-var entirepost = data.body_elem.html();
-var maybenhtml = data.author_elem.html();
-
-
-
-if (randomreverse == 1) {
-data.author_elem.addClass('flipped');
-data.author_elem.css({
-                  'font-weight': 'initial',
-                  'display': 'inline-block',
-                  'font-size': '14px',
-                  'float': 'left'
-              });
-$('#maybediv').css('color','#222222');
-data.body_elem.css({
-                  'font-weight': 'bold',
-                  'display': 'inline-block',
-                  'font-size': '13px',
-                  'color': maybecolor
-              });
-}
-
-if (count5testlol % 373 === 0 || count4testlol == '373') {
-data.author_elem.addClass('blink');
-
-                let template = function(time, text){
-                    let div = `<span class="maybe" style="animation: blinkerm `;
-                        div += time;
-                        div += `s infinite;animation-timing-function: linear;`
-                    div += `;">`
-                    div += text
-                    div += `</span>`
-                    return div
-                }
-                maybeuser = maybeuser.split("").map((letter)=>{
-                    let rand_time = Math.floor(Math.random()*(637)+737) / 1000;
-                    return template(rand_time,letter);
-                }).join("");
-
-data.author_elem.html(`<div id="maybediv" style="color:`+maybecolor+`;">`+maybeuser+`</div>`);
-}
-
-
-            }
-        } // SpecialUsernamesEnabled3 ending	
 	        	    // /u/ItzTaken username special
-    if (SpecialUsernamesEnabled4 == 'yep lol') {
-if (data.author == kname4) {
+    if (SpecialUsernamesEnabled2 == 'yep lol') {
+if (data.author == kname2) {
 var takentext = '';
 var takenemoji = '';
 var takenname = true;
@@ -5982,7 +5838,7 @@ data.author_elem.html(`<div style="color:`+takencolor+`;">`+takenemoji+takentext
 }
 
 }
-} // SpecialUsernamesEnabled4 ending	
+} // SpecialUsernamesEnabled2 ending	
 	    if (IgnoreEnabled == 'yep lol') {
 var ignoretest = document.getElementById("ignorebox2").innerHTML;
 
@@ -6007,40 +5863,7 @@ data.body_elem.html(`<span class="ignoredpost" style="font-size: 0px;">`+entirep
             }
         }
         data.author_elem.css('color', userColors[data.author]);
-	    if(window.location.href.indexOf("10gelxprc1umi") > -1) { 
-var entirepost = data.body_elem.html();
-entirepost = entirepost.replace(/a/gi, '⠁');
-entirepost = entirepost.replace(/b/gi, '⠃');
-entirepost = entirepost.replace(/c/gi, '⠉');
-entirepost = entirepost.replace(/d/gi, '⠙');
-entirepost = entirepost.replace(/e/gi, '⠑');
-entirepost = entirepost.replace(/f/gi, '⠋');
-entirepost = entirepost.replace(/g/gi, '⠛');
-entirepost = entirepost.replace(/h/gi, '⠓');
-entirepost = entirepost.replace(/i/gi, '⠊');
-entirepost = entirepost.replace(/j/gi, '⠚');
-entirepost = entirepost.replace(/k/gi, '⠅');
-entirepost = entirepost.replace(/l/gi, '⠇');
-entirepost = entirepost.replace(/m/gi, '⠍');
-entirepost = entirepost.replace(/n/gi, '⠝');
-entirepost = entirepost.replace(/o/gi, '⠕');
-entirepost = entirepost.replace(/p/gi, '⠏');
-entirepost = entirepost.replace(/q/gi, '⠟');
-entirepost = entirepost.replace(/r/gi, '⠗');
-entirepost = entirepost.replace(/s/gi, '⠎');
-entirepost = entirepost.replace(/t/gi, '⠞');
-entirepost = entirepost.replace(/u/gi, '⠥');
-entirepost = entirepost.replace(/v/gi, '⠧');
-entirepost = entirepost.replace(/w/gi, '⠺');
-entirepost = entirepost.replace(/x/gi, '⠭');
-entirepost = entirepost.replace(/y/gi, '⠽');
-entirepost = entirepost.replace(/z/gi, '⠵');
-entirepost = entirepost.replace('<⠏>', '<p>');
-entirepost = entirepost.replace('</⠏>', '</p>');
 
-
-data.body_elem.html(entirepost);
-}
 if(window.location.href.indexOf("110t4ltqqzi35") > -1) { 
 var lcchats = data.href_elem.attr('href');
 lcchats = lcchats.trim().replace('/u/', '');
