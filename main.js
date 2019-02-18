@@ -4731,6 +4731,7 @@ var DisableShortcuts;
 //////////////////////////
 // SpecialUsernames.ts //
 //////////////////////////
+if (specialnumber > 0) {
 var SpecialUsernames1;
 var SpecialUsernamesEnabled1;
 (function (SpecialUsernames1) {
@@ -4751,6 +4752,7 @@ var SpecialUsernamesEnabled1;
         SpecialUsernamesEnabled1 = 'nope lol';
         }
 })(SpecialUsernames1 || (SpecialUsernames1 = {}));
+}
 if (specialnumber > 1) {
 var SpecialUsernames2;
 var SpecialUsernamesEnabled2;
