@@ -4289,7 +4289,7 @@ var ColoredUsernames;
 	'Rajalaxo': '#485432',
 	'NikinCZ': '#86D8CA',
 	'SecretAsianMa': '#373267',
-	'srmpass': '#fff8ee',
+	'srmpass': '#ffeed6',
     };
 	if (USER == 'VitaminB16') {
 userColors.LC_Chats = 'white';
