@@ -4283,7 +4283,7 @@ var ColoredUsernames;
 	'dogcatcowpig': '#1162f9',
 	'ItzTaken': '#32ff95',
 	'Noob2137': '#ff69ff',
-	'PaleRepresentative': 'Grey',
+	'PaleRepresentative': '#8FBC8F',
 	'andrewtheredditor': '#2bdb6c',
 	'Whit4You': '#ff99ff',
 	'Rajalaxo': '#485432',
