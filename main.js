@@ -1,3 +1,16 @@
+// ==UserScript==
+// @name         LCE Testing April Fools
+// @description  Add-on features for Live Counting
+// @author       /u/co3_carbonate
+// @website      https://github.com/co3carbonate/live-counting-extension
+// @namespace    http://tampermonkey.net/
+// @include      *://*.reddit.com/live/*
+// @exclude      *://*.reddit.com/live/create*
+// @exclude      *://*.reddit.com/live/*/edit*
+// @exclude      *://*.reddit.com/live/*/updates/*
+// @exclude      *://*.reddit.com/live/*/contributors*
+// ==/UserScript==
+
 /**
 /**
  * LIVE COUNTING EXTENSION V1.5.4
@@ -3781,7 +3794,7 @@ var Cookie;
         version: cookieVersion,
         options: {},
         stats: {},
-        collapsed: [false, false, false, true]
+        collapsed: [false, false, false, true, true]
     };
     Cookie.save = Cookies.getJSON(cookieName);
     // In versions prior to 1.5.3, the extension used the cookie 'live-counting-extension'
@@ -5388,3 +5401,50 @@ var IgnoreEnabled;
 
 //    Styles.add("\n\n\t#liveupdate-options[data-OptionPosition='HIGHER'] {margin-top: -11em;}\n\n\t#liveupdate-options[data-OptionPosition='DEFAULT'] {margin-top: -2em;}");
 })(Ignore || (Ignore= {}));
+
+/////////////////////////
+// Countdown.ts //
+/////////////////////////
+var Countdown;
+(function (Countdown) {
+    // INITIALIZATION
+    // Options
+    var enabledc = true;
+    Options.addCheckbox({
+        label: 'ENABLE COUNTDOWN',
+        "default": true,
+        section: 'Advanced 2',
+        help: 'Enables the countdown in the viewers box.',
+        onchange: function () {
+            enabledc = this.prop('checked');
+        }
+    });
+    // EVENTS
+
+
+        if (enabledc) {
+$('#liveupdate-statusbar').append('<span id=countdowncont><p id=countdown></p></span><p id=clue></p>');
+
+$( "#countdowncont" ).click(function() {
+  $("#clue").text('👀');
+});
+
+var countDownDate = new Date("Mar 31 2019 23:00:00 GMT-0500 (CDT)").getTime();
+var tugOfWarWrongDirection = setInterval(function() {
+    var nowTug = new Date().getTime();
+    var distanceTug = countDownDate - nowTug;
+    var daysTug = Math.floor(distanceTug / (1000 * 60 * 60 * 24));
+    var hoursTug = Math.floor((distanceTug % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutesTug = Math.floor((distanceTug % (1000 * 60 * 60)) / (1000 * 60));
+    var secondsTug = Math.floor((distanceTug % (1000 * 60)) / 1000);
+    document.getElementById("countdown").innerHTML = daysTug + "d " + hoursTug + "h "
+    + minutesTug + "m " + secondsTug + "s";
+    if (distanceTug < 0) {
+        clearInterval(tugOfWarWrongDirection);
+        document.getElementById("countdown").innerHTML = "APRIL FOOLS UPDATE RELEASED";
+    }
+}, 1000);
+
+        }
+
+})(Countdown || (Countdown = {}));
