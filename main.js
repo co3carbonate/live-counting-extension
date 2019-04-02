@@ -1,7 +1,7 @@
 
 /**
 /**
- * LIVE COUNTING EXTENSION V1.6.x
+ * LIVE COUNTING EXTENSION V1.6.0
  * (THIS CODE WAS GENERATED FROM THE TYPESCRIPT .TS FILES IN THE SRC DIRECTORY)
  */
 // CONSTANTS
@@ -10,7 +10,7 @@
 var VERSION = 'v1.6.0';
 
 var aprilfools;
-var aprilfools2;
+var aprilfools2 = false;
 var foolsprob;
 var foolsprobt;
 
@@ -4078,10 +4078,10 @@ var AprilFoolsEnable;
 (function (AprilFoolsEnable) {
     // INITIALIZATION
     // Options
-    var enableda = true;
+    var enableda = false;
     Options.addCheckbox({
         label: 'ENABLE APRIL FOOLS',
-        "default": true,
+        "default": false,
         section: 'Advanced 2',
         help: 'Enables the april fools.',
         onchange: function () {
