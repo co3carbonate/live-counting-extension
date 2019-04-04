@@ -7254,7 +7254,8 @@ document.getElementById('loadtest').innerHTML = hmmyy;
 'text-align': 'center'
               });
  $("#dailyhoctable tr td").css({
-'border': '1px solid black'
+'border': '1px solid black',
+'max-width': '223px'
               });
  $("#loadtest").css({
 'overflow': 'hidden',
@@ -7370,7 +7371,8 @@ document.getElementById('loadtest').innerHTML = hmmyy;
 'text-align': 'center'
               });
  $("#dailyhoctable tr td").css({
-'border': '1px solid black'
+'border': '1px solid black',
+'max-width': '223px'
               });
  $("#loadtest").css({
 'overflow': 'hidden',
