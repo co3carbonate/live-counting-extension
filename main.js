@@ -6475,6 +6475,7 @@ var ColoredUsernames;
 	'SecretAsianMa': '#373267',
 	'srmpass': '#ffeed6',
 	'MrUnderdawg': '#35e0cf',
+        'SsPincus': '#840d0d',
     };
 	if (USER == 'VitaminB16') {
 userColors.LC_Chats = 'white';
