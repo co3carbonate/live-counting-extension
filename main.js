@@ -6743,6 +6743,7 @@ var ClearPastMessages;
     var maxMessages = 50;
     // Options
     var enabled = true;
+	    var enTimeout = false;
     var $checkbox = Options.addCheckbox({
         label: 'CLEAR PAST MESSAGES (REDUCES LAG)',
         "default": true,
@@ -6751,10 +6752,14 @@ var ClearPastMessages;
             enabled = this.prop('checked');
         }
     });
+	$checkbox.click(function() {
+            enTimeout = true;
+setTimeout(function(){ enTimeout = false; }, 5000);
+});
     // EVENTS
     // New update loaded
     Update.loadedNew(function (data) {
-	        if(window.scrollY==0) {
+    if(window.scrollY==0 && enTimeout==false) {
         if (!enabled) {
         $checkbox.prop('checked', true).trigger('change');
 }
