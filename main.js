@@ -9,8 +9,8 @@
 
 var VERSION = 'v1.6.0';
 
-var aprilfools;
-var aprilfools2 = false;
+var aprilbools;
+var aprilbools2 = false;
 var foolsprob;
 var foolsprobt;
 
@@ -4072,10 +4072,10 @@ var Options;
 })(Options || (Options = {}));
 ;
 /////////////////////////
-// AprilFoolsEnable.ts //
+// aprilboolsEnable.ts //
 /////////////////////////
-var AprilFoolsEnable;
-(function (AprilFoolsEnable) {
+var aprilboolsEnable;
+(function (aprilboolsEnable) {
     // INITIALIZATION
     // Options
     var enableda = false;
@@ -4086,72 +4086,72 @@ var AprilFoolsEnable;
         help: 'Enables the april fools.',
         onchange: function () {
             enableda = this.prop('checked');
-aprilfools2 = enableda;
+aprilbools2 = enableda;
         }
     });
     // EVENTS
 
 //if (enableda == false) {
-//aprilfools2 = 0;
+//aprilbools2 = 0;
 //} else {
-//aprilfools2 = '';
+//aprilbools2 = '';
 //}
 
-})(AprilFoolsEnable || (AprilFoolsEnable = {}));
+})(aprilboolsEnable || (aprilboolsEnable = {}));
 
-//var aprilfools = 1;
+//var aprilbools = 1;
 
 //////////////////////APRIL FOOLS VARIABLE
 
-//aprilfools = -1;
+//aprilbools = -1;
 
 
 
 if (window.location.href.toLowerCase().indexOf("?") == -1 && window.location.href.toLowerCase().indexOf("ta535s1hq2je") > -1 ) {
 foolsprob = Math.floor(Math.random() * 100) + 1;
 if (0 < foolsprob && foolsprob < 36) {
-aprilfools = 1;
+aprilbools = 1;
 foolsprobt = ' (35%)';
 } else if (35 < foolsprob && foolsprob < 51) {
-aprilfools = 2;
+aprilbools = 2;
 foolsprobt = ' (15%)';
 } else if (50 < foolsprob && foolsprob < 66) {
-aprilfools = 3;
+aprilbools = 3;
 foolsprobt = ' (15%)';
 } else if (65 < foolsprob && foolsprob < 71) {
-aprilfools = 4;
+aprilbools = 4;
 foolsprobt = ' (5%)';
 } else if (70 < foolsprob && foolsprob < 81) {
-aprilfools = 5;
+aprilbools = 5;
 foolsprobt = ' (10%)';
 } else if (80 < foolsprob && foolsprob < 91) {
-aprilfools = 6;
+aprilbools = 6;
 foolsprobt = ' (10%)';
 } else if (90 < foolsprob && foolsprob < 100) {
-aprilfools = 7;
+aprilbools = 7;
 foolsprobt = ' (9%)';
 } else if (100 == foolsprob) {
-aprilfools = 8;
+aprilbools = 8;
 foolsprobt = ' (1%)';
 }
 
 
 
 } else {
-aprilfools = 2;
+aprilbools = 2;
 }
 
 
-if (aprilfools2 == false || window.location.href.toLowerCase().indexOf("ta535s1hq2je") == -1 || window.location.href.toLowerCase().indexOf("discussions") > -1 || window.location.href.toLowerCase().indexOf("edit") > -1 || window.location.href.toLowerCase().indexOf("contributors") > -1 || window.location.href.toLowerCase().indexOf("updates") > -1) {
-aprilfools = 0;
+if (aprilbools2 == false || window.location.href.toLowerCase().indexOf("ta535s1hq2je") == -1 || window.location.href.toLowerCase().indexOf("discussions") > -1 || window.location.href.toLowerCase().indexOf("edit") > -1 || window.location.href.toLowerCase().indexOf("contributors") > -1 || window.location.href.toLowerCase().indexOf("updates") > -1) {
+aprilbools = 0;
 foolsprobt = '';
 } else {
-$('#lceversion').text(`Live Counting Extension v1.6.`+aprilfools);
-$('#liveupdate-description .md p').append(`<span>     [Live Counting `+aprilfools+foolsprobt+`]</span>`);
+$('#lceversion').text(`Live Counting Extension v1.6.`+aprilbools);
+$('#liveupdate-description .md p').append(`<span>     [Live Counting `+aprilbools+foolsprobt+`]</span>`);
 }
 
-if (aprilfools2 == false) {
-aprilfools = 0;
+if (aprilbools2 == false) {
+aprilbools = 0;
 }
 
 
@@ -4159,15 +4159,15 @@ aprilfools = 0;
 
 
 /////////////////////april fools 2
-if (0 < aprilfools && aprilfools < 9) {
-if (aprilfools == 2 || window.location.href.toLowerCase().indexOf("initial") > -1) {$('#liveupdate-title').text(`Congrats on getting this special april fools thing. This one is a puzzle, and you will put your answers in the URL. To start, add ?start to the end of the URL, and load the page.`);$('#liveupdate-title').css('background', 'lightblue');}if(window.location.href.toLowerCase().indexOf("?") > -1 && window.location.href.toLowerCase().indexOf("initial") == -1) {$('#liveupdate-title').text(`Incorrect. Go back. (If you do not know what this is, add "?initial" to the URL.)`);}if(window.location.href.toLowerCase().indexOf("start") > -1) {$('#liveupdate-title').text(`Congrats on reaching LEVEL 1. To get to level 2... what was the last name of the first president of the US? Replace the word "start" in the URL with your answer.`);}if(window.location.href.toLowerCase().indexOf("washington") > -1) {$('#liveupdate-title').text(`You have reached LEVEL 2. Next question... in 2013, Team Orangered defeated Team _____?`);}if(window.location.href.toLowerCase().indexOf("periwinkle") > -1) {$('#liveupdate-title').text(`LEVEL 3. Who was the first admin to count in this thread?`);}if(window.location.href.toLowerCase().indexOf("alienth") > -1) {$('#liveupdate-title').text(`LEVEL 4. What is the word for the sore feeling you get in your left pinkie following the excessive use of the "ctrl" key?`);}if(window.location.href.toLowerCase().indexOf("hyptoheicla") > -1) {$('#liveupdate-title').text(`LEVEL 5!!! What was the name of the account that /u/NobodyL0vesMe ran with in his fastest run, a 5:11?`);}if(window.location.href.toLowerCase().indexOf("endcountingdrama2019") > -1) {$('#liveupdate-title').text(`LEVEL 6. Fill in the blank: ________ FOUND ON MARS. Hint: You need to put a space in your answer.`);}if(window.location.href.toLowerCase().indexOf("despacito%202") > -1) {$('#liveupdate-title').text(`LEVEL ?. Type out what the NEXT level is.`);}if(window.location.href.toLowerCase().indexOf("eight") > -1) {$('#liveupdate-title').text(`LEVEL 8. What is the name of the website that noduorg is from?`);}if(window.location.href.toLowerCase().indexOf("thestudentroom") > -1) {$('#liveupdate-title').text(`LEVEL 9. For every speed record after sub-10 was reached, /u/davidjl123 has been a part of each of them, except one. Who did /u/Tranquilsunrise run with to achieve a record 8:20?`);}if(window.location.href.toLowerCase().indexOf("gordonpt8") > -1) {$('#liveupdate-title').text(`LEVEL 10. Who was the first user to get a 1 second reply in /r/counting?`);}if(window.location.href.toLowerCase().indexOf("morallygray") > -1) {$('#liveupdate-title').text(`LEVEL 11. Which counter was the FIRST to include the phrase "not found" when posting a 404?`);}if(window.location.href.toLowerCase().indexOf("rschaosid") > -1) {$('#liveupdate-title').text(`LEVEL 12. Who does dominodan describe as "an iconic pre-revival LC counter who we know next to nothing about and used to use passing in HoC as a sort of coming-of-age"?`);}if(window.location.href.toLowerCase().indexOf("grunf") > -1) {$('#liveupdate-title').text(`LEVEL 13. What month did the first tie for most counts in a day happen?`);}if(window.location.href.toLowerCase().indexOf("june") > -1) {$('#liveupdate-title').text(`LEVEL 14. 01010111 01101000 01100001 01110100 00100000 01100010 01100001 01100011 01101111 01101110 01110011 00100000 01100001 01110100 00100000 01101101 01101001 01100100 01101110 01101001 01100111 01101000 01110100 00111111`);}if(window.location.href.toLowerCase().indexOf("narwhal") > -1) {$('#liveupdate-title').text(`LEVEL 15. Who won separator week? This answer also has a space in it. `);}if(window.location.href.toLowerCase().indexOf("team%20comma") > -1) {$('#liveupdate-title').text(`LEVEL 16. VGhpcyBpcyBiYXNlIDY0LiBUaGlzIHdlYnNpdGUgbWlnaHQgYmUgdXNlZnVsIGZvciB5b3U6IGh0dHA6Ly9ydW1raW4uY29tL3Rvb2xzL2NpcGhlci9jYWVzYXIta2V5ZWQucGhwCgpBbnl3YXksIHRvIGdldCB0byBsZXZlbCAxNywgZ28gdG8gdGhhdCB3ZWJzaXRlIGFuZCBlbnRlciAibGl2ZWNvdW50aW5nIiBhcyB0aGUga2V5LiBUaGVuLCBpbiB0aGUgYm94LCBlbnRlciB0aGUgdXNlcm5hbWUgKG5vIC91Lykgb2YgRWxsZW4gUGFvJ3MgcmVkZGl0IGFjY291bnQuIA==`);}if(window.location.href.toLowerCase().indexOf("cagj") > -1) {$('#liveupdate-title').text(`LEVEL 17. cagj. Vhmmcvq. To yhr lmc mcletfu qntp, uhhe ghi. Haly, qnc fcxq lfpwcm wtbb grpq ic fhmdlb qcxq. Wnlq ohhe tp /r/EH_R_CSF_PJLUNCQQT oldhrp ohm clqtfu?`);}if(window.location.href.toLowerCase().indexOf("rice") > -1) {$('#liveupdate-title').text(`LEVEL 18. You've almost made it. I'm trying to make the final question more obscure. This one is from a historic reddit comment. Thirteen years from now, what will be the first name of the first draft pick in the NFL?`);}if(window.location.href.toLowerCase().indexOf("streetlamp") > -1) {$('#liveupdate-title').text(`LEVEL 19. Congratulations, you've finished this puzzle. I don't know if anyone will actually finish this (with or without cheating). Welp, hope you had fun. `);}
+if (0 < aprilbools && aprilbools < 9) {
+if (aprilbools == 2 || window.location.href.toLowerCase().indexOf("initial") > -1) {$('#liveupdate-title').text(`Congrats on getting this special april fools thing. This one is a puzzle, and you will put your answers in the URL. To start, add ?start to the end of the URL, and load the page.`);$('#liveupdate-title').css('background', 'lightblue');}if(window.location.href.toLowerCase().indexOf("?") > -1 && window.location.href.toLowerCase().indexOf("initial") == -1) {$('#liveupdate-title').text(`Incorrect. Go back. (If you do not know what this is, add "?initial" to the URL.)`);}if(window.location.href.toLowerCase().indexOf("start") > -1) {$('#liveupdate-title').text(`Congrats on reaching LEVEL 1. To get to level 2... what was the last name of the first president of the US? Replace the word "start" in the URL with your answer.`);}if(window.location.href.toLowerCase().indexOf("washington") > -1) {$('#liveupdate-title').text(`You have reached LEVEL 2. Next question... in 2013, Team Orangered defeated Team _____?`);}if(window.location.href.toLowerCase().indexOf("periwinkle") > -1) {$('#liveupdate-title').text(`LEVEL 3. Who was the first admin to count in this thread?`);}if(window.location.href.toLowerCase().indexOf("alienth") > -1) {$('#liveupdate-title').text(`LEVEL 4. What is the word for the sore feeling you get in your left pinkie following the excessive use of the "ctrl" key?`);}if(window.location.href.toLowerCase().indexOf("hyptoheicla") > -1) {$('#liveupdate-title').text(`LEVEL 5!!! What was the name of the account that /u/NobodyL0vesMe ran with in his fastest run, a 5:11?`);}if(window.location.href.toLowerCase().indexOf("endcountingdrama2019") > -1) {$('#liveupdate-title').text(`LEVEL 6. Fill in the blank: ________ FOUND ON MARS. Hint: You need to put a space in your answer.`);}if(window.location.href.toLowerCase().indexOf("despacito%202") > -1) {$('#liveupdate-title').text(`LEVEL ?. Type out what the NEXT level is.`);}if(window.location.href.toLowerCase().indexOf("eight") > -1) {$('#liveupdate-title').text(`LEVEL 8. What is the name of the website that noduorg is from?`);}if(window.location.href.toLowerCase().indexOf("thestudentroom") > -1) {$('#liveupdate-title').text(`LEVEL 9. For every speed record after sub-10 was reached, /u/davidjl123 has been a part of each of them, except one. Who did /u/Tranquilsunrise run with to achieve a record 8:20?`);}if(window.location.href.toLowerCase().indexOf("gordonpt8") > -1) {$('#liveupdate-title').text(`LEVEL 10. Who was the first user to get a 1 second reply in /r/counting?`);}if(window.location.href.toLowerCase().indexOf("morallygray") > -1) {$('#liveupdate-title').text(`LEVEL 11. Which counter was the FIRST to include the phrase "not found" when posting a 404?`);}if(window.location.href.toLowerCase().indexOf("rschaosid") > -1) {$('#liveupdate-title').text(`LEVEL 12. Who does dominodan describe as "an iconic pre-revival LC counter who we know next to nothing about and used to use passing in HoC as a sort of coming-of-age"?`);}if(window.location.href.toLowerCase().indexOf("grunf") > -1) {$('#liveupdate-title').text(`LEVEL 13. What month did the first tie for most counts in a day happen?`);}if(window.location.href.toLowerCase().indexOf("june") > -1) {$('#liveupdate-title').text(`LEVEL 14. 01010111 01101000 01100001 01110100 00100000 01100010 01100001 01100011 01101111 01101110 01110011 00100000 01100001 01110100 00100000 01101101 01101001 01100100 01101110 01101001 01100111 01101000 01110100 00111111`);}if(window.location.href.toLowerCase().indexOf("narwhal") > -1) {$('#liveupdate-title').text(`LEVEL 15. Who won separator week? This answer also has a space in it. `);}if(window.location.href.toLowerCase().indexOf("team%20comma") > -1) {$('#liveupdate-title').text(`LEVEL 16. VGhpcyBpcyBiYXNlIDY0LiBUaGlzIHdlYnNpdGUgbWlnaHQgYmUgdXNlZnVsIGZvciB5b3U6IGh0dHA6Ly9ydW1raW4uY29tL3Rvb2xzL2NpcGhlci9jYWVzYXIta2V5ZWQucGhwCgpBbnl3YXksIHRvIGdldCB0byBsZXZlbCAxNywgZ28gdG8gdGhhdCB3ZWJzaXRlIGFuZCBlbnRlciAibGl2ZWNvdW50aW5nIiBhcyB0aGUga2V5LiBUaGVuLCBpbiB0aGUgYm94LCBlbnRlciB0aGUgdXNlcm5hbWUgKG5vIC91Lykgb2YgRWxsZW4gUGFvJ3MgcmVkZGl0IGFjY291bnQuIA==`);}if(window.location.href.toLowerCase().indexOf("cagj") > -1) {$('#liveupdate-title').text(`LEVEL 17. cagj. Vhmmcvq. To yhr lmc mcletfu qntp, uhhe ghi. Haly, qnc fcxq lfpwcm wtbb grpq ic fhmdlb qcxq. Wnlq ohhe tp /r/EH_R_CSF_PJLUNCQQT oldhrp ohm clqtfu?`);}if(window.location.href.toLowerCase().indexOf("rice") > -1) {$('#liveupdate-title').text(`LEVEL 18. You've almost made it. I'm trying to make the final question more obscure. This one is from a historic reddit comment. Thirteen years from now, what will be the first name of the first draft pick in the NFL?`);}if(window.location.href.toLowerCase().indexOf("streetlamp") > -1) {$('#liveupdate-title').text(`LEVEL 19. Congratulations, you've finished this puzzle. I don't know if anyone will actually finish this (with or without cheating). Welp, hope you had fun. `);}
 }
 /////////////////////april fools 2
 
 
 
 /////////////////////april fools 3
-if (aprilfools == 3) {
+if (aprilbools == 3) {
 var animationLength = 20000; //ms
 
 var counter = 7,
@@ -4199,7 +4199,7 @@ animate();
 
 /////////////////////april fools 4
 
-if (aprilfools == 4) {
+if (aprilbools == 4) {
 
 if (window.jQuery != 'undefined'){
 	/*!
@@ -6123,7 +6123,7 @@ $("textarea").each(function() {
 
 /////////////////////april fools 7
 
-if (aprilfools == 7) {
+if (aprilbools == 7) {
 
 $("button.btn").text("Sorry pika...");
 
@@ -6135,7 +6135,7 @@ $("button.btn").delay(10000).hide(2500);
 
 ///////////////april fools 8
 
-if (aprilfools == 8) {
+if (aprilbools == 8) {
 
 Styles.add(`.deadupdate {background:#eee;}`);
 
@@ -6491,7 +6491,7 @@ userColors.LC_Chats = 'white';
     }
 
 /////////////april fools 1
-if (aprilfools == 1) {
+if (aprilbools == 1) {
     var namecolors = ['untidy', 'hapless', 'greasy', 'learned', 'seemly', 'halting', 'envious', 'jobless', 'whole', 'high', 'thundering', 'dull', 'scintillating', 'violet', 'friendly', 'vivacious', 'flat', 'crazy', 'quarrelsome', 'worried', 'receptive', 'pleasant', 'secretive', 'comfortable', 'truculent', 'messy', 'obsolete', 'astonishing', 'fertile', 'slow', 'luxuriant', 'heartbreaking', 'foolish', 'torpid', 'sedate', 'famous', 'prickly', 'spiritual', 'normal', 'better', 'draconian', 'curious', 'rhetorical', 'periodic', 'chemical', 'quickest', 'cloistered', 'jumpy', 'last', 'obsequious', 'subsequent', 'plain', 'hateful', 'super', 'demonic', 'rural', 'automatic', 'damp', 'imminent', 'bloody', 'languid', 'cautious', 'old', 'hysterical', 'alcoholic', 'steady', 'open', 'alive', 'glib', 'unruly', 'two', 'bad', 'harmonious', 'long-term', 'many', 'unique', 'angry', 'noiseless', 'five', 'young', 'vagabond', 'standing', 'inquisitive', 'berserk', 'meaty', 'mountainous', 'funny', 'beautiful', 'tricky', 'obtainable', 'sore', 'enchanted', 'hollow', 'zealous', 'enthusiastic', 'straight', 'colorful', 'ill-informed', 'breakable', 'uninterested', 'grandiose', 'nifty', 'unhealthy', 'bored', 'impolite', 'disastrous', 'sad', 'billowy', 'neighborly', 'lazy', 'aquatic', 'lean', 'addicted', 'adhesive', 'eager', 'drunk', 'early', 'faint', 'rambunctious', 'exuberant', 'adventurous', 'nervous', 'needless', 'wandering', 'dysfunctional', 'weary', 'broken', 'daffy', 'loose', 'nutritious', 'shrill', 'ajar', 'jumbled', 'busy', 'honorable', 'accurate', 'wakeful', 'disturbed', 'infamous', 'groovy', 'ambiguous', 'humdrum', 'psychotic', 'tightfisted', 'abandoned', 'dependent', 'fantastic', 'overwrought', 'measly', 'verdant', 'tested', 'undesirable', 'smiling', 'dazzling', 'overrated', 'tense', 'invincible', 'true', 'well-to-do', 'common', 'quaint', 'level', 'impossible', 'lively', 'mammoth', 'sticky', 'pretty', 'earsplitting', 'abaft', 'far-flung', 'eatable', 'rare', 'venomous', 'ignorant', 'gaudy', 'dapper', 'jaded', 'puny', 'doubtful', 'reflective', 'unwritten', 'recondite', 'pumped', 'foregoing', 'purple', 'majestic', 'satisfying', 'upset', 'available', 'oceanic', 'nauseating', 'perpetual', 'habitual', 'oval', 'next', 'public', 'late', 'tearful', 'snotty', 'wrathful', 'uptight', 'greedy', 'ruthless', 'wiggly', 'amazing', 'hulking', 'grumpy', 'oafish', 'literate', 'square', 'nimble', 'neat', 'puffy', 'capricious', 'obese', 'aware', 'round', 'complex', 'bashful', 'gleaming', 'uttermost', 'remarkable', 'glossy', 'caring', 'symptomatic', 'spiky', 'ultra', 'pink', 'futuristic', 'gigantic', 'helpful', 'hushed', 'odd', 'illustrious', 'fresh', 'nappy', 'actually', 'warm', 'thinkable', 'acceptable', 'tan', 'quixotic', 'furry', 'clumsy', 'extra-large', 'depressed', 'hard', 'sloppy', 'great', 'tense', 'debonair', 'flaky', 'delirious', 'homely', 'exotic', 'healthy', 'abrupt', 'exciting', 'fortunate', 'four', 'tawdry', 'materialistic', 'silly', 'nice', 'closed', 'efficient', 'tiny', 'heady', 'confused', 'faithful', 'sweet', 'freezing', 'quiet', 'imaginary', 'moaning', 'easy', 'jittery', 'knowledgeable', 'garrulous', 'lackadaisical', 'resonant', 'entertaining', 'few', 'glistening', 'painful', 'didactic', 'apathetic', 'unbiased', 'ten', 'fair', 'wise', 'fumbling', 'unusual', 'screeching', 'dry', 'lovely', 'frightened', 'mixed', 'slimy', 'flippant', 'red', 'proud', 'complete', 'earthy', 'blue-eyed', 'grotesque', 'efficacious', 'upbeat', 'mature', 'burly', 'extra-small', 'regular', 'roomy', 'high-pitched', 'warlike', 'disagreeable', 'robust', 'craven', 'six', 'frail', 'guiltless', 'fast', 'violent', 'incompetent', 'frightening', 'peaceful', 'far', 'handsome', 'tremendous', 'blushing', 'cultured', 'parsimonious', 'nondescript', 'third', 'lacking', 'threatening', 'expensive', 'annoying', 'parched', 'careless', 'nonstop', 'energetic', 'noisy', 'spotty', 'idiotic', 'acoustic', 'succinct', 'stale', 'tough', 'ritzy', 'organic', 'delicious', 'coherent', 'aboard', 'wide-eyed', 'boiling', 'electric', 'skillful', 'irritating', 'woebegone', 'lewd', 'faded', 'tenuous', 'narrow', 'previous', 'white', 'responsible', 'uneven', 'paltry', 'sleepy', 'volatile', 'scrawny', 'overjoyed', 'wretched', 'afraid', 'gifted', 'numberless', 'tame', 'military', 'profuse', 'sordid', 'cuddly', 'supreme', 'left', 'omniscient', 'scared', 'thoughtful', 'picayune', 'highfalutin', 'ossified', 'three', 'trashy', 'grouchy', 'piquant', 'likeable', 'fierce', 'vulgar', 'disgusted', 'curvy', 'cooperative', 'courageous', 'ancient', 'powerful', 'tidy', 'shallow', 'vast', 'cut', 'melted', 'scary', 'well-groomed', 'tasty', 'polite', 'cheerful', 'festive', 'enormous', 'waggish', 'ceaseless', 'damaged', 'deranged', 'utter', 'jagged', 'imported', 'thirsty', 'little', 'daily', 'natural', 'unnatural', 'dead', 'material', 'voiceless', 'salty', 'ambitious', 'educated', 'crooked', 'past', 'cooing', 'woozy', 'mindless', 'coordinated', 'knowing', 'incredible', 'spurious', 'mushy', 'painstaking', 'rabid', 'one', 'scandalous', 'cold', 'itchy', 'abundant', 'hellish', 'shaky', 'absent', 'combative', 'political', 'zany', 'breezy', 'hesitant', 'unadvised', 'damaging', 'spotted', 'lively', 'wacky', 'distinct', 'zippy', 'tight', 'mean', 'descriptive', 'evasive', 'gabby', 'necessary', 'zonked', 'tranquil', 'sharp', 'eight', 'elated', 'juvenile', 'second', 'slim', 'unequaled', 'nippy', 'squalid', 'grubby', 'cumbersome', 'lyrical', 'labored', 'silent', 'temporary', 'private', 'kindhearted', 'impartial', 'fabulous', 'hot', 'graceful', 'romantic', 'weak', 'internal', 'shut', 'outrageous', 'broad', 'bawdy', 'pathetic', 'abiding', 'agreeable', 'living', 'bright', 'gaping', 'dreary', 'icy', 'productive', 'kaput', 'bustling', 'charming', 'useful', 'awesome', 'filthy', 'small', 'near', 'abounding', 'able', 'unsightly', 'sore', 'precious', 'gullible', 'well-off', 'intelligent', 'orange', 'mellow', 'green', 'cloudy', 'domineering', 'numerous', 'tedious', 'plucky', 'big', 'callous', 'mysterious', 'optimal', 'heavenly', 'teeny', 'real', 'low', 'thick', 'defective', 'befitting', 'ordinary', 'wooden', 'decisive', 'milky', 'chilly', 'tacit', 'incandescent', 'dashing', 'sneaky', 'womanly', 'ready', 'limping', 'average', 'abusive', 'superb', 'stingy', 'fearful', 'petite', 'acrid', 'chubby', 'sassy', 'willing', 'nonchalant', 'unarmed', 'empty', 'animated', 'petite', 'thin', 'juicy', 'ablaze', 'makeshift', 'terrible', 'full', 'husky', 'historical', 'sulky', 'clear', 'youthful', 'heavy', 'hallowed', 'whispering', 'black', 'pointless', 'abstracted', 'tangible', 'hungry', 'inexpensive', 'careful', 'motionless', 'defeated', 'defiant', 'wary', 'brainy', 'illegal', 'perfect', 'toothsome', 'phobic', 'puzzled', 'tender', 'savory', 'uppity', 'physical', 'naughty', 'acidic', 'gray', 'smooth', 'wasteful', 'flimsy', 'teeny-tiny', 'tangy', 'decorous', 'overt', 'sophisticated', 'amusing', 'solid', 'nebulous', 'endurable', 'dispensable', 'colossal', 'separate', 'stormy', 'nine', 'divergent', 'fluffy', 'malicious', 'large', 'flowery', 'hanging', 'yielding', 'general', 'amused', 'fascinated', 'righteous', 'secret', 'yummy', 'aback', 'bouncy', 'different', 'various', 'embarrassed', 'fancy', 'guarded', 'classy', 'marvelous', 'null', 'frequent', 'alike', 'guttural', 'fine', 'wanting', 'obscene', 'stimulating', 'glamorous', 'onerous', 'bright', 'sturdy', 'royal', 'superficial', 'loud', 'quirky', 'soggy', 'agonizing', 'dizzy', 'minor', 'noxious', 'dirty', 'unknown', 'swift', 'trite', 'whimsical', 'handy', 'kind', 'nostalgic', 'disgusting', 'exclusive', 'overconfident', 'absurd', 'ripe', 'cute', 'worthless', 'ratty', 'muddled', 'selfish', 'fluttering', 'half', 'truthful', 'harsh', 'jazzy', 'blue', 'madly', 'roasted', 'present', 'brief', 'rough', 'relieved', 'squealing', 'ugly', 'aboriginal', 'poor', 'ruddy', 'unused', 'fanatical', 'cruel', 'gainful', 'feeble', 'stupid', 'humorous', 'black-and-white', 'attractive', 'industrious', 'somber', 'old-fashioned', 'melodic', 'ragged', 'enchanting', 'special', 'alert', 'permissible', 'godly', 'unsuitable', 'capable', 'like', 'utopian', 'huge', 'ashamed', 'serious', 'fixed', 'even', 'elegant', 'strange', 'steadfast', 'quack', 'sudden', 'naive', 'sick', 'bizarre', 'crowded', 'future', 'nosy', 'grieving', 'reminiscent', 'legal', 'nasty', 'strong', 'uncovered', 'parallel', 'skinny', 'sable', 'spooky', 'pastoral', 'barbarous', 'quizzical', 'lowly', 'fallacious', 'lethal', 'vengeful', 'fearless', 'dear', 'magenta', 'belligerent', 'sweltering', 'abashed', 'cagey', 'deadpan', 'accessible', 'unaccountable', 'smart', 'lucky', 'male', 'longing', 'lavish', 'spicy', 'rigid', 'right', 'foamy', 'fat', 'imperfect', 'chief', 'gusty', 'useless', 'shaggy', 'dramatic', 'questionable', 'macabre', 'wet', 'curved', 'elastic', 'selective', 'rotten', 'adjoining', 'shivering', 'wild', 'soft', 'awful', 'handsomely', 'boring', 'interesting', 'spectacular', 'wide', 'simple', 'clammy', 'best', 'abortive', 'squeamish', 'creepy', 'silky', 'dusty', 'jolly', 'free', 'protective', 'clever', 'tiresome', 'crabby', 'steep', 'boorish', 'curly', 'panicky', 'stupendous', 'simplistic', 'tired', 'safe', 'wiry', 'childlike', 'medical', 'raspy', 'cynical', 'ethereal', 'vague', 'same', 'elfin', 'marked', 'excited', 'vigorous', 'homeless', 'poised', 'delightful', 'mere', 'magnificent', 'hospitable', 'unwieldy', 'cute', 'abhorrent', 'insidious', 'rainy', 'rude', 'wicked', 'chivalrous', 'helpless', 'joyous', 'light', 'obeisant', 'discreet', 'cool', 'psychedelic', 'anxious', 'voracious', 'calculating', 'economic', 'immense', 'knotty', 'macho', 'shiny', 'thankful', 'tasteful', 'icky', 'axiomatic', 'fuzzy', 'snobbish', 'annoyed', 'gorgeous', 'exultant', 'used', 'waiting', 'unkempt', 'evanescent', 'possessive', 'brave', 'rich', 'hypnotic', 'obnoxious', 'mute', 'understood', 'maddening', 'ludicrous', 'miscreant', 'moldy', 'rightful', 'absorbed', 'keen', 'massive', 'subdued', 'offbeat', 'drab', 'shy', 'bitter', 'talented', 'successful', 'premium', 'fragile', 'aggressive', 'watery', 'grey', 'cowardly', 'aloof', 'fretful', 'ad hoc', 'staking', 'miniature', 'flawless', 'gruesome', 'therapeutic', 'silent', 'splendid', 'cheap', 'deeply', 'good', 'nutty', 'wry', 'deep', 'thoughtless', 'diligent', 'plastic', 'disillusioned', 'vacuous', 'brash', 'troubled', 'lumpy', 'wistful', 'lying', 'married', 'typical', 'sour', 'instinctive', 'lame', 'adorable', 'opposite', 'unequal', 'murky', 'pricey', 'boundless', 'functional', 'brown', 'accidental', 'probable', 'deserted', 'ill', 'frantic', 'inconclusive', 'abnormal', 'second-hand', 'loving', 'happy', 'changeable', 'calm', 'synonymous', 'obedient', 'ubiquitous', 'scientific', 'ill-fated', 'giant', 'unbecoming', 'terrific', 'quick', 'slippery', 'dark', 'wealthy', 'cluttered', 'valuable', 'difficult', 'gamy', 'short', 'kindly', 'statuesque', 'mundane', 'rampant', 'outstanding', 'devilish', 'dynamic', 'loutish', 'bumpy', 'familiar', 'lonely', 'spiffy', 'panoramic', 'mighty', 'direful', 'equable', 'racial', 'grateful', 'flagrant', 'plausible', 'goofy', 'momentous', 'merciful', 'repulsive'];
     for (var i = namecolors.length - 1; i > 0; i--) {
         // use Durstenfeld shuffle algorithm on colors array
@@ -6576,7 +6576,7 @@ function chu_inc1(){
 
 
 /////////////april fools 1
-if (aprilfools == 1) {
+if (aprilbools == 1) {
     var currentNameColor = 0;
     var ranName = {
 'lol': 'lol',
@@ -6638,7 +6638,7 @@ data.body_elem.html(`<span class="ignoredpost" style="font-size: 0px;">`+entirep
 
 
 /////////////april fools 1
-if (aprilfools == 1) {
+if (aprilbools == 1) {
         if (!ranName.hasOwnProperty(data.author)) {
             ranName[data.author] = namecolors[currentNameColor];
             currentNameColor++;
@@ -6660,7 +6660,7 @@ if (aprilfools == 1) {
 
 /////////////////////april fools 6
 
-if (aprilfools == 6) {
+if (aprilbools == 6) {
 var entirepost = data.body_elem.text();
 entirepost = entirepost.replace(/a/gi, '⠁');
 entirepost = entirepost.replace(/b/gi, '⠃');
@@ -6805,7 +6805,7 @@ var DisplayMode;
         }
     });
 /////////////////APRIL FOOLS 5
-if (aprilfools == 5) {
+if (aprilbools == 5) {
     Elements.$body.attr('data-DisplayMode', 'Super Minimal');
 $returnBtn.css('display', 'block');
 }
