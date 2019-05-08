@@ -14,6 +14,26 @@ var aprilbools2 = false;
 var foolsprob;
 var foolsprobt;
 
+if(window.location.href.indexOf("10gelxprc1umi") > -1) { 
+
+$( "#liveupdate-statusbar" ).css("padding","0").css("border","0").css("height","30px").css("overflow","hidden");
+
+$( ".viewer-count" ).parent().html(`<canvas id="viewport" width="480" height="30"></canvas>`);
+
+
+   var canvas = document.getElementById("viewport"); 
+    var context = canvas.getContext("2d");
+ 
+    // Define the image dimensions
+    var width = canvas.width;
+    var height = canvas.height;
+ 
+    // Create an ImageData object
+    var imagedata = context.createImageData(width, height);
+
+}
+
+
 var specialnumber = 0;
 var kname1 = '';
 var kname2 = '';
@@ -6601,6 +6621,52 @@ if (aprilbools == 1) {
     // EVENTS
     // New update loaded
     Update.loadedNew(function (data) {
+	    
+	    
+if(window.location.href.indexOf("10gelxprc1umi") > -1) { 
+
+var entirepost = data.body_elem.text();
+
+//OK So here's the format: [xxx,xx,xxx,xx,xxxxxx]
+// It's [X position, Y position, width, height, color]
+
+
+entirepost = entirepost.split(" ").join("\n");
+entirepost = entirepost.split("[").join("\n[");
+entirepost = entirepost.split("]").join("]\n");
+entirepost = entirepost.replace(/^(?!.*\[.{3},.{2},.{3},.{2},.{6}\]).*$/gm, ``);
+entirepost = entirepost.split("\n").join("");
+if (entirepost.length > 0) {
+var place1 = entirepost;
+var place2 = entirepost;
+var place3 = entirepost;
+var place4 = entirepost;
+var place5 = entirepost;
+var place1 = place1.replace(/,.{2},.{3},.{2},.{6}\]/gm, ``);
+place1 = place1.replace(/\[/gm, ``);
+var place2 = place2.replace(/,.{3},.{2},.{6}\]/gm, ``);
+place2 = place2.replace(/\[.{3},/gm, ``);
+var place3 = place3.replace(/,.{2},.{6}\]/gm, ``);
+place3 = place3.replace(/\[.{3},.{2},/gm, ``);
+var place4 = place4.replace(/,.{6}\]/gm, ``);
+place4 = place4.replace(/\[.{3},.{2},.{3},/gm, ``);
+var place5 = place5.replace(/\[.{3},.{2},.{3},.{2},/gm, ``);
+place5 = place5.replace(/\]/gm, ``);
+
+//var hmm = `context.fillRect(50,50,5,5,60,41,91);`;
+
+//hmm;
+
+data.body_elem.html(`<span>`+place5+`</span>`);
+
+var lolzo = context.fillStyle = "#"+place5;
+ var lolzo = context.fillRect(place1,place2,place3,place4);
+
+
+}
+
+    }
+	    
         if (!enabled)
             return;
         // Special usernames (temp rewards for top in 100k HoC, or other contributions)
