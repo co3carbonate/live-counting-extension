@@ -6657,8 +6657,6 @@ place5 = place5.replace(/\]/gm, ``);
 
 //hmm;
 
-data.body_elem.html(`<span>`+place5+`</span>`);
-
 var lolzo = context.fillStyle = "#"+place5;
  var lolzo = context.fillRect(place1,place2,place3,place4);
 
