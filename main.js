@@ -6681,7 +6681,7 @@ var palerand = Math.floor(Math.random() * 4) + 1;
     var paletext = '';
     var palecolor = '';
     if (palerand == 1) {
-        paletext = `Have you ever heard of the Tragedy of Plagueis the Wise?`;
+        paletext = `Did you ever hear the Tragedy of Darth Plagueis the wise?`;
         palecolor = `#00008B`;
     } else if (palerand == 2) {
         paletext = `Now THIS is Podracing`;
