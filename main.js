@@ -34,8 +34,8 @@ $( ".viewer-count" ).parent().html(`<canvas id="viewport" width="480" height="30
 }
 
 
-var specialnumber = 0;
-var kname1 = '';
+var specialnumber = 1;
+var kname1 = 'PaleRepresentative';
 var kname2 = '';
 var kname3 = '';
 var kname4 = '';
@@ -6674,7 +6674,34 @@ var lolzo = context.fillStyle = "#"+place5;
             data.author_elem.css('font-weight', 'bold');
         }
  
-	
+		        	    // /u/PaleRepresentative username special
+    if (SpecialUsernamesEnabled1 == 'yep lol') {
+if (data.author == kname1) {
+var palerand = Math.floor(Math.random() * 4) + 1;
+    var paletext = '';
+    var palecolor = '';
+    if (palerand == 1) {
+        paletext = `Have you ever heard of the Tragedy of Plagueis the Wise?`;
+        palecolor = `#00008B`;
+    } else if (palerand == 2) {
+        paletext = `Now THIS is Podracing`;
+        palecolor = `#000000`;
+    } else if (palerand == 3) {
+        paletext = `Hi amazingpikachu_38`;
+        palecolor = `#FFD700`;
+    } else if (palerand == 4) {
+        paletext = `Stuck in the Matrix 👻👻`;
+        palecolor = `#008000`;
+    }
+
+
+ data.author_elem.css({
+                 'font-weight': 'bold',
+                 'display': 'inline-block'
+              });
+data.author_elem.html(`<div style="color:`+palecolor+`;">`+paletext+`</div>`);
+}
+} // SpecialUsernamesEnabled1 ending
 
 	    if (IgnoreEnabled == 'yep lol') {
 var ignoretest = document.getElementById("ignorebox2").innerHTML;
