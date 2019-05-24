@@ -7319,13 +7319,17 @@ var TeamBarsEnabled;
             var hmmyy;
             var checky;
             var checky2;
+            var first_call = true;
 
             day_hoc_handler = function (data) {
                 hmmyy = data["hoc"];
                 checky = data["hoc"];
-
-                $(`<div id=wholetable><table id=loadtest><caption id=dailyenabler>Daily Hall of Counters [+]</caption><tr id="tablenames"><td>#</td><td>User</td><td>Counts</td></tr></table></div>`).insertBefore("#liveupdate-resources .md");
-
+                if (first_call){
+                    $(`<div id=wholetable><table id=loadtest><caption id=dailyenabler>Daily Hall of Counters [+]</caption><tr id="tablenames"><td>#</td><td>User</td><td>Counts</td></tr></table></div>`).insertBefore("#liveupdate-resources .md");
+                    first_call = false;
+                } else {
+                    $(`#wholetable`).html(`<table id=loadtest><caption id=dailyenabler>Daily Hall of Counters [+]</caption><tr id="tablenames"><td>#</td><td>User</td><td>Counts</td></tr></table>`);
+                }
                 function getTableRow(item, index) {
                     let res = "<tr style='font-size:inherit;'";
                     if (index >= 3){
