@@ -59,6 +59,7 @@ var danr = 0;
 var dailysize = 0;
 var dailysizereal = '90px';
 var tablenumba = 1;
+var colortransfers = [];
 var maybenumbers = {
     "001":"/u/rschaosid",
     "008":"/u/gordonpt8",
@@ -6501,6 +6502,7 @@ var ColoredUsernames;
 	if (USER == 'VitaminB16') {
 userColors.LC_Chats = 'white';
 }
+    colortransfers = userColors;
     // Possible colors for other users
     var colors = ['Blue', 'Coral', 'DodgerBlue', 'SpringGreen', 'YellowGreen', 'Green', 'OrangeRed', 'Red', 'GoldenRod', 'CadetBlue', 'SeaGreen', 'Chocolate', 'BlueViolet', 'Firebrick'];
     for (var i = colors.length - 1; i > 0; i--) {
@@ -7298,240 +7300,301 @@ var checky;
 var checky2;
 $.ajax({
         method: 'GET',
-        dataType: 'text',
+        dataType: 'json',
         cache: false,
         url: 'https://raw.githubusercontent.com/MaybeNotWrong/lc-sep/master/data.txt',
         success: function(data) {
-//checky = `<div id="commacount"></div><div id="noncommacount"></div>`;
-hmmyy = data;
-checky2 = data;
-checky2 = checky2.replace(/null/g, `""`);
-checky2 = checky2.replace(`{"hoc": [`, ``);
-checky2 = checky2.replace(/{"author": "/g, ``);
-checky2 = checky2.replace(/", "counts": /g, ``);
-checky2 = checky2.replace(/{"author": /g, ``);
-checky2 = checky2.replace(/, "counts": /g, ``);
-checky2 = checky2.replace(/}, /g, ``);
-checky2 = checky2.replace(`}]}`, ``);
-checky2 = checky2.replace(`]}`, ``);
-checky2 = checky2.replace(/[A-Za-z]/g, ``);
-checky2 = checky2.replace(/[-]/g, ``);
-checky2 = checky2.replace(/[_]/g, ``);
-checky2 = checky2.replace(/[0-9]+/g, '');
-
-if (checky2.length > 0) {
-alert('Something has gone wrong in the verification of the data. Please PM /u/rideride. To stop showing this message, disable the option for now until it is fixed');
-} else {
-// For this you need to add another } before the error
-
-//$(`<div id=loadtest></div><table id="dailyhoctable"><tr><th>Firstname</th><th>Lastname</th><th>Age</th></tr><tr><td>Jill</td><td>Smith</td><td>50</td></tr><tr><td>Eve</td><td>Jackson</td><td>94</td></tr><tr><td>John</td><td>Doe</td><td>80</td></tr></table>`).insertBefore("#liveupdate-description");
-$(`<div id=loadtest></div>`).insertBefore("#liveupdate-resources .md");
-	
-hmmyy = hmmyy.replace(/null/g, `""`);
-hmmyy = hmmyy.replace(`{"hoc": [`, `<div id=dailyenabler>Daily Hall of Counters [+]</div><table id="dailyhoctable"><tr id="tablenames"><td>#</td><td>User</td><td>Counts</td></tr>`);
-hmmyy = hmmyy.replace(/{"author": "/g, `<tr><td class="numba"></td><td><a class="authoro">/u/`);
-hmmyy = hmmyy.replace(/", "counts": /g, `</a></td><td>`);
-hmmyy = hmmyy.replace(/}, /g, `</td></tr>`);
-hmmyy = hmmyy.replace(`}]}`, `</td></tr></table>`);
-hmmyy = hmmyy.replace(`<tr><td class="numba"></td><td><a class="authoro">/u/`+USER, `<tr style="font-weight:bold;"><td class="numba"></td><td><a class="authoro">/u/`+USER);
-document.getElementById('loadtest').innerHTML = hmmyy;
+//            alert('ok');
+hmmyy = data["hoc"];
+checky = data["hoc"];
 
 
- $("#dailyhoctable tbody tr:nth-child(2) .numba").css({
+$(`<div id=wholetable><table id=loadtest><caption id=dailyenabler>Daily Hall of Counters [+]</caption><tr id="tablenames"><td>#</td><td>User</td><td>Counts</td></tr></table></div>`).insertBefore("#liveupdate-resources .md");
+
+            function getFullName(item) {
+  var hocname = [item.author,item.counts].join("</a></td><td>");
+  return hocname;
+}
+                        function jsonCheck(item) {
+  var hocnamd = [item.author,item.counts].join("");
+  return hocnamd;
+}
+
+
+hmmyy = hmmyy.map(getFullName);
+            checky = checky.map(jsonCheck);
+
+checky = checky.join("");
+checky = checky.replace(/[A-Za-z]/g, ``);
+checky = checky.replace(/[-]/g, ``);
+checky = checky.replace(/[_]/g, ``);
+checky = checky.replace(/[0-9]+/g, '');
+if (checky.length == 0) {
+for (var i=0; i<3; i++) {
+    var j=i+1;
+  $('#loadtest').append("<tr style='font-size:inherit;'><td>" + j + "</td><td><a class=authoro>/u/" + hmmyy[i] + "</td></tr>");
+}
+//  $('#loadtest').append("<span id=collapsedo>");
+            for (var i=3; i<hmmyy.length; i++) {
+    var j=i+1;
+  $('#loadtest').append("<tr style='font-size:inherit;' class=collapsedo><td>" + j + "</td><td><a class=authoro>/u/" + hmmyy[i] + "</td></tr>");
+}
+//              $('#loadtest').append("</span>");
+
+ //           hmmyy = hmmyy.replace(`<tr><td class="numba"></td><td><a class="authoro">/u/`+USER, `<tr style="font-weight:bold;"><td class="numba"></td><td><a class="authoro">/u/`+USER);
+
+ $("#loadtest tbody tr:nth-child(2) td:nth-child(1)").css({
 'background': 'gold',
 'color': 'black'
               });
- $("#dailyhoctable tbody tr:nth-child(3) .numba").css({
+ $("#loadtest tbody tr:nth-child(3) td:nth-child(1)").css({
 'background': 'silver',
 'color': 'black'
               });
- $("#dailyhoctable tbody tr:nth-child(4) .numba").css({
+ $("#loadtest tbody tr:nth-child(4) td:nth-child(1)").css({
 'background': '#cd7f32',
 'color': 'black'
               });
+            $("#loadtest tbody:nth-child(5)").append(`<tr><td>divide</td></tr>`);
 
-//$("#loadtest").css('display','none');
- $("#dailyhoctable").css({
+$("#loadtest").css({
 //'position': 'absolute',
 'border': '1px solid black',
 'width': '100%',
 'text-align': 'center'
               });
- $("#dailyhoctable tr td").css({
+ $("#loadtest tr td").css({
 'border': '1px solid black',
 'max-width': '223px'
               });
  $("#loadtest").css({
 'overflow': 'hidden',
-'height': dailysizereal,
-'font-size': '1em'
+'height': '100%',
+//'font-size': '1em'
               });
- $("#dailyenabler").css({
+ $("#loadtest").css({
+'color': '#000',
+'font-size': 'inherit',
+'font-weight': 'normal'
+              });
+             $("#dailyenabler").css({
 'cursor': 'pointer',
 'color': '#000',
 'font-size': '14px',
 'font-weight': 'bold',
 'margin-bottom': '3px'
               });
- $("#tablenames").css({
-'color': '#000',
-'font-size': '14px',
-'font-weight': 'bold'
+                         $("#tablenames").css({
+'font-weight': 'bold',
               });
+
+$(".authoro").each(function() {
+//    $(this).prepend(`<a href=` + $(this).text() + `>`);
+//        $(this).append(`</a>`);
+  $(this).attr("href", "https://reddit.com" + $(this).text());
+    var thishref = $(this).attr('href');
+thishref = thishref.trim().replace('https://reddit.com/u/', '');
+    $(this).css('color', colortransfers[thishref]);
+    if ($(this).text() == `/u/` + USER) {
+        $(this).parent().parent().css('font-weight','bold');
+    }
+});
+
+
+
 if (dailysize == 0) {
 document.getElementById("dailyenabler").innerHTML = "Daily Hall of Counters [+]";
+     $(".collapsedo").css({
+'display': 'none',
+              });
 } else {
 document.getElementById("dailyenabler").innerHTML = "Daily Hall of Counters [-]";
+     $(".collapsedo").css({
+'display': 'table-row',
+              });
 }
                 $("#dailyenabler").on('click', function () {
 if (dailysize == 0) {
 dailysize++;
 document.getElementById("dailyenabler").innerHTML = "Daily Hall of Counters [-]";
-dailysizereal = '100%';
- $("#loadtest").css({
-'height': dailysizereal
+ $(".collapsedo").css({
+'display': 'table-row',
               });
 } else {
 dailysize--;
 document.getElementById("dailyenabler").innerHTML = "Daily Hall of Counters [+]";
-dailysizereal = '90px';
- $("#loadtest").css({
-'height': dailysizereal
+ $(".collapsedo").css({
+'display': 'none',
               });
 }
                 });
-$(".authoro").each(function() {
-  $(this).attr("href", "https://reddit.com" + $(this).text());
-});
-$(".numba").each(function() {
-  $(this).text(tablenumba);
-tablenumba++;
-});
 
-        }},   //////this is where you put the checky bracket
+} else { //checky length check
+  $('#loadtest').append("<tr><td>Error verifying data, please PM /u/rideride</td></tr>");
+}
+
+
+
+        },   //////this is where you put the checky bracket
         error: function(data) {
-            alert('Error ' +data.status+ ' while loading Live Counting Extension: ' +data.statusText+ '\n\nPlease refresh to try again.');
+            hmmyy;
         }
     });
-setInterval(function(){ 
-var hmmyy;
+
+                setInterval(function(){
+
+                var hmmyy;
 var checky;
 var checky2;
 $.ajax({
         method: 'GET',
-        dataType: 'text',
+        dataType: 'json',
         cache: false,
         url: 'https://raw.githubusercontent.com/MaybeNotWrong/lc-sep/master/data.txt',
         success: function(data) {
-hmmyy = data;
-checky2 = data;
-checky2 = checky2.replace(/null/g, `""`);
-checky2 = checky2.replace(`{"hoc": [`, ``);
-checky2 = checky2.replace(/{"author": "/g, ``);
-checky2 = checky2.replace(/", "counts": /g, ``);
-checky2 = checky2.replace(/{"author": /g, ``);
-checky2 = checky2.replace(/, "counts": /g, ``);
-checky2 = checky2.replace(/}, /g, ``);
-checky2 = checky2.replace(`}]}`, ``);
-checky2 = checky2.replace(`]}`, ``);
-checky2 = checky2.replace(/[A-Za-z]/g, ``);
-checky2 = checky2.replace(/[-]/g, ``);
-checky2 = checky2.replace(/[_]/g, ``);
-checky2 = checky2.replace(/[0-9]+/g, '');
+//            alert('ok');
+hmmyy = data["hoc"];
+checky = data["hoc"];
 
-if (checky2.length > 0) {
-alert('Something has gone wrong in the verification of the data. Please PM /u/rideride. To stop showing this message, disable the option for now until it is fixed');
-} else {
-// For this you need to add another } before the error
+$(`#wholetable`).html(`<table id=loadtest><caption id=dailyenabler>Daily Hall of Counters [+]</caption><tr id="tablenames"><td>#</td><td>User</td><td>Counts</td></tr></table>`);
 
-//$(`<div id=loadtest></div><table id="dailyhoctable"><tr><th>Firstname</th><th>Lastname</th><th>Age</th></tr><tr><td>Jill</td><td>Smith</td><td>50</td></tr><tr><td>Eve</td><td>Jackson</td><td>94</td></tr><tr><td>John</td><td>Doe</td><td>80</td></tr></table>`).insertBefore("#liveupdate-description");
 
-hmmyy = hmmyy.replace(/null/g, `""`);
-hmmyy = hmmyy.replace(`{"hoc": [`, `<div id=dailyenabler>Daily Hall of Counters [+]</div><table id="dailyhoctable"><tr id="tablenames"><td>#</td><td>User</td><td>Counts</td></tr>`);
-hmmyy = hmmyy.replace(/{"author": "/g, `<tr><td class="numba"></td><td><a class="authoro">/u/`);
-hmmyy = hmmyy.replace(/", "counts": /g, `</a></td><td>`);
-hmmyy = hmmyy.replace(/}, /g, `</td></tr>`);
-hmmyy = hmmyy.replace(`}]}`, `</td></tr></table>`);
-hmmyy = hmmyy.replace(`<tr><td class="numba"></td><td><a class="authoro">/u/`+USER, `<tr style="font-weight:bold;"><td class="numba"></td><td><a class="authoro">/u/`+USER);
-document.getElementById('loadtest').innerHTML = hmmyy;
- $("#dailyhoctable tbody tr:nth-child(2) .numba").css({
+            function getFullName(item) {
+  var hocname = [item.author,item.counts].join("</a></td><td>");
+  return hocname;
+}
+                        function jsonCheck(item) {
+  var hocnamd = [item.author,item.counts].join("");
+  return hocnamd;
+}
+
+
+hmmyy = hmmyy.map(getFullName);
+            checky = checky.map(jsonCheck);
+
+
+
+checky = checky.join("");
+checky = checky.replace(/[A-Za-z]/g, ``);
+checky = checky.replace(/[-]/g, ``);
+checky = checky.replace(/[_]/g, ``);
+checky = checky.replace(/[0-9]+/g, '');
+if (checky.length == 0) {
+    for (var i=0; i<3; i++) {
+    var j=i+1;
+  $('#loadtest').append("<tr style='font-size:inherit;'><td>" + j + "</td><td><a class=authoro>/u/" + hmmyy[i] + "</td></tr>");
+}
+//  $('#loadtest').append("<span id=collapsedo>");
+            for (var i=3; i<hmmyy.length; i++) {
+    var j=i+1;
+  $('#loadtest').append("<tr style='font-size:inherit;' class=collapsedo><td>" + j + "</td><td><a class=authoro>/u/" + hmmyy[i] + "</td></tr>");
+}
+//              $('#loadtest').append("</span>");
+
+ //           hmmyy = hmmyy.replace(`<tr><td class="numba"></td><td><a class="authoro">/u/`+USER, `<tr style="font-weight:bold;"><td class="numba"></td><td><a class="authoro">/u/`+USER);
+
+ $("#loadtest tbody tr:nth-child(2) td:nth-child(1)").css({
 'background': 'gold',
 'color': 'black'
               });
- $("#dailyhoctable tbody tr:nth-child(3) .numba").css({
+ $("#loadtest tbody tr:nth-child(3) td:nth-child(1)").css({
 'background': 'silver',
 'color': 'black'
               });
- $("#dailyhoctable tbody tr:nth-child(4) .numba").css({
+ $("#loadtest tbody tr:nth-child(4) td:nth-child(1)").css({
 'background': '#cd7f32',
 'color': 'black'
               });
+            $("#loadtest tbody:nth-child(5)").append(`<tr><td>divide</td></tr>`);
 
-//$("#loadtest").css('display','none');
- $("#dailyhoctable").css({
+$("#loadtest").css({
 //'position': 'absolute',
 'border': '1px solid black',
 'width': '100%',
 'text-align': 'center'
               });
- $("#dailyhoctable tr td").css({
+ $("#loadtest tr td").css({
 'border': '1px solid black',
 'max-width': '223px'
               });
  $("#loadtest").css({
 'overflow': 'hidden',
-'height': dailysizereal,
-'font-size': '1em'
+'height': '100%',
+//'font-size': '1em'
               });
- $("#dailyenabler").css({
+ $("#loadtest").css({
+'color': '#000',
+'font-size': 'inherit',
+'font-weight': 'normal'
+              });
+             $("#dailyenabler").css({
 'cursor': 'pointer',
 'color': '#000',
 'font-size': '14px',
 'font-weight': 'bold',
 'margin-bottom': '3px'
               });
- $("#tablenames").css({
-'color': '#000',
-'font-size': '14px',
-'font-weight': 'bold'
+                         $("#tablenames").css({
+'font-weight': 'bold',
               });
+
+$(".authoro").each(function() {
+//    $(this).prepend(`<a href=` + $(this).text() + `>`);
+//        $(this).append(`</a>`);
+  $(this).attr("href", "https://reddit.com" + $(this).text());
+    var thishref = $(this).attr('href');
+thishref = thishref.trim().replace('https://reddit.com/u/', '');
+    $(this).css('color', colortransfers[thishref]);
+    if ($(this).text() == `/u/` + USER) {
+        $(this).parent().parent().css('font-weight','bold');
+    }
+});
+
 if (dailysize == 0) {
 document.getElementById("dailyenabler").innerHTML = "Daily Hall of Counters [+]";
+     $(".collapsedo").css({
+'display': 'none',
+              });
 } else {
 document.getElementById("dailyenabler").innerHTML = "Daily Hall of Counters [-]";
+     $(".collapsedo").css({
+'display': 'table-row',
+              });
 }
                 $("#dailyenabler").on('click', function () {
 if (dailysize == 0) {
 dailysize++;
 document.getElementById("dailyenabler").innerHTML = "Daily Hall of Counters [-]";
-dailysizereal = '100%';
- $("#loadtest").css({
-'height': dailysizereal
+ $(".collapsedo").css({
+'display': 'table-row',
               });
 } else {
 dailysize--;
 document.getElementById("dailyenabler").innerHTML = "Daily Hall of Counters [+]";
-dailysizereal = '90px';
- $("#loadtest").css({
-'height': dailysizereal
+ $(".collapsedo").css({
+'display': 'none',
               });
 }
                 });
-$(".authoro").each(function() {
-  $(this).attr("href", "https://reddit.com" + $(this).text());
-});
-tablenumba = 1;
-$(".numba").each(function() {
-  $(this).text(tablenumba);
-tablenumba++;
-});
-// Same thing with the another } before error
-}},
+
+
+//    document.getElementById('loadtest').innerHTML = hmmyy;
+
+
+} else { //checky length check
+  $('#loadtest').append("<tr><td>Error verifying data, please PM /u/rideride</td></tr>");
+}
+
+
+
+        },   //////this is where you put the checky bracket
         error: function(data) {
-            alert('Error ' +data.status+ ' while loading Live Counting Extension: ' +data.statusText+ '\n\nPlease refresh to try again.');
+hmmyy;
         }
     });
-}, 60500);
+
+}, 15000);
+
 //document.getElementById("team1").style.cssText = 'background:#0000cf;color:white;z-index: 99999;min-width: 14px;max-width: 14px;height: 14px;line-height: 14px;border-radius: 14px;border: none;overflow: hidden;padding: 0;vertical-align: middle;font-size: 11px !important;position: relative;text-indent: 12px;-webkit-transition: all 0.3s;transition: all 0.3s;-webkit-transition-delay: 0.1s;transition-delay: 0.1s;cursor:help;';
 } //TeamBarsEnabled end
 }
