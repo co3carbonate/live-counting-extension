@@ -60,6 +60,7 @@ var dailysize = 0;
 var dailysizereal = '90px';
 var tablenumba = 1;
 var colortransfers = [];
+var dailyHocColorNamesEnable2 = true;
 var maybenumbers = {
     "001":"/u/rschaosid",
     "008":"/u/gordonpt8",
@@ -4119,6 +4120,26 @@ aprilbools2 = enableda;
 //}
 
 })(aprilboolsEnable || (aprilboolsEnable = {}));
+/////////////////////////
+// dailyHocColorNames.ts //
+/////////////////////////
+var dailyHocColorNamesEnable;
+(function (dailyHocColorNamesEnable) {
+    // INITIALIZATION
+    // Options
+    var enabledcoloryo = true;
+    Options.addCheckbox({
+        label: 'ENABLE DAILY HOC COLORED NAMES',
+        "default": true,
+        section: 'Advanced 2',
+        help: 'Enables the daily HoC colored usernames.',
+        onchange: function () {
+            enabledcoloryo = this.prop('checked');
+dailyHocColorNamesEnable2 = enabledcoloryo;
+        }
+    });
+
+})(dailyHocColorNamesEnable || (dailyHocColorNamesEnable = {}));
 
 //var aprilbools = 1;
 
@@ -7392,11 +7413,13 @@ $(".authoro").each(function() {
 //    $(this).prepend(`<a href=` + $(this).text() + `>`);
 //        $(this).append(`</a>`);
   $(this).attr("href", "https://reddit.com" + $(this).text());
+    if (dailyHocColorNamesEnable2 == true) {
     var thishref = $(this).attr('href');
 thishref = thishref.trim().replace('https://reddit.com/u/', '');
     $(this).css('color', colortransfers[thishref]);
     if ($(this).text() == `/u/` + USER) {
         $(this).parent().parent().css('font-weight','bold');
+    }
     }
 });
 
@@ -7542,11 +7565,13 @@ $(".authoro").each(function() {
 //    $(this).prepend(`<a href=` + $(this).text() + `>`);
 //        $(this).append(`</a>`);
   $(this).attr("href", "https://reddit.com" + $(this).text());
+    if (dailyHocColorNamesEnable2 == true) {
     var thishref = $(this).attr('href');
 thishref = thishref.trim().replace('https://reddit.com/u/', '');
     $(this).css('color', colortransfers[thishref]);
     if ($(this).text() == `/u/` + USER) {
         $(this).parent().parent().css('font-weight','bold');
+    }
     }
 });
 
