@@ -7307,325 +7307,177 @@ var TeamBarsEnabled;
             enabled = this.prop('checked');
         }
     });
-        if (enabled == true) {
+    if (enabled == true) {
         TeamBarsEnabled = 'yep lol';
-        } else {
+    } else {
         TeamBarsEnabled = 'nope lol';
-        }
-
-//////////////////////////////////TEAM COMMAS
-if(window.location.href.indexOf("ta535s1hq2je") > -1) {
-if (TeamBarsEnabled == 'yep lol') {
-var hmmyy;
-var checky;
-var checky2;
-$.ajax({
-        method: 'GET',
-        dataType: 'json',
-        cache: false,
-        url: 'https://raw.githubusercontent.com/MaybeNotWrong/lc-sep/master/data.txt',
-        success: function(data) {
-//            alert('ok');
-hmmyy = data["hoc"];
-checky = data["hoc"];
-
-
-$(`<div id=wholetable><table id=loadtest><caption id=dailyenabler>Daily Hall of Counters [+]</caption><tr id="tablenames"><td>#</td><td>User</td><td>Counts</td></tr></table></div>`).insertBefore("#liveupdate-resources .md");
-
-            function getFullName(item) {
-  var hocname = [item.author,item.counts].join("</a></td><td>");
-  return hocname;
-}
-                        function jsonCheck(item) {
-  var hocnamd = [item.author,item.counts].join("");
-  return hocnamd;
-}
-
-
-hmmyy = hmmyy.map(getFullName);
-            checky = checky.map(jsonCheck);
-
-checky = checky.join("");
-checky = checky.replace(/[A-Za-z]/g, ``);
-checky = checky.replace(/[-]/g, ``);
-checky = checky.replace(/[_]/g, ``);
-checky = checky.replace(/[0-9]+/g, '');
-if (checky.length == 0) {
-for (var i=0; i<3; i++) {
-    var j=i+1;
-  $('#loadtest').append("<tr style='font-size:inherit;'><td>" + j + "</td><td><a class=authoro>/u/" + hmmyy[i] + "</td></tr>");
-}
-//  $('#loadtest').append("<span id=collapsedo>");
-            for (var i=3; i<hmmyy.length; i++) {
-    var j=i+1;
-  $('#loadtest').append("<tr style='font-size:inherit;' class=collapsedo><td>" + j + "</td><td><a class=authoro>/u/" + hmmyy[i] + "</td></tr>");
-}
-//              $('#loadtest').append("</span>");
-
- //           hmmyy = hmmyy.replace(`<tr><td class="numba"></td><td><a class="authoro">/u/`+USER, `<tr style="font-weight:bold;"><td class="numba"></td><td><a class="authoro">/u/`+USER);
-
- $("#loadtest tbody tr:nth-child(2) td:nth-child(1)").css({
-'background': 'gold',
-'color': 'black'
-              });
- $("#loadtest tbody tr:nth-child(3) td:nth-child(1)").css({
-'background': 'silver',
-'color': 'black'
-              });
- $("#loadtest tbody tr:nth-child(4) td:nth-child(1)").css({
-'background': '#cd7f32',
-'color': 'black'
-              });
-            $("#loadtest tbody:nth-child(5)").append(`<tr><td>divide</td></tr>`);
-
-$("#loadtest").css({
-//'position': 'absolute',
-'border': '1px solid black',
-'width': '100%',
-'text-align': 'center'
-              });
- $("#loadtest tr td").css({
-'border': '1px solid black',
-'max-width': '223px'
-              });
- $("#loadtest").css({
-'overflow': 'hidden',
-'height': '100%',
-//'font-size': '1em'
-              });
- $("#loadtest").css({
-'color': '#000',
-'font-size': 'inherit',
-'font-weight': 'normal'
-              });
-             $("#dailyenabler").css({
-'cursor': 'pointer',
-'color': '#000',
-'font-size': '14px',
-'font-weight': 'bold',
-'margin-bottom': '3px'
-              });
-                         $("#tablenames").css({
-'font-weight': 'bold',
-              });
-
-$(".authoro").each(function() {
-//    $(this).prepend(`<a href=` + $(this).text() + `>`);
-//        $(this).append(`</a>`);
-  $(this).attr("href", "https://reddit.com" + $(this).text());
-    if (dailyHocColorNamesEnable2 == true) {
-    var thishref = $(this).attr('href');
-thishref = thishref.trim().replace('https://reddit.com/u/', '');
-    $(this).css('color', colortransfers[thishref]);
-    if ($(this).text() == `/u/` + USER) {
-        $(this).parent().parent().css('font-weight','bold');
     }
-    }
-});
 
+    //////////////////////////////////TEAM COMMAS
+    if (window.location.href.indexOf("ta535s1hq2je") > -1) {
+        if (TeamBarsEnabled == 'yep lol') {
+            var hmmyy;
+            var checky;
+            var checky2;
+            var first_call = true;
 
+            day_hoc_handler = function (data) {
+                hmmyy = data["hoc"];
+                checky = data["hoc"];
+                if (first_call){
+                    $(`<div id=wholetable><table id=loadtest><caption id=dailyenabler>Daily Hall of Counters [+]</caption><tr id="tablenames"><td>#</td><td>User</td><td>Counts</td></tr></table></div>`).insertBefore("#liveupdate-resources .md");
+                    first_call = false;
+                } else {
+                    $(`#wholetable`).html(`<table id=loadtest><caption id=dailyenabler>Daily Hall of Counters [+]</caption><tr id="tablenames"><td>#</td><td>User</td><td>Counts</td></tr></table>`);
+                }
+                function getTableRow(item, index) {
+                    let res = "<tr style='font-size:inherit;'";
+                    if (index >= 3){
+                        res += " class=collapsedo";
+                    }
+                    var hocname = [item.author, item.counts].join("</a></td><td>");
+                    res += "><td>" + (index + 1) + "</td><td><a class=authoro>/u/" + hocname + "</td></tr>";
+                    return res;
+                }
+                function jsonCheck(item) {
+                    var hocnamd = [item.author, item.counts].join("");
+                    return hocnamd;
+                }
 
-if (dailysize == 0) {
-document.getElementById("dailyenabler").innerHTML = "Daily Hall of Counters [+]";
-     $(".collapsedo").css({
-'display': 'none',
-              });
-} else {
-document.getElementById("dailyenabler").innerHTML = "Daily Hall of Counters [-]";
-     $(".collapsedo").css({
-'display': 'table-row',
-              });
-}
-                $("#dailyenabler").on('click', function () {
-if (dailysize == 0) {
-dailysize++;
-document.getElementById("dailyenabler").innerHTML = "Daily Hall of Counters [-]";
- $(".collapsedo").css({
-'display': 'table-row',
-              });
-} else {
-dailysize--;
-document.getElementById("dailyenabler").innerHTML = "Daily Hall of Counters [+]";
- $(".collapsedo").css({
-'display': 'none',
-              });
-}
-                });
+                hmmyy = hmmyy.map(getTableRow);
+                checky = checky.map(jsonCheck);
 
-} else { //checky length check
-  $('#loadtest').append("<tr><td>Error verifying data, please PM /u/rideride</td></tr>");
-}
+                checky = checky.join("");
+                checky = checky.replace(/[A-Za-z]/g, ``);
+                checky = checky.replace(/[-]/g, ``);
+                checky = checky.replace(/[_]/g, ``);
+                checky = checky.replace(/[0-9]+/g, '');
+                if (checky.length == 0) {
+                    $('#loadtest').append(hmmyy.join(""));
+                    $("#loadtest tbody tr:nth-child(2) td:nth-child(1)").css({
+                        'background': 'gold',
+                        'color': 'black'
+                    });
+                    $("#loadtest tbody tr:nth-child(3) td:nth-child(1)").css({
+                        'background': 'silver',
+                        'color': 'black'
+                    });
+                    $("#loadtest tbody tr:nth-child(4) td:nth-child(1)").css({
+                        'background': '#cd7f32',
+                        'color': 'black'
+                    });
+                    $("#loadtest tbody:nth-child(5)").append(`<tr><td>divide</td></tr>`);
 
+                    $("#loadtest").css({
+                        //'position': 'absolute',
+                        'border': '1px solid black',
+                        'width': '100%',
+                        'text-align': 'center'
+                    });
+                    $("#loadtest tr td").css({
+                        'border': '1px solid black',
+                        'max-width': '223px'
+                    });
+                    $("#loadtest").css({
+                        'overflow': 'hidden',
+                        'height': '100%',
+                        //'font-size': '1em'
+                    });
+                    $("#loadtest").css({
+                        'color': '#000',
+                        'font-size': 'inherit',
+                        'font-weight': 'normal'
+                    });
+                    $("#dailyenabler").css({
+                        'cursor': 'pointer',
+                        'color': '#000',
+                        'font-size': '14px',
+                        'font-weight': 'bold',
+                        'margin-bottom': '3px'
+                    });
+                    $("#tablenames").css({
+                        'font-weight': 'bold',
+                    });
 
+                    $(".authoro").each(function () {
+                        //    $(this).prepend(`<a href=` + $(this).text() + `>`);
+                        //        $(this).append(`</a>`);
+                        $(this).attr("href", "https://reddit.com" + $(this).text());
+                        if (dailyHocColorNamesEnable2 == true) {
+                            var thishref = $(this).attr('href');
+                            thishref = thishref.trim().replace('https://reddit.com/u/', '');
+                            $(this).css('color', colortransfers[thishref]);
+                            if ($(this).text() == `/u/` + USER) {
+                                $(this).parent().parent().css('font-weight', 'bold');
+                            }
+                        }
+                    });
 
-        },   //////this is where you put the checky bracket
-        error: function(data) {
-            hmmyy;
-        }
-    });
+                    if (dailysize == 0) {
+                        document.getElementById("dailyenabler").innerHTML = "Daily Hall of Counters [+]";
+                        $(".collapsedo").css({
+                            'display': 'none',
+                        });
+                    } else {
+                        document.getElementById("dailyenabler").innerHTML = "Daily Hall of Counters [-]";
+                        $(".collapsedo").css({
+                            'display': 'table-row',
+                        });
+                    }
+                    $("#dailyenabler").on('click', function () {
+                        if (dailysize == 0) {
+                            dailysize++;
+                            document.getElementById("dailyenabler").innerHTML = "Daily Hall of Counters [-]";
+                            $(".collapsedo").css({
+                                'display': 'table-row',
+                            });
+                        } else {
+                            dailysize--;
+                            document.getElementById("dailyenabler").innerHTML = "Daily Hall of Counters [+]";
+                            $(".collapsedo").css({
+                                'display': 'none',
+                            });
+                        }
+                    });
+                } else { //checky length check
+                    $('#loadtest').append("<tr><td>Error verifying data, please PM /u/rideride</td></tr>");
+                }
+            }
 
-                setInterval(function(){
+            $.ajax({
+                method: 'GET',
+                dataType: 'json',
+                cache: false,
+                url: 'https://raw.githubusercontent.com/MaybeNotWrong/lc-sep/master/data.txt',
+                success: day_hoc_handler,   //////this is where you put the checky bracket
+                error: function (data) {
+                    hmmyy;
+                }
+            });
+
+            setInterval(function () {
 
                 var hmmyy;
-var checky;
-var checky2;
-$.ajax({
-        method: 'GET',
-        dataType: 'json',
-        cache: false,
-        url: 'https://raw.githubusercontent.com/MaybeNotWrong/lc-sep/master/data.txt',
-        success: function(data) {
-//            alert('ok');
-hmmyy = data["hoc"];
-checky = data["hoc"];
-
-$(`#wholetable`).html(`<table id=loadtest><caption id=dailyenabler>Daily Hall of Counters [+]</caption><tr id="tablenames"><td>#</td><td>User</td><td>Counts</td></tr></table>`);
-
-
-            function getFullName(item) {
-  var hocname = [item.author,item.counts].join("</a></td><td>");
-  return hocname;
-}
-                        function jsonCheck(item) {
-  var hocnamd = [item.author,item.counts].join("");
-  return hocnamd;
-}
-
-
-hmmyy = hmmyy.map(getFullName);
-            checky = checky.map(jsonCheck);
-
-
-
-checky = checky.join("");
-checky = checky.replace(/[A-Za-z]/g, ``);
-checky = checky.replace(/[-]/g, ``);
-checky = checky.replace(/[_]/g, ``);
-checky = checky.replace(/[0-9]+/g, '');
-if (checky.length == 0) {
-    for (var i=0; i<3; i++) {
-    var j=i+1;
-  $('#loadtest').append("<tr style='font-size:inherit;'><td>" + j + "</td><td><a class=authoro>/u/" + hmmyy[i] + "</td></tr>");
-}
-//  $('#loadtest').append("<span id=collapsedo>");
-            for (var i=3; i<hmmyy.length; i++) {
-    var j=i+1;
-  $('#loadtest').append("<tr style='font-size:inherit;' class=collapsedo><td>" + j + "</td><td><a class=authoro>/u/" + hmmyy[i] + "</td></tr>");
-}
-//              $('#loadtest').append("</span>");
-
- //           hmmyy = hmmyy.replace(`<tr><td class="numba"></td><td><a class="authoro">/u/`+USER, `<tr style="font-weight:bold;"><td class="numba"></td><td><a class="authoro">/u/`+USER);
-
- $("#loadtest tbody tr:nth-child(2) td:nth-child(1)").css({
-'background': 'gold',
-'color': 'black'
-              });
- $("#loadtest tbody tr:nth-child(3) td:nth-child(1)").css({
-'background': 'silver',
-'color': 'black'
-              });
- $("#loadtest tbody tr:nth-child(4) td:nth-child(1)").css({
-'background': '#cd7f32',
-'color': 'black'
-              });
-            $("#loadtest tbody:nth-child(5)").append(`<tr><td>divide</td></tr>`);
-
-$("#loadtest").css({
-//'position': 'absolute',
-'border': '1px solid black',
-'width': '100%',
-'text-align': 'center'
-              });
- $("#loadtest tr td").css({
-'border': '1px solid black',
-'max-width': '223px'
-              });
- $("#loadtest").css({
-'overflow': 'hidden',
-'height': '100%',
-//'font-size': '1em'
-              });
- $("#loadtest").css({
-'color': '#000',
-'font-size': 'inherit',
-'font-weight': 'normal'
-              });
-             $("#dailyenabler").css({
-'cursor': 'pointer',
-'color': '#000',
-'font-size': '14px',
-'font-weight': 'bold',
-'margin-bottom': '3px'
-              });
-                         $("#tablenames").css({
-'font-weight': 'bold',
-              });
-
-$(".authoro").each(function() {
-//    $(this).prepend(`<a href=` + $(this).text() + `>`);
-//        $(this).append(`</a>`);
-  $(this).attr("href", "https://reddit.com" + $(this).text());
-    if (dailyHocColorNamesEnable2 == true) {
-    var thishref = $(this).attr('href');
-thishref = thishref.trim().replace('https://reddit.com/u/', '');
-    $(this).css('color', colortransfers[thishref]);
-    if ($(this).text() == `/u/` + USER) {
-        $(this).parent().parent().css('font-weight','bold');
-    }
-    }
-});
-
-if (dailysize == 0) {
-document.getElementById("dailyenabler").innerHTML = "Daily Hall of Counters [+]";
-     $(".collapsedo").css({
-'display': 'none',
-              });
-} else {
-document.getElementById("dailyenabler").innerHTML = "Daily Hall of Counters [-]";
-     $(".collapsedo").css({
-'display': 'table-row',
-              });
-}
-                $("#dailyenabler").on('click', function () {
-if (dailysize == 0) {
-dailysize++;
-document.getElementById("dailyenabler").innerHTML = "Daily Hall of Counters [-]";
- $(".collapsedo").css({
-'display': 'table-row',
-              });
-} else {
-dailysize--;
-document.getElementById("dailyenabler").innerHTML = "Daily Hall of Counters [+]";
- $(".collapsedo").css({
-'display': 'none',
-              });
-}
+                var checky;
+                var checky2;
+                $.ajax({
+                    method: 'GET',
+                    dataType: 'json',
+                    cache: false,
+                    url: 'https://raw.githubusercontent.com/MaybeNotWrong/lc-sep/master/data.txt',
+                    success: day_hoc_handler,   //////this is where you put the checky bracket
+                    error: function (data) {
+                        hmmyy;
+                    }
                 });
 
+            }, 15000);
 
-//    document.getElementById('loadtest').innerHTML = hmmyy;
-
-
-} else { //checky length check
-  $('#loadtest').append("<tr><td>Error verifying data, please PM /u/rideride</td></tr>");
-}
-
-
-
-        },   //////this is where you put the checky bracket
-        error: function(data) {
-hmmyy;
-        }
-    });
-
-}, 15000);
-
-//document.getElementById("team1").style.cssText = 'background:#0000cf;color:white;z-index: 99999;min-width: 14px;max-width: 14px;height: 14px;line-height: 14px;border-radius: 14px;border: none;overflow: hidden;padding: 0;vertical-align: middle;font-size: 11px !important;position: relative;text-indent: 12px;-webkit-transition: all 0.3s;transition: all 0.3s;-webkit-transition-delay: 0.1s;transition-delay: 0.1s;cursor:help;';
-} //TeamBarsEnabled end
-}
-//////////////////////////////////
+            //document.getElementById("team1").style.cssText = 'background:#0000cf;color:white;z-index: 99999;min-width: 14px;max-width: 14px;height: 14px;line-height: 14px;border-radius: 14px;border: none;overflow: hidden;padding: 0;vertical-align: middle;font-size: 11px !important;position: relative;text-indent: 12px;-webkit-transition: all 0.3s;transition: all 0.3s;-webkit-transition-delay: 0.1s;transition-delay: 0.1s;cursor:help;';
+        } //TeamBarsEnabled end
+    }
+    //////////////////////////////////
 })(TeamBars || (TeamBars = {}));
-
 
 ////////////////////////
 // ContentPosition.ts //
