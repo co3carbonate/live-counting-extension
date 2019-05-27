@@ -7383,8 +7383,8 @@ var TeamBarsEnabled;
                     hocname = hocname.replace(`</a></td>,<td>true</a></td><td>`, `+</a></td><td>`);
 //                    var wrcCheck = [item.has_wrc_req].join(",");
                     res += "><td>" + (index + 1) + "</td><td><a class=authoro>/u/" + hocname + "</td></tr>";
-                    res = res.replace(`<td>true</td>`, ``);
-                    res = res.replace(`</td><td>false</td>`, `<span style='display:none; position:absolute; margin-top:-1px; margin-left:5px;' class=hoverwrc> ✓</span></td>`);
+                    res = res.replace(`<td>false</td>`, ``);
+                    res = res.replace(`</td><td>true</td>`, `<span style='display:none; position:absolute; margin-top:-1px; margin-left:5px;' class=hoverwrc> ✓</span></td>`);
                     return res;
                 }
                 function jsonCheck(item) {
