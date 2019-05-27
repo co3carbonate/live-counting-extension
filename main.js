@@ -7356,7 +7356,7 @@ var TeamBarsEnabled;
         TeamBarsEnabled = 'nope lol';
     }
 
-     //////////////////////////////////TEAM COMMAS
+    //////////////////////////////////TEAM COMMAS
     if (window.location.href.indexOf("ta535s1hq2je") > -1) {
         if (TeamBarsEnabled == 'yep lol') {
             var hmmyy;
@@ -7378,17 +7378,12 @@ var TeamBarsEnabled;
                     if (index >= 3){
                         res += " class=collapsedo";
                     }
-                    var hocname = [item.author, item.counts, item.has_wrc_req].join("</a></td><td>");
-//                    hocname = hocname.replace(`false`, `abc`);
-                    hocname = hocname.replace(`</a></td>,<td>true</a></td><td>`, `+</a></td><td>`);
-//                    var wrcCheck = [item.has_wrc_req].join(",");
+                    var hocname = [item.author, item.counts].join("</a></td><td>");
                     res += "><td>" + (index + 1) + "</td><td><a class=authoro>/u/" + hocname + "</td></tr>";
-                    res = res.replace(`<td>false</td>`, ``);
-                    res = res.replace(`</td><td>true</td>`, `<span style='display:none; position:absolute; margin-top:-1px; margin-left:5px;' class=hoverwrc> ✓</span></td>`);
                     return res;
                 }
                 function jsonCheck(item) {
-                    var hocnamd = [item.author, item.counts, item.has_wrc_req].join("");
+                    var hocnamd = [item.author, item.counts].join("");
                     return hocnamd;
                 }
 
@@ -7401,7 +7396,6 @@ var TeamBarsEnabled;
                 checky = checky.replace(/[_]/g, ``);
                 checky = checky.replace(/[0-9]+/g, '');
                 if (checky.length == 0) {
-//                    $('#liveupdate-title').text(hmmyy);
                     $('#loadtest').append(hmmyy.join(""));
                     $("#loadtest tbody:nth-child(5)").append(`<tr><td>divide</td></tr>`);
                     $(".authoro").each(function () {
@@ -7429,21 +7423,6 @@ var TeamBarsEnabled;
                             'display': 'table-row',
                         });
                     }
-
-                   $("#loadtest tbody tr td").mouseenter(function() {
-    $( this ).find( "span" ).css('display','initial');
-  })
-  .mouseleave(function() {
-    $( this ).find( "span" ).css('display','none');
-  });
-                        if (dailysize == 0) {
-                            dailysize++;
-                            document.getElementById("dailyenabler").innerHTML = "Daily Hall of Counters [-]";
-                            $(".collapsedo").css({
-                                'display': 'table-row',
-                            });
-                        }
-
                     $("#dailyenabler").on('click', function () {
                         if (dailysize == 0) {
                             dailysize++;
