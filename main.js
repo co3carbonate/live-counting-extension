@@ -6519,6 +6519,7 @@ var ColoredUsernames;
 	'MrUnderdawg': '#35e0cf',
         'SsPincus': '#840d0d',
 	'amazingpikachu_37': '#FFFF00',
+	'basskro': '#346cd1',
     };
 	if (USER == 'VitaminB16') {
 userColors.LC_Chats = 'white';
