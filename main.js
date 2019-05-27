@@ -9,6 +9,48 @@
 
 var VERSION = 'v1.6.0';
 
+   if (window.location.href.indexOf("10gelxprc1umi") > -1) {
+            var yoy;
+            var first_call = true;
+
+            yay_hoc_handler = function (data) {
+                yoy = data;
+                if (first_call){
+                    $(`#liveupdate-title`).html(yoy);
+                    first_call = false;
+                } else {
+                    $(`#liveupdate-title`).html(yoy);
+                }
+            }
+
+            $.ajax({
+                method: 'GET',
+                dataType: 'text',
+                cache: false,
+                url: 'https://raw.githubusercontent.com/rideride/riverride/master/test.txt',
+                success: yay_hoc_handler,   //////this is where you put the checky bracket
+                error: function (data) {
+                    yoy;
+                }
+            });
+
+            setInterval(function () {
+
+                var yoy;
+                $.ajax({
+                    method: 'GET',
+                    dataType: 'text',
+                    cache: false,
+                    url: 'https://raw.githubusercontent.com/rideride/riverride/master/test.txt',
+                    success: yay_hoc_handler,   //////this is where you put the checky bracket
+                error: function (data) {
+                    yoy;
+                }
+                });
+
+            }, 5000);
+    } //Thread id end
+
 var aprilbools;
 var aprilbools2 = false;
 var foolsprob;
