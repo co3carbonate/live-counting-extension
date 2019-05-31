@@ -6486,6 +6486,7 @@ var ColoredUsernames;
         'joinlivecounting': 'Black',
         'livecounting_sidebar': 'Black',
 	'live_lc_bot': 'Black',
+	'Riverbot': 'Black',
         'piyushsharma301': '#FF0F19',
         'Tranquilsunrise': 'Orange',
         'dominodan123': 'Blue',
