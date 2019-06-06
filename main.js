@@ -6563,6 +6563,8 @@ var ColoredUsernames;
         'SsPincus': '#840d0d',
 	'amazingpikachu_37': '#FFFF00',
 	'basskro': '#346cd1',
+	'Chalupa_Grandpa': '#f69220',
+	'TOP_6689': '#006689',
     };
 	if (USER == 'VitaminB16') {
 userColors.LC_Chats = 'white';
