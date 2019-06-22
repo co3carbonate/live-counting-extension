@@ -6565,6 +6565,7 @@ var ColoredUsernames;
 	'basskro': '#346cd1',
 	'Chalupa_Grandpa': '#f69220',
 	'TOP_6689': '#006689',
+	'lyeinfyer': '#ccff99',
     };
 	if (USER == 'VitaminB16') {
 userColors.LC_Chats = 'white';
