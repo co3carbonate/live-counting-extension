@@ -6753,7 +6753,7 @@ var entirepost = data.body_elem.html();
 var entireposttext = data.body_elem.text();
 var count1testlol = entireposttext.substring(0, 10);
     count1testlol = count1testlol.replace(/[A-Za-z]/g, '');
-entirepost = entirepost.replace(count1testlol,`<span id="counttext" style="font-size: 14px;">`+count1testlol+` ​</span>`);
+entirepost = entirepost.replace(count1testlol,`<p id="counttext" style="font-size: 14px; display:inline;">`+count1testlol+` ​</p>`);
 entirepost = entirepost.replace(`p>`, `span>`);
 data.body_elem.html(`<span class="ignoredpost" style="font-size: 0px;">`+entirepost+`</span>`);
 } 
