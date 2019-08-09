@@ -6566,6 +6566,7 @@ var ColoredUsernames;
 	'Chalupa_Grandpa': '#f69220',
 	'TOP_6689': '#006689',
 	'lyeinfyer': '#ccff99',
+	'Zaajdaeon': '#1776BF',
     };
 	if (USER == 'VitaminB16') {
 userColors.LC_Chats = 'white';
