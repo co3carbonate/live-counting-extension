@@ -7056,12 +7056,14 @@ var RemoveSubmissionLag;
         Elements.$textarea.val(lastInput);
         lastInput = '';
     });
+if (Elements.$submitError.length > 0) {
     observer.observe(Elements.$submitError.get(0), {
         // observe for change in 'style' attribute value
         attributes: true,
         attributeOldValue: true,
         attributeFilter: ['style']
     });
+}
     // When new message is loaded and is by this user, check if we can delete the corresponding 
     // preview message.
     // If it is by another user, push all the preview messages to the front (in the right order), 
