@@ -21,13 +21,13 @@ module DisableShortcuts {
 	$(document).on('keydown', function(e) {
 		if(!enabled) return;
 
-		// Ctrl Hotkeys
-		if(e.ctrlKey) {
+		// Ctrl / Meta Hotkeys
+		if(e.ctrlKey || e.metaKey) {
 			
-			// Ctrl+0 (Zoom Reset)
+			// Ctrl+0 / Meta+0 (Zoom Reset)
 			if(e.keyCode == 48) e.preventDefault();
 
-			// Ctrl+[1-9] (Switch Tabs)
+			// Ctrl+[1-9] / Meta+[1-9] (Switch Tabs)
 			if(e.keyCode >= 49 && e.keyCode <= 57) e.preventDefault();
 		}
 
