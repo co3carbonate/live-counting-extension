@@ -9,6 +9,103 @@
 
 var VERSION = 'v1.6.0';
 
+var USER = $('#header .user a[href]').html();
+
+   if (window.location.href.indexOf("incremental") > -1) {
+       $(`.content`).prepend(`<div id='hidden'></div><div id='container'><div id='incrtitle'>Shop [+]</div><div class='hiddeno' id='items'><div class='itemcont' id='mousecont'><img class='pic' id='mousepic' src='https://www.thekentongroup.com/wp-content/uploads/2015/01/Gnome-dev-mouse-optical.png'></img><div class='itemname' id='mousename'>Mouse</div><div class='itemdesc' id='mousedesc'>It's just a mouse. It clicks around randomly...</br></br>!nochat buy mouse<div class='incrstat' id='mousestats'></div></div></div></div></div>`);
+       $(`#items`).append(`<div class='itemcont' id='keyboardcont'><img class='pic' id='keyboardpic' src='https://tpucdn.com/review/corsair-k57-rgb-wireless-keyboard/images/small-v1566335354.png'></img><div class='itemname' id='keyboardname'>Keyboard</div><div class='itemdesc' id='keyboarddesc'>It's a keyboard! With the power of typing, counting becomes much easier.</br></br>!nochat buy keyboard<div class='incrstat' id='keyboardstats'></div></div></div>`);
+       $(`#items`).append(`<div class='itemcont' id='phonecont'><img class='pic' id='phonepic' src='https://d1ic4altzx8ueg.cloudfront.net/niche-builder/5b21eb35edbf8.png'></img><div class='itemname' id='phonename'>Phone</div><div class='itemdesc' id='phonedesc'>Phones can do much more than call people nowadays. Most people use their phones to count, according to studies.</br></br>!nochat buy phone<div class='incrstat' id='phonestats'></div></div></div>`);
+       $(`#items`).append(`<div class='itemcont' id='laptopcont'><img class='pic' id='laptoppic' src='http://www.techverve247.com/Content%20Pages%20Icons/Computer%20and%20Laptop.png'></img><div class='itemname' id='laptopname'>Laptop</div><div class='itemdesc' id='laptopdesc'>This laptop doesn't have a numpad on it. Beware.</br></br>!nochat buy laptop<div class='incrstat' id='laptopstats'></div></div></div>`);
+       $(`#items`).append(`<div class='itemcont' id='pccont'><img class='pic' id='pcpic' src='https://assets.webiconspng.com/uploads/2017/09/Computer-Desktop-Pc-PNG-Image-71047.png'></img><div class='itemname' id='pcname'>PC</div><div class='itemdesc' id='pcdesc'>This PC has an ultra powerful GPU and CPU, allowing you to count slow as heck because reddit lag always sucks anyway.</br></br>!nochat buy pc<div class='incrstat' id='pcstats'></div></div></div>`);
+       $('head').append(`<style>#container {text-align: center;position: absolute; left: 0px; width: 111px; background: #e2ffdb; margin-top: -10px;font-size: 12px;}</style>`);
+       $('head').append(`<style>.itemdesc {display:none;} .itemcont:hover .itemdesc {display:block;} .pic {height:50px; width:50px;}</style>`);
+       $('head').append(`<style>#incrtitle {font-size: 16px; margin-bottom: 15px; border-bottom: 1px solid black; background: #bbffaa;}</style>`);
+       $('head').append(`<style>.itemcont {background: #bbffaa; padding-top: 5px; padding-bottom: 5px; margin-bottom: 10px;}</style>`);
+       $('head').append(`<style>#hidden {display:none;}</style>`);
+       $('head').append(`<style>.itemdesc { display: none; font-size: 10px; color: #333; margin-top: 5px; }</style>`);
+       $('head').append(`<style>.incrstat { text-align:right; margin-top: 5px; }</style>`);
+       $('head').append(`<style>.hiddeno { display:none; }</style>`);
+       $('head').append(`<style>#incrtitle:hover { cursor:pointer; }</style>`);
+
+
+       //TOGGLE SHOP
+$( "#incrtitle" ).click(function() {
+  $( '#items' ).toggleClass( "hiddeno" );
+});
+       //AUTOUPDATE STUFF
+
+           var dota;
+            var dota_first_call = true;
+       var mymouse;
+       var mykeyboard;
+       var mymoney;
+
+            dota_hoc_handler = function (data) {
+                dota = data;
+                if (dota_first_call){
+                    $(`#hidden`).html(dota);
+                    dota_first_call = false;
+                } else {
+                    $(`#hidden`).html(dota);
+                }
+mymouse = $("abc[title='mouse']").text();
+mymouse = JSON.parse(mymouse.replace(/'/g,"\""));
+mymouse = mymouse[USER];
+$("#mousestats").html(`Own: `+mymouse+`</br>Rate: 0.1CB/s</br>CB/s: `+(mymouse*0.1).toPrecision(2)+`</br>Price: `+Math.round(150 * Math.pow(1.15,mymouse)));
+mykeyboard = $("abc[title='keyboard']").text();
+mykeyboard = JSON.parse(mykeyboard.replace(/'/g,"\""));
+mykeyboard = mykeyboard[USER];
+$("#keyboardstats").html(`Own: `+mykeyboard+`</br>Rate: 0.5CB/s</br>CB/s: `+(mykeyboard*0.5).toPrecision(2)+`</br>Price: `+Math.round(1000 * Math.pow(1.15,mykeyboard)));
+myphone = $("abc[title='phone']").text();
+myphone = JSON.parse(myphone.replace(/'/g,"\""));
+myphone = myphone[USER];
+$("#phonestats").html(`Own: `+myphone+`</br>Rate: 4CB/s</br>CB/s: `+(myphone*4).toPrecision(2)+`</br>Price: `+Math.round(5000 * Math.pow(1.15,myphone)));
+mylaptop = $("abc[title='laptop']").text();
+mylaptop = JSON.parse(mylaptop.replace(/'/g,"\""));
+mylaptop = mylaptop[USER];
+$("#laptopstats").html(`Own: `+mylaptop+`</br>Rate: 10CB/s</br>CB/s: `+(mylaptop*10).toPrecision(2)+`</br>Price: `+Math.round(30000 * Math.pow(1.15,mylaptop)));
+mypc = $("abc[title='pc']").text();
+mypc = JSON.parse(mypc.replace(/'/g,"\""));
+mypc = mypc[USER];
+$("#pcstats").html(`Own: `+mypc+`</br>Rate: 40CB/s</br>CB/s: `+(mypc*40).toPrecision(2)+`</br>Price: `+Math.round(100000 * Math.pow(1.15,mypc)));
+mymoney = $("abc[title='money-total']").text();
+mymoney = JSON.parse(mymoney.replace(/'/g,"\""));
+mymoney = mymoney[USER];
+$("#liveupdate-title").text(Math.round(mymoney)+` CB (`+parseFloat(parseFloat(mymouse*0.1)+parseFloat(mykeyboard*0.5)+parseFloat(myphone*4)+parseFloat(mylaptop*10)+parseFloat(mypc*40))+` CB/s)`);
+            }
+
+            $.ajax({
+                method: 'GET',
+                dataType: 'text',
+                cache: false,
+                url: 'https://gist.githubusercontent.com/rideride/ca623726d34860ae1abd1bfdf38323fa/raw/incremental.txt',
+                success: dota_hoc_handler,   //////this is where you put the checky bracket
+                error: function (data) {
+                    dota;
+                }
+            });
+
+            setInterval(function () {
+
+                var dota;
+                $.ajax({
+                    method: 'GET',
+                    dataType: 'text',
+                    cache: false,
+                    url: 'https://gist.githubusercontent.com/rideride/ca623726d34860ae1abd1bfdf38323fa/raw/incremental.txt',
+                    success: dota_hoc_handler,   //////this is where you put the checky bracket
+                error: function (data) {
+                    dota;
+                }
+                });
+
+            }, 30000);
+
+
+
+   } //INCREMENTAL END
+
+
    if (window.location.href.indexOf("10gelxprc1umi") > -1) {
             var yoy;
             var first_call = true;
