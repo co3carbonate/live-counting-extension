@@ -71,7 +71,7 @@ $("#pcstats").html(`Own: `+mypc+`</br>Rate: 40CB/s</br>CB/s: `+(mypc*40).toPreci
 mymoney = $("abc[title='money-total']").text();
 mymoney = JSON.parse(mymoney.replace(/'/g,"\""));
 mymoney = mymoney[USER];
-$("#liveupdate-title").text(Math.round(mymoney)+` CB (`+parseFloat(parseFloat(mymouse*0.1)+parseFloat(mykeyboard*0.5)+parseFloat(myphone*4)+parseFloat(mylaptop*10)+parseFloat(mypc*40)).toPrecision(2)+` CB/s)`);
+$("#liveupdate-title").text(Math.round(mymoney)+` CB (`+Math.round(100*parseFloat(parseFloat(mymouse*0.1)+parseFloat(mykeyboard*0.5)+parseFloat(myphone*4)+parseFloat(mylaptop*10)+parseFloat(mypc*40)))/100+` CB/s)`);
             }
 
             $.ajax({
