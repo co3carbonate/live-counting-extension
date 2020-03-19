@@ -173,8 +173,8 @@ $( ".viewer-count" ).parent().html(`<canvas id="viewport" width="480" height="30
 }
 
 
-var specialnumber = 1;
-var kname1 = 'Lonadont';
+var specialnumber = 0;
+var kname1 = '';
 var kname2 = '';
 var kname3 = '';
 var kname4 = '';
@@ -6842,78 +6842,7 @@ var lolzo = context.fillStyle = "#"+place5;
         if (data.author == 'MaybeNotWrong' || data.author == 'co3_carbonate' || data.author == 'rschaosid' || data.author == 'piyushsharma301' || data.author == 'rideride' || data.author == 'LeinadSpoon' || data.author == 'artbn') {
             data.author_elem.css('font-weight', 'bold');
         }
-  if (SpecialUsernamesEnabled1 == 'yep lol') {
-if (data.author == kname1) {
-    lonaname = 'Lonadert'
-    lonarandom = Math.floor(Math.random() * (lonaname.length-1));
-    lonaremove = lonaname.substring(lonarandom,lonarandom+1)
-    if(lonaremove == 'L' || lonaremove == 'a' || lonaremove == 'd' || lonaremove == 't') {
-        //stuff
-        lonaname = lonaname.substring(0,lonarandom) + lonaname.substring(lonarandom+1)
-        lonarandom = Math.floor(Math.random() * (lonaname.length-1));
-        lonaremove = lonaname.substring(lonarandom,lonarandom+1)
-        if(lonaremove == 'L' || lonaremove == 'a' || lonaremove == 'd' || lonaremove == 't') {
-            lonaname = lonaname.substring(0,lonarandom) + lonaname.substring(lonarandom+1)
-            lonarandom = Math.floor(Math.random() * (lonaname.length-1));
-            lonaremove = lonaname.substring(lonarandom,lonarandom+1)
-            if(lonaremove == 'L' || lonaremove == 'a' || lonaremove == 'd' || lonaremove == 't') {
-                lonaname = lonaname.substring(0,lonarandom) + lonaname.substring(lonarandom+1)
-                lonarandom = Math.floor(Math.random() * (lonaname.length-1));
-                lonaremove = lonaname.substring(lonarandom,lonarandom+1)
-                if(lonaremove == 'L' || lonaremove == 'a' || lonaremove == 'd' || lonaremove == 't') {
-                    lonaname = lonaname.substring(0,lonarandom) + lonaname.substring(lonarandom+1)
-                    lonarandom = Math.floor(Math.random() * (lonaname.length-1));
-                    lonaremove = lonaname.substring(lonarandom,lonarandom+1)
-                    if(lonaremove == 'L' || lonaremove == 'a' || lonaremove == 'd' || lonaremove == 't') {
-                        lonaname = lonaname.substring(0,lonarandom) + lonaname.substring(lonarandom+1)
-                        lonarandom = Math.floor(Math.random() * (lonaname.length-1));
-                        lonaremove = lonaname.substring(lonarandom,lonarandom+1)
-                    }
-                }
-            }
-        }
-    }
 
-    if (lonaremove == 'o') {
-    if (lonaname.length%2 != 0) {
-	lonacolor = 'linear-gradient(to left, #a35252, black)'
-    } else {
-        lonacolor = 'linear-gradient(to left, black, #a35252)'
-    }
-    }
-        if (lonaremove == 'e') {
-    if (lonaname.length%2 != 0) {
-	lonacolor = 'linear-gradient(to left, black, #a35252)'
-    } else {
-        lonacolor = 'linear-gradient(to left, #a35252, black)'
-    }
-    }
-        if (lonaremove == 'n') {
-    if (lonaname.length%2 != 0) {
-	lonacolor = 'linear-gradient(to left, #a35252, white)'
-    } else {
-        lonacolor = 'linear-gradient(to left, white, #a35252)'
-    }
-    }
-        if (lonaremove == 'r') {
-    if (lonaname.length%2 != 0) {
-	lonacolor = 'linear-gradient(to left, white, #a35252)'
-    } else {
-        lonacolor = 'linear-gradient(to left, #a35252, white)'
-    }
-    }
-    if(lonaremove == 'o' || lonaremove == 'n' || lonaremove == 'e' || lonaremove == 'r') {
-        lonaname = lonaname.substring(0,lonarandom) + lonaname.substring(lonarandom+1)
-    }
-    lonaname = lonaname.replace('e','o');
-    lonaname = lonaname.replace('r','n');
-     data.author_elem.css({
-                 'font-weight': 'bold',
-                 'display': 'inline-block'
-              });
-data.author_elem.html(`<div style="color:transparent;background-clip:text;-webkit-background-clip: text!important;background:`+lonacolor+`;">`+lonaname+`</div>`);
-} //kname
- } //specialname
 
 	    if (IgnoreEnabled == 'yep lol') {
 var ignoretest = document.getElementById("ignorebox2").innerHTML;
