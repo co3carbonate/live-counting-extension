@@ -6665,6 +6665,7 @@ var ColoredUsernames;
 	'lyeinfyer': '#ccff99',
 	'Zaajdaeon': '#1776BF',
 	'Adventium_': '#228B22',
+	'NeonL1vesMatter': '#730099',
     };
 	if (USER == 'VitaminB16') {
 userColors.LC_Chats = 'white';
