@@ -6932,7 +6932,7 @@ data.body_elem.text(entirepost);
 
 /////////////////////april fools 6
 
-if(window.location.href.indexOf("110t4ltqqzi35") > -1) { 
+if(window.location.href.indexOf("110t4ltqqzi35") > -1 || window.location.href.indexOf("14ny3ur3axhd4") > -1) { 
 var lcchats = data.href_elem.attr('href');
 lcchats = lcchats.trim().replace('/u/', '');
 data.href_elem.css('color', userColors[lcchats]).css('fontStyle','initial').css('fontSize','13px');
@@ -6941,7 +6941,7 @@ if (lcchats == 'MaybeNotWrong' || lcchats == 'co3_carbonate' || lcchats == 'rsch
         }
 }
     });
-if(window.location.href.indexOf("110t4ltqqzi35") > -1) { 
+if(window.location.href.indexOf("110t4ltqqzi35") > -1 || window.location.href.indexOf("14ny3ur3axhd4") > -1) { 
 $('a[href*="/u/"]').each(function() {
 var thishref = $(this).attr('href');
 thishref = thishref.trim().replace('/u/', '');
