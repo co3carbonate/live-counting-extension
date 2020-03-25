@@ -1,3 +1,16 @@
+// ==UserScript==
+// @name         LC Testing Timer Thingy
+// @description  Add-on features for Live Counting
+// @author       /u/co3_carbonate
+// @website      https://github.com/co3carbonate/live-counting-extension
+// @namespace    http://tampermonkey.net/
+// @include      *://*.reddit.com/live/*
+// @exclude      *://*.reddit.com/live/create*
+// @exclude      *://*.reddit.com/live/*/edit*
+// @exclude      *://*.reddit.com/live/*/updates/*
+// @exclude      *://*.reddit.com/live/*/contributors*
+// ==/UserScript==
+
 
 /**
 /**
@@ -10,6 +23,27 @@
 var VERSION = 'v1.6.0';
 
 var USER = $('#header .user a[href]').html();
+
+setTimeout(function(){
+if (CountdownTimerEnabled == true) {
+    $('#liveupdate-statusbar').append('<span id="countdown"></span>');
+    var countDownDate = new Date("March 31 2020 23:00:00 GMT-0500 (CDT)").getTime();
+var tugOfWarWrongDirection = setInterval(function() {
+    var nowTug = new Date().getTime();
+    var distanceTug = countDownDate - nowTug;
+    var daysTug = Math.floor(distanceTug / (1000 * 60 * 60 * 24));
+    var hoursTug = Math.floor((distanceTug % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutesTug = Math.floor((distanceTug % (1000 * 60 * 60)) / (1000 * 60));
+    var secondsTug = Math.floor((distanceTug % (1000 * 60)) / 1000);
+    document.getElementById("countdown").innerHTML = daysTug + "d " + hoursTug + "h "
+    + minutesTug + "m " + secondsTug + "s";
+    if (distanceTug < 0) {
+        clearInterval(tugOfWarWrongDirection);
+        document.getElementById("countdown").innerHTML = "happy april fools lol (placeholder?)";
+    }
+    }, 1000);
+}
+},5000);
 
    if (window.location.href.indexOf("incremental") > -1) {
        $(`.content`).prepend(`<div id='hidden'></div><div id='container'><div id='incrtitle'>Shop [+]</div><div class='hiddeno' id='items'><div class='itemcont' id='mousecont'><img class='pic' id='mousepic' src='https://www.thekentongroup.com/wp-content/uploads/2015/01/Gnome-dev-mouse-optical.png'></img><div class='itemname' id='mousename'>Mouse</div><div class='itemdesc' id='mousedesc'>It's just a mouse. It clicks around randomly...</br></br>!nochat buy mouse<div class='incrstat' id='mousestats'></div></div></div></div></div>`);
@@ -153,20 +187,20 @@ var aprilbools2 = false;
 var foolsprob;
 var foolsprobt;
 
-if(window.location.href.indexOf("10gelxprc1umi") > -1) { 
+if(window.location.href.indexOf("10gelxprc1umi") > -1) {
 
 $( "#liveupdate-statusbar" ).css("padding","0").css("border","0").css("height","30px").css("overflow","hidden");
 
 $( ".viewer-count" ).parent().html(`<canvas id="viewport" width="480" height="30"></canvas>`);
 
 
-   var canvas = document.getElementById("viewport"); 
+   var canvas = document.getElementById("viewport");
     var context = canvas.getContext("2d");
- 
+
     // Define the image dimensions
     var width = canvas.width;
     var height = canvas.height;
- 
+
     // Create an ImageData object
     var imagedata = context.createImageData(width, height);
 
@@ -181,7 +215,7 @@ var kname4 = '';
 var kname5 = '';
 var kname6 = '';
 
-var ignored = []; 
+var ignored = [];
 ignored.push(localStorage['ignoredppl']);
 
 // Client's username
@@ -372,7 +406,7 @@ var Cookies = (function () {
 ////////////////
 // SnuOwnd.ts //
 ////////////////
-// Adapted TypeScript version of the SnuOwnd markdown parser (https://github.com/gamefreak/snuownd) 
+// Adapted TypeScript version of the SnuOwnd markdown parser (https://github.com/gamefreak/snuownd)
 var SnuOwnd = {};
 (function (exports) {
     function _isspace(c) { return c == ' ' || c == '\n'; }
@@ -3006,7 +3040,7 @@ var SnuOwnd = {};
             return 0;
         return i + 1;
     }
-    // parse_inline - parses inline markdown elements 
+    // parse_inline - parses inline markdown elements
     //Buffer, md, String
     function parse_inline(out, md, data) {
         var i = 0, end = 0;
@@ -4361,7 +4395,7 @@ var summatory = 0;
 function animate() {
   $('.viewer-count').text(counter++ + ' viewers');
   if (counter <= counterEnd) {
-  
+
   	//that's the formula:
     var newInterval = (animationLength-summatory) / ( (a - Math.pow(a, -(counterEnd-1))) / (a-1))
 
@@ -4537,11 +4571,11 @@ if (window.jQuery != 'undefined'){
 	f.top,left:d.left-f.left}},offsetParent:function(){return this.map(function(){for(var a=this.offsetParent||s.body;a&&!/^body|html$/i.test(a.nodeName)&&c.css(a,"position")==="static";)a=a.offsetParent;return a})}});c.each(["Left","Top"],function(a,b){var d="scroll"+b;c.fn[d]=function(f){var e=this[0],j;if(!e)return null;if(f!==w)return this.each(function(){if(j=wa(this))j.scrollTo(!a?f:c(j).scrollLeft(),a?f:c(j).scrollTop());else this[d]=f});else return(j=wa(e))?"pageXOffset"in j?j[a?"pageYOffset":
 	"pageXOffset"]:c.support.boxModel&&j.document.documentElement[d]||j.document.body[d]:e[d]}});c.each(["Height","Width"],function(a,b){var d=b.toLowerCase();c.fn["inner"+b]=function(){return this[0]?c.css(this[0],d,false,"padding"):null};c.fn["outer"+b]=function(f){return this[0]?c.css(this[0],d,false,f?"margin":"border"):null};c.fn[d]=function(f){var e=this[0];if(!e)return f==null?null:this;if(c.isFunction(f))return this.each(function(j){var i=c(this);i[d](f.call(this,j,i[d]()))});return"scrollTo"in
 	e&&e.document?e.document.compatMode==="CSS1Compat"&&e.document.documentElement["client"+b]||e.document.body["client"+b]:e.nodeType===9?Math.max(e.documentElement["client"+b],e.body["scroll"+b],e.documentElement["scroll"+b],e.body["offset"+b],e.documentElement["offset"+b]):f===w?c.css(e,d):this.css(d,typeof f==="string"?f:f+"px")}});A.jQuery=A.$=c})(window);
-	
-	
-	
-	
-	
+
+
+
+
+
 }
 
 
@@ -4724,11 +4758,11 @@ if (window.jQuery != 'undefined'){
 			}
 
 
-			/* 
+			/*
 			 * Box2Djs (port of Box2DFlash 1.4.3.1) - http://box2d-js.sourceforge.net/
 			 * Single-filed and jsmined ( http://code.google.com/p/jsmin-php/ ) by Mr.doob
 			 */
-			
+
 			var b2Settings=Class.create();b2Settings.prototype={initialize:function(){}}
 			b2Settings.USHRT_MAX=0x0000ffff;b2Settings.b2_pi=Math.PI;b2Settings.b2_massUnitsPerKilogram=1.0;b2Settings.b2_timeUnitsPerSecond=1.0;b2Settings.b2_lengthUnitsPerMeter=30.0;b2Settings.b2_maxManifoldPoints=2;b2Settings.b2_maxShapesPerBody=64;b2Settings.b2_maxPolyVertices=8;b2Settings.b2_maxProxies=1024;b2Settings.b2_maxPairs=8*b2Settings.b2_maxProxies;b2Settings.b2_linearSlop=0.005*b2Settings.b2_lengthUnitsPerMeter;b2Settings.b2_angularSlop=2.0/180.0*b2Settings.b2_pi;b2Settings.b2_velocityThreshold=1.0*b2Settings.b2_lengthUnitsPerMeter/b2Settings.b2_timeUnitsPerSecond;b2Settings.b2_maxLinearCorrection=0.2*b2Settings.b2_lengthUnitsPerMeter;b2Settings.b2_maxAngularCorrection=8.0/180.0*b2Settings.b2_pi;b2Settings.b2_contactBaumgarte=0.2;b2Settings.b2_timeToSleep=0.5*b2Settings.b2_timeUnitsPerSecond;b2Settings.b2_linearSleepTolerance=0.01*b2Settings.b2_lengthUnitsPerMeter/b2Settings.b2_timeUnitsPerSecond;b2Settings.b2_angularSleepTolerance=2.0/180.0/b2Settings.b2_timeUnitsPerSecond;b2Settings.b2Assert=function(a)
 			{if(!a){var nullVec;nullVec.x++;}};
@@ -4791,13 +4825,13 @@ if (window.jQuery != 'undefined'){
 			{var result=x>0&&(x&(x-1))==0;return result;};b2Math.tempVec2=new b2Vec2();b2Math.tempVec3=new b2Vec2();b2Math.tempVec4=new b2Vec2();b2Math.tempVec5=new b2Vec2();b2Math.tempMat=new b2Mat22();
 			var b2AABB=Class.create();b2AABB.prototype={IsValid:function(){var dX=this.maxVertex.x;var dY=this.maxVertex.y;dX=this.maxVertex.x;dY=this.maxVertex.y;dX-=this.minVertex.x;dY-=this.minVertex.y;var valid=dX>=0.0&&dY>=0.0;valid=valid&&this.minVertex.IsValid()&&this.maxVertex.IsValid();return valid;},minVertex:new b2Vec2(),maxVertex:new b2Vec2(),initialize:function(){this.minVertex=new b2Vec2();this.maxVertex=new b2Vec2();}};
 			var b2Bound=Class.create();b2Bound.prototype={IsLower:function(){return(this.value&1)==0;},IsUpper:function(){return(this.value&1)==1;},Swap:function(b){var tempValue=this.value;var tempProxyId=this.proxyId;var tempStabbingCount=this.stabbingCount;this.value=b.value;this.proxyId=b.proxyId;this.stabbingCount=b.stabbingCount;b.value=tempValue;b.proxyId=tempProxyId;b.stabbingCount=tempStabbingCount;},value:0,proxyId:0,stabbingCount:0,initialize:function(){}}
-			
+
 			var b2BoundValues=Class.create();b2BoundValues.prototype={lowerValues:[0,0],upperValues:[0,0],initialize:function(){this.lowerValues=[0,0];this.upperValues=[0,0];}}
-			
+
 			var b2Pair=Class.create();b2Pair.prototype={SetBuffered:function(){this.status|=b2Pair.e_pairBuffered;},ClearBuffered:function(){this.status&=~b2Pair.e_pairBuffered;},IsBuffered:function(){return(this.status&b2Pair.e_pairBuffered)==b2Pair.e_pairBuffered;},SetRemoved:function(){this.status|=b2Pair.e_pairRemoved;},ClearRemoved:function(){this.status&=~b2Pair.e_pairRemoved;},IsRemoved:function(){return(this.status&b2Pair.e_pairRemoved)==b2Pair.e_pairRemoved;},SetFinal:function(){this.status|=b2Pair.e_pairFinal;},IsFinal:function(){return(this.status&b2Pair.e_pairFinal)==b2Pair.e_pairFinal;},userData:null,proxyId1:0,proxyId2:0,next:0,status:0,initialize:function(){}};b2Pair.b2_nullPair=b2Settings.USHRT_MAX;b2Pair.b2_nullProxy=b2Settings.USHRT_MAX;b2Pair.b2_tableCapacity=b2Settings.b2_maxPairs;b2Pair.b2_tableMask=b2Pair.b2_tableCapacity-1;b2Pair.e_pairBuffered=0x0001;b2Pair.e_pairRemoved=0x0002;b2Pair.e_pairFinal=0x0004;
 			var b2PairCallback=Class.create();b2PairCallback.prototype={PairAdded:function(proxyUserData1,proxyUserData2){return null},PairRemoved:function(proxyUserData1,proxyUserData2,pairUserData){},initialize:function(){}};
 			var b2BufferedPair=Class.create();b2BufferedPair.prototype={proxyId1:0,proxyId2:0,initialize:function(){}}
-			
+
 			var b2PairManager=Class.create();b2PairManager.prototype={initialize:function(){var i=0;this.m_hashTable=new Array(b2Pair.b2_tableCapacity);for(i=0;i<b2Pair.b2_tableCapacity;++i)
 			{this.m_hashTable[i]=b2Pair.b2_nullPair;}
 			this.m_pairs=new Array(b2Settings.b2_maxPairs);for(i=0;i<b2Settings.b2_maxPairs;++i)
@@ -5097,7 +5131,7 @@ if (window.jQuery != 'undefined'){
 			this.normal=new b2Vec2();},points:null,normal:null,pointCount:0};
 			var b2OBB=Class.create();b2OBB.prototype={R:new b2Mat22(),center:new b2Vec2(),extents:new b2Vec2(),initialize:function(){this.R=new b2Mat22();this.center=new b2Vec2();this.extents=new b2Vec2();}};
 			var b2Proxy=Class.create();b2Proxy.prototype={GetNext:function(){return this.lowerBounds[0];},SetNext:function(next){this.lowerBounds[0]=next;},IsValid:function(){return this.overlapCount!=b2BroadPhase.b2_invalid;},lowerBounds:[(0),(0)],upperBounds:[(0),(0)],overlapCount:0,timeStamp:0,userData:null,initialize:function(){this.lowerBounds=[(0),(0)];this.upperBounds=[(0),(0)];}}
-			
+
 			var ClipVertex=Class.create();ClipVertex.prototype={v:new b2Vec2(),id:new b2ContactID(),initialize:function(){this.v=new b2Vec2();this.id=new b2ContactID();}};var b2Shape=Class.create();b2Shape.prototype={TestPoint:function(p){return false},GetUserData:function(){return this.m_userData;},GetType:function(){return this.m_type;},GetBody:function(){return this.m_body;},GetPosition:function(){return this.m_position;},GetRotationMatrix:function(){return this.m_R;},ResetProxy:function(broadPhase){},GetNext:function(){return this.m_next;},initialize:function(def,body){this.m_R=new b2Mat22();this.m_position=new b2Vec2();this.m_userData=def.userData;this.m_friction=def.friction;this.m_restitution=def.restitution;this.m_body=body;this.m_proxyId=b2Pair.b2_nullProxy;this.m_maxRadius=0.0;this.m_categoryBits=def.categoryBits;this.m_maskBits=def.maskBits;this.m_groupIndex=def.groupIndex;},DestroyProxy:function()
 			{if(this.m_proxyId!=b2Pair.b2_nullProxy)
 			{this.m_body.m_world.m_broadPhase.DestroyProxy(this.m_proxyId);this.m_proxyId=b2Pair.b2_nullProxy;}},Synchronize:function(position1,R1,position2,R2){},QuickSync:function(position,R){},Support:function(dX,dY,out){},GetMaxRadius:function(){return this.m_maxRadius;},m_next:null,m_R:new b2Mat22(),m_position:new b2Vec2(),m_type:0,m_userData:null,m_body:null,m_friction:null,m_restitution:null,m_maxRadius:null,m_proxyId:0,m_categoryBits:0,m_maskBits:0,m_groupIndex:0};b2Shape.Create=function(def,body,center){switch(def.type)
@@ -5145,7 +5179,7 @@ if (window.jQuery != 'undefined'){
 			{this.m_body.Freeze();}},Support:function(dX,dY,out)
 			{var len=Math.sqrt(dX*dX+dY*dY);dX/=len;dY/=len;out.Set(this.m_position.x+this.m_radius*dX,this.m_position.y+this.m_radius*dY);},m_localPosition:new b2Vec2(),m_radius:null});
 			var b2MassData=Class.create();b2MassData.prototype={mass:0.0,center:new b2Vec2(0,0),I:0.0,initialize:function(){this.center=new b2Vec2(0,0);}}
-			
+
 			var b2PolyDef=Class.create();Object.extend(b2PolyDef.prototype,b2ShapeDef.prototype);Object.extend(b2PolyDef.prototype,{initialize:function()
 			{this.type=b2Shape.e_unknownShape;this.userData=null;this.localPosition=new b2Vec2(0.0,0.0);this.localRotation=0.0;this.friction=0.2;this.restitution=0.0;this.density=0.0;this.categoryBits=0x0001;this.maskBits=0xFFFF;this.groupIndex=0;this.vertices=new Array(b2Settings.b2_maxPolyVertices);this.type=b2Shape.e_polyShape;this.vertexCount=0;for(var i=0;i<b2Settings.b2_maxPolyVertices;i++){this.vertices[i]=new b2Vec2();}},vertices:new Array(b2Settings.b2_maxPolyVertices),vertexCount:0});var b2PolyShape=Class.create();Object.extend(b2PolyShape.prototype,b2Shape.prototype);Object.extend(b2PolyShape.prototype,{TestPoint:function(p){var pLocal=new b2Vec2();pLocal.SetV(p);pLocal.Subtract(this.m_position);pLocal.MulTM(this.m_R);for(var i=0;i<this.m_vertexCount;++i)
 			{var tVec=new b2Vec2();tVec.SetV(pLocal);tVec.Subtract(this.m_vertices[i]);var dot=b2Math.b2Dot(this.m_normals[i],tVec);if(dot>0.0)
@@ -5564,7 +5598,7 @@ if (window.jQuery != 'undefined'){
 			var b2WorldListener=Class.create();b2WorldListener.prototype={NotifyJointDestroyed:function(joint){},NotifyBoundaryViolated:function(body)
 			{return b2WorldListener.b2_freezeBody;},initialize:function(){}};b2WorldListener.b2_freezeBody=0;b2WorldListener.b2_destroyBody=1;
 			var b2JointNode=Class.create();b2JointNode.prototype={other:null,joint:null,prev:null,next:null,initialize:function(){}}
-			
+
 			var b2Joint=Class.create();b2Joint.prototype={GetType:function(){return this.m_type;},GetAnchor1:function(){return null},GetAnchor2:function(){return null},GetReactionForce:function(invTimeStep){return null},GetReactionTorque:function(invTimeStep){return 0.0},GetBody1:function()
 			{return this.m_body1;},GetBody2:function()
 			{return this.m_body2;},GetNext:function(){return this.m_next;},GetUserData:function(){return this.m_userData;},initialize:function(def){this.m_node1=new b2JointNode();this.m_node2=new b2JointNode();this.m_type=def.type;this.m_prev=null;this.m_next=null;this.m_body1=def.body1;this.m_body2=def.body2;this.m_collideConnected=def.collideConnected;this.m_islandFlag=false;this.m_userData=def.userData;},PrepareVelocitySolver:function(){},SolveVelocityConstraints:function(step){},PreparePositionSolver:function(){},SolvePositionConstraints:function(){return false},m_type:0,m_prev:null,m_next:null,m_node1:new b2JointNode(),m_node2:new b2JointNode(),m_body1:null,m_body2:null,m_islandFlag:null,m_collideConnected:null,m_userData:null};b2Joint.Create=function(def,allocator){var joint=null;switch(def.type)
@@ -5578,7 +5612,7 @@ if (window.jQuery != 'undefined'){
 			return joint;};b2Joint.Destroy=function(joint,allocator){};b2Joint.e_unknownJoint=0;b2Joint.e_revoluteJoint=1;b2Joint.e_prismaticJoint=2;b2Joint.e_distanceJoint=3;b2Joint.e_pulleyJoint=4;b2Joint.e_mouseJoint=5;b2Joint.e_gearJoint=6;b2Joint.e_inactiveLimit=0;b2Joint.e_atLowerLimit=1;b2Joint.e_atUpperLimit=2;b2Joint.e_equalLimits=3;
 			var b2JointDef=Class.create();b2JointDef.prototype={initialize:function()
 			{this.type=b2Joint.e_unknownJoint;this.userData=null;this.body1=null;this.body2=null;this.collideConnected=false;},type:0,userData:null,body1:null,body2:null,collideConnected:null}
-			
+
 			var b2DistanceJoint=Class.create();Object.extend(b2DistanceJoint.prototype,b2Joint.prototype);Object.extend(b2DistanceJoint.prototype,{initialize:function(def){this.m_node1=new b2JointNode();this.m_node2=new b2JointNode();this.m_type=def.type;this.m_prev=null;this.m_next=null;this.m_body1=def.body1;this.m_body2=def.body2;this.m_collideConnected=def.collideConnected;this.m_islandFlag=false;this.m_userData=def.userData;this.m_localAnchor1=new b2Vec2();this.m_localAnchor2=new b2Vec2();this.m_u=new b2Vec2();var tMat;var tX;var tY;tMat=this.m_body1.m_R;tX=def.anchorPoint1.x-this.m_body1.m_position.x;tY=def.anchorPoint1.y-this.m_body1.m_position.y;this.m_localAnchor1.x=tX*tMat.col1.x+tY*tMat.col1.y;this.m_localAnchor1.y=tX*tMat.col2.x+tY*tMat.col2.y;tMat=this.m_body2.m_R;tX=def.anchorPoint2.x-this.m_body2.m_position.x;tY=def.anchorPoint2.y-this.m_body2.m_position.y;this.m_localAnchor2.x=tX*tMat.col1.x+tY*tMat.col1.y;this.m_localAnchor2.y=tX*tMat.col2.x+tY*tMat.col2.y;tX=def.anchorPoint2.x-def.anchorPoint1.x;tY=def.anchorPoint2.y-def.anchorPoint1.y;this.m_length=Math.sqrt(tX*tX+tY*tY);this.m_impulse=0.0;},PrepareVelocitySolver:function(){var tMat;tMat=this.m_body1.m_R;var r1X=tMat.col1.x*this.m_localAnchor1.x+tMat.col2.x*this.m_localAnchor1.y;var r1Y=tMat.col1.y*this.m_localAnchor1.x+tMat.col2.y*this.m_localAnchor1.y;tMat=this.m_body2.m_R;var r2X=tMat.col1.x*this.m_localAnchor2.x+tMat.col2.x*this.m_localAnchor2.y;var r2Y=tMat.col1.y*this.m_localAnchor2.x+tMat.col2.y*this.m_localAnchor2.y;this.m_u.x=this.m_body2.m_position.x+r2X-this.m_body1.m_position.x-r1X;this.m_u.y=this.m_body2.m_position.y+r2Y-this.m_body1.m_position.y-r1Y;var length=Math.sqrt(this.m_u.x*this.m_u.x+this.m_u.y*this.m_u.y);if(length>b2Settings.b2_linearSlop)
 			{this.m_u.Multiply(1.0/length);}
 			else
@@ -5780,7 +5814,7 @@ if (window.jQuery != 'undefined'){
 			var worldAABB;
 			var world;
 			var iterations = 1;
-			var timeStep = 1 / 25; 
+			var timeStep = 1 / 25;
 
 			var walls = [];
 			var wall_thickness = 200;
@@ -5958,32 +5992,32 @@ setTimeout(function(){
 					if ($(window).width() > $(window).height()){
 						//landscape
 					if ( event.beta ) {
-		
+
 							gravity.y = -1 * (Math.sin( event.gamma * Math.PI / 180 ));
 							gravity.x = (event.beta * Math.PI / 180 );
-		
+
 						}
-					
-	
+
+
 					}else{
 						//portrait
 						if ( event.beta ) {
-		
+
 							gravity.x = Math.sin( event.gamma * Math.PI / 180 );
 							gravity.y = event.beta * Math.PI / 180 ;
-		
+
 						}
 					}
 				}else{
-				
+
 					if ( event.beta ) {
-		
+
 						gravity.x = Math.sin( event.gamma * Math.PI / 180 );
 						gravity.y = ( Math.PI / 4 ) + event.beta * Math.PI / 180 ;
-		
+
 					}
 				}
-				
+
 
 			}
 
@@ -6023,7 +6057,7 @@ setTimeout(function(){
 
 			// API STUFF
 
-			
+
 
 			function loop() {
 
@@ -6158,7 +6192,7 @@ setTimeout(function(){
 					world.DestroyBody(walls[2]);
 					world.DestroyBody(walls[3]);
 
-					walls[0] = null; 
+					walls[0] = null;
 					walls[1] = null;
 					walls[2] = null;
 					walls[3] = null;
@@ -6167,7 +6201,7 @@ setTimeout(function(){
 				walls[0] = createBox(world, stage[2] / 2, - wall_thickness, stage[2], wall_thickness);
 				walls[1] = createBox(world, stage[2] / 2, stage[3] + wall_thickness, stage[2], wall_thickness);
 				walls[2] = createBox(world, - wall_thickness, stage[3] / 2, wall_thickness, stage[3]);
-				walls[3] = createBox(world, stage[2] + wall_thickness, stage[3] / 2, wall_thickness, stage[3]);	
+				walls[3] = createBox(world, stage[2] + wall_thickness, stage[3] / 2, wall_thickness, stage[3]);
 
 				wallsSetted = true;
 
@@ -6241,24 +6275,24 @@ setTimeout(function(){
 
 				return changed;
 			}
-			
-			
+
+
 			function grav(){
-			
+
 			/////////////////////////////////////////
 			////////////////////////////////////////
 			// do stuff here so everything has gravity
 
 //$("html").css("overflow", "hidden");
 //$("body").css("overflow", "hidden");
-	
-	
+
+
 $("img").each(function() {
 	if($(this).children().length < 1) {
 		$(this).addClass("box2d");
 		$(this).css("zIndex", "99");
 	    }
-});	
+});
 
 $("div").each(function() {
 	if($(this).children().length < 1) {
@@ -6266,7 +6300,7 @@ $("div").each(function() {
     	$(this).css("position", "relative");
     	$(this).css("zIndex", "99");
     }
-});	
+});
 
 $("span").each(function() {
 	if($(this).children().length < 1) {
@@ -6274,7 +6308,7 @@ $("span").each(function() {
     	$(this).css("position", "relative");
     	$(this).css("zIndex", "99");
     }
-});	
+});
 
 $("a").each(function() {
 	if($(this).children().length < 1) {
@@ -6282,7 +6316,7 @@ $("a").each(function() {
     	$(this).css("position", "relative");
     	$(this).css("zIndex", "99");
     }
-});	
+});
 
 $("textarea").each(function() {
 	if($(this).children().length < 1) {
@@ -6290,14 +6324,14 @@ $("textarea").each(function() {
     	$(this).css("position", "relative");
     	$(this).css("zIndex", "99");
     }
-});	
+});
 
 
 
-			
+
 			}
-			
-}			
+
+}
 
 /////////////////////april fools 4
 
@@ -6308,7 +6342,7 @@ if (aprilbools == 7) {
 
 $("button.btn").text("Sorry pika...");
 
-$("button.btn").delay(10000).hide(2500); 
+$("button.btn").delay(10000).hide(2500);
 
 }
 
@@ -6342,13 +6376,13 @@ $(".liveupdate-listing").prepend(`<li class="liveupdate deadupdate"><a href="/li
 
 setTimeout(function(){
 $(".liveupdate-listing").prepend(`<li class="liveupdate deadupdate"><a href="/live/ta535s1hq2je/updates/f4c886aa-535a-11e9-8133-0e5d46594c50" target="_blank"><time class="live-timestamp" datetime="2019-03-31T02:16:13.000Z" title="this is fake lol">just now</time></a><div class="body"><div class="md"><p>The god of LC giveth, and the god of LC taketh away. This time, I taketh away.</p></div><a href="/user/rideride" class="deadauthor" style="color: black;"> /u/join live counting</a></div><ul class="buttonrow"><li><span class="strike confirm-button"><button>strike</button></span></li><li><span class="delete confirm-button"><button>delete</button></span></li></ul></li>`);
-$("#new-update-form").hide(2500); 
+$("#new-update-form").hide(2500);
 			},107000);
 
 
 setTimeout(function(){
 $(".liveupdate-listing").prepend(`<li class="liveupdate deadupdate"><a href="/live/ta535s1hq2je/updates/f4c886aa-535a-11e9-8133-0e5d46594c50" target="_blank"><time class="live-timestamp" datetime="2019-03-31T02:16:13.000Z" title="this is fake lol">just now</time></a><div class="body"><div class="md"><p>Eh. I would get pretty lonely if no one could post. So I giveth again. </p></div><a href="/user/rideride" class="deadauthor" style="color: black;"> /u/join live counting</a></div><ul class="buttonrow"><li><span class="strike confirm-button"><button>strike</button></span></li><li><span class="delete confirm-button"><button>delete</button></span></li></ul></li>`);
-$("#new-update-form").show(2500); 
+$("#new-update-form").show(2500);
 			},127000);
 
 setTimeout(function(){
@@ -6450,7 +6484,7 @@ var Update;
     // Bind functions to execute in the following events:
     // - loadedNew(): When a new update is sent
     // - loadedOld(): When an old update is loaded
-    // - striked(): When an update is striked 
+    // - striked(): When an update is striked
     // - TODO: deleted(): When an update is deleted
     // loaded from top (new updates sent)
     var funcLoadedTop = [];
@@ -6541,7 +6575,7 @@ var Update;
         attributes: true,
         attributeOldValue: true,
         attributeFilter: ['class'],
-        // observe for these changes (particularly attributes changes) in descendants 
+        // observe for these changes (particularly attributes changes) in descendants
         subtree: true
     });
 })(Update || (Update = {}));
@@ -6684,6 +6718,1157 @@ userColors.LC_Chats = 'white';
 /////////////april fools 1
 if (aprilbools == 1) {
     var namecolors = ['untidy', 'hapless', 'greasy', 'learned', 'seemly', 'halting', 'envious', 'jobless', 'whole', 'high', 'thundering', 'dull', 'scintillating', 'violet', 'friendly', 'vivacious', 'flat', 'crazy', 'quarrelsome', 'worried', 'receptive', 'pleasant', 'secretive', 'comfortable', 'truculent', 'messy', 'obsolete', 'astonishing', 'fertile', 'slow', 'luxuriant', 'heartbreaking', 'foolish', 'torpid', 'sedate', 'famous', 'prickly', 'spiritual', 'normal', 'better', 'draconian', 'curious', 'rhetorical', 'periodic', 'chemical', 'quickest', 'cloistered', 'jumpy', 'last', 'obsequious', 'subsequent', 'plain', 'hateful', 'super', 'demonic', 'rural', 'automatic', 'damp', 'imminent', 'bloody', 'languid', 'cautious', 'old', 'hysterical', 'alcoholic', 'steady', 'open', 'alive', 'glib', 'unruly', 'two', 'bad', 'harmonious', 'long-term', 'many', 'unique', 'angry', 'noiseless', 'five', 'young', 'vagabond', 'standing', 'inquisitive', 'berserk', 'meaty', 'mountainous', 'funny', 'beautiful', 'tricky', 'obtainable', 'sore', 'enchanted', 'hollow', 'zealous', 'enthusiastic', 'straight', 'colorful', 'ill-informed', 'breakable', 'uninterested', 'grandiose', 'nifty', 'unhealthy', 'bored', 'impolite', 'disastrous', 'sad', 'billowy', 'neighborly', 'lazy', 'aquatic', 'lean', 'addicted', 'adhesive', 'eager', 'drunk', 'early', 'faint', 'rambunctious', 'exuberant', 'adventurous', 'nervous', 'needless', 'wandering', 'dysfunctional', 'weary', 'broken', 'daffy', 'loose', 'nutritious', 'shrill', 'ajar', 'jumbled', 'busy', 'honorable', 'accurate', 'wakeful', 'disturbed', 'infamous', 'groovy', 'ambiguous', 'humdrum', 'psychotic', 'tightfisted', 'abandoned', 'dependent', 'fantastic', 'overwrought', 'measly', 'verdant', 'tested', 'undesirable', 'smiling', 'dazzling', 'overrated', 'tense', 'invincible', 'true', 'well-to-do', 'common', 'quaint', 'level', 'impossible', 'lively', 'mammoth', 'sticky', 'pretty', 'earsplitting', 'abaft', 'far-flung', 'eatable', 'rare', 'venomous', 'ignorant', 'gaudy', 'dapper', 'jaded', 'puny', 'doubtful', 'reflective', 'unwritten', 'recondite', 'pumped', 'foregoing', 'purple', 'majestic', 'satisfying', 'upset', 'available', 'oceanic', 'nauseating', 'perpetual', 'habitual', 'oval', 'next', 'public', 'late', 'tearful', 'snotty', 'wrathful', 'uptight', 'greedy', 'ruthless', 'wiggly', 'amazing', 'hulking', 'grumpy', 'oafish', 'literate', 'square', 'nimble', 'neat', 'puffy', 'capricious', 'obese', 'aware', 'round', 'complex', 'bashful', 'gleaming', 'uttermost', 'remarkable', 'glossy', 'caring', 'symptomatic', 'spiky', 'ultra', 'pink', 'futuristic', 'gigantic', 'helpful', 'hushed', 'odd', 'illustrious', 'fresh', 'nappy', 'actually', 'warm', 'thinkable', 'acceptable', 'tan', 'quixotic', 'furry', 'clumsy', 'extra-large', 'depressed', 'hard', 'sloppy', 'great', 'tense', 'debonair', 'flaky', 'delirious', 'homely', 'exotic', 'healthy', 'abrupt', 'exciting', 'fortunate', 'four', 'tawdry', 'materialistic', 'silly', 'nice', 'closed', 'efficient', 'tiny', 'heady', 'confused', 'faithful', 'sweet', 'freezing', 'quiet', 'imaginary', 'moaning', 'easy', 'jittery', 'knowledgeable', 'garrulous', 'lackadaisical', 'resonant', 'entertaining', 'few', 'glistening', 'painful', 'didactic', 'apathetic', 'unbiased', 'ten', 'fair', 'wise', 'fumbling', 'unusual', 'screeching', 'dry', 'lovely', 'frightened', 'mixed', 'slimy', 'flippant', 'red', 'proud', 'complete', 'earthy', 'blue-eyed', 'grotesque', 'efficacious', 'upbeat', 'mature', 'burly', 'extra-small', 'regular', 'roomy', 'high-pitched', 'warlike', 'disagreeable', 'robust', 'craven', 'six', 'frail', 'guiltless', 'fast', 'violent', 'incompetent', 'frightening', 'peaceful', 'far', 'handsome', 'tremendous', 'blushing', 'cultured', 'parsimonious', 'nondescript', 'third', 'lacking', 'threatening', 'expensive', 'annoying', 'parched', 'careless', 'nonstop', 'energetic', 'noisy', 'spotty', 'idiotic', 'acoustic', 'succinct', 'stale', 'tough', 'ritzy', 'organic', 'delicious', 'coherent', 'aboard', 'wide-eyed', 'boiling', 'electric', 'skillful', 'irritating', 'woebegone', 'lewd', 'faded', 'tenuous', 'narrow', 'previous', 'white', 'responsible', 'uneven', 'paltry', 'sleepy', 'volatile', 'scrawny', 'overjoyed', 'wretched', 'afraid', 'gifted', 'numberless', 'tame', 'military', 'profuse', 'sordid', 'cuddly', 'supreme', 'left', 'omniscient', 'scared', 'thoughtful', 'picayune', 'highfalutin', 'ossified', 'three', 'trashy', 'grouchy', 'piquant', 'likeable', 'fierce', 'vulgar', 'disgusted', 'curvy', 'cooperative', 'courageous', 'ancient', 'powerful', 'tidy', 'shallow', 'vast', 'cut', 'melted', 'scary', 'well-groomed', 'tasty', 'polite', 'cheerful', 'festive', 'enormous', 'waggish', 'ceaseless', 'damaged', 'deranged', 'utter', 'jagged', 'imported', 'thirsty', 'little', 'daily', 'natural', 'unnatural', 'dead', 'material', 'voiceless', 'salty', 'ambitious', 'educated', 'crooked', 'past', 'cooing', 'woozy', 'mindless', 'coordinated', 'knowing', 'incredible', 'spurious', 'mushy', 'painstaking', 'rabid', 'one', 'scandalous', 'cold', 'itchy', 'abundant', 'hellish', 'shaky', 'absent', 'combative', 'political', 'zany', 'breezy', 'hesitant', 'unadvised', 'damaging', 'spotted', 'lively', 'wacky', 'distinct', 'zippy', 'tight', 'mean', 'descriptive', 'evasive', 'gabby', 'necessary', 'zonked', 'tranquil', 'sharp', 'eight', 'elated', 'juvenile', 'second', 'slim', 'unequaled', 'nippy', 'squalid', 'grubby', 'cumbersome', 'lyrical', 'labored', 'silent', 'temporary', 'private', 'kindhearted', 'impartial', 'fabulous', 'hot', 'graceful', 'romantic', 'weak', 'internal', 'shut', 'outrageous', 'broad', 'bawdy', 'pathetic', 'abiding', 'agreeable', 'living', 'bright', 'gaping', 'dreary', 'icy', 'productive', 'kaput', 'bustling', 'charming', 'useful', 'awesome', 'filthy', 'small', 'near', 'abounding', 'able', 'unsightly', 'sore', 'precious', 'gullible', 'well-off', 'intelligent', 'orange', 'mellow', 'green', 'cloudy', 'domineering', 'numerous', 'tedious', 'plucky', 'big', 'callous', 'mysterious', 'optimal', 'heavenly', 'teeny', 'real', 'low', 'thick', 'defective', 'befitting', 'ordinary', 'wooden', 'decisive', 'milky', 'chilly', 'tacit', 'incandescent', 'dashing', 'sneaky', 'womanly', 'ready', 'limping', 'average', 'abusive', 'superb', 'stingy', 'fearful', 'petite', 'acrid', 'chubby', 'sassy', 'willing', 'nonchalant', 'unarmed', 'empty', 'animated', 'petite', 'thin', 'juicy', 'ablaze', 'makeshift', 'terrible', 'full', 'husky', 'historical', 'sulky', 'clear', 'youthful', 'heavy', 'hallowed', 'whispering', 'black', 'pointless', 'abstracted', 'tangible', 'hungry', 'inexpensive', 'careful', 'motionless', 'defeated', 'defiant', 'wary', 'brainy', 'illegal', 'perfect', 'toothsome', 'phobic', 'puzzled', 'tender', 'savory', 'uppity', 'physical', 'naughty', 'acidic', 'gray', 'smooth', 'wasteful', 'flimsy', 'teeny-tiny', 'tangy', 'decorous', 'overt', 'sophisticated', 'amusing', 'solid', 'nebulous', 'endurable', 'dispensable', 'colossal', 'separate', 'stormy', 'nine', 'divergent', 'fluffy', 'malicious', 'large', 'flowery', 'hanging', 'yielding', 'general', 'amused', 'fascinated', 'righteous', 'secret', 'yummy', 'aback', 'bouncy', 'different', 'various', 'embarrassed', 'fancy', 'guarded', 'classy', 'marvelous', 'null', 'frequent', 'alike', 'guttural', 'fine', 'wanting', 'obscene', 'stimulating', 'glamorous', 'onerous', 'bright', 'sturdy', 'royal', 'superficial', 'loud', 'quirky', 'soggy', 'agonizing', 'dizzy', 'minor', 'noxious', 'dirty', 'unknown', 'swift', 'trite', 'whimsical', 'handy', 'kind', 'nostalgic', 'disgusting', 'exclusive', 'overconfident', 'absurd', 'ripe', 'cute', 'worthless', 'ratty', 'muddled', 'selfish', 'fluttering', 'half', 'truthful', 'harsh', 'jazzy', 'blue', 'madly', 'roasted', 'present', 'brief', 'rough', 'relieved', 'squealing', 'ugly', 'aboriginal', 'poor', 'ruddy', 'unused', 'fanatical', 'cruel', 'gainful', 'feeble', 'stupid', 'humorous', 'black-and-white', 'attractive', 'industrious', 'somber', 'old-fashioned', 'melodic', 'ragged', 'enchanting', 'special', 'alert', 'permissible', 'godly', 'unsuitable', 'capable', 'like', 'utopian', 'huge', 'ashamed', 'serious', 'fixed', 'even', 'elegant', 'strange', 'steadfast', 'quack', 'sudden', 'naive', 'sick', 'bizarre', 'crowded', 'future', 'nosy', 'grieving', 'reminiscent', 'legal', 'nasty', 'strong', 'uncovered', 'parallel', 'skinny', 'sable', 'spooky', 'pastoral', 'barbarous', 'quizzical', 'lowly', 'fallacious', 'lethal', 'vengeful', 'fearless', 'dear', 'magenta', 'belligerent', 'sweltering', 'abashed', 'cagey', 'deadpan', 'accessible', 'unaccountable', 'smart', 'lucky', 'male', 'longing', 'lavish', 'spicy', 'rigid', 'right', 'foamy', 'fat', 'imperfect', 'chief', 'gusty', 'useless', 'shaggy', 'dramatic', 'questionable', 'macabre', 'wet', 'curved', 'elastic', 'selective', 'rotten', 'adjoining', 'shivering', 'wild', 'soft', 'awful', 'handsomely', 'boring', 'interesting', 'spectacular', 'wide', 'simple', 'clammy', 'best', 'abortive', 'squeamish', 'creepy', 'silky', 'dusty', 'jolly', 'free', 'protective', 'clever', 'tiresome', 'crabby', 'steep', 'boorish', 'curly', 'panicky', 'stupendous', 'simplistic', 'tired', 'safe', 'wiry', 'childlike', 'medical', 'raspy', 'cynical', 'ethereal', 'vague', 'same', 'elfin', 'marked', 'excited', 'vigorous', 'homeless', 'poised', 'delightful', 'mere', 'magnificent', 'hospitable', 'unwieldy', 'cute', 'abhorrent', 'insidious', 'rainy', 'rude', 'wicked', 'chivalrous', 'helpless', 'joyous', 'light', 'obeisant', 'discreet', 'cool', 'psychedelic', 'anxious', 'voracious', 'calculating', 'economic', 'immense', 'knotty', 'macho', 'shiny', 'thankful', 'tasteful', 'icky', 'axiomatic', 'fuzzy', 'snobbish', 'annoyed', 'gorgeous', 'exultant', 'used', 'waiting', 'unkempt', 'evanescent', 'possessive', 'brave', 'rich', 'hypnotic', 'obnoxious', 'mute', 'understood', 'maddening', 'ludicrous', 'miscreant', 'moldy', 'rightful', 'absorbed', 'keen', 'massive', 'subdued', 'offbeat', 'drab', 'shy', 'bitter', 'talented', 'successful', 'premium', 'fragile', 'aggressive', 'watery', 'grey', 'cowardly', 'aloof', 'fretful', 'ad hoc', 'staking', 'miniature', 'flawless', 'gruesome', 'therapeutic', 'silent', 'splendid', 'cheap', 'deeply', 'good', 'nutty', 'wry', 'deep', 'thoughtless', 'diligent', 'plastic', 'disillusioned', 'vacuous', 'brash', 'troubled', 'lumpy', 'wistful', 'lying', 'married', 'typical', 'sour', 'instinctive', 'lame', 'adorable', 'opposite', 'unequal', 'murky', 'pricey', 'boundless', 'functional', 'brown', 'accidental', 'probable', 'deserted', 'ill', 'frantic', 'inconclusive', 'abnormal', 'second-hand', 'loving', 'happy', 'changeable', 'calm', 'synonymous', 'obedient', 'ubiquitous', 'scientific', 'ill-fated', 'giant', 'unbecoming', 'terrific', 'quick', 'slippery', 'dark', 'wealthy', 'cluttered', 'valuable', 'difficult', 'gamy', 'short', 'kindly', 'statuesque', 'mundane', 'rampant', 'outstanding', 'devilish', 'dynamic', 'loutish', 'bumpy', 'familiar', 'lonely', 'spiffy', 'panoramic', 'mighty', 'direful', 'equable', 'racial', 'grateful', 'flagrant', 'plausible', 'goofy', 'momentous', 'merciful', 'repulsive'];
+    for (var i = namecolors.length - 1; i > 0; i--) {
+        // use Durstenfeld shuffle algorithm on colors array
+        var j = Math.floor(Math.random() * (i + 1));
+        var nametemp = namecolors[i];
+        namecolors[i] = namecolors[j];
+        namecolors[j] = nametemp;
+    }
+    var namecolors2 = ['nut', 'sofa', 'songs', 'leg', 'finger', 'offer', 'cannon', 'grip', 'place', 'squirrel', 'parcel', 'hammer', 'geese', 'wren', 'clover', 'discovery', 'mailbox', 'company', 'paper', 'flock', 'camp', 'sleep', 'sign', 'square', 'earthquake', 'wealth', 'attack', 'boat', 'play', 'gate', 'treatment', 'health', 'respect', 'cobweb', 'downtown', 'canvas', 'iron', 'eggnog', 'bat', 'yarn', 'underwear', 'lamp', 'discussion', 'stone', 'competition', 'grandmother', 'foot', 'calculator', 'face', 'stomach', 'stage', 'science', 'alarm', 'caption', 'stick', 'mom', 'servant', 'spark', 'giants', 'smile', 'cellar', 'scissors', 'snow', 'insect', 'jewel', 'doctor', 'milk', 'theory', 'bottle', 'cushion', 'form', 'afterthought', 'rabbits', 'houses', 'spoon', 'pig', 'creature', 'toes', 'muscle', 'wine', 'ship', 'condition', 'card', 'insurance', 'linen', 'jelly', 'wash', 'invention', 'error', 'need', 'wire', 'eye', 'potato', 'elbow', 'house', 'chalk', 'bag', 'oatmeal', 'crook', 'memory', 'actor', 'minute', 'sister', 'attraction', 'friends', 'feeling', 'worm', 'quill', 'seed', 'boot', 'cattle', 'meat', 'flesh', 'engine', 'car', 'line', 'afternoon', 'pancake', 'cream', 'playground', 'key', 'crack', 'horse', 'friend', 'death', 'ball', 'club', 'agreement', 'sack', 'chicken', 'meal', 'train', 'apparatus', 'flowers', 'grandfather', 'babies', 'view', 'rest', 'fang', 'fall', 'bubble', 'library', 'reaction', 'spade', 'ring', 'zinc', 'fowl', 'purpose', 'pear', 'crate', 'rock', 'ducks', 'ink', 'chance', 'taste', 'sea', 'cabbage', 'regret', 'table', 'cars', 'fish', 'rake', 'minister', 'wave', 'seashore', 'pigs', 'rainstorm', 'destruction', 'experience', 'rub', 'stew', 'carpenter', 'brass', 'sidewalk', 'plantation', 'swim', 'move', 'cracker', 'tongue', 'sponge', 'kitty', 'steam', 'top', 'holiday', 'effect', 'shirt', 'bushes', 'river', 'haircut', 'quiet', 'poison', 'toe', 'horses', 'pen', 'drain', 'credit', 'position', 'produce', 'lock', 'sink', 'mist', 'furniture', 'laugh', 'degree', 'profit', 'zephyr', 'orange', 'ray', 'sisters', 'heat', 'snakes', 'crowd', 'planes', 'laborer', 'dock', 'surprise', 'mask', 'book', 'jump', 'girls', 'fruit', 'copper', 'drawer', 'dress', 'match', 'transport', 'children', 'brother', 'oranges', 'leather', 'birth', 'trick', 'tooth', 'cub', 'ticket', 'stop', 'mouth', 'authority', 'army', 'pail', 'unit', 'grade', 'start', 'vein', 'pizzas', 'zoo', 'judge', 'fact', 'smoke', 'rifle', 'society', 'substance', 'scarf', 'shape', 'straw', 'action', 'stocking', 'swing', 'believe', 'receipt', 'relation', 'rhythm', 'things', 'hat', 'texture', 'crib', 'hydrant', 'rain', 'skate', 'step', 'neck', 'maid', 'jeans', 'road', 'badge', 'money', 'sticks', 'nation', 'comparison', 'waste', 'tendency', 'payment', 'stitch', 'spot', 'skirt', 'cook', 'mountain', 'cow', 'corn', 'blow', 'hate', 'ground', 'value', 'end', 'part', 'sound', 'twig', 'pot', 'clam', 'cloth', 'team', 'acoustics', 'loaf', 'point', 'grass', 'wing', 'branch', 'butter', 'page', 'giraffe', 'jellyfish', 'seat', 'eggs', 'jam', 'mine', 'belief', 'women', 'motion', 'beginner', 'quicksand', 'letter', 'distribution', 'drink', 'queen', 'thing', 'railway', 'sail', 'crown', 'lettuce', 'plane', 'kettle', 'snake', 'donkey', 'soap', 'advertisement', 'books', 'uncle', 'shake', 'head', 'battle', 'sweater', 'soup', 'appliance', 'back', 'pipe', 'fuel', 'toad', 'shoe', 'bath', 'visitor', 'art', 'wax', 'plot', 'tomatoes', 'crayon', 'tank', 'weather', 'soda', 'event', 'guitar', 'slope', 'pencil', 'breath', 'detail', 'birds', 'hook', 'control', 'toys', 'price', 'voice', 'growth', 'interest', 'recess', 'way', 'run', 'cart', 'nerve', 'brick', 'space', 'suit', 'cave', 'aftermath', 'friction', 'anger', 'field', 'committee', 'fire', 'volleyball', 'noise', 'ladybug', 'fear', 'hill', 'rice', 'bead', 'plate', 'toothbrush', 'cherries', 'throat', 'aunt', 'territory', 'system', 'low', 'rat', 'daughter', 'jar', 'cactus', 'town', 'desk', 'pets', 'cent', 'cause', 'sort', 'sheep', 'stretch', 'rod', 'legs', 'snail', 'metal', 'self', 'yoke', 'grape', 'cough', 'bucket', 'voyage', 'jail', 'verse', 'celery', 'yard', 'dolls', 'bulb', 'curve', 'circle', 'wool', 'bite', 'coal', 'current', 'airplane', 'act', 'turn', 'representative', 'mind', 'turkey', 'sun', 'range', 'rose', 'design', 'bed', 'temper', 'flag', 'toy', 'smell', 'men', 'arithmetic', 'expert', 'liquid', 'idea', 'talk', 'bomb', 'pickle', 'earth', 'number', 'structure', 'pollution', 'nose', 'cemetery', 'ghost', 'base', 'impulse', 'pie', 'calendar', 'guide', 'chin', 'salt', 'exchange', 'driving', 'oil', 'hot', 'dad', 'market', 'reward', 'punishment', 'blade', 'fairies', 'steel', 'governor', 'year', 'front', 'coach', 'spring', 'spy', 'flower', 'drop', 'record', 'vacation', 'secretary', 'week', 'sky', 'wood', 'nest', 'rail', 'button', 'duck', 'debt', 'wrench', 'language', 'roof', 'wheel', 'trains', 'pies', 'son', 'crime', 'riddle', 'tree', 'business', 'desire', 'pin', 'toothpaste', 'loss', 'cover', 'achiever', 'time', 'chickens', 'beds', 'tent', 'girl', 'pet', 'use', 'frog', 'cast', 'porter', 'egg', 'trip', 'door', 'thrill', 'rabbit', 'school', 'dinosaurs', 'flame', 'letters', 'writing', 'wish', 'scent', 'glass', 'writer', 'quince', 'zebra', 'tramp', 'twist', 'teaching', 'pocket', 'arch', 'monkey', 'lunchroom', 'picture', 'window', 'collar', 'reading', 'cap', 'humor', 'direction', 'person', 'box', 'cheese', 'umbrella', 'thought', 'walk', 'education', 'root', 'silver', 'addition', 'basin', 'office', 'plough', 'protest', 'shop', 'ocean', 'song', 'balance', 'lunch', 'night', 'island', 'scarecrow', 'amount', 'whip', 'street', 'creator', 'mark', 'bear', 'mass', 'angle', 'flavor', 'sleet', 'church', 'border', 'notebook', 'hands', 'fly', 'existence', 'moon', 'screw', 'edge', 'hope', 'floor', 'dog', 'request', 'vest', 'hair', 'bit', 'powder', 'vegetable', 'blood', 'name', 'fireman', 'marble', 'bee', 'watch', 'partner', 'snails', 'vase', 'religion', 'development', 'shelf', 'shock', 'order', 'dust', 'hobbies', 'lip', 'pest', 'prose', 'quarter', 'vessel', 'spiders', 'wound', 'bridge', 'tin', 'berry', 'question', 'kick', 'month', 'cup', 'building', 'honey', 'camera', 'country', 'class', 'stranger', 'dirt', 'knowledge', 'mice', 'tax', 'teeth', 'harbor', 'station', 'truck', 'pull', 'rate', 'dogs', 'story', 'stove', 'day', 'north', 'wind', 'oven', 'limit', 'carriage', 'word', 'arm', 'title', 'trouble', 'behavior', 'middle', 'star', 'dinner', 'change', 'bike', 'baseball', 'chess', 'coat', 'war', 'can', 'lumber', 'van', 'work', 'basketball', 'care', 'smash', 'trucks', 'trees', 'bird', 'channel', 'show', 'meeting', 'string', 'locket', 'water', 'basket', 'ear', 'horn', 'quilt', 'store', 'pump', 'fork', 'shame', 'scale', 'plastic', 'level', 'kiss', 'tail', 'cats', 'observation', 'apparel', 'plant', 'board', 'home', 'activity', 'cake', 'gun', 'cat', 'finger', 'side', 'wilderness', 'doll', 'baby', 'power', 'cows', 'increase', 'sock', 'juice', 'statement', 'plants', 'volcano', 'look', 'support', 'expansion', 'flight', 'bedroom', 'mint', 'burst', 'mitten', 'popcorn', 'hospital', 'shade', 'cakes', 'woman', 'color', 'airport', 'adjustment', 'weight', 'icicle', 'argument', 'sneeze', 'history', 'hose', 'cable', 'eyes', 'peace', 'tub', 'selection', 'scene', 'stamp', 'glove', 'route', 'group', 'farm', 'silk', 'winter', 'reason', 'fog', 'example', 'fold', 'tiger', 'quiver', 'government', 'knee', 'brake', 'hall', 'ice', 'animal', 'grain', 'measure', 'boundary', 'mother', 'force', 'instrument', 'decision', 'hand', 'party', 'trade', 'thread', 'size', 'push', 'quartz', 'sand', 'zipper', 'trousers', 'connection', 'trail', 'pan', 'bikes', 'harmony', 'machine', 'sense', 'stream', 'needle', 'birthday', 'man', 'suggestion', 'industry', 'hole', 'stem', 'roll', 'ants', 'lace', 'join', 'magic', 'bone', 'hour', 'love', 'rule', 'curtain', 'summer', 'room', 'touch', 'sheet', 'knot', 'waves', 'coil', 'cherry', 'income', 'note', 'advice', 'bait', 'dime', 'kittens', 'account', 'bell', 'thunder', 'wall', 'wrist', 'pleasure', 'knife', 'tray', 'food', 'deer', 'yam', 'distance', 'property', 'frogs', 'division', 'sugar', 'veil', 'digestion', 'boy', 'amusement', 'frame', 'slave', 'coast', 'approval', 'bells', 'rings', 'skin', 'shoes', 'lake', 'air', 'slip', 'test', 'beef', 'land', 'crow', 'robin', 'throne', 'gold', 'whistle', 'morning', 'yak', 'thumb', 'passenger'];
+    for (var i = namecolors2.length - 1; i > 0; i--) {
+        // use Durstenfeld shuffle algorithm on colors array
+        var j = Math.floor(Math.random() * (i + 1));
+        var nametemp2 = namecolors2[i];
+        namecolors2[i] = namecolors2[j];
+        namecolors2[j] = nametemp2;
+    }
+}
+
+/////////////april fools 1
+
+	function aprfoo(str){
+        var i = 0;
+        var l = str.length;
+        var start = 0;
+        var end = l - 1;
+        t = str.replace("0", "7").replace("1","7").replace("2","7").replace("3","7").replace("4","7").replace("5","7").replace("6","7").replace("8","7").replace("9","7");
+        return t;
+    }
+
+function chu_inc1(){
+    master_s = ["7️⃣", "🍒", "💎","🍉","🍇","🍊","🍌"];
+    index = Math.floor(Math.random()*7)
+    return master_s[index];
+    }
+
+    function chu_inc(){
+    master_s = "🐶🌸🌺🌼🐹🕊🍰🍎🌈📘🎵🏅🏆9⃣🔆😎🐬❤ ⚽ 😍 ✅🎖🐇🍏🍉😇💋🙊🍓🥇💔🦋⭐ ❤ 💯💤🌟📢🎤💾⬅ 💙💚💜™ ️";
+    index = Math.floor(Math.random()*44)+1
+    chu = master_s.substring(index*2,index*2+2);
+    return master_s.substring(index*2,index*2+2);
+    }
+
+ function chu_inc22(){
+    master_s = "🐶🌸🌺🌼🐹🕊🍰🍎🌈📘🎵🏅🏆9⃣🔆😎🐬❤ ⚽ 😍 ✅🎖🐇🍏🍉😇💋🙊🍓🥇💔🦋⭐ ❤ ";
+    index = Math.floor(Math.random()*33)+1
+    chu = master_s.substring(index*2,index*2+2);
+    return master_s.substring(index*2,index*2+2);
+    }
+
+	function rng(){
+        count = Math.floor(Math.random()*10);
+        return "";
+    }
+
+	function rng2(){
+        count2 = Math.floor(Math.random()*20);
+        return "";
+    }
+
+    function reverser(index){
+        if(count != 0){
+            if (index == 0){
+                return s.charAt(index);
+            } else{
+                return s.charAt(index);
+            }
+        } else{
+            if (index == 0){
+                return s.charAt(6-index);
+            } else{
+                return s.charAt(6-index);
+            }
+        }
+    }
+	function Shuffle(o) {
+	for(var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+	return o;
+};
+
+    // index of next color to assign from colors array
+    var currentColor = 0;
+
+
+/////////////april fools 1
+if (aprilbools == 1) {
+    var currentNameColor = 0;
+    var ranName = {
+'lol': 'lol',
+};
+    var currentNameColor2 = 0;
+    var ranName2 = {
+'lol': 'lol',
+};
+}
+/////////////april fools 1
+
+    // Options
+    var enabled = true;
+    Options.addCheckbox({
+        label: 'COLORED USERNAMES',
+        "default": true,
+        help: 'Makes the username in each message gain a unique color.\n\nCertain users who have specified their preferred username colors to /u/co3_carbonaate get that fixed color all the time. Otherwise, your color will be random and appear differently for everyone using the extension.',
+        onchange: function () {
+            enabled = this.prop('checked');
+        }
+    });
+    // EVENTS
+    // New update loaded
+    Update.loadedNew(function (data) {
+
+
+if(window.location.href.indexOf("10gelxprc1umi") > -1) {
+
+var entirepost = data.body_elem.text();
+
+//OK So here's the format: [xxx,xx,xxx,xx,xxxxxx]
+// It's [X position, Y position, width, height, color]
+
+
+entirepost = entirepost.split(" ").join("\n");
+entirepost = entirepost.split("[").join("\n[");
+entirepost = entirepost.split("]").join("]\n");
+entirepost = entirepost.replace(/^(?!.*\[.{3},.{2},.{3},.{2},.{6}\]).*$/gm, ``);
+entirepost = entirepost.split("\n").join("");
+if (entirepost.length > 0) {
+var place1 = entirepost;
+var place2 = entirepost;
+var place3 = entirepost;
+var place4 = entirepost;
+var place5 = entirepost;
+var place1 = place1.replace(/,.{2},.{3},.{2},.{6}\]/gm, ``);
+place1 = place1.replace(/\[/gm, ``);
+var place2 = place2.replace(/,.{3},.{2},.{6}\]/gm, ``);
+place2 = place2.replace(/\[.{3},/gm, ``);
+var place3 = place3.replace(/,.{2},.{6}\]/gm, ``);
+place3 = place3.replace(/\[.{3},.{2},/gm, ``);
+var place4 = place4.replace(/,.{6}\]/gm, ``);
+place4 = place4.replace(/\[.{3},.{2},.{3},/gm, ``);
+var place5 = place5.replace(/\[.{3},.{2},.{3},.{2},/gm, ``);
+place5 = place5.replace(/\]/gm, ``);
+
+//var hmm = `context.fillRect(50,50,5,5,60,41,91);`;
+
+//hmm;
+
+var lolzo = context.fillStyle = "#"+place5;
+ var lolzo = context.fillRect(place1,place2,place3,place4);
+
+
+}
+
+    }
+
+        if (!enabled)
+            return;
+        // Special usernames (temp rewards for top in 100k HoC, or other contributions)
+        // Bot-maker privileges (/u/co3_carbonate, /u/rschaosid, /u/piyushsharma301,/u/rideride)
+        if (data.author == 'MaybeNotWrong' || data.author == 'co3_carbonate' || data.author == 'rschaosid' || data.author == 'piyushsharma301' || data.author == 'rideride' || data.author == 'LeinadSpoon' || data.author == 'artbn') {
+            data.author_elem.css('font-weight', 'bold');
+        }
+
+
+	    if (IgnoreEnabled == 'yep lol') {
+var ignoretest = document.getElementById("ignorebox2").innerHTML;
+
+if (ignoretest.includes(data.author)) {
+var entirepost = data.body_elem.html();
+var entireposttext = data.body_elem.text();
+var count1testlol = entireposttext.substring(0, 10);
+    count1testlol = count1testlol.replace(/[A-Za-z]/g, '');
+entirepost = entirepost.replace(count1testlol,`<p id="counttext" style="font-size: 14px; display:inline;">`+count1testlol+` ​</p>`);
+entirepost = entirepost.replace(`p>`, `span>`);
+data.body_elem.html(`<span class="ignoredpost" style="font-size: 0px;">`+entirepost+`</span>`);
+}
+}//IgnoreEnabled ending
+
+
+        // Set username colour
+        if (!userColors.hasOwnProperty(data.author)) {
+            userColors[data.author] = colors[currentColor];
+            currentColor++;
+            if (currentColor == colors.length) {
+                currentColor = 0;
+            }
+        }
+        data.author_elem.css('color', userColors[data.author]);
+
+
+/////////////april fools 1
+if (aprilbools == 1) {
+        if (!ranName.hasOwnProperty(data.author)) {
+            ranName[data.author] = namecolors[currentNameColor];
+            currentNameColor++;
+            if (currentNameColor == namecolors.length) {
+                currentNameColor = 0;
+            }
+        }
+        if (!ranName2.hasOwnProperty(data.author)) {
+            ranName2[data.author] = namecolors2[currentNameColor2];
+            currentNameColor2++;
+            if (currentNameColor2 == namecolors2.length) {
+                currentNameColor2 = 0;
+            }
+        }
+
+        data.author_elem.html('/u/the_' + ranName[data.author] + '_' + ranName2[data.author]);
+}
+/////////////april fools 1
+
+/////////////////////april fools 6
+
+if (aprilbools == 6) {
+var entirepost = data.body_elem.text();
+entirepost = entirepost.replace(/a/gi, '⠁');
+entirepost = entirepost.replace(/b/gi, '⠃');
+entirepost = entirepost.replace(/c/gi, '⠉');
+entirepost = entirepost.replace(/d/gi, '⠙');
+entirepost = entirepost.replace(/e/gi, '⠑');
+entirepost = entirepost.replace(/f/gi, '⠋');
+entirepost = entirepost.replace(/g/gi, '⠛');
+entirepost = entirepost.replace(/h/gi, '⠓');
+entirepost = entirepost.replace(/i/gi, '⠊');
+entirepost = entirepost.replace(/j/gi, '⠚');
+entirepost = entirepost.replace(/k/gi, '⠅');
+entirepost = entirepost.replace(/l/gi, '⠇');
+entirepost = entirepost.replace(/m/gi, '⠍');
+entirepost = entirepost.replace(/n/gi, '⠝');
+entirepost = entirepost.replace(/o/gi, '⠕');
+entirepost = entirepost.replace(/p/gi, '⠏');
+entirepost = entirepost.replace(/q/gi, '⠟');
+entirepost = entirepost.replace(/r/gi, '⠗');
+entirepost = entirepost.replace(/s/gi, '⠎');
+entirepost = entirepost.replace(/t/gi, '⠞');
+entirepost = entirepost.replace(/u/gi, '⠥');
+entirepost = entirepost.replace(/v/gi, '⠧');
+entirepost = entirepost.replace(/w/gi, '⠺');
+entirepost = entirepost.replace(/x/gi, '⠭');
+entirepost = entirepost.replace(/y/gi, '⠽');
+entirepost = entirepost.replace(/z/gi, '⠵');
+entirepost = entirepost.replace('<⠏>', '<p>');
+entirepost = entirepost.replace('</⠏>', '</p>');
+
+
+data.body_elem.text(entirepost);
+
+}
+
+/////////////////////april fools 6
+
+if(window.location.href.indexOf("110t4ltqqzi35") > -1 || window.location.href.indexOf("14ny3ur3axhd4") > -1) {
+var lcchats = data.href_elem.attr('href');
+lcchats = lcchats.trim().replace('/u/', '');
+data.href_elem.css('color', userColors[lcchats]).css('fontStyle','initial').css('fontSize','13px');
+if (lcchats == 'MaybeNotWrong' || lcchats == 'co3_carbonate' || lcchats == 'rschaosid' || lcchats == 'piyushsharma301' || lcchats == 'rideride' || lcchats == 'LeinadSpoon' || lcchats == 'artbn') {
+            data.href_elem.css('font-weight', 'bold');
+        }
+}
+    });
+if(window.location.href.indexOf("110t4ltqqzi35") > -1 || window.location.href.indexOf("14ny3ur3axhd4") > -1) {
+$('a[href*="/u/"]').each(function() {
+var thishref = $(this).attr('href');
+thishref = thishref.trim().replace('/u/', '');
+    $(this).css('color', userColors[thishref]).css('fontStyle','initial').css('fontSize','13px');
+if (thishref == 'MaybeNotWrong' || thishref == 'co3_carbonate' || thishref == 'rschaosid' || thishref == 'piyushsharma301' || thishref == 'rideride' || thishref == 'LeinadSpoon' || thishref == 'artbn') {
+            $(this).css('font-weight', 'bold');
+        }
+});
+	Update.loadedOld(function () {
+$('a[href*="/u/"]').each(function() {
+var thishref2 = $(this).attr('href');
+thishref2 = thishref2.trim().replace('/u/', '');
+    $(this).css('color', userColors[thishref2]).css('fontStyle','initial').css('fontSize','13px');
+if (thishref2 == 'MaybeNotWrong' || thishref2 == 'co3_carbonate' || thishref2 == 'rschaosid' || thishref2 == 'piyushsharma301' || thishref2 == 'rideride' || thishref2 == 'LeinadSpoon' || thishref2 == 'artbn') {
+            $(this).css('font-weight', 'bold');
+        }
+});
+});
+}
+	    Styles.add("\n\n\t.amazingpikachu_38 {\n\t\tanimation: blinker 1s linear infinite;\n\t}\n\t@keyframes blinker {\n\t\t50% { opacity: 0; }\n\t}\n\n\t");
+    Styles.add(`li.stricken > div > a[href="/user/MaybeNotWrong"].author.flipped {animation: flippa 1s linear infinite;} @keyframes flippa {50% { float:initial;position:absolute; } 100%{ float:left; } }}`);
+    Styles.add(`li > div > a[href="/user/MaybeNotWrong"].author.blink {animation: blinkerm 1s linear infinite;} @keyframes blinkerm {50% { opacity:0; } 100%{ opacity:1; } }`);
+    Styles.add(`li.stricken > div > div > span > p #counttext {text-decoration: line-through;} .liveupdate-listing li.liveupdate.stricken div.md .ignoredpost p:last-of-type {text-decoration: none;}  `);
+
+
+})(ColoredUsernames || (ColoredUsernames = {}));
+//////////////////////////
+// ClearPastMessages.ts //
+//////////////////////////
+var ClearPastMessages;
+(function (ClearPastMessages) {
+    // INITIALIZATION
+    var maxMessages = 50;
+    // Options
+    var enabled = true;
+	    var enTimeout = false;
+    var $checkbox = Options.addCheckbox({
+        label: 'CLEAR PAST MESSAGES (REDUCES LAG)',
+        "default": true,
+        help: 'Frequently clears past messages from the page, which drastically negates lag and reduces the need to refresh constantly.',
+        onchange: function () {
+            enabled = this.prop('checked');
+        }
+    });
+	$checkbox.click(function() {
+            enTimeout = true;
+setTimeout(function(){ enTimeout = false; }, 5000);
+});
+    // EVENTS
+    // New update loaded
+    Update.loadedNew(function (data) {
+    if(window.scrollY==0 && enTimeout==false) {
+        if (!enabled) {
+        $checkbox.prop('checked', true).trigger('change');
+}
+}
+        if (!enabled)
+            return;
+        var $screenMessages = Elements.$updates.children('.liveupdate');
+        if ($screenMessages.length > maxMessages) {
+            $screenMessages.slice(maxMessages).remove();
+        }
+    });
+    // Old update loaded (scrolled to bottom)
+    Update.loadedOld(function (data) {
+        // disable
+        if (!enabled)
+            return;
+        $checkbox.prop('checked', false).trigger('change');
+    });
+})(ClearPastMessages || (ClearPastMessages = {}));
+////////////////////
+// DisplayMode.ts //
+////////////////////
+var DisplayMode;
+(function (DisplayMode) {
+    // INITIALIZATION
+    Elements.$body.attr('data-DisplayMode', 'Normal');
+    // "Return to Normal Display" button
+    var $returnBtn = $('<input type="button" value="Return to Normal Display"/>');
+    $returnBtn.on('click', function () {
+        $select.children('option[value="Normal"]').prop('selected', true).trigger('change');
+    });
+    $returnBtn.css({
+        marginBottom: '20px',
+        display: 'none',
+        margin: '0 auto'
+    });
+    Elements.$content.prepend($returnBtn);
+
+    // Options
+    var $select = Options.addSelect({
+        label: 'DISPLAY MODE',
+        options: ['Normal', 'Minimal', 'Super Minimal'],
+        help: 'Changes the display interface of the page to your preference.',
+        onchange: function () {
+            var display = this.val();
+            $returnBtn.css('display', (display == 'Normal' ? 'none' : 'block'));
+            Elements.$body.attr('data-DisplayMode', display);
+        }
+    });
+/////////////////APRIL FOOLS 5
+if (aprilbools == 5) {
+    Elements.$body.attr('data-DisplayMode', 'Super Minimal');
+$returnBtn.css('display', 'block');
+
+//////////////// APRIL FOOLS 5
+    // Styles
+    Styles.add("\n\n\t/* Display Minimal */\n\t#lc-body[data-DisplayMode='Super Minimal'] #header,\n\t#lc-body[data-DisplayMode='Super Minimal'] #liveupdate-statusbar,\n\t#lc-body[data-DisplayMode='Super Minimal'] .markdownEditor-wrapper,\n\t#lc-body[data-DisplayMode='Super Minimal'] #new-update-form .bottom-area,\n\t#lc-body[data-DisplayMode='Super Minimal'] li.liveupdate time.live-timestamp,\n\t#lc-body[data-DisplayMode='Super Minimal'] #liveupdate-options, \n\t#lc-body[data-DisplayMode='Super Minimal'] aside.sidebar {\n\t\tdisplay: none;\n\t}\n\n\t#lc-body[data-DisplayMode='Super Minimal'] #liveupdate-header,\n\t#lc-body[data-DisplayMode='Super Minimal'] #new-update-form {\n\t\tmargin-left: 0px;\n\t}\n\n\t#lc-body[data-DisplayMode='Super Minimal'] li.liveupdate ul.buttonrow {\n\t\tmargin: 0 0 2em 0px !important;\n\t}\n\n\t#lc-body[data-DisplayMode='Super Minimal'] div.content {max-width:81px; padding:0;}   #lc-body[data-DisplayMode='Super Minimal'] div.content #new-update-form .usertext .usertext-edit textarea {height: 12px;width: 51px !important; font-size:6px;} #lc-body[data-DisplayMode='Super Minimal'] #liveupdate-header  {display: none;} #lc-body[data-DisplayMode='Super Minimal'] #river {font-size: 6px;width: 28px;margin-left: -33px;margin-top: 1px;} #lc-body[data-DisplayMode='Super Minimal'] li.liveupdate * {font-size: 6px;} #lc-body[data-DisplayMode='Super Minimal'] .liveupdate-listing li.separator time {font-size: 6px;} #lc-body[data-DisplayMode='Super Minimal'] .status {font-size: 6px;} #lc-body[data-DisplayMode='Super Minimal'] {font-size: 6px!important;} #lc-body[data-DisplayMode='Super Minimal'] button, html input[type='button']  {padding: 0;font-size: 6px;}");
+
+////////////////////APRIL FOOLS 5
+//    Styles.add("\n\n\t/* Display Minimal */\n\t#lc-body #header,\n\t#lc-body #liveupdate-statusbar,\n\t#lc-body .markdownEditor-wrapper,\n\t#lc-body #new-update-form .bottom-area,\n\t#lc-body li.liveupdate time.live-timestamp,\n\t#lc-body #liveupdate-options, \n\t#lc-body aside.sidebar {\n\t\tdisplay: none;\n\t}\n\n\t#lc-body #liveupdate-header,\n\t#lc-body #new-update-form {\n\t\tmargin-left: 0px;\n\t}\n\n\t#lc-body li.liveupdate ul.buttonrow {\n\t\tmargin: 0 0 2em 0px !important;\n\t}\n\n\t#lc-body div.content {max-width:81px; padding:0;}   #lc-body div.content #new-update-form .usertext .usertext-edit textarea {height: 12px;width: 51px !important; font-size:6px;} #lc-body #liveupdate-header  {display: none;} #lc-body #river {font-size: 6px;width: 28px;margin-left: -33px;margin-top: 1px;} #lc-body li.liveupdate * {font-size: 6px;} #lc-body .liveupdate-listing li.separator time {font-size: 6px;} #lc-body .status {font-size: 6px;} #lc-body {font-size: 6px!important;} #lc-body button, html input[type='button']  {padding: 0;font-size: 6px;}");
+////////////////////APRIL FOOLS 5/ TODO: ADD A RETURN TO NORMAL BUTTON
+//    Styles.add("\n\n\t/* Display Minimal */\n\t#lc-body #header,\n\t#lc-body #liveupdate-statusbar,\n\t#lc-body .markdownEditor-wrapper,\n\t#lc-body #new-update-form .bottom-area,\n\t#lc-body li.liveupdate time.live-timestamp,\n\t#lc-body #liveupdate-options, \n\t#lc-body aside.sidebar {\n\t\tdisplay: initial;\n\t}\n\n\t#lc-body #liveupdate-header,\n\t#lc-body #new-update-form {\n\t\tmargin-left: initial;\n\t}\n\n\t#lc-body li.liveupdate ul.buttonrow {\n\t\tmargin: initial !important;\n\t}\n\n\t#lc-body div.content {max-width:initial; padding:initial;}   #lc-body div.content #new-update-form .usertext .usertext-edit textarea {height: initial;width: initial !important; font-size:initial;} #lc-body #liveupdate-header  {display: initial;} #lc-body #river {font-size: initial;width: initial;margin-left: initial;margin-top: initial;} #lc-body li.liveupdate * {font-size: initial;} #lc-body .liveupdate-listing li.separator time {font-size: initial;} #lc-body .status {font-size: initial;} #lc-body {font-size: initial!important;} #lc-body button, html input[type='button']  {padding: initial;font-size: initial;}");
+
+    Styles.add(`@keyframes mymove {0% {font-size: 13px;transform:rotate(0deg);}50% {font-size: 78px;transform:rotate(180deg);}100% {font-size: 13px;transform:rotate(360deg);}}`);
+    Styles.add(`@keyframes mymove2 {0% {font-size: 13px;transform:rotate(0deg);opacity:1;}50% {font-size: 78px;transform:rotate(180deg);opacity:0;}100% {font-size: 13px;transform:rotate(360deg);opacity:1;}}`);
+}
+        Styles.add("\n\n\t/* Display Minimal */\n\t#lc-body[data-DisplayMode='Minimal'] #header,\n\t#lc-body[data-DisplayMode='Minimal'] #liveupdate-statusbar,\n\t#lc-body[data-DisplayMode='Minimal'] .markdownEditor-wrapper,\n\t#lc-body[data-DisplayMode='Minimal'] #new-update-form .bottom-area,\n\t#lc-body[data-DisplayMode='Minimal'] li.liveupdate time.live-timestamp,\n\t#lc-body[data-DisplayMode='Minimal'] #liveupdate-options, \n\t#lc-body[data-DisplayMode='Minimal'] aside.sidebar {\n\t\tdisplay: none;\n\t}\n\n\t#lc-body[data-DisplayMode='Minimal'] #liveupdate-header,\n\t#lc-body[data-DisplayMode='Minimal'] #new-update-form {\n\t\tmargin-left: 0px;\n\t}\n\n\t#lc-body[data-DisplayMode='Minimal'] li.liveupdate ul.buttonrow {\n\t\tmargin: 0 0 2em 0px !important;\n\t}\n\n\t#lc-body[data-DisplayMode='Minimal'] div.content {\n\t\tmax-width: " + Math.max(450, $('#new-update-form textarea').outerWidth()) + "px;\n\t}\n\n\t");
+
+})(DisplayMode || (DisplayMode = {}));
+////////////////////////////
+// RemoveSubmissionLag.ts //
+////////////////////////////
+var RemoveSubmissionLag;
+(function (RemoveSubmissionLag) {
+    // INITIALIZATION
+    var lastInput = '';
+    var enabled = true;
+    var ghostEnabled = false;
+    var previews = [];
+    // Options
+    Options.addSelect({
+        label: 'REMOVE SUBMISSION LAG',
+        options: ['Enabled', 'Enabled without Ghost Messages', 'Disabled'],
+        "default": 1,
+        help: 'Upon submitting a message, the textbox is immediately cleared to allow you to enter new contents without waiting for your previous submission to be processed.\n\nThe ghost messages are to prevent messages from being permanently lost if they had failed to deliver. You can enable the feature without ghost messages if you find them too distracting.',
+        onchange: function () {
+            var display = this.val();
+            enabled = display == 'Enabled' || display == 'Enabled without Ghost Messages';
+            ghostEnabled = display == 'Enabled';
+        }
+    });
+    // Styles
+    Styles.add("\n\n\t.liveupdate-listing li.liveupdate.preview {\n\t\topacity: 0.75;\n\t}\n\t.liveupdate-listing li.liveupdate.preview .live-timestamp {\n\t\tvisibility: hidden;\n\t}\n\n\t");
+    // EVENTS
+    // When message is submitted
+    Elements.$submitBtn.on('click', function (e) {
+        if (!enabled)
+            return;
+        setTimeout(function () {
+            var val = Elements.$textarea.val();
+            if (val.length == 0)
+                return;
+            // Add preview element, a "ghost" message containing the contents of the new message
+            // until it has been delivered.
+            // Prevents permanent loss of messages if delivery fails
+            if (ghostEnabled) {
+                var html = SnuOwnd.getParser().render(val);
+                var $buttonRow = $("\n\t\t\t\t\t<ul class=\"buttonrow\">\n\t\t\t\t\t\t<li><button>retry</button></li>\n\t\t\t\t\t\t<li><button>cancel</button></li>\n\t\t\t\t\t</ul>\n\t\t\t\t");
+                var $elem_1 = $("\n\t\t\t\t\t<li class=\"liveupdate preview\">\n\t\t\t\t\t\t<a href=\"#\"><time class=\"live-timestamp\"></time></a>\n\t\t\t\t\t\t<div class=\"body\">\n\t\t\t\t\t\t\t<div class=\"md\">\n\t\t\t\t\t\t\t\t" + html + "\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</li>\n\t\t\t\t").append($buttonRow);
+                previews.push({
+                    html: html.trim().replace(/(\r\n|\n|\r)/gm, ""),
+                    elem: $elem_1
+                });
+                Elements.$updates.prepend($elem_1);
+                // Setup event listeners for the buttons of the preview message
+                var $buttons = $buttonRow.find('button');
+                // "Retry" button
+                $buttons.eq(0).on('click', function () {
+                    Elements.$textarea.val(val).focus();
+                });
+                // "Cancel" button
+                $buttons.eq(1).on('click', function () {
+                    for (var i = 0; i < previews.length; i++) {
+                        if ($elem_1 == previews[i].elem) {
+                            $elem_1.remove();
+                            previews.splice(i, 1);
+                            break;
+                        }
+                    }
+                });
+            }
+            // Clear textbox
+            Elements.$textarea.val('');
+            // This is a way to work around the issue where Reddit automatically clears the textbox
+            // when the update had been successfully delivered, although we just cleared it here.
+            // Call backupInput() whenever the textarea content is changed
+            Elements.$textarea.on('keydown keyup input', backupInput);
+        }, 0);
+    });
+    // In backupInput(), keep track of the last backed up textarea content, by storing in lastInput
+    function backupInput() {
+        lastInput = Elements.$textarea.val();
+    }
+    // Use MutationObserver on the 'error message' to detect when Reddit had cleared the textbox.
+    // When the error message's style changes from 'display: inline;' to 'display: none;', it
+    // is clear that Reddit had cleared the textbox.
+    // At this point, use the last backed-up input
+    var observer = new MutationObserver(function (mutations) {
+        if (!enabled)
+            return;
+        if (mutations.length != 1)
+            return;
+        // Exit if we think that Reddit had not cleared the textbox
+        var mutation = mutations[0];
+        if (!(mutation.oldValue == 'display: inline;' &&
+            Elements.$submitError.attr('style') == 'display: none;'))
+            return;
+        // Use the last backed-up input
+        Elements.$textarea.off('keydown keyup input', backupInput);
+        Elements.$textarea.val(lastInput);
+        lastInput = '';
+    });
+if (Elements.$submitError.length > 0) {
+    observer.observe(Elements.$submitError.get(0), {
+        // observe for change in 'style' attribute value
+        attributes: true,
+        attributeOldValue: true,
+        attributeFilter: ['style']
+    });
+}
+    // When new message is loaded and is by this user, check if we can delete the corresponding
+    // preview message.
+    // If it is by another user, push all the preview messages to the front (in the right order),
+    // so that they seem to always be on top.
+    // (Only if preview messages are enabled)
+    Update.loadedNew(function (data) {
+        if (!enabled || !ghostEnabled)
+            return;
+        var l = previews.length; // number of preview messages
+        if (data.author != USER) {
+            // Message not from this user
+            // Attempt to bring all the preview messages to the front and exit
+            for (var i = 0; i < l; i++) {
+                Elements.$updates.prepend(previews[i].elem);
+            }
+            return;
+        }
+        // Get the contents of the user's message (trimmed and without linebreaks),
+        // loop through the preview messages (trimmed and without linebreaks),
+        // and if the contents are the same, delete the preview message
+        var body = data.body_elem.html().replace(/(\r\n|\n|\r)/gm, "").trim();
+        //console.log(body);
+        var to_delete = -1;
+        for (var i = 0; i < l; i++) {
+            //console.log(previews[i].html);
+            if (previews[i].html == body) {
+                to_delete = i;
+                break;
+            }
+        }
+        if (to_delete != -1)
+            previews.splice(to_delete, 1)[0].elem.remove();
+    });
+})(RemoveSubmissionLag || (RemoveSubmissionLag = {}));
+/////////////////////////////
+// DisableUsernameLinks.ts //
+/////////////////////////////
+var DisableUsernameLinks;
+(function (DisableUsernameLinks) {
+    // INITIALIZATION
+    Elements.$body.attr('data-DisableUsernameLinks', 'false');
+    // Options
+    Options.addCheckbox({
+        label: 'DISABLE USERNAME LINKS',
+        section: 'Advanced',
+        help: 'Disables the redirection to a user\'s profile upon clicking on his/her username. This is convenient to prevent yourself from accidentally going to one\'s profile page when trying to strike or delete a message.',
+        onchange: function () {
+            Elements.$body.attr('data-DisableUsernameLinks', this.prop('checked').toString());
+        }
+    });
+    // Styles
+    Styles.add("\n\n\t#lc-body[data-DisableUsernameLinks='true'] li.liveupdate > .body > .author {\n\t\tpointer-events: none;\n\t\tcursor: auto;\n\t}\n\n\t");
+})(DisableUsernameLinks || (DisableUsernameLinks = {}));
+////////////////////////
+// LinksOpenNewTab.ts //
+////////////////////////
+var LinksOpenNewTab;
+(function (LinksOpenNewTab) {
+    // INITIALIZATION
+    var $base = $('<base target="_blank">');
+    Elements.$head.append($base);
+    // Options
+    var enabled = true;
+    Options.addCheckbox({
+        label: 'MAKE ALL LINKS OPEN IN A NEW TAB',
+        "default": true,
+        section: 'Advanced',
+        help: 'Makes all links on the page open in a new tab.',
+        onchange: function () {
+            enabled = this.prop('checked');
+            if (enabled)
+                $base.attr('target', '_blank');
+            else
+                $base.attr('target', '_self');
+        }
+    });
+})(LinksOpenNewTab || (LinksOpenNewTab = {}));
+/////////////////////////
+// DisableShortcuts.ts //
+/////////////////////////
+var DisableShortcuts;
+(function (DisableShortcuts) {
+    // INITIALIZATION
+    // Options
+    var enabled = true;
+    Options.addCheckbox({
+        label: 'DISABLE OBSTRUCTIVE BROWSER SHORTCUTS',
+        "default": true,
+        section: 'Advanced',
+        help: 'Disables certain obstructive browser keyboard shortcuts. This currently disables the following: Ctrl+0 (Zoom Reset), Ctrl+[1-9] (Switch Tabs)',
+        onchange: function () {
+            enabled = this.prop('checked');
+        }
+    });
+    // EVENTS
+    $(document).on('keydown', function (e) {
+        if (!enabled)
+            return;
+        // Ctrl Hotkeys
+        if (e.ctrlKey) {
+            // Ctrl+0 (Zoom Reset)
+            if (e.keyCode == 48)
+                e.preventDefault();
+            // Ctrl+[1-9] (Switch Tabs)
+            if (e.keyCode >= 49 && e.keyCode <= 57)
+                e.preventDefault();
+            // Ctrl+[numpad0-9] (as above)
+            if (e.keyCode >= 96 && e.keyCode <= 105)
+                e.preventDefault();
+        }
+    });
+})(DisableShortcuts || (DisableShortcuts = {}));
+//////////////////////////
+// SpecialUsernames.ts //
+//////////////////////////
+if (specialnumber > 0) {
+var SpecialUsernames1;
+var SpecialUsernamesEnabled1;
+(function (SpecialUsernames1) {
+    // Options
+    var enabled1 = true;
+    var $checkbox = Options.addCheckbox({
+        label: kname1 + ' 100K USERNAME',
+        section: 'Advanced',
+        "default": true,
+        help: 'Enable or disable the special 100k usernames.',
+        onchange: function () {
+            enabled1 = this.prop('checked');
+        }
+    });
+        if (enabled1 == true) {
+        SpecialUsernamesEnabled1 = 'yep lol';
+        } else {
+        SpecialUsernamesEnabled1 = 'nope lol';
+        }
+})(SpecialUsernames1 || (SpecialUsernames1 = {}));
+}
+if (specialnumber > 1) {
+var SpecialUsernames2;
+var SpecialUsernamesEnabled2;
+(function (SpecialUsernames2) {
+    // Options
+    var enabled2 = true;
+    var $checkbox = Options.addCheckbox({
+        label: kname2 + ' 100K USERNAME',
+        section: 'Advanced',
+        "default": true,
+        help: 'Enable or disable the special 100k usernames.',
+        onchange: function () {
+            enabled2 = this.prop('checked');
+        }
+    });
+        if (enabled2 == true) {
+        SpecialUsernamesEnabled2 = 'yep lol';
+        } else {
+        SpecialUsernamesEnabled2 = 'nope lol';
+        }
+})(SpecialUsernames2 || (SpecialUsernames2 = {}));
+}
+if (specialnumber > 2) {
+var SpecialUsernames3;
+var SpecialUsernamesEnabled3;
+(function (SpecialUsernames3) {
+    // Options
+    var enabled3 = true;
+    var $checkbox = Options.addCheckbox({
+        label: kname3 + ' 100K USERNAME',
+        section: 'Advanced',
+        "default": true,
+        help: 'Enable or disable the special 100k usernames.',
+        onchange: function () {
+            enabled3 = this.prop('checked');
+        }
+    });
+        if (enabled3 == true) {
+        SpecialUsernamesEnabled3 = 'yep lol';
+        } else {
+        SpecialUsernamesEnabled3 = 'nope lol';
+        }
+})(SpecialUsernames3 || (SpecialUsernames3 = {}));
+}
+if (specialnumber > 3) {
+var SpecialUsernames4;
+var SpecialUsernamesEnabled4;
+(function (SpecialUsernames2) {
+    // Options
+    var enabled4 = true;
+    var $checkbox = Options.addCheckbox({
+        label: kname4 + ' 100K USERNAME',
+        section: 'Advanced',
+        "default": true,
+        help: 'Enable or disable the special 100k usernames.',
+        onchange: function () {
+            enabled4 = this.prop('checked');
+        }
+    });
+        if (enabled4 == true) {
+        SpecialUsernamesEnabled4 = 'yep lol';
+        } else {
+        SpecialUsernamesEnabled4 = 'nope lol';
+        }
+})(SpecialUsernames4 || (SpecialUsernames4 = {}));
+}
+if (specialnumber > 4) {
+var SpecialUsernames5;
+var SpecialUsernamesEnabled5;
+(function (SpecialUsernames5) {
+    // Options
+    var enabled5 = true;
+    var $checkbox = Options.addCheckbox({
+        label: kname5 + ' 100K USERNAME',
+        section: 'Advanced',
+        "default": true,
+        help: 'Enable or disable the special 100k usernames.',
+        onchange: function () {
+            enabled5 = this.prop('checked');
+        }
+    });
+        if (enabled5 == true) {
+        SpecialUsernamesEnabled5 = 'yep lol';
+        } else {
+        SpecialUsernamesEnabled5 = 'nope lol';
+        }
+})(SpecialUsernames5 || (SpecialUsernames5 = {}));
+}
+if (specialnumber > 5) {
+var SpecialUsernames6;
+var SpecialUsernamesEnabled6;
+(function (SpecialUsernames6) {
+    // Options
+    var enabled6 = true;
+    var $checkbox = Options.addCheckbox({
+        label: kname6 + ' 100K USERNAME',
+        section: 'Advanced',
+        "default": true,
+        help: 'Enable or disable the special 100k usernames.',
+        onchange: function () {
+            enabled6 = this.prop('checked');
+        }
+    });
+        if (enabled6 == true) {
+        SpecialUsernamesEnabled6 = 'yep lol';
+        } else {
+        SpecialUsernamesEnabled6 = 'nope lol';
+        }
+})(SpecialUsernames6 || (SpecialUsernames6 = {}));
+}
+
+//////////////////////////
+// TeamBars.ts //
+//////////////////////////
+var TeamBars;
+var TeamBarsEnabled;
+(function (TeamBars) {
+    // Options
+    var enabled = true;
+    var $checkbox = Options.addCheckbox({
+        label: 'DAILY HALL OF COUNTERS',
+        section: 'Advanced',
+        "default": true,
+        help: 'Enable or disable the daily Hall of Counters.',
+        onchange: function () {
+            enabled = this.prop('checked');
+        }
+    });
+    if (enabled == true) {
+        TeamBarsEnabled = 'yep lol';
+    } else {
+        TeamBarsEnabled = 'nope lol';
+    }
+
+    //////////////////////////////////TEAM COMMAS
+    if (window.location.href.indexOf("ta535s1hq2je") > -1) {
+        if (TeamBarsEnabled == 'yep lol') {
+            var hmmyy;
+            var checky;
+            var checky2;
+            var first_call = true;
+
+            day_hoc_handler = function (data) {
+                hmmyy = data["hoc"];
+                checky = data["hoc"];
+                if (first_call){
+                    $(`<div id=wholetable><table id=loadtest><caption id=dailyenabler>Daily Hall of Counters [+]</caption><tr id="tablenames"><td>#</td><td>User</td><td>Counts</td></tr></table></div>`).insertBefore("#liveupdate-resources .md");
+                    first_call = false;
+                } else {
+                    $(`#wholetable`).html(`<table id=loadtest><caption id=dailyenabler>Daily Hall of Counters [+]</caption><tr id="tablenames"><td>#</td><td>User</td><td>Counts</td></tr></table>`);
+                }
+                function getTableRow(item, index) {
+                    let res = "<tr style='font-size:inherit;'";
+                    if (index >= 3){
+                        res += " class=collapsedo";
+                    }
+                    var hocname = [item.author, item.counts].join("</a></td><td>");
+                    res += "><td>" + (index + 1) + "</td><td><a class=authoro>/u/" + hocname + "</td></tr>";
+                    return res;
+                }
+                function jsonCheck(item) {
+                    var hocnamd = [item.author, item.counts].join("");
+                    return hocnamd;
+                }
+
+                hmmyy = hmmyy.map(getTableRow);
+                checky = checky.map(jsonCheck);
+
+                checky = checky.join("");
+                checky = checky.replace(/[A-Za-z]/g, ``);
+                checky = checky.replace(/[-]/g, ``);
+                checky = checky.replace(/[_]/g, ``);
+                checky = checky.replace(/[0-9]+/g, '');
+                if (checky.length == 0) {
+                    $('#loadtest').append(hmmyy.join(""));
+                    $("#loadtest tbody:nth-child(5)").append(`<tr><td>divide</td></tr>`);
+                    $(".authoro").each(function () {
+                        //    $(this).prepend(`<a href=` + $(this).text() + `>`);
+                        //        $(this).append(`</a>`);
+                        $(this).attr("href", "https://reddit.com" + $(this).text());
+                        if (dailyHocColorNamesEnable2 == true) {
+                            var thishref = $(this).attr('href');
+                            thishref = thishref.trim().replace('https://reddit.com/u/', '');
+                            $(this).css('color', colortransfers[thishref]);
+                            if ($(this).text() == `/u/` + USER) {
+                                $(this).parent().parent().css('font-weight', 'bold');
+                            }
+                        }
+                    });
+
+                    if (dailysize == 0) {
+                        document.getElementById("dailyenabler").innerHTML = "Daily Hall of Counters [+]";
+                        $(".collapsedo").css({
+                            'display': 'none',
+                        });
+                    } else {
+                        document.getElementById("dailyenabler").innerHTML = "Daily Hall of Counters [-]";
+                        $(".collapsedo").css({
+                            'display': 'table-row',
+                        });
+                    }
+                    $("#dailyenabler").on('click', function () {
+                        if (dailysize == 0) {
+                            dailysize++;
+                            document.getElementById("dailyenabler").innerHTML = "Daily Hall of Counters [-]";
+                            $(".collapsedo").css({
+                                'display': 'table-row',
+                            });
+                        } else {
+                            dailysize--;
+                            document.getElementById("dailyenabler").innerHTML = "Daily Hall of Counters [+]";
+                            $(".collapsedo").css({
+                                'display': 'none',
+                            });
+                        }
+                    });
+                } else { //checky length check
+                    $('#loadtest').append("<tr><td>Error verifying data, please PM /u/rideride</td></tr>");
+                }
+            }
+
+            $.ajax({
+                method: 'GET',
+                dataType: 'json',
+                cache: false,
+                url: 'https://raw.githubusercontent.com/MaybeNotWrong/lc-sep/master/data.txt',
+                success: day_hoc_handler,   //////this is where you put the checky bracket
+                error: function (data) {
+                    hmmyy;
+                }
+            });
+
+            setInterval(function () {
+
+                var hmmyy;
+                var checky;
+                var checky2;
+                $.ajax({
+                    method: 'GET',
+                    dataType: 'json',
+                    cache: false,
+                    url: 'https://raw.githubusercontent.com/MaybeNotWrong/lc-sep/master/data.txt',
+                    success: day_hoc_handler,   //////this is where you put the checky bracket
+                    error: function (data) {
+                        hmmyy;
+                    }
+                });
+
+            }, 15000);
+Styles.add(`                    #loadtest tbody tr:nth-child(2) td:nth-child(1){background: gold;color: black;}#loadtest tbody tr:nth-child(3) td:nth-child(1){background: silver;color: black;}#loadtest tbody tr:nth-child(4) td:nth-child(1){background: #cd7f32;color: black;}#loadtest{border: 1px solid black;width: 100%;text-align: center;}#loadtest tr td{border: 1px solid black;max-width: 223px;}#loadtest{overflow: hidden;height: 100%;}#loadtest{color: #000;font-size: inherit;font-weight: normal;}#dailyenabler{cursor: pointer;color: #000;font-size: 14px;font-weight: bold;margin-bottom: 3px;}#tablenames{font-weight: bold;}`);
+            //document.getElementById("team1").style.cssText = 'background:#0000cf;color:white;z-index: 99999;min-width: 14px;max-width: 14px;height: 14px;line-height: 14px;border-radius: 14px;border: none;overflow: hidden;padding: 0;vertical-align: middle;font-size: 11px !important;position: relative;text-indent: 12px;-webkit-transition: all 0.3s;transition: all 0.3s;-webkit-transition-delay: 0.1s;transition-delay: 0.1s;cursor:help;';
+        } //TeamBarsEnabled end
+    }
+    //////////////////////////////////
+})(TeamBars || (TeamBars = {}));
+
+////////////////////////
+// ContentPosition.ts //
+////////////////////////
+var ContentPosition;
+(function (ContentPosition) {
+    // INITIALIZATION
+    Elements.$body.attr('data-ContentPosition', 'Center');
+    // Options
+    Options.addSelect({
+        label: 'CONTENT POSITION',
+        options: ['Left', 'Center', 'Right'],
+        section: 'Advanced',
+        "default": 1,
+        help: 'Adjusts the position of the main content section.',
+        onchange: function () {
+            Elements.$body.attr('data-ContentPosition', this.val());
+        }
+    });
+    // Styles
+    Styles.add("\n\n\t#lc-body[data-ContentPosition='Left'] div.content {\n\t\tmargin: 0;\n\t}\n\t#lc-body[data-ContentPosition='Center'] div.content {\n\t\tmargin: 0 auto;\n\t}\n\t#lc-body[data-ContentPosition='Right'] div.content {\n\t\tfloat: right;\n\t}\n\n\t");
+})(ContentPosition || (ContentPosition = {}));
+////////////////////////////////
+// StandardizeNumberFormat.ts //
+////////////////////////////////
+var StandardizeNumberFormat;
+(function (StandardizeNumberFormat) {
+    // UTILITY
+    // Format a number string with a character separator (e.g. 1,000,000)
+    function delimit(str, char) {
+        return str.replace(/\B(?=(\d{3})+(?!\d))/g, char);
+    }
+    // Trim specified leading and trailing characters in a string
+    function trim(str, chars) {
+        var i = 0;
+        var l = str.length;
+        var start = 0;
+        var end = l - 1;
+        for (i = 0; i < l; i++) {
+            if (chars.indexOf(str.charAt(i)) == -1) {
+                start = i;
+                break;
+            }
+        }
+        for (i = l - 1; i >= 0; i--) {
+            if (chars.indexOf(str.charAt(i)) == -1) {
+                end = i;
+                break;
+            }
+        }
+        return str.slice(start, end + 1);
+    }
+    /**
+     * Get the first element in the body that is either
+        * a text node
+        * a node that does not have any children
+     */
+    function first_node(parent) {
+        var contents = parent.childNodes;
+        var i = 0;
+        for (var l = contents.length; i < l; i++) {
+            if (contents[i].nodeType == 3) {
+                // text node
+                // check if empty
+                if (contents[i].textContent.trim().length > 0)
+                    return contents[i];
+            }
+            if (contents[i].nodeType == 1) {
+                // element node
+                var elem = contents[i];
+                if (elem.children.length == 0) {
+                    // no more children
+                    break;
+                }
+                // parent node - recurse to return its first node
+                return first_node(elem);
+            }
+        }
+        return contents[i];
+    }
+    // INITIALIZATION
+    var enabled = false;
+    var format = function (str) { return str; };
+    // Possible format functions
+    // (this is to avoid the use of anonymous functions, improving performance)
+    var FormatFuncs;
+    (function (FormatFuncs) {
+        function Commas(str) {
+            return delimit(str, ',');
+        }
+        FormatFuncs.Commas = Commas;
+        function Spaces(str) {
+            return delimit(str, ' ');
+        }
+        FormatFuncs.Spaces = Spaces;
+        function Periods(str) {
+            return delimit(str, '.');
+        }
+        FormatFuncs.Periods = Periods;
+        function None(str) {
+            return str;
+        }
+        FormatFuncs.None = None;
+    })(FormatFuncs || (FormatFuncs = {}));
+    ;
+    // Options
+    Options.addSelect({
+        label: 'STANDARDIZE NUMBER FORMAT',
+        options: ['Disabled', 'Spaces', 'Periods', 'Commas', 'None'],
+        section: 'Advanced',
+        help: 'Standardizes the number count in each message to a format of your choice. Also removes special formatting on the number.',
+        onchange: function () {
+            var val = this.val();
+            if (val == 'Disable') {
+                enabled = false;
+                return;
+            }
+            enabled = true;
+            format = FormatFuncs[val];
+        }
+    });
+    // EVENTS
+    // New update loaded
+    Update.loadedNew(function (data) {
+        if (!enabled)
+            return;
+        var first_elem = first_node(data.body_elem.get(0));
+        var $first_elem = $(first_elem);
+        var body = first_elem.textContent;
+        if (!body)
+            return;
+        // Detect number from string
+        // (This algorithm has a few problems, such as "2,000 2 GETS today"
+        //  producing a detected number of "20002".)
+        var l = body.length;
+        var num = '';
+        var original_num = '';
+        var c;
+        for (var i = 0; i < l; i++) {
+            c = body.charAt(i);
+            if (c == '0' || c == '1' || c == '2' || c == '3' || c == '4' ||
+                c == '5' || c == '6' || c == '7' || c == '8' || c == '9') {
+                num += c;
+                original_num += c;
+                continue;
+            }
+            else if (c == ' ' || c == ',' || c == '.') {
+                // part of number styling preference
+                original_num += c;
+                continue;
+            }
+            else {
+                break;
+            }
+        }
+        if (num.length == 0)
+            num = null;
+        // Replace original_num in first_elem with num
+        if (num == null)
+            return;
+        first_elem.textContent = body.replace(trim(original_num, [' ', ',', '.']), format(num));
+        // Remove formatting of parents of first_elem by changing into span
+        // Also, headers are not wrapped in p, so replace those with p
+        var $parents = $first_elem.parentsUntil('p, div.md');
+        var parentsLen = $parents.length;
+        if (first_elem.nodeType == 1 && !$first_elem.is('p, div.md')) {
+            $parents = $parents.add($first_elem);
+            if (parentsLen == 0) {
+                // not a paragraph, but still no parent? must be a header (h1)
+                // convert to p
+                $first_elem.replaceWith('<p>' + first_elem.textContent + '</p>');
+            }
+        }
+        var $this;
+        $parents.each(function (index, element) {
+            $this = $(this);
+            if ($this.parent().is(data.body_elem)) {
+                // if the direct parent is the body element,
+                // replace to p instead,
+                // since this is definitely not a p itself
+                $this.replaceWith('<p>' + this.textContent + '</p>');
+                return;
+            }
+            $this.replaceWith('<span>' + this.textContent + '</span>');
+        });
+    });
+})(StandardizeNumberFormat || (StandardizeNumberFormat = {}));
+////////////////////////
+// OptionPosition.ts //
+////////////////////////
+
+var OptionPosition;
+(function (OptionPosition) {
+    // INITIALIZATION
+    $('#liveupdate-options').attr('data-OptionPosition', 'HIGHER');
+    // Options
+    Options.addSelect({
+        label: 'OPTION POSITION',
+        options: ['HIGHER', 'DEFAULT'],
+        section: 'Advanced',
+        "default": 0,
+        help: 'Adjusts the position of the options.',
+        onchange: function () {
+            $('#liveupdate-options').attr('data-OptionPosition', this.val());
+        }
+    });
+    // Styles
+    Styles.add("\n\n\t#liveupdate-options[data-OptionPosition='HIGHER'] {margin-top: -11em;}\n\n\t#liveupdate-options[data-OptionPosition='DEFAULT'] {margin-top: -2em;}");
+})(OptionPosition || (OptionPosition = {}));
+
+////////////////////////
+// Ignore.ts //
+////////////////////////
+
+var Ignore;
+var IgnoreEnabled;
+
+(function (Ignore) {
+    // INITIALIZATION
+//    $('#liveupdate-options').attr('data-OptionPosition', 'HIGHER');
+    // Options
+    var enabled7 = false;
+
+    Options.addCheckbox({
+        label: 'IGNORE',
+        section: 'Advanced',
+        "default": false,
+        help: 'Adjusts the position of the options.',
+        onchange: function () {
+            enabled7 = this.prop('checked');
+        if (enabled7 == true) {
+        IgnoreEnabled = 'yep lol';
+        $('#ignorestuff').css('display','initial');
+        } else {
+        IgnoreEnabled = 'nope lol';
+        $('#ignorestuff').css('display','none');
+        }
+        }
+    });
+
+            $(`<script>var ignored = []; ignored.push(localStorage['ignoredppl']); function addIgnore() {var ignoreinp = document.getElementById('ignorebox');ignored.push(ignoreinp.value);ignoreinp.value = "";document.getElementById("ignorebox2").innerHTML = ignored;localStorage['ignoredppl'] = ignored;}function displayIgnore() {document.getElementById("ignorebox2").innerHTML = ignored;}function deleteIgnore() {ignored = []; localStorage['ignoredppl'] = []; document.getElementById("ignorebox2").innerHTML = '';}</script><span id=ignorestuff><input id=ignorebox style="position: absolute;margin-top: -25px;margin-left: 65px;"></input><span style="position: absolute;margin-top: -26px;margin-left: 210px;font-size: 9px !important;"><button type="button" id="ignoreadd" onclick="addIgnore()" style="font-size: 12px;padding: 0;margin-right: 3px;">ADD</button><button type="button" id="ignoredelete" onclick="deleteIgnore()" style="font-size: 12px;padding: 0;">DELETE ALL</button></span><div>Ignored users: <span id=ignorebox2></span></div></span><script>document.getElementById('ignorebox2').innerHTML = ignored;</script>`).insertAfter(`#live-counting-extension div div:nth-child(4) label:nth-last-child(1)`);
+        if (enabled7 == true) {
+        IgnoreEnabled = 'yep lol';
+        $('#ignorestuff').css('display','initial');
+        } else {
+        IgnoreEnabled = 'nope lol';
+        $('#ignorestuff').css('display','none');
+        }
+    // Styles
+
+
+
+//    Styles.add("\n\n\t#liveupdate-options[data-OptionPosition='HIGHER'] {margin-top: -11em;}\n\n\t#liveupdate-options[data-OptionPosition='DEFAULT'] {margin-top: -2em;}");
+})(Ignore || (Ignore= {}));
+
+////////////////////////
+// CountdownTimer.ts //
+////////////////////////
+
+var CountdownTimer;
+var CountdownTimerEnabled;
+(function (CountdownTimer) {
+    // Options
+    var enabledtimer = true;
+    var $checkbox = Options.addCheckbox({
+        label: 'COUNTDOWN TIMER',
+        section: 'Advanced 2',
+        "default": true,
+        help: 'Enable or disable the countdown timer.',
+        onchange: function () {
+            enabledtimer = this.prop('checked');
+        }
+    });
+        if (enabledtimer == true) {
+        CountdownTimerEnabled = true;
+        } else {
+        CountdownTimerEnabled = false;
+        }
+})(CountdownTimer || (CountdownTimer = {}));', 'infamous', 'groovy', 'ambiguous', 'humdrum', 'psychotic', 'tightfisted', 'abandoned', 'dependent', 'fantastic', 'overwrought', 'measly', 'verdant', 'tested', 'undesirable', 'smiling', 'dazzling', 'overrated', 'tense', 'invincible', 'true', 'well-to-do', 'common', 'quaint', 'level', 'impossible', 'lively', 'mammoth', 'sticky', 'pretty', 'earsplitting', 'abaft', 'far-flung', 'eatable', 'rare', 'venomous', 'ignorant', 'gaudy', 'dapper', 'jaded', 'puny', 'doubtful', 'reflective', 'unwritten', 'recondite', 'pumped', 'foregoing', 'purple', 'majestic', 'satisfying', 'upset', 'available', 'oceanic', 'nauseating', 'perpetual', 'habitual', 'oval', 'next', 'public', 'late', 'tearful', 'snotty', 'wrathful', 'uptight', 'greedy', 'ruthless', 'wiggly', 'amazing', 'hulking', 'grumpy', 'oafish', 'literate', 'square', 'nimble', 'neat', 'puffy', 'capricious', 'obese', 'aware', 'round', 'complex', 'bashful', 'gleaming', 'uttermost', 'remarkable', 'glossy', 'caring', 'symptomatic', 'spiky', 'ultra', 'pink', 'futuristic', 'gigantic', 'helpful', 'hushed', 'odd', 'illustrious', 'fresh', 'nappy', 'actually', 'warm', 'thinkable', 'acceptable', 'tan', 'quixotic', 'furry', 'clumsy', 'extra-large', 'depressed', 'hard', 'sloppy', 'great', 'tense', 'debonair', 'flaky', 'delirious', 'homely', 'exotic', 'healthy', 'abrupt', 'exciting', 'fortunate', 'four', 'tawdry', 'materialistic', 'silly', 'nice', 'closed', 'efficient', 'tiny', 'heady', 'confused', 'faithful', 'sweet', 'freezing', 'quiet', 'imaginary', 'moaning', 'easy', 'jittery', 'knowledgeable', 'garrulous', 'lackadaisical', 'resonant', 'entertaining', 'few', 'glistening', 'painful', 'didactic', 'apathetic', 'unbiased', 'ten', 'fair', 'wise', 'fumbling', 'unusual', 'screeching', 'dry', 'lovely', 'frightened', 'mixed', 'slimy', 'flippant', 'red', 'proud', 'complete', 'earthy', 'blue-eyed', 'grotesque', 'efficacious', 'upbeat', 'mature', 'burly', 'extra-small', 'regular', 'roomy', 'high-pitched', 'warlike', 'disagreeable', 'robust', 'craven', 'six', 'frail', 'guiltless', 'fast', 'violent', 'incompetent', 'frightening', 'peaceful', 'far', 'handsome', 'tremendous', 'blushing', 'cultured', 'parsimonious', 'nondescript', 'third', 'lacking', 'threatening', 'expensive', 'annoying', 'parched', 'careless', 'nonstop', 'energetic', 'noisy', 'spotty', 'idiotic', 'acoustic', 'succinct', 'stale', 'tough', 'ritzy', 'organic', 'delicious', 'coherent', 'aboard', 'wide-eyed', 'boiling', 'electric', 'skillful', 'irritating', 'woebegone', 'lewd', 'faded', 'tenuous', 'narrow', 'previous', 'white', 'responsible', 'uneven', 'paltry', 'sleepy', 'volatile', 'scrawny', 'overjoyed', 'wretched', 'afraid', 'gifted', 'numberless', 'tame', 'military', 'profuse', 'sordid', 'cuddly', 'supreme', 'left', 'omniscient', 'scared', 'thoughtful', 'picayune', 'highfalutin', 'ossified', 'three', 'trashy', 'grouchy', 'piquant', 'likeable', 'fierce', 'vulgar', 'disgusted', 'curvy', 'cooperative', 'courageous', 'ancient', 'powerful', 'tidy', 'shallow', 'vast', 'cut', 'melted', 'scary', 'well-groomed', 'tasty', 'polite', 'cheerful', 'festive', 'enormous', 'waggish', 'ceaseless', 'damaged', 'deranged', 'utter', 'jagged', 'imported', 'thirsty', 'little', 'daily', 'natural', 'unnatural', 'dead', 'material', 'voiceless', 'salty', 'ambitious', 'educated', 'crooked', 'past', 'cooing', 'woozy', 'mindless', 'coordinated', 'knowing', 'incredible', 'spurious', 'mushy', 'painstaking', 'rabid', 'one', 'scandalous', 'cold', 'itchy', 'abundant', 'hellish', 'shaky', 'absent', 'combative', 'political', 'zany', 'breezy', 'hesitant', 'unadvised', 'damaging', 'spotted', 'lively', 'wacky', 'distinct', 'zippy', 'tight', 'mean', 'descriptive', 'evasive', 'gabby', 'necessary', 'zonked', 'tranquil', 'sharp', 'eight', 'elated', 'juvenile', 'second', 'slim', 'unequaled', 'nippy', 'squalid', 'grubby', 'cumbersome', 'lyrical', 'labored', 'silent', 'temporary', 'private', 'kindhearted', 'impartial', 'fabulous', 'hot', 'graceful', 'romantic', 'weak', 'internal', 'shut', 'outrageous', 'broad', 'bawdy', 'pathetic', 'abiding', 'agreeable', 'living', 'bright', 'gaping', 'dreary', 'icy', 'productive', 'kaput', 'bustling', 'charming', 'useful', 'awesome', 'filthy', 'small', 'near', 'abounding', 'able', 'unsightly', 'sore', 'precious', 'gullible', 'well-off', 'intelligent', 'orange', 'mellow', 'green', 'cloudy', 'domineering', 'numerous', 'tedious', 'plucky', 'big', 'callous', 'mysterious', 'optimal', 'heavenly', 'teeny', 'real', 'low', 'thick', 'defective', 'befitting', 'ordinary', 'wooden', 'decisive', 'milky', 'chilly', 'tacit', 'incandescent', 'dashing', 'sneaky', 'womanly', 'ready', 'limping', 'average', 'abusive', 'superb', 'stingy', 'fearful', 'petite', 'acrid', 'chubby', 'sassy', 'willing', 'nonchalant', 'unarmed', 'empty', 'animated', 'petite', 'thin', 'juicy', 'ablaze', 'makeshift', 'terrible', 'full', 'husky', 'historical', 'sulky', 'clear', 'youthful', 'heavy', 'hallowed', 'whispering', 'black', 'pointless', 'abstracted', 'tangible', 'hungry', 'inexpensive', 'careful', 'motionless', 'defeated', 'defiant', 'wary', 'brainy', 'illegal', 'perfect', 'toothsome', 'phobic', 'puzzled', 'tender', 'savory', 'uppity', 'physical', 'naughty', 'acidic', 'gray', 'smooth', 'wasteful', 'flimsy', 'teeny-tiny', 'tangy', 'decorous', 'overt', 'sophisticated', 'amusing', 'solid', 'nebulous', 'endurable', 'dispensable', 'colossal', 'separate', 'stormy', 'nine', 'divergent', 'fluffy', 'malicious', 'large', 'flowery', 'hanging', 'yielding', 'general', 'amused', 'fascinated', 'righteous', 'secret', 'yummy', 'aback', 'bouncy', 'different', 'various', 'embarrassed', 'fancy', 'guarded', 'classy', 'marvelous', 'null', 'frequent', 'alike', 'guttural', 'fine', 'wanting', 'obscene', 'stimulating', 'glamorous', 'onerous', 'bright', 'sturdy', 'royal', 'superficial', 'loud', 'quirky', 'soggy', 'agonizing', 'dizzy', 'minor', 'noxious', 'dirty', 'unknown', 'swift', 'trite', 'whimsical', 'handy', 'kind', 'nostalgic', 'disgusting', 'exclusive', 'overconfident', 'absurd', 'ripe', 'cute', 'worthless', 'ratty', 'muddled', 'selfish', 'fluttering', 'half', 'truthful', 'harsh', 'jazzy', 'blue', 'madly', 'roasted', 'present', 'brief', 'rough', 'relieved', 'squealing', 'ugly', 'aboriginal', 'poor', 'ruddy', 'unused', 'fanatical', 'cruel', 'gainful', 'feeble', 'stupid', 'humorous', 'black-and-white', 'attractive', 'industrious', 'somber', 'old-fashioned', 'melodic', 'ragged', 'enchanting', 'special', 'alert', 'permissible', 'godly', 'unsuitable', 'capable', 'like', 'utopian', 'huge', 'ashamed', 'serious', 'fixed', 'even', 'elegant', 'strange', 'steadfast', 'quack', 'sudden', 'naive', 'sick', 'bizarre', 'crowded', 'future', 'nosy', 'grieving', 'reminiscent', 'legal', 'nasty', 'strong', 'uncovered', 'parallel', 'skinny', 'sable', 'spooky', 'pastoral', 'barbarous', 'quizzical', 'lowly', 'fallacious', 'lethal', 'vengeful', 'fearless', 'dear', 'magenta', 'belligerent', 'sweltering', 'abashed', 'cagey', 'deadpan', 'accessible', 'unaccountable', 'smart', 'lucky', 'male', 'longing', 'lavish', 'spicy', 'rigid', 'right', 'foamy', 'fat', 'imperfect', 'chief', 'gusty', 'useless', 'shaggy', 'dramatic', 'questionable', 'macabre', 'wet', 'curved', 'elastic', 'selective', 'rotten', 'adjoining', 'shivering', 'wild', 'soft', 'awful', 'handsomely', 'boring', 'interesting', 'spectacular', 'wide', 'simple', 'clammy', 'best', 'abortive', 'squeamish', 'creepy', 'silky', 'dusty', 'jolly', 'free', 'protective', 'clever', 'tiresome', 'crabby', 'steep', 'boorish', 'curly', 'panicky', 'stupendous', 'simplistic', 'tired', 'safe', 'wiry', 'childlike', 'medical', 'raspy', 'cynical', 'ethereal', 'vague', 'same', 'elfin', 'marked', 'excited', 'vigorous', 'homeless', 'poised', 'delightful', 'mere', 'magnificent', 'hospitable', 'unwieldy', 'cute', 'abhorrent', 'insidious', 'rainy', 'rude', 'wicked', 'chivalrous', 'helpless', 'joyous', 'light', 'obeisant', 'discreet', 'cool', 'psychedelic', 'anxious', 'voracious', 'calculating', 'economic', 'immense', 'knotty', 'macho', 'shiny', 'thankful', 'tasteful', 'icky', 'axiomatic', 'fuzzy', 'snobbish', 'annoyed', 'gorgeous', 'exultant', 'used', 'waiting', 'unkempt', 'evanescent', 'possessive', 'brave', 'rich', 'hypnotic', 'obnoxious', 'mute', 'understood', 'maddening', 'ludicrous', 'miscreant', 'moldy', 'rightful', 'absorbed', 'keen', 'massive', 'subdued', 'offbeat', 'drab', 'shy', 'bitter', 'talented', 'successful', 'premium', 'fragile', 'aggressive', 'watery', 'grey', 'cowardly', 'aloof', 'fretful', 'ad hoc', 'staking', 'miniature', 'flawless', 'gruesome', 'therapeutic', 'silent', 'splendid', 'cheap', 'deeply', 'good', 'nutty', 'wry', 'deep', 'thoughtless', 'diligent', 'plastic', 'disillusioned', 'vacuous', 'brash', 'troubled', 'lumpy', 'wistful', 'lying', 'married', 'typical', 'sour', 'instinctive', 'lame', 'adorable', 'opposite', 'unequal', 'murky', 'pricey', 'boundless', 'functional', 'brown', 'accidental', 'probable', 'deserted', 'ill', 'frantic', 'inconclusive', 'abnormal', 'second-hand', 'loving', 'happy', 'changeable', 'calm', 'synonymous', 'obedient', 'ubiquitous', 'scientific', 'ill-fated', 'giant', 'unbecoming', 'terrific', 'quick', 'slippery', 'dark', 'wealthy', 'cluttered', 'valuable', 'difficult', 'gamy', 'short', 'kindly', 'statuesque', 'mundane', 'rampant', 'outstanding', 'devilish', 'dynamic', 'loutish', 'bumpy', 'familiar', 'lonely', 'spiffy', 'panoramic', 'mighty', 'direful', 'equable', 'racial', 'grateful', 'flagrant', 'plausible', 'goofy', 'momentous', 'merciful', 'repulsive'];
     for (var i = namecolors.length - 1; i > 0; i--) {
         // use Durstenfeld shuffle algorithm on colors array
         var j = Math.floor(Math.random() * (i + 1));
@@ -7352,461 +8537,4 @@ var SpecialUsernamesEnabled4;
     var enabled4 = true;
     var $checkbox = Options.addCheckbox({
         label: kname4 + ' 100K USERNAME',
-        section: 'Advanced',
-        "default": true,
-        help: 'Enable or disable the special 100k usernames.',
-        onchange: function () {
-            enabled4 = this.prop('checked');
-        }
-    });
-        if (enabled4 == true) {
-        SpecialUsernamesEnabled4 = 'yep lol';
-        } else {
-        SpecialUsernamesEnabled4 = 'nope lol';
-        }
-})(SpecialUsernames4 || (SpecialUsernames4 = {}));
-}
-if (specialnumber > 4) {
-var SpecialUsernames5;
-var SpecialUsernamesEnabled5;
-(function (SpecialUsernames5) {
-    // Options
-    var enabled5 = true;
-    var $checkbox = Options.addCheckbox({
-        label: kname5 + ' 100K USERNAME',
-        section: 'Advanced',
-        "default": true,
-        help: 'Enable or disable the special 100k usernames.',
-        onchange: function () {
-            enabled5 = this.prop('checked');
-        }
-    });
-        if (enabled5 == true) {
-        SpecialUsernamesEnabled5 = 'yep lol';
-        } else {
-        SpecialUsernamesEnabled5 = 'nope lol';
-        }
-})(SpecialUsernames5 || (SpecialUsernames5 = {}));
-}
-if (specialnumber > 5) {
-var SpecialUsernames6;
-var SpecialUsernamesEnabled6;
-(function (SpecialUsernames6) {
-    // Options
-    var enabled6 = true;
-    var $checkbox = Options.addCheckbox({
-        label: kname6 + ' 100K USERNAME',
-        section: 'Advanced',
-        "default": true,
-        help: 'Enable or disable the special 100k usernames.',
-        onchange: function () {
-            enabled6 = this.prop('checked');
-        }
-    });
-        if (enabled6 == true) {
-        SpecialUsernamesEnabled6 = 'yep lol';
-        } else {
-        SpecialUsernamesEnabled6 = 'nope lol';
-        }
-})(SpecialUsernames6 || (SpecialUsernames6 = {}));
-}
-
-//////////////////////////
-// TeamBars.ts //
-//////////////////////////
-var TeamBars;
-var TeamBarsEnabled;
-(function (TeamBars) {
-    // Options
-    var enabled = true;
-    var $checkbox = Options.addCheckbox({
-        label: 'DAILY HALL OF COUNTERS',
-        section: 'Advanced',
-        "default": true,
-        help: 'Enable or disable the daily Hall of Counters.',
-        onchange: function () {
-            enabled = this.prop('checked');
-        }
-    });
-    if (enabled == true) {
-        TeamBarsEnabled = 'yep lol';
-    } else {
-        TeamBarsEnabled = 'nope lol';
-    }
-
-    //////////////////////////////////TEAM COMMAS
-    if (window.location.href.indexOf("ta535s1hq2je") > -1) {
-        if (TeamBarsEnabled == 'yep lol') {
-            var hmmyy;
-            var checky;
-            var checky2;
-            var first_call = true;
-
-            day_hoc_handler = function (data) {
-                hmmyy = data["hoc"];
-                checky = data["hoc"];
-                if (first_call){
-                    $(`<div id=wholetable><table id=loadtest><caption id=dailyenabler>Daily Hall of Counters [+]</caption><tr id="tablenames"><td>#</td><td>User</td><td>Counts</td></tr></table></div>`).insertBefore("#liveupdate-resources .md");
-                    first_call = false;
-                } else {
-                    $(`#wholetable`).html(`<table id=loadtest><caption id=dailyenabler>Daily Hall of Counters [+]</caption><tr id="tablenames"><td>#</td><td>User</td><td>Counts</td></tr></table>`);
-                }
-                function getTableRow(item, index) {
-                    let res = "<tr style='font-size:inherit;'";
-                    if (index >= 3){
-                        res += " class=collapsedo";
-                    }
-                    var hocname = [item.author, item.counts].join("</a></td><td>");
-                    res += "><td>" + (index + 1) + "</td><td><a class=authoro>/u/" + hocname + "</td></tr>";
-                    return res;
-                }
-                function jsonCheck(item) {
-                    var hocnamd = [item.author, item.counts].join("");
-                    return hocnamd;
-                }
-
-                hmmyy = hmmyy.map(getTableRow);
-                checky = checky.map(jsonCheck);
-
-                checky = checky.join("");
-                checky = checky.replace(/[A-Za-z]/g, ``);
-                checky = checky.replace(/[-]/g, ``);
-                checky = checky.replace(/[_]/g, ``);
-                checky = checky.replace(/[0-9]+/g, '');
-                if (checky.length == 0) {
-                    $('#loadtest').append(hmmyy.join(""));
-                    $("#loadtest tbody:nth-child(5)").append(`<tr><td>divide</td></tr>`);
-                    $(".authoro").each(function () {
-                        //    $(this).prepend(`<a href=` + $(this).text() + `>`);
-                        //        $(this).append(`</a>`);
-                        $(this).attr("href", "https://reddit.com" + $(this).text());
-                        if (dailyHocColorNamesEnable2 == true) {
-                            var thishref = $(this).attr('href');
-                            thishref = thishref.trim().replace('https://reddit.com/u/', '');
-                            $(this).css('color', colortransfers[thishref]);
-                            if ($(this).text() == `/u/` + USER) {
-                                $(this).parent().parent().css('font-weight', 'bold');
-                            }
-                        }
-                    });
-
-                    if (dailysize == 0) {
-                        document.getElementById("dailyenabler").innerHTML = "Daily Hall of Counters [+]";
-                        $(".collapsedo").css({
-                            'display': 'none',
-                        });
-                    } else {
-                        document.getElementById("dailyenabler").innerHTML = "Daily Hall of Counters [-]";
-                        $(".collapsedo").css({
-                            'display': 'table-row',
-                        });
-                    }
-                    $("#dailyenabler").on('click', function () {
-                        if (dailysize == 0) {
-                            dailysize++;
-                            document.getElementById("dailyenabler").innerHTML = "Daily Hall of Counters [-]";
-                            $(".collapsedo").css({
-                                'display': 'table-row',
-                            });
-                        } else {
-                            dailysize--;
-                            document.getElementById("dailyenabler").innerHTML = "Daily Hall of Counters [+]";
-                            $(".collapsedo").css({
-                                'display': 'none',
-                            });
-                        }
-                    });
-                } else { //checky length check
-                    $('#loadtest').append("<tr><td>Error verifying data, please PM /u/rideride</td></tr>");
-                }
-            }
-
-            $.ajax({
-                method: 'GET',
-                dataType: 'json',
-                cache: false,
-                url: 'https://raw.githubusercontent.com/MaybeNotWrong/lc-sep/master/data.txt',
-                success: day_hoc_handler,   //////this is where you put the checky bracket
-                error: function (data) {
-                    hmmyy;
-                }
-            });
-
-            setInterval(function () {
-
-                var hmmyy;
-                var checky;
-                var checky2;
-                $.ajax({
-                    method: 'GET',
-                    dataType: 'json',
-                    cache: false,
-                    url: 'https://raw.githubusercontent.com/MaybeNotWrong/lc-sep/master/data.txt',
-                    success: day_hoc_handler,   //////this is where you put the checky bracket
-                    error: function (data) {
-                        hmmyy;
-                    }
-                });
-
-            }, 15000);
-Styles.add(`                    #loadtest tbody tr:nth-child(2) td:nth-child(1){background: gold;color: black;}#loadtest tbody tr:nth-child(3) td:nth-child(1){background: silver;color: black;}#loadtest tbody tr:nth-child(4) td:nth-child(1){background: #cd7f32;color: black;}#loadtest{border: 1px solid black;width: 100%;text-align: center;}#loadtest tr td{border: 1px solid black;max-width: 223px;}#loadtest{overflow: hidden;height: 100%;}#loadtest{color: #000;font-size: inherit;font-weight: normal;}#dailyenabler{cursor: pointer;color: #000;font-size: 14px;font-weight: bold;margin-bottom: 3px;}#tablenames{font-weight: bold;}`);
-            //document.getElementById("team1").style.cssText = 'background:#0000cf;color:white;z-index: 99999;min-width: 14px;max-width: 14px;height: 14px;line-height: 14px;border-radius: 14px;border: none;overflow: hidden;padding: 0;vertical-align: middle;font-size: 11px !important;position: relative;text-indent: 12px;-webkit-transition: all 0.3s;transition: all 0.3s;-webkit-transition-delay: 0.1s;transition-delay: 0.1s;cursor:help;';
-        } //TeamBarsEnabled end
-    }
-    //////////////////////////////////
-})(TeamBars || (TeamBars = {}));
-
-////////////////////////
-// ContentPosition.ts //
-////////////////////////
-var ContentPosition;
-(function (ContentPosition) {
-    // INITIALIZATION
-    Elements.$body.attr('data-ContentPosition', 'Center');
-    // Options
-    Options.addSelect({
-        label: 'CONTENT POSITION',
-        options: ['Left', 'Center', 'Right'],
-        section: 'Advanced',
-        "default": 1,
-        help: 'Adjusts the position of the main content section.',
-        onchange: function () {
-            Elements.$body.attr('data-ContentPosition', this.val());
-        }
-    });
-    // Styles
-    Styles.add("\n\n\t#lc-body[data-ContentPosition='Left'] div.content {\n\t\tmargin: 0;\n\t}\n\t#lc-body[data-ContentPosition='Center'] div.content {\n\t\tmargin: 0 auto;\n\t}\n\t#lc-body[data-ContentPosition='Right'] div.content {\n\t\tfloat: right;\n\t}\n\n\t");
-})(ContentPosition || (ContentPosition = {}));
-////////////////////////////////
-// StandardizeNumberFormat.ts //
-////////////////////////////////
-var StandardizeNumberFormat;
-(function (StandardizeNumberFormat) {
-    // UTILITY
-    // Format a number string with a character separator (e.g. 1,000,000)
-    function delimit(str, char) {
-        return str.replace(/\B(?=(\d{3})+(?!\d))/g, char);
-    }
-    // Trim specified leading and trailing characters in a string
-    function trim(str, chars) {
-        var i = 0;
-        var l = str.length;
-        var start = 0;
-        var end = l - 1;
-        for (i = 0; i < l; i++) {
-            if (chars.indexOf(str.charAt(i)) == -1) {
-                start = i;
-                break;
-            }
-        }
-        for (i = l - 1; i >= 0; i--) {
-            if (chars.indexOf(str.charAt(i)) == -1) {
-                end = i;
-                break;
-            }
-        }
-        return str.slice(start, end + 1);
-    }
-    /**
-     * Get the first element in the body that is either
-        * a text node
-        * a node that does not have any children
-     */
-    function first_node(parent) {
-        var contents = parent.childNodes;
-        var i = 0;
-        for (var l = contents.length; i < l; i++) {
-            if (contents[i].nodeType == 3) {
-                // text node
-                // check if empty
-                if (contents[i].textContent.trim().length > 0)
-                    return contents[i];
-            }
-            if (contents[i].nodeType == 1) {
-                // element node
-                var elem = contents[i];
-                if (elem.children.length == 0) {
-                    // no more children
-                    break;
-                }
-                // parent node - recurse to return its first node
-                return first_node(elem);
-            }
-        }
-        return contents[i];
-    }
-    // INITIALIZATION
-    var enabled = false;
-    var format = function (str) { return str; };
-    // Possible format functions
-    // (this is to avoid the use of anonymous functions, improving performance)
-    var FormatFuncs;
-    (function (FormatFuncs) {
-        function Commas(str) {
-            return delimit(str, ',');
-        }
-        FormatFuncs.Commas = Commas;
-        function Spaces(str) {
-            return delimit(str, ' ');
-        }
-        FormatFuncs.Spaces = Spaces;
-        function Periods(str) {
-            return delimit(str, '.');
-        }
-        FormatFuncs.Periods = Periods;
-        function None(str) {
-            return str;
-        }
-        FormatFuncs.None = None;
-    })(FormatFuncs || (FormatFuncs = {}));
-    ;
-    // Options
-    Options.addSelect({
-        label: 'STANDARDIZE NUMBER FORMAT',
-        options: ['Disabled', 'Spaces', 'Periods', 'Commas', 'None'],
-        section: 'Advanced',
-        help: 'Standardizes the number count in each message to a format of your choice. Also removes special formatting on the number.',
-        onchange: function () {
-            var val = this.val();
-            if (val == 'Disable') {
-                enabled = false;
-                return;
-            }
-            enabled = true;
-            format = FormatFuncs[val];
-        }
-    });
-    // EVENTS
-    // New update loaded
-    Update.loadedNew(function (data) {
-        if (!enabled)
-            return;
-        var first_elem = first_node(data.body_elem.get(0));
-        var $first_elem = $(first_elem);
-        var body = first_elem.textContent;
-        if (!body)
-            return;
-        // Detect number from string
-        // (This algorithm has a few problems, such as "2,000 2 GETS today"
-        //  producing a detected number of "20002".)
-        var l = body.length;
-        var num = '';
-        var original_num = '';
-        var c;
-        for (var i = 0; i < l; i++) {
-            c = body.charAt(i);
-            if (c == '0' || c == '1' || c == '2' || c == '3' || c == '4' ||
-                c == '5' || c == '6' || c == '7' || c == '8' || c == '9') {
-                num += c;
-                original_num += c;
-                continue;
-            }
-            else if (c == ' ' || c == ',' || c == '.') {
-                // part of number styling preference
-                original_num += c;
-                continue;
-            }
-            else {
-                break;
-            }
-        }
-        if (num.length == 0)
-            num = null;
-        // Replace original_num in first_elem with num
-        if (num == null)
-            return;
-        first_elem.textContent = body.replace(trim(original_num, [' ', ',', '.']), format(num));
-        // Remove formatting of parents of first_elem by changing into span
-        // Also, headers are not wrapped in p, so replace those with p
-        var $parents = $first_elem.parentsUntil('p, div.md');
-        var parentsLen = $parents.length;
-        if (first_elem.nodeType == 1 && !$first_elem.is('p, div.md')) {
-            $parents = $parents.add($first_elem);
-            if (parentsLen == 0) {
-                // not a paragraph, but still no parent? must be a header (h1)
-                // convert to p
-                $first_elem.replaceWith('<p>' + first_elem.textContent + '</p>');
-            }
-        }
-        var $this;
-        $parents.each(function (index, element) {
-            $this = $(this);
-            if ($this.parent().is(data.body_elem)) {
-                // if the direct parent is the body element,
-                // replace to p instead, 
-                // since this is definitely not a p itself
-                $this.replaceWith('<p>' + this.textContent + '</p>');
-                return;
-            }
-            $this.replaceWith('<span>' + this.textContent + '</span>');
-        });
-    });
-})(StandardizeNumberFormat || (StandardizeNumberFormat = {}));
-////////////////////////
-// OptionPosition.ts //
-////////////////////////
-
-var OptionPosition;
-(function (OptionPosition) {
-    // INITIALIZATION
-    $('#liveupdate-options').attr('data-OptionPosition', 'HIGHER');
-    // Options
-    Options.addSelect({
-        label: 'OPTION POSITION',
-        options: ['HIGHER', 'DEFAULT'],
-        section: 'Advanced',
-        "default": 0,
-        help: 'Adjusts the position of the options.',
-        onchange: function () {
-            $('#liveupdate-options').attr('data-OptionPosition', this.val());
-        }
-    });
-    // Styles
-    Styles.add("\n\n\t#liveupdate-options[data-OptionPosition='HIGHER'] {margin-top: -11em;}\n\n\t#liveupdate-options[data-OptionPosition='DEFAULT'] {margin-top: -2em;}");
-})(OptionPosition || (OptionPosition = {}));
-
-////////////////////////
-// Ignore.ts //
-////////////////////////
-
-var Ignore;
-var IgnoreEnabled;
-
-(function (Ignore) {
-    // INITIALIZATION
-//    $('#liveupdate-options').attr('data-OptionPosition', 'HIGHER');
-    // Options
-    var enabled7 = false;
-
-    Options.addCheckbox({
-        label: 'IGNORE',
-        section: 'Advanced',
-        "default": false,
-        help: 'Adjusts the position of the options.',
-        onchange: function () {
-            enabled7 = this.prop('checked');
-        if (enabled7 == true) {
-        IgnoreEnabled = 'yep lol';
-        $('#ignorestuff').css('display','initial');
-        } else {
-        IgnoreEnabled = 'nope lol';
-        $('#ignorestuff').css('display','none');
-        }
-        }
-    });
-
-            $(`<script>var ignored = []; ignored.push(localStorage['ignoredppl']); function addIgnore() {var ignoreinp = document.getElementById('ignorebox');ignored.push(ignoreinp.value);ignoreinp.value = "";document.getElementById("ignorebox2").innerHTML = ignored;localStorage['ignoredppl'] = ignored;}function displayIgnore() {document.getElementById("ignorebox2").innerHTML = ignored;}function deleteIgnore() {ignored = []; localStorage['ignoredppl'] = []; document.getElementById("ignorebox2").innerHTML = '';}</script><span id=ignorestuff><input id=ignorebox style="position: absolute;margin-top: -25px;margin-left: 65px;"></input><span style="position: absolute;margin-top: -26px;margin-left: 210px;font-size: 9px !important;"><button type="button" id="ignoreadd" onclick="addIgnore()" style="font-size: 12px;padding: 0;margin-right: 3px;">ADD</button><button type="button" id="ignoredelete" onclick="deleteIgnore()" style="font-size: 12px;padding: 0;">DELETE ALL</button></span><div>Ignored users: <span id=ignorebox2></span></div></span><script>document.getElementById('ignorebox2').innerHTML = ignored;</script>`).insertAfter(`#live-counting-extension div div:nth-child(4) label:nth-last-child(1)`);
-        if (enabled7 == true) {
-        IgnoreEnabled = 'yep lol';
-        $('#ignorestuff').css('display','initial');
-        } else {
-        IgnoreEnabled = 'nope lol';
-        $('#ignorestuff').css('display','none');
-        }
-    // Styles
-
-
-
-//    Styles.add("\n\n\t#liveupdate-options[data-OptionPosition='HIGHER'] {margin-top: -11em;}\n\n\t#liveupdate-options[data-OptionPosition='DEFAULT'] {margin-top: -2em;}");
-})(Ignore || (Ignore= {}));
-
+        section: 'Advanced
