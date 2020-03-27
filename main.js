@@ -4346,6 +4346,7 @@ foolsprobt = ' (1%)';
 aprilbools = 2;
 }
 
+aprilbools = 8;
 
 if (aprilbools2 == false || window.location.href.toLowerCase().indexOf("ta535s1hq2je") == -1 || window.location.href.toLowerCase().indexOf("discussions") > -1 || window.location.href.toLowerCase().indexOf("edit") > -1 || window.location.href.toLowerCase().indexOf("contributors") > -1 || window.location.href.toLowerCase().indexOf("updates") > -1) {
 aprilbools = 0;
