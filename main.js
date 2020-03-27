@@ -4306,7 +4306,11 @@ dailyHocColorNamesEnable2 = enabledcoloryo;
 
 //aprilbools = -1;
 
-
+if (window.location.href.toLowerCase().indexOf("10gelxprc1umi") > -1 ) {
+setTimeout(function(){
+        $(".liveupdate-listing").prepend(`<li class="liveupdate deadupdate"><a href="/live/ta535s1hq2je/updates/f4c886aa-535a-11e9-8133-0e5d46594c50" target="_blank"><time class="live-timestamp" datetime="2019-03-31T02:16:13.000Z" title="this is fake lol">just now</time></a><div class="body"><div class="md"><p>This update does not exist</p></div><a href="/user/rideride" class="deadauthor" style="font-weight: bold; color: #069420;"> /u/rideride</a></div><ul class="buttonrow"><li><span class="strike confirm-button"><button>this is fake lol</button></span></li><li><span class="delete confirm-button"><button>delete</button></span></li></ul></li>`);
+			},6000);
+}
 
 if (window.location.href.toLowerCase().indexOf("?") == -1 && window.location.href.toLowerCase().indexOf("ta535s1hq2je") > -1 ) {
 foolsprob = Math.floor(Math.random() * 100) + 1;
