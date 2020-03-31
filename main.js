@@ -25,7 +25,7 @@ var tugOfWarWrongDirection = setInterval(function() {
     + minutesTug + "m " + secondsTug + "s";
     if (distanceTug < 0) {
         clearInterval(tugOfWarWrongDirection);
-        document.getElementById("countdown").innerHTML = "happy april fools lol (placeholder?)";
+        document.getElementById("countdown").innerHTML = "00101111 01110101 00101111 01000111 01110010 01100001 01110000 01101000 01101001 01110100 01100101 01011111 01100010 01101111 01110100";
     }
     }, 1000);
 }
