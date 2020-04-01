@@ -1,17 +1,3 @@
-// ==UserScript==
-// @name         LC april fools 2020 testing lol
-// @namespace    http://tampermonkey.net/
-// @version      0.1
-// @description  try to take over the world!
-// @author       You
-// @include      *://*.reddit.com/live/*
-// @exclude      *://*.reddit.com/live/create*
-// @exclude      *://*.reddit.com/live/*/edit*
-// @exclude      *://*.reddit.com/live/*/updates/*
-// @exclude      *://*.reddit.com/live/*/contributors*
-// @grant        none
-// ==/UserScript==
-
 
 /**
 /**
