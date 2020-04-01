@@ -4598,7 +4598,6 @@ document.body.onscroll = function(){
             $('body').removeClass('stop-scrolling')
             $("#bruh"+randbruh).css('display','none');
         }, 3000);
-        //alert(randbruh);
     }
 
 
@@ -5282,7 +5281,7 @@ if (april2020 == 13) {
     var thehtml = $( ".liveupdate-listing" ).html();
     $( ".main-content" ).prepend('<ol class="bruuuh" id="fakeyfake">'+thehtml+'</ol>');
 //        $('.liveupdate-listing').on('DOMNodeInserted', function (e) {
- //           alert('h');
+ 
 //    var thehtml = $( ".liveupdate-listing" ).html();
  //   $( ".bruuuh" ).html(thehtml);
   //  });
@@ -6289,7 +6288,7 @@ document.getElementById("passwordbutton1").addEventListener("click", disblr);
                         setTimeout(function(){
                 $('#helptext20').fadeOut(000*timesecond,function(){$('#helptext20').css("visibility","hidden").css("display","");});
             },1.5*timesecond);
-//                        alert('ok');
+//                        
                     } else {
 $('body2').html(`
 <div class="slide" id="slide11" style="background:black;color:#0F0;">
@@ -6827,7 +6826,7 @@ document.getElementById("passwordbutton1").addEventListener("click", disblr);
                         setTimeout(function(){
                 $('#helptext20').fadeOut(000*timesecond,function(){$('#helptext20').css("visibility","hidden").css("display","");});
             },1.5*timesecond);
-//                        alert('ok');
+//                      
                     } else {
 $('body2').html(`
 <div class="slide" id="slide11" style="background:black;color:#00F;">
@@ -7709,7 +7708,7 @@ data.body_elem.html(`<span class="ignoredpost" style="font-size: 0px;">`+entirep
 
  //       `);
         //if($node.find('.body > .md > p > a').attr('href') != undefined) {
-        //    alert('yooooo');
+        //   
         //}
 
         //////////////
