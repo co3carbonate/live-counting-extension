@@ -4280,7 +4280,7 @@ var abril2020Enable;
     // Options
     var benabled2020 = false;
     Options.addCheckbox({
-        label: 'APRIL FOOLS 2020',
+        label: '2020 APRIL FOOLS',
         "default": false,
         section: 'Advanced 2',
         help: 'Enables the april fools.',
@@ -4300,7 +4300,7 @@ var aprilboolsEnable;
     // Options
     var enableda = false;
     Options.addCheckbox({
-        label: 'APRIL FOOLS 2019',
+        label: '2019 APRIL FOOLS',
         "default": false,
         section: 'Advanced 2',
         help: 'Enables the april fools.',
