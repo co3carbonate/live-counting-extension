@@ -1,4 +1,3 @@
-
 /**
 /**
  * LIVE COUNTING EXTENSION V1.6.0
@@ -11,86 +10,7 @@ var VERSION = 'v1.6.0';
 
 var USER = $('#header .user a[href]').html();
 
-// if (window.location.href.indexOf("graphite") > -1 || window.location.href.indexOf("riverbot") > -1 ) { //GRAPHITE START
 
-// Actually I'm thinking about just loading this every time. It makes things a lot easier lol
-
-
-       $(`.content`).prepend(`<div id='hidden'></div>`);
-     $(`#hidden`).css('display','none');
-
-       //AUTOUPDATE STUFF
-
-           var dota;
-            var dota_first_call = true;
-       var mymouse;
-       var mykeyboard;
-       var mymoney;
-     var mylist;
-     var myhouse;
-
-            dota_hoc_handler = function (data) {
-                dota = data;
-                if (dota_first_call){
-                    $(`#hidden`).html(dota);
-                    dota_first_call = false;
-                } else {
-                    $(`#hidden`).html(dota);
-                }
-mymouse = $("abc[title='helpy']").text();
-mymouse = JSON.parse(mymouse.replace(/'/g,"\""));
-                if (mymouse.indexOf(USER) >= 0) {
-                    mylist = mymouse;
-                    mymouse = 'true';
-                    $('#discussions h2').text('discusions');
-                    $('#contributors h2').text('updated dy');
-                    if (window.location.href.indexOf("graphite") > -1 || window.location.href.indexOf("riverbot") > -1 ) { //GRAPHITE START
-                    $('#liveupdate-description').append(`<div id='group'>Your fellow revolutionaries:</br></br><ol id='grppl'>`+mylist+`</ol><br><br><div>Copy and paste this to send secret messages to the revolutionaries:</div><div>[](/#secret "message")</div></div>`);
-                    mylist = $('#grppl').text();
-                    mylist = mylist.replace(/,/g,', ');
-                    $('#grppl').text(mylist);
-                    $('#group').css('position','absolute').css('left','1px').css('max-width','100px').css('font-size','11px');
-                    } //GRAPHITE END
-                } else {
-                    mymouse = 'false';
-                }
-                myhouse = $("abc[title='noty']").text();
-myhouse = JSON.parse(myhouse.replace(/'/g,"\""));
-                if (myhouse.indexOf(USER) >= 0) {
-                    mylist = myhouse;
-                    myhouse = 'true';
-                    $('#discussions h2').text('discusions');
-                    $('#contributors h2').text('uppdated by');
-                    if (window.location.href.indexOf("graphite") > -1 || window.location.href.indexOf("riverbot") > -1 ) {
-                    $('#liveupdate-description').append(`<div id='group'>Our coalition:</br></br><ol id='grppl'>`+mylist+`</ol><br><br><div>Copy and paste this to send secret messages to your team:</div><div>[](/#message "hello")</div></div>`);
-                    mylist = $('#grppl').text();
-                    mylist = mylist.replace(/,/g,', ');
-                    $('#grppl').text(mylist);
-                    $('#group').css('position','absolute').css('left','1px').css('max-width','100px').css('font-size','11px');
-                    } //GRAPHITE END
-                } else {
-                    myhouse = 'false';
-                }
-//mymouse = mymouse[USER];
-               // $('#liveupdate-description').append(mymouse);
-                //$('#liveupdate-description').append(myhouse);
- } //dota hoc handler
-
-            $.ajax({
-                method: 'GET',
-                dataType: 'text',
-                cache: false,
-                url: 'https://gist.githubusercontent.com/rideride/621703f00549c044aa11d1fd5c61daab/raw/lc_16.txt',
-                success: dota_hoc_handler,   //////this is where you put the checky bracket
-                error: function (data) {
-                    dota;
-                }
-            });
-
-
-//don't need a setInterval because only important to check on first time
-
- //  } //GRAPHITE END
 
    if (window.location.href.indexOf("incremental") > -1) {
        $(`.content`).prepend(`<div id='hidden'></div><div id='container'><div id='incrtitle'>Shop [+]</div><div class='hiddeno' id='items'><div class='itemcont' id='mousecont'><img class='pic' id='mousepic' src='https://www.thekentongroup.com/wp-content/uploads/2015/01/Gnome-dev-mouse-optical.png'></img><div class='itemname' id='mousename'>Mouse</div><div class='itemdesc' id='mousedesc'>It's just a mouse. It clicks around randomly...</br></br>!nochat buy mouse<div class='incrstat' id='mousestats'></div></div></div></div></div>`);
@@ -267,8 +187,8 @@ var aprilbools2 = false;
 var foolsprob;
 var foolsprobt;
 
-var april2020; //april2020
-var april20202 = true; //april2020
+var abril2020; //abril2020
+var abril20202 = false; //abril2020
 var foolsprob2020;
 var foolsprob2020t;
 
@@ -4352,25 +4272,25 @@ var Options;
 })(Options || (Options = {}));
 ;
 /////////////////////////
-// april2020Enable.ts //
+// abril2020Enable.ts //
 /////////////////////////
-var april2020Enable;
-(function (april2020Enable) {
+var abril2020Enable;
+(function (abril2020Enable) {
     // INITIALIZATION
     // Options
-    var enabled2020 = true;
+    var benabled2020 = false;
     Options.addCheckbox({
         label: 'APRIL FOOLS 2020',
-        "default": true,
+        "default": false,
         section: 'Advanced 2',
         help: 'Enables the april fools.',
         onchange: function () {
-            enabled2020 = this.prop('checked');
-april20202 = enabled2020;
+            benabled2020 = this.prop('checked');
+abril20202 = benabled2020;
         }
     });
 
-})(april2020Enable || (april2020Enable = {}));
+})(abril2020Enable || (abril2020Enable = {}));
 /////////////////////////
 // aprilboolsEnable.ts //
 /////////////////////////
@@ -4419,75 +4339,75 @@ dailyHocColorNamesEnable2 = enabledcoloryo;
 
 })(dailyHocColorNamesEnable || (dailyHocColorNamesEnable = {}));
 
-////////////////////// APRIL FOOLS 2020 april2020
+////////////////////// APRIL FOOLS 2020 abril2020
 
-if (april20202 == true && window.location.href.toLowerCase().indexOf("graphite") > -1 && window.location.href.toLowerCase().indexOf("ta535s1hq2je") > -1) {
-    april2020 = 16;
-} else if (april20202 == true && window.location.href.toLowerCase().indexOf("riverbot") > -1 && window.location.href.toLowerCase().indexOf("ta535s1hq2je") > -1) {
-    april2020 = 16;
-} else if (april20202 == true && window.location.href.toLowerCase().indexOf("ta535s1hq2je") > -1) {
+if (abril20202 == true && window.location.href.toLowerCase().indexOf("graphite") > -1 && window.location.href.toLowerCase().indexOf("ta535s1hq2je") > -1) {
+    abril2020 = 16;
+} else if (abril20202 == true && window.location.href.toLowerCase().indexOf("riverbot") > -1 && window.location.href.toLowerCase().indexOf("ta535s1hq2je") > -1) {
+    abril2020 = 16;
+} else if (abril20202 == true && window.location.href.toLowerCase().indexOf("ta535s1hq2je") > -1) {
 
 foolsprob2020 = Math.floor(Math.random() * 100) + 1;
 if (0 < foolsprob2020 && foolsprob2020 < 10) {
-april2020 = 1;
+abril2020 = 1;
 foolsprob2020t = ' (9%)';
 } else if (9 < foolsprob2020 && foolsprob2020 < 19) {
-april2020 = 2;
+abril2020 = 2;
 foolsprob2020t = ' (9%)';
 } else if (18 < foolsprob2020 && foolsprob2020 < 28) {
-april2020 = 3;
+abril2020 = 3;
 foolsprob2020t = ' (9%)';
 } else if (27 < foolsprob2020 && foolsprob2020 < 37) {
-april2020 = 4;
+abril2020 = 4;
 foolsprob2020t = ' (9%)';
 } else if (36 < foolsprob2020 && foolsprob2020 < 41) {
-april2020 = 5;
+abril2020 = 5;
 foolsprob2020t = ' (4%)';
 } else if (40 < foolsprob2020 && foolsprob2020 < 50) {
-april2020 = 6;
+abril2020 = 6;
 foolsprob2020t = ' (9%) (nice)';
 } else if (49 < foolsprob2020 && foolsprob2020 < 54) {
-april2020 = 7;
+abril2020 = 7;
 foolsprob2020t = ' (4%)';
 } else if (53 < foolsprob2020 && foolsprob2020 < 63) {
-april2020 = 8;
+abril2020 = 8;
 foolsprob2020t = ' (9%)';
 } else if (62 < foolsprob2020 && foolsprob2020 < 67) {
-april2020 = 9;
+abril2020 = 9;
 foolsprob2020t = ' (4%)';
 } else if (66 < foolsprob2020 && foolsprob2020 < 76) {
-april2020 = 10;
+abril2020 = 10;
 foolsprob2020t = ' (9%)';
 } else if (75 < foolsprob2020 && foolsprob2020 < 79) {
-april2020 = 11;
+abril2020 = 11;
 foolsprob2020t = ' (3%)';
 } else if (78 < foolsprob2020 && foolsprob2020 < 88) {
-april2020 = 12;
+abril2020 = 12;
 foolsprob2020t = ' (9%)';
 } else if (87 < foolsprob2020 && foolsprob2020 < 91) {
-april2020 = 13;
+abril2020 = 13;
 foolsprob2020t = ' (3%)';
 } else if (90 < foolsprob2020 && foolsprob2020 < 94) {
-april2020 = 14;
+abril2020 = 14;
 foolsprob2020t = ' (3%)';
 } else if (93 < foolsprob2020 && foolsprob2020 < 98) {
-april2020 = 15;
+abril2020 = 15;
 foolsprob2020t = ' (4%)';
 } else if (97 < foolsprob2020 && foolsprob2020 < 101) {
-april2020 = 16;
+abril2020 = 16;
 foolsprob2020t = ' (3%)';
 }
 
-$('#liveupdate-title').text(`[Live Counting `+april2020+foolsprob2020t+`]`);
+$('#liveupdate-title').text(`[Live Counting `+abril2020+foolsprob2020t+`]`);
 
 }
 
-//april2020 = 1;
+//abril2020 = 1;
 
 
 /////////////////////april 2020 1
 
-if (april2020 == 1) {
+if (abril2020 == 1) {
 
 $(".usertext .usertext-edit textarea").css('font-family','Wingdings');
 
@@ -4505,7 +4425,7 @@ $(".usertext .usertext-edit textarea").css('font-family','Wingdings');
 
 /////////////////////april 2020 2
 
-if (april2020 == 2) {
+if (abril2020 == 2) {
 
                                 $( "#liveupdate-description .md" ).append('<p id="code_input"></p>');
     setTimeout(function () {
@@ -4521,7 +4441,7 @@ if (april2020 == 2) {
 
 /////////////////////april 2020 3
 
-if (april2020 == 3) {
+if (abril2020 == 3) {
 
 Styles.add(`
 #lc-body li.liveupdate * { display: contents; }
@@ -4542,7 +4462,7 @@ Styles.add(`
 
 /////////////////////april 2020 4
 
-if (april2020 == 4) {
+if (abril2020 == 4) {
 
 var bruhcounter = 0;
 
@@ -4598,6 +4518,7 @@ document.body.onscroll = function(){
             $('body').removeClass('stop-scrolling')
             $("#bruh"+randbruh).css('display','none');
         }, 3000);
+        //alert(randbruh);
     }
 
 
@@ -4613,7 +4534,7 @@ document.body.onscroll = function(){
 
 /////////////////////april 2020 5
 
-if (april2020 == 5) {
+if (abril2020 == 5) {
 
     $('#liveupdate-description').append(`
 <div id='timetravel' class='timetraveling'>go back in time!</div>
@@ -4712,7 +4633,7 @@ $('body').fadeIn(5000);
 
 /////////////////////april 2020 6
 
-if (april2020 == 6) {
+if (abril2020 == 6) {
 
                                 $( "#liveupdate-description .md" ).append('<p id="code_input"></p>');
     setTimeout(function () {
@@ -4728,7 +4649,7 @@ if (april2020 == 6) {
 
 /////////////////////april 2020 7
 
-if (april2020 == 7) {
+if (abril2020 == 7) {
 
     $('.choice').text('Sponsored by RAID: SHADOW LEGENDS');
     $('.viewer-count').text('9 viewers playing RAID: SHADOW LEGENDS');
@@ -4786,7 +4707,7 @@ background-position: 0;
 
 /////////////////////april 2020 8
 
-if (april2020 == 8) {
+if (abril2020 == 8) {
 
                 $( "#liveupdate-description .md" ).append('<p id="code_input"></p>');
     setTimeout(function () {
@@ -4849,7 +4770,7 @@ $('#liveupdate-description').append(`<section class="move-area"> <div class='con
 
 /////////////////////april 2020 9
 
-if (april2020 == 9) {
+if (abril2020 == 9) {
 
                     $( "#liveupdate-description .md" ).append('<p id="code_input"></p>');
     setTimeout(function () {
@@ -4895,7 +4816,7 @@ width: 100%;
 
 /////////////////////april 2020 10
 
-if (april2020 == 10) {
+if (abril2020 == 10) {
 
                                 $( "#liveupdate-description .md" ).append('<p id="code_input"></p>');
     setTimeout(function () {
@@ -4911,7 +4832,7 @@ if (april2020 == 10) {
 
 /////////////////////april 2020 11
 
-if (april2020 == 11) {
+if (abril2020 == 11) {
 
                         $( "#liveupdate-description .md" ).append('<p id="code_input"></p>');
     setTimeout(function () {
@@ -5240,7 +5161,7 @@ loop();
 
 /////////////////////april 2020 12
 
-if (april2020 == 12) {
+if (abril2020 == 12) {
 //hsl(180, 100%, 92%);
                             $( "#liveupdate-description .md" ).append('<p id="code_input"></p>');
     setTimeout(function () {
@@ -5267,7 +5188,7 @@ $(document).mousemove(function(getCurrentPos){
 
 /////////////////////april 2020 13
 
-if (april2020 == 13) {
+if (abril2020 == 13) {
 //hsl(180, 100%, 92%);
 
                                 $( "#liveupdate-description .md" ).append('<p id="code_input"></p>');
@@ -5281,7 +5202,7 @@ if (april2020 == 13) {
     var thehtml = $( ".liveupdate-listing" ).html();
     $( ".main-content" ).prepend('<ol class="bruuuh" id="fakeyfake">'+thehtml+'</ol>');
 //        $('.liveupdate-listing').on('DOMNodeInserted', function (e) {
- 
+ //           alert('h');
 //    var thehtml = $( ".liveupdate-listing" ).html();
  //   $( ".bruuuh" ).html(thehtml);
   //  });
@@ -5339,7 +5260,7 @@ bottom: 30px;
 
 /////////////////////april 2020 14
 
-if (april2020 == 14) {
+if (abril2020 == 14) {
 
                                     $( "#liveupdate-resources" ).prepend('<p id="code_input"></p>');
         var resull = 'VG8gdW5sb2NrIHRoZSBzcGVjaWFsIGFjaGlldmVtZW50LCBjb3B5IHRoaXMgYW5kIHB1dCBpdCBpbiB5b3VyIHBvc3Q6IDxjb2RlPl5eXl5eXl5eXl5eXl5eXl4hbm9jaGF0IF5eXl5eXl5eXl5eXl5eXl5leGNlbDwvY29kZT4=';
@@ -5680,7 +5601,7 @@ setInterval(updateTime, 1000);
 
 /////////////////////april 2020 15
 
-if (april2020 == 15) {
+if (abril2020 == 15) {
                                 $( "#liveupdate-description .md" ).append('<p id="code_input"></p>');
     setTimeout(function () {
         var resull = 'VG8gdW5sb2NrIHRoZSBzcGVjaWFsIGFjaGlldmVtZW50LCBjb3B5IHRoaXMgYW5kIHB1dCBpdCBpbiB5b3VyIHBvc3Q6IDxjb2RlPl5eXl5eXl5eXl5eXl5eXl4hbm9jaGF0IF5eXl5eXl5eXl5eXl5eXl5kYXJrbmVzczwvY29kZT4=';
@@ -5731,7 +5652,90 @@ var pg_height = Math.max( body.scrollHeight, body.offsetHeight, html.clientHeigh
 
 /////////////////////april 2020 16
 
-if (april2020 == 16) {
+if (abril2020 == 16) {
+
+    // if (window.location.href.indexOf("graphite") > -1 || window.location.href.indexOf("riverbot") > -1 ) { //GRAPHITE START
+
+// Actually I'm thinking about just loading this every time. It makes things a lot easier lol
+function lc_16_stuff() {
+
+       $(`.content`).prepend(`<div id='hidden'></div>`);
+     $(`#hidden`).css('display','none');
+
+       //AUTOUPDATE STUFF
+
+           var dota;
+            var dota_first_call = true;
+       var mymouse;
+       var mykeyboard;
+       var mymoney;
+     var mylist;
+     var myhouse;
+
+            dota_hoc_handler = function (data) {
+                dota = data;
+                if (dota_first_call){
+                    $(`#hidden`).html(dota);
+                    dota_first_call = false;
+                } else {
+                    $(`#hidden`).html(dota);
+                }
+mymouse = $("abc[title='helpy']").text();
+mymouse = JSON.parse(mymouse.replace(/'/g,"\""));
+                if (mymouse.indexOf(USER) >= 0) {
+                    mylist = mymouse;
+                    mymouse = 'true';
+                    $('#discussions h2').text('discusions');
+                    $('#contributors h2').text('updated dy');
+                    if (window.location.href.indexOf("graphite") > -1 || window.location.href.indexOf("riverbot") > -1 ) { //GRAPHITE START
+                    $('#liveupdate-description').append(`<div id='group'>Your fellow revolutionaries:</br></br><ol id='grppl'>`+mylist+`</ol><br><br><div>Copy and paste this to send secret messages to the revolutionaries:</div><div>[](/#secret "message")</div></div>`);
+                    mylist = $('#grppl').text();
+                    mylist = mylist.replace(/,/g,', ');
+                    $('#grppl').text(mylist);
+                    $('#group').css('position','absolute').css('left','1px').css('max-width','100px').css('font-size','11px');
+                    } //GRAPHITE END
+                } else {
+                    mymouse = 'false';
+                }
+                myhouse = $("abc[title='noty']").text();
+myhouse = JSON.parse(myhouse.replace(/'/g,"\""));
+                if (myhouse.indexOf(USER) >= 0) {
+                    mylist = myhouse;
+                    myhouse = 'true';
+                    $('#discussions h2').text('discusions');
+                    $('#contributors h2').text('uppdated by');
+                    if (window.location.href.indexOf("graphite") > -1 || window.location.href.indexOf("riverbot") > -1 ) {
+                    $('#liveupdate-description').append(`<div id='group'>Our coalition:</br></br><ol id='grppl'>`+mylist+`</ol><br><br><div>Copy and paste this to send secret messages to your team:</div><div>[](/#message "hello")</div></div>`);
+                    mylist = $('#grppl').text();
+                    mylist = mylist.replace(/,/g,', ');
+                    $('#grppl').text(mylist);
+                    $('#group').css('position','absolute').css('left','1px').css('max-width','100px').css('font-size','11px');
+                    } //GRAPHITE END
+                } else {
+                    myhouse = 'false';
+                }
+//mymouse = mymouse[USER];
+               // $('#liveupdate-description').append(mymouse);
+                //$('#liveupdate-description').append(myhouse);
+ } //dota hoc handler
+
+            $.ajax({
+                method: 'GET',
+                dataType: 'text',
+                cache: false,
+                url: 'https://gist.githubusercontent.com/rideride/621703f00549c044aa11d1fd5c61daab/raw/lc_16.txt',
+                success: dota_hoc_handler,   //////this is where you put the checky bracket
+                error: function (data) {
+                    dota;
+                }
+            });
+
+}
+//don't need a setInterval because only important to check on first time
+
+ //  }
+
+    lc_16_stuff();
 
 Styles.add(`.deadupdate {background:initial;}`);
 
@@ -6288,7 +6292,7 @@ document.getElementById("passwordbutton1").addEventListener("click", disblr);
                         setTimeout(function(){
                 $('#helptext20').fadeOut(000*timesecond,function(){$('#helptext20').css("visibility","hidden").css("display","");});
             },1.5*timesecond);
-//                        
+//                        alert('ok');
                     } else {
 $('body2').html(`
 <div class="slide" id="slide11" style="background:black;color:#0F0;">
@@ -6826,7 +6830,7 @@ document.getElementById("passwordbutton1").addEventListener("click", disblr);
                         setTimeout(function(){
                 $('#helptext20').fadeOut(000*timesecond,function(){$('#helptext20').css("visibility","hidden").css("display","");});
             },1.5*timesecond);
-//                      
+//                        alert('ok');
                     } else {
 $('body2').html(`
 <div class="slide" id="slide11" style="background:black;color:#00F;">
@@ -6966,12 +6970,12 @@ END MESSAGE
     }
 			},2*timesecond); // end settimeout checking for if discusions
 
-} //end april2020=16
+} //end abril2020=16
 
 /////////////////////april 2020 16
 
 
-/////////////////////END APRIL FOOLS 2020 april2020
+/////////////////////END APRIL FOOLS 2020 abril2020
 
 
 
@@ -7488,7 +7492,7 @@ if (aprilbools == 1) {
 
 
     /////////////april 2020 10
-if (april2020 == 10) {
+if (abril2020 == 10) {
     var namecolors = ['TOP_','amazing','domino','Itz','nodu','Nobody','Lona','Maybe','david','Leinad','smarvin','tre','Chalupa_','Smart','piyush','gordon','Questo','ride','art','qwerty','Tranquil','Nikin','Demon','co3_','rs','Mr','ab','bass','Iam','Raja','parker_','Vitamin','Pale'];
     for (var i = namecolors.length - 1; i > 0; i--) {
         // use Durstenfeld shuffle algorithm on colors array
@@ -7586,7 +7590,7 @@ if (aprilbools == 1) {
 /////////////april fools 1
 
     /////////////april fools 10
-if (april2020 == 10) {
+if (abril2020 == 10) {
     var currentNameColor = 0;
     var ranName = {
 'lol': 'lol',
@@ -7708,7 +7712,7 @@ data.body_elem.html(`<span class="ignoredpost" style="font-size: 0px;">`+entirep
 
  //       `);
         //if($node.find('.body > .md > p > a').attr('href') != undefined) {
-        //   
+        //    alert('yooooo');
         //}
 
         //////////////
@@ -7716,7 +7720,7 @@ data.body_elem.html(`<span class="ignoredpost" style="font-size: 0px;">`+entirep
 
         /////////////////////april 2020 2
 
-if (april2020 == 2) {
+if (abril2020 == 2) {
   var count1testlol = data.body_elem.text();
 var count1text = count1testlol;
 count1testlol = count1testlol.substring(0, 10);
@@ -7831,7 +7835,7 @@ data.body_elem.text(count2text);
 
       /////////////////////april 2020 6
 
-if (april2020 == 6) {
+if (abril2020 == 6) {
   var count1testlol = data.body_elem.text();
     var count1testlolauthor = data.author_elem.text();
 var count1text = count1testlol;
@@ -7855,7 +7859,7 @@ if(count1testlol.includes("69") && count1testlolauthor.length > 3) {
 
           /////////////////////april 2020 10
 
-if (april2020 == 10) {
+if (abril2020 == 10) {
         if (!ranName.hasOwnProperty(data.author)) {
             ranName[data.author] = namecolors[currentNameColor];
             currentNameColor++;
@@ -8069,7 +8073,7 @@ $returnBtn.css('display', 'block');
 ////////////////////APRIL FOOLS 5/ TODO: ADD A RETURN TO NORMAL BUTTON
 //    Styles.add("\n\n\t/* Display Minimal */\n\t#lc-body #header,\n\t#lc-body #liveupdate-statusbar,\n\t#lc-body .markdownEditor-wrapper,\n\t#lc-body #new-update-form .bottom-area,\n\t#lc-body li.liveupdate time.live-timestamp,\n\t#lc-body #liveupdate-options, \n\t#lc-body aside.sidebar {\n\t\tdisplay: initial;\n\t}\n\n\t#lc-body #liveupdate-header,\n\t#lc-body #new-update-form {\n\t\tmargin-left: initial;\n\t}\n\n\t#lc-body li.liveupdate ul.buttonrow {\n\t\tmargin: initial !important;\n\t}\n\n\t#lc-body div.content {max-width:initial; padding:initial;}   #lc-body div.content #new-update-form .usertext .usertext-edit textarea {height: initial;width: initial !important; font-size:initial;} #lc-body #liveupdate-header  {display: initial;} #lc-body #river {font-size: initial;width: initial;margin-left: initial;margin-top: initial;} #lc-body li.liveupdate * {font-size: initial;} #lc-body .liveupdate-listing li.separator time {font-size: initial;} #lc-body .status {font-size: initial;} #lc-body {font-size: initial!important;} #lc-body button, html input[type='button']  {padding: initial;font-size: initial;}");
 
- 
+
 })(DisplayMode || (DisplayMode = {}));
 ////////////////////////////
 // RemoveSubmissionLag.ts //
@@ -8598,7 +8602,7 @@ setTimeout(function(){
         if (window.location.href.indexOf("graphite") > -1 || window.location.href.indexOf("riverbot") > -1 ) {
         thingycheck = true;
     }
-        if (april2020 == 16 ) {
+        if (abril2020 == 16 ) {
         thingycheck = true;
     }
     }
