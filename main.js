@@ -7454,6 +7454,7 @@ var ColoredUsernames;
 	'Adventium_': '#228B22',
         'NeonL1vesMatter': '#730099',
 	'Trial-Name': '#008080',
+	'TheMatsValk': '#00f5ff',
     };
 	if (USER == 'VitaminB16') {
 userColors.LC_Chats = 'white';
