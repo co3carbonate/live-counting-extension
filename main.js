@@ -7371,6 +7371,7 @@ var ColoredUsernames;
 	'live_lc_bot': 'Black',
 	'Riverbot': 'Black',
         'Graphite_bot': 'Black',
+	'b66b': 'Black',
         'piyushsharma301': '#FF0F19',
         'Tranquilsunrise': 'Orange',
         'dominodan123': 'Blue',
