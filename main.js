@@ -7424,7 +7424,7 @@ var ColoredUsernames;
 	'TehVulpez': '#c42c0a',
 	'LC_Chats': '#dddddd',
 	'LC-3P0': 'Black',
-	'MaybeNotWrong': '#066666',
+	'MaybeNotWrong': '#077055',
 	'ElliottB1': '#00FFDD',
 	'treje': '#ffc130',
 	'sakima11': '#0cd1ad',
