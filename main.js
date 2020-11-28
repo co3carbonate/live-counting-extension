@@ -7456,6 +7456,7 @@ var ColoredUsernames;
         'NeonL1vesMatter': '#730099',
 	'Trial-Name': '#008080',
 	'TheMatsValk': '#00f5ff',
+	'supersammy00': '#28ad3c',
     };
 	if (USER == 'VitaminB16') {
 userColors.LC_Chats = 'white';
