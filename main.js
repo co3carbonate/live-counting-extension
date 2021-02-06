@@ -30,6 +30,9 @@ var dailysizereal = '90px';
 var colortransfers = '';
 var dailyHocColorNamesEnable2 = true;
 
+//Timestamp vars
+var timestampEnable = true;
+
 
 
 // Thread ID
@@ -460,6 +463,8 @@ var Options;
         }
     });
 })(Options || (Options = {}));
+
+
 /////////////////////////
 // dailyHocColorNames.ts //
 /////////////////////////
@@ -599,6 +604,148 @@ var Update;
         subtree: true
     });
 })(Update || (Update = {}));
+
+/////////////////////////
+// ReplyTimes.ts //
+/////////////////////////
+var ReplyTimes;
+(function (ReplyTimes) {
+    // INITIALIZATION
+    // Options
+    var enabledrt = false;
+    Options.addCheckbox({
+        label: 'ENABLE REPLY TIMES',
+        "default": false,
+        section: 'Advanced 2',
+        help: 'Enables LCE reply times.',
+        onchange: function () {
+            enabledrt = this.prop('checked');
+            timestampEnable = enabledrt;
+        }
+    });
+     Update.loadedNew(function (data) {
+        if (!enabledrt)
+            return;
+        var thisTime = data.elem.find('.body').prev().attr('href');
+         var threadid = thisTime.substring(thisTime.lastIndexOf("live/") + 5,thisTime.lastIndexOf("/updates"));
+         var magin2 = thisTime.substring(thisTime.indexOf("updates/") + 8);
+         var permalink = thisTime.substring(thisTime.indexOf("updates/") + 8);
+         magin2 = magin2.substring(14, 18) + magin2.substring(9, 13) + magin2.substring(0, 8);
+         magin2 = parseInt(magin2, 16);
+         var thisTime2 = data.elem.find('.body').parent().nextAll('.liveupdate:first').children().first().attr('href');
+         var magin3 = thisTime2.substring(thisTime2.indexOf("updates/") + 8);
+         magin3 = magin3.substring(14, 18) + magin3.substring(9, 13) + magin3.substring(0, 8);
+         magin3 = parseInt(magin3, 16);
+         var timestamp = magin2 - magin3;
+         timestamp = timestamp / 1000;
+         timestamp = Math.round( timestamp * 10 ) / 10;
+         timestamp = timestamp / 10;
+         timestamp = Math.round(timestamp);
+         var testhref = "https://old.reddit.com/live/" + threadid + "/updates/" + permalink;
+         var colortest = '#7dd4fa';
+         var elcolor = '#000000';
+         var randomx = '0';
+         var darkcheck = 0;
+         if ($('#lc-body').hasClass('res-nightmode')) {
+             elcolor = '#ddd';
+             darkcheck = 1;
+         }
+         if (timestamp <= -500) {
+             colortest = 'linear-gradient(to right,red,orange,yellow,green,blue,indigo,violet)';
+         } else if (-499 <= timestamp && timestamp < 1) {
+             colortest = '#969400';
+             if (darkcheck == 1) {colortest = '#727200';}
+         } else if (1 <= timestamp && timestamp < 100) {
+             colortest = '#ef7070';
+             if (darkcheck == 1) {colortest = '#4d0000';}
+         } else if (100 <= timestamp && timestamp < 200) {
+             colortest = '#ffaeae';
+             if (darkcheck == 1) {colortest = '#980000';}
+         } else if (200 <= timestamp && timestamp < 300) {
+             colortest = '#ffebba';
+             if (darkcheck == 1) {colortest = '#654700';}
+         } else if (300 <= timestamp && timestamp < 400) {
+             colortest = '#cfffba';
+             if (darkcheck == 1) {colortest = '#216e00';}
+         } else if (400 <= timestamp && timestamp < 500) {
+             colortest = '#a2e8af';
+             if (darkcheck == 1) {colortest = '#003b0b';}
+         } else if (500 <= timestamp && timestamp < 600) {
+             colortest = '#adffed';
+             if (darkcheck == 1) {colortest = '#006b53';}
+         } else if (600 <= timestamp && timestamp < 700) {
+             colortest = '#add6ff';
+             if (darkcheck == 1) {colortest = '#004183';}
+         } else if (700 <= timestamp && timestamp < 800) {
+             colortest = '#bcadff';
+             if (darkcheck == 1) {colortest = '#14006c';}
+         } else if (800 <= timestamp && timestamp < 900) {
+             colortest = '#e9adff';
+             if (darkcheck == 1) {colortest = '#460060';}
+         } else if (900 <= timestamp && timestamp < 1000) {
+             colortest = '#ffadf8';
+             if (darkcheck == 1) {colortest = '#6e0064';}
+         } else {
+             colortest = '#ededed';
+             if (darkcheck == 1) {colortest = '#2a2a2a';}
+         }
+         data.elem.find('.body').prepend("<div onclick=window.open('"+testhref+"'); id=river></div>");
+         data.elem.find('.river').css('position', 'absolute');
+         document.getElementById("river").innerHTML = timestamp;
+         if(window.location.href.indexOf("10itx") > -1) {
+             var barregexy = /\/live\/.............\/updates\//
+             var barmagin = data.elem.find('.body').prev().attr('href');
+             var barmagin2 = barmagin.replace(barregexy, '');
+             var barmagin2p1 = barmagin2.substring(0, 8);
+             var barmagin2p11 = barmagin2.substring(9, 13);
+             var barmagin2p111 = barmagin2.substring(15, 18);
+             var barmagin2p1111 = barmagin2p111 + barmagin2p11 + barmagin2p1;
+             var barmagin2p2 = parseInt(barmagin2p1111, 16);
+             var mago = barmagin2p2.toString();
+             mago = mago.substring(0, 15);
+             mago = parseInt(mago);
+             mago = Math.round( mago * 10 ) / 10;
+             mago = mago / 10;
+             mago = Math.round(mago);
+             var dateTime = new Date( mago );
+             var dateTime2 = dateTime.toISOString();
+             var dateTime3 = dateTime2.substring(11, 23);
+             document.getElementById("river").innerHTML = dateTime3;
+         }
+         document.getElementById("river").style.background = colortest;
+         document.getElementById("river").style.color = elcolor;
+         document.getElementById("river").onmouseover = function() {
+             this.style.background = "transparent";
+             this.style.color = "transparent";
+             this.style.cursor = "pointer";
+         }
+         document.getElementById("river").onmouseleave = function() {
+             this.style.background = colortest;
+             this.style.color = elcolor;
+         }
+         if (window.innerWidth >= 700) {
+             $( 'div#river' ).css('position', 'absolute').css('margin-left', '-135px').css('font-size', '9px').css('margin-top', '4px').css('width','120px').css('text-align','right').css('max-width','120px');
+         }
+         else {
+             $( 'div#river' ).css('position', 'absolute').css('margin-left', '-10px').css('font-size', '9px').css('margin-top', '-16px').css('width','120px').css('text-align','right').css('max-width','120px');
+         }
+         if ( $('#lc-body[data-DisplayMode="Minimal"] #liveupdate-statusbar').css('display') == 'none') {
+             $( 'div#river' ).css('margin-left', '-141px');
+         }
+         if (document.getElementById("option3").checked == true) {
+             $('#river').delay(60000).hide(500);
+         }
+    $(window).on('load resize', function () {
+        if (window.innerWidth >= 700) {
+            $( 'div#river' ).css('position', 'absolute').css('margin-left', '-135px').css('font-size', '9px').css('margin-top', '4px').css('width','120px').css('text-align','right').css('max-width','120px');
+        }
+        else {
+            $( 'div#river' ).css('position', 'absolute').css('margin-left', '-10px').css('font-size', '9px').css('margin-top', '-16px').css('width','120px').css('text-align','right').css('max-width','120px');
+        }
+    });
+    });
+
+})(ReplyTimes || (ReplyTimes = {}));
 //////////////////
 // CtrlEnter.ts //
 //////////////////
