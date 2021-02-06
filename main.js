@@ -1,12 +1,12 @@
 /**
 /**
- * LIVE COUNTING EXTENSION V1.6.0
+ * LIVE COUNTING EXTENSION V1.6.1
  * (THIS CODE WAS GENERATED FROM THE TYPESCRIPT .TS FILES IN THE SRC DIRECTORY)
  */
 // CONSTANTS
 // Extension version
 
-var VERSION = 'v1.6.0';
+var VERSION = 'v1.6.1';
 
 var USER = $('#header .user a[href]').html();
 
@@ -212,8 +212,8 @@ $( ".viewer-count" ).parent().html(`<canvas id="viewport" width="480" height="30
 }
 
 
-var specialnumber = 0;
-var kname1 = '';
+var specialnumber = 1;
+var kname1 = 'MaybeNotWrong';
 var kname2 = '';
 var kname3 = '';
 var kname4 = '';
@@ -7688,7 +7688,25 @@ data.body_elem.html(`<span class="ignoredpost" style="font-size: 0px;">`+entirep
 
 
 
+// /u/MaybeNotWrong username special
+    if (SpecialUsernamesEnabled1 == 'yep lol') {
+if (data.author == kname1) {
 
+var testArray = ['M','a','y','b','e','N','o','t','W','r','o','n','g'];
+Shuffle(testArray);
+
+        data.author_elem.css({
+                  'font-weight': 'bold',
+                  'display': 'inline-block',
+              });
+
+             data.author_elem.html(`<div style='color:#077055'>/u/<span id=shuffled>`+testArray.join("")+`</span></div>`)
+	var testArray2 = testArray.join("");
+if (testArray2 == 'MaybeNotWrong') {
+             data.author_elem.html(`<span id="rainbowtext" style="color: transparent; background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text!important;">/u/MaybeNotWrong</span>`);
+}
+}
+} // SpecialUsernamesEnabled1 ending
 
 
         // Set username color
