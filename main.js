@@ -20,8 +20,6 @@ var kname5 = '';
 var kname6 = '';
 var SpecialUsernamesEnabled;
 
-
-
 // Ignore function vars
 var ignored = [];
 ignored.push(localStorage['ignoredppl']);
@@ -830,7 +828,16 @@ data.body_elem.html(`<span class="ignoredpost" style="font-size: 0px;">`+entirep
 if (data.author == kname1) {
 
 var testArray = ['M','a','y','b','e','N','o','t','W','r','o','n','g'];
-Shuffle(testArray);
+     var pseudoRandomness = data.elem.find('.body').prev().attr('href');
+    pseudoRandomness = pseudoRandomness.substring(pseudoRandomness.indexOf("updates/") + 8).substring(0, 8).split("").reverse().join("");
+    pseudoRandomness = parseInt(pseudoRandomness, 16);
+    pseudoRandomness = pseudoRandomness / 4294967295;
+    pseudoRandomness = String(pseudoRandomness);
+        function bhuffle(o) {
+        for(var j, x, i = o.length, stroq; stroq = pseudoRandomness.slice(0,2) + pseudoRandomness.slice(i+2), stroq = stroq.replace(/ /g, ""), i; j = parseInt(stroq * i), x = o[--i], o[i] = o[j], o[j] = x);
+    return o;
+        }
+bhuffle(testArray);
 
         data.author_elem.css({
                   'font-weight': 'bold',
