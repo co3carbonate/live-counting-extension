@@ -906,6 +906,7 @@ var CustomStricken;
                 Cookie.save.customStrickenColor = customStrickenColor;
                 Elements.$body.attr('data-customStrickenColor', customStrickenColor);
                 Cookie.update();
+                Styles.add("\n\n\t/* Custom Stricken */\n\t#lc-body[data-customStricken='No Inverse'] .liveupdate.stricken{\n\tbackground:"  + Elements.$body.attr('data-customStrickenColor') + "!important;\n\t}\n#lc-body[data-customStricken='Inverse'] .liveupdate.stricken{\n\tbackground:"  + Elements.$body.attr('data-customStrickenColor') + "!important;-webkit-filter: invert(100%);filter: invert(100%);\n\t}");
             }
         }
     });
