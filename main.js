@@ -612,10 +612,10 @@ var ReplyTimes;
 (function (ReplyTimes) {
     // INITIALIZATION
     // Options
-    var enabledrt = false;
+    var enabledrt = true;
     Options.addCheckbox({
         label: 'ENABLE REPLY TIMES',
-        "default": false,
+        "default": true,
         section: 'Advanced 2',
         help: 'Enables LCE reply times.',
         onchange: function () {
@@ -623,6 +623,57 @@ var ReplyTimes;
             timestampEnable = enabledrt;
         }
     });
+     var specialTimes = {
+         '1': {user:'rschaosid', words:'(rschaosid) 1',bgcolor:'#008080',fontcolor:'#ffffff'},
+         '8': {user:'gordonpt8', words:'gordonpt8',bgcolor:'#00ff00',fontcolor:'#000000'},
+         '15': {user:'TheMatsValk', words:'(TheMatsValk) 15',bgcolor:'#00f5ff',fontcolor:'#000000'},
+         '18': {user:'Kris18', words:'Kris18',bgcolor:'#0000ff',fontcolor:'#ffffff'},
+         '36': {user:'Iamspeedy36', words:'Iamspeedy36',bgcolor:'#00BFFF',fontcolor:'#000000'},
+         '37': {user:'amazingpikachu_38', words:'amazingpikachu_37',bgcolor:'#ffff00',fontcolor:'#000000'},
+         '47': {user:'kdiuro13', words:'(kdiuro13) 47',bgcolor:'#191970',fontcolor:'#ffffff'},
+         '100': {user:'abplows', words:'(abplows) 100',bgcolor:'#2b0090',fontcolor:'#ffffff'},
+         '123': {user:'davidjl123', words:'davidjl123',bgcolor:'#6495ED',fontcolor:'#000000'},
+         '123': {user:'dominodan123', words:'dominodan123',bgcolor:'#0000ff',fontcolor:'#ffffff'},
+         '151': {user:'MewDP', words:'(MewDP) 151',bgcolor:'#FFFF33',fontcolor:'#000000'},
+         '191': {user:'PaleRepresentative', words:'(PaleRepresentative) 191',bgcolor:'#8FBC8F',fontcolor:'#000000'},
+         '200': {user:'QuestoGuy', words:'(QuestoGuy) 200',bgcolor:'#800080',fontcolor:'#ffffff'},
+         '212': {user:'MrBahr12', words:'MrBahr212',bgcolor:'#CC6600',fontcolor:'#ffffff'},
+         '217': {user:'Lonadont', words:'(Lonadont) 217',bgcolor:'#a35252',fontcolor:'#ffffff'},
+         '220': {user:'Chalupa_Dad', words:'(Chalupa_Dad) 220',bgcolor:'#F08080',fontcolor:'#000000'},
+         '222': {user:'treje', words:'(treje) 222',bgcolor:'#ffc130',fontcolor:'#000000'},
+         '234': {user:'ElliottB1', words:'(ElliottB1) 234',bgcolor:'#00FFDD',fontcolor:'#000000'},
+         '301': {user:'piyushsharma301', words:'piyushsharma301',bgcolor:'#ff0000',fontcolor:'#000000'},
+         '333': {user:'Majestic_Bear', words:'(Majestic_Bear) 333',bgcolor:'#8A2BE2',fontcolor:'#ffffff'},
+         '360': {user:'NikinCZ', words:'(NikinCZ) 360',bgcolor:'#86D8CA',fontcolor:'#000000'},
+         '364': {user:'SecretAsianMa', words:'(SecretAsianMa) 364',bgcolor:'#373267',fontcolor:'#ffffff'},
+         '369': {user:'TOP_20', words:'(Whitney) 369',bgcolor:'#D9009C',fontcolor:'#ffffff'},
+         '373': {user:'MaybeNotWrong', words:'(MaybeNotWrong) 373',bgcolor:'#066666',fontcolor:'#ffffff'},
+         '404': {user:'Tranquilsunrise', words:'(Tranquilsunrise) 404',bgcolor:'#ffa500',fontcolor:'#000000'},
+         '404': {user:'KingCaspianX', words:'(KingCaspianX) 404',bgcolor:'#191970',fontcolor:'#ffffff'},
+         '420': {user:'alienth', words:'420',bgcolor:'#00ff00',fontcolor:'#000000'},
+         '471': {user:'albert471', words:'albert471',bgcolor:'#0000ff',fontcolor:'#ffffff'},
+         '500': {user:'Rajalaxo', words:'(Rajalaxo) 500',bgcolor:'#f6dec0',fontcolor:'#000000'},
+         '501': {user:'LeinadSpoon', words:'(LeinadSpoon) 501',bgcolor:'#520063',fontcolor:'#ffffff'},
+         '505': {user:'ItzTaken', words:'(ItzTaken) 505',bgcolor:'#32ff95',fontcolor:'#000000'},
+         '555': {user:'PrinceCrinkle', words:'(PrinceCrinkle) 555',bgcolor:'#00FFFF',fontcolor:'#000000'},
+         '559': {user:'iwannaplay5050', words:'(iwannaplay5050) 559',bgcolor:'#B22222',fontcolor:'#ffffff'},
+         '615': {user:'parker_cube', words:'(parker_cube) 615',bgcolor:'#71589f',fontcolor:'#ffffff'},
+         '616': {user:'DemonBurritoCat', words:'(DemonBurritoCat) 616',bgcolor:'#890003',fontcolor:'#ffffff'},
+         '639': {user:'MrUnderdawg', words:'(MrUnderdawg) 639',bgcolor:'#35e0cf',fontcolor:'#000000'},
+         '666': {user:'rideride', words:'666',bgcolor:'#ff0000',fontcolor:'#000000'},
+         '689': {user:'smarvin6689', words:'(smarvin6689) 689',bgcolor:'#060647',fontcolor:'#ffffff'},
+         '700': {user:'Noob2137', words:'(Noob2137) 700',bgcolor:'#ff69ff',fontcolor:'#000000'},
+         '777': {user:'artbn', words:'(artbn) 700',bgcolor:'#e66b00',fontcolor:'#000000'},
+         '845': {user:'noduorg', words:'(noduorg) 845',bgcolor:'#0d2d89',fontcolor:'#ffffff'},
+         '888': {user:'NobodyL0vesMe', words:'(NobodyL0vesMe) 888',bgcolor:'#BC12DD',fontcolor:'#000000'},
+         '973': {user:'Smartstocks', words:'(Smartstocks) 973',bgcolor:'#840d0d',fontcolor:'#ffffff'},
+         '998': {user:'qwertylool', words:'(qwertylool) 998',bgcolor:'#9acd32',fontcolor:'#000000'},
+         '1111': {user:'andrewtheredditor', words:'(andrewtheredditor) 1111',bgcolor:'#2cd626',fontcolor:'#ffffff'},
+         '1234': {user:'randomusername123458', words:'(randomusername123458) 1234',bgcolor:'#00cc99',fontcolor:'#000000'},
+         '1521': {user:'darthvader1521', words:'darthvader1521',bgcolor:'#ffaf47',fontcolor:'#000000'},
+         '1616': {user:'VitaminB16', words:'VitaminB1616',bgcolor:'#1affa7',fontcolor:'#000000'},
+         '69420': {user:'GrunfTNT', words:'(lol) 69420',bgcolor:'#bb00ff',fontcolor:'#ffff00'},
+    };
      Update.loadedNew(function (data) {
         if (!enabledrt)
             return;
@@ -689,6 +740,14 @@ var ReplyTimes;
              colortest = '#ededed';
              if (darkcheck == 1) {colortest = '#2a2a2a';}
          }
+         timestamp = 1;
+         if(timestamp in specialTimes) {
+             colortest = specialTimes[timestamp]['bgcolor'];
+             elcolor = specialTimes[timestamp]['fontcolor'];
+             var postauthor = data.author_elem.text().substring(3);
+             if (postauthor == specialTimes[timestamp]['user']) {var user2 = data.elem.find('.body > .author').text(); data.elem.find('.body').append("<span id=fakeauthor></span>"); document.getElementById("fakeauthor").innerHTML = user2; data.elem.find('.body > .author').css('fontSize', '0px'); document.getElementById("fakeauthor").style.cssText = 'font-size: 13px; color: transparent; background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text!important;';}
+             timestamp = specialTimes[timestamp]['words'];
+         }
          data.elem.find('.body').prepend("<div onclick=window.open('"+testhref+"'); id=river></div>");
          data.elem.find('.river').css('position', 'absolute');
          document.getElementById("river").innerHTML = timestamp;
@@ -714,16 +773,8 @@ var ReplyTimes;
          }
          document.getElementById("river").style.background = colortest;
          document.getElementById("river").style.color = elcolor;
-         document.getElementById("river").onmouseover = function() {
-             this.style.background = "transparent";
-             this.style.color = "transparent";
-             this.style.cursor = "pointer";
-         }
-         document.getElementById("river").onmouseleave = function() {
-             this.style.background = colortest;
-             this.style.color = elcolor;
-         }
-         if (window.innerWidth >= 700) {
+
+           if (window.innerWidth >= 700) {
              $( 'div#river' ).css('position', 'absolute').css('margin-left', '-135px').css('font-size', '9px').css('margin-top', '4px').css('width','120px').css('text-align','right').css('max-width','120px');
          }
          else {
@@ -731,9 +782,6 @@ var ReplyTimes;
          }
          if ( $('#lc-body[data-DisplayMode="Minimal"] #liveupdate-statusbar').css('display') == 'none') {
              $( 'div#river' ).css('margin-left', '-141px');
-         }
-         if (document.getElementById("option3").checked == true) {
-             $('#river').delay(60000).hide(500);
          }
     $(window).on('load resize', function () {
         if (window.innerWidth >= 700) {
@@ -743,7 +791,18 @@ var ReplyTimes;
             $( 'div#river' ).css('position', 'absolute').css('margin-left', '-10px').css('font-size', '9px').css('margin-top', '-16px').css('width','120px').css('text-align','right').css('max-width','120px');
         }
     });
+     $("#river").mouseover(function() {
+             this.style.background = "transparent";
+             this.style.color = "transparent";
+             this.style.cursor = "pointer";
+         });
+         $("#river").mouseout(function() {
+             this.style.background = colortest;
+             this.style.color = elcolor;
+         });
     });
+
+
 
 })(ReplyTimes || (ReplyTimes = {}));
 //////////////////
