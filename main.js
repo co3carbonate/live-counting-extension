@@ -740,7 +740,6 @@ var ReplyTimes;
              colortest = '#ededed';
              if (darkcheck == 1) {colortest = '#2a2a2a';}
          }
-         timestamp = 1;
          if(timestamp in specialTimes) {
              colortest = specialTimes[timestamp]['bgcolor'];
              elcolor = specialTimes[timestamp]['fontcolor'];
