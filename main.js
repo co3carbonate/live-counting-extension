@@ -7691,7 +7691,7 @@ data.body_elem.html(`<span class="ignoredpost" style="font-size: 0px;">`+entirep
 
 
 
-        // Set username colour
+        // Set username color
         if (!userColors.hasOwnProperty(data.author)) {
             userColors[data.author] = colors[currentColor];
             currentColor++;
