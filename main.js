@@ -718,7 +718,7 @@ var ReplyTimes;
          if (timestamp <= -500) {
              colortest = 'linear-gradient(to right,red,orange,yellow,green,blue,indigo,violet)';
          } else if (-499 <= timestamp && timestamp < 1) {
-             colortest = '#969400';
+             colortest = '#f2ee0e';
              if (darkcheck == 1) {colortest = '#727200';}
          } else if (1 <= timestamp && timestamp < 100) {
              colortest = '#ef7070';
