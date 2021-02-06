@@ -32,6 +32,8 @@ var dailyHocColorNamesEnable2 = true;
 
 //Timestamp vars
 var timestampEnable = true;
+var darkcheck = 0;
+var customClearTime;
 
 
 
@@ -180,7 +182,8 @@ var Cookie;
         version: cookieVersion,
         options: {},
         stats: {},
-        collapsed: [false, false, false, true, true]
+        collapsed: [false, false, false, true, true],
+        customClearTime: 2000
     };
     Cookie.save = Cookies.getJSON(cookieName);
     // In versions prior to 1.5.3, the extension used the cookie 'live-counting-extension'
@@ -696,10 +699,17 @@ var ReplyTimes;
          var colortest = '#7dd4fa';
          var elcolor = '#000000';
          var randomx = '0';
-         var darkcheck = 0;
-         if ($('#lc-body').hasClass('res-nightmode')) {
-             elcolor = '#ddd';
+         darkcheck = 0;
+         if (Elements.$body.attr('data-darkMode') == 'Default') {
+             if ($('#lc-body').hasClass('res-nightmode')) {
+                 darkcheck = 1;
+                 elcolor = '#ddd';
+             }
+         } else if (Elements.$body.attr('data-darkMode') == 'On') {
              darkcheck = 1;
+             elcolor = '#ddd';
+         } else if (Elements.$body.attr('data-darkMode') == 'Off') {
+             darkcheck = 0;
          }
          if (timestamp <= -500) {
              colortest = 'linear-gradient(to right,red,orange,yellow,green,blue,indigo,violet)';
@@ -782,6 +792,14 @@ var ReplyTimes;
          if ( $('#lc-body[data-DisplayMode="Minimal"] #liveupdate-statusbar').css('display') == 'none') {
              $( 'div#river' ).css('margin-left', '-141px');
          }
+         if (Elements.$body.attr('data-automaticallyClearTime') != 'Off') {
+             if (Elements.$body.attr('data-automaticallyClearTime') == 'After 60s') {
+                 customClearTime = 60000;
+             } else {
+                 customClearTime = Elements.$body.attr('data-customClearTime');
+             }
+             $('#river').delay(customClearTime).hide(500);
+         }
     $(window).on('load resize', function () {
         if (window.innerWidth >= 700) {
             $( 'div#river' ).css('position', 'absolute').css('margin-left', '-135px').css('font-size', '9px').css('margin-top', '4px').css('width','120px').css('text-align','right').css('max-width','120px');
@@ -804,6 +822,58 @@ var ReplyTimes;
 
 
 })(ReplyTimes || (ReplyTimes = {}));
+
+///////////////////////////
+// ReplyTimesDarkMode.ts //
+///////////////////////////
+var ReplyTimesDarkMode;
+(function (ReplyTimesDarkMode) {
+    // INITIALIZATION
+    Elements.$body.attr('data-darkMode', 'Default');
+    // Options
+    Options.addSelect({
+        label: 'NIGHT MODE REPLY TIMES',
+        options: ['Default', 'On', 'Off'],
+        section: 'Advanced 2',
+        "default": 0,
+        help: 'Changes the background of reply times to better match RES night mode. Default = looks at RES, On = forced on, Off = forced off, even if RES night mode enabled',
+        onchange: function () {
+            Elements.$body.attr('data-darkMode', this.val());
+        }
+    });
+ })(ReplyTimesDarkMode || (ReplyTimesDarkMode = {}));
+///////////////////////////////
+// AutomaticallyClearTime.ts //
+///////////////////////////////
+var AutomaticallyClearTime;
+(function (AutomaticallyClearTime) {
+    // INITIALIZATION
+    Elements.$body.attr('data-automaticallyClearTime', 'Off');
+    Elements.$body.attr('data-customClearTime', Cookie.save.customClearTime);
+    // Options
+    Options.addSelect({
+        label: 'CLEAR REPLY TIMES',
+        options: ['Off', 'After 60s', 'Custom'],
+        section: 'Advanced 2',
+        customClearTime: 2000,
+        "default": 0,
+        help: 'Automatically clears LCE reply times after a certain amount of time.',
+        onchange: function () {
+            $(this).click(function(){
+                $(this).data('clicked', true);
+            });
+            Elements.$body.attr('data-automaticallyClearTime', this.val());
+            if (this.val() == 'Custom' && $(this).data('clicked') == true) {
+                customClearTime = parseInt(window.prompt('Enter your custom time in milliseconds. 60 seconds = 60000 for example'), 10);
+                if ( /^[0-9.,]+$/.test(customClearTime)) {
+                    Cookie.save.customClearTime = customClearTime;
+                    Elements.$body.attr('data-customClearTime', customClearTime);
+                    Cookie.update();
+                }
+            }
+        }
+    });
+ })(AutomaticallyClearTime || (AutomaticallyClearTime = {}));
 //////////////////
 // CtrlEnter.ts //
 //////////////////
