@@ -34,6 +34,8 @@ var dailyHocColorNamesEnable2 = true;
 var timestampEnable = true;
 var darkcheck = 0;
 var customClearTime;
+var customStrickenColor;
+var customBackgroundColor;
 
 
 
@@ -183,7 +185,9 @@ var Cookie;
         options: {},
         stats: {},
         collapsed: [false, false, false, true, true],
-        customClearTime: 2000
+        customClearTime: 2000,
+        customStrickenColor: '#ddd',
+        customBackgroundColor: '#ddd'
     };
     Cookie.save = Cookies.getJSON(cookieName);
     // In versions prior to 1.5.3, the extension used the cookie 'live-counting-extension'
@@ -750,7 +754,7 @@ var ReplyTimes;
              colortest = '#ededed';
              if (darkcheck == 1) {colortest = '#2a2a2a';}
          }
-         if(timestamp in specialTimes) {
+         if(timestamp in specialTimes && Elements.$body.attr('data-disableSpecialTimes') == 'false') {
              colortest = specialTimes[timestamp]['bgcolor'];
              elcolor = specialTimes[timestamp]['fontcolor'];
              var postauthor = data.author_elem.text().substring(3);
@@ -782,6 +786,9 @@ var ReplyTimes;
          }
          document.getElementById("river").style.background = colortest;
          document.getElementById("river").style.color = elcolor;
+         if(Elements.$body.attr('data-BackgroundColor') == 'Match Reply Time') {
+             data.elem.find('.body').parent().css('background', colortest);
+         }
 
            if (window.innerWidth >= 700) {
              $( 'div#river' ).css('position', 'absolute').css('margin-left', '-135px').css('font-size', '9px').css('margin-top', '4px').css('width','120px').css('text-align','right').css('max-width','120px');
@@ -874,6 +881,87 @@ var AutomaticallyClearTime;
         }
     });
  })(AutomaticallyClearTime || (AutomaticallyClearTime = {}));
+///////////////////////
+// CustomStricken.ts //
+///////////////////////
+var CustomStricken;
+(function (CustomStricken) {
+    // INITIALIZATION
+    Elements.$body.attr('data-customStricken', 'Off');
+    Elements.$body.attr('data-customStrickenColor', Cookie.save.customStrickenColor);
+    // Options
+    Options.addSelect({
+        label: 'CUSTOM STRICKEN',
+        options: ['Off', 'No Inverse', 'Inverse'],
+        section: 'Advanced 2',
+        "default": 0,
+        help: 'Applies custom styles to stricken counts.',
+        onchange: function () {
+            $(this).click(function(){
+                $(this).data('clicked', true);
+            });
+            Elements.$body.attr('data-customStricken', this.val());
+            if (this.val() != 'Off' && $(this).data('clicked') == true) {
+                customStrickenColor = window.prompt('Enter your custom background color.','#ddd');
+                Cookie.save.customStrickenColor = customStrickenColor;
+                Elements.$body.attr('data-customStrickenColor', customStrickenColor);
+                Cookie.update();
+            }
+        }
+    });
+// Styles
+    Styles.add("\n\n\t/* Custom Stricken */\n\t#lc-body[data-customStricken='No Inverse'] .liveupdate.stricken{\n\tbackground:"  + Elements.$body.attr('data-customStrickenColor') + "!important;\n\t}\n#lc-body[data-customStricken='Inverse'] .liveupdate.stricken{\n\tbackground:"  + Elements.$body.attr('data-customStrickenColor') + "!important;-webkit-filter: invert(100%);filter: invert(100%);\n\t}");
+ })(CustomStricken || (CustomStricken = {}));
+////////////////////////////
+// DisableSpecialTimes.ts //
+////////////////////////////
+var DisableSpecialTimes;
+(function (DisableSpecialTimes) {
+    // INITIALIZATION
+    Elements.$body.attr('data-disableSpecialTimes', false);
+    // Options
+    Options.addCheckbox({
+        label: 'DISABLE SPECIAL TIMES',
+        "default": false,
+        section: 'Advanced 2',
+        help: 'Disables special reply times, and only shows the exact millisecond time.',
+        onchange: function () {
+            Elements.$body.attr('data-disableSpecialTimes', this.prop('checked'));
+        }
+    });
+})(DisableSpecialTimes || (DisableSpecialTimes = {}));
+////////////////////////
+// BackgroundColor.ts //
+////////////////////////
+var BackgroundColor;
+(function (BackgroundColor) {
+    // INITIALIZATION
+    Elements.$body.attr('data-BackgroundColor', 'Off');
+    Elements.$body.attr('data-customBackgroundColor', Cookie.save.customBackgroundColor);
+    // Options
+    Options.addSelect({
+        label: 'BACKGROUND COLOR',
+        options: ['Off', 'Match Reply Time', 'Custom'],
+        section: 'Advanced 2',
+        "default": 0,
+        help: 'Changes the background color of new posts.',
+        onchange: function () {
+            $(this).click(function(){
+                $(this).data('clicked', true);
+            });
+            Elements.$body.attr('data-BackgroundColor', this.val());
+            if (this.val() == 'Custom' && $(this).data('clicked') == true) {
+                customBackgroundColor = window.prompt('Enter your custom background color.','#ddd');
+                Cookie.save.customBackgroundColor = customBackgroundColor;
+                Elements.$body.attr('data-customBackgroundColor', customBackgroundColor);
+                Styles.add("\n\n\t/* Custom Background */\n\t#lc-body[data-BackgroundColor='Custom'] .liveupdate{\n\tbackground:"  + Elements.$body.attr('data-customBackgroundColor') + "!important;\n\t}\n}");
+                Cookie.update();
+            }
+        }
+    });
+    // Styles
+    Styles.add("\n\n\t/* Custom Background */\n\t#lc-body[data-BackgroundColor='Custom'] .liveupdate{\n\tbackground:"  + Elements.$body.attr('data-customBackgroundColor') + "!important;\n\t}\n}");
+ })(BackgroundColor || (BackgroundColor = {}));
 //////////////////
 // CtrlEnter.ts //
 //////////////////
