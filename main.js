@@ -1795,7 +1795,7 @@ var StandardizeNumberFormat;
 var OptionPosition;
 (function (OptionPosition) {
     // INITIALIZATION
-    $('#liveupdate-options').attr('data-OptionPosition', 'Default');
+    $('#liveupdate-options').attr('data-OptionPosition', 'Higher');
     // Options
     Options.addSelect({
         label: 'OPTION POSITION',
