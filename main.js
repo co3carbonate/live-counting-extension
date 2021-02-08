@@ -2247,10 +2247,10 @@ var Emojis;
            const emojiIt = (re, text) => {
                while (result = re.exec(text)) {
                    var temptext = text;
-                   text = text.replace(result[0], emojiMap[result[1]])
-                   if(text == 'undefined') {
-                       text = temptext.substring(1, temptext.length-1);
-                       text = '`'+text+'`';
+                   if(!(result[1] in emojiMap)) {
+                       text = text.replace(result[0], '`'+result[1]+'`')
+                   } else {
+                       text = text.replace(result[0], emojiMap[result[1]]);
                    }
                }
                return text
