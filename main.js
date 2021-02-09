@@ -673,7 +673,7 @@ var ReplyTimes;
          '47': {user:'kdiuro13', words:'(kdiuro13) 47',bgcolor:'#191970',fontcolor:'#ffffff'},
          '100': {user:'abplows', words:'(abplows) 100',bgcolor:'#2b0090',fontcolor:'#ffffff'},
          '123': {user:'davidjl123', words:'davidjl123',bgcolor:'#6495ED',fontcolor:'#000000'},
-         '123': {user:'dominodan123', words:'dominodan123',bgcolor:'#0000ff',fontcolor:'#ffffff'},
+         '123-2': {user:'dominodan123', words:'dominodan123',bgcolor:'#0000ff',fontcolor:'#ffffff'},
          '151': {user:'MewDP', words:'(MewDP) 151',bgcolor:'#FFFF33',fontcolor:'#000000'},
          '191': {user:'PaleRepresentative', words:'(PaleRepresentative) 191',bgcolor:'#8FBC8F',fontcolor:'#000000'},
          '200': {user:'QuestoGuy', words:'(QuestoGuy) 200',bgcolor:'#800080',fontcolor:'#ffffff'},
@@ -689,7 +689,7 @@ var ReplyTimes;
          '369': {user:'TOP_20', words:'(Whitney) 369',bgcolor:'#D9009C',fontcolor:'#ffffff'},
          '373': {user:'MaybeNotWrong', words:'(MaybeNotWrong) 373',bgcolor:'#066666',fontcolor:'#ffffff'},
          '404': {user:'Tranquilsunrise', words:'(Tranquilsunrise) 404',bgcolor:'#ffa500',fontcolor:'#000000'},
-         '404': {user:'KingCaspianX', words:'(KingCaspianX) 404',bgcolor:'#191970',fontcolor:'#ffffff'},
+         '404-2': {user:'KingCaspianX', words:'(KingCaspianX) 404',bgcolor:'#191970',fontcolor:'#ffffff'},
          '420': {user:'alienth', words:'420',bgcolor:'#00ff00',fontcolor:'#000000'},
          '471': {user:'albert471', words:'albert471',bgcolor:'#0000ff',fontcolor:'#ffffff'},
          '500': {user:'Rajalaxo', words:'(Rajalaxo) 500',bgcolor:'#f6dec0',fontcolor:'#000000'},
@@ -929,9 +929,21 @@ author2 = '';
              if (darkcheck == 1) {colortest = '#2a2a2a';}
          }
          if(timestamp in specialTimes && Elements.$body.attr('data-disableSpecialTimes') == 'false') {
+             var postauthor = data.author_elem.text().substring(3);
+             if (timestamp == '123') {
+                 var randomtime = Math.round(Math.random());
+                 if(randomtime == 1 && postauthor != 'davidjl123' || postauthor == 'dominodan123') {
+                     timestamp = '123-2';
+                 }
+             }
+             if (timestamp == '404') {
+                 var randomtime = Math.round(Math.random());
+                 if(randomtime == 1 && postauthor != 'Tranquilsunrise' || postauthor == 'KingCaspianX') {
+                     timestamp = '404-2';
+                 }
+             }
              colortest = specialTimes[timestamp]['bgcolor'];
              elcolor = specialTimes[timestamp]['fontcolor'];
-             var postauthor = data.author_elem.text().substring(3);
              if (postauthor == specialTimes[timestamp]['user']) {var user2 = data.elem.find('.body > .author').text(); data.elem.find('.body').append("<span id=fakeauthor></span>"); document.getElementById("fakeauthor").innerHTML = user2; data.elem.find('.body > .author').css('fontSize', '0px'); document.getElementById("fakeauthor").style.cssText = 'font-size: 13px; color: transparent; background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text!important;';}
              timestamp = specialTimes[timestamp]['words'];
          }
