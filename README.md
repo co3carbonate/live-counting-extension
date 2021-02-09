@@ -89,3 +89,20 @@ Here is a list of features. Besides the 'hidden' features, all of them can be di
   - v1.6.0 Made "Clear Past Messages" auto-enable if scrolled to the top of the page when a new post loads
   - v1.6.0 Live-updating Daily HoC on sidebar, with colors
   - v1.6.0 Added 2020 April Fools mode
+- v1.7
+  - v1.7.0 Added timestamps (from Response Times Extension)
+  - v1.7.0 Added night mode reply time settings (from Response Times Extension)
+  - v1.7.0 Added clear reply times setting (from Response Times Extension)
+  - v1.7.0 Added custom striken setting (from Response Times Extension)
+  - v1.7.0 Added setting to disable custom reply times  (from Response Times Extension)
+  - v1.7.0 Added post background color feature (from Response Times Extension)
+  - v1.7.0 Added last count feature (from Response Times Extension)
+  - v1.7.0 Added emojis - enable and type :emoji_name: in the textbox
+  - v1.7.0 Added Ctrl+Space shortcut to focus on textbox 
+  - v1.7.0 Clicking "make update" now maintains focus on textbox
+  - v1.7.0 Made "disable obstructive shortcuts" feature work on Macs
+  - v1.7.0 Temporarily (?) removed ghost messages
+  - v1.7.0 Removed April Fools 2019/2020 modes
+  - v1.7.0 Internal improvements, like reducing unnecessary variables
+  
+  TODO: Add "unstrike text" feature from Response Times Extension, update how Last Count works 
