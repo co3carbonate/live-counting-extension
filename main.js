@@ -37,6 +37,39 @@ var customClearTime;
 var customStrickenColor;
 var customBackgroundColor;
 
+//Last count vars (Temporary before I remake it)
+var validcount1 = '';
+var validcount2 = '';
+var validcount3 = '';
+var validtimy = '';
+var validtimestamp = '';
+var vc000t = '';
+var vc100t = '';
+var vc200t = '';
+var vc300t = '';
+var vc400t = '';
+var vc500t = '';
+var vc600t = '';
+var vc700t = '';
+var vc800t = '';
+var vc900t = '';
+var vc000s = '';
+var vc100s = '';
+var vc200s = '';
+var vc300s = '';
+var vc400s = '';
+var vc500s = '';
+var vc600s = '';
+var vc700s = '';
+var vc800s = '';
+var vc900s = '';
+var fullcount1 = '';
+var author1 = '';
+var author2 = '';
+var authorme = $('#header .user a[href]').html();
+var validcountwrong = 0;
+var validcountnotme = 0;
+
 
 
 // Thread ID
@@ -612,9 +645,9 @@ var Update;
     });
 })(Update || (Update = {}));
 
-/////////////////////////
+///////////////////
 // ReplyTimes.ts //
-/////////////////////////
+///////////////////
 var ReplyTimes;
 (function (ReplyTimes) {
     // INITIALIZATION
@@ -699,6 +732,147 @@ var ReplyTimes;
          timestamp = Math.round( timestamp * 10 ) / 10;
          timestamp = timestamp / 10;
          timestamp = Math.round(timestamp);
+         //////////Last Count (messy for now)
+if(Elements.$body.attr('data-LastCount') != 'Off') {
+if ( isNaN(validcount2) == true ) {
+validcount2 = validcount1;
+}
+ fullcount1 = data.elem.find('.body > .md').text();
+author1 = data.elem.find('.body > .author').text();
+author1 = author1.trim().replace('/u/', '');
+ validcount1 = fullcount1;
+validcount1 = validcount1.substring(0, 10);
+    validcount1 = validcount1.replace(/[A-Za-z]/g, '');
+validcount1 = validcount1.replace(/\./g, '');
+    validcount1 = validcount1.replace(/,/g, '');
+validcount1 = validcount1.replace(/ /g, '');
+validcount2 = parseInt(validcount2);
+validcount1 = parseInt(validcount1);
+validcount2++;
+if (validcount2 == validcount1 && author2 != author1 || isNaN(validcount2) == true) {
+validcount3 = validcount1;
+$("#lastcountcount").text(validcount3.toLocaleString());
+$("#lastcountuser").text(author1);
+validtimy = validcount3.toString();
+validtimy = validtimy.substr(validtimy.length - 3);
+ if (validtimy == '000') {
+vc900t = magin2;
+if (vc800t != '') {
+           vc900s = vc900t - vc800t;
+           vc900s = vc900s / 1000;
+           vc900s = (Math.round(vc900s / 10) * 10) / 10;
+           $("#split9").text(vc900s);
+}
+} else if (validtimy == '900') {
+vc800t = magin2;
+if (vc700t != '') {
+           vc800s = vc800t - vc700t;
+           vc800s = vc800s / 1000;
+           vc800s = (Math.round(vc800s / 10) * 10) / 10;
+           $("#split8").text(vc800s);
+}
+} else if (validtimy == '800') {
+vc700t = magin2;
+if (vc600t != '') {
+           vc700s = vc700t - vc600t;
+           vc700s = vc700s / 1000;
+           vc700s = (Math.round(vc700s / 10) * 10) / 10;
+           $("#split7").text(vc700s);
+}
+}  else if (validtimy == '700') {
+vc600t = magin2;
+if (vc500t != '') {
+           vc600s = vc600t - vc500t;
+           vc600s = vc600s / 1000;
+           vc600s = (Math.round(vc600s / 10) * 10) / 10;
+           $("#split6").text(vc600s);
+}
+} else if (validtimy == '600') {
+vc500t = magin2;
+if (vc400t != '') {
+           vc500s = vc500t - vc400t;
+           vc500s = vc500s / 1000;
+           vc500s = (Math.round(vc500s / 10) * 10) / 10;
+           $("#split5").text(vc500s);
+}
+
+} else if (validtimy == '500') {
+vc400t = magin2;
+if (vc300t != '') {
+           vc400s = vc400t - vc300t;
+           vc400s = vc400s / 1000;
+           vc400s = (Math.round(vc400s / 10) * 10) / 10;
+           $("#split4").text(vc400s);
+}
+}  else if (validtimy == '400') {
+vc300t = magin2;
+if (vc200t != '') {
+           vc300s = vc300t - vc200t;
+           vc300s = vc300s / 1000;
+           vc300s = (Math.round(vc300s / 10) * 10) / 10;
+           $("#split3").text(vc300s);
+}
+}  else if (validtimy == '300') {
+vc200t = magin2;
+if (vc100t != '') {
+           vc200s = vc200t - vc100t;
+           vc200s = vc200s / 1000;
+           vc200s = (Math.round(vc200s / 10) * 10) / 10;
+           $("#split2").text(vc200s);
+}
+}  else if (validtimy == '200') {
+vc100t = magin2;
+if (vc000t != '') {
+           vc100s = vc100t - vc000t;
+           vc100s = vc100s / 1000;
+           vc100s = (Math.round(vc100s / 10) * 10) / 10;
+           $("#split1").text(vc100s);
+}
+}  else if (validtimy == '100') {
+vc000t = magin2;
+if (vc900t != '') {
+           vc000s = vc000t - vc900t;
+           vc000s = vc000s / 1000;
+           vc000s = (Math.round(vc000s / 10) * 10) / 10;
+           $("#split0").text(vc000s);
+}
+}
+validcountwrong = 0;
+if (author1 == authorme) {
+validcountnotme = 0;
+} else {
+validcountnotme = 1;
+}
+author2 = author1;
+} else {
+validcount2--;
+validcount3 = validcount2;
+validcountwrong++;
+if (validcountwrong == 10) {
+document.getElementById("lastcountdesc").innerHTML = 'Click to reset?';
+document.getElementById("lastcountdesc").style.background = '#ef7070';
+var wrongtimer = setTimeout( function() {
+         document.getElementById("lastcountdesc").innerHTML = 'Last count:';
+document.getElementById("lastcountdesc").style.background = '';
+      },15000);
+}
+}
+$( "#lastcountdesc" ).hover(function() {
+         document.getElementById("lastcountdesc").innerHTML = 'Click to reset';
+document.getElementById("lastcountdesc").style.cursor = 'pointer';
+       }, function() {
+    document.getElementById("lastcountdesc").innerHTML = 'Last count:';
+  });
+$( "#lastcountdesc" ).click(function() {
+validcount1 = '';
+validcount2 = '';
+validcount3 = '';
+fullcount1 = '';
+author1 = '';
+author2 = '';
+});
+}
+//////////
          var testhref = "https://old.reddit.com/live/" + threadid + "/updates/" + permalink;
          var colortest = '#7dd4fa';
          var elcolor = '#000000';
@@ -962,6 +1136,46 @@ var BackgroundColor;
     });
     // Styles
     Styles.add("\n\n\t/* Custom Background */\n\t#lc-body[data-BackgroundColor='Custom'] .liveupdate{\n\tbackground:"  + Elements.$body.attr('data-customBackgroundColor') + "!important;\n\t}\n}");
+ })(BackgroundColor || (BackgroundColor = {}));
+//////////////////
+// LastCount.ts //
+//////////////////
+var LastCount;
+(function (LastCount) {
+    // INITIALIZATION
+    Elements.$body.attr('data-LastCount', 'Off');
+    $('#liveupdate-header').prepend("<div id=idlecontainer><div id=statsplace><p id=lastcountdesc>Last count:<p id=lastcountcount></p><p>/u/<span id=lastcountuser></span></p></p><div id=splits><p>000s:<span id=split0></span></p><p>100s:<span id=split1></span></p><p>200s:<span id=split2></span></p><p>300s:<span id=split3></span></p><p>400s:<span id=split4></span></p><p>500s:<span id=split5></span></p><p>600s:<span id=split6></span></p><p>700s:<span id=split7></span></p><p>800s:<span id=split8></span></p><p>900s:<span id=split9></span></p></div></div></div>");
+    $('#idlecontainer').css({'display': 'none', 'position': 'absolute', 'left': '130px', 'top': '75px', 'width': '115px', 'background': 'transparent', 'height': '70px'});
+    // Options
+    Options.addSelect({
+        label: 'LAST COUNT',
+        options: ['Off', 'On', 'On + Splits'],
+        section: 'Advanced 2',
+        "default": 0,
+        help: 'Tracks recent counts and can show speedrun splits by hundreds. Not perfectly accurate.',
+        onchange: function () {
+            Elements.$body.attr('data-LastCount', this.val());
+            if(Elements.$body.attr('data-LastCount') == 'On') {
+                $('#idlecontainer').css('display','initial');
+                $('#splits').css('display','none');
+            }
+            if(Elements.$body.attr('data-LastCount') == 'On + Splits') {
+                $('#idlecontainer').css('display','initial');
+                $('#splits').css('display','initial');
+            }
+            if(Elements.$body.attr('data-LastCount') == 'Off') {
+                $('#idlecontainer').css('display','none');
+            }
+        }
+    });
+
+    if(Elements.$body.attr('data-LastCount') == 'On') {
+        $('#idlecontainer').css('display','initial');
+        $('#splits').css('display','none');
+    }
+    if(Elements.$body.attr('data-LastCount') == 'On + Splits') {
+        $('#idlecontainer').css('display','initial');
+    }
  })(BackgroundColor || (BackgroundColor = {}));
 //////////////////
 // CtrlEnter.ts //
