@@ -1057,9 +1057,11 @@ author2 = '';
     $(window).on('load resize', function () {
         if (window.innerWidth >= 700) {
             $( 'div#river' ).css('position', 'absolute').css('margin-left', '-135px').css('font-size', '9px').css('margin-top', '4px').css('width','120px').css('text-align','right').css('max-width','120px');
+            $( '#idlecontainer' ).css('position','absolute');
         }
         else {
             $( 'div#river' ).css('position', 'absolute').css('margin-left', '-10px').css('font-size', '9px').css('margin-top', '-16px').css('width','120px').css('text-align','right').css('max-width','120px');
+            $( '#idlecontainer' ).css('position','initial');
         }
     });
 
@@ -1207,7 +1209,7 @@ var LastCount;
     // INITIALIZATION
     Elements.$body.attr('data-LastCount', 'Off');
     $('#liveupdate-header').prepend("<div id=idlecontainer><div id=statsplace><p id=lastcountdesc>Last count:<p id=lastcountcount></p><p>/u/<span id=lastcountuser></span></p></p><div id=splits><p>000s:<span id=split0></span></p><p>100s:<span id=split1></span></p><p>200s:<span id=split2></span></p><p>300s:<span id=split3></span></p><p>400s:<span id=split4></span></p><p>500s:<span id=split5></span></p><p>600s:<span id=split6></span></p><p>700s:<span id=split7></span></p><p>800s:<span id=split8></span></p><p>900s:<span id=split9></span></p></div></div></div>");
-    $('#idlecontainer').css({'display': 'none', 'position': 'absolute', 'left': '130px', 'top': '75px', 'width': '115px', 'background': 'transparent', 'height': '70px'});
+    $('#idlecontainer').css({'display': 'none', 'position': 'absolute', 'left': '1%', 'top': '20%', 'width': '115px', 'background': 'transparent'});
     // Options
     Options.addSelect({
         label: 'LAST COUNT',
@@ -1534,9 +1536,6 @@ if (thishref2 == 'MaybeNotWrong' || thishref2 == 'co3_carbonate' || thishref2 ==
 });
 });
 }
-	    Styles.add("\n\n\t.amazingpikachu_38 {\n\t\tanimation: blinker 1s linear infinite;\n\t}\n\t@keyframes blinker {\n\t\t50% { opacity: 0; }\n\t}\n\n\t");
-    Styles.add(`li.stricken > div > a[href="/user/MaybeNotWrong"].author.flipped {animation: flippa 1s linear infinite;} @keyframes flippa {50% { float:initial;position:absolute; } 100%{ float:left; } }}`);
-    Styles.add(`li > div > a[href="/user/MaybeNotWrong"].author.blink {animation: blinkerm 1s linear infinite;} @keyframes blinkerm {50% { opacity:0; } 100%{ opacity:1; } }`);
     Styles.add(`li.stricken > div > div > span > p #counttext {text-decoration: line-through;} .liveupdate-listing li.liveupdate.stricken div.md .ignoredpost p:last-of-type {text-decoration: none;}  `);
 
 
