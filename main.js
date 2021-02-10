@@ -209,7 +209,7 @@ var Cookies = (function () {
 var Cookie;
 (function (Cookie) {
     // INITIALIZATION
-    var cookieName = "LCE_" + THREAD;
+    var cookieName = "LCE_Cookie";
     var cookieVersion = '10';
     // Try to load existing cookie save data, or create a cookie with default data
     Cookie.saveDefaultOptions = true;
