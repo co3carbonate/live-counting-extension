@@ -70,6 +70,62 @@ var authorme = $('#header .user a[href]').html();
 var validcountwrong = 0;
 var validcountnotme = 0;
 
+// Global Functions
+// from https://pastebin.com/KD6gFhAK thanks MNW {:}
+function parse_body(text){
+    let number = null;
+    let separator = null;
+    if(text === "")return number;
+    var body = tokenize(text);
+    var tokens = body['tokens']; // body['comment'] would have the text
+    if(tokens.length > 0 && !(tokens[0]['is_digit_group'])){
+        tokens = tokens.slice(1);
+    }
+    if(tokens.length > 0 && !(tokens[tokens.length-1]['is_digit_group'])){
+        tokens = tokens.slice(0,tokens.length-1);
+    }
+    for(let i = 1; i < tokens.length; i+=2){
+        if(separator == null){
+            separator = tokens[i]['token'];
+        }
+    }
+    if(tokens.length > 0 && [null, '.', ',', ', ', ' '].includes(separator)){
+        var num = '';
+        for(let i=0; i < tokens.length; i+=2){
+            num += tokens[i]['token']
+        }
+        number = num
+    }
+    return number;
+}
+function tokenize(text){
+    text = text.trim();
+    if(text[0] == 'v'){
+        text = text.slice(1);
+    }
+    var tokens = [];
+    var token = '';
+    var is_digit_group = false;
+    var index = 0
+    while(1){
+        if(index >= text.length || /[a-zA-Z]/.test(text[index]) || text[index] === "\n" || /[0-9]/.test(text[index]) != is_digit_group){
+            if(token.length > 0){
+                tokens.push({'is_digit_group':is_digit_group,'token':token});
+                token = '';
+            }
+            is_digit_group = !is_digit_group;
+        }
+        if(index >= text.length){
+            return {'tokens':tokens,'comment':null};
+        }
+        else if (/[a-zA-Z]/.test(text[index]) || text[index] === "\n" || (!is_digit_group && token.length > 2)){
+            return {'tokens':tokens,'comment': text.slice(index)};
+        }
+        token += text[index];
+        index++;
+    }
+}
+
 
 
 // Thread ID
@@ -740,12 +796,7 @@ validcount2 = validcount1;
  fullcount1 = data.elem.find('.body > .md').text();
 author1 = data.elem.find('.body > .author').text();
 author1 = author1.trim().replace('/u/', '');
- validcount1 = fullcount1;
-validcount1 = validcount1.substring(0, 10);
-    validcount1 = validcount1.replace(/[A-Za-z]/g, '');
-validcount1 = validcount1.replace(/\./g, '');
-    validcount1 = validcount1.replace(/,/g, '');
-validcount1 = validcount1.replace(/ /g, '');
+ validcount1 = parse_body(fullcount1);
 validcount2 = parseInt(validcount2);
 validcount1 = parseInt(validcount1);
 validcount2++;
@@ -993,14 +1044,6 @@ author2 = '';
              }
              $('#river').delay(customClearTime).hide(500);
          }
-    $(window).on('load resize', function () {
-        if (window.innerWidth >= 700) {
-            $( 'div#river' ).css('position', 'absolute').css('margin-left', '-135px').css('font-size', '9px').css('margin-top', '4px').css('width','120px').css('text-align','right').css('max-width','120px');
-        }
-        else {
-            $( 'div#river' ).css('position', 'absolute').css('margin-left', '-10px').css('font-size', '9px').css('margin-top', '-16px').css('width','120px').css('text-align','right').css('max-width','120px');
-        }
-    });
      $("#river").mouseover(function() {
              this.style.background = "transparent";
              this.style.color = "transparent";
@@ -1011,7 +1054,14 @@ author2 = '';
              this.style.color = elcolor;
          });
     });
-
+    $(window).on('load resize', function () {
+        if (window.innerWidth >= 700) {
+            $( 'div#river' ).css('position', 'absolute').css('margin-left', '-135px').css('font-size', '9px').css('margin-top', '4px').css('width','120px').css('text-align','right').css('max-width','120px');
+        }
+        else {
+            $( 'div#river' ).css('position', 'absolute').css('margin-left', '-10px').css('font-size', '9px').css('margin-top', '-16px').css('width','120px').css('text-align','right').css('max-width','120px');
+        }
+    });
 
 
 })(ReplyTimes || (ReplyTimes = {}));
