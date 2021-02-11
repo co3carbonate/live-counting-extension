@@ -78,6 +78,7 @@ function parse_body(text){
     if(text === "")return number;
     var body = tokenize(text);
     var tokens = body['tokens']; // body['comment'] would have the text
+    var comment = body['comment']; // body['comment'] would have the text
     if(tokens.length > 0 && !(tokens[0]['is_digit_group'])){
         tokens = tokens.slice(1);
     }
@@ -91,12 +92,16 @@ function parse_body(text){
     }
     if(tokens.length > 0 && [null, '.', ',', ', ', ' '].includes(separator)){
         var num = '';
+        var original_number = '';
         for(let i=0; i < tokens.length; i+=2){
             num += tokens[i]['token']
         }
+        for(let i=0; i < tokens.length; i+=1){
+            original_number += tokens[i]['token']
+        }
         number = num
     }
-    return number;
+    return [number,comment,original_number];
 }
 function tokenize(text){
     text = text.trim();
@@ -796,7 +801,7 @@ validcount2 = validcount1;
  fullcount1 = data.elem.find('.body > .md').text();
 author1 = data.elem.find('.body > .author').text();
 author1 = author1.trim().replace('/u/', '');
- validcount1 = parse_body(fullcount1);
+ validcount1 = parse_body(fullcount1)[0];
 validcount2 = parseInt(validcount2);
 validcount1 = parseInt(validcount1);
 validcount2++;
@@ -1969,9 +1974,9 @@ var SpecialUsernamesEnabled6;
 })(SpecialUsernames6 || (SpecialUsernames6 = {}));
 }
 
-//////////////////////////
+/////////////////
 // TeamBars.ts //
-//////////////////////////
+/////////////////
 var TeamBars;
 var TeamBarsEnabled;
 (function (TeamBars) {
@@ -2115,9 +2120,9 @@ Styles.add(`                    #loadtest tbody tr:nth-child(2) td:nth-child(1){
 })(TeamBars || (TeamBars = {}));
 
 
-//////////////////////////
+////////////////////////
 // TeamBarsRevival.ts //
-//////////////////////////
+////////////////////////
 var TeamBarsRevival;
 var TeamBarsRevivalEnabled;
 (function (TeamBarsRevival) {
@@ -2353,7 +2358,7 @@ var StandardizeNumberFormat;
         help: 'Standardizes the number count in each message to a format of your choice. Also removes special formatting on the number.',
         onchange: function () {
             var val = this.val();
-            if (val == 'Disable') {
+            if (val == 'Disabled') {
                 enabled = false;
                 return;
             }
@@ -2450,9 +2455,9 @@ var OptionPosition;
     Styles.add("\n\n\t#liveupdate-options[data-OptionPosition='Higher'] {margin-top: -11em;}\n\n\t#liveupdate-options[data-OptionPosition='Default'] {margin-top: -2em;}");
 })(OptionPosition || (OptionPosition = {}));
 
-////////////////////////
+////////////////
 // Ignore.ts //
-////////////////////////
+///////////////
 
 var Ignore;
 var IgnoreEnabled;
@@ -2536,3 +2541,39 @@ var Emojis;
            document.querySelector('.md textarea').addEventListener('input', Inputty);
     }
 })(Emojis || (Emojis = {}));
+
+/////////////////////
+// UnstrikeText.ts //
+/////////////////////
+var UnstrikeText;
+(function (UnstrikeText) {
+    // INITIALIZATION
+    Elements.$body.attr('data-unstrikeText', false);
+    // Options
+    Options.addCheckbox({
+        label: 'UNSTRIKE TEXT',
+        "default": false,
+        section: 'Advanced 2',
+        help: 'Makes striken posts only strike the number rather than the accompanying text.',
+        onchange: function () {
+            Elements.$body.attr('data-unstrikeText', this.prop('checked'));
+        }
+    });
+    Update.loadedNew(function (data) {
+        if(Elements.$body.attr('data-unstrikeText') == 'false') {
+            return;
+        } else {
+            var ustHtml = data.elem.find('.body > .md').html();
+            var ustPost = data.elem.find('.body > .md').text();
+            var ustNumber = parse_body(ustPost)[2];
+            if(ustNumber == null) {ustNumber = ''};
+            var ustComment = parse_body(ustPost)[1];
+            if(ustNumber.length < 1) {return;}
+            var replacedhtml = data.elem.find('.body > .md').html().replace(ustNumber,"<span class='countms'>"+ustNumber+"</span>");
+            data.elem.find('.body > .md').html(replacedhtml);
+        }
+    });
+            // Styles
+    Styles.add("\n #lc-body[data-unstrikeText='true'] .stricken .countms{ text-decoration: line-through!important;} #lc-body[data-unstrikeText='true'] .liveupdate-listing li.liveupdate.stricken:not([data-fullname]) div.md {text-decoration: none!important; } #lc-body[data-unstrikeText='true'] .liveupdate-listing li.liveupdate.stricken:not([data-fullname]) div.md p {text-decoration: none!important; } \n");
+
+})(UnstrikeText || (UnstrikeText = {}));
