@@ -69,6 +69,7 @@ var author2 = '';
 var authorme = $('#header .user a[href]').html();
 var validcountwrong = 0;
 var validcountnotme = 0;
+var all_times = {};
 
 // Global Functions
 // from https://pastebin.com/KD6gFhAK thanks MNW {:}
@@ -378,7 +379,7 @@ var Options;
     // Initialize new content in the options box
     // TODO: move the $all to another core file since it will be used for stats as well
     var $all_heading = $("\n\t\t<h1 style=\"font-size:16px;\">\n\t\t\t<a id=\"lceversion\" href=\"https://github.com/co3carbonate/live-counting-extension/blob/master/README.md#readme\" target=\"_blank\">Live Counting Extension " + VERSION + "</a> \n\t\t</h1>\n\t");
-//    var $options_heading = $("<h2>Options </h2>");
+    //    var $options_heading = $("<h2>Options </h2>");
     var $options_basic_heading = $("<h2>Basic </h2>");
     var $options_advanced_heading = $("<h2>Advanced </h2>");
     var $options_advanced2_heading = $("<h2>Advanced 2 </h2>");
@@ -394,7 +395,7 @@ var Options;
     var $options_advanced2 = $("<div></div>");
     $all_heading.append($all_toggle);
     $all.append($options);
-//    $options_heading.append($options_toggle);
+    //    $options_heading.append($options_toggle);
     $options_basic_heading.append($options_basic_toggle);
     $options_advanced_heading.append($options_advanced_toggle);
     $options_advanced2_heading.append($options_advanced2_toggle);
@@ -465,8 +466,8 @@ var Options;
         else if (section == 'Advanced 2')
             $options_section = $options_advanced2;
         $options_section.append($("<label>" + label + "</label>")
-            .attr('title', help)
-            .prepend($elem));
+                                .attr('title', help)
+                                .prepend($elem));
         // Handle onchange
         $elem.on('change', function () {
             Cookie.save.options[label] = $elem.prop('checked');
@@ -512,8 +513,8 @@ var Options;
         else if (section == 'Advanced 2')
             $options_section = $options_advanced2;
         $options_section.append($("<label>" + label + ": </label>")
-            .attr('title', help)
-            .append($elem));
+                                .attr('title', help)
+                                .append($elem));
         // Configure the max-width of the select to ensure that it doesn't end up getting wrapped
         // onto the next line
         $elem.css('max-width', all_innerWidth - ($elem.offset().left - all_offsetLeft) + 'px');
@@ -581,7 +582,7 @@ var dailyHocColorNamesEnable;
         help: 'Enables the daily HoC colored usernames.',
         onchange: function () {
             enabledcoloryo = this.prop('checked');
-dailyHocColorNamesEnable2 = enabledcoloryo;
+            dailyHocColorNamesEnable2 = enabledcoloryo;
         }
     });
 
@@ -724,340 +725,347 @@ var ReplyTimes;
             timestampEnable = enabledrt;
         }
     });
-     var specialTimes = {
-         '1': {user:'rschaosid', words:'(rschaosid) 1',bgcolor:'#008080',fontcolor:'#ffffff'},
-         '8': {user:'gordonpt8', words:'gordonpt8',bgcolor:'#00ff00',fontcolor:'#000000'},
-         '15': {user:'TheMatsValk', words:'(TheMatsValk) 15',bgcolor:'#00f5ff',fontcolor:'#000000'},
-         '18': {user:'Kris18', words:'Kris18',bgcolor:'#0000ff',fontcolor:'#ffffff'},
-         '36': {user:'Iamspeedy36', words:'Iamspeedy36',bgcolor:'#00BFFF',fontcolor:'#000000'},
-         '37': {user:'amazingpikachu_38', words:'amazingpikachu_37',bgcolor:'#ffff00',fontcolor:'#000000'},
-         '47': {user:'kdiuro13', words:'(kdiuro13) 47',bgcolor:'#191970',fontcolor:'#ffffff'},
-         '100': {user:'abplows', words:'(abplows) 100',bgcolor:'#2b0090',fontcolor:'#ffffff'},
-         '123': {user:'davidjl123', words:'davidjl123',bgcolor:'#6495ED',fontcolor:'#000000'},
-         '123-2': {user:'dominodan123', words:'dominodan123',bgcolor:'#0000ff',fontcolor:'#ffffff'},
-         '151': {user:'MewDP', words:'(MewDP) 151',bgcolor:'#FFFF33',fontcolor:'#000000'},
-         '191': {user:'PaleRepresentative', words:'(PaleRepresentative) 191',bgcolor:'#8FBC8F',fontcolor:'#000000'},
-         '200': {user:'QuestoGuy', words:'(QuestoGuy) 200',bgcolor:'#800080',fontcolor:'#ffffff'},
-         '212': {user:'MrBahr12', words:'MrBahr212',bgcolor:'#CC6600',fontcolor:'#ffffff'},
-         '217': {user:'Lonadont', words:'(Lonadont) 217',bgcolor:'#a35252',fontcolor:'#ffffff'},
-         '220': {user:'Chalupa_Dad', words:'(Chalupa_Dad) 220',bgcolor:'#F08080',fontcolor:'#000000'},
-         '222': {user:'treje', words:'(treje) 222',bgcolor:'#ffc130',fontcolor:'#000000'},
-         '234': {user:'ElliottB1', words:'(ElliottB1) 234',bgcolor:'#00FFDD',fontcolor:'#000000'},
-         '301': {user:'piyushsharma301', words:'piyushsharma301',bgcolor:'#ff0000',fontcolor:'#000000'},
-         '333': {user:'Majestic_Bear', words:'(Majestic_Bear) 333',bgcolor:'#8A2BE2',fontcolor:'#ffffff'},
-         '360': {user:'NikinCZ', words:'(NikinCZ) 360',bgcolor:'#86D8CA',fontcolor:'#000000'},
-         '364': {user:'SecretAsianMa', words:'(SecretAsianMa) 364',bgcolor:'#373267',fontcolor:'#ffffff'},
-         '369': {user:'TOP_20', words:'(Whitney) 369',bgcolor:'#D9009C',fontcolor:'#ffffff'},
-         '373': {user:'MaybeNotWrong', words:'(MaybeNotWrong) 373',bgcolor:'#066666',fontcolor:'#ffffff'},
-         '404': {user:'Tranquilsunrise', words:'(Tranquilsunrise) 404',bgcolor:'#ffa500',fontcolor:'#000000'},
-         '404-2': {user:'KingCaspianX', words:'(KingCaspianX) 404',bgcolor:'#191970',fontcolor:'#ffffff'},
-         '420': {user:'alienth', words:'420',bgcolor:'#00ff00',fontcolor:'#000000'},
-         '471': {user:'albert471', words:'albert471',bgcolor:'#0000ff',fontcolor:'#ffffff'},
-         '500': {user:'Rajalaxo', words:'(Rajalaxo) 500',bgcolor:'#f6dec0',fontcolor:'#000000'},
-         '501': {user:'LeinadSpoon', words:'(LeinadSpoon) 501',bgcolor:'#520063',fontcolor:'#ffffff'},
-         '505': {user:'ItzTaken', words:'(ItzTaken) 505',bgcolor:'#32ff95',fontcolor:'#000000'},
-         '555': {user:'PrinceCrinkle', words:'(PrinceCrinkle) 555',bgcolor:'#00FFFF',fontcolor:'#000000'},
-         '559': {user:'iwannaplay5050', words:'(iwannaplay5050) 559',bgcolor:'#B22222',fontcolor:'#ffffff'},
-         '615': {user:'parker_cube', words:'(parker_cube) 615',bgcolor:'#71589f',fontcolor:'#ffffff'},
-         '616': {user:'DemonBurritoCat', words:'(DemonBurritoCat) 616',bgcolor:'#890003',fontcolor:'#ffffff'},
-         '639': {user:'MrUnderdawg', words:'(MrUnderdawg) 639',bgcolor:'#35e0cf',fontcolor:'#000000'},
-         '666': {user:'rideride', words:'666',bgcolor:'#ff0000',fontcolor:'#000000'},
-         '689': {user:'smarvin6689', words:'(smarvin6689) 689',bgcolor:'#060647',fontcolor:'#ffffff'},
-         '700': {user:'Noob2137', words:'(Noob2137) 700',bgcolor:'#ff69ff',fontcolor:'#000000'},
-         '777': {user:'artbn', words:'(artbn) 700',bgcolor:'#e66b00',fontcolor:'#000000'},
-         '845': {user:'noduorg', words:'(noduorg) 845',bgcolor:'#0d2d89',fontcolor:'#ffffff'},
-         '888': {user:'NobodyL0vesMe', words:'(NobodyL0vesMe) 888',bgcolor:'#BC12DD',fontcolor:'#000000'},
-         '973': {user:'Smartstocks', words:'(Smartstocks) 973',bgcolor:'#840d0d',fontcolor:'#ffffff'},
-         '998': {user:'qwertylool', words:'(qwertylool) 998',bgcolor:'#9acd32',fontcolor:'#000000'},
-         '1111': {user:'andrewtheredditor', words:'(andrewtheredditor) 1111',bgcolor:'#2cd626',fontcolor:'#ffffff'},
-         '1234': {user:'randomusername123458', words:'(randomusername123458) 1234',bgcolor:'#00cc99',fontcolor:'#000000'},
-         '1521': {user:'darthvader1521', words:'darthvader1521',bgcolor:'#ffaf47',fontcolor:'#000000'},
-         '1616': {user:'VitaminB16', words:'VitaminB1616',bgcolor:'#1affa7',fontcolor:'#000000'},
-         '69420': {user:'GrunfTNT', words:'(lol) 69420',bgcolor:'#bb00ff',fontcolor:'#ffff00'},
+    var specialTimes = {
+        '1': {user:'rschaosid', words:'(rschaosid) 1',bgcolor:'#008080',fontcolor:'#ffffff'},
+        '8': {user:'gordonpt8', words:'gordonpt8',bgcolor:'#00ff00',fontcolor:'#000000'},
+        '15': {user:'TheMatsValk', words:'(TheMatsValk) 15',bgcolor:'#00f5ff',fontcolor:'#000000'},
+        '18': {user:'Kris18', words:'Kris18',bgcolor:'#0000ff',fontcolor:'#ffffff'},
+        '36': {user:'Iamspeedy36', words:'Iamspeedy36',bgcolor:'#00BFFF',fontcolor:'#000000'},
+        '37': {user:'amazingpikachu_38', words:'amazingpikachu_37',bgcolor:'#ffff00',fontcolor:'#000000'},
+        '47': {user:'kdiuro13', words:'(kdiuro13) 47',bgcolor:'#191970',fontcolor:'#ffffff'},
+        '100': {user:'abplows', words:'(abplows) 100',bgcolor:'#2b0090',fontcolor:'#ffffff'},
+        '123': {user:'davidjl123', words:'davidjl123',bgcolor:'#6495ED',fontcolor:'#000000'},
+        '123-2': {user:'dominodan123', words:'dominodan123',bgcolor:'#0000ff',fontcolor:'#ffffff'},
+        '151': {user:'MewDP', words:'(MewDP) 151',bgcolor:'#FFFF33',fontcolor:'#000000'},
+        '191': {user:'PaleRepresentative', words:'(PaleRepresentative) 191',bgcolor:'#8FBC8F',fontcolor:'#000000'},
+        '200': {user:'QuestoGuy', words:'(QuestoGuy) 200',bgcolor:'#800080',fontcolor:'#ffffff'},
+        '212': {user:'MrBahr12', words:'MrBahr212',bgcolor:'#CC6600',fontcolor:'#ffffff'},
+        '217': {user:'Lonadont', words:'(Lonadont) 217',bgcolor:'#a35252',fontcolor:'#ffffff'},
+        '220': {user:'Chalupa_Dad', words:'(Chalupa_Dad) 220',bgcolor:'#F08080',fontcolor:'#000000'},
+        '222': {user:'treje', words:'(treje) 222',bgcolor:'#ffc130',fontcolor:'#000000'},
+        '234': {user:'ElliottB1', words:'(ElliottB1) 234',bgcolor:'#00FFDD',fontcolor:'#000000'},
+        '301': {user:'piyushsharma301', words:'piyushsharma301',bgcolor:'#ff0000',fontcolor:'#000000'},
+        '333': {user:'Majestic_Bear', words:'(Majestic_Bear) 333',bgcolor:'#8A2BE2',fontcolor:'#ffffff'},
+        '360': {user:'NikinCZ', words:'(NikinCZ) 360',bgcolor:'#86D8CA',fontcolor:'#000000'},
+        '364': {user:'SecretAsianMa', words:'(SecretAsianMa) 364',bgcolor:'#373267',fontcolor:'#ffffff'},
+        '369': {user:'TOP_20', words:'(Whitney) 369',bgcolor:'#D9009C',fontcolor:'#ffffff'},
+        '373': {user:'MaybeNotWrong', words:'(MaybeNotWrong) 373',bgcolor:'#066666',fontcolor:'#ffffff'},
+        '404': {user:'Tranquilsunrise', words:'(Tranquilsunrise) 404',bgcolor:'#ffa500',fontcolor:'#000000'},
+        '404-2': {user:'KingCaspianX', words:'(KingCaspianX) 404',bgcolor:'#191970',fontcolor:'#ffffff'},
+        '420': {user:'alienth', words:'420',bgcolor:'#00ff00',fontcolor:'#000000'},
+        '471': {user:'albert471', words:'albert471',bgcolor:'#0000ff',fontcolor:'#ffffff'},
+        '500': {user:'Rajalaxo', words:'(Rajalaxo) 500',bgcolor:'#f6dec0',fontcolor:'#000000'},
+        '501': {user:'LeinadSpoon', words:'(LeinadSpoon) 501',bgcolor:'#520063',fontcolor:'#ffffff'},
+        '505': {user:'ItzTaken', words:'(ItzTaken) 505',bgcolor:'#32ff95',fontcolor:'#000000'},
+        '555': {user:'PrinceCrinkle', words:'(PrinceCrinkle) 555',bgcolor:'#00FFFF',fontcolor:'#000000'},
+        '559': {user:'iwannaplay5050', words:'(iwannaplay5050) 559',bgcolor:'#B22222',fontcolor:'#ffffff'},
+        '615': {user:'parker_cube', words:'(parker_cube) 615',bgcolor:'#71589f',fontcolor:'#ffffff'},
+        '616': {user:'DemonBurritoCat', words:'(DemonBurritoCat) 616',bgcolor:'#890003',fontcolor:'#ffffff'},
+        '639': {user:'MrUnderdawg', words:'(MrUnderdawg) 639',bgcolor:'#35e0cf',fontcolor:'#000000'},
+        '666': {user:'rideride', words:'666',bgcolor:'#ff0000',fontcolor:'#000000'},
+        '689': {user:'smarvin6689', words:'(smarvin6689) 689',bgcolor:'#060647',fontcolor:'#ffffff'},
+        '700': {user:'Noob2137', words:'(Noob2137) 700',bgcolor:'#ff69ff',fontcolor:'#000000'},
+        '777': {user:'artbn', words:'(artbn) 700',bgcolor:'#e66b00',fontcolor:'#000000'},
+        '845': {user:'noduorg', words:'(noduorg) 845',bgcolor:'#0d2d89',fontcolor:'#ffffff'},
+        '888': {user:'NobodyL0vesMe', words:'(NobodyL0vesMe) 888',bgcolor:'#BC12DD',fontcolor:'#000000'},
+        '973': {user:'Smartstocks', words:'(Smartstocks) 973',bgcolor:'#840d0d',fontcolor:'#ffffff'},
+        '998': {user:'qwertylool', words:'(qwertylool) 998',bgcolor:'#9acd32',fontcolor:'#000000'},
+        '1111': {user:'andrewtheredditor', words:'(andrewtheredditor) 1111',bgcolor:'#2cd626',fontcolor:'#ffffff'},
+        '1234': {user:'randomusername123458', words:'(randomusername123458) 1234',bgcolor:'#00cc99',fontcolor:'#000000'},
+        '1521': {user:'darthvader1521', words:'darthvader1521',bgcolor:'#ffaf47',fontcolor:'#000000'},
+        '1616': {user:'VitaminB16', words:'VitaminB1616',bgcolor:'#1affa7',fontcolor:'#000000'},
+        '69420': {user:'GrunfTNT', words:'(lol) 69420',bgcolor:'#bb00ff',fontcolor:'#ffff00'},
     };
-     Update.loadedNew(function (data) {
+    Update.loadedNew(function (data) {
         if (!enabledrt)
             return;
         var thisTime = data.elem.find('.body').prev().attr('href');
-         var threadid = thisTime.substring(thisTime.lastIndexOf("live/") + 5,thisTime.lastIndexOf("/updates"));
-         var magin2 = thisTime.substring(thisTime.indexOf("updates/") + 8);
-         var permalink = thisTime.substring(thisTime.indexOf("updates/") + 8);
-         magin2 = magin2.substring(14, 18) + magin2.substring(9, 13) + magin2.substring(0, 8);
-         magin2 = parseInt(magin2, 16);
-         var thisTime2 = data.elem.find('.body').parent().nextAll('.liveupdate:first').children().first().attr('href');
-         var magin3 = thisTime2.substring(thisTime2.indexOf("updates/") + 8);
-         magin3 = magin3.substring(14, 18) + magin3.substring(9, 13) + magin3.substring(0, 8);
-         magin3 = parseInt(magin3, 16);
-         var timestamp = magin2 - magin3;
-         timestamp = timestamp / 1000;
-         timestamp = Math.round( timestamp * 10 ) / 10;
-         timestamp = timestamp / 10;
-         timestamp = Math.round(timestamp);
-         //////////Last Count (messy for now)
-if(Elements.$body.attr('data-LastCount') != 'Off') {
-if ( isNaN(validcount2) == true ) {
-validcount2 = validcount1;
-}
- fullcount1 = data.elem.find('.body > .md').text();
-author1 = data.elem.find('.body > .author').text();
-author1 = author1.trim().replace('/u/', '');
- validcount1 = parse_body(fullcount1)[0];
-validcount2 = parseInt(validcount2);
-validcount1 = parseInt(validcount1);
-validcount2++;
-if (validcount2 == validcount1 && author2 != author1 || isNaN(validcount2) == true) {
-validcount3 = validcount1;
-$("#lastcountcount").text(validcount3.toLocaleString());
-$("#lastcountuser").text(author1);
-validtimy = validcount3.toString();
-validtimy = validtimy.substr(validtimy.length - 3);
- if (validtimy == '000') {
-vc900t = magin2;
-if (vc800t != '') {
-           vc900s = vc900t - vc800t;
-           vc900s = vc900s / 1000;
-           vc900s = (Math.round(vc900s / 10) * 10) / 10;
-           $("#split9").text(vc900s);
-}
-} else if (validtimy == '900') {
-vc800t = magin2;
-if (vc700t != '') {
-           vc800s = vc800t - vc700t;
-           vc800s = vc800s / 1000;
-           vc800s = (Math.round(vc800s / 10) * 10) / 10;
-           $("#split8").text(vc800s);
-}
-} else if (validtimy == '800') {
-vc700t = magin2;
-if (vc600t != '') {
-           vc700s = vc700t - vc600t;
-           vc700s = vc700s / 1000;
-           vc700s = (Math.round(vc700s / 10) * 10) / 10;
-           $("#split7").text(vc700s);
-}
-}  else if (validtimy == '700') {
-vc600t = magin2;
-if (vc500t != '') {
-           vc600s = vc600t - vc500t;
-           vc600s = vc600s / 1000;
-           vc600s = (Math.round(vc600s / 10) * 10) / 10;
-           $("#split6").text(vc600s);
-}
-} else if (validtimy == '600') {
-vc500t = magin2;
-if (vc400t != '') {
-           vc500s = vc500t - vc400t;
-           vc500s = vc500s / 1000;
-           vc500s = (Math.round(vc500s / 10) * 10) / 10;
-           $("#split5").text(vc500s);
-}
+        var threadid = thisTime.substring(thisTime.lastIndexOf("live/") + 5,thisTime.lastIndexOf("/updates"));
+        var magin2 = thisTime.substring(thisTime.indexOf("updates/") + 8);
+        var permalink = thisTime.substring(thisTime.indexOf("updates/") + 8);
+        magin2 = magin2.substring(14, 18) + magin2.substring(9, 13) + magin2.substring(0, 8);
+        magin2 = parseInt(magin2, 16);
+        var thisTime2 = data.elem.find('.body').parent().nextAll('.liveupdate:first').children().first().attr('href');
+        var magin3 = thisTime2.substring(thisTime2.indexOf("updates/") + 8);
+        magin3 = magin3.substring(14, 18) + magin3.substring(9, 13) + magin3.substring(0, 8);
+        magin3 = parseInt(magin3, 16);
+        var timestamp = magin2 - magin3;
+        timestamp = timestamp / 1000;
+        timestamp = Math.round( timestamp * 10 ) / 10;
+        timestamp = timestamp / 10;
+        timestamp = Math.round(timestamp);
+        //////////Last Count (messy for now)
+        if(Elements.$body.attr('data-LastCount') != 'Off') {
+            if ( isNaN(validcount2) == true ) {
+                validcount2 = validcount1;
+            }
+            fullcount1 = data.elem.find('.body > .md').text();
+            author1 = data.elem.find('.body > .author').text();
+            author1 = author1.trim().replace('/u/', '');
+            validcount1 = parse_body(fullcount1)[0];
+            validcount2 = parseInt(validcount2);
+            validcount1 = parseInt(validcount1);
+            validcount2++;
+            if (validcount2 == validcount1 && author2 != author1 || isNaN(validcount2) == true) {
+                validcount3 = validcount1;
+                $("#lastcountcount").text(validcount3.toLocaleString());
+                $("#lastcountuser").text(author1);
+                validtimy = validcount3.toString();
+                validtimy = validtimy.substr(validtimy.length - 3);
+                if (validtimy == '000') {
+                    vc900t = magin2;
+                    if (vc800t != '') {
+                        vc900s = vc900t - vc800t;
+                        vc900s = vc900s / 1000;
+                        vc900s = (Math.round(vc900s / 10) * 10) / 10;
+                        $("#split9").text(vc900s);
+                        all_times[validcount3] = vc900s;
+                        $( "#split69" ).text(JSON.stringify(all_times, null, '\t'));
+                    }
+                } else if (validtimy == '900') {
+                    vc800t = magin2;
+                    if (vc700t != '') {
+                        vc800s = vc800t - vc700t;
+                        vc800s = vc800s / 1000;
+                        vc800s = (Math.round(vc800s / 10) * 10) / 10;
+                        $("#split8").text(vc800s);
+                        all_times[validcount3] = vc800s;
+                        $( "#split69" ).text(JSON.stringify(all_times, null, '\t'));
+                    }
+                } else if (validtimy == '800') {
+                    vc700t = magin2;
+                    if (vc600t != '') {
+                        vc700s = vc700t - vc600t;
+                        vc700s = vc700s / 1000;
+                        vc700s = (Math.round(vc700s / 10) * 10) / 10;
+                        $("#split7").text(vc700s);
+                        all_times[validcount3] = vc700s;
+                        $( "#split69" ).text(JSON.stringify(all_times, null, '\t'));
+                    }
+                }  else if (validtimy == '700') {
+                    vc600t = magin2;
+                    if (vc500t != '') {
+                        vc600s = vc600t - vc500t;
+                        vc600s = vc600s / 1000;
+                        vc600s = (Math.round(vc600s / 10) * 10) / 10;
+                        $("#split6").text(vc600s);
+                        all_times[validcount3] = vc600s;
+                        $( "#split69" ).text(JSON.stringify(all_times, null, '\t'));
+                    }
+                } else if (validtimy == '600') {
+                    vc500t = magin2;
+                    if (vc400t != '') {
+                        vc500s = vc500t - vc400t;
+                        vc500s = vc500s / 1000;
+                        vc500s = (Math.round(vc500s / 10) * 10) / 10;
+                        $("#split5").text(vc500s);
+                        all_times[validcount3] = vc500s;
+                        $( "#split69" ).text(JSON.stringify(all_times, null, '\t'));
+                    }
 
-} else if (validtimy == '500') {
-vc400t = magin2;
-if (vc300t != '') {
-           vc400s = vc400t - vc300t;
-           vc400s = vc400s / 1000;
-           vc400s = (Math.round(vc400s / 10) * 10) / 10;
-           $("#split4").text(vc400s);
-}
-}  else if (validtimy == '400') {
-vc300t = magin2;
-if (vc200t != '') {
-           vc300s = vc300t - vc200t;
-           vc300s = vc300s / 1000;
-           vc300s = (Math.round(vc300s / 10) * 10) / 10;
-           $("#split3").text(vc300s);
-}
-}  else if (validtimy == '300') {
-vc200t = magin2;
-if (vc100t != '') {
-           vc200s = vc200t - vc100t;
-           vc200s = vc200s / 1000;
-           vc200s = (Math.round(vc200s / 10) * 10) / 10;
-           $("#split2").text(vc200s);
-}
-}  else if (validtimy == '200') {
-vc100t = magin2;
-if (vc000t != '') {
-           vc100s = vc100t - vc000t;
-           vc100s = vc100s / 1000;
-           vc100s = (Math.round(vc100s / 10) * 10) / 10;
-           $("#split1").text(vc100s);
-}
-}  else if (validtimy == '100') {
-vc000t = magin2;
-if (vc900t != '') {
-           vc000s = vc000t - vc900t;
-           vc000s = vc000s / 1000;
-           vc000s = (Math.round(vc000s / 10) * 10) / 10;
-           $("#split0").text(vc000s);
-}
-}
-validcountwrong = 0;
-if (author1 == authorme) {
-validcountnotme = 0;
-} else {
-validcountnotme = 1;
-}
-author2 = author1;
-} else {
-validcount2--;
-validcount3 = validcount2;
-validcountwrong++;
-if (validcountwrong == 10) {
-document.getElementById("lastcountdesc").innerHTML = 'Click to reset?';
-document.getElementById("lastcountdesc").style.background = '#ef7070';
-var wrongtimer = setTimeout( function() {
-         document.getElementById("lastcountdesc").innerHTML = 'Last count:';
-document.getElementById("lastcountdesc").style.background = '';
-      },15000);
-}
-}
-$( "#lastcountdesc" ).hover(function() {
-         document.getElementById("lastcountdesc").innerHTML = 'Click to reset';
-document.getElementById("lastcountdesc").style.cursor = 'pointer';
-       }, function() {
-    document.getElementById("lastcountdesc").innerHTML = 'Last count:';
-  });
-$( "#lastcountdesc" ).click(function() {
-validcount1 = '';
-validcount2 = '';
-validcount3 = '';
-fullcount1 = '';
-author1 = '';
-author2 = '';
-});
-}
-//////////
-         var testhref = "https://old.reddit.com/live/" + threadid + "/updates/" + permalink;
-         var colortest = '#7dd4fa';
-         var elcolor = '#000000';
-         var randomx = '0';
-         darkcheck = 0;
-         if (Elements.$body.attr('data-darkMode') == 'Default') {
-             if ($('#lc-body').hasClass('res-nightmode')) {
-                 darkcheck = 1;
-                 elcolor = '#ddd';
-             }
-         } else if (Elements.$body.attr('data-darkMode') == 'On') {
-             darkcheck = 1;
-             elcolor = '#ddd';
-         } else if (Elements.$body.attr('data-darkMode') == 'Off') {
-             darkcheck = 0;
-         }
-         if (timestamp <= -500) {
-             colortest = 'linear-gradient(to right,red,orange,yellow,green,blue,indigo,violet)';
-         } else if (-499 <= timestamp && timestamp < 1) {
-             colortest = '#f2ee0e';
-             if (darkcheck == 1) {colortest = '#727200';}
-         } else if (1 <= timestamp && timestamp < 100) {
-             colortest = '#ef7070';
-             if (darkcheck == 1) {colortest = '#4d0000';}
-         } else if (100 <= timestamp && timestamp < 200) {
-             colortest = '#ffaeae';
-             if (darkcheck == 1) {colortest = '#980000';}
-         } else if (200 <= timestamp && timestamp < 300) {
-             colortest = '#ffebba';
-             if (darkcheck == 1) {colortest = '#654700';}
-         } else if (300 <= timestamp && timestamp < 400) {
-             colortest = '#cfffba';
-             if (darkcheck == 1) {colortest = '#216e00';}
-         } else if (400 <= timestamp && timestamp < 500) {
-             colortest = '#a2e8af';
-             if (darkcheck == 1) {colortest = '#003b0b';}
-         } else if (500 <= timestamp && timestamp < 600) {
-             colortest = '#adffed';
-             if (darkcheck == 1) {colortest = '#006b53';}
-         } else if (600 <= timestamp && timestamp < 700) {
-             colortest = '#add6ff';
-             if (darkcheck == 1) {colortest = '#004183';}
-         } else if (700 <= timestamp && timestamp < 800) {
-             colortest = '#bcadff';
-             if (darkcheck == 1) {colortest = '#14006c';}
-         } else if (800 <= timestamp && timestamp < 900) {
-             colortest = '#e9adff';
-             if (darkcheck == 1) {colortest = '#460060';}
-         } else if (900 <= timestamp && timestamp < 1000) {
-             colortest = '#ffadf8';
-             if (darkcheck == 1) {colortest = '#6e0064';}
-         } else {
-             colortest = '#ededed';
-             if (darkcheck == 1) {colortest = '#2a2a2a';}
-         }
-         if(timestamp in specialTimes && Elements.$body.attr('data-disableSpecialTimes') == 'false') {
-             var postauthor = data.author_elem.text().substring(3);
-             if (timestamp == '123') {
-                 var randomtime = Math.round(Math.random());
-                 if(randomtime == 1 && postauthor != 'davidjl123' || postauthor == 'dominodan123') {
-                     timestamp = '123-2';
-                 }
-             }
-             if (timestamp == '404') {
-                 var randomtime = Math.round(Math.random());
-                 if(randomtime == 1 && postauthor != 'Tranquilsunrise' || postauthor == 'KingCaspianX') {
-                     timestamp = '404-2';
-                 }
-             }
-             colortest = specialTimes[timestamp]['bgcolor'];
-             elcolor = specialTimes[timestamp]['fontcolor'];
-             if (postauthor == specialTimes[timestamp]['user']) {var user2 = data.elem.find('.body > .author').text(); data.elem.find('.body').append("<span id=fakeauthor></span>"); document.getElementById("fakeauthor").innerHTML = user2; data.elem.find('.body > .author').css('fontSize', '0px'); document.getElementById("fakeauthor").style.cssText = 'font-size: 13px; color: transparent; background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text!important;';}
-             timestamp = specialTimes[timestamp]['words'];
-         }
-         data.elem.find('.body').prepend("<div onclick=window.open('"+testhref+"'); id=river></div>");
-         data.elem.find('.river').css('position', 'absolute');
-         document.getElementById("river").innerHTML = timestamp;
-         if(window.location.href.indexOf("10itx") > -1) {
-             var barregexy = /\/live\/.............\/updates\//
-             var barmagin = data.elem.find('.body').prev().attr('href');
-             var barmagin2 = barmagin.replace(barregexy, '');
-             var barmagin2p1 = barmagin2.substring(0, 8);
-             var barmagin2p11 = barmagin2.substring(9, 13);
-             var barmagin2p111 = barmagin2.substring(15, 18);
-             var barmagin2p1111 = barmagin2p111 + barmagin2p11 + barmagin2p1;
-             var barmagin2p2 = parseInt(barmagin2p1111, 16);
-             var mago = barmagin2p2.toString();
-             mago = mago.substring(0, 15);
-             mago = parseInt(mago);
-             mago = Math.round( mago * 10 ) / 10;
-             mago = mago / 10;
-             mago = Math.round(mago);
-             var dateTime = new Date( mago );
-             var dateTime2 = dateTime.toISOString();
-             var dateTime3 = dateTime2.substring(11, 23);
-             document.getElementById("river").innerHTML = dateTime3;
-         }
-         document.getElementById("river").style.background = colortest;
-         document.getElementById("river").style.color = elcolor;
-         if(Elements.$body.attr('data-BackgroundColor') == 'Match Reply Time') {
-             data.elem.find('.body').parent().css('background', colortest);
-         }
+                } else if (validtimy == '500') {
+                    vc400t = magin2;
+                    if (vc300t != '') {
+                        vc400s = vc400t - vc300t;
+                        vc400s = vc400s / 1000;
+                        vc400s = (Math.round(vc400s / 10) * 10) / 10;
+                        $("#split4").text(vc400s);
+                        all_times[validcount3] = vc400s;
+                        $( "#split69" ).text(JSON.stringify(all_times, null, '\t'));
+                    }
+                }  else if (validtimy == '400') {
+                    vc300t = magin2;
+                    if (vc200t != '') {
+                        vc300s = vc300t - vc200t;
+                        vc300s = vc300s / 1000;
+                        vc300s = (Math.round(vc300s / 10) * 10) / 10;
+                        $("#split3").text(vc300s);
+                        all_times[validcount3] = vc300s;
+                        $( "#split69" ).text(JSON.stringify(all_times, null, '\t'));
+                    }
+                }  else if (validtimy == '300') {
+                    vc200t = magin2;
+                    if (vc100t != '') {
+                        vc200s = vc200t - vc100t;
+                        vc200s = vc200s / 1000;
+                        vc200s = (Math.round(vc200s / 10) * 10) / 10;
+                        $("#split2").text(vc200s);
+                        all_times[validcount3] = vc200s;
+                        $( "#split69" ).text(JSON.stringify(all_times, null, '\t'));
+                    }
+                }  else if (validtimy == '200') {
+                    vc100t = magin2;
+                    if (vc000t != '') {
+                        vc100s = vc100t - vc000t;
+                        vc100s = vc100s / 1000;
+                        vc100s = (Math.round(vc100s / 10) * 10) / 10;
+                        $("#split1").text(vc100s);
+                        all_times[validcount3] = vc100s;
+                        $( "#split69" ).text(JSON.stringify(all_times, null, '\t'));
+                    }
+                }  else if (validtimy == '100') {
+                    vc000t = magin2;
+                    if (vc900t != '') {
+                        vc000s = vc000t - vc900t;
+                        vc000s = vc000s / 1000;
+                        vc000s = (Math.round(vc000s / 10) * 10) / 10;
+                        $("#split0").text(vc000s);
+                        all_times[validcount3] = vc000s;
+                        $( "#split69" ).text(JSON.stringify(all_times, null, '\t'));
+                    }
+                }
+                validcountwrong = 0;
+                if (author1 == authorme) {
+                    validcountnotme = 0;
+                } else {
+                    validcountnotme = 1;
+                }
+                author2 = author1;
+            } else {
+                validcount2--;
+                validcount3 = validcount2;
+                validcountwrong++;
+                if (validcountwrong == 10) {
+                    document.getElementById("lastcountdesc").innerHTML = 'Click to reset?';
+                    document.getElementById("lastcountdesc").style.background = '#ef7070';
+                    var wrongtimer = setTimeout( function() {
+                        document.getElementById("lastcountdesc").innerHTML = 'Last count:';
+                        document.getElementById("lastcountdesc").style.background = '';
+                        $("#lastcountdesc").click();
+                    },15000);
+                }
+            }
+        }
+        //////////
+        var testhref = "https://old.reddit.com/live/" + threadid + "/updates/" + permalink;
+        var colortest = '#7dd4fa';
+        var elcolor = '#000000';
+        var randomx = '0';
+        darkcheck = 0;
+        if (Elements.$body.attr('data-darkMode') == 'Default') {
+            if ($('#lc-body').hasClass('res-nightmode')) {
+                darkcheck = 1;
+                elcolor = '#ddd';
+            }
+        } else if (Elements.$body.attr('data-darkMode') == 'On') {
+            darkcheck = 1;
+            elcolor = '#ddd';
+        } else if (Elements.$body.attr('data-darkMode') == 'Off') {
+            darkcheck = 0;
+        }
+        if (timestamp <= -500) {
+            colortest = 'linear-gradient(to right,red,orange,yellow,green,blue,indigo,violet)';
+        } else if (-499 <= timestamp && timestamp < 1) {
+            colortest = '#f2ee0e';
+            if (darkcheck == 1) {colortest = '#727200';}
+        } else if (1 <= timestamp && timestamp < 100) {
+            colortest = '#ef7070';
+            if (darkcheck == 1) {colortest = '#4d0000';}
+        } else if (100 <= timestamp && timestamp < 200) {
+            colortest = '#ffaeae';
+            if (darkcheck == 1) {colortest = '#980000';}
+        } else if (200 <= timestamp && timestamp < 300) {
+            colortest = '#ffebba';
+            if (darkcheck == 1) {colortest = '#654700';}
+        } else if (300 <= timestamp && timestamp < 400) {
+            colortest = '#cfffba';
+            if (darkcheck == 1) {colortest = '#216e00';}
+        } else if (400 <= timestamp && timestamp < 500) {
+            colortest = '#a2e8af';
+            if (darkcheck == 1) {colortest = '#003b0b';}
+        } else if (500 <= timestamp && timestamp < 600) {
+            colortest = '#adffed';
+            if (darkcheck == 1) {colortest = '#006b53';}
+        } else if (600 <= timestamp && timestamp < 700) {
+            colortest = '#add6ff';
+            if (darkcheck == 1) {colortest = '#004183';}
+        } else if (700 <= timestamp && timestamp < 800) {
+            colortest = '#bcadff';
+            if (darkcheck == 1) {colortest = '#14006c';}
+        } else if (800 <= timestamp && timestamp < 900) {
+            colortest = '#e9adff';
+            if (darkcheck == 1) {colortest = '#460060';}
+        } else if (900 <= timestamp && timestamp < 1000) {
+            colortest = '#ffadf8';
+            if (darkcheck == 1) {colortest = '#6e0064';}
+        } else {
+            colortest = '#ededed';
+            if (darkcheck == 1) {colortest = '#2a2a2a';}
+        }
+        if(timestamp in specialTimes && Elements.$body.attr('data-disableSpecialTimes') == 'false') {
+            var postauthor = data.author_elem.text().substring(3);
+            if (timestamp == '123') {
+                var randomtime = Math.round(Math.random());
+                if(randomtime == 1 && postauthor != 'davidjl123' || postauthor == 'dominodan123') {
+                    timestamp = '123-2';
+                }
+            }
+            if (timestamp == '404') {
+                var randomtime = Math.round(Math.random());
+                if(randomtime == 1 && postauthor != 'Tranquilsunrise' || postauthor == 'KingCaspianX') {
+                    timestamp = '404-2';
+                }
+            }
+            colortest = specialTimes[timestamp]['bgcolor'];
+            elcolor = specialTimes[timestamp]['fontcolor'];
+            if (postauthor == specialTimes[timestamp]['user']) {var user2 = data.elem.find('.body > .author').text(); data.elem.find('.body').append("<span id=fakeauthor></span>"); document.getElementById("fakeauthor").innerHTML = user2; data.elem.find('.body > .author').css('fontSize', '0px'); document.getElementById("fakeauthor").style.cssText = 'font-size: 13px; color: transparent; background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text!important;';}
+            timestamp = specialTimes[timestamp]['words'];
+        }
+        data.elem.find('.body').prepend("<div onclick=window.open('"+testhref+"'); id=river></div>");
+        data.elem.find('.river').css('position', 'absolute');
+        document.getElementById("river").innerHTML = timestamp;
+        if(window.location.href.indexOf("10itx") > -1) {
+            var barregexy = /\/live\/.............\/updates\//
+            var barmagin = data.elem.find('.body').prev().attr('href');
+            var barmagin2 = barmagin.replace(barregexy, '');
+            var barmagin2p1 = barmagin2.substring(0, 8);
+            var barmagin2p11 = barmagin2.substring(9, 13);
+            var barmagin2p111 = barmagin2.substring(15, 18);
+            var barmagin2p1111 = barmagin2p111 + barmagin2p11 + barmagin2p1;
+            var barmagin2p2 = parseInt(barmagin2p1111, 16);
+            var mago = barmagin2p2.toString();
+            mago = mago.substring(0, 15);
+            mago = parseInt(mago);
+            mago = Math.round( mago * 10 ) / 10;
+            mago = mago / 10;
+            mago = Math.round(mago);
+            var dateTime = new Date( mago );
+            var dateTime2 = dateTime.toISOString();
+            var dateTime3 = dateTime2.substring(11, 23);
+            document.getElementById("river").innerHTML = dateTime3;
+        }
+        document.getElementById("river").style.background = colortest;
+        document.getElementById("river").style.color = elcolor;
+        if(Elements.$body.attr('data-BackgroundColor') == 'Match Reply Time') {
+            data.elem.find('.body').parent().css('background', colortest);
+        }
 
-           if (window.innerWidth >= 700) {
-             $( 'div#river' ).css('position', 'absolute').css('margin-left', '-135px').css('font-size', '9px').css('margin-top', '4px').css('width','120px').css('text-align','right').css('max-width','120px');
-         }
-         else {
-             $( 'div#river' ).css('position', 'absolute').css('margin-left', '-10px').css('font-size', '9px').css('margin-top', '-16px').css('width','120px').css('text-align','right').css('max-width','120px');
-         }
-         if ( $('#lc-body[data-DisplayMode="Minimal"] #liveupdate-statusbar').css('display') == 'none') {
-             $( 'div#river' ).css('margin-left', '-141px');
-         }
-         if (Elements.$body.attr('data-automaticallyClearTime') != 'Off') {
-             if (Elements.$body.attr('data-automaticallyClearTime') == 'After 60s') {
-                 customClearTime = 60000;
-             } else {
-                 customClearTime = Elements.$body.attr('data-customClearTime');
-             }
-             $('#river').delay(customClearTime).hide(500);
-         }
-     $("#river").mouseover(function() {
-             this.style.background = "transparent";
-             this.style.color = "transparent";
-             this.style.cursor = "pointer";
-         });
-         $("#river").mouseout(function() {
-             this.style.background = colortest;
-             this.style.color = elcolor;
-         });
+        if (window.innerWidth >= 700) {
+            $( 'div#river' ).css('position', 'absolute').css('margin-left', '-135px').css('font-size', '9px').css('margin-top', '4px').css('width','120px').css('text-align','right').css('max-width','120px');
+        }
+        else {
+            $( 'div#river' ).css('position', 'absolute').css('margin-left', '-10px').css('font-size', '9px').css('margin-top', '-16px').css('width','120px').css('text-align','right').css('max-width','120px');
+        }
+        if ( $('#lc-body[data-DisplayMode="Minimal"] #liveupdate-statusbar').css('display') == 'none') {
+            $( 'div#river' ).css('margin-left', '-141px');
+        }
+        if (Elements.$body.attr('data-automaticallyClearTime') != 'Off') {
+            if (Elements.$body.attr('data-automaticallyClearTime') == 'After 60s') {
+                customClearTime = 60000;
+            } else {
+                customClearTime = Elements.$body.attr('data-customClearTime');
+            }
+            $('#river').delay(customClearTime).hide(500);
+        }
+        $("#river").mouseover(function() {
+            this.style.background = "transparent";
+            this.style.color = "transparent";
+            this.style.cursor = "pointer";
+        });
+        $("#river").mouseout(function() {
+            this.style.background = colortest;
+            this.style.color = elcolor;
+        });
     });
     $(window).on('load resize', function () {
         if (window.innerWidth >= 700) {
@@ -1091,7 +1099,7 @@ var ReplyTimesDarkMode;
             Elements.$body.attr('data-darkMode', this.val());
         }
     });
- })(ReplyTimesDarkMode || (ReplyTimesDarkMode = {}));
+})(ReplyTimesDarkMode || (ReplyTimesDarkMode = {}));
 ///////////////////////////////
 // AutomaticallyClearTime.ts //
 ///////////////////////////////
@@ -1123,7 +1131,7 @@ var AutomaticallyClearTime;
             }
         }
     });
- })(AutomaticallyClearTime || (AutomaticallyClearTime = {}));
+})(AutomaticallyClearTime || (AutomaticallyClearTime = {}));
 ///////////////////////
 // CustomStricken.ts //
 ///////////////////////
@@ -1153,9 +1161,9 @@ var CustomStricken;
             }
         }
     });
-// Styles
+    // Styles
     Styles.add("\n\n\t/* Custom Stricken */\n\t#lc-body[data-customStricken='No Inverse'] .liveupdate.stricken{\n\tbackground:"  + Elements.$body.attr('data-customStrickenColor') + "!important;\n\t}\n#lc-body[data-customStricken='Inverse'] .liveupdate.stricken{\n\tbackground:"  + Elements.$body.attr('data-customStrickenColor') + "!important;-webkit-filter: invert(100%);filter: invert(100%);\n\t}");
- })(CustomStricken || (CustomStricken = {}));
+})(CustomStricken || (CustomStricken = {}));
 ////////////////////////////
 // DisableSpecialTimes.ts //
 ////////////////////////////
@@ -1205,7 +1213,7 @@ var BackgroundColor;
     });
     // Styles
     Styles.add("\n\n\t/* Custom Background */\n\t#lc-body[data-BackgroundColor='Custom'] .liveupdate{\n\tbackground:"  + Elements.$body.attr('data-customBackgroundColor') + "!important;\n\t}\n}");
- })(BackgroundColor || (BackgroundColor = {}));
+})(BackgroundColor || (BackgroundColor = {}));
 //////////////////
 // LastCount.ts //
 //////////////////
@@ -1213,8 +1221,41 @@ var LastCount;
 (function (LastCount) {
     // INITIALIZATION
     Elements.$body.attr('data-LastCount', 'Off');
-    $('#liveupdate-header').prepend("<div id=idlecontainer><div id=statsplace><p id=lastcountdesc>Last count:<p id=lastcountcount></p><p>/u/<span id=lastcountuser></span></p></p><div id=splits><p>000s:<span id=split0></span></p><p>100s:<span id=split1></span></p><p>200s:<span id=split2></span></p><p>300s:<span id=split3></span></p><p>400s:<span id=split4></span></p><p>500s:<span id=split5></span></p><p>600s:<span id=split6></span></p><p>700s:<span id=split7></span></p><p>800s:<span id=split8></span></p><p>900s:<span id=split9></span></p></div></div></div>");
+    var dumpy = 0;
+    $('#liveupdate-header').prepend("<div id=idlecontainer><div id=statsplace><p id=lastcountdesc>Last count:<p id=lastcountcount></p><p>/u/<span id=lastcountuser></span></p></p><div id=splits><p>000s:<span id=split0></span></p><p>100s:<span id=split1></span></p><p>200s:<span id=split2></span></p><p>300s:<span id=split3></span></p><p>400s:<span id=split4></span></p><p>500s:<span id=split5></span></p><p>600s:<span id=split6></span></p><p>700s:<span id=split7></span></p><p>800s:<span id=split8></span></p><p>900s:<span id=split9></span></p><p><span id=dumptoggle>Dump [+]:</span><div id=split69></div></p></div></div></div>");
     $('#idlecontainer').css({'display': 'none', 'position': 'absolute', 'left': '1%', 'top': '20%', 'width': '115px', 'background': 'transparent'});
+    $( "#lastcountdesc" ).hover(function() {
+        document.getElementById("lastcountdesc").innerHTML = 'Click to reset';
+        document.getElementById("lastcountdesc").style.cursor = 'pointer';
+    }, function() {
+        document.getElementById("lastcountdesc").innerHTML = 'Last count:';
+    });
+    $( "#lastcountdesc" ).click(function() {
+        validcount1 = '';
+        validcount2 = '';
+        validcount3 = '';
+        fullcount1 = '';
+        author1 = '';
+        author2 = '';
+    });
+    $( "#split69" ).click(function() {
+        $( "#split69" ).text(JSON.stringify(all_times, null, '\t'));
+    });
+    $("#dumptoggle").on('click', function () {
+        if (dumpy == 0) {
+            dumpy++;
+            document.getElementById("dumptoggle").innerHTML = "Dump [-]:";
+            $("#split69").css({
+                'display': 'initial',
+            });
+        } else {
+            dumpy--;
+            document.getElementById("dumptoggle").innerHTML = "Dump [+]:";
+            $("#split69").css({
+                'display': 'none',
+            });
+        }
+    });
     // Options
     Options.addSelect({
         label: 'LAST COUNT',
@@ -1245,7 +1286,7 @@ var LastCount;
     if(Elements.$body.attr('data-LastCount') == 'On + Splits') {
         $('#idlecontainer').css('display','initial');
     }
- })(BackgroundColor || (BackgroundColor = {}));
+})(BackgroundColor || (BackgroundColor = {}));
 //////////////////
 // CtrlEnter.ts //
 //////////////////
@@ -1317,47 +1358,47 @@ var ColoredUsernames;
         'live_mentions': 'Black',
         'joinlivecounting': 'Black',
         'livecounting_sidebar': 'Black',
-	'live_lc_bot': 'Black',
-	'Riverbot': 'Black',
+        'live_lc_bot': 'Black',
+        'Riverbot': 'Black',
         'Graphite_bot': 'Black',
-	'b66b': 'Black',
+        'b66b': 'Black',
         'piyushsharma301': '#FF0F19',
         'Tranquilsunrise': 'Orange',
         'dominodan123': 'Blue',
-		'smarvin6689':'#060647',
-		'rideride':'#069420',
-		'nomaur2':'#8A2BE2',
+        'smarvin6689':'#060647',
+        'rideride':'#069420',
+        'nomaur2':'#8A2BE2',
         'VitaminB16': '#75CEAF',
-		'LeinadSpoon': '#520063',
-		'co3_carbonate': 'Grey',
+        'LeinadSpoon': '#520063',
+        'co3_carbonate': 'Grey',
         'artbn': '#e66b00',
         'amazingpikachu_38': '#FFFF00',
         'qwertylool': "YellowGreen",
         'TOP_20': '#ff00bf',
-		'80sFan02': '#0505BB',
-		'AstroMagician': '#2d8bff',
-		'NobodyL0vesMe': '#730099',
-		'PrinceCrinkle': '#0d2d89',
-		'noduorg':'#0d2d89',
-		'MrBahr12': '#00f20a',
-		'parker_cube': '#FF69B4',
+        '80sFan02': '#0505BB',
+        'AstroMagician': '#2d8bff',
+        'NobodyL0vesMe': '#730099',
+        'PrinceCrinkle': '#0d2d89',
+        'noduorg':'#0d2d89',
+        'MrBahr12': '#00f20a',
+        'parker_cube': '#FF69B4',
         'QuestoGuy': 'Purple',
         'Smartstocks': '#840d0d',
-		'DemonBurritoCat':'#890003',
+        'DemonBurritoCat':'#890003',
         'gordonpt8': '#00FF00',
         'Mooraell': '#DAA520',
         'randomusername123458': '#00CC99',
-		'TheNitromeFan': '#fb72b0',
-		'Capitanbublo' : '#ff531a',
+        'TheNitromeFan': '#fb72b0',
+        'Capitanbublo' : '#ff531a',
         'davidjl123': '#6495ED',
-		'abplows':'#2B0090',
+        'abplows':'#2B0090',
         'Iamspeedy36': '#00BFFF',
         'Phoenixness': '#ff0000',
         'jillis6': '#ffd700',
-		'Kris18': '#0000ff',
-	    'Chalupa_Dad':'#F08080',
-	    'Majestic_Bear':'#4682B4',
-	    'Flat-Mars-Society':'#00FF7F',
+        'Kris18': '#0000ff',
+        'Chalupa_Dad':'#F08080',
+        'Majestic_Bear':'#4682B4',
+        'Flat-Mars-Society':'#00FF7F',
         'xHOCKEYx12': 'Lime',
         '_ntrpy': '#FF6600',
         'o99o99': '#2BBDFF',
@@ -1369,47 +1410,47 @@ var ColoredUsernames;
         'thetiredlemur': '#464942',
         'TheGlobeIsRound': '#0080ff',
         'CarbonSpectre': '#339933',
-	'Lonadont': '#a35252',
-	'TehVulpez': '#c42c0a',
-	'LC_Chats': '#dddddd',
-	'LC-3P0': 'Black',
-	'MaybeNotWrong': '#077055',
-	'ElliottB1': '#00FFDD',
-	'treje': '#ffc130',
-	'sakima11': '#0cd1ad',
-	'amazingpiakchu_38': '#FFFF00',
-	'royalpurplesky': '#800080',
-	'Mac_cy': '#FF8C00',
-	'iwannaplay5050': '#B22222',
-	'ludrol': '#191970',
-	'thegreatestminer': '#4F9D82',
-	'dogcatcowpig': '#1162f9',
-	'ItzTaken': '#32ff95',
-	'Noob2137': '#ff69ff',
-	'PaleRepresentative': '#2F4F4F',
-	'andrewtheredditor': '#2bdb6c',
-	'Whit4You': '#ff99ff',
-	'Rajalaxo': '#485432',
-	'NikinCZ': '#86D8CA',
-	'SecretAsianMa': '#373267',
-	'srmpass': '#ffeed6',
-	'MrUnderdawg': '#35e0cf',
+        'Lonadont': '#a35252',
+        'TehVulpez': '#c42c0a',
+        'LC_Chats': '#dddddd',
+        'LC-3P0': 'Black',
+        'MaybeNotWrong': '#077055',
+        'ElliottB1': '#00FFDD',
+        'treje': '#ffc130',
+        'sakima11': '#0cd1ad',
+        'amazingpiakchu_38': '#FFFF00',
+        'royalpurplesky': '#800080',
+        'Mac_cy': '#FF8C00',
+        'iwannaplay5050': '#B22222',
+        'ludrol': '#191970',
+        'thegreatestminer': '#4F9D82',
+        'dogcatcowpig': '#1162f9',
+        'ItzTaken': '#32ff95',
+        'Noob2137': '#ff69ff',
+        'PaleRepresentative': '#2F4F4F',
+        'andrewtheredditor': '#2bdb6c',
+        'Whit4You': '#ff99ff',
+        'Rajalaxo': '#485432',
+        'NikinCZ': '#86D8CA',
+        'SecretAsianMa': '#373267',
+        'srmpass': '#ffeed6',
+        'MrUnderdawg': '#35e0cf',
         'SsPincus': '#840d0d',
-	'amazingpikachu_37': '#FFFF00',
-	'basskro': '#346cd1',
-	'Chalupa_Grandpa': '#f69220',
-	'TOP_6689': '#006689',
-	'lyeinfyer': '#ccff99',
-	'Zaajdaeon': '#1776BF',
-	'Adventium_': '#228B22',
+        'amazingpikachu_37': '#FFFF00',
+        'basskro': '#346cd1',
+        'Chalupa_Grandpa': '#f69220',
+        'TOP_6689': '#006689',
+        'lyeinfyer': '#ccff99',
+        'Zaajdaeon': '#1776BF',
+        'Adventium_': '#228B22',
         'NeonL1vesMatter': '#730099',
-	'Trial-Name': '#008080',
-	'TheMatsValk': '#00f5ff',
-	'supersammy00': '#28ad3c',
+        'Trial-Name': '#008080',
+        'TheMatsValk': '#00f5ff',
+        'supersammy00': '#28ad3c',
     };
-	if (USER == 'VitaminB16') {
-userColors.LC_Chats = 'white';
-}
+    if (USER == 'VitaminB16') {
+        userColors.LC_Chats = 'white';
+    }
     colortransfers = userColors;
     // Possible colors for other users
     var colors = ['Blue', 'Coral', 'DodgerBlue', 'SpringGreen', 'YellowGreen', 'Green', 'OrangeRed', 'Red', 'GoldenRod', 'CadetBlue', 'SeaGreen', 'Chocolate', 'BlueViolet', 'Firebrick'];
@@ -1421,10 +1462,10 @@ userColors.LC_Chats = 'white';
         colors[j] = temp;
     }
 
-	function Shuffle(o) {
-	for(var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
-	return o;
-};
+    function Shuffle(o) {
+        for(var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+        return o;
+    };
 
     // index of next color to assign from colors array
     var currentColor = 0;
@@ -1454,50 +1495,50 @@ userColors.LC_Chats = 'white';
         }
 
 
-	    if (IgnoreEnabled == true) {
-var ignoretest = document.getElementById("ignorebox2").innerHTML;
+        if (IgnoreEnabled == true) {
+            var ignoretest = document.getElementById("ignorebox2").innerHTML;
 
-if (ignoretest.includes(data.author)) {
-var entirepost = data.body_elem.html();
-var entireposttext = data.body_elem.text();
-var count1testlol = entireposttext.substring(0, 10);
-    count1testlol = count1testlol.replace(/[A-Za-z]/g, '');
-entirepost = entirepost.replace(count1testlol,`<p id="counttext" style="font-size: 14px; display:inline;">`+count1testlol+` ​</p>`);
-entirepost = entirepost.replace(`p>`, `span>`);
-data.body_elem.html(`<span class="ignoredpost" style="font-size: 0px;">`+entirepost+`</span>`);
-}
-}//IgnoreEnabled ending
+            if (ignoretest.includes(data.author)) {
+                var entirepost = data.body_elem.html();
+                var entireposttext = data.body_elem.text();
+                var count1testlol = entireposttext.substring(0, 10);
+                count1testlol = count1testlol.replace(/[A-Za-z]/g, '');
+                entirepost = entirepost.replace(count1testlol,`<p id="counttext" style="font-size: 14px; display:inline;">`+count1testlol+` ​</p>`);
+                entirepost = entirepost.replace(`p>`, `span>`);
+                data.body_elem.html(`<span class="ignoredpost" style="font-size: 0px;">`+entirepost+`</span>`);
+            }
+        }//IgnoreEnabled ending
 
 
 
-// /u/MaybeNotWrong username special
-    if (SpecialUsernamesEnabled1 == true) {
-if (data.author == kname1) {
+        // /u/MaybeNotWrong username special
+        if (SpecialUsernamesEnabled1 == true) {
+            if (data.author == kname1) {
 
-var testArray = ['M','a','y','b','e','N','o','t','W','r','o','n','g'];
-     var pseudoRandomness = data.elem.find('.body').prev().attr('href');
-    pseudoRandomness = pseudoRandomness.substring(pseudoRandomness.indexOf("updates/") + 8).substring(0, 8).split("").reverse().join("");
-    pseudoRandomness = parseInt(pseudoRandomness, 16);
-    pseudoRandomness = pseudoRandomness / 4294967295;
-    pseudoRandomness = String(pseudoRandomness);
-        function bhuffle(o) {
-        for(var j, x, i = o.length, stroq; stroq = pseudoRandomness.slice(0,2) + pseudoRandomness.slice(i+2), stroq = stroq.replace(/ /g, ""), i; j = parseInt(stroq * i), x = o[--i], o[i] = o[j], o[j] = x);
-    return o;
-        }
-bhuffle(testArray);
+                var testArray = ['M','a','y','b','e','N','o','t','W','r','o','n','g'];
+                var pseudoRandomness = data.elem.find('.body').prev().attr('href');
+                pseudoRandomness = pseudoRandomness.substring(pseudoRandomness.indexOf("updates/") + 8).substring(0, 8).split("").reverse().join("");
+                pseudoRandomness = parseInt(pseudoRandomness, 16);
+                pseudoRandomness = pseudoRandomness / 4294967295;
+                pseudoRandomness = String(pseudoRandomness);
+                function bhuffle(o) {
+                    for(var j, x, i = o.length, stroq; stroq = pseudoRandomness.slice(0,2) + pseudoRandomness.slice(i+2), stroq = stroq.replace(/ /g, ""), i; j = parseInt(stroq * i), x = o[--i], o[i] = o[j], o[j] = x);
+                    return o;
+                }
+                bhuffle(testArray);
 
-        data.author_elem.css({
-                  'font-weight': 'bold',
-                  'display': 'inline-block',
-              });
+                data.author_elem.css({
+                    'font-weight': 'bold',
+                    'display': 'inline-block',
+                });
 
-             data.author_elem.html(`<div style='color:#077055'>/u/<span id=shuffled>`+testArray.join("")+`</span></div>`)
-	var testArray2 = testArray.join("");
-if (testArray2 == 'MaybeNotWrong') {
-             data.author_elem.html(`<span id="rainbowtext" style="color: transparent; background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text!important;">/u/MaybeNotWrong</span>`);
-}
-}
-} // SpecialUsernamesEnabled1 ending
+                data.author_elem.html(`<div style='color:#077055'>/u/<span id=shuffled>`+testArray.join("")+`</span></div>`)
+                var testArray2 = testArray.join("");
+                if (testArray2 == 'MaybeNotWrong') {
+                    data.author_elem.html(`<span id="rainbowtext" style="color: transparent; background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text!important;">/u/MaybeNotWrong</span>`);
+                }
+            }
+        } // SpecialUsernamesEnabled1 ending
 
 
         // Set username color
@@ -1512,35 +1553,35 @@ if (testArray2 == 'MaybeNotWrong') {
 
 
 
-if(window.location.href.indexOf("110t4ltqqzi35") > -1 || window.location.href.indexOf("14ny3ur3axhd4") > -1) {
-var lcchats = data.href_elem.attr('href');
-lcchats = lcchats.trim().replace('/u/', '');
-data.href_elem.css('color', userColors[lcchats]).css('fontStyle','initial').css('fontSize','13px');
-if (lcchats == 'MaybeNotWrong' || lcchats == 'co3_carbonate' || lcchats == 'rschaosid' || lcchats == 'piyushsharma301' || lcchats == 'rideride' || lcchats == 'LeinadSpoon' || lcchats == 'artbn') {
-            data.href_elem.css('font-weight', 'bold');
+        if(window.location.href.indexOf("110t4ltqqzi35") > -1 || window.location.href.indexOf("14ny3ur3axhd4") > -1) {
+            var lcchats = data.href_elem.attr('href');
+            lcchats = lcchats.trim().replace('/u/', '');
+            data.href_elem.css('color', userColors[lcchats]).css('fontStyle','initial').css('fontSize','13px');
+            if (lcchats == 'MaybeNotWrong' || lcchats == 'co3_carbonate' || lcchats == 'rschaosid' || lcchats == 'piyushsharma301' || lcchats == 'rideride' || lcchats == 'LeinadSpoon' || lcchats == 'artbn') {
+                data.href_elem.css('font-weight', 'bold');
+            }
         }
-}
     });
-if(window.location.href.indexOf("110t4ltqqzi35") > -1 || window.location.href.indexOf("14ny3ur3axhd4") > -1) {
-$('a[href*="/u/"]').each(function() {
-var thishref = $(this).attr('href');
-thishref = thishref.trim().replace('/u/', '');
-    $(this).css('color', userColors[thishref]).css('fontStyle','initial').css('fontSize','13px');
-if (thishref == 'MaybeNotWrong' || thishref == 'co3_carbonate' || thishref == 'rschaosid' || thishref == 'piyushsharma301' || thishref == 'rideride' || thishref == 'LeinadSpoon' || thishref == 'artbn') {
-            $(this).css('font-weight', 'bold');
-        }
-});
-	Update.loadedOld(function () {
-$('a[href*="/u/"]').each(function() {
-var thishref2 = $(this).attr('href');
-thishref2 = thishref2.trim().replace('/u/', '');
-    $(this).css('color', userColors[thishref2]).css('fontStyle','initial').css('fontSize','13px');
-if (thishref2 == 'MaybeNotWrong' || thishref2 == 'co3_carbonate' || thishref2 == 'rschaosid' || thishref2 == 'piyushsharma301' || thishref2 == 'rideride' || thishref2 == 'LeinadSpoon' || thishref2 == 'artbn') {
-            $(this).css('font-weight', 'bold');
-        }
-});
-});
-}
+    if(window.location.href.indexOf("110t4ltqqzi35") > -1 || window.location.href.indexOf("14ny3ur3axhd4") > -1) {
+        $('a[href*="/u/"]').each(function() {
+            var thishref = $(this).attr('href');
+            thishref = thishref.trim().replace('/u/', '');
+            $(this).css('color', userColors[thishref]).css('fontStyle','initial').css('fontSize','13px');
+            if (thishref == 'MaybeNotWrong' || thishref == 'co3_carbonate' || thishref == 'rschaosid' || thishref == 'piyushsharma301' || thishref == 'rideride' || thishref == 'LeinadSpoon' || thishref == 'artbn') {
+                $(this).css('font-weight', 'bold');
+            }
+        });
+        Update.loadedOld(function () {
+            $('a[href*="/u/"]').each(function() {
+                var thishref2 = $(this).attr('href');
+                thishref2 = thishref2.trim().replace('/u/', '');
+                $(this).css('color', userColors[thishref2]).css('fontStyle','initial').css('fontSize','13px');
+                if (thishref2 == 'MaybeNotWrong' || thishref2 == 'co3_carbonate' || thishref2 == 'rschaosid' || thishref2 == 'piyushsharma301' || thishref2 == 'rideride' || thishref2 == 'LeinadSpoon' || thishref2 == 'artbn') {
+                    $(this).css('font-weight', 'bold');
+                }
+            });
+        });
+    }
     Styles.add(`li.stricken > div > div > span > p #counttext {text-decoration: line-through;} .liveupdate-listing li.liveupdate.stricken div.md .ignoredpost p:last-of-type {text-decoration: none;}  `);
 
 
@@ -1554,7 +1595,7 @@ var ClearPastMessages;
     var maxMessages = 50;
     // Options
     var enabled = true;
-	    var enTimeout = false;
+    var enTimeout = false;
     var $checkbox = Options.addCheckbox({
         label: 'CLEAR PAST MESSAGES (REDUCES LAG)',
         "default": true,
@@ -1563,18 +1604,18 @@ var ClearPastMessages;
             enabled = this.prop('checked');
         }
     });
-	$checkbox.click(function() {
-            enTimeout = true;
-setTimeout(function(){ enTimeout = false; }, 5000);
-});
+    $checkbox.click(function() {
+        enTimeout = true;
+        setTimeout(function(){ enTimeout = false; }, 5000);
+    });
     // EVENTS
     // New update loaded
     Update.loadedNew(function (data) {
-    if(window.scrollY==0 && enTimeout==false) {
-        if (!enabled) {
-        $checkbox.prop('checked', true).trigger('change');
-}
-}
+        if(window.scrollY==0 && enTimeout==false) {
+            if (!enabled) {
+                $checkbox.prop('checked', true).trigger('change');
+            }
+        }
         if (!enabled)
             return;
         var $screenMessages = Elements.$updates.children('.liveupdate');
@@ -1711,21 +1752,21 @@ var RemoveSubmissionLag;
         // Exit if we think that Reddit had not cleared the textbox
         var mutation = mutations[0];
         if (!(mutation.oldValue == 'display: inline;' &&
-            Elements.$submitError.attr('style') == 'display: none;'))
+              Elements.$submitError.attr('style') == 'display: none;'))
             return;
         // Use the last backed-up input
         Elements.$textarea.off('keydown keyup input', backupInput);
         Elements.$textarea.val(lastInput);
         lastInput = '';
     });
-if (Elements.$submitError.length > 0) {
-    observer.observe(Elements.$submitError.get(0), {
-        // observe for change in 'style' attribute value
-        attributes: true,
-        attributeOldValue: true,
-        attributeFilter: ['style']
-    });
-}
+    if (Elements.$submitError.length > 0) {
+        observer.observe(Elements.$submitError.get(0), {
+            // observe for change in 'style' attribute value
+            attributes: true,
+            attributeOldValue: true,
+            attributeFilter: ['style']
+        });
+    }
     // When new message is loaded and is by this user, check if we can delete the corresponding
     // preview message.
     // If it is by another user, push all the preview messages to the front (in the right order),
@@ -1842,136 +1883,136 @@ var DisableShortcuts;
 // SpecialUsernames.ts //
 //////////////////////////
 if (specialnumber > 0) {
-var SpecialUsernames1;
-var SpecialUsernamesEnabled1;
-(function (SpecialUsernames1) {
-    // Options
-    var enabled1 = true;
-    var $checkbox = Options.addCheckbox({
-        label: kname1 + ' 100K USERNAME',
-        section: 'Advanced',
-        "default": true,
-        help: 'Enable or disable the special 100k usernames.',
-        onchange: function () {
-            enabled1 = this.prop('checked');
-        }
-    });
+    var SpecialUsernames1;
+    var SpecialUsernamesEnabled1;
+    (function (SpecialUsernames1) {
+        // Options
+        var enabled1 = true;
+        var $checkbox = Options.addCheckbox({
+            label: kname1 + ' 100K USERNAME',
+            section: 'Advanced',
+            "default": true,
+            help: 'Enable or disable the special 100k usernames.',
+            onchange: function () {
+                enabled1 = this.prop('checked');
+            }
+        });
         if (enabled1 == true) {
-        SpecialUsernamesEnabled1 = true;
+            SpecialUsernamesEnabled1 = true;
         } else {
-        SpecialUsernamesEnabled1 = false;
+            SpecialUsernamesEnabled1 = false;
         }
-})(SpecialUsernames1 || (SpecialUsernames1 = {}));
+    })(SpecialUsernames1 || (SpecialUsernames1 = {}));
 }
 if (specialnumber > 1) {
-var SpecialUsernames2;
-var SpecialUsernamesEnabled2;
-(function (SpecialUsernames2) {
-    // Options
-    var enabled2 = true;
-    var $checkbox = Options.addCheckbox({
-        label: kname2 + ' 100K USERNAME',
-        section: 'Advanced',
-        "default": true,
-        help: 'Enable or disable the special 100k usernames.',
-        onchange: function () {
-            enabled2 = this.prop('checked');
-        }
-    });
+    var SpecialUsernames2;
+    var SpecialUsernamesEnabled2;
+    (function (SpecialUsernames2) {
+        // Options
+        var enabled2 = true;
+        var $checkbox = Options.addCheckbox({
+            label: kname2 + ' 100K USERNAME',
+            section: 'Advanced',
+            "default": true,
+            help: 'Enable or disable the special 100k usernames.',
+            onchange: function () {
+                enabled2 = this.prop('checked');
+            }
+        });
         if (enabled2 == true) {
-        SpecialUsernamesEnabled2 = true;
+            SpecialUsernamesEnabled2 = true;
         } else {
-        SpecialUsernamesEnabled2 = false;
+            SpecialUsernamesEnabled2 = false;
         }
-})(SpecialUsernames2 || (SpecialUsernames2 = {}));
+    })(SpecialUsernames2 || (SpecialUsernames2 = {}));
 }
 if (specialnumber > 2) {
-var SpecialUsernames3;
-var SpecialUsernamesEnabled3;
-(function (SpecialUsernames3) {
-    // Options
-    var enabled3 = true;
-    var $checkbox = Options.addCheckbox({
-        label: kname3 + ' 100K USERNAME',
-        section: 'Advanced',
-        "default": true,
-        help: 'Enable or disable the special 100k usernames.',
-        onchange: function () {
-            enabled3 = this.prop('checked');
-        }
-    });
+    var SpecialUsernames3;
+    var SpecialUsernamesEnabled3;
+    (function (SpecialUsernames3) {
+        // Options
+        var enabled3 = true;
+        var $checkbox = Options.addCheckbox({
+            label: kname3 + ' 100K USERNAME',
+            section: 'Advanced',
+            "default": true,
+            help: 'Enable or disable the special 100k usernames.',
+            onchange: function () {
+                enabled3 = this.prop('checked');
+            }
+        });
         if (enabled3 == true) {
-        SpecialUsernamesEnabled3 = true;
+            SpecialUsernamesEnabled3 = true;
         } else {
-        SpecialUsernamesEnabled3 = false;
+            SpecialUsernamesEnabled3 = false;
         }
-})(SpecialUsernames3 || (SpecialUsernames3 = {}));
+    })(SpecialUsernames3 || (SpecialUsernames3 = {}));
 }
 if (specialnumber > 3) {
-var SpecialUsernames4;
-var SpecialUsernamesEnabled4;
-(function (SpecialUsernames2) {
-    // Options
-    var enabled4 = true;
-    var $checkbox = Options.addCheckbox({
-        label: kname4 + ' 100K USERNAME',
-        section: 'Advanced',
-        "default": true,
-        help: 'Enable or disable the special 100k usernames.',
-        onchange: function () {
-            enabled4 = this.prop('checked');
-        }
-    });
+    var SpecialUsernames4;
+    var SpecialUsernamesEnabled4;
+    (function (SpecialUsernames2) {
+        // Options
+        var enabled4 = true;
+        var $checkbox = Options.addCheckbox({
+            label: kname4 + ' 100K USERNAME',
+            section: 'Advanced',
+            "default": true,
+            help: 'Enable or disable the special 100k usernames.',
+            onchange: function () {
+                enabled4 = this.prop('checked');
+            }
+        });
         if (enabled4 == true) {
-        SpecialUsernamesEnabled4 = true;
+            SpecialUsernamesEnabled4 = true;
         } else {
-        SpecialUsernamesEnabled4 = false;
+            SpecialUsernamesEnabled4 = false;
         }
-})(SpecialUsernames4 || (SpecialUsernames4 = {}));
+    })(SpecialUsernames4 || (SpecialUsernames4 = {}));
 }
 if (specialnumber > 4) {
-var SpecialUsernames5;
-var SpecialUsernamesEnabled5;
-(function (SpecialUsernames5) {
-    // Options
-    var enabled5 = true;
-    var $checkbox = Options.addCheckbox({
-        label: kname5 + ' 100K USERNAME',
-        section: 'Advanced',
-        "default": true,
-        help: 'Enable or disable the special 100k usernames.',
-        onchange: function () {
-            enabled5 = this.prop('checked');
-        }
-    });
+    var SpecialUsernames5;
+    var SpecialUsernamesEnabled5;
+    (function (SpecialUsernames5) {
+        // Options
+        var enabled5 = true;
+        var $checkbox = Options.addCheckbox({
+            label: kname5 + ' 100K USERNAME',
+            section: 'Advanced',
+            "default": true,
+            help: 'Enable or disable the special 100k usernames.',
+            onchange: function () {
+                enabled5 = this.prop('checked');
+            }
+        });
         if (enabled5 == true) {
-        SpecialUsernamesEnabled5 = true;
+            SpecialUsernamesEnabled5 = true;
         } else {
-        SpecialUsernamesEnabled5 = false;
+            SpecialUsernamesEnabled5 = false;
         }
-})(SpecialUsernames5 || (SpecialUsernames5 = {}));
+    })(SpecialUsernames5 || (SpecialUsernames5 = {}));
 }
 if (specialnumber > 5) {
-var SpecialUsernames6;
-var SpecialUsernamesEnabled6;
-(function (SpecialUsernames6) {
-    // Options
-    var enabled6 = true;
-    var $checkbox = Options.addCheckbox({
-        label: kname6 + ' 100K USERNAME',
-        section: 'Advanced',
-        "default": true,
-        help: 'Enable or disable the special 100k usernames.',
-        onchange: function () {
-            enabled6 = this.prop('checked');
-        }
-    });
+    var SpecialUsernames6;
+    var SpecialUsernamesEnabled6;
+    (function (SpecialUsernames6) {
+        // Options
+        var enabled6 = true;
+        var $checkbox = Options.addCheckbox({
+            label: kname6 + ' 100K USERNAME',
+            section: 'Advanced',
+            "default": true,
+            help: 'Enable or disable the special 100k usernames.',
+            onchange: function () {
+                enabled6 = this.prop('checked');
+            }
+        });
         if (enabled6 == true) {
-        SpecialUsernamesEnabled6 = true;
+            SpecialUsernamesEnabled6 = true;
         } else {
-        SpecialUsernamesEnabled6 = false;
+            SpecialUsernamesEnabled6 = false;
         }
-})(SpecialUsernames6 || (SpecialUsernames6 = {}));
+    })(SpecialUsernames6 || (SpecialUsernames6 = {}));
 }
 
 /////////////////
@@ -2112,7 +2153,7 @@ var TeamBarsEnabled;
                 });
 
             }, 15000);
-Styles.add(`                    #loadtest tbody tr:nth-child(2) td:nth-child(1){background: gold;color: black;}#loadtest tbody tr:nth-child(3) td:nth-child(1){background: silver;color: black;}#loadtest tbody tr:nth-child(4) td:nth-child(1){background: #cd7f32;color: black;}#loadtest{border: 1px solid black;width: 100%;text-align: center;}#loadtest tr td{border: 1px solid black;max-width: 223px;}#loadtest{overflow: hidden;height: 100%;}#loadtest{color: #000;font-size: inherit;font-weight: normal;}#dailyenabler{cursor: pointer;color: #000;font-size: 14px;font-weight: bold;margin-bottom: 3px;}#tablenames{font-weight: bold;}`);
+            Styles.add(`                    #loadtest tbody tr:nth-child(2) td:nth-child(1){background: gold;color: black;}#loadtest tbody tr:nth-child(3) td:nth-child(1){background: silver;color: black;}#loadtest tbody tr:nth-child(4) td:nth-child(1){background: #cd7f32;color: black;}#loadtest{border: 1px solid black;width: 100%;text-align: center;}#loadtest tr td{border: 1px solid black;max-width: 223px;}#loadtest{overflow: hidden;height: 100%;}#loadtest{color: #000;font-size: inherit;font-weight: normal;}#dailyenabler{cursor: pointer;color: #000;font-size: 14px;font-weight: bold;margin-bottom: 3px;}#tablenames{font-weight: bold;}`);
             //document.getElementById("team1").style.cssText = 'background:#0000cf;color:white;z-index: 99999;min-width: 14px;max-width: 14px;height: 14px;line-height: 14px;border-radius: 14px;border: none;overflow: hidden;padding: 0;vertical-align: middle;font-size: 11px !important;position: relative;text-indent: 12px;-webkit-transition: all 0.3s;transition: all 0.3s;-webkit-transition-delay: 0.1s;transition-delay: 0.1s;cursor:help;';
         } //TeamBarsEnabled end
     }
@@ -2137,111 +2178,111 @@ var TeamBarsRevivalEnabled;
             enabled = this.prop('checked');
         }
     });
-        if (enabled == true) {
+    if (enabled == true) {
         TeamBarsRevivalEnabled = true;
-        } else {
+    } else {
         TeamBarsRevivalEnabled = false;
-        }
+    }
 
-//////////////////////////////////TEAM COMMAS
+    //////////////////////////////////TEAM COMMAS
 
     var thingycheck = false;
 
-setTimeout(function(){
-if(window.location.href.indexOf("ta535s1hq2je") > -1 && thingycheck == true) {
-if (TeamBarsRevivalEnabled == true) {
-var hmmyyTeamBarsRevival;
-var checkyTeamBarsRevival;
-var checky2TeamBarsRevival;
-$.ajax({
-        method: 'GET',
-        dataType: 'text',
-        cache: false,
-        url: 'https://gist.githubusercontent.com/rideride/83689b8fe63efbbba0d68dd2494a3b2a/raw/teambars_revival.txt',
-        success: function(data) {
-checkyTeamBarsRevival = `<div id="commacount"></div><div id="noncommacount"></div>`;
-hmmyyTeamBarsRevival = data;
-checky2TeamBarsRevival = data;
-checky2TeamBarsRevival = checky2TeamBarsRevival.replace(/[0-9]+/g, '');
-if (checkyTeamBarsRevival != checky2TeamBarsRevival) {
-//alert('Something has gone wrong in the verification of the data. Please PM /u/rideride. To stop showing this message, disable the option for now until it is fixed');
-} else {
-$("<div id=loadtestTeamBarsRevival></div><div id=teamdisplay><div id=team1>The Revolutionaries</div><div id=team1count></div><div id=team2count></div><div id=team2>The Coalition</div></div>").insertBefore("#liveupdate-description");
-document.getElementById('loadtestTeamBarsRevival').innerHTML = hmmyyTeamBarsRevival;
-$("#loadtestTeamBarsRevival").css('display','none');
-var commacountsTeamBarsRevival = parseInt(document.getElementById('commacount').innerHTML);
-var noncommacountsTeamBarsRevival = parseInt(document.getElementById('noncommacount').innerHTML);
-var totalcountsTeamBarsRevival = commacountsTeamBarsRevival + noncommacountsTeamBarsRevival;
-var commapercentTeamBarsRevival = (commacountsTeamBarsRevival / totalcountsTeamBarsRevival) * 100;
-commapercentTeamBarsRevival = Math.round( commapercentTeamBarsRevival * 10 ) / 10;
-var noncommapercentTeamBarsRevival = (noncommacountsTeamBarsRevival / totalcountsTeamBarsRevival) * 100;
-noncommapercentTeamBarsRevival = Math.round( noncommapercentTeamBarsRevival * 10 ) / 10;
-document.getElementById('team1count').innerHTML = commacountsTeamBarsRevival;
-document.getElementById('team2count').innerHTML = noncommacountsTeamBarsRevival;
-$("#teamdisplay").css('display','flex').css('font-size','14px');
-$("#team1count").css('flex',commapercentTeamBarsRevival + '0 1 0px').css('background','blue').css('text-align','center').css('color','transparent').css('padding-top','3px');
-$("#team2count").css('flex',noncommapercentTeamBarsRevival + '0 1 0px').css('background','green').css('text-align','center').css('color','transparent').css('padding-top','3px');
-$( "#teamdisplay" ).hover(function() {
-         document.getElementById("team1count").style.color = 'white';
-         document.getElementById("team2count").style.color = 'white';
-       }, function() {
-         document.getElementById("team1count").style.color = 'transparent';
-         document.getElementById("team2count").style.color = 'transparent';
-  });
-$("#team1").css('padding','3px 3px 3px 3px').css('background','#0000cf').css('color','white');
-$("#team2").css('padding','3px 3px 3px 3px').css('background','#006000').css('color','white');
-    var cssheadTeamBarsRevival = $(`<style>#team1:before {-webkit-transition: all 0.3s;transition: all 0.3s;transition-delay: 0.3s;-webkit-transition-delay: 0.3s;transition-delay: 0.3s;content: attr(data-before);width: 10px;height: 12px;display: inline-block;position: absolute;left: 0px;text-align: center;top: 3px;text-indent: 3px;font-size: 14px;} #team1:hover::before {-webkit-transition: all 0.3s;transition: all 0.3s;transition-delay: 0s;-webkit-transition-delay: 0.0s;transition-delay: 0.0s;font-size:0px;} #team2:before {-webkit-transition: all 0.3s;transition: all 0.3s;transition-delay: 0.3s;-webkit-transition-delay: 0.3s;transition-delay: 0.3s;content:attr(data-before);width: 10px;height: 12px;display: inline-block;position: absolute;left: 0px;text-align: center;top: 3px;text-indent: 3px;font-size: 14px;} #team2:hover::before {-webkit-transition: all 0.3s;transition: all 0.3s;transition-delay: 0s;-webkit-transition-delay: 0.0s;transition-delay: 0.0s;font-size:0px;} #team1 {background: #0000cf;color: white;z-index: 99;min-width: 45px;max-width: 45px;height: 17px;line-height: 14px;border-top-left-radius: 14px;border: none;overflow: hidden;padding: 0;vertical-align: middle;font-size: 0px;position: relative;text-indent: 0px;-webkit-transition: all 0.3s;transition: all 0.3s;transition-delay: 0s;-webkit-transition-delay: 0.1s;transition-delay: 0.1s;cursor: help;border-bottom-left-radius: 14px;} #team1:hover {font-size: 14px;max-width: 500px;padding: 0 5px;color: #fff} #team2 {background: #0000cf;color: white;z-index: 99;min-width: 45px;max-width: 45px;height: 17px;line-height: 14px;border-top-right-radius: 14px;border: none;overflow: hidden;padding: 0;vertical-align: middle;font-size: 0px;position: relative;text-indent: 0px;-webkit-transition: all 0.3s;transition: all 0.3s;transition-delay: 0s;-webkit-transition-delay: 0.1s;transition-delay: 0.1s;cursor: help;border-bottom-right-radius: 14px;} #team2:hover {font-size: 14px;max-width: 500px;padding: 0 5px;color: #fff}</style>`);
-$("#team1").attr('data-before',commapercentTeamBarsRevival+"%");
-$("#team2").attr('data-before',noncommapercentTeamBarsRevival+"%");
-    // INITIALIZATION
-    $('head').append(cssheadTeamBarsRevival);
-        }},
-        error: function(data) {
-            //alert('Error ' +data.status+ ' while loading Live Counting Extension: ' +data.statusText+ '\n\nPlease refresh to try again.');
+    setTimeout(function(){
+        if(window.location.href.indexOf("ta535s1hq2je") > -1 && thingycheck == true) {
+            if (TeamBarsRevivalEnabled == true) {
+                var hmmyyTeamBarsRevival;
+                var checkyTeamBarsRevival;
+                var checky2TeamBarsRevival;
+                $.ajax({
+                    method: 'GET',
+                    dataType: 'text',
+                    cache: false,
+                    url: 'https://gist.githubusercontent.com/rideride/83689b8fe63efbbba0d68dd2494a3b2a/raw/teambars_revival.txt',
+                    success: function(data) {
+                        checkyTeamBarsRevival = `<div id="commacount"></div><div id="noncommacount"></div>`;
+                        hmmyyTeamBarsRevival = data;
+                        checky2TeamBarsRevival = data;
+                        checky2TeamBarsRevival = checky2TeamBarsRevival.replace(/[0-9]+/g, '');
+                        if (checkyTeamBarsRevival != checky2TeamBarsRevival) {
+                            //alert('Something has gone wrong in the verification of the data. Please PM /u/rideride. To stop showing this message, disable the option for now until it is fixed');
+                        } else {
+                            $("<div id=loadtestTeamBarsRevival></div><div id=teamdisplay><div id=team1>The Revolutionaries</div><div id=team1count></div><div id=team2count></div><div id=team2>The Coalition</div></div>").insertBefore("#liveupdate-description");
+                            document.getElementById('loadtestTeamBarsRevival').innerHTML = hmmyyTeamBarsRevival;
+                            $("#loadtestTeamBarsRevival").css('display','none');
+                            var commacountsTeamBarsRevival = parseInt(document.getElementById('commacount').innerHTML);
+                            var noncommacountsTeamBarsRevival = parseInt(document.getElementById('noncommacount').innerHTML);
+                            var totalcountsTeamBarsRevival = commacountsTeamBarsRevival + noncommacountsTeamBarsRevival;
+                            var commapercentTeamBarsRevival = (commacountsTeamBarsRevival / totalcountsTeamBarsRevival) * 100;
+                            commapercentTeamBarsRevival = Math.round( commapercentTeamBarsRevival * 10 ) / 10;
+                            var noncommapercentTeamBarsRevival = (noncommacountsTeamBarsRevival / totalcountsTeamBarsRevival) * 100;
+                            noncommapercentTeamBarsRevival = Math.round( noncommapercentTeamBarsRevival * 10 ) / 10;
+                            document.getElementById('team1count').innerHTML = commacountsTeamBarsRevival;
+                            document.getElementById('team2count').innerHTML = noncommacountsTeamBarsRevival;
+                            $("#teamdisplay").css('display','flex').css('font-size','14px');
+                            $("#team1count").css('flex',commapercentTeamBarsRevival + '0 1 0px').css('background','blue').css('text-align','center').css('color','transparent').css('padding-top','3px');
+                            $("#team2count").css('flex',noncommapercentTeamBarsRevival + '0 1 0px').css('background','green').css('text-align','center').css('color','transparent').css('padding-top','3px');
+                            $( "#teamdisplay" ).hover(function() {
+                                document.getElementById("team1count").style.color = 'white';
+                                document.getElementById("team2count").style.color = 'white';
+                            }, function() {
+                                document.getElementById("team1count").style.color = 'transparent';
+                                document.getElementById("team2count").style.color = 'transparent';
+                            });
+                            $("#team1").css('padding','3px 3px 3px 3px').css('background','#0000cf').css('color','white');
+                            $("#team2").css('padding','3px 3px 3px 3px').css('background','#006000').css('color','white');
+                            var cssheadTeamBarsRevival = $(`<style>#team1:before {-webkit-transition: all 0.3s;transition: all 0.3s;transition-delay: 0.3s;-webkit-transition-delay: 0.3s;transition-delay: 0.3s;content: attr(data-before);width: 10px;height: 12px;display: inline-block;position: absolute;left: 0px;text-align: center;top: 3px;text-indent: 3px;font-size: 14px;} #team1:hover::before {-webkit-transition: all 0.3s;transition: all 0.3s;transition-delay: 0s;-webkit-transition-delay: 0.0s;transition-delay: 0.0s;font-size:0px;} #team2:before {-webkit-transition: all 0.3s;transition: all 0.3s;transition-delay: 0.3s;-webkit-transition-delay: 0.3s;transition-delay: 0.3s;content:attr(data-before);width: 10px;height: 12px;display: inline-block;position: absolute;left: 0px;text-align: center;top: 3px;text-indent: 3px;font-size: 14px;} #team2:hover::before {-webkit-transition: all 0.3s;transition: all 0.3s;transition-delay: 0s;-webkit-transition-delay: 0.0s;transition-delay: 0.0s;font-size:0px;} #team1 {background: #0000cf;color: white;z-index: 99;min-width: 45px;max-width: 45px;height: 17px;line-height: 14px;border-top-left-radius: 14px;border: none;overflow: hidden;padding: 0;vertical-align: middle;font-size: 0px;position: relative;text-indent: 0px;-webkit-transition: all 0.3s;transition: all 0.3s;transition-delay: 0s;-webkit-transition-delay: 0.1s;transition-delay: 0.1s;cursor: help;border-bottom-left-radius: 14px;} #team1:hover {font-size: 14px;max-width: 500px;padding: 0 5px;color: #fff} #team2 {background: #0000cf;color: white;z-index: 99;min-width: 45px;max-width: 45px;height: 17px;line-height: 14px;border-top-right-radius: 14px;border: none;overflow: hidden;padding: 0;vertical-align: middle;font-size: 0px;position: relative;text-indent: 0px;-webkit-transition: all 0.3s;transition: all 0.3s;transition-delay: 0s;-webkit-transition-delay: 0.1s;transition-delay: 0.1s;cursor: help;border-bottom-right-radius: 14px;} #team2:hover {font-size: 14px;max-width: 500px;padding: 0 5px;color: #fff}</style>`);
+                            $("#team1").attr('data-before',commapercentTeamBarsRevival+"%");
+                            $("#team2").attr('data-before',noncommapercentTeamBarsRevival+"%");
+                            // INITIALIZATION
+                            $('head').append(cssheadTeamBarsRevival);
+                        }},
+                    error: function(data) {
+                        //alert('Error ' +data.status+ ' while loading Live Counting Extension: ' +data.statusText+ '\n\nPlease refresh to try again.');
+                    }
+                });
+                setInterval(function(){
+                    var hmmyyTeamBarsRevival;
+                    var checkyTeamBarsRevival;
+                    var checky2TeamBarsRevival;
+                    $.ajax({
+                        method: 'GET',
+                        dataType: 'text',
+                        cache: false,
+                        url: 'https://gist.githubusercontent.com/rideride/83689b8fe63efbbba0d68dd2494a3b2a/raw/teambars_revival.txt',
+                        success: function(data) {
+                            checkyTeamBarsRevival = `<div id="commacount"></div><div id="noncommacount"></div>`;
+                            hmmyyTeamBarsRevival = data;
+                            checky2TeamBarsRevival = data;
+                            checky2TeamBarsRevival = checky2TeamBarsRevival.replace(/[0-9]+/g, '');
+                            if (checkyTeamBarsRevival != checky2TeamBarsRevival) {
+                                //alert('Something has gone wrong in the verification of the data. Please PM /u/rideride. To stop showing this message, disable the option for now until it is fixed');
+                            } else {
+                                document.getElementById('loadtestTeamBarsRevival').innerHTML = hmmyyTeamBarsRevival;
+                                var commacountsTeamBarsRevival = parseInt(document.getElementById('commacount').innerHTML);
+                                var noncommacountsTeamBarsRevival = parseInt(document.getElementById('noncommacount').innerHTML);
+                                var totalcountsTeamBarsRevival = commacountsTeamBarsRevival + noncommacountsTeamBarsRevival;
+                                var commapercentTeamBarsRevival = (commacountsTeamBarsRevival / totalcountsTeamBarsRevival) * 100;
+                                commapercentTeamBarsRevival = Math.round( commapercentTeamBarsRevival * 10 ) / 10;
+                                var noncommapercentTeamBarsRevival = (noncommacountsTeamBarsRevival / totalcountsTeamBarsRevival) * 100;
+                                noncommapercentTeamBarsRevival = Math.round( noncommapercentTeamBarsRevival * 10 ) / 10;
+                                document.getElementById('team1count').innerHTML = commacountsTeamBarsRevival;
+                                document.getElementById('team2count').innerHTML = noncommacountsTeamBarsRevival;
+                                $("#team1count").css('flex',commapercentTeamBarsRevival + '0 1 0px');
+                                $("#team2count").css('flex',noncommapercentTeamBarsRevival + '0 1 0px');
+                                $("#team1").attr('data-before',commapercentTeamBarsRevival+"%");
+                                $("#team2").attr('data-before',noncommapercentTeamBarsRevival+"%");
+                            }},
+                        error: function(data) {
+                            //alert('Error ' +data.status+ ' while loading Live Counting Extension: ' +data.statusText+ '\n\nPlease refresh to try again.');
+                        }
+                    });
+                }, 60500);
+                //document.getElementById("team1").style.cssText = 'background:#0000cf;color:white;z-index: 99999;min-width: 14px;max-width: 14px;height: 14px;line-height: 14px;border-radius: 14px;border: none;overflow: hidden;padding: 0;vertical-align: middle;font-size: 11px !important;position: relative;text-indent: 12px;-webkit-transition: all 0.3s;transition: all 0.3s;-webkit-transition-delay: 0.1s;transition-delay: 0.1s;cursor:help;';
+            } //TeamBarsEnabled end
         }
-    });
-setInterval(function(){
-var hmmyyTeamBarsRevival;
-var checkyTeamBarsRevival;
-var checky2TeamBarsRevival;
-$.ajax({
-        method: 'GET',
-        dataType: 'text',
-        cache: false,
-        url: 'https://gist.githubusercontent.com/rideride/83689b8fe63efbbba0d68dd2494a3b2a/raw/teambars_revival.txt',
-        success: function(data) {
-checkyTeamBarsRevival = `<div id="commacount"></div><div id="noncommacount"></div>`;
-hmmyyTeamBarsRevival = data;
-checky2TeamBarsRevival = data;
-checky2TeamBarsRevival = checky2TeamBarsRevival.replace(/[0-9]+/g, '');
-if (checkyTeamBarsRevival != checky2TeamBarsRevival) {
-//alert('Something has gone wrong in the verification of the data. Please PM /u/rideride. To stop showing this message, disable the option for now until it is fixed');
-} else {
-document.getElementById('loadtestTeamBarsRevival').innerHTML = hmmyyTeamBarsRevival;
-var commacountsTeamBarsRevival = parseInt(document.getElementById('commacount').innerHTML);
-var noncommacountsTeamBarsRevival = parseInt(document.getElementById('noncommacount').innerHTML);
-var totalcountsTeamBarsRevival = commacountsTeamBarsRevival + noncommacountsTeamBarsRevival;
-var commapercentTeamBarsRevival = (commacountsTeamBarsRevival / totalcountsTeamBarsRevival) * 100;
-commapercentTeamBarsRevival = Math.round( commapercentTeamBarsRevival * 10 ) / 10;
-var noncommapercentTeamBarsRevival = (noncommacountsTeamBarsRevival / totalcountsTeamBarsRevival) * 100;
-noncommapercentTeamBarsRevival = Math.round( noncommapercentTeamBarsRevival * 10 ) / 10;
-document.getElementById('team1count').innerHTML = commacountsTeamBarsRevival;
-document.getElementById('team2count').innerHTML = noncommacountsTeamBarsRevival;
-$("#team1count").css('flex',commapercentTeamBarsRevival + '0 1 0px');
-$("#team2count").css('flex',noncommapercentTeamBarsRevival + '0 1 0px');
-$("#team1").attr('data-before',commapercentTeamBarsRevival+"%");
-$("#team2").attr('data-before',noncommapercentTeamBarsRevival+"%");
-}},
-        error: function(data) {
-            //alert('Error ' +data.status+ ' while loading Live Counting Extension: ' +data.statusText+ '\n\nPlease refresh to try again.');
-        }
-    });
-}, 60500);
-//document.getElementById("team1").style.cssText = 'background:#0000cf;color:white;z-index: 99999;min-width: 14px;max-width: 14px;height: 14px;line-height: 14px;border-radius: 14px;border: none;overflow: hidden;padding: 0;vertical-align: middle;font-size: 11px !important;position: relative;text-indent: 12px;-webkit-transition: all 0.3s;transition: all 0.3s;-webkit-transition-delay: 0.1s;transition-delay: 0.1s;cursor:help;';
-} //TeamBarsEnabled end
-}
     },3000);
-//////////////////////////////////
+    //////////////////////////////////
 })(TeamBarsRevival || (TeamBarsRevival = {}));
 ////////////////////////
 
@@ -2473,24 +2514,24 @@ var IgnoreEnabled;
         help: 'Adjusts the position of the options.',
         onchange: function () {
             enabled7 = this.prop('checked');
-        if (enabled7 == true) {
-        IgnoreEnabled = true;
-        $('#ignorestuff').css('display','initial');
-        } else {
-        IgnoreEnabled = false;
-        $('#ignorestuff').css('display','none');
-        }
+            if (enabled7 == true) {
+                IgnoreEnabled = true;
+                $('#ignorestuff').css('display','initial');
+            } else {
+                IgnoreEnabled = false;
+                $('#ignorestuff').css('display','none');
+            }
         }
     });
 
-            $(`<script>var ignored = []; ignored.push(localStorage['ignoredppl']); function addIgnore() {var ignoreinp = document.getElementById('ignorebox');ignored.push(ignoreinp.value);ignoreinp.value = "";document.getElementById("ignorebox2").innerHTML = ignored;localStorage['ignoredppl'] = ignored;}function displayIgnore() {document.getElementById("ignorebox2").innerHTML = ignored;}function deleteIgnore() {ignored = []; localStorage['ignoredppl'] = []; document.getElementById("ignorebox2").innerHTML = '';}</script><span id=ignorestuff><input id=ignorebox style="position: absolute;margin-top: -25px;margin-left: 65px;"></input><span style="position: absolute;margin-top: -26px;margin-left: 210px;font-size: 9px !important;"><button type="button" id="ignoreadd" onclick="addIgnore()" style="font-size: 12px;padding: 0;margin-right: 3px;">ADD</button><button type="button" id="ignoredelete" onclick="deleteIgnore()" style="font-size: 12px;padding: 0;">DELETE ALL</button></span><div>Ignored users: <span id=ignorebox2></span></div></span><script>document.getElementById('ignorebox2').innerHTML = ignored;</script>`).insertAfter(`#live-counting-extension div div:nth-child(4) label:nth-last-child(1)`);
-        if (enabled7 == true) {
+    $(`<script>var ignored = []; ignored.push(localStorage['ignoredppl']); function addIgnore() {var ignoreinp = document.getElementById('ignorebox');ignored.push(ignoreinp.value);ignoreinp.value = "";document.getElementById("ignorebox2").innerHTML = ignored;localStorage['ignoredppl'] = ignored;}function displayIgnore() {document.getElementById("ignorebox2").innerHTML = ignored;}function deleteIgnore() {ignored = []; localStorage['ignoredppl'] = []; document.getElementById("ignorebox2").innerHTML = '';}</script><span id=ignorestuff><input id=ignorebox style="position: absolute;margin-top: -25px;margin-left: 65px;"></input><span style="position: absolute;margin-top: -26px;margin-left: 210px;font-size: 9px !important;"><button type="button" id="ignoreadd" onclick="addIgnore()" style="font-size: 12px;padding: 0;margin-right: 3px;">ADD</button><button type="button" id="ignoredelete" onclick="deleteIgnore()" style="font-size: 12px;padding: 0;">DELETE ALL</button></span><div>Ignored users: <span id=ignorebox2></span></div></span><script>document.getElementById('ignorebox2').innerHTML = ignored;</script>`).insertAfter(`#live-counting-extension div div:nth-child(4) label:nth-last-child(1)`);
+    if (enabled7 == true) {
         IgnoreEnabled = true;
         $('#ignorestuff').css('display','initial');
-        } else {
+    } else {
         IgnoreEnabled = false;
         $('#ignorestuff').css('display','none');
-        }
+    }
 })(Ignore || (Ignore= {}));
 ///////////////
 // Emojis.ts //
@@ -2513,32 +2554,32 @@ var Emojis;
         }
     });
     if(enabled) {
-           const emojiMap = { //source: https://github.com/lifmus/emoji/blob/gh-pages/emoji_dictionary.json
-               100:"💯",1234:"🔢",smile:"😄",grinning:"😀",smiley:"😃",blush:"😊",relaxed:"☺",wink:"😉",heart_eyes:"😍",kissing_heart:"😘",kissing_closed_eyes:"😚",kissing:"😗",kissing_smiling_eyes:"😙",stuck_out_tongue_winking_eye:"😜",stuck_out_tongue_closed_eyes:"😝",stuck_out_tongue:"😛",flushed:"😳",grin:"😁",pensive:"😔",relieved:"😥",unamused:"😒",disappointed:"😞",persevere:"😣",cry:"😢",joy:"😂",sob:"😭",sleepy:"😪",disappointed_relieved:"",cold_sweat:"😰",sweat_smile:"😅",sweat:"😓",weary:"😩",tired_face:"😫",fearful:"😨",scream:"😱",angry:"😠",triumph:"😤",confounded:"😖",satisfied:"😌",yum:"😋",mask:"😷",sunglasses:"😎",sleeping:"😴",dizzy_face:"😵",astonished:"😲",worried:"😟",frowning:"😦",anguished:"😧",smiling_imp:"😈",imp:"👿",open_mouth:"😮",grimacing:"😬",neutral_face:"😐",confused:"😕",hushed:"😯",no_mouth:"😶",innocent:"😇",smirk:"😏",expressionless:"😑",man_with_gua_pi_mao:"👲",man_with_turban:"👳",cop:"👮",construction_worker:"👷",guardsman:"💂",baby:"👶",boy:"👦",girl:"👧",man:"👨",woman:"👩",older_man:"👴",older_woman:"👵",person_with_blond_hair:"👱",angel:"👼",princess:"👸",smile_cat:"😸",heart_eyes_cat:"😻",kissing_cat:"😽",smirk_cat:"😼",scream_cat:"🙀",crying_cat_face:"😿",joy_cat:"😹",pouting_cat:"😾",smiley_cat:"😺",japanese_goblin:"👺",see_no_evil:"🙈",hear_no_evil:"🙉",speak_no_evil:"🙊",skull:"💀",alien:"👽",hankey:"💩",poop:"💩",shit:"💩",fire:"🔥",sparkles:"✨",star2:"🌟",dizzy:"💫",boom:"💥",collision:"💥",anger:"💢",sweat_drops:"💦",droplet:"💧",zzz:"💤",ear:"👂",eyes:"👀",nose:"👃",tongue:"👅",lips:"👄",plusone:"👍",thumbsup:"👍",minusone:"👎",thumbsdown:"👎",ok_hand:"👌",punch:"👊",facepunch:"👊",fist:"✊",v:"✌",wave:"👋",hand:"✋",open_hands:"👐",point_up:"☝",
-               point_down:"👇",point_right:"👉",point_left:"👈",raised_hands:"🙌",pray:"🙏",point_up_2:"👆",clap:"👏",muscle:"💪",walking:"🚶",runner:"🏃",running:"🏃",dancer:"💃",couple:"👫",family:"👪",two_men_holding_hands:"👬",two_women_holding_hands:"👭",couplekiss:"💏",couple_with_heart:"💑",dancers:"👯",ok_woman:"🙆",no_good:"🙅",information_desk_person:"💁",raised_hand:"🙋",massage:"💆",haircut:"💇",nail_care:"💅",bride_with_veil:"👰",person_with_pouting_face:"🙎",person_frowning:"🙍",bow:"🙇",tophat:"🎩",crown:"👑",womans_hat:"👒",athletic_shoe:"",shoe:"👞",mans_shoe:"👞",sandal:"👡",high_heel:"👠",boot:"👢",tshirt:"👕",shirt:"👕",necktie:"👔",womans_clothes:"👚",dress:"👗",running_shirt_with_sash:"🎽",jeans:"👖",kimono:"👘",bikini:"👙",briefcase:"💼",handbag:"👜",pouch:"👝",purse:"👛",eyeglasses:"👓",ribbon:"🎀",closed_umbrella:"🌂",lipstick:"💄",yellow_heart:"💛",blue_heart:"💙",purple_heart:"💜",green_heart:"💚",heart:"❤",broken_heart:"💔",heartpulse:"💗",heartbeat:"💓",two_hearts:"💕",sparkling_heart:"💖",revolving_hearts:"💞",cupid:"💘",love_letter:"💌",kiss:"💋",ring:"💍",gem:"💎",bust_in_silhouette:"👤",busts_in_silhouette:"👥",speech_balloon:"💬",footprints:"",thought_balloon:"💭",dog:"🐶",wolf:"🐺",cat:"🐱",mouse:"🐭",hamster:"🐹",rabbit:"🐰",frog:"🐸",tiger:"🐯",koala:"🐨",bear:"🐻",pig:"🐷",pig_nose:"🐽",cow:"🐮",boar:"🐗",monkey:"🐒",monkey_face:"🐵",horse:"🐴",sheep:"🐑",elephant:"🐘",panda_face:"🐼",penguin:"🐧",bird:"🐦",baby_chick:"🐤",hatched_chick:"🐥",hatching_chick:"🐣",chicken:"🐔",snake:"🐍",turtle:"🐢",bug:"🐛",honeybee:"🐝",bee:"",ant:"🐜",beetle:"🐞",snail:"🐌",octopus:"🐙",shell:"🐚",tropical_fish:"🐠",fish:"🐟",dolphin:"🐬",whale:"🐳",whale2:"🐋",cow2:"🐄",ram:"🐏",rat:"🐀",
-               water_buffalo:"🐃",tiger2:"🐅",rabbit2:"🐇",dragon:"🐉",racehorse:"🐎",goat:"🐐",rooster:"🐓",dog2:"🐕",pig2:"🐖",mouse2:"🐁",ox:"🐂",dragon_face:"🐲",blowfish:"🐡",crocodile:"🐊",camel:"🐫",dromedary_camel:"🐪",leopard:"🐆",cat2:"🐈",poodle:"🐩",paw_prints:"🐾",bouquet:"💐",cherry_blossom:"🌸",tulip:"🌷",four_leaf_clover:"🍀",rose:"🌹",sunflower:"🌻",hibiscus:"🌺",maple_leaf:"🍁",leaves:"🍃",fallen_leaf:"🍂",herb:"🌿",ear_of_rice:"🌾",mushroom:"🍄",cactus:"🌵",palm_tree:"🌴",evergreen_tree:"🌲",deciduous_tree:"🌳",chestnut:"🌰",seedling:"🌱",blossom:"🌼",globe_with_meridians:"🌐",sun_with_face:"🌞",full_moon_with_face:"🌝",new_moon_with_face:"🌚",new_moon:"🌑",waxing_crescent_moon:"🌒",first_quarter_moon:"🌓",moon:"🌙",full_moon:"🌕",waning_gibbous_moon:"🌖",last_quarter_moon:"🌗",waning_crescent_moon:"🌘",last_quarter_moon_with_face:"🌜",first_quarter_moon_with_face:"🌛",crescent_moon:"",earth_africa:"🌍",earth_americas:"🌎",earth_asia:"🌏",volcano:"🌋",milky_way:"🌌",stars:"🌃",star:"⭐",sunny:"☀",partly_sunny:"⛅",cloud:"☁",zap:"⚡",umbrella:"☔",snowflake:"❄",snowman:"⛄",cyclone:"🌀",foggy:"🌁",rainbow:"🌈",ocean:"🌊",eightball:"🎱",a:"🅰",ab:"🆎",abc:"🔤",abcd:"🔡",accept:"🉑",aerial_tramway:"🚡",airplane:"✈",alarm_clock:"⏰",ambulance:"🚑",anchor:"⚓",clock7:"🕖",clock730:"🕢",clock8:"🕗",clock830:"🕣",clock9:"🕘",clock930:"🕤",closed_book:"📕",closed_lock_with_key:"🔐",clubs:"♣",cn:"🇨🇳",cocktail:"🍸",coffee:"☕",computer:"💻",confetti_ball:"🎊",hash:"#️⃣",headphones:"🎧",heart_decoration:"💟",hearts:"♥",heavy_check_mark:"✔",heavy_division_sign:"➗",heavy_dollar_sign:"💲",heavy_exclamation_mark:"",heavy_minus_sign:"➖",heavy_multiplication_x:"✖",notes:"🎶",nut_and_bolt:"🔩",o:"⭕",o2:"🅾",
-               octocat:"",oden:"🍢",office:"🏢",ok:"🆗",on:"🔛",oncoming_automobile:"🚘",oncoming_bus:"🚍",oncoming_police_car:"🚔",oncoming_taxi:"🚖",one:"1️⃣",smoking:"🚬",snowboarder:"🏂",soccer:"⚽",soon:"🔜",sos:"🆘",sound:"🔉",space_invader:"👾",spades:"♠",spaghetti:"🍝",sparkle:"",sparkler:"🎇",congratulations:"㊗",heavy_plus_sign:"➕",open_book:"",apple:"🍎",construction:"🚧",helicopter:"🚁",open_file_folder:"📂",speaker:"🔊",aquarius:"♒",aries:"♈",convenience_store:"🏪",speedboat:"🚤",arrow_backward:"◀",cookie:"🍪",high_brightness:"🔆",ophiuchus:"⛎",squirrel:"",arrow_double_down:"⏬",cool:"🆒",orange_book:"📙",arrow_double_up:"⏫",hocho:"🔪",outbox_tray:"📤",arrow_down:"⬇",copyright:"©",honey_pot:"🍯",arrow_down_small:"🔽",corn:"🌽",package:"",station:"🚉",arrow_forward:"▶",page_facing_up:"📄",statue_of_liberty:"🗽",arrow_heading_down:"⤵",page_with_curl:"📃",steam_locomotive:"🚂",arrow_heading_up:"⤴",hospital:"🏥",pager:"📟",stew:"🍲",arrow_left:"⬅",hotel:"🏨",straight_ruler:"📏",arrow_lower_left:"↙",hotsprings:"♨",strawberry:"🍓",arrow_lower_right:"↘",credit_card:"💳",hourglass:"⌛",paperclip:"📎",arrow_right:"➡",hourglass_flowing_sand:"⏳",parking:"🅿",arrow_right_hook:"↪",house:"🏠",part_alternation_mark:"〽",arrow_up:"⬆",crossed_flags:"🎌",house_with_garden:"🏡",arrow_up_down:"↕",hurtrealbad:"",passport_control:"🛂",arrow_up_small:"🔼",arrow_upper_left:"↖",ice_cream:"🍨",peach:"🍑",arrow_upper_right:"↗",crystal_ball:"🔮",icecream:"🍦",pear:"🍐",sunrise:"🌅",arrows_clockwise:"🔃",id:"🆔",pencil:"📝",sunrise_over_mountains:"🌄",arrows_counterclockwise:"🔄",curly_loop:"➰",ideograph_advantage:"🉐",pencil2:"✏",surfer:"🏄",art:"🎨",currency_exchange:"💱",sushi:"🍣",articulated_lorry:"🚛",curry:"🍛",
-               inbox_tray:"📥",crab:"🦀",custard:"🍮",flan:"🍮",incoming_envelope:"📨",performing_arts:"🎭",suspension_railway:"🚟",customs:"🛃",atm:"🏧",information_source:"ℹ",b:"🅱",interrobang:"⁉",sweet_potato:"🍠",baby_bottle:"🍼",dango:"🍡",iphone:"📱",phone:"☎",swimmer:"🏊",dart:"🎯",it:"🇮🇹",symbols:"🔣",baby_symbol:"🚼",dash:"💨",izakaya_lantern:"",syringe:"💉",back:"",date:"📅",jack_o_lantern:"🎃",tada:"🎉",baggage_claim:"🛄",de:"🇩🇪",japan:"🗾",pill:"💊",tanabata_tree:"🎋",balloon:"🎈",japanese_castle:"🏯",pineapple:"🍍",tangerine:"🍊",ballot_box_with_check:"☑",department_store:"🏬",pisces:"♓",taurus:"♉",bamboo:"🎍",diamond_shape_with_a_dot_inside:"💠",japanese_ogre:"👹",pizza:"🍕",taxi:"🚕",banana:"🍌",diamonds:"♦",tea:"🍵",bangbang:"‼",telephone:"☎",bank:"🏦",telephone_receiver:"📞",bar_chart:"📊",jp:"🇯🇵",telescope:"🔭",barber:"💈",key:"🔑",tennis:"🎾",baseball:"⚾",do_not_litter:"🚯",keycap_ten:"🔟",police_car:"🚓",tent:"⛺",basketball:"🏀",bath:"🛀",three:"3️⃣",bathtub:"🛁",dollar:"💵",post_office:"🏣",battery:"🔋",dolls:"🎎",postal_horn:"📯",postbox:"📮",ticket:"🎫",door:"🚪",potable_water:"🚰",beer:"🍺",doughnut:"🍩",beers:"🍻",poultry_leg:"🍗",koko:"🈁",pound:"💷",tm:"™",beginner:"🔰",kr:"🇰🇷",toilet:"🚽",bell:"🔔",lantern:"",tokyo_tower:"🗼",bento:"🍱",large_blue_circle:"🔵",tomato:"🍅",bicyclist:"🚴",dvd:"📀",large_blue_diamond:"🔷",bike:"🚲",email:"📧",large_orange_diamond:"🔶",top:"🔝",pushpin:"📌",tractor:"🚜",birthday:"🎂",laughing:"😆",put_litter_in_its_place:"🚮",traffic_light:"🚥",black_circle:"⚫",question:"❓",train:"🚃",black_joker:"🃏",ledger:"📒",train2:"🚆",black_large_square:"",egg:"🍳",left_luggage:"🛅",tram:"🚊",black_medium_small_square:"",eggplant:"🍆",left_right_arrow:"↔",triangular_flag_on_post:"🚩",
-               black_medium_square:"",eight:"8️⃣",leftwards_arrow_with_hook:"↩",radio:"📻",triangular_ruler:"📐",black_nib:"✒",eight_pointed_black_star:"✴",lemon:"🍋",radio_button:"🔘",trident:"🔱",black_small_square:"",eight_spoked_asterisk:"✳",leo:"♌",rage:"😡",black_square_button:"🔲",electric_plug:"🔌",rage1:"",trolleybus:"🚎",libra:"♎",rage2:"",trollface:"",email:"✉",light_rail:"🚈",rage3:"",trophy:"🏆",blue_book:"📘",end:"🔚",link:"🔗",rage4:"",tropical_drink:"🍹",blue_car:"🚙",envelope:"✉",railway_car:"🚃",envelope_with_arrow:"",truck:"🚚",es:"🇪🇸",lock:"🔒",trumpet:"🎺",euro:"💶",lock_with_ink_pen:"🔏",boat:"⛵",european_castle:"🏰",lollipop:"🍭",raising_hand:"",bomb:"💣",european_post_office:"🏤",loop:"➿",book:"",loudspeaker:"📢",ramen:"🍜",tv:"📺",bookmark:"🔖",exclamation:"❗",love_hotel:"🏩",twisted_rightwards_arrows:"🔀",bookmark_tabs:"📑",recycle:"♻",two:"2️⃣",books:"📚",low_brightness:"🔅",red_car:"🚗",m:"Ⓜ",red_circle:"🔴",mag:"🔍",registered:"®",factory:"🏭",mag_right:"🔎",u5272:"🈹",mahjong:"🀄",u5408:"🈴",bowling:"🎳",mailbox:"📫",repeat:"🔁",u55b6:"🈺",bowtie:"",fast_forward:"⏩",mailbox_closed:"📪",repeat_one:"🔂",u6307:"🈯",fax:"📠",mailbox_with_mail:"📬",restroom:"🚻",u6708:"🈷",bread:"🍞",mailbox_with_no_mail:"📭",u6709:"🈶",feelsgood:"",rewind:"⏪",u6e80:"🈵",bridge_at_night:"🌉",feet:"👣",u7121:"🈚",ferris_wheel:"🎡",rice:"🍚",u7533:"🈸",file_folder:"📁",rice_ball:"🍙",u7981:"🈲",finnadie:"",rice_cracker:"🍘",u7a7a:"🈳",bulb:"💡",rice_scene:"🎑",uk:"🇬🇧",bullettrain_front:"🚅",fire_engine:"🚒",bullettrain_side:"🚄",fireworks:"🎆",meat_on_bone:"🍖",rocket:"🚀",bus:"🚌",mega:"📣",roller_coaster:"🎢",underage:"🔞",busstop:"🚏",melon:"🍈",memo:"📝",unlock:"🔓",fish_cake:"🍥",mens:"🚹",rotating_light:"🚨",
-               up:"🆙",fishing_pole_and_fish:"🎣",metal:"",round_pushpin:"📍",us:"🇺🇸",cake:"🍰",metro:"🚇",rowboat:"🚣",calendar:"📆",five:"5️⃣",microphone:"🎤",ru:"🇷🇺",vertical_traffic_light:"🚦",calling:"📲",flags:"🎏",microscope:"🔬",rugby_football:"🏉",vhs:"📼",flashlight:"🔦",vibration_mode:"📳",camera:"📷",floppy_disk:"💾",minibus:"🚐",video_camera:"📹",cancer:"♋",flower_playing_cards:"🎴",minidisc:"💽",video_game:"🎮",candy:"🍬",mobile_phone_off:"📴",sa:"🈂",violin:"🎻",capital_abcd:"🔠",money_with_wings:"💸",sagittarius:"♐",virgo:"♍",capricorn:"♑",football:"🏈",moneybag:"💰",sailboat:"⛵",car:"🚗",sake:"🍶",vs:"🆚",card_index:"📇",fork_and_knife:"🍴",carousel_horse:"🎠",fountain:"⛲",monorail:"🚝",santa:"🎅",four:"4️⃣",satellite:"📡",mortar_board:"🎓",warning:"⚠",cd:"💿",fr:"🇫🇷",mount_fuji:"🗻",saxophone:"🎷",watch:"⌚",chart:"💹",free:"🆓",mountain_bicyclist:"🚵",school:"🏫",chart_with_downwards_trend:"📉",fried_shrimp:"🍤",mountain_cableway:"🚠",school_satchel:"🎒",watermelon:"🍉",chart_with_upwards_trend:"📈",fries:"🍟",mountain_railway:"🚞",scissors:"✂",checkered_flag:"🏁",scorpius:"♏",wavy_dash:"〰",cherries:"🍒",fuelpump:"⛽",movie_camera:"🎥",waxing_gibbous_moon:"🌔",moyai:"🗿",scroll:"📜",wc:"🚾",seat:"💺",children_crossing:"🚸",game_die:"🎲",secret:"㊙",wedding:"💒",chocolate_bar:"🍫",gb:"🇬🇧",musical_keyboard:"🎹",musical_note:"🎵",church:"⛪",gemini:"♊",musical_score:"🎼",seven:"7️⃣",wheelchair:"♿",cinema:"🎦",ghost:"👻",mute:"🔇",shaved_ice:"🍧",white_check_mark:"✅",circus_tent:"🎪",gift:"🎁",white_circle:"⚪",city_sunrise:"🌇",gift_heart:"💝",name_badge:"📛",white_flower:"💮",city_sunset:"🌆",neckbeard:"",ship:"🚢",white_large_square:"",cl:"🆑",shipit:"",white_medium_small_square:"",
-               negative_squared_cross_mark:"❎",thinking:"🤔",clapper:"🎬",goberserk:"",tag:"🏷️",clipboard:"📋",godmode:"",new:"🆕",white_square_button:"🔳",clock1:"🕐",golf:"⛳",shower:"🚿",wind_chime:"🎐",clock10:"🕙",grapes:"🍇",signal_strength:"📶",wine_glass:"🍷",clock1030:"🕥",green_apple:"🍏",newspaper:"📰",six:"6️⃣",clock11:"🕚",green_book:"📗",ng:"🆖",six_pointed_star:"🔯",clock1130:"🕦",nine:"9️⃣",ski:"🎿",clock12:"🕛",grey_exclamation:"❕",no_bell:"🔕",clock1230:"🕧",grey_question:"❔",no_bicycles:"🚳",clock130:"🕜",no_entry:"⛔",womens:"🚺",clock2:"🕑",no_entry_sign:"🚫",slot_machine:"🎰",clock230:"🕝",small_blue_diamond:"🔹",wrench:"🔧",clock3:"🕒",no_mobile_phones:"📵",small_orange_diamond:"🔸",x:"❌",clock330:"🕞",guitar:"🎸",small_red_triangle:"🔺",clock4:"🕓",gun:"🔫",no_pedestrians:"🚷",small_red_triangle_down:"🔻",yen:"💴",clock430:"🕟",no_smoking:"🚭",clock5:"🕔",hamburger:"🍔",nonpotable_water:"🚱",clock530:"🕠",hammer:"🔨",zero:"0️⃣",clock6:"🕕",notebook:"📓",clock630:"🕡",notebook_with_decorative_cover:"📔",horse_racing:"🏇",christmas_tree:"🎄"
-           }
-           const regExpression = /:([^\s]+):/g
-           const emojiIt = (re, text) => {
-               while (result = re.exec(text)) {
-                   var temptext = text;
-                   if(!(result[1] in emojiMap)) {
-                       text = text.replace(result[0], '`'+result[1]+'`')
-                   } else {
-                       text = text.replace(result[0], emojiMap[result[1]]);
-                   }
-               }
-               return text
-           }
-           function Inputty() {
-               document.querySelector('.md textarea').value = emojiIt(regExpression, document.querySelector('.md textarea').value );
-           }
-           document.querySelector('.md textarea').addEventListener('input', Inputty);
+        const emojiMap = { //source: https://github.com/lifmus/emoji/blob/gh-pages/emoji_dictionary.json
+            100:"💯",1234:"🔢",smile:"😄",grinning:"😀",smiley:"😃",blush:"😊",relaxed:"☺",wink:"😉",heart_eyes:"😍",kissing_heart:"😘",kissing_closed_eyes:"😚",kissing:"😗",kissing_smiling_eyes:"😙",stuck_out_tongue_winking_eye:"😜",stuck_out_tongue_closed_eyes:"😝",stuck_out_tongue:"😛",flushed:"😳",grin:"😁",pensive:"😔",relieved:"😥",unamused:"😒",disappointed:"😞",persevere:"😣",cry:"😢",joy:"😂",sob:"😭",sleepy:"😪",disappointed_relieved:"",cold_sweat:"😰",sweat_smile:"😅",sweat:"😓",weary:"😩",tired_face:"😫",fearful:"😨",scream:"😱",angry:"😠",triumph:"😤",confounded:"😖",satisfied:"😌",yum:"😋",mask:"😷",sunglasses:"😎",sleeping:"😴",dizzy_face:"😵",astonished:"😲",worried:"😟",frowning:"😦",anguished:"😧",smiling_imp:"😈",imp:"👿",open_mouth:"😮",grimacing:"😬",neutral_face:"😐",confused:"😕",hushed:"😯",no_mouth:"😶",innocent:"😇",smirk:"😏",expressionless:"😑",man_with_gua_pi_mao:"👲",man_with_turban:"👳",cop:"👮",construction_worker:"👷",guardsman:"💂",baby:"👶",boy:"👦",girl:"👧",man:"👨",woman:"👩",older_man:"👴",older_woman:"👵",person_with_blond_hair:"👱",angel:"👼",princess:"👸",smile_cat:"😸",heart_eyes_cat:"😻",kissing_cat:"😽",smirk_cat:"😼",scream_cat:"🙀",crying_cat_face:"😿",joy_cat:"😹",pouting_cat:"😾",smiley_cat:"😺",japanese_goblin:"👺",see_no_evil:"🙈",hear_no_evil:"🙉",speak_no_evil:"🙊",skull:"💀",alien:"👽",hankey:"💩",poop:"💩",shit:"💩",fire:"🔥",sparkles:"✨",star2:"🌟",dizzy:"💫",boom:"💥",collision:"💥",anger:"💢",sweat_drops:"💦",droplet:"💧",zzz:"💤",ear:"👂",eyes:"👀",nose:"👃",tongue:"👅",lips:"👄",plusone:"👍",thumbsup:"👍",minusone:"👎",thumbsdown:"👎",ok_hand:"👌",punch:"👊",facepunch:"👊",fist:"✊",v:"✌",wave:"👋",hand:"✋",open_hands:"👐",point_up:"☝",
+            point_down:"👇",point_right:"👉",point_left:"👈",raised_hands:"🙌",pray:"🙏",point_up_2:"👆",clap:"👏",muscle:"💪",walking:"🚶",runner:"🏃",running:"🏃",dancer:"💃",couple:"👫",family:"👪",two_men_holding_hands:"👬",two_women_holding_hands:"👭",couplekiss:"💏",couple_with_heart:"💑",dancers:"👯",ok_woman:"🙆",no_good:"🙅",information_desk_person:"💁",raised_hand:"🙋",massage:"💆",haircut:"💇",nail_care:"💅",bride_with_veil:"👰",person_with_pouting_face:"🙎",person_frowning:"🙍",bow:"🙇",tophat:"🎩",crown:"👑",womans_hat:"👒",athletic_shoe:"",shoe:"👞",mans_shoe:"👞",sandal:"👡",high_heel:"👠",boot:"👢",tshirt:"👕",shirt:"👕",necktie:"👔",womans_clothes:"👚",dress:"👗",running_shirt_with_sash:"🎽",jeans:"👖",kimono:"👘",bikini:"👙",briefcase:"💼",handbag:"👜",pouch:"👝",purse:"👛",eyeglasses:"👓",ribbon:"🎀",closed_umbrella:"🌂",lipstick:"💄",yellow_heart:"💛",blue_heart:"💙",purple_heart:"💜",green_heart:"💚",heart:"❤",broken_heart:"💔",heartpulse:"💗",heartbeat:"💓",two_hearts:"💕",sparkling_heart:"💖",revolving_hearts:"💞",cupid:"💘",love_letter:"💌",kiss:"💋",ring:"💍",gem:"💎",bust_in_silhouette:"👤",busts_in_silhouette:"👥",speech_balloon:"💬",footprints:"",thought_balloon:"💭",dog:"🐶",wolf:"🐺",cat:"🐱",mouse:"🐭",hamster:"🐹",rabbit:"🐰",frog:"🐸",tiger:"🐯",koala:"🐨",bear:"🐻",pig:"🐷",pig_nose:"🐽",cow:"🐮",boar:"🐗",monkey:"🐒",monkey_face:"🐵",horse:"🐴",sheep:"🐑",elephant:"🐘",panda_face:"🐼",penguin:"🐧",bird:"🐦",baby_chick:"🐤",hatched_chick:"🐥",hatching_chick:"🐣",chicken:"🐔",snake:"🐍",turtle:"🐢",bug:"🐛",honeybee:"🐝",bee:"",ant:"🐜",beetle:"🐞",snail:"🐌",octopus:"🐙",shell:"🐚",tropical_fish:"🐠",fish:"🐟",dolphin:"🐬",whale:"🐳",whale2:"🐋",cow2:"🐄",ram:"🐏",rat:"🐀",
+            water_buffalo:"🐃",tiger2:"🐅",rabbit2:"🐇",dragon:"🐉",racehorse:"🐎",goat:"🐐",rooster:"🐓",dog2:"🐕",pig2:"🐖",mouse2:"🐁",ox:"🐂",dragon_face:"🐲",blowfish:"🐡",crocodile:"🐊",camel:"🐫",dromedary_camel:"🐪",leopard:"🐆",cat2:"🐈",poodle:"🐩",paw_prints:"🐾",bouquet:"💐",cherry_blossom:"🌸",tulip:"🌷",four_leaf_clover:"🍀",rose:"🌹",sunflower:"🌻",hibiscus:"🌺",maple_leaf:"🍁",leaves:"🍃",fallen_leaf:"🍂",herb:"🌿",ear_of_rice:"🌾",mushroom:"🍄",cactus:"🌵",palm_tree:"🌴",evergreen_tree:"🌲",deciduous_tree:"🌳",chestnut:"🌰",seedling:"🌱",blossom:"🌼",globe_with_meridians:"🌐",sun_with_face:"🌞",full_moon_with_face:"🌝",new_moon_with_face:"🌚",new_moon:"🌑",waxing_crescent_moon:"🌒",first_quarter_moon:"🌓",moon:"🌙",full_moon:"🌕",waning_gibbous_moon:"🌖",last_quarter_moon:"🌗",waning_crescent_moon:"🌘",last_quarter_moon_with_face:"🌜",first_quarter_moon_with_face:"🌛",crescent_moon:"",earth_africa:"🌍",earth_americas:"🌎",earth_asia:"🌏",volcano:"🌋",milky_way:"🌌",stars:"🌃",star:"⭐",sunny:"☀",partly_sunny:"⛅",cloud:"☁",zap:"⚡",umbrella:"☔",snowflake:"❄",snowman:"⛄",cyclone:"🌀",foggy:"🌁",rainbow:"🌈",ocean:"🌊",eightball:"🎱",a:"🅰",ab:"🆎",abc:"🔤",abcd:"🔡",accept:"🉑",aerial_tramway:"🚡",airplane:"✈",alarm_clock:"⏰",ambulance:"🚑",anchor:"⚓",clock7:"🕖",clock730:"🕢",clock8:"🕗",clock830:"🕣",clock9:"🕘",clock930:"🕤",closed_book:"📕",closed_lock_with_key:"🔐",clubs:"♣",cn:"🇨🇳",cocktail:"🍸",coffee:"☕",computer:"💻",confetti_ball:"🎊",hash:"#️⃣",headphones:"🎧",heart_decoration:"💟",hearts:"♥",heavy_check_mark:"✔",heavy_division_sign:"➗",heavy_dollar_sign:"💲",heavy_exclamation_mark:"",heavy_minus_sign:"➖",heavy_multiplication_x:"✖",notes:"🎶",nut_and_bolt:"🔩",o:"⭕",o2:"🅾",
+            octocat:"",oden:"🍢",office:"🏢",ok:"🆗",on:"🔛",oncoming_automobile:"🚘",oncoming_bus:"🚍",oncoming_police_car:"🚔",oncoming_taxi:"🚖",one:"1️⃣",smoking:"🚬",snowboarder:"🏂",soccer:"⚽",soon:"🔜",sos:"🆘",sound:"🔉",space_invader:"👾",spades:"♠",spaghetti:"🍝",sparkle:"",sparkler:"🎇",congratulations:"㊗",heavy_plus_sign:"➕",open_book:"",apple:"🍎",construction:"🚧",helicopter:"🚁",open_file_folder:"📂",speaker:"🔊",aquarius:"♒",aries:"♈",convenience_store:"🏪",speedboat:"🚤",arrow_backward:"◀",cookie:"🍪",high_brightness:"🔆",ophiuchus:"⛎",squirrel:"",arrow_double_down:"⏬",cool:"🆒",orange_book:"📙",arrow_double_up:"⏫",hocho:"🔪",outbox_tray:"📤",arrow_down:"⬇",copyright:"©",honey_pot:"🍯",arrow_down_small:"🔽",corn:"🌽",package:"",station:"🚉",arrow_forward:"▶",page_facing_up:"📄",statue_of_liberty:"🗽",arrow_heading_down:"⤵",page_with_curl:"📃",steam_locomotive:"🚂",arrow_heading_up:"⤴",hospital:"🏥",pager:"📟",stew:"🍲",arrow_left:"⬅",hotel:"🏨",straight_ruler:"📏",arrow_lower_left:"↙",hotsprings:"♨",strawberry:"🍓",arrow_lower_right:"↘",credit_card:"💳",hourglass:"⌛",paperclip:"📎",arrow_right:"➡",hourglass_flowing_sand:"⏳",parking:"🅿",arrow_right_hook:"↪",house:"🏠",part_alternation_mark:"〽",arrow_up:"⬆",crossed_flags:"🎌",house_with_garden:"🏡",arrow_up_down:"↕",hurtrealbad:"",passport_control:"🛂",arrow_up_small:"🔼",arrow_upper_left:"↖",ice_cream:"🍨",peach:"🍑",arrow_upper_right:"↗",crystal_ball:"🔮",icecream:"🍦",pear:"🍐",sunrise:"🌅",arrows_clockwise:"🔃",id:"🆔",pencil:"📝",sunrise_over_mountains:"🌄",arrows_counterclockwise:"🔄",curly_loop:"➰",ideograph_advantage:"🉐",pencil2:"✏",surfer:"🏄",art:"🎨",currency_exchange:"💱",sushi:"🍣",articulated_lorry:"🚛",curry:"🍛",
+            inbox_tray:"📥",crab:"🦀",custard:"🍮",flan:"🍮",incoming_envelope:"📨",performing_arts:"🎭",suspension_railway:"🚟",customs:"🛃",atm:"🏧",information_source:"ℹ",b:"🅱",interrobang:"⁉",sweet_potato:"🍠",baby_bottle:"🍼",dango:"🍡",iphone:"📱",phone:"☎",swimmer:"🏊",dart:"🎯",it:"🇮🇹",symbols:"🔣",baby_symbol:"🚼",dash:"💨",izakaya_lantern:"",syringe:"💉",back:"",date:"📅",jack_o_lantern:"🎃",tada:"🎉",baggage_claim:"🛄",de:"🇩🇪",japan:"🗾",pill:"💊",tanabata_tree:"🎋",balloon:"🎈",japanese_castle:"🏯",pineapple:"🍍",tangerine:"🍊",ballot_box_with_check:"☑",department_store:"🏬",pisces:"♓",taurus:"♉",bamboo:"🎍",diamond_shape_with_a_dot_inside:"💠",japanese_ogre:"👹",pizza:"🍕",taxi:"🚕",banana:"🍌",diamonds:"♦",tea:"🍵",bangbang:"‼",telephone:"☎",bank:"🏦",telephone_receiver:"📞",bar_chart:"📊",jp:"🇯🇵",telescope:"🔭",barber:"💈",key:"🔑",tennis:"🎾",baseball:"⚾",do_not_litter:"🚯",keycap_ten:"🔟",police_car:"🚓",tent:"⛺",basketball:"🏀",bath:"🛀",three:"3️⃣",bathtub:"🛁",dollar:"💵",post_office:"🏣",battery:"🔋",dolls:"🎎",postal_horn:"📯",postbox:"📮",ticket:"🎫",door:"🚪",potable_water:"🚰",beer:"🍺",doughnut:"🍩",beers:"🍻",poultry_leg:"🍗",koko:"🈁",pound:"💷",tm:"™",beginner:"🔰",kr:"🇰🇷",toilet:"🚽",bell:"🔔",lantern:"",tokyo_tower:"🗼",bento:"🍱",large_blue_circle:"🔵",tomato:"🍅",bicyclist:"🚴",dvd:"📀",large_blue_diamond:"🔷",bike:"🚲",email:"📧",large_orange_diamond:"🔶",top:"🔝",pushpin:"📌",tractor:"🚜",birthday:"🎂",laughing:"😆",put_litter_in_its_place:"🚮",traffic_light:"🚥",black_circle:"⚫",question:"❓",train:"🚃",black_joker:"🃏",ledger:"📒",train2:"🚆",black_large_square:"",egg:"🍳",left_luggage:"🛅",tram:"🚊",black_medium_small_square:"",eggplant:"🍆",left_right_arrow:"↔",triangular_flag_on_post:"🚩",
+            black_medium_square:"",eight:"8️⃣",leftwards_arrow_with_hook:"↩",radio:"📻",triangular_ruler:"📐",black_nib:"✒",eight_pointed_black_star:"✴",lemon:"🍋",radio_button:"🔘",trident:"🔱",black_small_square:"",eight_spoked_asterisk:"✳",leo:"♌",rage:"😡",black_square_button:"🔲",electric_plug:"🔌",rage1:"",trolleybus:"🚎",libra:"♎",rage2:"",trollface:"",email:"✉",light_rail:"🚈",rage3:"",trophy:"🏆",blue_book:"📘",end:"🔚",link:"🔗",rage4:"",tropical_drink:"🍹",blue_car:"🚙",envelope:"✉",railway_car:"🚃",envelope_with_arrow:"",truck:"🚚",es:"🇪🇸",lock:"🔒",trumpet:"🎺",euro:"💶",lock_with_ink_pen:"🔏",boat:"⛵",european_castle:"🏰",lollipop:"🍭",raising_hand:"",bomb:"💣",european_post_office:"🏤",loop:"➿",book:"",loudspeaker:"📢",ramen:"🍜",tv:"📺",bookmark:"🔖",exclamation:"❗",love_hotel:"🏩",twisted_rightwards_arrows:"🔀",bookmark_tabs:"📑",recycle:"♻",two:"2️⃣",books:"📚",low_brightness:"🔅",red_car:"🚗",m:"Ⓜ",red_circle:"🔴",mag:"🔍",registered:"®",factory:"🏭",mag_right:"🔎",u5272:"🈹",mahjong:"🀄",u5408:"🈴",bowling:"🎳",mailbox:"📫",repeat:"🔁",u55b6:"🈺",bowtie:"",fast_forward:"⏩",mailbox_closed:"📪",repeat_one:"🔂",u6307:"🈯",fax:"📠",mailbox_with_mail:"📬",restroom:"🚻",u6708:"🈷",bread:"🍞",mailbox_with_no_mail:"📭",u6709:"🈶",feelsgood:"",rewind:"⏪",u6e80:"🈵",bridge_at_night:"🌉",feet:"👣",u7121:"🈚",ferris_wheel:"🎡",rice:"🍚",u7533:"🈸",file_folder:"📁",rice_ball:"🍙",u7981:"🈲",finnadie:"",rice_cracker:"🍘",u7a7a:"🈳",bulb:"💡",rice_scene:"🎑",uk:"🇬🇧",bullettrain_front:"🚅",fire_engine:"🚒",bullettrain_side:"🚄",fireworks:"🎆",meat_on_bone:"🍖",rocket:"🚀",bus:"🚌",mega:"📣",roller_coaster:"🎢",underage:"🔞",busstop:"🚏",melon:"🍈",memo:"📝",unlock:"🔓",fish_cake:"🍥",mens:"🚹",rotating_light:"🚨",
+            up:"🆙",fishing_pole_and_fish:"🎣",metal:"",round_pushpin:"📍",us:"🇺🇸",cake:"🍰",metro:"🚇",rowboat:"🚣",calendar:"📆",five:"5️⃣",microphone:"🎤",ru:"🇷🇺",vertical_traffic_light:"🚦",calling:"📲",flags:"🎏",microscope:"🔬",rugby_football:"🏉",vhs:"📼",flashlight:"🔦",vibration_mode:"📳",camera:"📷",floppy_disk:"💾",minibus:"🚐",video_camera:"📹",cancer:"♋",flower_playing_cards:"🎴",minidisc:"💽",video_game:"🎮",candy:"🍬",mobile_phone_off:"📴",sa:"🈂",violin:"🎻",capital_abcd:"🔠",money_with_wings:"💸",sagittarius:"♐",virgo:"♍",capricorn:"♑",football:"🏈",moneybag:"💰",sailboat:"⛵",car:"🚗",sake:"🍶",vs:"🆚",card_index:"📇",fork_and_knife:"🍴",carousel_horse:"🎠",fountain:"⛲",monorail:"🚝",santa:"🎅",four:"4️⃣",satellite:"📡",mortar_board:"🎓",warning:"⚠",cd:"💿",fr:"🇫🇷",mount_fuji:"🗻",saxophone:"🎷",watch:"⌚",chart:"💹",free:"🆓",mountain_bicyclist:"🚵",school:"🏫",chart_with_downwards_trend:"📉",fried_shrimp:"🍤",mountain_cableway:"🚠",school_satchel:"🎒",watermelon:"🍉",chart_with_upwards_trend:"📈",fries:"🍟",mountain_railway:"🚞",scissors:"✂",checkered_flag:"🏁",scorpius:"♏",wavy_dash:"〰",cherries:"🍒",fuelpump:"⛽",movie_camera:"🎥",waxing_gibbous_moon:"🌔",moyai:"🗿",scroll:"📜",wc:"🚾",seat:"💺",children_crossing:"🚸",game_die:"🎲",secret:"㊙",wedding:"💒",chocolate_bar:"🍫",gb:"🇬🇧",musical_keyboard:"🎹",musical_note:"🎵",church:"⛪",gemini:"♊",musical_score:"🎼",seven:"7️⃣",wheelchair:"♿",cinema:"🎦",ghost:"👻",mute:"🔇",shaved_ice:"🍧",white_check_mark:"✅",circus_tent:"🎪",gift:"🎁",white_circle:"⚪",city_sunrise:"🌇",gift_heart:"💝",name_badge:"📛",white_flower:"💮",city_sunset:"🌆",neckbeard:"",ship:"🚢",white_large_square:"",cl:"🆑",shipit:"",white_medium_small_square:"",
+            negative_squared_cross_mark:"❎",thinking:"🤔",clapper:"🎬",goberserk:"",tag:"🏷️",clipboard:"📋",godmode:"",new:"🆕",white_square_button:"🔳",clock1:"🕐",golf:"⛳",shower:"🚿",wind_chime:"🎐",clock10:"🕙",grapes:"🍇",signal_strength:"📶",wine_glass:"🍷",clock1030:"🕥",green_apple:"🍏",newspaper:"📰",six:"6️⃣",clock11:"🕚",green_book:"📗",ng:"🆖",six_pointed_star:"🔯",clock1130:"🕦",nine:"9️⃣",ski:"🎿",clock12:"🕛",grey_exclamation:"❕",no_bell:"🔕",clock1230:"🕧",grey_question:"❔",no_bicycles:"🚳",clock130:"🕜",no_entry:"⛔",womens:"🚺",clock2:"🕑",no_entry_sign:"🚫",slot_machine:"🎰",clock230:"🕝",small_blue_diamond:"🔹",wrench:"🔧",clock3:"🕒",no_mobile_phones:"📵",small_orange_diamond:"🔸",x:"❌",clock330:"🕞",guitar:"🎸",small_red_triangle:"🔺",clock4:"🕓",gun:"🔫",no_pedestrians:"🚷",small_red_triangle_down:"🔻",yen:"💴",clock430:"🕟",no_smoking:"🚭",clock5:"🕔",hamburger:"🍔",nonpotable_water:"🚱",clock530:"🕠",hammer:"🔨",zero:"0️⃣",clock6:"🕕",notebook:"📓",clock630:"🕡",notebook_with_decorative_cover:"📔",horse_racing:"🏇",christmas_tree:"🎄"
+        }
+        const regExpression = /:([^\s]+):/g
+        const emojiIt = (re, text) => {
+            while (result = re.exec(text)) {
+                var temptext = text;
+                if(!(result[1] in emojiMap)) {
+                    text = text.replace(result[0], '`'+result[1]+'`')
+                } else {
+                    text = text.replace(result[0], emojiMap[result[1]]);
+                }
+            }
+            return text
+        }
+        function Inputty() {
+            document.querySelector('.md textarea').value = emojiIt(regExpression, document.querySelector('.md textarea').value );
+        }
+        document.querySelector('.md textarea').addEventListener('input', Inputty);
     }
 })(Emojis || (Emojis = {}));
 
@@ -2573,7 +2614,7 @@ var UnstrikeText;
             data.elem.find('.body > .md').html(replacedhtml);
         }
     });
-            // Styles
+    // Styles
     Styles.add("\n #lc-body[data-unstrikeText='true'] .stricken .countms{ text-decoration: line-through!important;} #lc-body[data-unstrikeText='true'] .liveupdate-listing li.liveupdate.stricken:not([data-fullname]) div.md {text-decoration: none!important; } #lc-body[data-unstrikeText='true'] .liveupdate-listing li.liveupdate.stricken:not([data-fullname]) div.md p {text-decoration: none!important; } \n");
 
 })(UnstrikeText || (UnstrikeText = {}));
