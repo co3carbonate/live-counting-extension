@@ -368,7 +368,12 @@ var Styles;
     function add(code) {
         $css.append(code);
     }
+    function replace(initial, newcode) {
+        var fix = $css.html().replace(initial, newcode);
+        $css.html(fix);
+    }
     Styles.add = add;
+    Styles.replace = replace;
 })(Styles || (Styles = {}));
 ////////////////
 // Options.ts //
@@ -1153,11 +1158,13 @@ var CustomStricken;
             });
             Elements.$body.attr('data-customStricken', this.val());
             if (this.val() != 'Off' && $(this).data('clicked') == true) {
+                var oldStricken = Elements.$body.attr('data-customStrickenColor');
                 customStrickenColor = window.prompt('Enter your custom background color.','#ddd');
                 Cookie.save.customStrickenColor = customStrickenColor;
                 Elements.$body.attr('data-customStrickenColor', customStrickenColor);
                 Cookie.update();
-                Styles.add("\n\n\t/* Custom Stricken */\n\t#lc-body[data-customStricken='No Inverse'] .liveupdate.stricken{\n\tbackground:"  + Elements.$body.attr('data-customStrickenColor') + "!important;\n\t}\n#lc-body[data-customStricken='Inverse'] .liveupdate.stricken{\n\tbackground:"  + Elements.$body.attr('data-customStrickenColor') + "!important;-webkit-filter: invert(100%);filter: invert(100%);\n\t}");
+                //Styles.add("\n\n\t/* Custom Stricken */\n\t#lc-body[data-customStricken='No Inverse'] .liveupdate.stricken{\n\tbackground:"  + Elements.$body.attr('data-customStrickenColor') + "!important;\n\t}\n#lc-body[data-customStricken='Inverse'] .liveupdate.stricken{\n\tbackground:"  + Elements.$body.attr('data-customStrickenColor') + "!important;-webkit-filter: invert(100%);filter: invert(100%);\n\t}");
+                Styles.replace("\n\n\t/* Custom Stricken */\n\t#lc-body[data-customStricken='No Inverse'] .liveupdate.stricken{\n\tbackground:"  + oldStricken + "!important;\n\t}\n#lc-body[data-customStricken='Inverse'] .liveupdate.stricken{\n\tbackground:"  + oldStricken + "!important;-webkit-filter: invert(100%);filter: invert(100%);\n\t}","\n\n\t/* Custom Stricken */\n\t#lc-body[data-customStricken='No Inverse'] .liveupdate.stricken{\n\tbackground:"  + Elements.$body.attr('data-customStrickenColor') + "!important;\n\t}\n#lc-body[data-customStricken='Inverse'] .liveupdate.stricken{\n\tbackground:"  + Elements.$body.attr('data-customStrickenColor') + "!important;-webkit-filter: invert(100%);filter: invert(100%);\n\t}");
             }
         }
     });
@@ -1203,10 +1210,12 @@ var BackgroundColor;
             });
             Elements.$body.attr('data-BackgroundColor', this.val());
             if (this.val() == 'Custom' && $(this).data('clicked') == true) {
+                var oldBgColor = Elements.$body.attr('data-customBackgroundColor');
                 customBackgroundColor = window.prompt('Enter your custom background color.','#ddd');
                 Cookie.save.customBackgroundColor = customBackgroundColor;
                 Elements.$body.attr('data-customBackgroundColor', customBackgroundColor);
-                Styles.add("\n\n\t/* Custom Background */\n\t#lc-body[data-BackgroundColor='Custom'] .liveupdate{\n\tbackground:"  + Elements.$body.attr('data-customBackgroundColor') + "!important;\n\t}\n}");
+                //Styles.add("\n\n\t/* Custom Background */\n\t#lc-body[data-BackgroundColor='Custom'] .liveupdate{\n\tbackground:"  + Elements.$body.attr('data-customBackgroundColor') + "!important;\n\t}\n}");
+                Styles.replace("\n\n\t/* Custom Background */\n\t#lc-body[data-BackgroundColor='Custom'] .liveupdate{\n\tbackground:"  + oldBgColor + "!important;\n\t}\n}","\n\n\t/* Custom Background */\n\t#lc-body[data-BackgroundColor='Custom'] .liveupdate{\n\tbackground:"  + Elements.$body.attr('data-customBackgroundColor') + "!important;\n\t}\n}");
                 Cookie.update();
             }
         }
