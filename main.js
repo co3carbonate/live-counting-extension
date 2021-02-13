@@ -1224,6 +1224,7 @@ var LastCount;
     var dumpy = 0;
     $('#liveupdate-header').prepend("<div id=idlecontainer><div id=statsplace><p id=lastcountdesc>Last count:<p id=lastcountcount></p><p>/u/<span id=lastcountuser></span></p></p><div id=splits><p>000s:<span id=split0></span></p><p>100s:<span id=split1></span></p><p>200s:<span id=split2></span></p><p>300s:<span id=split3></span></p><p>400s:<span id=split4></span></p><p>500s:<span id=split5></span></p><p>600s:<span id=split6></span></p><p>700s:<span id=split7></span></p><p>800s:<span id=split8></span></p><p>900s:<span id=split9></span></p><p><span id=dumptoggle>Dump [+]:</span><div id=split69></div></p></div></div></div>");
     $('#idlecontainer').css({'display': 'none', 'position': 'absolute', 'left': '1%', 'top': '20%', 'width': '115px', 'background': 'transparent'});
+    $("#split69").css({'display': 'none',});
     $( "#lastcountdesc" ).hover(function() {
         document.getElementById("lastcountdesc").innerHTML = 'Click to reset';
         document.getElementById("lastcountdesc").style.cursor = 'pointer';
