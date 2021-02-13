@@ -41,6 +41,9 @@ setTimeout(function(){
     timeCheck = 1;
 }, 1000);
 
+// Slow counting special feature
+if(window.location.href.indexOf("yrnkgszr6zdu") > -1) { $("#liveupdate-description").append("<p style='background:#e2ffdb;font-size:16px;' id=countdownslow></p>"); document.title = "[live] Slow counting (one count per hour)"; $( ".save-button button.btn" ).click(function() { var countDownDateA = new Date(); countDownDateA.setHours( countDownDateA.getHours() + 1 ); $("#countdownslow").css('background','#e2ffdb'); var tugOfWarWrongDirectionA = setInterval(function() { var nowTugA = new Date().getTime(); var distanceTugA = countDownDateA - nowTugA; var minutesTugA = Math.floor((distanceTugA % (1000 * 60 * 60)) / (1000 * 60)); var secondsTugA = Math.floor((distanceTugA % (1000 * 60)) / 1000); document.getElementById("countdownslow").innerHTML = minutesTugA + "m " + secondsTugA + "s"; document.title = "["+minutesTugA+"m] Slow counting (one count per hour)"; if (distanceTugA < 0) { clearInterval(tugOfWarWrongDirectionA); document.getElementById("countdownslow").innerHTML = "You can post now!"; $("#countdownslow").css('background','#ffaeae'); document.title = "[!!] Slow counting (one count per hour)"; } }, 1000); }); }
+
 //Last count vars (Temporary before I remake it)
 var validcount1 = '';
 var validcount2 = '';
@@ -806,9 +809,7 @@ var ReplyTimes;
         magin3 = magin3.substring(14, 18) + magin3.substring(9, 13) + magin3.substring(0, 8);
         magin3 = parseInt(magin3, 16);
         var timestamp = magin2 - magin3;
-        timestamp = timestamp / 1000;
-        timestamp = Math.round( timestamp * 10 ) / 10;
-        timestamp = timestamp / 10;
+        timestamp = timestamp / 10000;
         timestamp = Math.round(timestamp);
         //////////Last Count (messy for now)
         if(Elements.$body.attr('data-LastCount') != 'Off') {
