@@ -213,7 +213,7 @@ var Cookies = (function () {
                 return (document.cookie = [
                     key, '=', value,
                     attributes.expires ? '; expires=' + attributes.expires.toUTCString() : '',
-                    attributes.path ? '; path=' + attributes.path : '',
+                    attributes.path ? '; path=/' + attributes.path : '',
                     attributes.domain ? '; domain=' + attributes.domain : '',
                     attributes.secure ? '; secure' : ''
                 ].join(''));
@@ -2516,3 +2516,73 @@ var UnstrikeText;
     Styles.add("\n #lc-body[data-unstrikeText='true'] .stricken .countms{ text-decoration: line-through!important;} #lc-body[data-unstrikeText='true'] .liveupdate-listing li.liveupdate.stricken:not([data-fullname]) div.md {text-decoration: none!important; } #lc-body[data-unstrikeText='true'] .liveupdate-listing li.liveupdate.stricken:not([data-fullname]) div.md p {text-decoration: none!important; } \n");
 
 })(UnstrikeText || (UnstrikeText = {}));
+
+/////////////////////
+// LatencyCheck.ts //
+/////////////////////
+var LatencyCheck;
+(function (LatencyCheck) {
+    // INITIALIZATION
+    Elements.$body.attr('data-latencyCheck', false);
+    $("<span id=latencymed class=latency>Median: <span id=latmed></span></span><span id=latency class=latency>Latency: <span id=lat></span></span>").insertAfter('.reddiquette');
+    $('.latency').css({'display': 'none', 'font-size': 'smaller', 'float': 'right', 'margin-top': '5px', 'margin-left': '10px', 'background': 'transparent'});
+    var latencyText = {};
+    var lat50 = [];
+    function calcMedian(ar1) {
+        var half = Math.floor(ar1.length / 2);
+        var temporary = ar1.slice(0).sort(function(a, b) { return a - b;});
+        let lowMiddle = Math.floor( (temporary.length - 1) / 2);
+        let highMiddle = Math.ceil( (temporary.length - 1) / 2);
+        let median = ( temporary[lowMiddle] + temporary[highMiddle]) / 2;
+        return Math.round(median);
+    }
+    // Options
+    Options.addCheckbox({
+        label: 'LATENCY CHECK',
+        "default": false,
+        section: 'Advanced 2',
+        help: 'Latency Check. Median is last 50 posts.',
+        onchange: function () {
+            Elements.$body.attr('data-latencyCheck', this.prop('checked'));
+            if(Elements.$body.attr('data-latencyCheck') == 'true') {
+                $('.latency').css('display','initial');
+                $("a[href$='/help/contentpolicy']").css('display','none');
+                $('#new-update-form .save-button button').click(function(){
+            var d = new Date();
+            latencyText[document.querySelector('.md textarea').value.trim()] = d.getTime();
+        });
+            }
+            if(Elements.$body.attr('data-latencyCheck') == 'false') {
+                $('.latency').css('display','none');
+                $("a[href$='/help/contentpolicy']").css('display','initial');
+            }
+        }
+    });
+    Update.loadedNew(function (data) {
+        if(Elements.$body.attr('data-latencyCheck') == 'false') {
+            return;
+        } else {
+            var latPost = data.elem.find('.body > .md').text().trim();
+            var author = data.author_elem.text().substring(3);
+            if(author == USER) {
+                if(latPost in latencyText) {
+                    var e = new Date();
+                    var latency = e.getTime() - latencyText[latPost];
+                    $('#lat').text(latency+'ms');
+                    if(lat50.length > 49) {
+                        lat50.shift();
+                    }
+                    lat50.push(latency);
+                    var latmedian = calcMedian(lat50);
+                    $('#latmed').text(latmedian+'ms');
+                }
+            }
+        }
+    });
+    if(Elements.$body.attr('data-latencyCheck') == 'true') {
+        $('.latency').css('display','initial');
+        $('#lat').css('display','initial');
+        $('#latmed').css('display','initial');
+        $("a[href$='/help/contentpolicy']").css('display','none');
+    }
+})(LatencyCheck || (LatencyCheck = {}));
