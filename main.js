@@ -1028,9 +1028,8 @@ var ReplyTimes;
             if (postauthor == specialTimes[timestamp]['user']) {var user2 = data.elem.find('.body > .author').text(); data.elem.find('.body').append("<span id=fakeauthor></span>"); document.getElementById("fakeauthor").innerHTML = user2; data.elem.find('.body > .author').css('fontSize', '0px'); document.getElementById("fakeauthor").style.cssText = 'font-size: 13px; color: transparent; background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text!important;';}
             timestamp = specialTimes[timestamp]['words'];
         }
-        data.elem.find('.body').prepend("<div onclick=window.open('"+testhref+"'); id=river></div>");
-        data.elem.find('.river').css('position', 'absolute');
-        document.getElementById("river").innerHTML = timestamp;
+        data.elem.find('.body').prepend("<div onclick=window.open('"+testhref+"'); id=river>"+timestamp+"</div>");
+        data.elem.find('#river').css('position', 'absolute').css('background',colortest).css('color',elcolor);
         if(window.location.href.indexOf("10itx") > -1) {
             var barregexy = /\/live\/.............\/updates\//
             var barmagin = data.elem.find('.body').prev().attr('href');
@@ -1051,8 +1050,6 @@ var ReplyTimes;
             var dateTime3 = dateTime2.substring(11, 23);
             document.getElementById("river").innerHTML = dateTime3;
         }
-        document.getElementById("river").style.background = colortest;
-        document.getElementById("river").style.color = elcolor;
         if(Elements.$body.attr('data-BackgroundColor') == 'Match Reply Time') {
             data.elem.find('.body').parent().css('background', colortest);
         }
@@ -2563,7 +2560,7 @@ var LatencyCheck;
             return;
         } else {
             var latPost = data.elem.find('.body > .md').text().trim();
-            var author = data.author_elem.text().substring(3);
+            var author = data.author_elem.attr('href').substring(6);
             if(author == USER) {
                 if(latPost in latencyText) {
                     var e = new Date();
