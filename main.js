@@ -145,7 +145,6 @@ if(window.location.href.indexOf("updates") > -1) {
     contex = contex.replace('updates\/', '?after=LiveUpdate_');
     $('.liveupdate-listing').prepend("<a id=contexter>context</a>");
     $("#contexter").attr("href", contex).css("text-align","center").css("margin-bottom","15px").css("color","#369").css("background","#eee").css("display","block");
-    return;
 }
 
 
