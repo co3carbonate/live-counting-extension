@@ -145,6 +145,8 @@ if(window.location.href.indexOf("updates") > -1) {
     contex = contex.replace('updates\/', '?after=LiveUpdate_');
     $('.liveupdate-listing').prepend("<a id=contexter>context</a>");
     $("#contexter").attr("href", contex).css("text-align","center").css("margin-bottom","15px").css("color","#369").css("background","#eee").css("display","block");
+    //return;
+    throw new Error();
 }
 
 
@@ -213,7 +215,7 @@ var Cookies = (function () {
                 return (document.cookie = [
                     key, '=', value,
                     attributes.expires ? '; expires=' + attributes.expires.toUTCString() : '',
-                    attributes.path ? '; path=/' + attributes.path : '',
+                    attributes.path ? '' : '',
                     attributes.domain ? '; domain=' + attributes.domain : '',
                     attributes.secure ? '; secure' : ''
                 ].join(''));
@@ -239,6 +241,7 @@ var Cookies = (function () {
                     cookie = converter.read ?
                         converter.read(cookie, name) : converter(cookie, name) ||
                         cookie.replace(rdecode, decodeURIComponent);
+                    console.log('k');
                     if (this.json) {
                         try {
                             cookie = JSON.parse(cookie);
@@ -316,6 +319,7 @@ var Cookie;
         Cookie.saveDefaultOptions = true;
         Cookie.save = save_default;
         update();
+        console.log('h');
     }
     else if (Cookie.save.version != cookieVersion) {
         Cookie.saveDefaultOptions = true;
@@ -326,6 +330,7 @@ var Cookie;
                 Cookie.save[k] = save_default[k];
         }
         update();
+        console.log('i');
     }
     // METHODS
     // Set the cookie value to `save`
@@ -366,7 +371,7 @@ var Elements;
         Elements.$options.after('<div style="clear:both;"></div>');
     }
     // Make the submitError display default to none (important in RemoveSubmissionLag)
-    Elements.$submitError.css('display', 'inline');
+    Elements.$submitError.css('display', 'none');
 })(Elements || (Elements = {}));
 ;
 ///////////////
@@ -1389,7 +1394,7 @@ var ColoredUsernames;
         'Tranquilsunrise': 'Orange',
         'dominodan123': 'Blue',
         'smarvin6689':'#060647',
-        'rideride':'#069420',
+        'rideride':'#B22222',
         'nomaur2':'#8A2BE2',
         'VitaminB16': '#75CEAF',
         'LeinadSpoon': '#520063',
@@ -1512,8 +1517,8 @@ var ColoredUsernames;
         if (!enabled)
             return;
         // Special usernames (temp rewards for top in 100k HoC, or other contributions)
-        // Bot-maker privileges (/u/co3_carbonate, /u/rschaosid, /u/piyushsharma301,/u/rideride)
-        if (data.author == 'MaybeNotWrong' || data.author == 'co3_carbonate' || data.author == 'rschaosid' || data.author == 'piyushsharma301' || data.author == 'rideride' || data.author == 'LeinadSpoon' || data.author == 'artbn') {
+        // Bot-maker privileges
+        if (data.author == 'MaybeNotWrong' || data.author == 'co3_carbonate' || data.author == 'rschaosid' || data.author == 'piyushsharma301' || data.author == 'LeinadSpoon' || data.author == 'artbn') {
             data.author_elem.css('font-weight', 'bold');
         }
 
@@ -1580,7 +1585,7 @@ var ColoredUsernames;
             var lcchats = data.href_elem.attr('href');
             lcchats = lcchats.trim().replace('/u/', '');
             data.href_elem.css('color', userColors[lcchats]).css('fontStyle','initial').css('fontSize','13px');
-            if (lcchats == 'MaybeNotWrong' || lcchats == 'co3_carbonate' || lcchats == 'rschaosid' || lcchats == 'piyushsharma301' || lcchats == 'rideride' || lcchats == 'LeinadSpoon' || lcchats == 'artbn') {
+            if (lcchats == 'MaybeNotWrong' || lcchats == 'co3_carbonate' || lcchats == 'rschaosid' || lcchats == 'piyushsharma301' || lcchats == 'LeinadSpoon' || lcchats == 'artbn') {
                 data.href_elem.css('font-weight', 'bold');
             }
         }
@@ -1590,7 +1595,7 @@ var ColoredUsernames;
             var thishref = $(this).attr('href');
             thishref = thishref.trim().replace('/u/', '');
             $(this).css('color', userColors[thishref]).css('fontStyle','initial').css('fontSize','13px');
-            if (thishref == 'MaybeNotWrong' || thishref == 'co3_carbonate' || thishref == 'rschaosid' || thishref == 'piyushsharma301' || thishref == 'rideride' || thishref == 'LeinadSpoon' || thishref == 'artbn') {
+            if (thishref == 'MaybeNotWrong' || thishref == 'co3_carbonate' || thishref == 'rschaosid' || thishref == 'piyushsharma301' || thishref == 'LeinadSpoon' || thishref == 'artbn') {
                 $(this).css('font-weight', 'bold');
             }
         });
@@ -1599,7 +1604,7 @@ var ColoredUsernames;
                 var thishref2 = $(this).attr('href');
                 thishref2 = thishref2.trim().replace('/u/', '');
                 $(this).css('color', userColors[thishref2]).css('fontStyle','initial').css('fontSize','13px');
-                if (thishref2 == 'MaybeNotWrong' || thishref2 == 'co3_carbonate' || thishref2 == 'rschaosid' || thishref2 == 'piyushsharma301' || thishref2 == 'rideride' || thishref2 == 'LeinadSpoon' || thishref2 == 'artbn') {
+                if (thishref2 == 'MaybeNotWrong' || thishref2 == 'co3_carbonate' || thishref2 == 'rschaosid' || thishref2 == 'piyushsharma301' || thishref2 == 'LeinadSpoon' || thishref2 == 'artbn') {
                     $(this).css('font-weight', 'bold');
                 }
             });
