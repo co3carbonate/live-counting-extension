@@ -215,7 +215,7 @@ var Cookies = (function () {
                 return (document.cookie = [
                     key, '=', value,
                     attributes.expires ? '; expires=' + attributes.expires.toUTCString() : '',
-                    attributes.path ? '' : '',
+                    attributes.path ? '; path=' + attributes.path : '',
                     attributes.domain ? '; domain=' + attributes.domain : '',
                     attributes.secure ? '; secure' : ''
                 ].join(''));
@@ -309,10 +309,10 @@ var Cookie;
     var oldCookie = Cookies.get('live-counting-extension');
     if (oldCookie !== undefined && oldCookie !== null) {
         if (Cookie.save === undefined || Cookie.save === null) {
-            Cookies.set(cookieName, oldCookie, { expires: 9000, path: '' });
+            Cookies.set(cookieName, oldCookie, { expires: 9000, path: '/live' });
             Cookie.save = Cookies.getJSON(cookieName);
         }
-        Cookies.remove('live-counting-extension', { path: '' });
+        Cookies.remove('live-counting-extension', { path: '/live' });
     }
     // Create new cookie as it does not exist
     if (Cookie.save === undefined || Cookie.save === null) {
@@ -335,7 +335,7 @@ var Cookie;
     // METHODS
     // Set the cookie value to `save`
     function update() {
-        Cookies.set(cookieName, Cookie.save, { expires: 9000, path: '' });
+        Cookies.set(cookieName, Cookie.save, { expires: 9000, path: '/live' });
     }
     Cookie.update = update;
 })(Cookie || (Cookie = {}));
