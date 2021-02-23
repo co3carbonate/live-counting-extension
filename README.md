@@ -1,6 +1,6 @@
 # Live Counting Extension
 
-Live Counting Extension (LCE) provides various additional client-side features and functionalities for [Live Counting](https://www.reddit.com/live/ta535s1hq2je) to enhance your overall counting experience and performance. It is created and maintained by [/u/co3_carbonate](https://www.reddit.com/user/co3_carbonate/).
+Live Counting Extension (LCE) provides various additional client-side features and functionalities for [Live Counting](https://www.reddit.com/live/ta535s1hq2je) to enhance your overall counting experience and performance. It was created by [/u/co3_carbonate](https://www.reddit.com/user/co3_carbonate/) and maintained by [/u/rideride](https://www.reddit.com/user/rideride/).
 
 ![Preview Image](https://co3carbonate.github.io/live-counting-extension/preview.png?v=2 "Preview Image")
 
@@ -20,8 +20,17 @@ Here is a list of features. Besides the 'hidden' features, all of them can be di
   - Disable Username Links: Disables the redirection to a user's profile upon clicking on his/her username
   - Make All Links Open In A New Tab: Makes all links on the page open in a new tab
   - Disable Obstructive Browser Shortcuts: Disables certain obstructive browser keyboard shortcuts. This currently disables the following: Ctrl+0 (Zoom Reset), Ctrl+\[1-9\] (Switch Tabs)
+  - Daily Hall of Counters: Shows a live-updating Daily Hall of Counters on the sidebar
   - Content Position: Adjusts the position of the main content section
   - Standardize Number Format: Standardizes the number count in each message to a format of your choice
+  - Option Position: An option to change where the options are positioned. 
+  - Ignore: An option to ignore users while still seeing their counts. 
+  
+- Advanced 2
+  - April Fools 2020: Enables the April Fools 2020 mode.
+  - April Fools 2019: Enables the April Fools 2019 mode. 
+  - Enable Daily HoC Colored Names: Makes the names in the Daily HoC sidebar colored.
+  - Team Bars: Enables the Team Bars if an event is active. 
  
 - Hidden
   - Ctrl+Enter Shortcut: Enables the use of a single shortcut Ctrl+Enter to conveniently send a message
@@ -30,14 +39,14 @@ Here is a list of features. Besides the 'hidden' features, all of them can be di
 
 1. Install any userscript extension for your browser, as listed below:
 
-	* Firefox - install [Greasemonkey](https://addons.mozilla.org/en-US/firefox/addon/greasemonkey/).
-	* Chrome - install [Tampermonkey](https://tampermonkey.net/?ext=dhdg&browser=chrome) or [NinjaKit](https://chrome.google.com/webstore/detail/gpbepnljaakggeobkclonlkhbdgccfek).
-	* Opera - install [Tampermonkey](https://tampermonkey.net/?ext=dhdg&browser=opera) or [Violent Monkey](https://addons.opera.com/en/extensions/details/violent-monkey/).
-	* Safari - install [Tampermonkey](https://tampermonkey.net/?ext=dhdg&browser=safari) or [NinjaKit](http://ss-o.net/safari/extension/NinjaKit.safariextz).
+	* Firefox - install [Tampermonkey](https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/).
+	* Chrome - install [Tampermonkey](https://tampermonkey.net/?ext=dhdg&browser=chrome).
+	* Opera - install [Tampermonkey](https://tampermonkey.net/?ext=dhdg&browser=opera).
+	* Safari - install [Tampermonkey](https://tampermonkey.net/?ext=dhdg&browser=safari).
 	* Dolphin - install [Tampermonkey](https://tampermonkey.net/?ext=dhdg&browser=dolphin).
 	* UC Browser - install [Tampermonkey](https://tampermonkey.net/?ext=dhdg&browser=ucweb).
 
-2. **Once you have downloaded one of those extensions, you can install the script through [this link](https://gist.github.com/co3carbonate/cbf781758d12717721dc125a80a5c785/raw/e5eb842297cc76ef66b6b9afca3f02b80b1a701a/client.user.js).** That's it! The latest version of the script will also be fetched and used each time the page is loaded, so there is no need for you to frequently update it manually.
+2. **Once you have downloaded one of those extensions, you can install the script through [this link](https://gist.github.com/co3carbonate/cbf781758d12717721dc125a80a5c785/raw/e5eb842297cc76ef66b6b9afca3f02b80b1a701a/client.user.js).** That's it! The latest version of the script will also be fetched and used each time the page is loaded, so there is no need for you to frequently update it manually. If you do not want an automatically updating version, you can make a copy from the current source code [here](https://github.com/co3carbonate/live-counting-extension/blob/master/main.js) or check out [LCE Lite](https://old.reddit.com/r/livecounting/comments/943mv0/live_counting_discussion_thread_23/e4ydisf/) which has all the essential features of LCE in a relatively simple script. 
 
 ## Changelog
 
@@ -67,3 +76,33 @@ Here is a list of features. Besides the 'hidden' features, all of them can be di
   - v1.5.2: Made the "Disable Obstructive Browser Shortcuts" option disable Ctrl+\[1-9\] (Switch Tabs) shortcut
   - v1.5.3: Added a preview message mechanism for the "Remove Submission Lag" feature, made it "Basic" and no longer experimental
   - v1.5.3: Made the preview message mechanism disableable
+- v1.6
+  - v1.6.0 Added username colors to LC Chats
+  - v1.6.0 Made "Enabled without Ghost Messages" the default option
+  - v1.6.0 Fixed "Disable Obstrusive Browser Shortcuts" on Mac (Thanks aRTy42)
+  - v1.6.0 Made special 100k usernames disable-able
+  - v1.6.0 Added Team Bars support
+  - v1.6.0 Made an option to move the options
+  - v1.6.0 Added ignore feature
+  - v1.6.0 Added "Advanced 2" tab
+  - v1.6.0 Added 2019 April Fools mode
+  - v1.6.0 Made "Clear Past Messages" auto-enable if scrolled to the top of the page when a new post loads
+  - v1.6.0 Live-updating Daily HoC on sidebar, with colors
+  - v1.6.0 Added 2020 April Fools mode
+- v1.7
+  - v1.7.0 Added timestamps (from Response Times Extension)
+  - v1.7.0 Added night mode reply time settings (from Response Times Extension)
+  - v1.7.0 Added clear reply times setting (from Response Times Extension)
+  - v1.7.0 Added custom striken setting (from Response Times Extension)
+  - v1.7.0 Added setting to disable custom reply times  (from Response Times Extension)
+  - v1.7.0 Added post background color feature (from Response Times Extension)
+  - v1.7.0 Added last count feature (from Response Times Extension)
+  - v1.7.0 Added emojis - enable and type :emoji_name: in the textbox
+  - v1.7.0 Added Ctrl+Space shortcut to focus on textbox 
+  - v1.7.0 Clicking "make update" now maintains focus on textbox
+  - v1.7.0 Made "disable obstructive shortcuts" feature work on Macs
+  - v1.7.0 Temporarily (?) removed ghost messages
+  - v1.7.0 Removed April Fools 2019/2020 modes
+  - v1.7.0 Internal improvements, like reducing unnecessary variables
+  
+  TODO: Add "unstrike text" feature from Response Times Extension, update how Last Count works 
