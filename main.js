@@ -790,7 +790,7 @@ var ReplyTimes;
         '666': {user:'rideride', words:'666',bgcolor:'#ff0000',fontcolor:'#000000'},
         '689': {user:'smarvin6689', words:'(smarvin6689) 689',bgcolor:'#060647',fontcolor:'#ffffff'},
         '700': {user:'Noob2137', words:'(Noob2137) 700',bgcolor:'#ff69ff',fontcolor:'#000000'},
-        '777': {user:'artbn', words:'(artbn) 700',bgcolor:'#e66b00',fontcolor:'#000000'},
+        '777': {user:'artbn', words:'(artbn) 777',bgcolor:'#e66b00',fontcolor:'#000000'},
         '845': {user:'noduorg', words:'(noduorg) 845',bgcolor:'#0d2d89',fontcolor:'#ffffff'},
         '888': {user:'NobodyL0vesMe', words:'(NobodyL0vesMe) 888',bgcolor:'#BC12DD',fontcolor:'#000000'},
         '973': {user:'Smartstocks', words:'(Smartstocks) 973',bgcolor:'#840d0d',fontcolor:'#ffffff'},
