@@ -978,7 +978,12 @@ var ReplyTimes;
         } else if (-499 <= timestamp && timestamp < 1) {
             colortest = '#f2ee0e';
             if (darkcheck == 1) {colortest = '#727200';}
-        } else if (1 <= timestamp && timestamp < 100) {
+        }
+        if(Elements.$body.attr('data-halfColors') == 'true') {
+            var dimestamp = timestamp;
+            timestamp = timestamp * 2;
+        }
+        if (1 <= timestamp && timestamp < 100) {
             colortest = '#ef7070';
             if (darkcheck == 1) {colortest = '#4d0000';}
         } else if (100 <= timestamp && timestamp < 200) {
@@ -1008,9 +1013,12 @@ var ReplyTimes;
         } else if (900 <= timestamp && timestamp < 1000) {
             colortest = '#ffadf8';
             if (darkcheck == 1) {colortest = '#6e0064';}
-        } else {
+        } else if (timestamp >= 1000) {
             colortest = '#ededed';
             if (darkcheck == 1) {colortest = '#2a2a2a';}
+        }
+        if(Elements.$body.attr('data-halfColors') == 'true') {
+            timestamp = dimestamp;
         }
         if(timestamp in specialTimes && Elements.$body.attr('data-disableSpecialTimes') == 'false') {
             var postauthor = data.author_elem.text().substring(3);
@@ -1097,7 +1105,24 @@ var ReplyTimes;
 
 
 })(ReplyTimes || (ReplyTimes = {}));
-
+///////////////////
+// HalfColors.ts //
+///////////////////
+var HalfColors;
+(function (HalfColors) {
+    // INITIALIZATION
+    Elements.$body.attr('data-halfColors', false);
+    // Options
+    Options.addCheckbox({
+        label: 'HALF REPLY TIME COLORS',
+        "default": false,
+        section: 'Advanced 2',
+        help: 'Halves the reply time colors, so they increase by increments of 50 rather than 100.',
+        onchange: function () {
+            Elements.$body.attr('data-halfColors', this.prop('checked'));
+        }
+    });
+})(HalfColors || (HalfColors = {}));
 ///////////////////////////
 // ReplyTimesDarkMode.ts //
 ///////////////////////////
