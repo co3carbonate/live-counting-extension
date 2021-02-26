@@ -12,7 +12,7 @@ var USER = $('#header .user a[href]').html();
 
 //100k name information
 var specialnumber = 1;
-var kname1 = 'MaybeNotWrong';
+var kname1 = 'ItzTaken';
 var kname2 = '';
 var kname3 = '';
 var kname4 = '';
@@ -1564,29 +1564,46 @@ var ColoredUsernames;
         // /u/MaybeNotWrong username special
         if (SpecialUsernamesEnabled1 == true) {
             if (data.author == kname1) {
+var nextname = data.author_elem.parent().parent().next().find('.body > .author').attr('href');
+nextname = nextname.toUpperCase();
+nextname = nextname.trim().replace('/USER/', '');
 
-                var testArray = ['M','a','y','b','e','N','o','t','W','r','o','n','g'];
-                var pseudoRandomness = data.elem.find('.body').prev().attr('href');
-                pseudoRandomness = pseudoRandomness.substring(pseudoRandomness.indexOf("updates/") + 8).substring(0, 8).split("").reverse().join("");
-                pseudoRandomness = parseInt(pseudoRandomness, 16);
-                pseudoRandomness = pseudoRandomness / 4294967295;
-                pseudoRandomness = String(pseudoRandomness);
-                function bhuffle(o) {
-                    for(var j, x, i = o.length, stroq; stroq = pseudoRandomness.slice(0,2) + pseudoRandomness.slice(i+2), stroq = stroq.replace(/ /g, ""), i; j = parseInt(stroq * i), x = o[--i], o[i] = o[j], o[j] = x);
-                    return o;
-                }
-                bhuffle(testArray);
 
-                data.author_elem.css({
-                    'font-weight': 'bold',
-                    'display': 'inline-block',
-                });
+var takenname = 'HI ';
+var takenname2 = '👋';
+var takencolor = '#32ff95';
+var takenspooky = '';
 
-                data.author_elem.html(`<div style='color:#077055'>/u/<span id=shuffled>`+testArray.join("")+`</span></div>`)
-                var testArray2 = testArray.join("");
-                if (testArray2 == 'MaybeNotWrong') {
-                    data.author_elem.html(`<span id="rainbowtext" style="color: transparent; background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text!important;">/u/MaybeNotWrong</span>`);
-                }
+  var the_count_taken = data.body_elem.text();
+var count1text = the_count_taken;
+the_count_taken = the_count_taken.substring(0, 10);
+    the_count_taken = the_count_taken.replace(/[A-Za-z]/g, '');
+    the_count_taken = the_count_taken.replace(/,/g, '');
+    the_count_taken = the_count_taken.replace(/ /g, '');
+the_count_taken = the_count_taken.replace(/\./g, '');
+the_count_taken = the_count_taken.substr(the_count_taken.length - 3);
+
+
+if (the_count_taken == '666' || count1text.includes("spook")) {
+takenspooky = 'SPOOKY '
+takenname2 = '👻👻👻';
+takencolor = '#000000';
+}
+
+if (the_count_taken == '666' && count1text.includes("spook")) {
+takenspooky = 'SPOOK'
+takenname2 = '👻👻👻';
+takencolor = '#000000';
+nextname = '';
+takenname = '';
+}
+
+
+ data.author_elem.css({
+                 'font-weight': 'bold',
+                 'display': 'inline-block'
+              });
+data.author_elem.html(`<div style="color:`+takencolor+`;">`+takenname2+takenname+takenspooky+nextname+takenname2+`</div>`);
             }
         } // SpecialUsernamesEnabled1 ending
 
