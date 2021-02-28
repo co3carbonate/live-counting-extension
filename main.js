@@ -11,9 +11,9 @@ var VERSION = 'v1.7.0';
 var USER = $('#header .user a[href]').html();
 
 //100k name information
-var specialnumber = 1;
+var specialnumber = 2;
 var kname1 = 'ItzTaken';
-var kname2 = '';
+var kname2 = 'rideride';
 var kname3 = '';
 var kname4 = '';
 var kname5 = '';
@@ -1607,6 +1607,11 @@ data.author_elem.html(`<div style="color:`+takencolor+`;">`+takenname2+takenname
             }
         } // SpecialUsernamesEnabled1 ending
 
+        if (SpecialUsernamesEnabled2 == true) {
+            if (data.author == kname2) {
+                data.author_elem.text(`/u/🅱️ide🅱️ide`);
+                }
+        } // SpecialUsernamesEnabled2 ending
 
         // Set username color
         if (!userColors.hasOwnProperty(data.author)) {
