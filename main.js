@@ -755,6 +755,7 @@ var ReplyTimes;
         '36': {user:'Iamspeedy36', words:'Iamspeedy36',bgcolor:'#00BFFF',fontcolor:'#000000'},
         '37': {user:'amazingpikachu_38', words:'amazingpikachu_37',bgcolor:'#ffff00',fontcolor:'#000000'},
         '47': {user:'kdiuro13', words:'(kdiuro13) 47',bgcolor:'#191970',fontcolor:'#ffffff'},
+        '69': {user:'ddodd69', words:'ddodd69',bgcolor:'#a89332',fontcolor:'#000000'},
         '100': {user:'abplows', words:'(abplows) 100',bgcolor:'#2b0090',fontcolor:'#ffffff'},
         '123': {user:'davidjl123', words:'davidjl123',bgcolor:'#6495ED',fontcolor:'#000000'},
         '123-2': {user:'dominodan123', words:'dominodan123',bgcolor:'#0000ff',fontcolor:'#ffffff'},
@@ -1497,6 +1498,7 @@ var ColoredUsernames;
         'Trial-Name': '#008080',
         'TheMatsValk': '#00f5ff',
         'supersammy00': '#28ad3c',
+        'ddodd69': '#a89332',
     };
     if (USER == 'VitaminB16') {
         userColors.LC_Chats = 'white';
