@@ -11,10 +11,10 @@ var VERSION = 'v1.7.0';
 var USER = $('#header .user a[href]').html();
 
 //100k name information
-var specialnumber = 2;
+var specialnumber = 3;
 var kname1 = 'ItzTaken';
 var kname2 = 'rideride';
-var kname3 = '';
+var kname3 = 'davidjl123';
 var kname4 = '';
 var kname5 = '';
 var kname6 = '';
@@ -1613,6 +1613,31 @@ data.author_elem.html(`<div style="color:`+takencolor+`;">`+takenname2+takenname
                 }
         } // SpecialUsernamesEnabled2 ending
 
+        if (SpecialUsernamesEnabled3 == true) {
+            if (data.author == kname3) {
+                var randomDaviel = Math.floor(Math.random() * 1000000000);
+                var davidstring = "/u/﷽DAVIDJL"+randomDaviel+"﷽"
+                var davidstring2 = "";
+                var forfeitCheck = data.elem.find('.body').parent().nextAll('.liveupdate:first').hasClass('stricken');
+                var randomShift = Math.floor(Math.random() * 4);
+                randomShift *= Math.round(Math.random()) ? 1 : -1;
+                for (var i = 0; i < davidstring.length; i++) {
+                    var randcu = Math.floor(Math.random() * 2);
+                    if(davidstring.charAt(i).match(/^[0-9]+$/) != null) {
+                        davidstring2 = davidstring2 + `<span class="freude">`+davidstring.charAt(i)+`</span>`;
+                    } else if(randcu == 0) {
+                        davidstring2 = davidstring2 + `<span class="waker">`+davidstring.charAt(i)+`</span>`;
+                    } else {
+                        davidstring2 = davidstring2 + `<span class="goudy">`+davidstring.charAt(i)+`</span>`;
+                    }
+                }
+                if(forfeitCheck == true) {
+                    davidstring2 = davidstring2 + ` <span class="forfeited">FORFEITED</span>`;
+                }
+                data.author_elem.html(davidstring2).css('margin-left',randomShift+'px');
+                }
+        } // SpecialUsernamesEnabled3 ending
+
         // Set username color
         if (!userColors.hasOwnProperty(data.author)) {
             userColors[data.author] = colors[currentColor];
@@ -1654,7 +1679,10 @@ data.author_elem.html(`<div style="color:`+takencolor+`;">`+takenname2+takenname
             });
         });
     }
+
+    //Styles
     Styles.add(`li.stricken > div > div > span > p #counttext {text-decoration: line-through;} .liveupdate-listing li.liveupdate.stricken div.md .ignoredpost p:last-of-type {text-decoration: none;}  `);
+    Styles.add(`@font-face {font-family: "Freude";src: url("https://files.catbox.moe/d77nk6.otf");} @font-face {font-family: "Waker";src: url("https://files.catbox.moe/f7fzxk.otf");} .waker {font-family: Waker;} .freude {font-family: Freude; color:red; background:yellow;} .goudy {font-family: Goudy Stout;} .forfeited {font-family: Comic Sans; color: fuchsia; background:black;}`);
 
 
 })(ColoredUsernames || (ColoredUsernames = {}));
