@@ -949,11 +949,11 @@ var ReplyTimes;
                 if (validcountwrong == 10) {
                     document.getElementById("lastcountdesc").innerHTML = 'Click to reset?';
                     document.getElementById("lastcountdesc").style.background = '#ef7070';
-                    var wrongtimer = setTimeout( function() {
+                    /*var wrongtimer = setTimeout( function() {
                         document.getElementById("lastcountdesc").innerHTML = 'Last count:';
                         document.getElementById("lastcountdesc").style.background = '';
                         $("#lastcountdesc").click();
-                    },15000);
+                    },15000);*/
                 }
             }
         }
