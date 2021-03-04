@@ -946,7 +946,7 @@ var ReplyTimes;
                 validcount2--;
                 validcount3 = validcount2;
                 validcountwrong++;
-                if (validcountwrong == 10) {
+                if (validcountwrong == 30) {
                     document.getElementById("lastcountdesc").innerHTML = 'Click to reset?';
                     document.getElementById("lastcountdesc").style.background = '#ef7070';
                     /*var wrongtimer = setTimeout( function() {
