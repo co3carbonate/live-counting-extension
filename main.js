@@ -11,11 +11,11 @@ var VERSION = 'v1.7.0';
 var USER = $('#header .user a[href]').html();
 
 //100k name information
-var specialnumber = 3;
+var specialnumber = 4;
 var kname1 = 'ItzTaken';
 var kname2 = 'rideride';
 var kname3 = 'davidjl123';
-var kname4 = '';
+var kname4 = 'NobodyL0vesMe';
 var kname5 = '';
 var kname6 = '';
 var SpecialUsernamesEnabled;
@@ -1566,53 +1566,53 @@ var ColoredUsernames;
         // /u/MaybeNotWrong username special
         if (SpecialUsernamesEnabled1 == true) {
             if (data.author == kname1) {
-var nextname = data.author_elem.parent().parent().next().find('.body > .author').attr('href');
-nextname = nextname.toUpperCase();
-nextname = nextname.trim().replace('/USER/', '');
+                var nextname = data.author_elem.parent().parent().next().find('.body > .author').attr('href');
+                nextname = nextname.toUpperCase();
+                nextname = nextname.trim().replace('/USER/', '');
 
 
-var takenname = 'HI ';
-var takenname2 = '👋';
-var takencolor = '#32ff95';
-var takenspooky = '';
+                var takenname = 'HI ';
+                var takenname2 = '👋';
+                var takencolor = '#32ff95';
+                var takenspooky = '';
 
-  var the_count_taken = data.body_elem.text();
-var count1text = the_count_taken;
-the_count_taken = the_count_taken.substring(0, 10);
-    the_count_taken = the_count_taken.replace(/[A-Za-z]/g, '');
-    the_count_taken = the_count_taken.replace(/,/g, '');
-    the_count_taken = the_count_taken.replace(/ /g, '');
-the_count_taken = the_count_taken.replace(/\./g, '');
-the_count_taken = the_count_taken.substr(the_count_taken.length - 3);
-
-
-if (the_count_taken == '666' || count1text.includes("spook")) {
-takenspooky = 'SPOOKY '
-takenname2 = '👻👻👻';
-takencolor = '#000000';
-}
-
-if (the_count_taken == '666' && count1text.includes("spook")) {
-takenspooky = 'SPOOK'
-takenname2 = '👻👻👻';
-takencolor = '#000000';
-nextname = '';
-takenname = '';
-}
+                var the_count_taken = data.body_elem.text();
+                var count1text = the_count_taken;
+                the_count_taken = the_count_taken.substring(0, 10);
+                the_count_taken = the_count_taken.replace(/[A-Za-z]/g, '');
+                the_count_taken = the_count_taken.replace(/,/g, '');
+                the_count_taken = the_count_taken.replace(/ /g, '');
+                the_count_taken = the_count_taken.replace(/\./g, '');
+                the_count_taken = the_count_taken.substr(the_count_taken.length - 3);
 
 
- data.author_elem.css({
-                 'font-weight': 'bold',
-                 'display': 'inline-block'
-              });
-data.author_elem.html(`<div style="color:`+takencolor+`;">`+takenname2+takenname+takenspooky+nextname+takenname2+`</div>`);
+                if (the_count_taken == '666' || count1text.includes("spook")) {
+                    takenspooky = 'SPOOKY '
+                    takenname2 = '👻👻👻';
+                    takencolor = '#000000';
+                }
+
+                if (the_count_taken == '666' && count1text.includes("spook")) {
+                    takenspooky = 'SPOOK'
+                    takenname2 = '👻👻👻';
+                    takencolor = '#000000';
+                    nextname = '';
+                    takenname = '';
+                }
+
+
+                data.author_elem.css({
+                    'font-weight': 'bold',
+                    'display': 'inline-block'
+                });
+                data.author_elem.html(`<div style="color:`+takencolor+`;">`+takenname2+takenname+takenspooky+nextname+takenname2+`</div>`);
             }
         } // SpecialUsernamesEnabled1 ending
 
         if (SpecialUsernamesEnabled2 == true) {
             if (data.author == kname2) {
                 data.author_elem.text(`/u/🅱️ide🅱️ide`);
-                }
+            }
         } // SpecialUsernamesEnabled2 ending
 
         if (SpecialUsernamesEnabled3 == true) {
@@ -1637,8 +1637,44 @@ data.author_elem.html(`<div style="color:`+takencolor+`;">`+takenname2+takenname
                     davidstring2 = davidstring2 + ` <span class="forfeited">FORFEITED</span>`;
                 }
                 data.author_elem.html(davidstring2).css('margin-left',randomShift+'px');
-                }
+            }
         } // SpecialUsernamesEnabled3 ending
+
+        if (SpecialUsernamesEnabled4 == true) {
+            if (data.author == kname4) {
+                var aaamarscolor = '#616161';
+                var aaaentirepost = data.body_elem.html();
+                var aaaentireposttext = data.body_elem.text();
+                var aaacount1testlol = aaaentireposttext.substring(0, 10);
+                aaacount1testlol = aaacount1testlol.replace(/[A-Za-z]/g, '');
+                var aaacount2testlol = aaacount1testlol.replace(/,/g, '');
+                aaacount2testlol = aaacount2testlol.replace(/ /g, '');
+                aaacount2testlol = aaacount2testlol.replace(/\./g, '');
+                var aaacount3testlol = aaacount2testlol.replace(/[^8]/g, "").length;
+                var aaacount4testlol = aaacount2testlol.substr(aaacount2testlol.length - 3);
+                var aaatextcolor = '#7E57C2';
+                var aaaeightcolor = '#B39DDB';
+
+                if (aaacount2testlol.length > 7) {
+                    console.log('hi');
+                    console.log(aaacount4testlol);
+                    if (aaacount4testlol == '888') {
+                        console.log('hi2');
+                        aaaeightcolor = '';
+                        aaatextcolor = 'transparent; background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text!important;';
+                    }
+                    var aaacount5testlol = aaacount1testlol;
+                    aaacount1testlol = aaacount1testlol.replace(/8/g, `<span class="bruu" style="color: `+aaaeightcolor+`;">8</span>`);
+                    aaaentirepost = aaaentirepost.replace(aaaentireposttext.substring(0, aaacount5testlol.length),`<span class="rainbowtext" style="color:`+aaatextcolor+`;">`+aaacount1testlol+`</span>`);
+                }
+                data.body_elem.html(aaaentirepost);
+                data.author_elem.css({
+                    'display': 'inline-block',
+                    'font-weight': 'bold'
+                });
+                data.author_elem.html(`<div style="color:`+aaamarscolor+`;">🖤/u/NobodyL0vesMe🖤</div>`)
+            }
+        } // SpecialUsernamesEnabled4 endind
 
         // Set username color
         if (!userColors.hasOwnProperty(data.author)) {
@@ -1685,7 +1721,7 @@ data.author_elem.html(`<div style="color:`+takencolor+`;">`+takenname2+takenname
     //Styles
     Styles.add(`li.stricken > div > div > span > p #counttext {text-decoration: line-through;} .liveupdate-listing li.liveupdate.stricken div.md .ignoredpost p:last-of-type {text-decoration: none;}  `);
     Styles.add(`@font-face {font-family: "Freude";src: url("https://files.catbox.moe/d77nk6.otf");} @font-face {font-family: "Waker";src: url("https://files.catbox.moe/f7fzxk.otf");} .waker {font-family: Waker;} .freude {font-family: Freude; color:red; background:yellow;} .goudy {font-family: Goudy Stout;} .forfeited {font-family: Comic Sans MS; color: fuchsia; background:black;}`);
-
+    Styles.add(`.stricken .rainbowtext {text-decoration:line-through!important;}`);
 
 })(ColoredUsernames || (ColoredUsernames = {}));
 //////////////////////////
@@ -2385,6 +2421,8 @@ var StandardizeNumberFormat;
     Update.loadedNew(function (data) {
         if (!enabled)
             return;
+        if (data.author == kname4)
+            return;
         var first_elem = first_node(data.body_elem.get(0));
         var $first_elem = $(first_elem);
         var body = first_elem.textContent;
@@ -2623,9 +2661,9 @@ var LatencyCheck;
                 $('.latency').css('display','initial');
                 $("a[href$='/help/contentpolicy']").css('display','none');
                 $('#new-update-form .save-button button').click(function(){
-            var d = new Date();
-            latencyText[document.querySelector('.md textarea').value.trim()] = d.getTime();
-        });
+                    var d = new Date();
+                    latencyText[document.querySelector('.md textarea').value.trim()] = d.getTime();
+                });
             }
             if(Elements.$body.attr('data-latencyCheck') == 'false') {
                 $('.latency').css('display','none');
