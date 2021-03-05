@@ -2701,3 +2701,86 @@ if(Elements.$body.attr('data-latencyCheck') == 'true') {
     $("a[href$='/help/contentpolicy']").css('display','none');
 }
 })(LatencyCheck || (LatencyCheck = {}));
+
+////////////////////////
+// TextboxPosition.ts //
+////////////////////////
+
+var TextboxPosition;
+(function (TextboxPosition) {
+// INITIALIZATION
+$('.usertext-edit textarea').attr('data-TextboxPosition', 'Default');
+// Options
+Options.addSelect({
+    label: 'TEXTBOX POSITION',
+    options: ['Default', 'Lower'],
+    section: 'Advanced',
+    "default": 0,
+    help: 'Adjusts the position of the text in the textbox. this SUCKS!',
+    onchange: function () {
+        $('.usertext-edit textarea').attr('data-TextboxPosition', this.val());
+    }
+});
+// Styles
+Styles.add("\n\n\t.usertext-edit textarea[data-TextboxPosition='Lower'] {padding-top: 76px;}\n\n\t");
+})(TextboxPosition || (TextboxPosition = {}));
+
+//////////////////////
+// RateLimitView.ts //
+//////////////////////
+var RateLimitView;
+(function (RateLimitView) {
+// INITIALIZATION
+Elements.$body.attr('data-RateLimitView', 'Disabled');
+$("<span id=ratelim class=ratelimit>Rate limit: <span id=rate></span><span id=ratedelta></span></span>").insertBefore('.CANT_REPLY');
+$('.ratelimit').css({'display': 'none', 'font-size': 'smaller', 'float': 'right', 'margin-top': '5px', 'margin-left': '10px', 'background': 'transparent'});
+var oldtime = new Date();
+var newtime = new Date();
+var oldtimea = new Date();
+var newtimea = new Date();
+var egregious_dumbassery = 0;
+var egregious_dumbassery_2 = 0;
+// Options
+Options.addSelect({
+    label: 'RATE LIMIT VIEW',
+    section: 'Advanced 2',
+    options: ['Disabled', 'Normal', 'Delta'],
+    "default": 0,
+    help: 'Rate limit viewer by post. Not real, just estimate lol',
+    onchange: function () {
+        Elements.$body.attr('data-RateLimitView', this.val());
+        if(Elements.$body.attr('data-RateLimitView') == 'Normal') {
+            egregious_dumbassery++;
+            $('.ratelimit').css('display','initial');
+            $('#ratedelta').css('display','none');
+            $('#rate').css('display','initial');
+            $(".help-toggle").css('display','none');
+            if(egregious_dumbassery > 1)
+                return;
+            $('#new-update-form .save-button button').click(function(){
+                oldtime = newtime
+                newtime = new Date();
+                $('#rate').text(newtime - oldtime + "ms");
+            });
+        }
+        if(Elements.$body.attr('data-RateLimitView') == 'Delta') {
+            egregious_dumbassery_2++;
+            $('.ratelimit').css('display','initial');
+            $('#ratedelta').css('display','initial');
+            $('#rate').css('display','none');
+            $(".help-toggle").css('display','none');
+            if(egregious_dumbassery_2 > 1)
+                return;
+            $('#new-update-form .save-button button').click(function(){
+                oldtimea = newtimea
+                newtimea = new Date();
+                $('#ratedelta').text(newtimea - oldtimea - 333 + "ms");
+            });
+        }
+        if(Elements.$body.attr('data-RateLimitView') == 'Disabled') {
+            $('.ratelimit').css('display','none');
+            $(".help-toggle").css('display','initial');
+        }
+    }
+});
+})(RateLimitView || (RateLimitView = {}));
