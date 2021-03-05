@@ -2732,7 +2732,7 @@ var RateLimitView;
 (function (RateLimitView) {
 // INITIALIZATION
 Elements.$body.attr('data-RateLimitView', 'Disabled');
-$("<span id=ratelim class=ratelimit>Rate limit: <span id=rate></span><span id=ratedelta></span></span>").insertBefore('.CANT_REPLY');
+$("<span id=ratelim class=ratelimit>RL: <span id=rate></span><span id=ratedelta></span></span>").insertBefore('.CANT_REPLY');
 $('.ratelimit').css({'display': 'none', 'font-size': 'smaller', 'float': 'right', 'margin-top': '5px', 'margin-left': '10px', 'background': 'transparent'});
 var oldtime = new Date();
 var newtime = new Date();
