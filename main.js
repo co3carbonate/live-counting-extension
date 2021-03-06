@@ -2740,6 +2740,7 @@ var oldtimea = new Date();
 var newtimea = new Date();
 var egregious_dumbassery = 0;
 var egregious_dumbassery_2 = 0;
+var ratecolor = "";
 // Options
 Options.addSelect({
     label: 'RATE LIMIT VIEW',
@@ -2760,7 +2761,24 @@ Options.addSelect({
             $('#new-update-form .save-button button').click(function(){
                 oldtime = newtime
                 newtime = new Date();
-                $('#rate').text(newtime - oldtime + "ms");
+                if(newtime - oldtime - 333 < 0) {
+                    ratecolor = '#f2ee0e';
+                } else if(newtime - oldtime - 333 < 20) {
+                    ratecolor = '#ef7070';
+                } else if(newtime - oldtime - 333 < 40) {
+                    ratecolor = '#ffaeae';
+                } else if(newtime - oldtime - 333 < 60) {
+                    ratecolor = '#ffebba';
+                } else if(newtime - oldtime - 333 < 80) {
+                    ratecolor = '#cfffba';
+                } else if(newtime - oldtime - 333 < 100) {
+                    ratecolor = '#a2e8af';
+                } else if(newtime - oldtime - 333 < 120) {
+                    ratecolor = '#adffed';
+                } else {
+                    ratecolor = 'transparent';
+                }
+                $('#rate').text(newtime - oldtime + "ms").css('background',ratecolor);
             });
         }
         if(Elements.$body.attr('data-RateLimitView') == 'Delta') {
@@ -2774,7 +2792,24 @@ Options.addSelect({
             $('#new-update-form .save-button button').click(function(){
                 oldtimea = newtimea
                 newtimea = new Date();
-                $('#ratedelta').text(newtimea - oldtimea - 333 + "ms");
+                if(newtimea - oldtimea - 333 < 0) {
+                    ratecolor = '#f2ee0e';
+                } else if(newtimea - oldtimea - 333 < 20) {
+                    ratecolor = '#ef7070';
+                } else if(newtimea - oldtimea - 333 < 40) {
+                    ratecolor = '#ffaeae';
+                } else if(newtimea - oldtimea - 333 < 60) {
+                    ratecolor = '#ffebba';
+                } else if(newtimea - oldtimea - 333 < 80) {
+                    ratecolor = '#cfffba';
+                } else if(newtimea - oldtimea - 333 < 100) {
+                    ratecolor = '#a2e8af';
+                } else if(newtimea - oldtimea - 333 < 120) {
+                    ratecolor = '#adffed';
+                } else {
+                    ratecolor = 'transparent';
+                }
+                $('#ratedelta').text(newtimea - oldtimea - 333 + "ms").css('background',ratecolor);
             });
         }
         if(Elements.$body.attr('data-RateLimitView') == 'Disabled') {
@@ -2784,3 +2819,64 @@ Options.addSelect({
     }
 });
 })(RateLimitView || (RateLimitView = {}));
+
+
+////////////////////
+// ImageEmotes.ts //
+////////////////////
+var ImageEmotes;
+(function (ImageEmotes) {
+// INITIALIZATION
+Elements.$body.attr('data-ImageEmotes', false);
+var emoteimages = [];
+var emotefunccheck = 0;
+// Options
+Options.addCheckbox({
+    label: 'IMAGE EMOTES',
+    "default": false,
+    section: 'Advanced 2',
+    help: 'Enables image emotes. Requires refresh probably',
+    onchange: function () {
+        Elements.$body.attr('data-ImageEmotes', this.prop('checked'));
+        if(Elements.$body.attr('data-ImageEmotes') == 'true') {
+            emotes_load();
+        }
+    }
+});
+
+function toDataURL(url, callback) {
+  var xhr = new XMLHttpRequest();
+  xhr.onload = function() {
+    var reader = new FileReader();
+    reader.onloadend = function() {
+      callback(reader.result);
+    }
+    reader.readAsDataURL(xhr.response);
+  };
+  xhr.open('GET', url);
+  xhr.responseType = 'blob';
+  xhr.send();
+}
+function emotes_load() {
+emotefunccheck++;
+if(emotefunccheck > 1)
+    return;
+toDataURL('https://cdn.frankerfacez.com/emoticon/210748/1', function(dataUrl) {
+  emoteimages.push(dataUrl);
+})
+
+    Update.loadedNew(function (data) {
+    if(Elements.$body.attr('data-ImageEmotes') == 'true') {
+            var emotes_post = data.body_elem.html();
+            var emotes_text = data.body_elem.text();
+        emotes_post = emotes_post.replace("<code>pog</code>", "<img src="+emoteimages[0]+">");
+            data.body_elem.html(emotes_post);
+    }
+});
+}
+
+    if(Elements.$body.attr('data-ImageEmotes') == 'true') {
+        emotes_load();
+    }
+
+})(ImageEmotes || (ImageEmotes = {}));
