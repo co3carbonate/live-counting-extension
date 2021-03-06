@@ -2593,7 +2593,12 @@ if(enabled) {
     function Inputty() {
         document.querySelector('.md textarea').value = emojiIt(regExpression, document.querySelector('.md textarea').value );
     }
-    document.querySelector('.md textarea').addEventListener('input', Inputty);
+    try {
+        document.querySelector('.md textarea').addEventListener('input', Inputty);
+    }
+    catch(err) {
+        console.log("You probably don't have posting permissions on this page.");
+    }
 }
 })(Emojis || (Emojis = {}));
 
