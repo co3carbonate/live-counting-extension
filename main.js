@@ -826,7 +826,11 @@ Update.loadedNew(function (data) {
         validcount1 = parse_body(fullcount1)[0];
         validcount2 = parseInt(validcount2);
         validcount1 = parseInt(validcount1);
-        validcount2++;
+        if(THREAD == "te287u41qlnw"){
+            validcount2--;
+        } else {
+            validcount2++;
+        }
         if (validcount2 == validcount1 && author2 != author1 || isNaN(validcount2) == true) {
             validcount3 = validcount1;
             $("#lastcountcount").text(validcount3.toLocaleString());
@@ -1658,10 +1662,7 @@ Update.loadedNew(function (data) {
             var aaaeightcolor = '#B39DDB';
 
             if (aaacount2testlol.length > 7) {
-                console.log('hi');
-                console.log(aaacount4testlol);
                 if (aaacount4testlol == '888') {
-                    console.log('hi2');
                     aaaeightcolor = '';
                     aaatextcolor = 'transparent; background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text!important;';
                 }
@@ -2592,7 +2593,12 @@ if(enabled) {
     function Inputty() {
         document.querySelector('.md textarea').value = emojiIt(regExpression, document.querySelector('.md textarea').value );
     }
-    document.querySelector('.md textarea').addEventListener('input', Inputty);
+    try {
+        document.querySelector('.md textarea').addEventListener('input', Inputty);
+    }
+    catch(err) {
+        console.log("You probably don't have posting permissions on this page.");
+    }
 }
 })(Emojis || (Emojis = {}));
 
@@ -2828,8 +2834,9 @@ var ImageEmotes;
 (function (ImageEmotes) {
 // INITIALIZATION
 Elements.$body.attr('data-ImageEmotes', false);
-var emoteimages = [];
+var emoteimages = {};
 var emotefunccheck = 0;
+var the_emote = "";
 // Options
 Options.addCheckbox({
     label: 'IMAGE EMOTES',
@@ -2862,14 +2869,85 @@ emotefunccheck++;
 if(emotefunccheck > 1)
     return;
 toDataURL('https://cdn.frankerfacez.com/emoticon/210748/1', function(dataUrl) {
-  emoteimages.push(dataUrl);
+  emoteimages['<code>pog</code>'] = dataUrl;
+})
+    toDataURL('https://i.imgur.com/Q5MeKh3.png', function(dataUrl) {
+  emoteimages['<code>god</code>'] = dataUrl;
+})
+    toDataURL('https://i.imgur.com/9DMJWrS.png', function(dataUrl) {
+  emoteimages['<code>monkas</code>'] = dataUrl;
+})
+    toDataURL('https://i.imgur.com/cRiGdb9.png', function(dataUrl) {
+  emoteimages['<code>omegalul</code>'] = dataUrl;
+})
+    toDataURL('https://i.imgur.com/NdcmxXi.png', function(dataUrl) {
+  emoteimages['<code>stonks</code>'] = dataUrl;
+})
+    toDataURL('https://i.imgur.com/lAkxroK.png', function(dataUrl) {
+  emoteimages['<code>notstonks</code>'] = dataUrl;
+})
+    toDataURL('https://i.imgur.com/nivf93z.png', function(dataUrl) {
+  emoteimages['<code>thonk</code>'] = dataUrl;
+})
+    toDataURL('https://i.imgur.com/PM2ExKS.png', function(dataUrl) {
+  emoteimages['<code>jesus</code>'] = dataUrl;
+})
+    toDataURL('https://i.imgur.com/lyazIO3.png', function(dataUrl) {
+  emoteimages['<code>isagod</code>'] = dataUrl;
+})
+    toDataURL('https://i.imgur.com/hqemSbF.png', function(dataUrl) {
+  emoteimages['<code>pensiveloaf</code>'] = dataUrl;
+})
+    toDataURL('https://i.imgur.com/m2DVbIn.png', function(dataUrl) {
+  emoteimages['<code>cuteballgames</code>'] = dataUrl;
+})
+    toDataURL('https://i.imgur.com/5pRiH59.png', function(dataUrl) {
+  emoteimages['<code>habubger</code>'] = dataUrl;
+})
+    toDataURL('https://i.imgur.com/lfKGTik.png', function(dataUrl) {
+  emoteimages['<code>angery</code>'] = dataUrl;
+})
+    toDataURL('https://i.imgur.com/b2dbpI7.png', function(dataUrl) {
+  emoteimages['<code>dad</code>'] = dataUrl;
+})
+    toDataURL('https://i.imgur.com/8nEZcC5.png', function(dataUrl) {
+  emoteimages['<code>sadge</code>'] = dataUrl;
+})
+    toDataURL('https://i.imgur.com/nsQOa63.gif', function(dataUrl) {
+  emoteimages['<code>feelslagman</code>'] = dataUrl;
+})
+    toDataURL('https://i.imgur.com/nZVYFFr.gif', function(dataUrl) {
+  emoteimages['<code>catjam</code>'] = dataUrl;
+})
+    toDataURL('https://i.imgur.com/PxwMgsk.gif', function(dataUrl) {
+  emoteimages['<code>peped</code>'] = dataUrl;
+})
+    toDataURL('https://i.imgur.com/ijKqqHa.gif', function(dataUrl) {
+  emoteimages['<code>fortnitecard</code>'] = dataUrl;
+})
+    toDataURL('https://i.imgur.com/Wj1pxHY.png', function(dataUrl) {
+  emoteimages['<code>squidab</code>'] = dataUrl;
+})
+    toDataURL('https://i.imgur.com/pvkuV6V.png', function(dataUrl) {
+  emoteimages['<code>dab</code>'] = dataUrl;
+})
+    toDataURL('https://i.imgur.com/j7JMdUI.png', function(dataUrl) {
+  emoteimages['<code>lool</code>'] = dataUrl;
+})
+    toDataURL('https://i.imgur.com/2Xpecxt.png', function(dataUrl) {
+  emoteimages['<code>karp</code>'] = dataUrl;
 })
 
     Update.loadedNew(function (data) {
     if(Elements.$body.attr('data-ImageEmotes') == 'true') {
             var emotes_post = data.body_elem.html();
             var emotes_text = data.body_elem.text();
-        emotes_post = emotes_post.replace("<code>pog</code>", "<img src="+emoteimages[0]+">");
+        the_emote = emotes_post.match(/<code>(.*?)<\/code>/gm);
+        for(emote in the_emote) {
+            if(the_emote[emote].toLowerCase() in emoteimages) {
+                emotes_post = emotes_post.replace(the_emote[emote], "<img style='height:26px;vertical-align:top;' src="+emoteimages[the_emote[emote].toLowerCase()]+"></img>");
+            }
+        }
             data.body_elem.html(emotes_post);
     }
 });
