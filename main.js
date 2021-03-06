@@ -2908,6 +2908,15 @@ toDataURL('https://cdn.frankerfacez.com/emoticon/210748/1', function(dataUrl) {
     toDataURL('https://i.imgur.com/8nEZcC5.png', function(dataUrl) {
   emoteimages['<code>sadge</code>'] = dataUrl;
 })
+    toDataURL('https://i.imgur.com/nsQOa63.gif', function(dataUrl) {
+  emoteimages['<code>feelslagman</code>'] = dataUrl;
+})
+    toDataURL('https://i.imgur.com/nZVYFFr.gif', function(dataUrl) {
+  emoteimages['<code>catjam</code>'] = dataUrl;
+})
+    toDataURL('https://i.imgur.com/PxwMgsk.gif', function(dataUrl) {
+  emoteimages['<code>peped</code>'] = dataUrl;
+})
 
     Update.loadedNew(function (data) {
     if(Elements.$body.attr('data-ImageEmotes') == 'true') {
