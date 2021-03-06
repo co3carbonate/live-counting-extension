@@ -2905,6 +2905,9 @@ toDataURL('https://cdn.frankerfacez.com/emoticon/210748/1', function(dataUrl) {
     toDataURL('https://i.imgur.com/b2dbpI7.png', function(dataUrl) {
   emoteimages['<code>dad</code>'] = dataUrl;
 })
+    toDataURL('https://i.imgur.com/8nEZcC5.png', function(dataUrl) {
+  emoteimages['<code>sadge</code>'] = dataUrl;
+})
 
     Update.loadedNew(function (data) {
     if(Elements.$body.attr('data-ImageEmotes') == 'true') {
@@ -2913,7 +2916,7 @@ toDataURL('https://cdn.frankerfacez.com/emoticon/210748/1', function(dataUrl) {
         the_emote = emotes_post.match(/<code>(.*?)<\/code>/gm);
         for(emote in the_emote) {
             if(the_emote[emote].toLowerCase() in emoteimages) {
-                emotes_post = emotes_post.replace(the_emote[emote], "<img style='height:26px;' src="+emoteimages[the_emote[emote].toLowerCase()]+"></img>");
+                emotes_post = emotes_post.replace(the_emote[emote], "<img style='height:26px;vertical-align:top;' src="+emoteimages[the_emote[emote].toLowerCase()]+"></img>");
             }
         }
             data.body_elem.html(emotes_post);
