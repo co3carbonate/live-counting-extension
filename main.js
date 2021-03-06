@@ -2937,6 +2937,49 @@ toDataURL('https://cdn.frankerfacez.com/emoticon/210748/1', function(dataUrl) {
     toDataURL('https://i.imgur.com/2Xpecxt.png', function(dataUrl) {
   emoteimages['<code>karp</code>'] = dataUrl;
 })
+    toDataURL('https://i.imgur.com/YDNriLs.gif', function(dataUrl) {
+  emoteimages['<code>pants</code>'] = dataUrl;
+})
+    toDataURL('https://i.imgur.com/t3WIdOs.jpg', function(dataUrl) {
+  emoteimages['<code>oooh</code>'] = dataUrl;
+})
+    toDataURL('https://i.imgur.com/Ou8bqZz.png', function(dataUrl) {
+  emoteimages['<code>twitter</code>'] = dataUrl;
+})
+    toDataURL('https://i.imgur.com/0pTsciz.png', function(dataUrl) {
+  emoteimages['<code>harold</code>'] = dataUrl;
+})
+    toDataURL('https://i.imgur.com/bq5Y3Ik.png', function(dataUrl) {
+  emoteimages['<code>david</code>'] = dataUrl;
+})
+    toDataURL('https://i.imgur.com/GtSEKSA.png', function(dataUrl) {
+  emoteimages['<code>taking</code>'] = dataUrl;
+})
+    toDataURL('https://i.imgur.com/nyMBdj0.gif', function(dataUrl) {
+  emoteimages['<code>baller</code>'] = dataUrl;
+})
+    toDataURL('https://i.imgur.com/B8C4ooW.png', function(dataUrl) {
+  emoteimages['<code>asa</code>'] = dataUrl;
+})
+    toDataURL('https://i.imgur.com/ddmEh3J.png', function(dataUrl) {
+  emoteimages['<code>chu</code>'] = dataUrl;
+})
+    toDataURL('https://i.imgur.com/r2ysQSj.png', function(dataUrl) {
+  emoteimages['<code>respite</code>'] = dataUrl;
+})
+    toDataURL('https://i.imgur.com/H8fyjWw.png', function(dataUrl) {
+  emoteimages['<code>sink</code>'] = dataUrl;
+})
+    toDataURL('https://i.imgur.com/YFYEpAV.png', function(dataUrl) {
+  emoteimages['<code>gold</code>'] = dataUrl;
+})
+    toDataURL('https://i.imgur.com/Gj363IU.png', function(dataUrl) {
+  emoteimages['<code>trollface</code>'] = dataUrl;
+})
+    toDataURL('https://i.imgur.com/X42KsOb.png', function(dataUrl) {
+  emoteimages['<code>kshart</code>'] = dataUrl;
+})
+
 
     Update.loadedNew(function (data) {
     if(Elements.$body.attr('data-ImageEmotes') == 'true') {
