@@ -2917,6 +2917,21 @@ toDataURL('https://cdn.frankerfacez.com/emoticon/210748/1', function(dataUrl) {
     toDataURL('https://i.imgur.com/PxwMgsk.gif', function(dataUrl) {
   emoteimages['<code>peped</code>'] = dataUrl;
 })
+    toDataURL('https://i.imgur.com/ijKqqHa.gif', function(dataUrl) {
+  emoteimages['<code>fortnitecard</code>'] = dataUrl;
+})
+    toDataURL('https://i.imgur.com/Wj1pxHY.png', function(dataUrl) {
+  emoteimages['<code>squidab</code>'] = dataUrl;
+})
+    toDataURL('https://i.imgur.com/pvkuV6V.png', function(dataUrl) {
+  emoteimages['<code>dab</code>'] = dataUrl;
+})
+    toDataURL('https://i.imgur.com/j7JMdUI.png', function(dataUrl) {
+  emoteimages['<code>lool</code>'] = dataUrl;
+})
+    toDataURL('https://i.imgur.com/2Xpecxt.png', function(dataUrl) {
+  emoteimages['<code>karp</code>'] = dataUrl;
+})
 
     Update.loadedNew(function (data) {
     if(Elements.$body.attr('data-ImageEmotes') == 'true') {
