@@ -826,7 +826,11 @@ Update.loadedNew(function (data) {
         validcount1 = parse_body(fullcount1)[0];
         validcount2 = parseInt(validcount2);
         validcount1 = parseInt(validcount1);
-        validcount2++;
+        if(THREAD == "te287u41qlnw"){
+            validcount2--;
+        } else {
+            validcount2++;
+        }
         if (validcount2 == validcount1 && author2 != author1 || isNaN(validcount2) == true) {
             validcount3 = validcount1;
             $("#lastcountcount").text(validcount3.toLocaleString());
