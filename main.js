@@ -10,6 +10,13 @@ var VERSION = 'v1.7.0';
 
 var USER = $('#header .user a[href]').html();
 
+// Named Thread
+
+var BACKWARDS = "te287u41qlnw";
+var BASE2 = "te1l2lmdxgkq";
+var BASE3 = "y29ytkycjdth";
+var BASE4 = "xnl0cyj2rdj0";
+
 //100k name information
 var specialnumber = 5;
 var kname1 = 'ItzTaken';
@@ -152,38 +159,62 @@ setTimeout(function(){
 if(window.location.href.indexOf("yrnkgszr6zdu") > -1) { $("#liveupdate-description").append("<p style='background:#e2ffdb;font-size:16px;' id=countdownslow></p>"); document.title = "[live] Slow counting (one count per hour)"; $( ".save-button button.btn" ).click(function() { var countDownDateA = new Date(); countDownDateA.setHours( countDownDateA.getHours() + 1 ); $("#countdownslow").css('background','#e2ffdb'); var tugOfWarWrongDirectionA = setInterval(function() { var nowTugA = new Date().getTime(); var distanceTugA = countDownDateA - nowTugA; var minutesTugA = Math.floor((distanceTugA % (1000 * 60 * 60)) / (1000 * 60)); var secondsTugA = Math.floor((distanceTugA % (1000 * 60)) / 1000); document.getElementById("countdownslow").innerHTML = minutesTugA + "m " + secondsTugA + "s"; document.title = "["+minutesTugA+"m] Slow counting (one count per hour)"; if (distanceTugA < 0) { clearInterval(tugOfWarWrongDirectionA); document.getElementById("countdownslow").innerHTML = "You can post now!"; $("#countdownslow").css('background','#ffaeae'); document.title = "[!!] Slow counting (one count per hour)"; } }, 1000); }); }
 
 //Last count vars (Temporary before I remake it)
-var validcount1 = '';
-var validcount2 = '';
-var validcount3 = '';
-var validtimy = '';
+var current_number = '';
+var last_number = '';
+var expected_number = '';
+var end_of_cur_num = '';
 var validtimestamp = '';
-var vc000t = '';
-var vc100t = '';
-var vc200t = '';
-var vc300t = '';
-var vc400t = '';
-var vc500t = '';
-var vc600t = '';
-var vc700t = '';
-var vc800t = '';
-var vc900t = '';
-var vc000s = '';
-var vc100s = '';
-var vc200s = '';
-var vc300s = '';
-var vc400s = '';
-var vc500s = '';
-var vc600s = '';
-var vc700s = '';
-var vc800s = '';
-var vc900s = '';
-var fullcount1 = '';
-var author1 = '';
-var author2 = '';
+var vc_times = null;
+var vc_splits = null;
+var update_body = '';
+var author_current = '';
+var author_last = '';
 var authorme = $('#header .user a[href]').html();
 var validcountwrong = 0;
 var validcountnotme = 0;
 var all_times = {};
+// Last count functions
+// Get the Splits for the current thread
+function get_splits(){
+    let splits;
+    switch(THREAD){
+        case BACKWARDS:
+            splits = ['900','800','700','600','500','400','300','200','100','000'];
+            break;
+        case BASE2:
+            splits = ['0010000000','0100000000','0110000000','1000000000','1010000000','1100000000','1110000000','0000000000']
+            break;
+        case BASE3:
+            splits = ['010000','020000','100000','110000','120000','200000','210000','220000','000000']
+            break;
+        case BASE4:
+            splits = ['02000','10000','12000','20000','22000','30000','32000','00000']
+            break;
+        default:
+            splits = ['100','200','300','400','500','600','700','800','900','000'];
+            break;
+    }
+    return splits;
+}
+// How many digits are in the split (ex. split X000 requires 3, split X0000 requires 4)
+function get_split_digits(){
+    let digits;
+    switch(THREAD){
+        case BASE2:
+            digits = 10;
+            break;
+        case BASE3:
+            digits = 6;
+            break;
+        case BASE4:
+            digits = 5;
+            break;
+        default:
+            digits = 3;
+            break;
+    }
+    return digits;
+}
 
 // Global Functions
 // from https://pastebin.com/KD6gFhAK thanks MNW {:}
@@ -910,166 +941,108 @@ var ReplyTimes;
         if (!enabledrt)
             return;
         var thisTime = data.elem.find('.body').prev().attr('href');
-        var threadid = thisTime.substring(thisTime.lastIndexOf("live/") + 5,thisTime.lastIndexOf("/updates"));
-        var magin2 = thisTime.substring(thisTime.indexOf("updates/") + 8);
-        var permalink = thisTime.substring(thisTime.indexOf("updates/") + 8);
-        magin2 = magin2.substring(14, 18) + magin2.substring(9, 13) + magin2.substring(0, 8);
-        magin2 = parseInt(magin2, 16);
+        var timestamp_current = thisTime.substring(thisTime.indexOf("updates/") + 8);
+        timestamp_current = timestamp_current.substring(14, 18) + timestamp_current.substring(9, 13) + timestamp_current.substring(0, 8);
+        timestamp_current = parseInt(timestamp_current, 16);
         var thisTime2 = data.elem.find('.body').parent().nextAll('.liveupdate:first').children().first().attr('href');
-        var magin3 = thisTime2.substring(thisTime2.indexOf("updates/") + 8);
-        magin3 = magin3.substring(14, 18) + magin3.substring(9, 13) + magin3.substring(0, 8);
-        magin3 = parseInt(magin3, 16);
-        var timestamp = magin2 - magin3;
+        var timestamp_last = thisTime2.substring(thisTime2.indexOf("updates/") + 8);
+        timestamp_last = timestamp_last.substring(14, 18) + timestamp_last.substring(9, 13) + timestamp_last.substring(0, 8);
+        timestamp_last = parseInt(timestamp_last, 16);
+        var timestamp = timestamp_current - timestamp_last;
         timestamp = timestamp / 10000;
         timestamp = Math.round(timestamp);
         //////////Last Count (messy for now)
         if(Elements.$body.attr('data-LastCount') != 'Off') {
-            if ( isNaN(validcount2) == true ) {
-                validcount2 = validcount1;
+            if ( isNaN(Number(expected_number)) == true ) {
+                last_number = current_number;
             }
-            fullcount1 = data.elem.find('.body > .md').text();
-            author1 = data.elem.find('.body > .author').text();
-            author1 = author1.trim().replace('/u/', '');
-            validcount1 = parse_body(fullcount1)[0];
-            validcount2 = parseInt(validcount2);
-            validcount1 = parseInt(validcount1);
-            if(THREAD == "te287u41qlnw"){
-                validcount2--;
-            } else {
-                validcount2++;
+            // Predict the next number based on current thread
+            function get_expected_low_base(last_num,base){
+                let num_str = last_num.toString();
+                let num_value = parseInt(num_str,base);
+                num_value++;
+                num_str = num_value.toString(base);
+                let expected_number = BigInt(num_str);
+                return expected_number;
             }
-            if (validcount2 == validcount1 && author2 != author1 || isNaN(validcount2) == true) {
-                validcount3 = validcount1;
-                $("#lastcountcount").text(validcount3.toLocaleString());
-                $("#lastcountuser").text(author1);
-                validtimy = validcount3.toString();
-                validtimy = validtimy.substr(validtimy.length - 3);
-                if (validtimy == '000') {
-                    vc900t = magin2;
-                    if (vc800t != '') {
-                        vc900s = vc900t - vc800t;
-                        vc900s = vc900s / 1000;
-                        vc900s = (Math.round(vc900s / 10) * 10) / 10;
-                        $("#split9").text(vc900s);
-                        all_times[validcount3] = vc900s;
-                        $( "#split69" ).text(JSON.stringify(all_times, null, '\t'));
-                    }
-                } else if (validtimy == '900') {
-                    vc800t = magin2;
-                    if (vc700t != '') {
-                        vc800s = vc800t - vc700t;
-                        vc800s = vc800s / 1000;
-                        vc800s = (Math.round(vc800s / 10) * 10) / 10;
-                        $("#split8").text(vc800s);
-                        all_times[validcount3] = vc800s;
-                        $( "#split69" ).text(JSON.stringify(all_times, null, '\t'));
-                    }
-                } else if (validtimy == '800') {
-                    vc700t = magin2;
-                    if (vc600t != '') {
-                        vc700s = vc700t - vc600t;
-                        vc700s = vc700s / 1000;
-                        vc700s = (Math.round(vc700s / 10) * 10) / 10;
-                        $("#split7").text(vc700s);
-                        all_times[validcount3] = vc700s;
-                        $( "#split69" ).text(JSON.stringify(all_times, null, '\t'));
-                    }
-                }  else if (validtimy == '700') {
-                    vc600t = magin2;
-                    if (vc500t != '') {
-                        vc600s = vc600t - vc500t;
-                        vc600s = vc600s / 1000;
-                        vc600s = (Math.round(vc600s / 10) * 10) / 10;
-                        $("#split6").text(vc600s);
-                        all_times[validcount3] = vc600s;
-                        $( "#split69" ).text(JSON.stringify(all_times, null, '\t'));
-                    }
-                } else if (validtimy == '600') {
-                    vc500t = magin2;
-                    if (vc400t != '') {
-                        vc500s = vc500t - vc400t;
-                        vc500s = vc500s / 1000;
-                        vc500s = (Math.round(vc500s / 10) * 10) / 10;
-                        $("#split5").text(vc500s);
-                        all_times[validcount3] = vc500s;
-                        $( "#split69" ).text(JSON.stringify(all_times, null, '\t'));
-                    }
-
-                } else if (validtimy == '500') {
-                    vc400t = magin2;
-                    if (vc300t != '') {
-                        vc400s = vc400t - vc300t;
-                        vc400s = vc400s / 1000;
-                        vc400s = (Math.round(vc400s / 10) * 10) / 10;
-                        $("#split4").text(vc400s);
-                        all_times[validcount3] = vc400s;
-                        $( "#split69" ).text(JSON.stringify(all_times, null, '\t'));
-                    }
-                }  else if (validtimy == '400') {
-                    vc300t = magin2;
-                    if (vc200t != '') {
-                        vc300s = vc300t - vc200t;
-                        vc300s = vc300s / 1000;
-                        vc300s = (Math.round(vc300s / 10) * 10) / 10;
-                        $("#split3").text(vc300s);
-                        all_times[validcount3] = vc300s;
-                        $( "#split69" ).text(JSON.stringify(all_times, null, '\t'));
-                    }
-                }  else if (validtimy == '300') {
-                    vc200t = magin2;
-                    if (vc100t != '') {
-                        vc200s = vc200t - vc100t;
-                        vc200s = vc200s / 1000;
-                        vc200s = (Math.round(vc200s / 10) * 10) / 10;
-                        $("#split2").text(vc200s);
-                        all_times[validcount3] = vc200s;
-                        $( "#split69" ).text(JSON.stringify(all_times, null, '\t'));
-                    }
-                }  else if (validtimy == '200') {
-                    vc100t = magin2;
-                    if (vc000t != '') {
-                        vc100s = vc100t - vc000t;
-                        vc100s = vc100s / 1000;
-                        vc100s = (Math.round(vc100s / 10) * 10) / 10;
-                        $("#split1").text(vc100s);
-                        all_times[validcount3] = vc100s;
-                        $( "#split69" ).text(JSON.stringify(all_times, null, '\t'));
-                    }
-                }  else if (validtimy == '100') {
-                    vc000t = magin2;
-                    if (vc900t != '') {
-                        vc000s = vc000t - vc900t;
-                        vc000s = vc000s / 1000;
-                        vc000s = (Math.round(vc000s / 10) * 10) / 10;
-                        $("#split0").text(vc000s);
-                        all_times[validcount3] = vc000s;
+            function get_expected(last_num){
+                if(last_num === '')return current_number;
+                let expected_number;
+                switch(THREAD){
+                    case BASE2:
+                        expected_number = get_expected_low_base(last_num, 2);
+                        break;
+                    case BASE3:
+                        expected_number = get_expected_low_base(last_num, 3);
+                        break;
+                    case BASE4:
+                        expected_number = get_expected_low_base(last_num, 4);
+                        break;
+                    case BACKWARDS:
+                        expected_number = last_num - 1n;
+                        break;
+                    default:
+                        expected_number = last_num + 1n;
+                        break;
+                }
+                return expected_number;
+            }
+            update_body = data.elem.find('.body > .md').text();
+            author_current = data.elem.find('.body > .author').text();
+            author_current = author_current.trim().replace('/u/', '');
+            let current_number_string = parse_body(update_body)[0];
+            current_number = current_number_string === null ? null: BigInt(current_number_string);
+            expected_number = get_expected(last_number);
+            if (expected_number == current_number && author_last != author_current || isNaN(Number(expected_number)) == true) {
+                $("#lastcountcount").text(current_number.toLocaleString());
+                $("#lastcountuser").text(author_current);
+                end_of_cur_num = current_number_string.substr(current_number_string.length - get_split_digits());
+                // If current number is end of split, update splits
+                let splits = get_splits();
+                let splits_amount = splits.length;
+                // Initialise correct amount of splits
+                if(vc_times === null){
+                    vc_times  = Array(splits_amount).fill('');
+                    vc_splits = Array(splits_amount).fill('');
+                }
+                if(splits.includes(end_of_cur_num)){
+                    let index = splits.indexOf(end_of_cur_num);
+                    let prev_index = (index+splits_amount-1)%splits_amount; //Subtracts one with wraparound
+                    vc_times[index] = timestamp_current;
+                    if(vc_times[prev_index] != ''){
+                        let split_ms = vc_times[index] - vc_times[prev_index];
+                        let split_s = split_ms / 1000;
+                        let split_rounded = Math.round(split_s / 10);
+                        vc_splits[index] = split_rounded;
+                        $("#split"+index).text(split_rounded);
+                        all_times[current_number] = split_rounded;
                         $( "#split69" ).text(JSON.stringify(all_times, null, '\t'));
                     }
                 }
                 validcountwrong = 0;
-                if (author1 == authorme) {
+                if (author_current == authorme) {
                     validcountnotme = 0;
                 } else {
                     validcountnotme = 1;
                 }
-                author2 = author1;
+                author_last = author_current;
+                last_number = current_number;
             } else {
-                validcount2--;
-                validcount3 = validcount2;
                 validcountwrong++;
                 if (validcountwrong == 30) {
                     document.getElementById("lastcountdesc").innerHTML = 'Click to reset?';
                     document.getElementById("lastcountdesc").style.background = '#ef7070';
                     /*var wrongtimer = setTimeout( function() {
-                    document.getElementById("lastcountdesc").innerHTML = 'Last count:';
-                    document.getElementById("lastcountdesc").style.background = '';
-                    $("#lastcountdesc").click();
-                },15000);*/
+                        document.getElementById("lastcountdesc").innerHTML = 'Last count:';
+                        document.getElementById("lastcountdesc").style.background = '';
+                        $("#lastcountdesc").click();
+                    },15000);*/
                 }
             }
         }
         //////////
-        var testhref = "https://old.reddit.com/live/" + threadid + "/updates/" + permalink;
+        var permalink = thisTime.substring(thisTime.indexOf("updates/") + 8);
+        var testhref = "https://old.reddit.com/live/" + THREAD + "/updates/" + permalink;
         var colortest = '#7dd4fa';
         var elcolor = '#000000';
         var randomx = '0';
@@ -1083,7 +1056,7 @@ var ReplyTimes;
             darkcheck = 1;
             elcolor = '#ddd';
         } else if (Elements.$body.attr('data-darkMode') == 'Off') {
-            darkcheck = 0;
+                darkcheck = 0;
         }
         if (timestamp <= -500) {
             colortest = 'linear-gradient(to right,red,orange,yellow,green,blue,indigo,violet)';
@@ -1383,7 +1356,14 @@ var LastCount;
     // INITIALIZATION
     Elements.$body.attr('data-LastCount', 'Off');
     var dumpy = 0;
-    $('#liveupdate-header').prepend("<div id=idlecontainer><div id=statsplace><p id=lastcountdesc>Last count:<p id=lastcountcount></p><p>/u/<span id=lastcountuser></span></p></p><div id=splits><p>000s:<span id=split0></span></p><p>100s:<span id=split1></span></p><p>200s:<span id=split2></span></p><p>300s:<span id=split3></span></p><p>400s:<span id=split4></span></p><p>500s:<span id=split5></span></p><p>600s:<span id=split6></span></p><p>700s:<span id=split7></span></p><p>800s:<span id=split8></span></p><p>900s:<span id=split9></span></p><p><span id=dumptoggle>Dump [+]:</span><div id=split69></div></p></div></div></div>");
+    // Gets the splits for the current thread
+    let splits = get_splits();
+    let live_update_header_text = "<div id=idlecontainer><div id=statsplace><p id=lastcountdesc>Last count:<p id=lastcountcount></p><p>/u/<span id=lastcountuser></span></p><div id=splits>"
+    for(let i=0; i<splits.length;i++){
+        live_update_header_text+="<p>"+splits[i]+":<span id=split"+i+"></span></p>"
+    }
+    live_update_header_text+="<p><span id=dumptoggle>Dump [+]:</span><div id=split69></div></p></div></div></div>"
+    $('#liveupdate-header').prepend(live_update_header_text);
     $('#idlecontainer').css({'display': 'none', 'position': 'absolute', 'left': '1%', 'top': '20%', 'width': '115px', 'background': 'transparent'});
     $("#split69").css({'display': 'none',});
     $( "#lastcountdesc" ).hover(function() {
@@ -1393,12 +1373,12 @@ var LastCount;
         document.getElementById("lastcountdesc").innerHTML = 'Last count:';
     });
     $( "#lastcountdesc" ).click(function() {
-        validcount1 = '';
-        validcount2 = '';
-        validcount3 = '';
-        fullcount1 = '';
-        author1 = '';
-        author2 = '';
+        current_number = '';
+        last_number = '';
+        expected_number = '';
+        update_body = '';
+        author_current = '';
+        author_last = '';
     });
     $( "#split69" ).click(function() {
         $( "#split69" ).text(JSON.stringify(all_times, null, '\t'));
