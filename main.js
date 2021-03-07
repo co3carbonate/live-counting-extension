@@ -1790,8 +1790,8 @@ var ColoredUsernames;
             ///u/amazingpikachu_38 username special
             if (data.author == kname5) {
 
-                var pikarand = Math.floor(Math.random() * 61) + 1;
-                //pikarand = 61; //362021
+                var pikarand = Math.floor(Math.random() * 62) + 1;
+                //pikarand = 62; //362021
                 console.log(pikarand);
                 var recordback = Math.floor(Math.random() * 1000) + 1;
                 var mnw_lag_name = Math.floor(Math.random() * 5000) + 1;
@@ -3647,7 +3647,22 @@ data.author_elem.html(`<div style="color:transparent;background-clip:text;-webki
                     davidstring2 = davidstring2 + ` <span class="forfeited">FORFEITED</span>`;
                 }
                 data.author_elem.html(davidstring2).css('margin-left',randomShift+'px');
-} else if (pikarand == 'Record') {
+} else if (pikarand == 62) {
+    var testArray = ['a','m','a','z','i','n','g','p','i','k','a','c','h','u','_','3','8'];
+Shuffle(testArray);
+
+        data.author_elem.css({
+                  'font-weight': 'bold',
+                  'display': 'inline-block',
+'font-size': '15px'
+              });
+
+             data.author_elem.html(`<div style='color:#ffff00'>¡<span id=shuffled>`+testArray.join("")+`</span>!</div>`)
+	var testArray2 = testArray.join("");
+if (testArray2 == 'amazingpikachu_38') {
+             data.author_elem.html(`<span id="rainbowtext" style="color: transparent; background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text!important;">¡ a m a z i n g p i k a c h u _ 3 8 !</span>`);
+}
+}else if (pikarand == 'Record') {
     data.author_elem.css({
         'letter-spacing': '2px',
         'font-weight': 'bold',
