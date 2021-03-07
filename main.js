@@ -1790,7 +1790,7 @@ var ColoredUsernames;
             ///u/amazingpikachu_38 username special
             if (data.author == kname5) {
 
-                var pikarand = Math.floor(Math.random() * 54) + 1;
+                var pikarand = Math.floor(Math.random() * 61) + 1;
                 //pikarand = 61; //362021
                 console.log(pikarand);
                 var recordback = Math.floor(Math.random() * 1000) + 1;
