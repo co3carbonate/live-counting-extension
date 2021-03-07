@@ -872,188 +872,191 @@ var Update;
 ///////////////////
 var ReplyTimes;
 (function (ReplyTimes) {
-// INITIALIZATION
-// Options
-var enabledrt = true;
-Options.addCheckbox({
-    label: 'ENABLE REPLY TIMES',
-    "default": true,
-    section: 'Advanced 2',
-    help: 'Enables LCE reply times.',
-    onchange: function () {
-        enabledrt = this.prop('checked');
-        timestampEnable = enabledrt;
-    }
-});
-var specialTimes = {
-    '1': {user:'rschaosid', words:'(rschaosid) 1',bgcolor:'#008080',fontcolor:'#ffffff'},
-    '8': {user:'gordonpt8', words:'gordonpt8',bgcolor:'#00ff00',fontcolor:'#000000'},
-    '15': {user:'TheMatsValk', words:'(TheMatsValk) 15',bgcolor:'#00f5ff',fontcolor:'#000000'},
-    '18': {user:'Kris18', words:'Kris18',bgcolor:'#0000ff',fontcolor:'#ffffff'},
-    '36': {user:'Iamspeedy36', words:'Iamspeedy36',bgcolor:'#00BFFF',fontcolor:'#000000'},
-    '37': {user:'amazingpikachu_38', words:'amazingpikachu_37',bgcolor:'#ffff00',fontcolor:'#000000'},
-    '47': {user:'kdiuro13', words:'(kdiuro13) 47',bgcolor:'#191970',fontcolor:'#ffffff'},
-    '69': {user:'ddodd69', words:'ddodd69',bgcolor:'#a89332',fontcolor:'#000000'},
-    '100': {user:'abplows', words:'(abplows) 100',bgcolor:'#2b0090',fontcolor:'#ffffff'},
-    '123': {user:'davidjl123', words:'davidjl123',bgcolor:'#6495ED',fontcolor:'#000000'},
-    '123-2': {user:'dominodan123', words:'dominodan123',bgcolor:'#0000ff',fontcolor:'#ffffff'},
-    '151': {user:'MewDP', words:'(MewDP) 151',bgcolor:'#FFFF33',fontcolor:'#000000'},
-    '191': {user:'PaleRepresentative', words:'(PaleRepresentative) 191',bgcolor:'#8FBC8F',fontcolor:'#000000'},
-    '200': {user:'QuestoGuy', words:'(QuestoGuy) 200',bgcolor:'#800080',fontcolor:'#ffffff'},
-    '212': {user:'MrBahr12', words:'MrBahr212',bgcolor:'#CC6600',fontcolor:'#ffffff'},
-    '217': {user:'Lonadont', words:'(Lonadont) 217',bgcolor:'#a35252',fontcolor:'#ffffff'},
-    '220': {user:'Chalupa_Dad', words:'(Chalupa_Dad) 220',bgcolor:'#F08080',fontcolor:'#000000'},
-    '222': {user:'treje', words:'(treje) 222',bgcolor:'#ffc130',fontcolor:'#000000'},
-    '234': {user:'ElliottB1', words:'(ElliottB1) 234',bgcolor:'#00FFDD',fontcolor:'#000000'},
-    '301': {user:'piyushsharma301', words:'piyushsharma301',bgcolor:'#ff0000',fontcolor:'#000000'},
-    '333': {user:'Majestic_Bear', words:'(Majestic_Bear) 333',bgcolor:'#8A2BE2',fontcolor:'#ffffff'},
-    '360': {user:'NikinCZ', words:'(NikinCZ) 360',bgcolor:'#86D8CA',fontcolor:'#000000'},
-    '364': {user:'SecretAsianMa', words:'(SecretAsianMa) 364',bgcolor:'#373267',fontcolor:'#ffffff'},
-    '369': {user:'TOP_20', words:'(Whitney) 369',bgcolor:'#D9009C',fontcolor:'#ffffff'},
-    '373': {user:'MaybeNotWrong', words:'(MaybeNotWrong) 373',bgcolor:'#066666',fontcolor:'#ffffff'},
-    '404': {user:'Tranquilsunrise', words:'(Tranquilsunrise) 404',bgcolor:'#ffa500',fontcolor:'#000000'},
-    '404-2': {user:'KingCaspianX', words:'(KingCaspianX) 404',bgcolor:'#191970',fontcolor:'#ffffff'},
-    '420': {user:'alienth', words:'420',bgcolor:'#00ff00',fontcolor:'#000000'},
-    '471': {user:'albert471', words:'albert471',bgcolor:'#0000ff',fontcolor:'#ffffff'},
-    '500': {user:'Rajalaxo', words:'(Rajalaxo) 500',bgcolor:'#f6dec0',fontcolor:'#000000'},
-    '501': {user:'LeinadSpoon', words:'(LeinadSpoon) 501',bgcolor:'#520063',fontcolor:'#ffffff'},
-    '505': {user:'ItzTaken', words:'(ItzTaken) 505',bgcolor:'#32ff95',fontcolor:'#000000'},
-    '555': {user:'PrinceCrinkle', words:'(PrinceCrinkle) 555',bgcolor:'#00FFFF',fontcolor:'#000000'},
-    '559': {user:'iwannaplay5050', words:'(iwannaplay5050) 559',bgcolor:'#B22222',fontcolor:'#ffffff'},
-    '615': {user:'parker_cube', words:'(parker_cube) 615',bgcolor:'#71589f',fontcolor:'#ffffff'},
-    '616': {user:'DemonBurritoCat', words:'(DemonBurritoCat) 616',bgcolor:'#890003',fontcolor:'#ffffff'},
-    '639': {user:'MrUnderdawg', words:'(MrUnderdawg) 639',bgcolor:'#35e0cf',fontcolor:'#000000'},
-    '666': {user:'rideride', words:'666',bgcolor:'#ff0000',fontcolor:'#000000'},
-    '689': {user:'smarvin6689', words:'(smarvin6689) 689',bgcolor:'#060647',fontcolor:'#ffffff'},
-    '700': {user:'Noob2137', words:'(Noob2137) 700',bgcolor:'#ff69ff',fontcolor:'#000000'},
-    '777': {user:'artbn', words:'(artbn) 777',bgcolor:'#e66b00',fontcolor:'#000000'},
-    '845': {user:'noduorg', words:'(noduorg) 845',bgcolor:'#0d2d89',fontcolor:'#ffffff'},
-    '888': {user:'NobodyL0vesMe', words:'(NobodyL0vesMe) 888',bgcolor:'#BC12DD',fontcolor:'#000000'},
-    '973': {user:'Smartstocks', words:'(Smartstocks) 973',bgcolor:'#840d0d',fontcolor:'#ffffff'},
-    '998': {user:'qwertylool', words:'(qwertylool) 998',bgcolor:'#9acd32',fontcolor:'#000000'},
-    '1111': {user:'andrewtheredditor', words:'(andrewtheredditor) 1111',bgcolor:'#2cd626',fontcolor:'#ffffff'},
-    '1234': {user:'randomusername123458', words:'(randomusername123458) 1234',bgcolor:'#00cc99',fontcolor:'#000000'},
-    '1521': {user:'darthvader1521', words:'darthvader1521',bgcolor:'#ffaf47',fontcolor:'#000000'},
-    '1616': {user:'VitaminB16', words:'VitaminB1616',bgcolor:'#1affa7',fontcolor:'#000000'},
-    '69420': {user:'GrunfTNT', words:'(lol) 69420',bgcolor:'#bb00ff',fontcolor:'#ffff00'},
-};
-Update.loadedNew(function (data) {
-    if (!enabledrt)
-        return;
-    var thisTime = data.elem.find('.body').prev().attr('href');
-    var timestamp_current = thisTime.substring(thisTime.indexOf("updates/") + 8);
-    timestamp_current = timestamp_current.substring(14, 18) + timestamp_current.substring(9, 13) + timestamp_current.substring(0, 8);
-    timestamp_current = parseInt(timestamp_current, 16);
-    var thisTime2 = data.elem.find('.body').parent().nextAll('.liveupdate:first').children().first().attr('href');
-    var timestamp_last = thisTime2.substring(thisTime2.indexOf("updates/") + 8);
-    timestamp_last = timestamp_last.substring(14, 18) + timestamp_last.substring(9, 13) + timestamp_last.substring(0, 8);
-    timestamp_last = parseInt(timestamp_last, 16);
-    var timestamp = timestamp_current - timestamp_last;
-    timestamp = timestamp / 10000;
-    timestamp = Math.round(timestamp);
-    //////////Last Count (messy for now)
-    if(Elements.$body.attr('data-LastCount') != 'Off') {
-        if ( isNaN(Number(expected_number)) == true ) {
-            last_number = current_number;
+    // INITIALIZATION
+    // Options
+    var enabledrt = true;
+    Options.addCheckbox({
+        label: 'ENABLE REPLY TIMES',
+        "default": true,
+        section: 'Advanced 2',
+        help: 'Enables LCE reply times.',
+        onchange: function () {
+            enabledrt = this.prop('checked');
+            timestampEnable = enabledrt;
         }
-        // Predict the next number based on current thread
-        function get_expected_low_base(last_num,base){
-            let num_str = last_num.toString();
-            let num_value = parseInt(num_str,base);
-            num_value++;
-            num_str = num_value.toString(base);
-            let expected_number = BigInt(num_str);
-            return expected_number;
-        }
-        function get_expected(last_num){
-            if(last_num === '')return current_number;
-            let expected_number;
-            switch(THREAD){
-                case BASE2:
-                    expected_number = get_expected_low_base(last_num, 2);
-                    break;
-                case BASE3:
-                    expected_number = get_expected_low_base(last_num, 3);
-                    break;
-                case BASE4:
-                    expected_number = get_expected_low_base(last_num, 4);
-                    break;
-                case BACKWARDS:
-                    expected_number = last_num - 1;
-                    break;
-                default:
-                    expected_number = last_num + 1;
-                    break;
+    });
+    var specialTimes = {
+        '1': {user:'rschaosid', words:'(rschaosid) 1',bgcolor:'#008080',fontcolor:'#ffffff'},
+        '8': {user:'gordonpt8', words:'gordonpt8',bgcolor:'#00ff00',fontcolor:'#000000'},
+        '15': {user:'TheMatsValk', words:'(TheMatsValk) 15',bgcolor:'#00f5ff',fontcolor:'#000000'},
+        '18': {user:'Kris18', words:'Kris18',bgcolor:'#0000ff',fontcolor:'#ffffff'},
+        '36': {user:'Iamspeedy36', words:'Iamspeedy36',bgcolor:'#00BFFF',fontcolor:'#000000'},
+        '37': {user:'amazingpikachu_38', words:'amazingpikachu_37',bgcolor:'#ffff00',fontcolor:'#000000'},
+        '47': {user:'kdiuro13', words:'(kdiuro13) 47',bgcolor:'#191970',fontcolor:'#ffffff'},
+        '69': {user:'ddodd69', words:'ddodd69',bgcolor:'#a89332',fontcolor:'#000000'},
+        '100': {user:'abplows', words:'(abplows) 100',bgcolor:'#2b0090',fontcolor:'#ffffff'},
+        '123': {user:'davidjl123', words:'davidjl123',bgcolor:'#6495ED',fontcolor:'#000000'},
+        '123-2': {user:'dominodan123', words:'dominodan123',bgcolor:'#0000ff',fontcolor:'#ffffff'},
+        '151': {user:'MewDP', words:'(MewDP) 151',bgcolor:'#FFFF33',fontcolor:'#000000'},
+        '191': {user:'PaleRepresentative', words:'(PaleRepresentative) 191',bgcolor:'#8FBC8F',fontcolor:'#000000'},
+        '200': {user:'QuestoGuy', words:'(QuestoGuy) 200',bgcolor:'#800080',fontcolor:'#ffffff'},
+        '212': {user:'MrBahr12', words:'MrBahr212',bgcolor:'#CC6600',fontcolor:'#ffffff'},
+        '217': {user:'Lonadont', words:'(Lonadont) 217',bgcolor:'#a35252',fontcolor:'#ffffff'},
+        '220': {user:'Chalupa_Dad', words:'(Chalupa_Dad) 220',bgcolor:'#F08080',fontcolor:'#000000'},
+        '222': {user:'treje', words:'(treje) 222',bgcolor:'#ffc130',fontcolor:'#000000'},
+        '234': {user:'ElliottB1', words:'(ElliottB1) 234',bgcolor:'#00FFDD',fontcolor:'#000000'},
+        '301': {user:'piyushsharma301', words:'piyushsharma301',bgcolor:'#ff0000',fontcolor:'#000000'},
+        '333': {user:'Majestic_Bear', words:'(Majestic_Bear) 333',bgcolor:'#8A2BE2',fontcolor:'#ffffff'},
+        '360': {user:'NikinCZ', words:'(NikinCZ) 360',bgcolor:'#86D8CA',fontcolor:'#000000'},
+        '364': {user:'SecretAsianMa', words:'(SecretAsianMa) 364',bgcolor:'#373267',fontcolor:'#ffffff'},
+        '369': {user:'TOP_20', words:'(Whitney) 369',bgcolor:'#D9009C',fontcolor:'#ffffff'},
+        '373': {user:'MaybeNotWrong', words:'(MaybeNotWrong) 373',bgcolor:'#066666',fontcolor:'#ffffff'},
+        '404': {user:'Tranquilsunrise', words:'(Tranquilsunrise) 404',bgcolor:'#ffa500',fontcolor:'#000000'},
+        '404-2': {user:'KingCaspianX', words:'(KingCaspianX) 404',bgcolor:'#191970',fontcolor:'#ffffff'},
+        '420': {user:'alienth', words:'420',bgcolor:'#00ff00',fontcolor:'#000000'},
+        '471': {user:'albert471', words:'albert471',bgcolor:'#0000ff',fontcolor:'#ffffff'},
+        '500': {user:'Rajalaxo', words:'(Rajalaxo) 500',bgcolor:'#f6dec0',fontcolor:'#000000'},
+        '501': {user:'LeinadSpoon', words:'(LeinadSpoon) 501',bgcolor:'#520063',fontcolor:'#ffffff'},
+        '505': {user:'ItzTaken', words:'(ItzTaken) 505',bgcolor:'#32ff95',fontcolor:'#000000'},
+        '555': {user:'PrinceCrinkle', words:'(PrinceCrinkle) 555',bgcolor:'#00FFFF',fontcolor:'#000000'},
+        '559': {user:'iwannaplay5050', words:'(iwannaplay5050) 559',bgcolor:'#B22222',fontcolor:'#ffffff'},
+        '615': {user:'parker_cube', words:'(parker_cube) 615',bgcolor:'#71589f',fontcolor:'#ffffff'},
+        '616': {user:'DemonBurritoCat', words:'(DemonBurritoCat) 616',bgcolor:'#890003',fontcolor:'#ffffff'},
+        '639': {user:'MrUnderdawg', words:'(MrUnderdawg) 639',bgcolor:'#35e0cf',fontcolor:'#000000'},
+        '666': {user:'rideride', words:'666',bgcolor:'#ff0000',fontcolor:'#000000'},
+        '689': {user:'smarvin6689', words:'(smarvin6689) 689',bgcolor:'#060647',fontcolor:'#ffffff'},
+        '700': {user:'Noob2137', words:'(Noob2137) 700',bgcolor:'#ff69ff',fontcolor:'#000000'},
+        '777': {user:'artbn', words:'(artbn) 777',bgcolor:'#e66b00',fontcolor:'#000000'},
+        '845': {user:'noduorg', words:'(noduorg) 845',bgcolor:'#0d2d89',fontcolor:'#ffffff'},
+        '888': {user:'NobodyL0vesMe', words:'(NobodyL0vesMe) 888',bgcolor:'#BC12DD',fontcolor:'#000000'},
+        '973': {user:'Smartstocks', words:'(Smartstocks) 973',bgcolor:'#840d0d',fontcolor:'#ffffff'},
+        '998': {user:'qwertylool', words:'(qwertylool) 998',bgcolor:'#9acd32',fontcolor:'#000000'},
+        '1111': {user:'andrewtheredditor', words:'(andrewtheredditor) 1111',bgcolor:'#2cd626',fontcolor:'#ffffff'},
+        '1234': {user:'randomusername123458', words:'(randomusername123458) 1234',bgcolor:'#00cc99',fontcolor:'#000000'},
+        '1521': {user:'darthvader1521', words:'darthvader1521',bgcolor:'#ffaf47',fontcolor:'#000000'},
+        '1616': {user:'VitaminB16', words:'VitaminB1616',bgcolor:'#1affa7',fontcolor:'#000000'},
+        '69420': {user:'GrunfTNT', words:'(lol) 69420',bgcolor:'#bb00ff',fontcolor:'#ffff00'},
+    };
+    Update.loadedNew(function (data) {
+        if (!enabledrt)
+            return;
+        var thisTime = data.elem.find('.body').prev().attr('href');
+        var timestamp_current = thisTime.substring(thisTime.indexOf("updates/") + 8);
+        timestamp_current = timestamp_current.substring(14, 18) + timestamp_current.substring(9, 13) + timestamp_current.substring(0, 8);
+        timestamp_current = parseInt(timestamp_current, 16);
+        var thisTime2 = data.elem.find('.body').parent().nextAll('.liveupdate:first').children().first().attr('href');
+        var timestamp_last = thisTime2.substring(thisTime2.indexOf("updates/") + 8);
+        timestamp_last = timestamp_last.substring(14, 18) + timestamp_last.substring(9, 13) + timestamp_last.substring(0, 8);
+        timestamp_last = parseInt(timestamp_last, 16);
+        var timestamp = timestamp_current - timestamp_last;
+        timestamp = timestamp / 10000;
+        timestamp = Math.round(timestamp);
+        //////////Last Count (messy for now)
+        if(Elements.$body.attr('data-LastCount') != 'Off') {
+            if ( isNaN(Number(expected_number)) == true ) {
+                last_number = current_number;
             }
-            return expected_number;
-        }
-        update_body = data.elem.find('.body > .md').text();
-        author_current = data.elem.find('.body > .author').text();
-        author_current = author_current.trim().replace('/u/', '');
-        let current_number_string = parse_body(update_body)[0];
-        current_number = current_number_string === null ? null: BigInt(current_number_string);
-        expected_number = get_expected(last_number);
-        if (expected_number == current_number && author_last != author_current || isNaN(Number(expected_number)) == true) {
-            $("#lastcountcount").text(current_number.toLocaleString());
-            $("#lastcountuser").text(author_current);
-            end_of_cur_num = current_number_string.substr(current_number_string.length - get_split_digits());
-            // If current number is end of split, update splits
-            let splits = get_splits();
-            let splits_amount = splits.length;
-            // Initialise correct amount of splits
-            if(vc_times === null){
-                vc_times  = Array(splits_amount).fill('');
-                vc_splits = Array(splits_amount).fill('');
+            // Predict the next number based on current thread
+            function get_expected_low_base(last_num,base){
+                let num_str = last_num.toString();
+                let num_value = parseInt(num_str,base);
+                num_value++;
+                num_str = num_value.toString(base);
+                let expected_number = BigInt(num_str);
+                return expected_number;
             }
-            if(splits.includes(end_of_cur_num)){
-                let index = splits.indexOf(end_of_cur_num);
-                let prev_index = (index+splits_amount-1)%splits_amount; //Subtracts one with wraparound
-                vc_times[index] = timestamp_current;
-                if(vc_times[prev_index] != ''){
-                    let split_ms = vc_times[index] - vc_times[prev_index];
-                    let split_s = split_ms / 1000;
-                    let split_rounded = Math.round(split_s / 10);
-                    vc_splits[index] = split_rounded;
-                    $("#split"+index).text(split_rounded);
-                    all_times[current_number] = split_rounded;
-                    $( "#split69" ).text(JSON.stringify(all_times, null, '\t'));
+            function get_expected(last_num){
+                if(last_num === '')return current_number;
+                let expected_number;
+                switch(THREAD){
+                    case BASE2:
+                        expected_number = get_expected_low_base(last_num, 2);
+                        break;
+                    case BASE3:
+                        expected_number = get_expected_low_base(last_num, 3);
+                        break;
+                    case BASE4:
+                        expected_number = get_expected_low_base(last_num, 4);
+                        break;
+                    case BACKWARDS:
+                        expected_number = last_num - 1n;
+                        break;
+                    default:
+                        expected_number = last_num + 1n;
+                        break;
                 }
+                return expected_number;
             }
-            validcountwrong = 0;
-            if (author_current == authorme) {
-                validcountnotme = 0;
+            update_body = data.elem.find('.body > .md').text();
+            author_current = data.elem.find('.body > .author').text();
+            author_current = author_current.trim().replace('/u/', '');
+            let current_number_string = parse_body(update_body)[0];
+            current_number = current_number_string === null ? null: BigInt(current_number_string);
+            expected_number = get_expected(last_number);
+            if (expected_number == current_number && author_last != author_current || isNaN(Number(expected_number)) == true) {
+                $("#lastcountcount").text(current_number.toLocaleString());
+                $("#lastcountuser").text(author_current);
+                end_of_cur_num = current_number_string.substr(current_number_string.length - get_split_digits());
+                // If current number is end of split, update splits
+                let splits = get_splits();
+                let splits_amount = splits.length;
+                // Initialise correct amount of splits
+                if(vc_times === null){
+                    vc_times  = Array(splits_amount).fill('');
+                    vc_splits = Array(splits_amount).fill('');
+                }
+                if(splits.includes(end_of_cur_num)){
+                    let index = splits.indexOf(end_of_cur_num);
+                    let prev_index = (index+splits_amount-1)%splits_amount; //Subtracts one with wraparound
+                    vc_times[index] = timestamp_current;
+                    if(vc_times[prev_index] != ''){
+                        let split_ms = vc_times[index] - vc_times[prev_index];
+                        let split_s = split_ms / 1000;
+                        let split_rounded = Math.round(split_s / 10);
+                        vc_splits[index] = split_rounded;
+                        $("#split"+index).text(split_rounded);
+                        all_times[current_number] = split_rounded;
+                        $( "#split69" ).text(JSON.stringify(all_times, null, '\t'));
+                    }
+                }
+                validcountwrong = 0;
+                if (author_current == authorme) {
+                    validcountnotme = 0;
+                } else {
+                    validcountnotme = 1;
+                }
+                author_last = author_current;
+                last_number = current_number;
             } else {
-                validcountnotme = 1;
-            }
-            author_last = author_current;
-            last_number = current_number;
-        } else {
-            validcountwrong++;
-            if (validcountwrong == 30) {
-                document.getElementById("lastcountdesc").innerHTML = 'Click to reset?';
-                document.getElementById("lastcountdesc").style.background = '#ef7070';
-                /*var wrongtimer = setTimeout( function() {
-                    document.getElementById("lastcountdesc").innerHTML = 'Last count:';
-                    document.getElementById("lastcountdesc").style.background = '';
-                    $("#lastcountdesc").click();
-                },15000);*/
+                validcountwrong++;
+                if (validcountwrong == 30) {
+                    document.getElementById("lastcountdesc").innerHTML = 'Click to reset?';
+                    document.getElementById("lastcountdesc").style.background = '#ef7070';
+                    /*var wrongtimer = setTimeout( function() {
+                        document.getElementById("lastcountdesc").innerHTML = 'Last count:';
+                        document.getElementById("lastcountdesc").style.background = '';
+                        $("#lastcountdesc").click();
+                    },15000);*/
                 }
             }
         }
-    }
-    //////////
-    var permalink = thisTime.substring(thisTime.indexOf("updates/") + 8);
-    var testhref = "https://old.reddit.com/live/" + THREAD + "/updates/" + permalink;
-    var colortest = '#7dd4fa';
-    var elcolor = '#000000';
-    var randomx = '0';
-    darkcheck = 0;
-    if (Elements.$body.attr('data-darkMode') == 'Default') {
-        if ($('#lc-body').hasClass('res-nightmode')) {
+        //////////
+        var permalink = thisTime.substring(thisTime.indexOf("updates/") + 8);
+        var testhref = "https://old.reddit.com/live/" + THREAD + "/updates/" + permalink;
+        var colortest = '#7dd4fa';
+        var elcolor = '#000000';
+        var randomx = '0';
+        darkcheck = 0;
+        if (Elements.$body.attr('data-darkMode') == 'Default') {
+            if ($('#lc-body').hasClass('res-nightmode')) {
+                darkcheck = 1;
+                elcolor = '#ddd';
+            }
+        } else if (Elements.$body.attr('data-darkMode') == 'On') {
             darkcheck = 1;
             elcolor = '#ddd';
         } else if (Elements.$body.attr('data-darkMode') == 'Off') {
-            darkcheck = 0;
+                darkcheck = 0;
         }
         if (timestamp <= -500) {
             colortest = 'linear-gradient(to right,red,orange,yellow,green,blue,indigo,violet)';
