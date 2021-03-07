@@ -851,25 +851,11 @@ Update.loadedNew(function (data) {
         }
         // Predict the next number based on current thread
         function get_expected_low_base(last_num,base){
-            let num_arr = last_num.toString().split("").map((s)=>parseInt(s)).reverse();
-            let oflow = false;
-            for(let i = 0; i < num_arr.length;i++){
-                num_arr[i]+=1;
-                // Add 1 to current digit
-                // if we hit max we reset to 0 and go into the next loop
-                // Otherwise we are done with the loop
-                if(num_arr[i] == base){
-                    num_arr[i] = 0;
-                    // If we need to add one more digit here we have an overflow and add a digit
-                    if(i === num_arr.length-1)oflow = true;
-                } else {
-                    break;
-                }
-            }
-            if(oflow){
-                num_arr.push(1);
-            }
-            expected_number = BigInt(num_arr.reverse().join(""));
+            let num_str = last_num.toString();
+            let num_value = parseInt(num_str,base);
+            num_value++;
+            num_str = num_value.toString(base);
+            let expected_number = BigInt(num_str);
             return expected_number;
         }
         function get_expected(last_num){
