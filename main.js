@@ -3301,7 +3301,7 @@ data.author_elem.html(`<div style="color:`+marscolor+`;">🖤/u/amazingpikachu_3
 nodutime = nodutime.getUTCHours();
 var noduname = ' a m a z i n g p i k a c h u _ 3 8 ';
 var noduemoji = '💎💎';
-var noduprst = Math.floor(Math.random() * 1500) + 1;
+var noduprst = Math.floor(Math.random() * 150) + 1;
 if (noduprst == 1) {
 noduname = ' { : } z i n g p i k a c h u _ 3 8 ';
 } else if (noduprst == 2) {
