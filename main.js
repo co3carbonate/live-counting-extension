@@ -993,7 +993,7 @@ var ReplyTimes;
             let current_number_string = parse_body(update_body)[0];
             current_number = current_number_string === null ? null: BigInt(current_number_string);
             expected_number = get_expected(last_number);
-            if (expected_number == current_number && author_last != author_current || isNaN(Number(expected_number)) == true) {
+            if (expected_number == current_number && author_last != author_current && expected_number != null || isNaN(Number(expected_number)) == true) {
                 $("#lastcountcount").text(current_number.toLocaleString());
                 $("#lastcountuser").text(author_current);
                 end_of_cur_num = current_number_string.substr(current_number_string.length - get_split_digits());
@@ -1379,6 +1379,8 @@ var LastCount;
         update_body = '';
         author_current = '';
         author_last = '';
+        document.getElementById("lastcountdesc").innerHTML = 'Last count:';
+        document.getElementById("lastcountdesc").style.background = '';
     });
     $( "#split69" ).click(function() {
         $( "#split69" ).text(JSON.stringify(all_times, null, '\t'));
@@ -1772,7 +1774,6 @@ var ColoredUsernames;
 
                 var pikarand = Math.floor(Math.random() * 62) + 1;
                 //pikarand = 62; //362021
-                console.log(pikarand);
                 var recordback = Math.floor(Math.random() * 1000) + 1;
                 var mnw_lag_name = Math.floor(Math.random() * 5000) + 1;
                 if (mnw_lag_name == 69) {
@@ -4770,7 +4771,8 @@ var RateLimitView;
                     } else {
                         ratecolor = 'transparent';
                     }
-                    $('#rate').text(newtime - oldtime + "ms").css('background',ratecolor);
+                    $('#rate').text(newtime - oldtime + "ms");
+                    $('.bottom-area').css('background',ratecolor);
                 });
             }
             if(Elements.$body.attr('data-RateLimitView') == 'Delta') {
@@ -4801,7 +4803,8 @@ var RateLimitView;
                     } else {
                         ratecolor = 'transparent';
                     }
-                    $('#ratedelta').text(newtimea - oldtimea - 333 + "ms").css('background',ratecolor);
+                    $('#ratedelta').text(newtimea - oldtimea - 333 + "ms");
+                    $('.bottom-area').css('background',ratecolor);
                 });
             }
             if(Elements.$body.attr('data-RateLimitView') == 'Disabled') {
@@ -4964,6 +4967,12 @@ var ImageEmotes;
         })
         toDataURL('https://i.imgur.com/X42KsOb.png', function(dataUrl) {
             emoteimages['<code>kshart</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/3fr9M0n.png', function(dataUrl) {
+            emoteimages['<code>widepeepohappy</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/qoNYaHj.png', function(dataUrl) {
+            emoteimages['<code>widepeeposad</code>'] = dataUrl;
         })
 
 
