@@ -218,6 +218,13 @@ function get_split_digits(){
 
 // Global Functions
 // from https://pastebin.com/KD6gFhAK thanks MNW {:}
+
+function showNotification(number) {
+   const notification = new Notification("New K Alert!", {
+      body: "New K: " + number
+   });
+}
+
 function parse_body(text){
     let number = null;
     let separator = null;
@@ -1027,6 +1034,17 @@ var ReplyTimes;
                 }
                 author_last = author_current;
                 last_number = current_number;
+                if(THREAD == 'ta535s1hq2je' && Elements.$body.attr('data-KpartAlert') == 'true') {
+                	if (Notification.permission === "granted") {
+	    if (current_number.toString().substr(5) == '000') {
+     	    	showNotification(current_number);
+	    }
+   	} else if (Notification.permission !== "denied") {
+      	    Notification.requestPermission().then(permission => {
+        	console.log(permission);
+      	    });
+   	}
+                }
             } else {
                 validcountwrong++;
                 if (validcountwrong == 30) {
@@ -4974,6 +4992,9 @@ var ImageEmotes;
         toDataURL('https://i.imgur.com/qoNYaHj.png', function(dataUrl) {
             emoteimages['<code>widepeeposad</code>'] = dataUrl;
         })
+        toDataURL('https://i.imgur.com/PdlFz24.png', function(dataUrl) {
+            emoteimages['<code>5head</code>'] = dataUrl;
+        })
 
 
         Update.loadedNew(function (data) {
@@ -4996,3 +5017,22 @@ var ImageEmotes;
     }
 
 })(ImageEmotes || (ImageEmotes = {}));
+
+/////////////////////
+// KpartAlert.ts //
+/////////////////////
+var KpartAlert;
+(function (KpartAlert) {
+    // INITIALIZATION
+    Elements.$body.attr('data-KpartAlert', false);
+    // Options
+    Options.addCheckbox({
+        label: 'KPART ALERT',
+        "default": false,
+        section: 'Advanced 2',
+        help: 'Sends a notification when a new K is reached. Last count must be on for this to work.',
+        onchange: function () {
+            Elements.$body.attr('data-KpartAlert', this.prop('checked'));
+        }
+    });
+})(KpartAlert || (KpartAlert = {}));
