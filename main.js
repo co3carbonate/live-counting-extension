@@ -1036,7 +1036,7 @@ var ReplyTimes;
                 last_number = current_number;
                 if(THREAD == 'ta535s1hq2je' && Elements.$body.attr('data-KpartAlert') == 'true') {
                 	if (Notification.permission === "granted") {
-	    if (current_number.toString().substr(5) == '000') {
+	    if (current_number.toString().substr(5) == '000' && !document.hasFocus()) {
      	    	showNotification(current_number);
 	    }
    	} else if (Notification.permission !== "denied") {
