@@ -1612,7 +1612,7 @@ var ColoredUsernames;
         'ddodd69': '#a89332',
     };
     if (USER == 'VitaminB16') {
-        userColors.LC_Chats = 'white';
+        userColors.b66b = 'white';
     }
     colortransfers = userColors;
     // Possible colors for other users
