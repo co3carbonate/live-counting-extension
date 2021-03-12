@@ -1014,6 +1014,15 @@ var ReplyTimes;
                 }
                 if(splits.includes(end_of_cur_num)){
                     let index = splits.indexOf(end_of_cur_num);
+                    if(end_of_cur_num == '000' && vc_times[splits.indexOf('000')] != ''){
+                        let split_ms = timestamp_current - vc_times[splits.indexOf('000')];
+                        let split_s = split_ms / 1000;
+                       // let split_rounded = Math.round(split_s / 10);
+                       // let split_rounded = vc_times[-1] - vc_times[0]
+                        let split_rounded = Math.round(split_s / 10);
+                        console.log(vc_times);
+                        $("#lcbot_speed").text(split_rounded);
+                    }
                     let prev_index = (index+splits_amount-1)%splits_amount; //Subtracts one with wraparound
                     vc_times[index] = timestamp_current;
                     if(vc_times[prev_index] != ''){
@@ -1380,7 +1389,7 @@ var LastCount;
     for(let i=0; i<splits.length;i++){
         live_update_header_text+="<p>"+splits[i]+":<span id=split"+i+"></span></p>"
     }
-    live_update_header_text+="<p><span id=dumptoggle>Dump [+]:</span><div id=split69></div></p></div></div></div>"
+    live_update_header_text+="<p>Last K:<span id=lcbot_speed></span></p><p><span id=dumptoggle>Dump [+]:</span><div id=split69></div></p></div></div></div>"
     $('#liveupdate-header').prepend(live_update_header_text);
     $('#idlecontainer').css({'display': 'none', 'position': 'absolute', 'left': '1%', 'top': '20%', 'width': '115px', 'background': 'transparent'});
     $("#split69").css({'display': 'none',});
@@ -5109,3 +5118,85 @@ var KpartAlert;
         }
     });
 })(KpartAlert || (KpartAlert = {}));
+
+// Test thread special feature
+if(window.location.href.indexOf("15jj2286nsulu") > -1) {
+    $("#liveupdate-description").append("<p style='background:#e2ffdb;font-size:16px;' id=fakerunner>Hi am fake runner. This feature SUCKS but maybe it could be useful to someone some day. Reply times may be slightly inaccurate but I really tried lol. Increment:<input id='fakeruntime'></input> <button id='this_sucks'>Press to run.</button><button id='fuck_it'>Click to stop.</button><button id='hide_a_mf'>Hide</button></p>");
+
+var fake_count = 10000000;
+    var fake_lol = 0;
+    var fake_count_2 = 0;
+    var fake_count_author = '';
+    var strikechecky = '';
+//var post1 = setInterval(function(){
+function poster(){
+    //fake_lol++;
+    try{
+        fake_count_2 = $('#lastcountcount').text();
+        fake_count_author = $('#lastcountuser').text();
+                    //fake_count = $('#lastcountcount').text();
+            //fake_count = parseFloat(fake_count.replace(/,/g, ''));
+                fake_count_2 = fake_count_2.replace(/[A-Za-z]/g, '');
+    fake_count_2 = fake_count_2.replace(/,/g, '');
+    fake_count_2 = fake_count_2.replace(/ /g, '');
+fake_count_2 = fake_count_2.replace(/\./g, '');
+            fake_count_2 = parseFloat(fake_count_2);
+        //if(fake_lol % 2 == 0) {
+        if(fake_count_author != 'Riverbot') {
+            fake_count = fake_count_2 + 1;
+            strikechecky = '';
+        } else {
+            fake_count = fake_count_2 + 2;
+            strikechecky = ' stricken';
+        }
+        //} else {
+        //            if(fake_count_author != 'Graphite_bot') {
+       //     fake_count = fake_count_2 + 1;
+       // } else {
+       //     fake_count = fake_count_2 + 2;
+      //  }
+      // }
+    }
+    catch(err) {
+        fake_count = 10000000;
+    }
+    fake_count = fake_count.toLocaleString();
+var time_fake = new Date();
+    var time_lake = time_fake.toISOString();
+    time_fake = time_fake.getTime();
+    var d = '2040-01-02T18:00:00.030';
+    d = new Date(d).valueOf();
+    time_fake = time_fake + d;
+    time_fake = time_fake / 1000;
+    time_fake = time_fake + 10010131200;
+    time_fake = time_fake * 10**7;
+    time_fake = time_fake.toString(16);
+    var t1 = time_fake.substring(0,3);
+    var t2 = time_fake.substring(3,7);
+    var t3 = time_fake.substring(7,15);
+//if(fake_lol % 2 == 0) {
+    $(".liveupdate-listing").prepend(`<li class="liveupdate deadupdate`+strikechecky+`"><a href="/live/ta535s1hq2je/updates/`+t3+`-`+t2+`-1`+t1+`-8133-0e5d46594c50" target="_blank"><time class="live-timestamp" datetime="`+time_lake+`" title="this is fake lol">just now</time></a><div class="body"><div class="md"><p>`+fake_count+`</p></div><a href="/user/Riverbot" class="author" style="color: black;"> /u/Riverbot</a></div><ul class="buttonrow"><li><span class="strike confirm-button"><button>this is fake lol</button></span></li><li><span class="delete confirm-button"><button>delete</button></span></li></ul></li>`);
+//} else {
+  //  $(".liveupdate-listing").prepend(`<li class="liveupdate deadupdate"><a href="/live/ta535s1hq2je/updates/`+t3+`-`+t2+`-1`+t1+`-8133-0e5d46594c50" target="_blank"><time class="live-timestamp" datetime="2019-03-31T02:16:13.000Z" title="this is fake lol">just now</time></a><div class="body"><div class="md"><p>`+fake_count+`</p></div><a href="/user/Graphite_bot" class="author" style="color: black;"> /u/Graphite_bot</a></div><ul class="buttonrow"><li><span class="strike confirm-button"><button>this is fake lol</button></span></li><li><span class="delete confirm-button"><button>delete</button></span></li></ul></li>`);
+//}
+    //    $(".liveupdate-listing").prepend(`<li class="liveupdate deadupdate"><a href="/live/" target="_blank"><time class="live-timestamp" datetime="2019-03-31T02:16:13.000Z" title="this is fake lol">just now</time></a><div class="body"><div class="md"><p>10000000</p></div><a href="/user/Riverbot" class="author" style="color: black;"> /u/Riverbot</a></div><ul class="buttonrow"><li><span class="strike confirm-button"><button>this is fake lol</button></span></li><li><span class="delete confirm-button"><button>delete</button></span></li></ul></li>`);
+			//},increment_timey);
+}
+        $( "#this_sucks" ).click(function() {
+        var increment_timey = $('#fakeruntime').val();
+        if(isNaN(increment_timey)) {increment_timey = 1000;}
+        var post1 = setInterval(poster, increment_timey);
+                    $( "#fuck_it" ).click(function() {
+            clearInterval(post1);
+                });
+
+            $( "#hide_a_mf" ).click(function() {
+            clearInterval(post1);
+                $("#fakerunner").css('display','none');
+                });
+    });
+           $( "#hide_a_mf" ).click(function() {
+              $("#fakerunner").css('display','none');
+                });
+}
+// End test thread special feature
