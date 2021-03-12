@@ -1017,10 +1017,7 @@ var ReplyTimes;
                     if(end_of_cur_num == '000' && vc_times[splits.indexOf('000')] != ''){
                         let split_ms = timestamp_current - vc_times[splits.indexOf('000')];
                         let split_s = split_ms / 1000;
-                       // let split_rounded = Math.round(split_s / 10);
-                       // let split_rounded = vc_times[-1] - vc_times[0]
                         let split_rounded = Math.round(split_s / 10);
-                        console.log(vc_times);
                         $("#lcbot_speed").text(split_rounded);
                     }
                     let prev_index = (index+splits_amount-1)%splits_amount; //Subtracts one with wraparound
