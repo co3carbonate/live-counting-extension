@@ -18,12 +18,12 @@ var BASE3 = "y29ytkycjdth";
 var BASE4 = "xnl0cyj2rdj0";
 
 //100k name information
-var specialnumber = 4;
+var specialnumber = 5;
 var kname1 = 'ItzTaken';
 var kname2 = 'amazingpikachu_38';
 var kname3 = 'davidjl123';
 var kname4 = 'NobodyL0vesMe';
-var kname5 = '';
+var kname5 = 'TOP_20';
 var kname6 = '';
 var SpecialUsernamesEnabled;
 
@@ -1582,7 +1582,7 @@ var ColoredUsernames;
         'TehVulpez': '#c42c0a',
         'LC_Chats': '#dddddd',
         'LC-3P0': 'Black',
-        'MaybeNotWrong': '#077055',
+        'MaybeNotWrong': '#066666',
         'ElliottB1': '#00FFDD',
         'treje': '#ffc130',
         'sakima11': '#0cd1ad',
@@ -1616,6 +1616,7 @@ var ColoredUsernames;
         'TheMatsValk': '#00f5ff',
         'supersammy00': '#28ad3c',
         'ddodd69': '#a89332',
+        'NeitherLi2ardMisses': '#32ff94',
     };
     if (USER == 'VitaminB16') {
         userColors.b66b = 'white';
@@ -1681,6 +1682,14 @@ var ColoredUsernames;
 
 
         // 100K usernames
+
+         if (SpecialUsernamesEnabled5 == true) {
+            if (data.author == kname5) {
+                data.author_elem.html(`/u/T<span style="font-weight:bold;">O</span>P_20`)
+            }
+        } // SpecialUsernamesEnabled5 ending
+
+
         if (SpecialUsernamesEnabled1 == true) {
             if (data.author == kname1) {
       var takentext = '';
