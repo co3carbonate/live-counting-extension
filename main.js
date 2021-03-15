@@ -5086,6 +5086,9 @@ var ImageEmotes;
         toDataURL('https://i.imgur.com/QPhZRMm.png', function(dataUrl) {
             emoteimages['<code>pepog</code>'] = dataUrl;
         })
+        toDataURL('https://i.imgur.com/iCt7LEW.png', function(dataUrl) {
+            emoteimages['<code>poggies</code>'] = dataUrl;
+        })
 
 
         Update.loadedNew(function (data) {
