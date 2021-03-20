@@ -3085,6 +3085,123 @@ var ImageEmotes;
         toDataURL('https://i.imgur.com/KgjFXN2.png', function(dataUrl) {
             emoteimages['<code>daemote</code>'] = dataUrl;
         })
+        toDataURL('https://i.imgur.com/kc7PIRu.gif', function(dataUrl) {
+            emoteimages['<code>happiness</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/tpNMYMn.gif', function(dataUrl) {
+            emoteimages['<code>facepalm</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/tck38bm.gif', function(dataUrl) {
+            emoteimages['<code>rick</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/d1WX4wa.gif', function(dataUrl) {
+            emoteimages['<code>byepika</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/tFo3RDF.gif', function(dataUrl) {
+            emoteimages['<code>itsok</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/lIhn2jQ.gif', function(dataUrl) {
+            emoteimages['<code>thisisfine</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/w7AxAaY.gif', function(dataUrl) {
+            emoteimages['<code>uhdunno</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/SdrEJxi.gif', function(dataUrl) {
+            emoteimages['<code>toocool</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/eKvKaSh.gif', function(dataUrl) {
+            emoteimages['<code>letsgo</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/YaRoHKs.gif', function(dataUrl) {
+            emoteimages['<code>woohoo</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/EcHB23J.gif', function(dataUrl) {
+            emoteimages['<code>bonk</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/yIzUyLY.gif', function(dataUrl) {
+            emoteimages['<code>eyeroll</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/LYMjUFG.gif', function(dataUrl) {
+            emoteimages['<code>anicake</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/DzorFPT.gif', function(dataUrl) {
+            emoteimages['<code>watching</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/2v84XUV.png', function(dataUrl) {
+            emoteimages['<code>wtfdidyousay</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/VIgstwm.gif', function(dataUrl) {
+            emoteimages['<code>letmeout</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/abXyvkn.gif', function(dataUrl) {
+            emoteimages['<code>wtfbeek</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/jyHNUsl.png', function(dataUrl) {
+            emoteimages['<code>yikes</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/7BEIsXJ.gif', function(dataUrl) {
+            emoteimages['<code>wheredanat</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/GU7Iz4X.png', function(dataUrl) {
+            emoteimages['<code>ffff</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/pwPWT4N.png', function(dataUrl) {
+            emoteimages['<code>gotosleep</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/SrfFgpz.png', function(dataUrl) {
+            emoteimages['<code>shake</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/nTSxFGt.png', function(dataUrl) {
+            emoteimages['<code>brohug</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/oxWcf3e.png', function(dataUrl) {
+            emoteimages['<code>fthis</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/wqEOmyc.png', function(dataUrl) {
+            emoteimages['<code>earth</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/WMR7Uwq.gif', function(dataUrl) {
+            emoteimages['<code>chudance</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/HVf2M9j.gif', function(dataUrl) {
+            emoteimages['<code>spideydance</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/VFxjXSl.png', function(dataUrl) {
+            emoteimages['<code>cube</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/CuoMlVM.png', function(dataUrl) {
+            emoteimages['<code>gildthis</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/pQcgaQX.gif', function(dataUrl) {
+            emoteimages['<code>boom</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/BlkDC5c.png', function(dataUrl) {
+            emoteimages['<code>oof</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/jQJk1Kv.gif', function(dataUrl) {
+            emoteimages['<code>emergency</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/64JkvEm.png', function(dataUrl) {
+            emoteimages['<code>daemote</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/KgjFXN2.png', function(dataUrl) {
+            emoteimages['<code>weeee</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/UOuLbBV.png', function(dataUrl) {
+            emoteimages['<code>boom2</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/FqTrDtK.png', function(dataUrl) {
+            emoteimages['<code>snipe</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/WNb50Nm.png', function(dataUrl) {
+            emoteimages['<code>d20</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/EY5CUlu.png', function(dataUrl) {
+            emoteimages['<code>porg</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/J7fzDTG.png', function(dataUrl) {
+            emoteimages['<code>slime</code>'] = dataUrl;
+        })
 
 
         Update.loadedNew(function (data) {
