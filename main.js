@@ -3044,6 +3044,45 @@ var ImageEmotes;
         toDataURL('https://i.imgur.com/iCt7LEW.png', function(dataUrl) {
             emoteimages['<code>poggies</code>'] = dataUrl;
         })
+        toDataURL('https://i.imgur.com/6G7CKqJ.png', function(dataUrl) {
+            emoteimages['<code>maybelegend</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/cGeuJpL.png', function(dataUrl) {
+            emoteimages['<code>chupixel</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/VWh5qJc.png', function(dataUrl) {
+            emoteimages['<code>vulpez</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/AYhoI48.png', function(dataUrl) {
+            emoteimages['<code>sspixel</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/1MhfdJK.png', function(dataUrl) {
+            emoteimages['<code>wtfdb</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/AN0pJBv.png', function(dataUrl) {
+            emoteimages['<code>notlike</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/oXKv3jo.png', function(dataUrl) {
+            emoteimages['<code>talk2hand</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/MkMaG2g.png', function(dataUrl) {
+            emoteimages['<code>rivergod</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/PQn8Kyd.png', function(dataUrl) {
+            emoteimages['<code>whitpixel</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/h9C2kA8.png', function(dataUrl) {
+            emoteimages['<code>hmm</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/Ar2kwD3.gif', function(dataUrl) {
+            emoteimages['<code>mario_luigi_dance</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/XVzyN4r.gif', function(dataUrl) {
+            emoteimages['<code>typefaster</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/EOp5edi.png', function(dataUrl) {
+            emoteimages['<code>lona_dont</code>'] = dataUrl;
+        })
 
 
         Update.loadedNew(function (data) {
