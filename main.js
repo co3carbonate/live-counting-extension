@@ -3083,6 +3083,9 @@ var ImageEmotes;
         toDataURL('https://i.imgur.com/EOp5edi.png', function(dataUrl) {
             emoteimages['<code>lona_dont</code>'] = dataUrl;
         })
+        toDataURL('https://i.imgur.com/9XgmFLB.png', function(dataUrl) {
+            emoteimages['<code>mersenne</code>'] = dataUrl;
+        })
 
 
         Update.loadedNew(function (data) {
