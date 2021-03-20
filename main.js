@@ -2224,11 +2224,13 @@ var TeamBarsEnabled;
             var checky2;
             var first_call = true;
             var dayhoc_last_count = 0;
+            var dayhoc_day_counts = 0;
 
             var day_hoc_handler = function (data) {
                 hmmyy = data["day"]["hoc"];
                 checky = data["day"]["hoc"];
                 dayhoc_last_count = data["latest_count"];
+                dayhoc_day_counts = data["day"]["total_counts"];
                 if (first_call){
                     $(`<div id=wholetable><table id=loadtest><caption id=dailyenabler>Daily Hall of Counters [+]</caption><tr id="tablenames"><td>#</td><td>User</td><td>Counts</td></tr></table></div>`).insertBefore("#liveupdate-resources .md");
                     first_call = false;
@@ -2252,6 +2254,7 @@ var TeamBarsEnabled;
                 }
 
                 hmmyy = hmmyy.map(getTableRow);
+                hmmyy.push(`<tr style='font-size:inherit;' class=collapsedo><td></td><td>Counts today:</td><td>`+dayhoc_day_counts.toLocaleString()+`</td></tr>`);
                 hmmyy.push(`<tr style='font-size:inherit;' class=collapsedo><td></td><td>Latest count:</td><td>`+dayhoc_last_count.toLocaleString()+`</td></tr>`);
                 checky = checky.map(jsonCheck);
 
@@ -2260,7 +2263,7 @@ var TeamBarsEnabled;
                 checky = checky.replace(/[-]/g, ``);
                 checky = checky.replace(/[_]/g, ``);
                 checky = checky.replace(/[0-9]+/g, '');
-                if (checky.length == 0 && typeof(dayhoc_last_count) == "number") {
+                if (checky.length == 0 && typeof(dayhoc_last_count) == "number" && typeof(dayhoc_day_counts) == "number") {
                     $('#loadtest').append(hmmyy.join(""));
                     //$('#loadtest tbody').append(`<tr style='font-size:inherit; class=collapsedo><td></td><td>Latest count:</td><td>69</td></tr>`);
                     $("#loadtest tbody:nth-child(5)").append(`<tr><td>divide</td></tr>`);
