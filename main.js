@@ -2225,10 +2225,10 @@ var TeamBarsEnabled;
             var first_call = true;
             var dayhoc_last_count = 0;
 
-            day_hoc_handler = function (data) {
-                hmmyy = data["day_hoc"]["hoc"];
-                checky = data["day_hoc"]["hoc"];
-                dayhoc_last_count = data["day_hoc"]["latest_count"];
+            var day_hoc_handler = function (data) {
+                hmmyy = data["day"]["hoc"];
+                checky = data["day"]["hoc"];
+                dayhoc_last_count = data["latest_count"];
                 if (first_call){
                     $(`<div id=wholetable><table id=loadtest><caption id=dailyenabler>Daily Hall of Counters [+]</caption><tr id="tablenames"><td>#</td><td>User</td><td>Counts</td></tr></table></div>`).insertBefore("#liveupdate-resources .md");
                     first_call = false;
