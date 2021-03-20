@@ -2470,10 +2470,6 @@ var StandardizeNumberFormat;
     Update.loadedNew(function (data) {
         if (!enabled)
             return;
-        if (data.author == kname4)
-            return;
-        if (data.author == kname5)
-            return;
         var first_elem = first_node(data.body_elem.get(0));
         var $first_elem = $(first_elem);
         var body = first_elem.textContent;
@@ -3085,6 +3081,9 @@ var ImageEmotes;
         })
         toDataURL('https://i.imgur.com/9XgmFLB.png', function(dataUrl) {
             emoteimages['<code>mersenne</code>'] = dataUrl;
+        })
+        toDataURL('https://i.imgur.com/KgjFXN2.png', function(dataUrl) {
+            emoteimages['<code>daemote</code>'] = dataUrl;
         })
 
 
