@@ -2244,7 +2244,7 @@ var TeamBarsEnabled;
                     }
                     var hocname = [item.author, item.counts].join("</a></td><td>");
                     var wrcer = "";
-                    if(item.has_wrc_req == "true") {wrcer = " style='font-style:italic;'"}
+                    if(item.has_wrc_req == true) {wrcer = " title='Has WRC requirements' style='font-style:italic;'"}
                     res += "><td"+wrcer+">" + (index + 1) + "</td><td><a class=authoro>/u/" + hocname + "</td></tr>";
                     return res;
                 }
