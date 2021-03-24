@@ -1,15 +1,3 @@
-// ==UserScript==
-// @name         LCE 2021 Testing 3
-// @description  Add-on features for Live Counting
-// @author       /u/co3_carbonate
-// @website      https://github.com/co3carbonate/live-counting-extension
-// @namespace    http://tampermonkey.net/
-// @include      *://*.reddit.com/live/*
-// @exclude      *://*.reddit.com/live/create*
-// @exclude      *://*.reddit.com/live/*/edit*
-// @exclude      *://*.reddit.com/live/*/contributors*
-// ==/UserScript==
-
 /**
 /**
 * LIVE COUNTING EXTENSION V1.7.0
