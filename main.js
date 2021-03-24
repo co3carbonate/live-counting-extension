@@ -1350,29 +1350,69 @@ var LastCount;
         $('#idlecontainer').css('display','initial');
     }
 })(BackgroundColor || (BackgroundColor = {}));
+
 //////////////////
 // CtrlEnter.ts //
 //////////////////
 var CtrlEnter;
 (function (CtrlEnter) {
     // INITIALIZATION
-    var enabled = true;
+    Elements.$body.attr('data-submitShortcut', 'Ctrl+Enter');
     var $textarea = $('#new-update-form textarea');
-    var $submitBtn = $('#new-update-form .save-button button');
-    // RES already has a ctrl-enter feature since v4.7.8
-    // Skip remaining actions if using a version higher than that
     var $resVersion = $('#RESConsoleVersion');
-    if ($resVersion.length > 0 && +($resVersion.text().replace(/\D/g, '')) >= 478)
-        enabled = false;
-    // Bind keydown event to the textarea
-    if (enabled) {
+    var $submitBtn = $('#new-update-form .save-button button');
+    // Options
+    Options.addSelect({
+        label: 'SUBMIT SHORTCUT',
+        //options: ['Off', 'Ctrl+Enter', 'Enter', 'Custom'],
+        options: ['Off', 'Ctrl+Enter', 'Enter'],
+        section: 'Advanced',
+        "default": 1,
+        help: 'Changes the submit shortcut. May not work well with RES.',
+        onchange: function () {
+            Elements.$body.attr('data-submitShortcut', this.val());
+            /*if(Elements.$body.attr('data-submitShortcut') == "Custom") {
+                var customShortcut = window.prompt('Enter the js keycodes, separated by a comma Go to keycode.info to see keycodes easily.','13,17');
+                Elements.$body.attr('data-submitShortcut', customShortcut);
+            }*/
+        }
+    });
         $textarea.on('keydown', function (e) {
-            if (e.keyCode == 13 && (e.ctrlKey || e.metaKey)) {
-                e.preventDefault();
-                $submitBtn.trigger('click');
+            if(Elements.$body.attr('data-submitShortcut') == "Off") {
+                return;
             }
+            if(Elements.$body.attr('data-submitShortcut') == "Ctrl+Enter") {
+                if ($resVersion.length > 0 && +($resVersion.text().replace(/\D/g, '')) >= 478) {
+                    return;
+                }
+                if (e.keyCode == 13 && (e.ctrlKey || e.metaKey)) {
+                    e.preventDefault();
+                    $submitBtn.trigger('click');
+                }
+            }
+            if(Elements.$body.attr('data-submitShortcut') == "Enter") {
+                if (e.keyCode == 13) {
+                    e.preventDefault();
+                    $submitBtn.trigger('click');
+                }
+            }
+            /*
+            else {
+                var keycodeArray = Elements.$body.attr('data-submitShortcut').split(",");
+                var keycodeCheck = keycodeArray.length;
+                var keycodeIncrement = 0;
+                for(keycode in keycodeArray) {
+                    if(e.keyCode == keycodeArray[keycode].toString()) {
+                        keycodeIncrement++;
+                    }
+                }
+                if (keycodeIncrement == keycodeCheck) {
+                    e.preventDefault();
+                    $submitBtn.trigger('click');
+                }
+            }
+            */
         });
-    }
 })(CtrlEnter || (CtrlEnter = {}));
 
 //////////////////
@@ -1712,7 +1752,7 @@ data.author_elem.html(`<div style="color:`+takencolor+`;">`+takenemoji+takentext
             }
         } // SpecialUsernamesEnabled2 ending
 
-     
+
 
     // Set username color
     if (!userColors.hasOwnProperty(data.author)) {
