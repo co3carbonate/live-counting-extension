@@ -3516,7 +3516,6 @@ var tugOfWarWrongDirection = setInterval(function() {
     var secondsTug = Math.floor((distanceTug % (1000 * 60)) / 1000);
     document.getElementById("countdown").innerHTML = daysTug + "d " + hoursTug + "h "
     + minutesTug + "m " + secondsTug + "s";
-    console.log(distanceTug);
     if (distanceTug < 600000) {
         clearInterval(tugOfWarWrongDirection);
         document.getElementById("countdown").innerHTML = "Yeah you're probably running an older version of LCE, I plan to publish the LCE April Fools update with around 10 minutes before the timer ends so you should refresh if you see this...";
