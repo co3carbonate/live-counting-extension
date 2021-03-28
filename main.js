@@ -36,6 +36,8 @@ ignored.push(localStorage['ignoredppl']);
 //Daily HoC vars
 var dailysize = 0;
 var dailysizereal = '90px';
+var dailysize2 = -1;
+var dailysizereal2 = '90px';
 var colortransfers = '';
 var dailyHocColorNamesEnable2 = true;
 
@@ -1350,7 +1352,6 @@ var LastCount;
         $('#idlecontainer').css('display','initial');
     }
 })(BackgroundColor || (BackgroundColor = {}));
-
 //////////////////
 // CtrlEnter.ts //
 //////////////////
@@ -1414,7 +1415,6 @@ var CtrlEnter;
             */
         });
 })(CtrlEnter || (CtrlEnter = {}));
-
 //////////////////
 // CtrlSpace.ts //
 //////////////////
@@ -2263,25 +2263,42 @@ var TeamBarsEnabled;
             var hmmyy;
             var checky;
             var checky2;
+            var the100k;
             var first_call = true;
+            var first_call2 = true;
             var dayhoc_last_count = 0;
             var dayhoc_day_counts = 0;
+            var the100khoc_counts = 0;
 
             var day_hoc_handler = function (data) {
                 hmmyy = data["day"]["hoc"];
                 checky = data["day"]["hoc"];
+                the100k = data["100k"]["hoc"];
+                checky2 = data["100k"]["hoc"];
                 dayhoc_last_count = data["latest_count"];
                 dayhoc_day_counts = data["day"]["total_counts"];
+                the100khoc_counts = data["100k"]["total_counts"];
                 if (first_call){
-                    $(`<div id=wholetable><table id=loadtest><caption id=dailyenabler>Daily Hall of Counters [+]</caption><tr id="tablenames"><td>#</td><td>User</td><td>Counts</td></tr></table></div>`).insertBefore("#liveupdate-resources .md");
                     first_call = false;
+                    $(`<div id=wholetable><table id="mini"><tr class="tablenames"><td id="dailyenabler">Daily [+]</td><td id="dailyenabler2">100k [+]</td></tr></table><table id=loadtest><tr class="tablenames"><td>#</td><td>User</td><td>Counts</td></tr></table><table id=loadtest2><tr class="tablenames2"><td>#</td><td>User</td><td>Counts</td></tr></table></div>`).insertBefore("#liveupdate-resources .md");
                 } else {
-                    $(`#wholetable`).html(`<table id=loadtest><caption id=dailyenabler>Daily Hall of Counters [+]</caption><tr id="tablenames"><td>#</td><td>User</td><td>Counts</td></tr></table>`);
+                    $(`#wholetable`).html(`<table id="mini"><tr class="tablenames"><td id="dailyenabler">Daily [+]</td><td id="dailyenabler2">100k [+]</td></tr></table><table id=loadtest><tr class="tablenames"><td>#</td><td>User</td><td>Counts</td></tr></table><table id=loadtest2><tr class="tablenames2"><td>#</td><td>User</td><td>Counts</td></tr></table>`);
                 }
                 function getTableRow(item, index) {
                     let res = "<tr style='font-size:inherit;'";
                     if (index >= 3){
                         res += " class=collapsedo";
+                    }
+                    var hocname = [item.author, item.counts].join("</a></td><td>");
+                    var wrcer = "";
+                    if(item.has_wrc_req == true) {wrcer = " title='Has WRC requirements' style='font-style:italic;'"}
+                    res += "><td"+wrcer+">" + (index + 1) + "</td><td><a class=authoro>/u/" + hocname + "</td></tr>";
+                    return res;
+                }
+                function getTableRow2(item, index) {
+                    let res = "<tr style='font-size:inherit;'";
+                    if (index >= 3){
+                        res += " class=collapsedo2";
                     }
                     var hocname = [item.author, item.counts].join("</a></td><td>");
                     var wrcer = "";
@@ -2298,15 +2315,24 @@ var TeamBarsEnabled;
                 hmmyy.push(`<tr style='font-size:inherit;' class=collapsedo><td></td><td>Counts today:</td><td>`+dayhoc_day_counts.toLocaleString()+`</td></tr>`);
                 hmmyy.push(`<tr style='font-size:inherit;' class=collapsedo><td></td><td>Latest count:</td><td>`+dayhoc_last_count.toLocaleString()+`</td></tr>`);
                 checky = checky.map(jsonCheck);
+                the100k = the100k.map(getTableRow2);
+                the100k.push(`<tr style='font-size:inherit;' class=collapsedo2><td></td><td>Counts:</td><td>`+the100khoc_counts.toLocaleString()+`</td></tr>`);
+                the100k.push(`<tr style='font-size:inherit;' class=collapsedo2><td></td><td>Latest count:</td><td>`+dayhoc_last_count.toLocaleString()+`</td></tr>`);
+                checky2 = checky2.map(jsonCheck);
 
                 checky = checky.join("");
                 checky = checky.replace(/[A-Za-z]/g, ``);
                 checky = checky.replace(/[-]/g, ``);
                 checky = checky.replace(/[_]/g, ``);
                 checky = checky.replace(/[0-9]+/g, '');
-                if (checky.length == 0 && typeof(dayhoc_last_count) == "number" && typeof(dayhoc_day_counts) == "number") {
+                checky2 = checky2.join("");
+                checky2 = checky2.replace(/[A-Za-z]/g, ``);
+                checky2 = checky2.replace(/[-]/g, ``);
+                checky2 = checky2.replace(/[_]/g, ``);
+                checky2 = checky2.replace(/[0-9]+/g, '');
+                if (checky.length == 0 && checky2.length == 0 && typeof(the100khoc_counts) == "number" && typeof(dayhoc_last_count) == "number" && typeof(dayhoc_day_counts) == "number") {
                     $('#loadtest').append(hmmyy.join(""));
-                    //$('#loadtest tbody').append(`<tr style='font-size:inherit; class=collapsedo><td></td><td>Latest count:</td><td>69</td></tr>`);
+                    $('#loadtest2').append(the100k.join(""));
                     $("#loadtest tbody:nth-child(5)").append(`<tr><td>divide</td></tr>`);
                     $(".authoro").each(function () {
                         $(this).attr("href", "https://reddit.com" + $(this).text());
@@ -2321,27 +2347,86 @@ var TeamBarsEnabled;
                     });
 
                     if (dailysize == 0) {
-                        document.getElementById("dailyenabler").innerHTML = "Daily Hall of Counters [+]";
+                        $("#loadtest").css('display','inline-table');
+                        document.getElementById("dailyenabler").innerHTML = "Daily [+]";
                         $(".collapsedo").css({
                             'display': 'none',
                         });
-                    } else {
-                        document.getElementById("dailyenabler").innerHTML = "Daily Hall of Counters [-]";
+                    } else if (dailysize == 1) {
+                        $("#loadtest").css('display','inline-table');
+                        document.getElementById("dailyenabler").innerHTML = "Daily [-]";
                         $(".collapsedo").css({
                             'display': 'table-row',
                         });
                     }
+                    else if (dailysize == -1) {
+                        document.getElementById("dailyenabler").innerHTML = "Daily";
+                        $("#loadtest").css('display','none');
+                    }
+                    if (dailysize2 == 0) {
+                        $("#loadtest2").css('display','inline-table');
+                        document.getElementById("dailyenabler2").innerHTML = "100k [+]";
+                        $(".collapsedo2").css({
+                            'display': 'none',
+                        });
+                    } else if (dailysize2 == 1) {
+                        $("#loadtest2").css('display','inline-table');
+                        document.getElementById("dailyenabler2").innerHTML = "100k [-]";
+                        $(".collapsedo2").css({
+                            'display': 'table-row',
+                        });
+                    } else if (dailysize2 == -1) {
+                        document.getElementById("dailyenabler2").innerHTML = "100k";
+                        $("#loadtest2").css('display','none');
+                    }
                     $("#dailyenabler").on('click', function () {
+                        if (dailysize == -1) {
+                            dailysize = 1;
+                            document.getElementById("dailyenabler2").innerHTML = "100k"
+                            $("#loadtest2").css('display','none');
+                        }
                         if (dailysize == 0) {
                             dailysize++;
-                            document.getElementById("dailyenabler").innerHTML = "Daily Hall of Counters [-]";
+                            dailysize2 = -1;
+                            $("#loadtest").css('display','inline-table');
+                            $("#loadtest2").css('display','none');
+                            document.getElementById("dailyenabler").innerHTML = "Daily [-]";
                             $(".collapsedo").css({
                                 'display': 'table-row',
                             });
-                        } else {
+                        } else if (dailysize == 1) {
                             dailysize--;
-                            document.getElementById("dailyenabler").innerHTML = "Daily Hall of Counters [+]";
+                            dailysize2 = -1;
+                            $("#loadtest").css('display','inline-table');
+                            $("#loadtest2").css('display','none');
+                            document.getElementById("dailyenabler").innerHTML = "Daily [+]";
                             $(".collapsedo").css({
+                                'display': 'none',
+                            });
+                        }
+                    });
+                        $("#dailyenabler2").on('click', function () {
+                            if (dailysize2 == -1) {
+                            dailysize2 = 1;
+                            document.getElementById("dailyenabler").innerHTML = "Daily"
+                            $("#loadtest").css('display','none');
+                        }
+                        if (dailysize2 == 0) {
+                            dailysize2++;
+                            dailysize = -1;
+                            $("#loadtest2").css('display','inline-table');
+                            $("#loadtest").css('display','none');
+                            document.getElementById("dailyenabler2").innerHTML = "100k [-]";
+                            $(".collapsedo2").css({
+                                'display': 'table-row',
+                            });
+                        } else if (dailysize2 == 1) {
+                            dailysize2--;
+                            dailysize = -1;
+                            $("#loadtest2").css('display','inline-table');
+                            $("#loadtest").css('display','none');
+                            document.getElementById("dailyenabler2").innerHTML = "100k [+]";
+                            $(".collapsedo2").css({
                                 'display': 'none',
                             });
                         }
@@ -2356,7 +2441,7 @@ var TeamBarsEnabled;
                 dataType: 'json',
                 cache: false,
                 url: 'https://raw.githubusercontent.com/MaybeNotWrong/lc-sep/master/data.txt',
-                success: day_hoc_handler,   //////this is where you put the checky bracket
+                success: day_hoc_handler,
                 error: function (data) {
                     hmmyy;
                 }
@@ -2367,6 +2452,7 @@ var TeamBarsEnabled;
                 var hmmyy;
                 var checky;
                 var checky2;
+                var the100k;
                 $.ajax({
                     method: 'GET',
                     dataType: 'json',
@@ -2379,7 +2465,9 @@ var TeamBarsEnabled;
                 });
 
             }, 15000);
-            Styles.add(`                    #loadtest tbody tr:nth-child(2) td:nth-child(1){background: gold;color: black;}#loadtest tbody tr:nth-child(3) td:nth-child(1){background: silver;color: black;}#loadtest tbody tr:nth-child(4) td:nth-child(1){background: #cd7f32;color: black;}#loadtest{border: 1px solid black;width: 100%;text-align: center;}#loadtest tr td{border: 1px solid black;max-width: 223px;}#loadtest{overflow: hidden;height: 100%;}#loadtest{color: #000;font-size: inherit;font-weight: normal;}#dailyenabler{cursor: pointer;color: #000;font-size: 14px;font-weight: bold;margin-bottom: 3px;}#tablenames{font-weight: bold;}`);
+            Styles.add(`                    #loadtest tbody tr:nth-child(2) td:nth-child(1){background: gold;color: black;}#loadtest tbody tr:nth-child(3) td:nth-child(1){background: silver;color: black;}#loadtest tbody tr:nth-child(4) td:nth-child(1){background: #cd7f32;color: black;}#loadtest{border: 1px solid black;width: 100%;text-align: center;}#loadtest tr td{border: 1px solid black;max-width: 223px;}#loadtest{overflow: hidden;height: 100%;}#loadtest{color: #000;font-size: inherit;font-weight: normal;}#dailyenabler{cursor: pointer;color: #000;font-size: 14px;font-weight: bold;margin-bottom: 3px;}.tablenames{font-weight: bold;}`);
+            Styles.add(`                    #loadtest2 tbody tr:nth-child(2) td:nth-child(1){background: gold;color: black;}#loadtest2 tbody tr:nth-child(3) td:nth-child(1){background: silver;color: black;}#loadtest2 tbody tr:nth-child(4) td:nth-child(1){background: #cd7f32;color: black;}#loadtest2{border: 1px solid black;width: 100%;text-align: center;}#loadtest2 tr td{border: 1px solid black;max-width: 223px;}#loadtest2{overflow: hidden;height: 100%;}#loadtest2{color: #000;font-size: inherit;font-weight: normal;}#dailyenabler2{cursor: pointer;color: #000;font-size: 14px;font-weight: bold;margin-bottom: 3px;}.tablenames2{font-weight: bold;}`);
+            Styles.add(`#mini{border: 1px solid black;width: 100%;text-align: center;}#mini tr td{border: 1px solid black;max-width: 223px;}#mini{overflow: hidden;height: 100%;}#mini{color: #000;font-size: inherit;font-weight: normal;}`);
             //document.getElementById("team1").style.cssText = 'background:#0000cf;color:white;z-index: 99999;min-width: 14px;max-width: 14px;height: 14px;line-height: 14px;border-radius: 14px;border: none;overflow: hidden;padding: 0;vertical-align: middle;font-size: 11px !important;position: relative;text-indent: 12px;-webkit-transition: all 0.3s;transition: all 0.3s;-webkit-transition-delay: 0.1s;transition-delay: 0.1s;cursor:help;';
         } //TeamBarsEnabled end
     }
@@ -3398,3 +3486,41 @@ var time_fake = new Date();
                 });
 }
 // End test thread special feature
+
+///////////////////////
+// AprilFools2021.ts //
+///////////////////////
+var AprilFools2021;
+(function (AprilFools2021) {
+    // INITIALIZATION
+    Elements.$body.attr('data-AprilFools2021', true);
+    // Options
+    Options.addCheckbox({
+        label: 'APRIL FOOLS 2021',
+        "default": true,
+        section: 'Advanced 2',
+        help: 'Enables April Fools 2021.',
+        onchange: function () {
+            Elements.$body.attr('data-AprilFools2021', this.prop('checked'));
+        }
+    });
+    if(Elements.$body.attr('data-AprilFools2021') == "true") {
+        $('#liveupdate-statusbar').append("<p id=countdown></p>");
+var countDownDate = new Date("Mar 31 2021 23:00:00 GMT-0500 (CDT)").getTime();
+var tugOfWarWrongDirection = setInterval(function() {
+    var nowTug = new Date().getTime();
+    var distanceTug = countDownDate - nowTug;
+    var daysTug = Math.floor(distanceTug / (1000 * 60 * 60 * 24));
+    var hoursTug = Math.floor((distanceTug % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutesTug = Math.floor((distanceTug % (1000 * 60 * 60)) / (1000 * 60));
+    var secondsTug = Math.floor((distanceTug % (1000 * 60)) / 1000);
+    document.getElementById("countdown").innerHTML = daysTug + "d " + hoursTug + "h "
+    + minutesTug + "m " + secondsTug + "s";
+    console.log(distanceTug);
+    if (distanceTug < 600000) {
+        clearInterval(tugOfWarWrongDirection);
+        document.getElementById("countdown").innerHTML = "Yeah you're probably running an older version of LCE, I plan to publish the LCE April Fools update with around 10 minutes before the timer ends so you should refresh if you see this...";
+    }
+    }, 1000);
+    }
+})(AprilFools2021 || (AprilFools2021 = {}));
