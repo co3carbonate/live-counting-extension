@@ -2316,6 +2316,8 @@ $("#team2").css('padding','3px 3px 3px 3px').css('background','#006000').css('co
 document.getElementById('team2count').innerHTML = noncommacounts;
                 $("#team1").attr('data-before',commapercent+"%");
 $("#team2").attr('data-before',noncommapercent+"%");
+		                    $("#team1count").css('flex',commapercent + '0 1 0px');
+$("#team2count").css('flex',noncommapercent + '0 1 0px');
                 function getTableRow(item, index) {
                     let res = "<tr style='font-size:inherit;'";
                     if (index >= 3){
