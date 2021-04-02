@@ -2278,46 +2278,13 @@ var TeamBarsEnabled;
                 dayhoc_last_count = data["latest_count"];
                 dayhoc_day_counts = data["day"]["total_counts"];
                 the100khoc_counts = data["100k"]["total_counts"];
-                var commacounts = data["april"][0];
-var noncommacounts = data["april"][1];
-var totalcounts = commacounts + noncommacounts;
-var commapercent = (commacounts / totalcounts) * 100;
-commapercent = Math.round( commapercent * 10 ) / 10;
-var noncommapercent = (noncommacounts / totalcounts) * 100;
-noncommapercent = Math.round( noncommapercent * 10 ) / 10;
                 if (first_call){
                     first_call = false;
-                    $("<div id=teamdisplay><div id=team1>Team 1</div><div id=team1count></div><div id=team2count></div><div id=team2>Team 2</div></div>").insertBefore("#liveupdate-description");
-                    $("#teamdisplay").css('display','flex').css('font-size','14px');
-                    var countDownDateBars = new Date("Mar 31 2021 23:00:00 GMT-0500 (CDT)").getTime();
-        var pageLoadTimeBars = new Date().getTime();
-                    if(pageLoadTimeBars - countDownDateBars < 0) {
-                         $("#teamdisplay").css('display','none');
-                    }
-$("#team1count").css('flex',commapercent + '0 1 0px').css('background','blue').css('text-align','center').css('color','transparent').css('padding-top','3px');
-$("#team2count").css('flex',noncommapercent + '0 1 0px').css('background','green').css('text-align','center').css('color','transparent').css('padding-top','3px');
-$( "#teamdisplay" ).hover(function() {
-         document.getElementById("team1count").style.color = 'white';
-         document.getElementById("team2count").style.color = 'white';
-       }, function() {
-         document.getElementById("team1count").style.color = 'transparent';
-         document.getElementById("team2count").style.color = 'transparent';
-  });
-$("#team1").css('padding','3px 3px 3px 3px').css('background','#0000cf').css('color','white');
-$("#team2").css('padding','3px 3px 3px 3px').css('background','#006000').css('color','white');
-    var csshead = $(`<style>#team1:before {-webkit-transition: all 0.3s;transition: all 0.3s;transition-delay: 0.3s;-webkit-transition-delay: 0.3s;transition-delay: 0.3s;content: attr(data-before);width: 10px;height: 12px;display: inline-block;position: absolute;left: 0px;text-align: center;top: 3px;text-indent: 3px;font-size: 14px;} #team1:hover::before {-webkit-transition: all 0.3s;transition: all 0.3s;transition-delay: 0s;-webkit-transition-delay: 0.0s;transition-delay: 0.0s;font-size:0px;} #team2:before {-webkit-transition: all 0.3s;transition: all 0.3s;transition-delay: 0.3s;-webkit-transition-delay: 0.3s;transition-delay: 0.3s;content:attr(data-before);width: 10px;height: 12px;display: inline-block;position: absolute;left: 0px;text-align: center;top: 3px;text-indent: 3px;font-size: 14px;} #team2:hover::before {-webkit-transition: all 0.3s;transition: all 0.3s;transition-delay: 0s;-webkit-transition-delay: 0.0s;transition-delay: 0.0s;font-size:0px;} #team1 {background: #0000cf;color: white;z-index: 99999;min-width: 45px;max-width: 45px;height: 17px;line-height: 14px;border-top-left-radius: 14px;border: none;overflow: hidden;padding: 0;vertical-align: middle;font-size: 0px;position: relative;text-indent: 0px;-webkit-transition: all 0.3s;transition: all 0.3s;transition-delay: 0s;-webkit-transition-delay: 0.1s;transition-delay: 0.1s;cursor: help;border-bottom-left-radius: 14px;} #team1:hover {font-size: 14px;max-width: 500px;padding: 0 5px;color: #fff} #team2 {background: #0000cf;color: white;z-index: 99999;min-width: 45px;max-width: 45px;height: 17px;line-height: 14px;border-top-right-radius: 14px;border: none;overflow: hidden;padding: 0;vertical-align: middle;font-size: 0px;position: relative;text-indent: 0px;-webkit-transition: all 0.3s;transition: all 0.3s;transition-delay: 0s;-webkit-transition-delay: 0.1s;transition-delay: 0.1s;cursor: help;border-bottom-right-radius: 14px;} #team2:hover {font-size: 14px;max-width: 500px;padding: 0 5px;color: #fff}</style>`);
-    // INITIALIZATION
-    $('head').append(csshead);
                     $(`<div id=wholetable><table id="mini"><tr class="tablenames"><td id="dailyenabler">Daily [+]</td><td id="dailyenabler2">100k [+]</td></tr></table><table id=loadtest><tr class="tablenames"><td>#</td><td>User</td><td>Counts</td></tr></table><table id=loadtest2><tr class="tablenames2"><td>#</td><td>User</td><td>Counts</td></tr></table></div>`).insertBefore("#liveupdate-resources .md");
                 } else {
                     $(`#wholetable`).html(`<table id="mini"><tr class="tablenames"><td id="dailyenabler">Daily [+]</td><td id="dailyenabler2">100k [+]</td></tr></table><table id=loadtest><tr class="tablenames"><td>#</td><td>User</td><td>Counts</td></tr></table><table id=loadtest2><tr class="tablenames2"><td>#</td><td>User</td><td>Counts</td></tr></table>`);
                 }
-                document.getElementById('team1count').innerHTML = commacounts;
-document.getElementById('team2count').innerHTML = noncommacounts;
-                $("#team1").attr('data-before',commapercent+"%");
-$("#team2").attr('data-before',noncommapercent+"%");
-		                    $("#team1count").css('flex',commapercent + '0 1 0px');
-$("#team2count").css('flex',noncommapercent + '0 1 0px');
+
                 function getTableRow(item, index) {
                     let res = "<tr style='font-size:inherit;'";
                     if (index >= 3){
