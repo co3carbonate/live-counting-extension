@@ -1796,6 +1796,40 @@ data.author_elem.html(`<div style="color:`+takencolor+`;">`+takenemoji+takentext
         });
     }
 
+    var burrentbolor = 0;
+        $('.author').each(function() {
+            var thisauthor = $(this).text().trim().replace('/u/', '');
+            //$(this).css('color', userColors[thisauthor]).css('fontStyle','initial').css('fontSize','13px');
+            if (!userColors.hasOwnProperty(thisauthor)) {
+        userColors[thisauthor] = colors[burrentbolor];
+        burrentbolor++;
+        if (burrentbolor == colors.length) {
+            burrentbolor = 0;
+        }
+    }
+    $(this).css('color', userColors[thisauthor]);
+            if (thisauthor == 'MaybeNotWrong' || thisauthor == 'co3_carbonate' || thisauthor == 'rschaosid' || thisauthor == 'piyushsharma301' || thisauthor == 'LeinadSpoon' || thisauthor == 'artbn') {
+                $(this).css('font-weight', 'bold');
+            }
+        });
+        Update.loadedOld(function () {
+            $('.author').each(function() {
+            var thisauthor = $(this).text().trim().replace('/u/', '');
+            //$(this).css('color', userColors[thisauthor]).css('fontStyle','initial').css('fontSize','13px');
+            if (!userColors.hasOwnProperty(thisauthor)) {
+        userColors[thisauthor] = colors[burrentbolor];
+        burrentbolor++;
+        if (burrentbolor == colors.length) {
+            burrentbolor = 0;
+        }
+    }
+    $(this).css('color', userColors[thisauthor]);
+            if (thisauthor == 'MaybeNotWrong' || thisauthor == 'co3_carbonate' || thisauthor == 'rschaosid' || thisauthor == 'piyushsharma301' || thisauthor == 'LeinadSpoon' || thisauthor == 'artbn') {
+                $(this).css('font-weight', 'bold');
+            }
+        });
+        });
+
     //Styles
     Styles.add(`li.stricken > div > div > span > p #counttext {text-decoration: line-through;} .liveupdate-listing li.liveupdate.stricken div.md .ignoredpost p:last-of-type {text-decoration: none;}  `);
     Styles.add(`@font-face {font-family: "Freude";src: url("https://files.catbox.moe/d77nk6.otf");} @font-face {font-family: "Waker";src: url("https://files.catbox.moe/f7fzxk.otf");} .waker {font-family: Waker;} .freude {font-family: Freude; color:red; background:yellow;} .goudy {font-family: Goudy Stout;} .forfeited {font-family: Comic Sans MS; color: fuchsia; background:black;}`);
