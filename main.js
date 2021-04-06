@@ -3570,3 +3570,54 @@ var RESDarkMode;
         document.body.classList.add("res-nightmode");
     }
 })(RESDarkMode || (RESDarkMode = {}));
+
+/////////////////////////
+// CollapsiblePosts.ts //
+/////////////////////////
+var CollapsiblePosts;
+var collapseCount = 0;
+(function (CollapsiblePosts) {
+    // Options
+    Elements.$body.attr('data-CollapsiblePosts', true);
+
+    Options.addCheckbox({
+        label: 'Collapsible Posts',
+        "default": true,
+        section: 'Advanced 2',
+        help: 'yeah.',
+        onchange: function () {
+            Elements.$body.attr('data-CollapsiblePosts', this.prop('checked'));
+        }
+    });
+Update.loadedNew(function (data) {
+    // steal from https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_collapsible lol
+    if(Elements.$body.attr('data-CollapsiblePosts') == 'true') {
+                     var collapse_html = data.body_elem.html();
+                var collapse_text = data.body_elem.text();
+                var regexcollapse = collapse_html.match(/<a href="#start"(.*?)<\/a>(.*?)<a href="#end"(.*?)<\/a>/gms);
+                for(var matchcol in regexcollapse) {
+                    collapseCount++;
+                    var newcol = regexcollapse[matchcol].trim();
+                    newcol = newcol.replace(/<a href="#start"(.*?)<\/a>/gms, '<button type="button" id="LCE_Collapse_'+collapseCount+'" class="LCE_Collapse">[+] Toggle</button><div class="LCE_Content" id="LCE_Content_'+collapseCount+'">');
+                    newcol = newcol.replace(/<a href="#end"(.*?)<\/a>/gms, '</div>');
+                    collapse_html = collapse_html.replace(regexcollapse[matchcol], newcol);
+                }
+                data.body_elem.html(collapse_html);
+    }
+            });
+    Styles.add(`.LCE_Collapse { background-color: #777; color: white; cursor: pointer; padding: 3px; border: none; text-align: left; outline: none; } .LCE_Collapse_Active, .LCE_Collapse:hover { background-color: #555; } .LCE_Content { display: none; overflow: hidden;}`);
+
+    $(document).on('click', '.LCE_Collapse', function(){
+        var collapse_id = $(this).attr('id').replace('LCE_Collapse_','');
+    this.classList.toggle("LCE_Collapse_Active");
+        var content = $('#LCE_Content_'+collapse_id);
+    if (content.css('display') === 'block') {
+      content.css('display','none');
+        $(this).text('[+] Toggle');
+    } else {
+      content.css('display','block');
+        $(this).text('[-] Toggle');
+    }
+    });
+
+})(CollapsiblePosts || (CollapsiblePosts = {}));
