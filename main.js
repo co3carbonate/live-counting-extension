@@ -27,8 +27,6 @@ var kname5 = '';
 var kname6 = '';
 var SpecialUsernamesEnabled;
 
-// Emote stuff
-const imageEmotes = ['pog', 'god', 'monkas', 'omegalul', 'stonks', 'notstonks', 'thonk', 'jesus', 'isagod', 'pensiveloaf', 'cuteballgames', 'habubger', 'angery', 'dad', 'sadge', 'feelslagman', 'catjam', 'peped', 'fortnitecard', 'squidab', 'dab', 'lool', 'karp', 'pants', 'oooh', 'twitter', 'harold', 'david', 'taking', 'baller', 'asa', 'chu', 'respite', 'sink', 'gold', 'trollface', 'kshart', 'widepeepohappy', 'widepeeposad', '5head', 'pepog', 'poggies', 'maybelegend', 'chupixel', 'vulpez', 'sspixel', 'wtfdb', 'notlike', 'talk2hand', 'rivergod', 'whitpixel', 'hmm', 'mario_luigi_dance', 'typefaster', 'lona_dont', 'mersenne', 'daemote', 'happiness', 'facepalm', 'rick', 'byepika', 'itsok', 'thisisfine', 'uhdunno', 'toocool', 'letsgo', 'woohoo', 'bonk', 'eyeroll', 'anicake', 'watching', 'wtfdidyousay', 'letmeout', 'wtfbeek', 'yikes', 'wheredanat', 'ffff', 'gotosleep', 'shake', 'brohug', 'fthis', 'earth', 'chudance', 'spideydance', 'cube', 'gildthis', 'boom', 'oof', 'emergency', 'weeee', 'boom2', 'snipe', 'd20', 'porg', 'slime', 'jebaited','pepemeltdown'];
 
 
 // Ignore function vars
@@ -2788,6 +2786,7 @@ var Emojis;
             up:"🆙",fishing_pole_and_fish:"🎣",metal:"",round_pushpin:"📍",us:"🇺🇸",cake:"🍰",metro:"🚇",rowboat:"🚣",calendar:"📆",five:"5️⃣",microphone:"🎤",ru:"🇷🇺",vertical_traffic_light:"🚦",calling:"📲",flags:"🎏",microscope:"🔬",rugby_football:"🏉",vhs:"📼",flashlight:"🔦",vibration_mode:"📳",camera:"📷",floppy_disk:"💾",minibus:"🚐",video_camera:"📹",cancer:"♋",flower_playing_cards:"🎴",minidisc:"💽",video_game:"🎮",candy:"🍬",mobile_phone_off:"📴",sa:"🈂",violin:"🎻",capital_abcd:"🔠",money_with_wings:"💸",sagittarius:"♐",virgo:"♍",capricorn:"♑",football:"🏈",moneybag:"💰",sailboat:"⛵",car:"🚗",sake:"🍶",vs:"🆚",card_index:"📇",fork_and_knife:"🍴",carousel_horse:"🎠",fountain:"⛲",monorail:"🚝",santa:"🎅",four:"4️⃣",satellite:"📡",mortar_board:"🎓",warning:"⚠",cd:"💿",fr:"🇫🇷",mount_fuji:"🗻",saxophone:"🎷",watch:"⌚",chart:"💹",free:"🆓",mountain_bicyclist:"🚵",school:"🏫",chart_with_downwards_trend:"📉",fried_shrimp:"🍤",mountain_cableway:"🚠",school_satchel:"🎒",watermelon:"🍉",chart_with_upwards_trend:"📈",fries:"🍟",mountain_railway:"🚞",scissors:"✂",checkered_flag:"🏁",scorpius:"♏",wavy_dash:"〰",cherries:"🍒",fuelpump:"⛽",movie_camera:"🎥",waxing_gibbous_moon:"🌔",moyai:"🗿",scroll:"📜",wc:"🚾",seat:"💺",children_crossing:"🚸",game_die:"🎲",secret:"㊙",wedding:"💒",chocolate_bar:"🍫",gb:"🇬🇧",musical_keyboard:"🎹",musical_note:"🎵",church:"⛪",gemini:"♊",musical_score:"🎼",seven:"7️⃣",wheelchair:"♿",cinema:"🎦",ghost:"👻",mute:"🔇",shaved_ice:"🍧",white_check_mark:"✅",circus_tent:"🎪",gift:"🎁",white_circle:"⚪",city_sunrise:"🌇",gift_heart:"💝",name_badge:"📛",white_flower:"💮",city_sunset:"🌆",neckbeard:"",ship:"🚢",white_large_square:"",cl:"🆑",shipit:"",white_medium_small_square:"",
             negative_squared_cross_mark:"❎",thinking:"🤔",clapper:"🎬",goberserk:"",tag:"🏷️",clipboard:"📋",godmode:"",new:"🆕",white_square_button:"🔳",clock1:"🕐",golf:"⛳",shower:"🚿",wind_chime:"🎐",clock10:"🕙",grapes:"🍇",signal_strength:"📶",wine_glass:"🍷",clock1030:"🕥",green_apple:"🍏",newspaper:"📰",six:"6️⃣",clock11:"🕚",green_book:"📗",ng:"🆖",six_pointed_star:"🔯",clock1130:"🕦",nine:"9️⃣",ski:"🎿",clock12:"🕛",grey_exclamation:"❕",no_bell:"🔕",clock1230:"🕧",grey_question:"❔",no_bicycles:"🚳",clock130:"🕜",no_entry:"⛔",womens:"🚺",clock2:"🕑",no_entry_sign:"🚫",slot_machine:"🎰",clock230:"🕝",small_blue_diamond:"🔹",wrench:"🔧",clock3:"🕒",no_mobile_phones:"📵",small_orange_diamond:"🔸",x:"❌",clock330:"🕞",guitar:"🎸",small_red_triangle:"🔺",clock4:"🕓",gun:"🔫",no_pedestrians:"🚷",small_red_triangle_down:"🔻",yen:"💴",clock430:"🕟",no_smoking:"🚭",clock5:"🕔",hamburger:"🍔",nonpotable_water:"🚱",clock530:"🕠",hammer:"🔨",zero:"0️⃣",clock6:"🕕",notebook:"📓",clock630:"🕡",notebook_with_decorative_cover:"📔",horse_racing:"🏇",christmas_tree:"🎄"
         }
+        const imageEmotes = ['pog', 'god', 'monkas', 'omegalul', 'stonks', 'notstonks', 'thonk', 'jesus', 'isagod', 'pensiveloaf', 'cuteballgames', 'habubger', 'angery', 'dad', 'sadge', 'feelslagman', 'catjam', 'peped', 'fortnitecard', 'squidab', 'dab', 'lool', 'karp', 'pants', 'oooh', 'twitter', 'harold', 'david', 'taking', 'baller', 'asa', 'chu', 'respite', 'sink', 'gold', 'trollface', 'kshart', 'widepeepohappy', 'widepeeposad', '5head', 'pepog', 'poggies', 'maybelegend', 'chupixel', 'vulpez', 'sspixel', 'wtfdb', 'notlike', 'talk2hand', 'rivergod', 'whitpixel', 'hmm', 'mario_luigi_dance', 'typefaster', 'lona_dont', 'mersenne', 'daemote', 'happiness', 'facepalm', 'rick', 'byepika', 'itsok', 'thisisfine', 'uhdunno', 'toocool', 'letsgo', 'woohoo', 'bonk', 'eyeroll', 'anicake', 'watching', 'wtfdidyousay', 'letmeout', 'wtfbeek', 'yikes', 'wheredanat', 'ffff', 'gotosleep', 'shake', 'brohug', 'fthis', 'earth', 'chudance', 'spideydance', 'cube', 'gildthis', 'boom', 'oof', 'emergency', 'weeee', 'boom2', 'snipe', 'd20', 'porg', 'slime', 'jebaited','pepemeltdown'];
         const regExpression = /:([^\s]+):/g
         const emojiIt = (re, text) => {
             if (result = re.exec(text)) {
@@ -3051,8 +3050,6 @@ var RateLimitView;
 // ImageEmotes.ts //
 ////////////////////
 var ImageEmotes;
-var emoteCount = 0;
-var stringy = '';
 (function (ImageEmotes) {
     // INITIALIZATION
     Elements.$body.attr('data-ImageEmotes', false);
@@ -3079,31 +3076,12 @@ var stringy = '';
             var reader = new FileReader();
             reader.onloadend = function() {
                 callback(reader.result);
-                if(Object.keys(emoteimages).length == imageEmotes.length) {
-                    var sorted = Object.keys(emoteimages).sort().reduce(function (acc, key) {
-        acc[key] = emoteimages[key];
-        return acc;
-    }, {});
-                                                for(var i=0;i < Object.keys(sorted).length;i++) {
-  stringy = stringy.concat('<img src="'+sorted[Object.keys(sorted)[i]]+'" class="img img-responsive emoji-btn" id="'+Object.keys(sorted)[i].replace('<code>','').replace('</code>','')+'" style="height:26px;vertical-align:top;">');
-}
-    $('.bottom-area').append('<script>function myFunction() {var x = document.querySelectorAll(".emoji-picker")[0];if (x.style.display == "block") {$("#emotespicker").text(" Emotes [+]"); x.style.display = "none";} else {$("#emotespicker").text(" Emotes [-]");x.style.display = "block";}}</script>');
-                    Styles.add(`.error {display: block;text-align: right;width: 480px;position: absolute;} .NO_TEXT{margin-left: -230px;margin-top: 20px;}`);
-    $('.usertext-buttons').before('<span id="emotespicker" onclick="myFunction()" style="font-size:smaller;float: right; margin-top: 5px;cursor:pointer;"> Emotes [+]</span>')
-    $('<div style="display: none;max-width:480px;" class="emoji-picker"></div>').insertAfter('.save-button .btn');
-    $('.emoji-picker').append(stringy);
-                       $('.emoji-btn').click(function() {
-        document.querySelector('textarea').value = document.querySelector('textarea').value + "`"+this.id+"`";
-        document.querySelector('textarea').focus();
-    });
-                }
             }
             reader.readAsDataURL(xhr.response);
         };
         xhr.open('GET', url);
         xhr.responseType = 'blob';
         xhr.send();
-        emoteCount++;
     }
     function emotes_load() {
         emotefunccheck++;
@@ -3401,12 +3379,13 @@ var stringy = '';
             emoteimages['<code>pepemeltdown</code>'] = dataUrl;
         })
 
+
         Update.loadedNew(function (data) {
             if(Elements.$body.attr('data-ImageEmotes') == 'true') {
                 var emotes_post = data.body_elem.html();
                 var emotes_text = data.body_elem.text();
                 the_emote = emotes_post.match(/<code>(.*?)<\/code>/gm);
-                for(var emote in the_emote) {
+                for(emote in the_emote) {
                     if(the_emote[emote].toLowerCase() in emoteimages) {
                         var emotename = the_emote[emote];
                         emotename = emotename.replace('<code>','').replace('</code>','');
