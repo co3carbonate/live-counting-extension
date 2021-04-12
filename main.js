@@ -1639,7 +1639,7 @@ data.author_elem.addClass('blink');
                         div += time;
                         div += `s `;
                         div += random_iteration;
-                        div += `;animation-timing-function: linear;animation-delay:`
+                        div += `;animation-timing-function: linear;animation-fill-mode: forwards;animation-delay:`
                         div += time2;
                         div += `s;`;
                     div += `;">`
