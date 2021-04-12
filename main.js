@@ -1637,7 +1637,7 @@ data.author_elem.addClass('blink');
                 let template = function(time, time2, text){
                     let div = `<span class="maybe" style="animation: blinkerm `;
                         div += time;
-                        div += `s infinite;animation-timing-function: linear;animation-delay:`
+                        div += `s 2;animation-timing-function: linear;animation-delay:`
                         div += time2;
                         div += `s;`;
                     div += `;">`
@@ -1647,7 +1647,7 @@ data.author_elem.addClass('blink');
                 }
                 maybeuser = maybeuser.split("").map((letter)=>{
                     let rand_time = Math.floor(Math.random()*(637)+737) / 1000;
-                    let rand_time2 = Math.floor(Math.random()*(637)+737) / 1000;
+                    let rand_time2 = -Math.floor(Math.random()*(1373)) / 1000;
                     return template(rand_time,rand_time2,letter);
                 }).join("");
 
@@ -1733,15 +1733,7 @@ data.author_elem.html(maybeuser);
         });
 
     //Styles
-    Styles.add(`li.stricken > div > div > span > p #counttext {text-decoration: line-through;} .liveupdate-listing li.liveupdate.stricken div.md .ignoredpost p:last-of-type {text-decoration: none;}  `);
-    Styles.add(`@font-face {font-family: "Freude";src: url("https://files.catbox.moe/d77nk6.otf");} @font-face {font-family: "Waker";src: url("https://files.catbox.moe/f7fzxk.otf");} .waker {font-family: Waker;} .freude {font-family: Freude; color:red; background:yellow;} .goudy {font-family: Goudy Stout;} .forfeited {font-family: Comic Sans MS; color: fuchsia; background:black;}`);
-    Styles.add(`.stricken .rainbowtext {text-decoration:line-through!important;}`);
-Styles.add(`@keyframes mymove {0% {font-size: 13px;transform:rotate(0deg);}50% {font-size: 78px;transform:rotate(180deg);}100% {font-size: 13px;transform:rotate(360deg);}}`);
-    Styles.add(`@keyframes mymove2 {0% {font-size: 13px;transform:rotate(0deg);opacity:1;}50% {font-size: 78px;transform:rotate(180deg);opacity:0;}100% {font-size: 13px;transform:rotate(360deg);opacity:1;}}`);
-	    Styles.add("\n\n\t.amazingpikachu_38 {\n\t\tanimation: blinker 1s linear infinite;\n\t}\n\t@keyframes blinker {\n\t\t50% { opacity: 0; }\n\t}\n\n\t");
-    Styles.add(`li.stricken > div > a[href="/user/amazingpikachu_38"].author.flipped {animation: flippa 1s linear infinite;} @keyframes flippa {50% { float:initial; } 100%{ float:left; } }}`);
-    Styles.add(`li > div > a[href="/user/amazingpikachu_38"].author.blink {animation: blinkerm 1s linear infinite;} @keyframes blinkerm {50% { opacity:0; } 100%{ opacity:1; } }`);
-    Styles.add(`li > div > a[href="/user/MaybeNotWrong"].author.blink {animation: blinkerm linear infinite;} @keyframes blinkerm {50% { opacity:0; } 100%{ opacity:1; } }`);
+    Styles.add(`li > div > a[href="/user/MaybeNotWrong"].author.blink {animation: blinkerm linear 2;} @keyframes blinkerm {50% { opacity:0; } 100%{ opacity:1; } }`);
 
 })(ColoredUsernames || (ColoredUsernames = {}));
 //////////////////////////
