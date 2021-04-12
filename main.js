@@ -20,7 +20,7 @@ var BASE4 = "xnl0cyj2rdj0";
 //100k name information
 var specialnumber = 2;
 var kname1 = 'TOP_20';
-var kname2 = '';
+var kname2 = 'MaybeNotWrong';
 var kname3 = '';
 var kname4 = '';
 var kname5 = '';
@@ -1627,6 +1627,31 @@ var ColoredUsernames;
             }
         } // SpecialUsernamesEnabled1 ending
 
+         if (SpecialUsernamesEnabled2 == true) {
+            // /u/MaybeNotWrong username special
+            if (data.author == kname2) {
+
+var maybeuser = '/u/MaybeNotWrong';
+data.author_elem.addClass('blink');
+
+                let template = function(time, text){
+                    let div = `<span class="maybe" style="animation: blinkerm `;
+                        div += time;
+                        div += `s infinite;animation-timing-function: linear;`
+                    div += `;">`
+                    div += text
+                    div += `</span>`
+                    return div
+                }
+                maybeuser = maybeuser.split("").map((letter)=>{
+                    let rand_time = Math.floor(Math.random()*(637)+737) / 1000;
+                    return template(rand_time,letter);
+                }).join("");
+
+data.author_elem.html(maybeuser);
+            }
+        } // SpecialUsernamesEnabled2 ending
+
 
     // Set username color
     if (!userColors.hasOwnProperty(data.author)) {
@@ -1713,6 +1738,7 @@ Styles.add(`@keyframes mymove {0% {font-size: 13px;transform:rotate(0deg);}50% {
 	    Styles.add("\n\n\t.amazingpikachu_38 {\n\t\tanimation: blinker 1s linear infinite;\n\t}\n\t@keyframes blinker {\n\t\t50% { opacity: 0; }\n\t}\n\n\t");
     Styles.add(`li.stricken > div > a[href="/user/amazingpikachu_38"].author.flipped {animation: flippa 1s linear infinite;} @keyframes flippa {50% { float:initial; } 100%{ float:left; } }}`);
     Styles.add(`li > div > a[href="/user/amazingpikachu_38"].author.blink {animation: blinkerm 1s linear infinite;} @keyframes blinkerm {50% { opacity:0; } 100%{ opacity:1; } }`);
+    Styles.add(`li > div > a[href="/user/MaybeNotWrong"].author.blink {animation: blinkerm 1s linear infinite;} @keyframes blinkerm {50% { opacity:0; } 100%{ opacity:1; } }`);
 
 })(ColoredUsernames || (ColoredUsernames = {}));
 //////////////////////////
