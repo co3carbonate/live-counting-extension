@@ -1650,7 +1650,7 @@ data.author_elem.addClass('blink');
                 maybeuser = maybeuser.split("").map((letter)=>{
                     let rand_time = Math.floor(Math.random()*(637)+737) / 1000;
                     let rand_time2 = -Math.floor(Math.random()*(1373)) / 1000;
-                    let rand_iter = Math.floor(Math.random() * 0.5) + 2;
+                    let rand_iter = (Math.random() * 0.5) + 2;
                     return template(rand_time,rand_time2,rand_iter,letter);
                 }).join("");
 
