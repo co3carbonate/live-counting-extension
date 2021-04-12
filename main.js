@@ -1930,10 +1930,12 @@ var RemoveSubmissionLag;
 var clearCount = 0;
 function noClear() {
     if(clearCount == 0) {
-        $('.status').remove();
+        //$('.status').remove();
 $.ajaxSetup({
         dataFilter: function (data, type) {
-data = '';
+            if(data == `{"jquery": [[0, 1, "call", ["#new-update-form"]], [1, 2, "attr", "find"], [2, 3, "call", [".status"]], [3, 4, "attr", "hide"], [4, 5, "call", []], [5, 6, "attr", "html"], [6, 7, "call", [""]], [7, 8, "attr", "end"], [8, 9, "call", []], [1, 10, "attr", "find"], [10, 11, "call", ["textarea"]], [11, 12, "attr", "attr"], [12, 13, "call", ["rows", 3]], [13, 14, "attr", "html"], [14, 15, "call", [""]], [15, 16, "attr", "val"], [16, 17, "call", [""]]], "success": true}`) {
+                data = `{"jquery": [[0, 1, "call", ["#new-update-form"]], [1, 2, "attr", "find"], [2, 3, "call", [".status"]], [3, 4, "attr", "hide"], [4, 5, "call", []], [5, 6, "attr", "html"] ], "success": true}`;
+            }
             return data;
         }
     });
@@ -3035,6 +3037,32 @@ var stringy = '';
             var reader = new FileReader();
             reader.onloadend = function() {
                 callback(reader.result);
+                if(Object.keys(emoteimages).length == imageEmotes.length) {
+                    if(Elements.$body.attr('data-ImageEmotes') == 'true') {
+        $('code').each(function() {
+            var thistext = $(this).text();
+            if(imageEmotes.indexOf(thistext.toLowerCase()) > -1) {
+                var this_new_html = "<img title="+thistext+" style='height:26px;vertical-align:top;' src="+emoteimages['<code>'+thistext.toLowerCase()+'</code>']+"></img>";
+                $(this).replaceWith(this_new_html);
+            }
+        });
+        }
+        Update.loadedOld(function () {
+            if(Elements.$body.attr('data-ImageEmotes') == 'true') {
+            var emotes_post = data.body_elem.html();
+                var emotes_text = data.body_elem.text();
+                the_emote = emotes_post.match(/<code>(.*?)<\/code>/gm);
+                for(var emote in the_emote) {
+                    if(the_emote[emote].toLowerCase() in emoteimages) {
+                        var emotename = the_emote[emote];
+                        emotename = emotename.replace('<code>','').replace('</code>','');
+                        emotes_post = emotes_post.replace(the_emote[emote], "<img title="+emotename+" style='height:26px;vertical-align:top;' src="+emoteimages[the_emote[emote].toLowerCase()]+"></img>");
+                    }
+                }
+                data.body_elem.html(emotes_post);
+            }
+        });
+                }
                 if(Object.keys(emoteimages).length == imageEmotes.length && Elements.$body.attr('data-ImageEmotePicker') == 'true') {
                     var sorted = Object.keys(emoteimages).sort().reduce(function (acc, key) {
         acc[key] = emoteimages[key];
@@ -3044,7 +3072,8 @@ var stringy = '';
   stringy = stringy.concat('<img src="'+sorted[Object.keys(sorted)[i]]+'" class="img img-responsive emoji-btn" id="'+Object.keys(sorted)[i].replace('<code>','').replace('</code>','')+'" style="height:26px;vertical-align:top;">');
 }
     $('.bottom-area').append('<script>function myFunction() {var x = document.querySelectorAll(".emoji-picker")[0];if (x.style.display == "block") {$("#emotespicker").text(" Emotes [+]"); x.style.display = "none";} else {$("#emotespicker").text(" Emotes [-]");x.style.display = "block";}}</script>');
-                    Styles.add(`.error {display: block;text-align: right;width: 480px;position: absolute;} .NO_TEXT{margin-left: -230px;margin-top: 20px;}`);
+                    $(`.error`).wrap(`<span class="muherror"></span>`);
+                    Styles.add(`.muherror {display:block;text-align: right;width: 480px;position: absolute;} .NO_TEXT{margin-left: -230px;margin-top: 20px;}`);
     $('.usertext-buttons').before('<span id="emotespicker" onclick="myFunction()" style="font-size:smaller;float: right; margin-top: 5px;cursor:pointer;"> Emotes [+]</span>')
     $('<div style="display: none;max-width:480px;" class="emoji-picker"></div>').insertAfter('.save-button .btn');
     $('.emoji-picker').append(stringy);
