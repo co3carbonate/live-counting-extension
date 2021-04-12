@@ -3414,10 +3414,10 @@ var stringy = '';
 var ImageEmotePicker;
 (function (ImageEmotePicker) {
     // Options
-    Elements.$body.attr('data-ImageEmotePicker', false);
+    Elements.$body.attr('data-ImageEmotePicker', true);
     Options.addCheckbox({
         label: 'Image Emote Picker',
-        "default": false,
+        "default": true,
         section: 'Advanced 2',
         help: 'Adds a selector for image emotes. Makes the page laggier so does not work well if RSL is set to "Enabled" but works okay for me if on No Clear.',
         onchange: function () {
