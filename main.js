@@ -20,7 +20,7 @@ var BASE4 = "xnl0cyj2rdj0";
 //100k name information
 var specialnumber = 2;
 var kname1 = 'TOP_20';
-var kname2 = 'ItzTaken';
+var kname2 = '';
 var kname3 = '';
 var kname4 = '';
 var kname5 = '';
@@ -1623,137 +1623,9 @@ var ColoredUsernames;
 
          if (SpecialUsernamesEnabled1 == true) {
             if (data.author == kname1) {
-                data.author_elem.html(`/u/T<span style="font-weight:bold;">O</span>P_20`)
+                data.author_elem.html(`/u/T<span style="color:#6495ED;">O</span><span style="color:#800080;">P</span><span style="color:#0000FF;">_</span><span style="color:#000000;">20</span>`)
             }
         } // SpecialUsernamesEnabled1 ending
-
-
-        if (SpecialUsernamesEnabled2 == true) {
-            if (data.author == kname2) {
-      var takentext = '';
-var takenemoji = '';
-var takenname = true;
-var takencolor = '#32ff95';
-
-var magin = data.author_elem.parent().prev().attr('href');
-    var threadid = magin.substring(magin.lastIndexOf("live/") + 5,magin.lastIndexOf("/updates"));
-           var magin2 = magin.substring(magin.indexOf("updates/") + 8);
-           var magin2p1 = magin2.substring(0, 8);
-    var magin2p11 = magin2.substring(9, 13);
-    var magin2p111 = magin2.substring(15, 18);
-    var magin2p1111 = magin2p111 + magin2p11 + magin2p1;
-
-           var magin2p2 = parseInt(magin2p1111, 16);
-           var magin3 = data.author_elem.parent().parent().next().children().first().attr('href');
-    if (magin3 == "#") {
-  var magin3 = data.author_elem.parent().parent().next().next().children().first().attr('href');
-}
-    if (magin3 == undefined) {
-  var magin3 = data.author_elem.parent().parent().next().next().children().first().attr('href');
-}
-    if (data.author_elem.parent().parent().next().hasClass( "stricken" ) == true ) {
-       var magin3 = data.author_elem.parent().parent().next().next().children().first().attr('href');
-    }
-         if (data.author_elem.parent().parent().next().next().hasClass( "stricken" ) == true && data.author_elem.parent().parent().next().hasClass( "stricken" ) == true ) {
-       var magin3 = data.author_elem.parent().parent().next().next().next().children().first().attr('href');
-     }
-if (data.author_elem.parent().parent().next().next().next().hasClass( "stricken" ) == true && data.author_elem.parent().parent().next().next().hasClass( "stricken" ) == true && data.author_elem.parent().parent().next().hasClass( "stricken" ) == true ) {
-       var magin3 = data.author_elem.parent().parent().next().next().next().next().children().first().attr('href');
-     }
-
-           var magin4 = magin3.substring(magin.indexOf("updates/") + 8);
-           var magin4p1 = magin4.substring(0, 8);
-    var magin4p11 = magin4.substring(9, 13);
-     var magin4p111 = magin4.substring(15, 18);
-    var magin4p1111 = magin4p111 + magin4p11 + magin4p1;
-           var magin4p2 = parseInt(magin4p1111, 16);
-           var teenviopoemas = magin2p2 - magin4p2;
-//          var demipunoyletra = teenviopoemas / 1000;
-          var demipunoyletra = teenviopoemas;
-demipunoyletra = Math.round( demipunoyletra / 10 ) * 10;
-           demipunoyletra = demipunoyletra / 10;
-demipunoyletra = demipunoyletra / 1000;
-if (demipunoyletra >= 1 || demipunoyletra <= 0) {
-                    demipunoyletra = Math.round(demipunoyletra);
-                }
-                if (demipunoyletra < 0) {
-                    takentext = 'I time travelled ';
-                    takenemoji = '🚀';
-                    takenname = false;
-                    takencolor = '#fcb03f';
-                } else if (demipunoyletra < 1) {
-takentext = 'WOW! That reply was only ';
-takenemoji = '😲';
-takenname = false;
-takencolor = '#ffff00';
-} else if (1 <= demipunoyletra && demipunoyletra < 50) {
-takentext = 'quick reply';
-takenemoji = '💨';
-takencolor = '#000000';
-} else if (50 <= demipunoyletra && demipunoyletra < 150) {
-takentext = 'speedy reply';
-takenemoji = '🐇';
-	takencolor = '#ff0000';
-} else if (150 <= demipunoyletra && demipunoyletra < 400) {
-takentext = 'fast reply';
-takenemoji = '🏃';
-	takencolor = '#ff9600';
-} else if (400 <= demipunoyletra && demipunoyletra < 1000) {
-takentext = 'normal reply';
-takenemoji = '🚶';
-	takencolor = '#00ff00';
-} else if (1000 <= demipunoyletra && demipunoyletra < 5000) {
-takentext = 'slow reply';
-takenemoji = '🐢';
-	takencolor = '#00beff';
-} else if (5000 <= demipunoyletra && demipunoyletra < 15000) {
-takentext = 'extremely slow reply';
-takenemoji = '🐌';
-	takencolor = '#0a00ff';
-} else if (15000 <= demipunoyletra) {
-takentext = 'no counts here for ';
-takenemoji = '🛑';
-takenname = false;
-	takencolor = '#32ff95';
-}
-  var count1testlol = data.body_elem.text();
-var count1text = count1testlol;
-count1testlol = count1testlol.substring(0, 10);
-    count1testlol = count1testlol.replace(/[A-Za-z]/g, '');
-    count1testlol = count1testlol.replace(/,/g, '');
-    count1testlol = count1testlol.replace(/ /g, '');
-count1testlol = count1testlol.replace(/\./g, '');
-count1testlol = count1testlol.substr(count1testlol.length - 3);
-
-
-if (count1testlol == '666' || count1text.includes("spook")) {
-takenemoji = '👻';
-}
-
-if (count1testlol == '666' && count1text.includes("spook")) {
-takentext = 'SPOOK'
-takenemoji = '👻';
-takencolor = '#000000';
-takenname = 'spook';
-}
-
-
-
- data.author_elem.css({
-                 'font-weight': 'bold',
-                 'display': 'inline-block'
-              });
-if (takenname == false) {
-data.author_elem.html(`<div style="color:`+takencolor+`;">`+takenemoji+takentext+demipunoyletra+`ms`+takenemoji+`</div>`);
-} else if (takenname == 'spook') {
-data.author_elem.html(`<div style="color:`+takencolor+`;">`+takenemoji+takentext+takenemoji+`</div>`);
-} else {
-data.author_elem.html(`<div style="color:`+takencolor+`;">`+takenemoji+takentext+takenemoji+` <sup>`+demipunoyletra+`ms</sup></div>`);
-}
-
-            }
-        } // SpecialUsernamesEnabled2 ending
-
 
 
     // Set username color
