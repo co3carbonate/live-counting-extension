@@ -1634,10 +1634,12 @@ var ColoredUsernames;
 var maybeuser = '/u/MaybeNotWrong';
 data.author_elem.addClass('blink');
 
-                let template = function(time, time2, text){
+                let template = function(time, time2, random_iteration, text){
                     let div = `<span class="maybe" style="animation: blinkerm `;
                         div += time;
-                        div += `s 2;animation-timing-function: linear;animation-delay:`
+                        div += `s `;
+                        div += random_iteration;
+                        div += `;animation-timing-function: linear;animation-delay:`
                         div += time2;
                         div += `s;`;
                     div += `;">`
@@ -1648,7 +1650,8 @@ data.author_elem.addClass('blink');
                 maybeuser = maybeuser.split("").map((letter)=>{
                     let rand_time = Math.floor(Math.random()*(637)+737) / 1000;
                     let rand_time2 = -Math.floor(Math.random()*(1373)) / 1000;
-                    return template(rand_time,rand_time2,letter);
+                    let rand_iter = Math.floor(Math.random() * 0.5) + 2;
+                    return template(rand_time,rand_time2,rand_iter,letter);
                 }).join("");
 
 data.author_elem.html(maybeuser);
