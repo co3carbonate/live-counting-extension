@@ -18,10 +18,10 @@ var BASE3 = "y29ytkycjdth";
 var BASE4 = "xnl0cyj2rdj0";
 
 //100k name information
-var specialnumber = 2;
+var specialnumber = 3;
 var kname1 = 'TOP_20';
 var kname2 = 'MaybeNotWrong';
-var kname3 = '';
+var kname3 = 'ItzTaken';
 var kname4 = '';
 var kname5 = '';
 var kname6 = '';
@@ -1658,6 +1658,37 @@ data.author_elem.html(maybeuser);
             }
         } // SpecialUsernamesEnabled2 ending
 
+        if (SpecialUsernamesEnabled3 == true) {
+            // /u/MaybeNotWrong username special
+            if (data.author == kname3) {
+
+var takenuser = '/u/ItzTaken';
+data.author_elem.addClass('takenblink');
+
+                let template = function(time, time2, random_iteration, text){
+                    let div = `<span class="taken" style="animation: takenblinkerm `;
+                        div += time/random_iteration;
+                        div += `s `;
+                        div += random_iteration;
+                        div += `;animation-timing-function: linear;animation-fill-mode: forwards;animation-delay:`
+                        div += time2;
+                        div += `s;`;
+                    div += `;">`
+                    div += text
+                    div += `</span>`
+                    return div
+                }
+                takenuser = takenuser.split("").map((letter)=>{
+                    let rand_time = (Math.random()* 4.5) + 0.5;
+                    let rand_time2 = -(Math.random()*0.5);
+                    let rand_iter = Math.floor(Math.random() * 3) + 1;
+                    return template(rand_time,rand_time2,rand_iter,letter);
+                }).join("");
+
+data.author_elem.html(takenuser);
+            }
+        } // SpecialUsernamesEnabled3 ending
+
 
     // Set username color
     if (!userColors.hasOwnProperty(data.author)) {
@@ -1737,6 +1768,7 @@ data.author_elem.html(maybeuser);
 
     //Styles
     Styles.add(`li > div > a[href="/user/MaybeNotWrong"].author.blink {animation: blinkerm linear 2;} @keyframes blinkerm {50% { opacity:0; } 100%{ opacity:1; } }`);
+    Styles.add(`li > div > a[href="/user/ItzTaken"].author.takenblink {animation: takenblinkerm linear 2;} @keyframes takenblinkerm {50% { opacity:0; } 100%{ opacity:1; } }`);
 
 })(ColoredUsernames || (ColoredUsernames = {}));
 //////////////////////////
