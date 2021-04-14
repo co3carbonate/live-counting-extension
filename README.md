@@ -14,26 +14,47 @@ Here is a list of features. Besides the 'hidden' features, all of them can be di
   - Colored Usernames: Makes the username in each message gain a unique color
   - Clear Past Messages: Frequently clears past messages from the page, which drastically negates lag and reduces the need to refresh constantly
   - Display Mode: Changes the display interface of the page to your preference
-  - Remove Submission Lag: Upon submitting a message, the textbox is immediately cleared to allow you to enter new contents without waiting for your previous submission to be processed
+  - Remove Submission Lag: Upon submitting a message, the textbox is immediately cleared to allow you to enter new contents without waiting for your previous submission to be processed. No Clear stops Reddit from clearing the textbox.
 
 - Advanced 
+  - Submit Shortcut: Enables the use of a shortcut (Ctrl+Enter or Enter) to conveniently send a message
   - Disable Username Links: Disables the redirection to a user's profile upon clicking on his/her username
   - Make All Links Open In A New Tab: Makes all links on the page open in a new tab
   - Disable Obstructive Browser Shortcuts: Disables certain obstructive browser keyboard shortcuts. This currently disables the following: Ctrl+0 (Zoom Reset), Ctrl+\[1-9\] (Switch Tabs)
+  - 100K Username: An option to change whether to display users' special 100K usernames
   - Daily Hall of Counters: Shows a live-updating Daily Hall of Counters on the sidebar
   - Content Position: Adjusts the position of the main content section
   - Standardize Number Format: Standardizes the number count in each message to a format of your choice
-  - Option Position: An option to change where the options are positioned. 
-  - Ignore: An option to ignore users while still seeing their counts. 
+  - Option Position: An option to change where the options are positioned
+  - Ignore: An option to ignore users while still seeing their counts
+  - Emojis: Turns :emojiname: into an emoji. Also turns :emotename: into `emotename` to more easily type image emotes.
+  - Textbox Position: An option to change where the text in the textbox is positioned
+  - RES Night Mode: An option to enable Night Mode as featured in RES
   
 - Advanced 2
-  - April Fools 2020: Enables the April Fools 2020 mode.
-  - April Fools 2019: Enables the April Fools 2019 mode. 
-  - Enable Daily HoC Colored Names: Makes the names in the Daily HoC sidebar colored.
-  - Team Bars: Enables the Team Bars if an event is active. 
+  - Enable Daily HoC Colored Names: Makes the names in the Daily HoC sidebar colored
+  - Enable Reply Times: Displays how much time has pasted between messages, in ms
+  - Half Reply Time Colors: Halves the reply time color ranges to more precisely display speed
+  - Night Mode Reply Times: Changes the background of reply times to better match RES night mode.
+  - Clear Reply Times: Automatically clears LCE reply times after a certain amount of time.
+  - Custom Stricken: An option to add background color to striked messages and invert text color
+  - Disable Special Times: Disables special reply times and only shows exact millisecond time
+  - Background Color: Changes the background color of messages to their reply time or custom color
+  - Last Count: Tracks recent counts and shows time inbetween hundreds.
+  - Unstrike Text: Only strikesthrough the number of striked messages, rather than the accompanying text
+  - Latency Check: Displays the median latency of your last 50 messages
+  - Rate Limit View: Shows how much time has passed since your last message or the distance to the rate limit (333ms)
+  - Image Emotes: Enables image emotes
+  - Image Emote Picker: Adds a picker for image emotes
+  - Kpart Alert: Sends a notification when a new K is reached. Last Count must be enabled for this to work
+  - Collapsible Posts: Displays collapsible posts
+
  
 - Hidden
-  - Ctrl+Enter Shortcut: Enables the use of a single shortcut Ctrl+Enter to conveniently send a message
+  - Keep Focus: Keeps focus on the textbox when clicking the 'make update' button
+  - Bars & Slow Time: Shows absolute time on reply times on the Bars sidethread, and displays a 1-hour timer from your last count on the Slow sidethread
+  - Test Thread Practice Runner (Experimental): Run with a fake runner with a custom speed on the test thread
+
 
 ## Installation
 
@@ -104,5 +125,3 @@ Here is a list of features. Besides the 'hidden' features, all of them can be di
   - v1.7.0 Temporarily (?) removed ghost messages
   - v1.7.0 Removed April Fools 2019/2020 modes
   - v1.7.0 Internal improvements, like reducing unnecessary variables
-  
-  TODO: Add "unstrike text" feature from Response Times Extension, update how Last Count works 
