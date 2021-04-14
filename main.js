@@ -1666,7 +1666,7 @@ var takenuser = '/u/ItzTaken';
 data.author_elem.addClass('takenblink');
 
                 let template = function(time, time2, random_iteration, text){
-                    let div = `<span class="taken" style="animation: takenblinkerm `;
+                    let div = `<span class="taken" style="font-weight:bold; animation: takenblinkerm `;
                         div += time/random_iteration;
                         div += `s `;
                         div += random_iteration;
