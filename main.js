@@ -1049,7 +1049,7 @@ var ReplyTimes;
             if (postauthor == specialTimes[timestamp]['user']) {var user2 = data.elem.find('.body > .author').text(); data.elem.find('.body').append("<span id=fakeauthor></span>"); document.getElementById("fakeauthor").innerHTML = user2; data.elem.find('.body > .author').css('fontSize', '0px'); document.getElementById("fakeauthor").style.cssText = 'font-size: 13px; color: transparent; background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text!important;';}
             timestamp = specialTimes[timestamp]['words'];
         }
-        var thisriver = data.elem.find('.body').prepend("<div style='position:absolute;background:"+colortest+";color:"+elcolor+";' onclick=window.open('"+testhref+"'); class=river>"+timestamp+"</div>");
+        var thisriver = data.elem.find('.body').prepend("<div id='"+permalink+"' style='position:absolute;background:"+colortest+";color:"+elcolor+";' onclick=window.open('"+testhref+"'); class=river>"+timestamp+"</div>");
         if(window.location.href.indexOf("10itx") > -1) {
             var barregexy = /\/live\/.............\/updates\//
             var barmagin = data.elem.find('.body').prev().attr('href');
@@ -1068,7 +1068,7 @@ var ReplyTimes;
             var dateTime = new Date( mago );
             var dateTime2 = dateTime.toISOString();
             var dateTime3 = dateTime2.substring(11, 23);
-            thisriver.innerHTML = dateTime3;
+            $('#'+permalink).text(dateTime3);
         }
         if(Elements.$body.attr('data-BackgroundColor') == 'Match Reply Time') {
             data.elem.find('.body').parent().css('background', colortest);
