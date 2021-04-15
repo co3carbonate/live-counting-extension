@@ -203,6 +203,7 @@ var THREAD = (function () {
             return component.replace(/^.*\/([^/]*)/, "$1");
     }
 })();
+
 ////////////////
 // Cookies.ts //
 ////////////////
@@ -414,7 +415,6 @@ var Elements;
     // Make the submitError display default to none (important in RemoveSubmissionLag)
     Elements.$submitError.css('display', 'none');
 })(Elements || (Elements = {}));
-;
 ///////////////
 // Styles.ts //
 ///////////////
@@ -435,6 +435,8 @@ var Styles;
     }
     Styles.add = add;
     Styles.replace = replace;
+    // Styles
+    if(THREAD == '14ny3ur3axhd4') {Styles.add(`.river {display:none!important;}`);}
 })(Styles || (Styles = {}));
 ////////////////
 // Options.ts //
@@ -1047,8 +1049,7 @@ var ReplyTimes;
             if (postauthor == specialTimes[timestamp]['user']) {var user2 = data.elem.find('.body > .author').text(); data.elem.find('.body').append("<span id=fakeauthor></span>"); document.getElementById("fakeauthor").innerHTML = user2; data.elem.find('.body > .author').css('fontSize', '0px'); document.getElementById("fakeauthor").style.cssText = 'font-size: 13px; color: transparent; background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text!important;';}
             timestamp = specialTimes[timestamp]['words'];
         }
-        data.elem.find('.body').prepend("<div onclick=window.open('"+testhref+"'); id=river>"+timestamp+"</div>");
-        data.elem.find('#river').css('position', 'absolute').css('background',colortest).css('color',elcolor);
+        var thisriver = data.elem.find('.body').prepend("<div style='position:absolute;background:"+colortest+";color:"+elcolor+";' onclick=window.open('"+testhref+"'); class=river>"+timestamp+"</div>");
         if(window.location.href.indexOf("10itx") > -1) {
             var barregexy = /\/live\/.............\/updates\//
             var barmagin = data.elem.find('.body').prev().attr('href');
@@ -1067,20 +1068,20 @@ var ReplyTimes;
             var dateTime = new Date( mago );
             var dateTime2 = dateTime.toISOString();
             var dateTime3 = dateTime2.substring(11, 23);
-            document.getElementById("river").innerHTML = dateTime3;
+            thisriver.innerHTML = dateTime3;
         }
         if(Elements.$body.attr('data-BackgroundColor') == 'Match Reply Time') {
             data.elem.find('.body').parent().css('background', colortest);
         }
 
         if (window.innerWidth >= 700) {
-            $( 'div#river' ).css('position', 'absolute').css('margin-left', '-135px').css('font-size', '9px').css('margin-top', '4px').css('width','120px').css('text-align','right').css('max-width','120px');
+            $( '.river' ).css('position', 'absolute').css('margin-left', '-135px').css('font-size', '9px').css('margin-top', '4px').css('width','120px').css('text-align','right').css('max-width','120px');
         }
         else {
-            $( 'div#river' ).css('position', 'absolute').css('margin-left', '-10px').css('font-size', '9px').css('margin-top', '-16px').css('width','120px').css('text-align','right').css('max-width','120px');
+            $( '.river' ).css('position', 'absolute').css('margin-left', '-10px').css('font-size', '9px').css('margin-top', '-16px').css('width','120px').css('text-align','right').css('max-width','120px');
         }
         if ( $('#lc-body[data-DisplayMode="Minimal"] #liveupdate-statusbar').css('display') == 'none') {
-            $( 'div#river' ).css('margin-left', '-141px');
+            $( '.river' ).css('margin-left', '-141px');
         }
         if (Elements.$body.attr('data-automaticallyClearTime') != 'Off') {
             if (Elements.$body.attr('data-automaticallyClearTime') == 'After 60s') {
@@ -1088,25 +1089,25 @@ var ReplyTimes;
             } else {
                 customClearTime = Elements.$body.attr('data-customClearTime');
             }
-            $('#river').delay(customClearTime).hide(500);
+            $('.river').delay(customClearTime).hide(500);
         }
-        $("#river").mouseover(function() {
+        $(".river").mouseover(function() {
             this.style.background = "transparent";
             this.style.color = "transparent";
             this.style.cursor = "pointer";
         });
-        $("#river").mouseout(function() {
+        $(".river").mouseout(function() {
             this.style.background = colortest;
             this.style.color = elcolor;
         });
     });
     $(window).on('load resize', function () {
         if (window.innerWidth >= 700) {
-            $( 'div#river' ).css('position', 'absolute').css('margin-left', '-135px').css('font-size', '9px').css('margin-top', '4px').css('width','120px').css('text-align','right').css('max-width','120px');
+            $( 'div.river' ).css('position', 'absolute').css('margin-left', '-135px').css('font-size', '9px').css('margin-top', '4px').css('width','120px').css('text-align','right').css('max-width','120px');
             $( '#idlecontainer' ).css('position','absolute');
         }
         else {
-            $( 'div#river' ).css('position', 'absolute').css('margin-left', '-10px').css('font-size', '9px').css('margin-top', '-16px').css('width','120px').css('text-align','right').css('max-width','120px');
+            $( 'div.river' ).css('position', 'absolute').css('margin-left', '-10px').css('font-size', '9px').css('margin-top', '-16px').css('width','120px').css('text-align','right').css('max-width','120px');
             $( '#idlecontainer' ).css('position','initial');
         }
     });
@@ -3581,6 +3582,8 @@ Update.loadedNew(function (data) {
 
 })(CollapsiblePosts || (CollapsiblePosts = {}));
 
+if(window.location.href.indexOf("ta535s1hq2je") > -1) { // Main thread special feature
+
 //////////////////////
 // LC_Chats_View.ts //
 //////////////////////
@@ -3592,10 +3595,17 @@ var LC_Chats_View;
     function lccAdda(h) {
         if(h == 'yeah bro' && lccTest == 0) {
             lccTest = 1;
-            $(`<iframe id="lc_chats_iframe" src="//www.redditmedia.com/live/14ny3ur3axhd4/embed" style=" position: absolute; left: 1%; width: 18%; top: 12%; height: 88%; "></iframe>`).insertAfter('.main-content');
-            Styles.add(`#lc-body[data-LC_Chats_View='true'] div.content { padding-left: 19%; }`);
-//var scriptTag = "<script>$.ajax({ method: 'GET', dataType: 'script', cache: false, url: 'https://co3carbonate.github.io/live-counting-extension/main.js' });<"+"/script>";
-//$("#lc_chats_iframe").contents().find("body").append(scriptTag);
+            Styles.add(`#lc-body[data-LC_Chats_View='true'] div.content { padding-left: 19%; } #lc_chats_iframe #idlecontainer {display:none!important;}`);
+            $(`<iframe class="lciframe" id="lc_chats_iframe" src="/live/14ny3ur3axhd4" style="border:none; position: absolute; left: 1%; width: 18%; top: 12%; height: 88%; "></iframe>`).insertAfter('.main-content');
+            $(`<div class="prettyform lciframe" style="display:none;position: absolute;left: 1%;width: 18%;top: 100%;height: 88%;border: none;max-width: 18%;" id="sidebar-update-form"><div class="usertext"><input type="hidden" name="thing_id" value=""><div style="" class=""><div class="md"><textarea rows="3" cols="1" name="body" class="" data-textboxposition="Default" style=" width: 90%;"></textarea></div></div></div><div class="save-button"><button class="btn" type="button" onclick="return post_pseudo_form('#sidebar-update-form', 'live/14ny3ur3axhd4/update')">make update</button> <span class="status error" style="display: none;"></span></div></div>`).insertAfter('#lc_chats_iframe');
+            $('#lc_chats_iframe').on('load', (function(){
+                var embed = $('#lc_chats_iframe').contents();
+                embed.find("#idlecontainercontainer").css('display','none');
+                embed.find("#header").css('display','none');
+                embed.find("#liveupdate-statusbar").css('display','none');
+                embed.find("#new-update-form").css('display','none');
+                embed.find(".sidebar").css('display','none');
+            }));
         }
         else if(h == 'yeah bro' && lccTest == 2) {
             lccTest = 1;
@@ -3621,3 +3631,4 @@ var LC_Chats_View;
         }
     });
 })(LC_Chats_View || (LC_Chats_View = {}));
+} // End main thread special feature.
