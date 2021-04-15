@@ -1558,6 +1558,7 @@ var ColoredUsernames;
         'ddodd69': '#a89332',
         'NeitherLi2ardMisses': '#32ff94',
         '----Redditisgood----': '#327aff',
+        'funfact15': '#6600FF',
     };
     if (USER == 'VitaminB16') {
         userColors.b66b = 'white';
