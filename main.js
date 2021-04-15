@@ -1286,8 +1286,10 @@ var LastCount;
         live_update_header_text+="<p>"+splits[i]+":<span id=split"+i+"></span></p>"
     }
     live_update_header_text+="<p>Last K:<span id=lcbot_speed></span></p><p><span id=dumptoggle>Dump [+]:</span><div id=split69></div></p></div></div></div>"
-    $('#liveupdate-header').prepend(live_update_header_text);
-    $('#idlecontainer').css({'display': 'none', 'position': 'absolute', 'left': '1%', 'top': '20%', 'width': '115px', 'background': 'transparent'});
+    //$('#liveupdate-header').prepend(live_update_header_text);
+    $('<div id="idlecontainercontainer" style="position:relative;">'+live_update_header_text+'</div>').insertBefore('#liveupdate-header');
+    //$('#idlecontainer').css({'display': 'none', 'position': 'absolute', 'left': '1%', 'top': '20%', 'width': '115px', 'background': 'transparent'});
+    $('#idlecontainer').css({'display': 'none', 'position': 'absolute', 'left': '1%', 'width': '115px', 'background': 'transparent'});
     $("#split69").css({'display': 'none',});
     $( "#lastcountdesc" ).hover(function() {
         document.getElementById("lastcountdesc").innerHTML = 'Click to reset';
@@ -1623,7 +1625,7 @@ var ColoredUsernames;
 
          if (SpecialUsernamesEnabled1 == true) {
             if (data.author == kname1) {
-                data.author_elem.html(`/u/T<span style="color:#6495ED;">O</span><span style="color:#800080;">P</span><span style="color:#0000FF;">_</span><span style="color:#000000;">20</span>`)
+                data.author_elem.html(`<span style="color:brickred;">/</span><span style="color:#a35252;">u</span><span style="color:#FFFF00;">/</span>T<span style="color:#6495ED;">O</span><span style="color:#800080;">P</span><span style="color:#0000FF;">_</span><span style="color:#000000;">20</span>`)
             }
         } // SpecialUsernamesEnabled1 ending
 
@@ -3578,3 +3580,44 @@ Update.loadedNew(function (data) {
     });
 
 })(CollapsiblePosts || (CollapsiblePosts = {}));
+
+//////////////////////
+// LC_Chats_View.ts //
+//////////////////////
+var LC_Chats_View;
+(function (LC_Chats_View) {
+    // Options
+    Elements.$body.attr('data-LC_Chats_View', false);
+    var lccTest = 0;
+    function lccAdda(h) {
+        if(h == 'yeah bro' && lccTest == 0) {
+            lccTest = 1;
+            $(`<iframe id="lc_chats_iframe" src="//www.redditmedia.com/live/14ny3ur3axhd4/embed" style=" position: absolute; left: 1%; width: 18%; top: 12%; height: 88%; "></iframe>`).insertAfter('.main-content');
+            Styles.add(`#lc-body[data-LC_Chats_View='true'] div.content { padding-left: 19%; }`);
+//var scriptTag = "<script>$.ajax({ method: 'GET', dataType: 'script', cache: false, url: 'https://co3carbonate.github.io/live-counting-extension/main.js' });<"+"/script>";
+//$("#lc_chats_iframe").contents().find("body").append(scriptTag);
+        }
+        else if(h == 'yeah bro' && lccTest == 2) {
+            lccTest = 1;
+            $('#lc_chats_iframe').css('display','initial');
+        } else if(h == 'nuh uh bro, also does this piss you off that im using strings like this? GOOD.' && lccTest == 1) {
+            lccTest = 2;
+            $('#lc_chats_iframe').css('display','none');
+        }
+    }
+    Options.addCheckbox({
+        label: 'LC Chats View',
+        "default": false,
+        section: 'Advanced',
+        help: 'Puts a small lil lc chats on da left side {:}',
+        onchange: function () {
+            Elements.$body.attr('data-LC_Chats_View', this.prop('checked'));
+            if(Elements.$body.attr('data-LC_Chats_View') == 'true') {
+                lccAdda('yeah bro');
+            }
+            if (Elements.$body.attr('data-LC_Chats_View') == 'false') {
+                lccAdda('nuh uh bro, also does this piss you off that im using strings like this? GOOD.');
+            }
+        }
+    });
+})(LC_Chats_View || (LC_Chats_View = {}));
