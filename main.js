@@ -3596,6 +3596,7 @@ var LC_Chats_View;
     function lccAdda(h, thread) {
         if(h == 'yeah bro' && lccTest < 1) {
             if(lccTest == 0) {
+                var resversion = $('#RESConsoleVersion');
                 Styles.add(`#lc-body[data-LC_Chats_View='true'] div.content { padding-left: 19%; } #lc_chats_iframe #idlecontainer {display:none!important;}`);
                 $(`<iframe class="lciframe" id="lc_chats_iframe" src="/live/14ny3ur3axhd4" style="border:none; position: absolute; left: 1%; width: 18%; top: 12%; height: 85%; "></iframe>`).insertAfter('.main-content');
                 $(`<select style="position: absolute;left: 1%;width: 18%;top: 97%;border: none;max-width: 18%;" id="iframe_loader"> <option value="14ny3ur3axhd4">LC Chats</option> <option value="15jj2286nsulu">Test Thread</option> <option value="10itxw66978go">Bars</option> <option value="yrnkgszr6zdu">Slow</option> </select>`).insertAfter('#lc_chats_iframe');
@@ -3604,6 +3605,26 @@ var LC_Chats_View;
                     lccAdda('yeah bro', document.getElementById("iframe_loader").value);
                 });
                 $(`<div class="prettyform lciframe" style="display:none;position: absolute;left: 1%;width: 18%;top: 100%;height: 88%;border: none;max-width: 18%;" id="sidebar-update-form"><div class="usertext"><input type="hidden" name="thing_id" value=""><div style="" class=""><div class="md"><textarea rows="1" cols="1" name="body" class="" data-textboxposition="Default" style=" width: 90%;"></textarea></div></div></div><div class="save-button"><button id="sidebar_submit" class="btn" type="button" onclick="return post_pseudo_form('#sidebar-update-form', 'live/14ny3ur3axhd4/update')">make update</button> <span class="status error" style="display: none;"></span></div></div>`).insertAfter('#lc_chats_iframe');
+                                $('#sidebar-update-form textarea').on('keydown', function (e) {
+            if(Elements.$body.attr('data-submitShortcut') == "Off") {
+                return;
+            }
+            if(Elements.$body.attr('data-submitShortcut') == "Ctrl+Enter") {
+                if (resversion.length > 0 && +(resversion.text().replace(/\D/g, '')) >= 478) {
+                    return;
+                }
+                if (e.keyCode == 13 && (e.ctrlKey || e.metaKey)) {
+                    e.preventDefault();
+                    $('#sidebar-update-form .save-button button').trigger('click');
+                }
+            }
+            if(Elements.$body.attr('data-submitShortcut') == "Enter") {
+                if (e.keyCode == 13) {
+                    e.preventDefault();
+                    $('#sidebar-update-form .save-button button').trigger('click');
+                }
+            }
+        });
             } else {
                 document.getElementById('lc_chats_iframe').src = `/live/`+thread;
                 document.getElementById('sidebar_submit').setAttribute( "onClick", `return post_pseudo_form('#sidebar-update-form', 'live/`+thread+`/update');`);
