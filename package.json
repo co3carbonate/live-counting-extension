@@ -5,6 +5,8 @@
         "lint": "eslint \"./**/*.js\" --ignore-path .gitignore"
     },
     "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "^4.22.0",
+        "@typescript-eslint/parser": "^4.22.0",
         "eslint": "^7.24.0",
         "eslint-config-haykam": "^1.10.0",
         "eslint-plugin-extra-rules": "^0.0.0-development",
@@ -15,12 +17,31 @@
         "eslint-plugin-node": "^11.1.0",
         "eslint-plugin-unicorn": "^28.0.2",
         "file-loader": "^6.2.0",
+        "fork-ts-checker-webpack-plugin": "^6.2.1",
         "html-minify-loader": "^1.4.0",
+        "ts-loader": "^8.1.0",
+        "typescript": "^4.2.4",
         "webpack": "^5.32.0",
         "webpack-cli": "^4.6.0"
     },
     "eslintConfig": {
-        "extends": "eslint-config-haykam",
+		"extends": [
+			"eslint-config-haykam",
+			"plugin:@typescript-eslint/eslint-recommended",
+			"plugin:@typescript-eslint/recommended"
+		],
+		"parser": "@typescript-eslint/parser",
+		"plugins": [
+			"@typescript-eslint"
+		],
+		"rules": {
+			"semi": "off",
+			"@typescript-eslint/semi": "error",
+			"no-shadow": "off",
+			"@typescript-eslint/no-shadow": "error",
+			"sort-imports": "error",
+			"jsdoc/require-param-type": "off"
+		},
         "env": {
             "browser": true,
             "jquery": true
