@@ -1,12 +1,29 @@
 {
     "name": "live-counting-extension",
     "scripts": {
-        "build": "webpack --config webpack.config.js"
+        "build": "webpack --config webpack.config.js",
+        "lint": "eslint \"./**/*.js\" --ignore-path .gitignore"
     },
     "devDependencies": {
+        "eslint": "^7.24.0",
+        "eslint-config-haykam": "^1.10.0",
+        "eslint-plugin-extra-rules": "^0.0.0-development",
+        "eslint-plugin-html": "^6.1.2",
+        "eslint-plugin-jsdoc": "^32.3.0",
+        "eslint-plugin-json": "^2.1.2",
+        "eslint-plugin-markdown": "^2.0.1",
+        "eslint-plugin-node": "^11.1.0",
+        "eslint-plugin-unicorn": "^28.0.2",
         "file-loader": "^6.2.0",
         "html-minify-loader": "^1.4.0",
         "webpack": "^5.32.0",
         "webpack-cli": "^4.6.0"
+    },
+    "eslintConfig": {
+        "extends": "eslint-config-haykam",
+        "env": {
+            "browser": true,
+            "jquery": true
+        }
     }
 }
