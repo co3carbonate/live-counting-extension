@@ -3740,3 +3740,36 @@ var LC_Chats_View;
     });
 })(LC_Chats_View || (LC_Chats_View = {}));
 } // End main thread special feature.
+
+//////////////////////
+// DisableEmbeds.ts //
+//////////////////////
+var DisableEmbeds;
+(function (DisableEmbeds) {
+    // Options
+    Elements.$body.attr('data-DisableEmbeds', true);
+    var embedTest = 0;
+    function embedKiller() {
+        embedTest = 1;
+        r.liveupdate.embeds.EmbedViewer.prototype.update = function(){return;}
+    }
+    Options.addCheckbox({
+        label: 'Disable Embeds',
+        "default": true,
+        section: 'Advanced',
+        help: 'Stops LC from automatically embedding images, videos, etc.',
+        onchange: function () {
+            Elements.$body.attr('data-DisableEmbeds', this.prop('checked'));
+            if(Elements.$body.attr('data-DisableEmbeds') == 'true') {
+                if (embedTest == 0) {
+                    embedKiller();
+                }
+            }
+        }
+    });
+    if(Elements.$body.attr('data-DisableEmbeds') == 'true') {
+        if(embedTest == 0) {
+            embedKiller();
+        }
+    }
+})(DisableEmbeds || (DisableEmbeds = {}));
