@@ -2952,13 +2952,13 @@ var stringy = '';
     var emoteUses = [];
     // Check/Update emoteUses when emotes are added or removed
     if (localStorage['emoteUses'] != null) {
-    emoteUses = JSON.parse(localStorage['emoteUses']);
-    }
-    // Check for old emote ids
-    if (emoteUses[0][0] == 0) {
-        for (var emote in emoteUses) {
-            emoteUses[emote][0] = imageEmotes[emote]
-        }
+	    emoteUses = JSON.parse(localStorage['emoteUses']);
+		    // Check for old emote ids
+	    if (emoteUses[0][0] == 0) {
+		for (var emote in emoteUses) {
+		    emoteUses[emote][0] = imageEmotes[emote]
+		}
+	    }
     }
     for (var emote in emoteUses) {
         if (imageEmotes.includes(emoteUses[emote][0]) == false) {
