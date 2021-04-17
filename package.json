@@ -5,6 +5,7 @@
 		"lint": "eslint \"./**/*.js\" --ignore-path .gitignore"
 	},
 	"devDependencies": {
+		"@types/webpack-env": "^1.16.0",
 		"@typescript-eslint/eslint-plugin": "^4.22.0",
 		"@typescript-eslint/parser": "^4.22.0",
 		"eslint": "^7.24.0",
