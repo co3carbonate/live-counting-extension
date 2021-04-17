@@ -30,6 +30,13 @@ class PreferencesManager extends EventEmitter {
 		preference.value = value;
 	}
 
+	private setSilentlyIfExists(key: string, value: unknown): void {
+		const preference = this.preferences[key];
+		if (preference) {
+			preference.value = value;
+		}
+	}
+
 	set(key: string, value: unknown): void {
 		this.setSilently(key, value);
 		this.update();
@@ -61,13 +68,18 @@ class PreferencesManager extends EventEmitter {
 	 * Loads overridden preferences from local storage.
 	 */
 	load(): void {
-		const json = localStorage.getItem(PreferencesManager.LOCAL_STORAGE_KEY);
+		try {
+			const json = localStorage.getItem(PreferencesManager.LOCAL_STORAGE_KEY);
+			if (!json) return;
 
-		const preferences = Object.entries(JSON.parse(json));
-		for (const [ key, value ] of preferences) {
-			if (typeof value !== "undefined") {
-				this.setSilently(key, value);
+			const preferences = Object.entries(JSON.parse(json));
+			for (const [ key, value ] of preferences) {
+				if (typeof value !== "undefined") {
+					this.setSilentlyIfExists(key, value);
+				}
 			}
+		} catch (error) {
+			throw new Error("Failed to load preferences: " + error);
 		}
 	}
 
