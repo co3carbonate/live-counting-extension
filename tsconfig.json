@@ -14,7 +14,7 @@
 		"resolveJsonModule": true,
 		"target": "es5",
 		"types": [
-			"webpack-env"
+			"@types/webpack-env"
 		]
 	}
 }
