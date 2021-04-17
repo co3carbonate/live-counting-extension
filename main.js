@@ -2950,23 +2950,27 @@ var stringy = '';
     var emotefunccheck = 0;
     var the_emote = "";
     var emoteUses = [];
+    // Check/Update emoteUses when emotes are added or removed
     if (localStorage['emoteUses'] != null) {
-    if (JSON.parse(localStorage['emoteUses']).length < imageEmotes.length) {
-        // Add new emote ids to emoteUses and localStorage when new ones are added
-        emoteUses = JSON.parse(localStorage['emoteUses']);
-        for (var id = JSON.parse(localStorage['emoteUses']).length; id < (imageEmotes.length); id++){
-            emoteUses[id] = [id, 0]
+    emoteUses = JSON.parse(localStorage['emoteUses']);
+    }
+    // Check for old emote ids
+    if (emoteUses[0][0] == 0) {
+        for (var emote in emoteUses) {
+            emoteUses[emote][0] = imageEmotes[emote]
         }
-        localStorage['emoteUses'] = JSON.stringify(emoteUses);
-    } else {
-        emoteUses = JSON.parse(localStorage['emoteUses']);
     }
-    } else {
-	for (var id = 0; id < (imageEmotes.length); id++) {
-		emoteUses.push([id, 0])
-	}
-	localStorage['emoteUses'] = JSON.stringify(emoteUses)
+    for (var emote in emoteUses) {
+        if (imageEmotes.includes(emoteUses[emote][0]) == false) {
+            emoteUses.splice(emote, 1);
+        }
     }
+    for (var emote in imageEmotes) {
+        if (emoteUses.flat().includes(imageEmotes[emote]) == false) {
+            emoteUses.push([imageEmotes[emote], 0])
+        }
+    }
+    localStorage['emoteUses'] = JSON.stringify(emoteUses)
     // Options
     Options.addCheckbox({
         label: 'IMAGE EMOTES',
@@ -3025,7 +3029,7 @@ var stringy = '';
                         sortedUses.sort(function(a,b) {
                             return b[1]-a[1]
                         });
-                        sortedUses.forEach(emote => sorted.push(imageEmotes[emote[0]]))
+                        sortedUses.forEach(emote => sorted.push(emote[0]))
                     }
 
                                                 for(var i=0;i < Object.keys(sorted).length;i++) {
@@ -3361,15 +3365,16 @@ var stringy = '';
                     if(the_emote[emote].toLowerCase() in emoteimages) {
                         var emotename = the_emote[emote];
                         emotename = emotename.replace('<code>','').replace('</code>','');
-                        if (emote_author == USER && unique_emotes.includes(imageEmotes.indexOf(emotename)) == false){
-                            unique_emotes.push(imageEmotes.indexOf(emotename))
+                        if (emote_author == USER && unique_emotes.includes(emotename) == false){
+                            unique_emotes.push(emotename)
                         }
                      emotes_post = emotes_post.replace(the_emote[emote], "<img title="+emotename+" style='height:26px;vertical-align:top;' src="+emoteimages[the_emote[emote].toLowerCase()]+"></img>");
                     }
                 }
                 data.body_elem.html(emotes_post);
                 for(var unique in unique_emotes) {
-                    emoteUses[unique_emotes[unique]][1]++;
+                    //finds the index of emote code by flattening
+                    emoteUses[(emoteUses.flat().indexOf(unique_emotes[unique]))/2][1]++;
                 }
             }
             if (unique_emotes.length > 0){
