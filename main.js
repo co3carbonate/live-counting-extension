@@ -3372,7 +3372,6 @@ var stringy = '';
                     }
                 }
                 data.body_elem.html(emotes_post);
-                console.log(unique_emotes)
                 for(var unique in unique_emotes) {
                     //finds the index of emote code by flattening
                     emoteUses[(emoteUses.flat().indexOf(unique_emotes[unique]))/2][1]++;
