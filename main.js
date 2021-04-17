@@ -28,8 +28,7 @@ var kname6 = '';
 var SpecialUsernamesEnabled;
 
 // Emote stuff
-const imageEmotes = ['pog', 'god', 'monkas', 'omegalul', 'stonks', 'notstonks', 'thonk', 'jesus', 'isagod', 'pensiveloaf', 'cuteballgames', 'habubger', 'angery', 'dad', 'sadge', 'feelslagman', 'catjam', 'peped', 'fortnitecard', 'squidab', 'dab', 'lool', 'karp', 'pants', 'oooh', 'twitter', 'harold', 'david', 'taking', 'baller', 'asa', 'chu', 'respite', 'sink', 'gold', 'trollface', 'kshart', 'widepeepohappy', 'widepeeposad', '5head', 'pepog', 'poggies', 'maybelegend', 'chupixel', 'vulpez', 'sspixel', 'wtfdb', 'notlike', 'talk2hand', 'rivergod', 'whitpixel', 'hmm', 'mario_luigi_dance', 'typefaster', 'lona_dont', 'mersenne', 'daemote', 'happiness', 'facepalm', 'rick', 'byepika', 'itsok', 'thisisfine', 'uhdunno', 'toocool', 'letsgo', 'woohoo', 'bonk', 'eyeroll', 'anicake', 'watching', 'wtfdidyousay', 'letmeout', 'wtfbeek', 'yikes', 'wheredanat', 'ffff', 'gotosleep', 'shake', 'brohug', 'fthis', 'earth', 'chudance', 'spideydance', 'cube', 'gildthis', 'boom', 'oof', 'emergency', 'weeee', 'boom2', 'snipe', 'd20', 'porg', 'slime', 'jebaited','pepemeltdown'];
-
+const imageEmotes = ['pog', 'god', 'monkas', 'omegalul', 'stonks', 'notstonks', 'thonk', 'jesus', 'isagod', 'pensiveloaf', 'cuteballgames', 'habubger', 'angery', 'dad', 'sadge', 'feelslagman', 'catjam', 'peped', 'fortnitecard', 'squidab', 'dab', 'lool', 'karp', 'pants', 'oooh', 'twitter', 'harold', 'david', 'taking', 'baller', 'asa', 'chu', 'respite', 'sink', 'gold', 'trollface', 'kshart', 'widepeepohappy', 'widepeeposad', '5head', 'pepog', 'poggies', 'maybelegend', 'chupixel', 'vulpez', 'sspixel', 'wtfdb', 'notlike', 'talk2hand', 'rivergod', 'whitpixel', 'hmm', 'mario_luigi_dance', 'typefaster', 'lona_dont', 'mersenne', 'daemote', 'happiness', 'facepalm', 'rick', 'byepika', 'itsok', 'thisisfine', 'uhdunno', 'toocool', 'letsgo', 'woohoo', 'bonk', 'eyeroll', 'anicake', 'watching', 'wtfdidyousay', 'letmeout', 'wtfbeek', 'yikes', 'wheredanat', 'ffff', 'gotosleep', 'shake', 'brohug', 'fthis', 'earth', 'chudance', 'spideydance', 'cube', 'gildthis', 'boom', 'oof', 'emergency', 'weeee', 'boom2', 'snipe', 'd20', 'porg', 'slime', 'jebaited', 'pepemeltdown'];
 
 // Ignore function vars
 var ignored = [];
@@ -2950,6 +2949,24 @@ var stringy = '';
     var emoteimages = {};
     var emotefunccheck = 0;
     var the_emote = "";
+    var emoteUses = [];
+    if (localStorage['emoteUses'] != null) {
+    if (JSON.parse(localStorage['emoteUses']).length < imageEmotes.length) {
+        // Add new emote ids to emoteUses and localStorage when new ones are added
+        emoteUses = JSON.parse(localStorage['emoteUses']);
+        for (var id = JSON.parse(localStorage['emoteUses']).length; id < (imageEmotes.length); id++){
+            emoteUses[id] = [id, 0]
+        }
+        localStorage['emoteUses'] = JSON.stringify(emoteUses);
+    } else {
+        emoteUses = JSON.parse(localStorage['emoteUses']);
+    }
+    } else {
+	for (var id = 0; id < (imageEmotes.length); id++) {
+		emoteUses.push([id, 0])
+	}
+	localStorage['emoteUses'] = JSON.stringify(emoteUses)
+    }
     // Options
     Options.addCheckbox({
         label: 'IMAGE EMOTES',
@@ -2982,7 +2999,7 @@ var stringy = '';
         }
         Update.loadedOld(function () {
             if(Elements.$body.attr('data-ImageEmotes') == 'true') {
-            var emotes_post = data.body_elem.html();
+                var emotes_post = data.body_elem.html();
                 var emotes_text = data.body_elem.text();
                 the_emote = emotes_post.match(/<code>(.*?)<\/code>/gm);
                 for(var emote in the_emote) {
@@ -2997,12 +3014,22 @@ var stringy = '';
         });
                 }
                 if(Object.keys(emoteimages).length == imageEmotes.length && Elements.$body.attr('data-ImageEmotePicker') == 'true') {
-                    var sorted = Object.keys(emoteimages).sort().reduce(function (acc, key) {
-        acc[key] = emoteimages[key];
-        return acc;
-    }, {});
+                    var sorted = [];
+                    if(Elements.$body.attr('data-EmoteOrder') == 'Alphabetical' || Elements.$body.attr('data-EmoteOrder') == undefined) {
+                        sorted = [...imageEmotes].sort()
+                    } else if (Elements.$body.attr('data-EmoteOrder') == 'Date Added') {
+                        sorted = [...imageEmotes]
+                    } else if (Elements.$body.attr('data-EmoteOrder') == 'Usage') {
+                        emoteUses = JSON.parse(localStorage['emoteUses'])
+                        var sortedUses = [...emoteUses]
+                        sortedUses.sort(function(a,b) {
+                            return b[1]-a[1]
+                        });
+                        sortedUses.forEach(emote => sorted.push(imageEmotes[emote[0]]))
+                    }
+
                                                 for(var i=0;i < Object.keys(sorted).length;i++) {
-  stringy = stringy.concat('<img src="'+sorted[Object.keys(sorted)[i]]+'" class="img img-responsive emoji-btn" id="'+Object.keys(sorted)[i].replace('<code>','').replace('</code>','')+'" style="height:26px;vertical-align:top;">');
+  stringy = stringy.concat('<img src="'+emoteimages["<code>"+sorted[i]+"</code>"]+'" class="img img-responsive emoji-btn" id="'+sorted[i]+'" style="height:26px;vertical-align:top;">');
 }
     $('.bottom-area').append('<script>function myFunction() {var x = document.querySelectorAll(".emoji-picker")[0];if (x.style.display == "block") {$("#emotespicker").text(" Emotes [+]"); x.style.display = "none";} else {$("#emotespicker").text(" Emotes [-]");x.style.display = "block";}}</script>');
                     $(`.error`).wrap(`<span class="muherror"></span>`);
@@ -3011,9 +3038,13 @@ var stringy = '';
     $('<div style="display: none;max-width:480px;" class="emoji-picker"></div>').insertAfter('.save-button .btn');
     $('.emoji-picker').append(stringy);
                        $('.emoji-btn').click(function() {
-        document.querySelector('textarea').value = document.querySelector('textarea').value + "`"+this.id+"`";
-        document.querySelector('textarea').focus();
-    });
+			   // find selection range and insert emote text into the selection
+                           var select_start = document.querySelector('textarea').selectionStart
+                           var select_end = document.querySelector('textarea').selectionEnd
+                           document.querySelector('textarea').value = document.querySelector('textarea').value.substring(0, select_start) + "`" + this.id + "`" + document.querySelector('textarea').value.substring(select_end);
+                           document.querySelector('textarea').setSelectionRange(select_end + this.id.length + 2, select_end + this.id.length + 2)
+                           document.querySelector('textarea').focus();
+                       });
                 }
             }
             reader.readAsDataURL(xhr.response);
@@ -3322,16 +3353,27 @@ var stringy = '';
         Update.loadedNew(function (data) {
             if(Elements.$body.attr('data-ImageEmotes') == 'true') {
                 var emotes_post = data.body_elem.html();
+                var emote_author = data.author_elem.attr('href').substring(6);
                 var emotes_text = data.body_elem.text();
+                var unique_emotes = [];
                 the_emote = emotes_post.match(/<code>(.*?)<\/code>/gm);
                 for(var emote in the_emote) {
                     if(the_emote[emote].toLowerCase() in emoteimages) {
                         var emotename = the_emote[emote];
                         emotename = emotename.replace('<code>','').replace('</code>','');
-                        emotes_post = emotes_post.replace(the_emote[emote], "<img title="+emotename+" style='height:26px;vertical-align:top;' src="+emoteimages[the_emote[emote].toLowerCase()]+"></img>");
+                        if (emote_author == USER && unique_emotes.includes(imageEmotes.indexOf(emotename)) == false){
+                            unique_emotes.push(imageEmotes.indexOf(emotename))
+                        }
+                     emotes_post = emotes_post.replace(the_emote[emote], "<img title="+emotename+" style='height:26px;vertical-align:top;' src="+emoteimages[the_emote[emote].toLowerCase()]+"></img>");
                     }
                 }
                 data.body_elem.html(emotes_post);
+                for(var unique in unique_emotes) {
+                    emoteUses[unique_emotes[unique]][1]++;
+                }
+            }
+            if (unique_emotes.length > 0){
+                localStorage['emoteUses'] = JSON.stringify(emoteUses)
             }
         });
     }
@@ -3358,6 +3400,25 @@ var ImageEmotePicker;
         }
     });
 })(ImageEmotePicker || (ImageEmotePicker = {}));
+
+////////////////////////
+// EmoteOrder.ts      //
+////////////////////////
+
+var EmoteOrder;
+(function (EmoteOrder) {
+    // Options
+    Options.addSelect({
+        label: 'Emote Picker Order',
+        options: ['Alphabetical', 'Date Added', 'Usage'],
+        section: 'Advanced 2',
+        "default": "Alphabetical",
+        help: 'Changes the order of emotes in the Emote Picker. Changes upon refresh.',
+        onchange: function () {
+            Elements.$body.attr('data-EmoteOrder', this.val());
+        }
+    });
+})(EmoteOrder || (EmoteOrder = {}));
 
 /////////////////////
 // KpartAlert.ts //
