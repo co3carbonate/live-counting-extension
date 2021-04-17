@@ -2,9 +2,18 @@
 	"name": "live-counting-extension",
 	"scripts": {
 		"build": "webpack --config webpack.config.js",
-		"lint": "eslint \"./**/*.js\" --ignore-path .gitignore"
+		"lint": "eslint \"./**/*.js\" \"./**/*.ts\" \"./**/*.tsx\" --ignore-path .gitignore"
+	},
+	"dependencies": {
+		"events": "^3.3.0",
+		"react": "^17.0.2",
+		"react-dom": "^17.0.2"
 	},
 	"devDependencies": {
+		"@types/events": "^3.0.0",
+		"@types/react": "^17.0.3",
+		"@types/react-dom": "^17.0.3",
+		"@types/webpack-env": "^1.16.0",
 		"@typescript-eslint/eslint-plugin": "^4.22.0",
 		"@typescript-eslint/parser": "^4.22.0",
 		"eslint": "^7.24.0",

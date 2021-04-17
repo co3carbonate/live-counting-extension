@@ -14,7 +14,7 @@ module.exports = {
 			options: {
 				transpileOnly: true,
 			},
-			test: /\.ts$/,
+			test: /\.tsx?$/,
 		}],
 	},
 	output: {
@@ -28,6 +28,7 @@ module.exports = {
 		extensions: [
 			".js",
 			".ts",
+			".tsx",
 		],
 	},
 };

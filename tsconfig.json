@@ -3,6 +3,7 @@
 		"allowJs": true,
 		"downlevelIteration": true,
 		"esModuleInterop": true,
+		"jsx": "react-jsx",
 		"lib": [
 			"es2020",
 			"dom"
@@ -14,7 +15,10 @@
 		"resolveJsonModule": true,
 		"target": "es5",
 		"types": [
-			"webpack-env"
+			"@types/events",
+			"@types/react",
+			"@types/react-dom",
+			"@types/webpack-env"
 		]
 	}
 }
