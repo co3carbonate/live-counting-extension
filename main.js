@@ -2936,6 +2936,23 @@ var RateLimitView;
     });
 })(RateLimitView || (RateLimitView = {}));
 
+/////////////////////////
+// ImageEmotePicker.ts //
+/////////////////////////
+var ImageEmotePicker;
+(function (ImageEmotePicker) {
+    Elements.$body.attr('data-ImageEmotePicker', true);
+    // Options
+    Options.addCheckbox({
+        label: 'Image Emote Picker',
+        "default": true,
+        section: 'Advanced 2',
+        help: 'Adds a selector for image emotes.',
+        onchange: function () {
+            Elements.$body.attr('data-ImageEmotePicker', this.prop('checked'));
+        }
+    });
+})(ImageEmotePicker || (ImageEmotePicker = {}));
 
 ////////////////////
 // ImageEmotes.ts //
@@ -2945,7 +2962,7 @@ var emoteCount = 0;
 var stringy = '';
 (function (ImageEmotes) {
     // INITIALIZATION
-    Elements.$body.attr('data-ImageEmotes', false);
+    Elements.$body.attr('data-ImageEmotes', true);
     var emoteimages = {};
     var emotefunccheck = 0;
     var the_emote = "";
@@ -2974,7 +2991,7 @@ var stringy = '';
     // Options
     Options.addCheckbox({
         label: 'IMAGE EMOTES',
-        "default": false,
+        "default": true,
         section: 'Advanced 2',
         help: 'Enables image emotes. Requires refresh probably',
         onchange: function () {
@@ -2986,11 +3003,12 @@ var stringy = '';
     });
 
     function toDataURL(url, callback) {
-        var xhr = new XMLHttpRequest();
-        xhr.onload = function() {
-            var reader = new FileReader();
-            reader.onloadend = function() {
-                callback(reader.result);
+        //var xhr = new XMLHttpRequest();
+        //xhr.onload = function() {
+            //var reader = new FileReader();
+            //reader.onloadend = function() {
+                //callback(reader.result);
+                callback(url);
                 if(Object.keys(emoteimages).length == imageEmotes.length) {
                     if(Elements.$body.attr('data-ImageEmotes') == 'true') {
         $('code').each(function() {
@@ -3001,7 +3019,7 @@ var stringy = '';
             }
         });
         }
-        Update.loadedOld(function () {
+        Update.loadedOld(function (data) {
             if(Elements.$body.attr('data-ImageEmotes') == 'true') {
                 var emotes_post = data.body_elem.html();
                 var emotes_text = data.body_elem.text();
@@ -3050,12 +3068,12 @@ var stringy = '';
                            document.querySelector('textarea').focus();
                        });
                 }
-            }
-            reader.readAsDataURL(xhr.response);
-        };
-        xhr.open('GET', url);
-        xhr.responseType = 'blob';
-        xhr.send();
+            //}
+            //reader.readAsDataURL(xhr.response);
+        //};
+        //xhr.open('GET', url);
+        //xhr.responseType = 'blob';
+        //xhr.send();
         emoteCount++;
     }
     function emotes_load() {
@@ -3388,23 +3406,6 @@ var stringy = '';
     }
 
 })(ImageEmotes || (ImageEmotes = {}));
-/////////////////////////
-// ImageEmotePicker.ts //
-/////////////////////////
-var ImageEmotePicker;
-(function (ImageEmotePicker) {
-    // Options
-    Elements.$body.attr('data-ImageEmotePicker', true);
-    Options.addCheckbox({
-        label: 'Image Emote Picker',
-        "default": true,
-        section: 'Advanced 2',
-        help: 'Adds a selector for image emotes.',
-        onchange: function () {
-            Elements.$body.attr('data-ImageEmotePicker', this.prop('checked'));
-        }
-    });
-})(ImageEmotePicker || (ImageEmotePicker = {}));
 
 ////////////////////////
 // EmoteOrder.ts      //
