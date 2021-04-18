@@ -3656,8 +3656,7 @@ var DisableEmbeds;
 
 // Test thread special feature (Always at the bottom, because it will be messy lol)
 if(window.location.href.indexOf("15jj2286nsulu") > -1) {
-    r.liveupdate.app.websocket._events['message:update'][0].callback = function(t){console.log('data received:'+Date.now());var n=r.liveupdate.listings.LiveUpdate.prototype.parse(t);this.listing.add(n,{at:0})}
-    if(window.location.href.indexOf("test") > -1) {
+        if(window.location.href.indexOf("test") > -1) {
         $("#liveupdate-description").append(`<iframe src="https://socketio-whiteboard-zmx4.herokuapp.com/" width="100%" height="480" scrolling="no" class="iframe-class" frameborder="0"></iframe>`);
     }
     $("#liveupdate-description").append("<p style='background:#e2ffdb;font-size:16px;' id=fakerunner>Hi am fake runner. This feature SUCKS but maybe it could be useful to someone some day. Reply times may be slightly inaccurate but I really tried lol. Increment:<input id='fakeruntime'></input> <button id='this_sucks'>Press to run.</button><button id='fuck_it'>Click to stop.</button><button id='sink'>Sync time</button>Sync in ms:<input id='sinker'></input><button id='hide_a_mf'>Hide</button></p>");
@@ -3772,8 +3771,15 @@ var time_fake = new Date();
            $( "#hide_a_mf" ).click(function() {
               $("#fakerunner").css('display','none');
                 });
+
+                // Latency testing stuff
+    $('#new-update-form .save-button button').click(function(){
+        console.log('pressed submit:'+Date.now());
+    });
+    r.liveupdate.app.websocket._events['message:update'][0].callback = function(t){console.log('data received:'+Date.now());var n=r.liveupdate.listings.LiveUpdate.prototype.parse(t);this.listing.add(n,{at:0})}
                 Update.loadedNew(function (data) {
                     console.log('LCE finished:'+Date.now());
                     });
+                    // Latency testing stuff end
 }
 // End test thread special feature
