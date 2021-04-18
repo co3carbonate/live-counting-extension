@@ -32,7 +32,7 @@ const imageEmotes = ['pog', 'god', 'monkas', 'omegalul', 'stonks', 'notstonks', 
 
 // Ignore function vars
 var ignored = [];
-ignored.push(localStorage['ignoredppl']);
+ignored.push(localStorage.getItem('ignoredppl'));
 
 //Daily HoC vars
 var dailysize = 0;
@@ -2638,7 +2638,7 @@ var IgnoreEnabled;
         }
     });
 
-    $(`<script>var ignored = []; ignored.push(localStorage['ignoredppl']); function addIgnore() {var ignoreinp = document.getElementById('ignorebox');ignored.push(ignoreinp.value);ignoreinp.value = "";document.getElementById("ignorebox2").innerHTML = ignored;localStorage['ignoredppl'] = ignored;}function displayIgnore() {document.getElementById("ignorebox2").innerHTML = ignored;}function deleteIgnore() {ignored = []; localStorage['ignoredppl'] = []; document.getElementById("ignorebox2").innerHTML = '';}</script><span id=ignorestuff><input id=ignorebox style="position: absolute;margin-top: -25px;margin-left: 65px;"></input><span style="position: absolute;margin-top: -26px;margin-left: 210px;font-size: 9px !important;"><button type="button" id="ignoreadd" onclick="addIgnore()" style="font-size: 12px;padding: 0;margin-right: 3px;">ADD</button><button type="button" id="ignoredelete" onclick="deleteIgnore()" style="font-size: 12px;padding: 0;">DELETE ALL</button></span><div>Ignored users: <span id=ignorebox2></span></div></span><script>document.getElementById('ignorebox2').innerHTML = ignored;</script>`).insertAfter(`#live-counting-extension div div:nth-child(4) label:nth-last-child(1)`);
+    $(`<script>var ignored = []; ignored.push(localStorage.getItem('ignoredppl')); function addIgnore() {var ignoreinp = document.getElementById('ignorebox');ignored.push(ignoreinp.value);ignoreinp.value = "";document.getElementById("ignorebox2").innerHTML = ignored;localStorage.setItem('ignoredppl', ignored);}function displayIgnore() {document.getElementById("ignorebox2").innerHTML = ignored;}function deleteIgnore() {ignored = []; localStorage.setItem('ignoredppl', []); document.getElementById("ignorebox2").innerHTML = '';}</script><span id=ignorestuff><input id=ignorebox style="position: absolute;margin-top: -25px;margin-left: 65px;"></input><span style="position: absolute;margin-top: -26px;margin-left: 210px;font-size: 9px !important;"><button type="button" id="ignoreadd" onclick="addIgnore()" style="font-size: 12px;padding: 0;margin-right: 3px;">ADD</button><button type="button" id="ignoredelete" onclick="deleteIgnore()" style="font-size: 12px;padding: 0;">DELETE ALL</button></span><div>Ignored users: <span id=ignorebox2></span></div></span><script>document.getElementById('ignorebox2').innerHTML = ignored;</script>`).insertAfter(`#live-counting-extension div div:nth-child(4) label:nth-last-child(1)`);
     if (enabled7 == true) {
         IgnoreEnabled = true;
         $('#ignorestuff').css('display','initial');
@@ -2968,8 +2968,8 @@ var stringy = '';
     var the_emote = "";
     var emoteUses = [];
     // Check/Update emoteUses when emotes are added or removed
-    if (localStorage['emoteUses'] != null) {
-	    emoteUses = JSON.parse(localStorage['emoteUses']);
+    if (localStorage.getItem('emoteUses') != null) {
+	    emoteUses = JSON.parse(localStorage.getItem('emoteUses'));
 		    // Check for old emote ids
 	    if (emoteUses[0][0] == 0) {
 		for (var emote in emoteUses) {
@@ -2987,7 +2987,7 @@ var stringy = '';
             emoteUses.push([imageEmotes[emote], 0])
         }
     }
-    localStorage['emoteUses'] = JSON.stringify(emoteUses)
+    localStorage.setItem('emoteUses', JSON.stringify(emoteUses))
     // Options
     Options.addCheckbox({
         label: 'IMAGE EMOTES',
@@ -3042,7 +3042,7 @@ var stringy = '';
                     } else if (Elements.$body.attr('data-EmoteOrder') == 'Date Added') {
                         sorted = [...imageEmotes]
                     } else if (Elements.$body.attr('data-EmoteOrder') == 'Usage') {
-                        emoteUses = JSON.parse(localStorage['emoteUses'])
+                        emoteUses = JSON.parse(localStorage.getItem('emoteUses'))
                         var sortedUses = [...emoteUses]
                         sortedUses.sort(function(a,b) {
                             return b[1]-a[1]
@@ -3396,7 +3396,7 @@ var stringy = '';
                 }
             }
             if (unique_emotes.length > 0){
-                localStorage['emoteUses'] = JSON.stringify(emoteUses)
+                localStorage.setItem('emoteUses', JSON.stringify(emoteUses))
             }
         });
     }
