@@ -3444,126 +3444,6 @@ var KpartAlert;
     });
 })(KpartAlert || (KpartAlert = {}));
 
-// Test thread special feature
-if(window.location.href.indexOf("15jj2286nsulu") > -1) {
-    if(window.location.href.indexOf("test") > -1) {
-        $("#liveupdate-description").append(`<iframe src="https://socketio-whiteboard-zmx4.herokuapp.com/" width="100%" height="480" scrolling="no" class="iframe-class" frameborder="0"></iframe>`);
-    }
-    $("#liveupdate-description").append("<p style='background:#e2ffdb;font-size:16px;' id=fakerunner>Hi am fake runner. This feature SUCKS but maybe it could be useful to someone some day. Reply times may be slightly inaccurate but I really tried lol. Increment:<input id='fakeruntime'></input> <button id='this_sucks'>Press to run.</button><button id='fuck_it'>Click to stop.</button><button id='sink'>Sync time</button>Sync in ms:<input id='sinker'></input><button id='hide_a_mf'>Hide</button></p>");
-
-var fake_count = 10000000;
-    var fake_lol = 0;
-    var fake_count_2 = 0;
-    var fake_count_author = '';
-    var strikechecky = '';
-    var sinky = 0;
-//var post1 = setInterval(function(){
-function poster(){
-    //fake_lol++;
-    try{
-        fake_count_2 = $('#lastcountcount').text();
-        fake_count_author = $('#lastcountuser').text();
-                    //fake_count = $('#lastcountcount').text();
-            //fake_count = parseFloat(fake_count.replace(/,/g, ''));
-                fake_count_2 = fake_count_2.replace(/[A-Za-z]/g, '');
-    fake_count_2 = fake_count_2.replace(/,/g, '');
-    fake_count_2 = fake_count_2.replace(/ /g, '');
-fake_count_2 = fake_count_2.replace(/\./g, '');
-            fake_count_2 = parseFloat(fake_count_2);
-        //if(fake_lol % 2 == 0) {
-        if(fake_count_author != 'Riverbot') {
-            fake_count = fake_count_2 + 1;
-            strikechecky = '';
-        } else {
-            fake_count = fake_count_2 + 2;
-            strikechecky = ' stricken';
-        }
-        //} else {
-        //            if(fake_count_author != 'Graphite_bot') {
-       //     fake_count = fake_count_2 + 1;
-       // } else {
-       //     fake_count = fake_count_2 + 2;
-      //  }
-      // }
-    }
-    catch(err) {
-        fake_count = 10000000;
-    }
-    fake_count = fake_count.toLocaleString();
-var time_fake = new Date();
-    var time_lake = time_fake.toISOString();
-    time_fake = time_fake.getTime();
-    //var d = '2040-01-03T00:00:00.500Z';
-    var d = '2040-01-03T00:00:00.500Z';
-    //d = new Date(d).valueOf();
-    d = new Date(d).valueOf();
-    d += sinky;
-    time_fake = time_fake + d;
-    time_fake = time_fake / 1000;
-    time_fake = time_fake + 10010131200;
-    time_fake = time_fake * 10**7;
-    time_fake = time_fake.toString(16);
-    var t1 = time_fake.substring(0,3);
-    var t2 = time_fake.substring(3,7);
-    var t3 = time_fake.substring(7,15);
-//if(fake_lol % 2 == 0) {
-    $(".liveupdate-listing").prepend(`<li class="liveupdate deadupdate`+strikechecky+`"><a href="/live/ta535s1hq2je/updates/`+t3+`-`+t2+`-1`+t1+`-8133-0e5d46594c50" target="_blank"><time class="live-timestamp" datetime="`+time_lake+`" title="this is fake lol">just now</time></a><div class="body"><div class="md"><p>`+fake_count+`</p></div><a href="/user/Riverbot" class="author" style="color: black;"> /u/Riverbot</a></div><ul class="buttonrow"><li><span class="strike confirm-button"><button>this is fake lol</button></span></li><li><span class="delete confirm-button"><button>delete</button></span></li></ul></li>`);
-//} else {
-  //  $(".liveupdate-listing").prepend(`<li class="liveupdate deadupdate"><a href="/live/ta535s1hq2je/updates/`+t3+`-`+t2+`-1`+t1+`-8133-0e5d46594c50" target="_blank"><time class="live-timestamp" datetime="2019-03-31T02:16:13.000Z" title="this is fake lol">just now</time></a><div class="body"><div class="md"><p>`+fake_count+`</p></div><a href="/user/Graphite_bot" class="author" style="color: black;"> /u/Graphite_bot</a></div><ul class="buttonrow"><li><span class="strike confirm-button"><button>this is fake lol</button></span></li><li><span class="delete confirm-button"><button>delete</button></span></li></ul></li>`);
-//}
-    //    $(".liveupdate-listing").prepend(`<li class="liveupdate deadupdate"><a href="/live/" target="_blank"><time class="live-timestamp" datetime="2019-03-31T02:16:13.000Z" title="this is fake lol">just now</time></a><div class="body"><div class="md"><p>10000000</p></div><a href="/user/Riverbot" class="author" style="color: black;"> /u/Riverbot</a></div><ul class="buttonrow"><li><span class="strike confirm-button"><button>this is fake lol</button></span></li><li><span class="delete confirm-button"><button>delete</button></span></li></ul></li>`);
-			//},increment_timey);
-}
-        $( "#this_sucks" ).click(function() {
-        var increment_timey = $('#fakeruntime').val();
-                sinky = parseFloat($('#sinker').val()) * -1;
-            if(isNaN(sinky)) {sinky = 0;}
-        if(isNaN(increment_timey)) {increment_timey = 1000;}
-        var post1 = setInterval(poster, increment_timey);
-                    $( "#fuck_it" ).click(function() {
-            clearInterval(post1);
-                });
-            $( "#hide_a_mf" ).click(function() {
-            clearInterval(post1);
-                $("#fakerunner").css('display','none');
-                });
-    });
-
-    var synccheck = 0;
-                $( "#sink" ).click(function() {
-                    synccheck = 1;
-                });
-    //            $( "#sink" ).click(function() {
-        Update.loadedNew(function (data) {
-            if(data.author_elem.text() != ' /u/Riverbot' && synccheck == 1) {
-                synccheck = 0;
-                sinky = parseFloat($('#sinker').val()) * -1;
-                if(isNaN(sinky)) {sinky = 0;}
-var time_fake = new Date();
-    var time_lake = time_fake.toISOString();
-    time_fake = time_fake.getTime();
-    var d = '2040-01-03T00:00:00.500Z';
-    d = new Date(d).valueOf();
-    d += sinky;
-    time_fake = time_fake + d;
-    time_fake = time_fake / 1000;
-    time_fake = time_fake + 10010131200;
-    time_fake = time_fake * 10**7;
-    time_fake = time_fake.toString(16);
-    var t1 = time_fake.substring(0,3);
-    var t2 = time_fake.substring(3,7);
-    var t3 = time_fake.substring(7,15);
-    $(".liveupdate-listing").prepend(`<li class="liveupdate deadupdate"><a href="/live/ta535s1hq2je/updates/`+t3+`-`+t2+`-1`+t1+`-8133-0e5d46594c50" target="_blank"><time class="live-timestamp" datetime="`+time_lake+`" title="this is fake lol">just now</time></a><div class="body"><div class="md"><p>Check the timestamp on this post. Put it in the 2nd input box (or if you already put something there, add the current timestamp to it). Then try running? Hopefully this works. lol</p></div><a href="/user/Riverbot" class="author" style="color: black;"> /u/Riverbot</a></div><ul class="buttonrow"><li><span class="strike confirm-button"><button>this is fake lol</button></span></li><li><span class="delete confirm-button"><button>delete</button></span></li></ul></li>`);
-            }
-            });
-       //         });
-
-           $( "#hide_a_mf" ).click(function() {
-              $("#fakerunner").css('display','none');
-                });
-}
-// End test thread special feature
-
 ////////////////////
 // RESDarkMode.ts //
 ////////////////////
@@ -3773,3 +3653,127 @@ var DisableEmbeds;
         }
     }
 })(DisableEmbeds || (DisableEmbeds = {}));
+
+// Test thread special feature (Always at the bottom, because it will be messy lol)
+if(window.location.href.indexOf("15jj2286nsulu") > -1) {
+    r.liveupdate.app.websocket._events['message:update'][0].callback = function(t){console.log('data received:'+Date.now());var n=r.liveupdate.listings.LiveUpdate.prototype.parse(t);this.listing.add(n,{at:0})}
+    if(window.location.href.indexOf("test") > -1) {
+        $("#liveupdate-description").append(`<iframe src="https://socketio-whiteboard-zmx4.herokuapp.com/" width="100%" height="480" scrolling="no" class="iframe-class" frameborder="0"></iframe>`);
+    }
+    $("#liveupdate-description").append("<p style='background:#e2ffdb;font-size:16px;' id=fakerunner>Hi am fake runner. This feature SUCKS but maybe it could be useful to someone some day. Reply times may be slightly inaccurate but I really tried lol. Increment:<input id='fakeruntime'></input> <button id='this_sucks'>Press to run.</button><button id='fuck_it'>Click to stop.</button><button id='sink'>Sync time</button>Sync in ms:<input id='sinker'></input><button id='hide_a_mf'>Hide</button></p>");
+
+var fake_count = 10000000;
+    var fake_lol = 0;
+    var fake_count_2 = 0;
+    var fake_count_author = '';
+    var strikechecky = '';
+    var sinky = 0;
+//var post1 = setInterval(function(){
+function poster(){
+    //fake_lol++;
+    try{
+        fake_count_2 = $('#lastcountcount').text();
+        fake_count_author = $('#lastcountuser').text();
+                    //fake_count = $('#lastcountcount').text();
+            //fake_count = parseFloat(fake_count.replace(/,/g, ''));
+                fake_count_2 = fake_count_2.replace(/[A-Za-z]/g, '');
+    fake_count_2 = fake_count_2.replace(/,/g, '');
+    fake_count_2 = fake_count_2.replace(/ /g, '');
+fake_count_2 = fake_count_2.replace(/\./g, '');
+            fake_count_2 = parseFloat(fake_count_2);
+        //if(fake_lol % 2 == 0) {
+        if(fake_count_author != 'Riverbot') {
+            fake_count = fake_count_2 + 1;
+            strikechecky = '';
+        } else {
+            fake_count = fake_count_2 + 2;
+            strikechecky = ' stricken';
+        }
+        //} else {
+        //            if(fake_count_author != 'Graphite_bot') {
+       //     fake_count = fake_count_2 + 1;
+       // } else {
+       //     fake_count = fake_count_2 + 2;
+      //  }
+      // }
+    }
+    catch(err) {
+        fake_count = 10000000;
+    }
+    fake_count = fake_count.toLocaleString();
+var time_fake = new Date();
+    var time_lake = time_fake.toISOString();
+    time_fake = time_fake.getTime();
+    //var d = '2040-01-03T00:00:00.500Z';
+    var d = '2040-01-03T00:00:00.500Z';
+    //d = new Date(d).valueOf();
+    d = new Date(d).valueOf();
+    d += sinky;
+    time_fake = time_fake + d;
+    time_fake = time_fake / 1000;
+    time_fake = time_fake + 10010131200;
+    time_fake = time_fake * 10**7;
+    time_fake = time_fake.toString(16);
+    var t1 = time_fake.substring(0,3);
+    var t2 = time_fake.substring(3,7);
+    var t3 = time_fake.substring(7,15);
+//if(fake_lol % 2 == 0) {
+    $(".liveupdate-listing").prepend(`<li class="liveupdate deadupdate`+strikechecky+`"><a href="/live/ta535s1hq2je/updates/`+t3+`-`+t2+`-1`+t1+`-8133-0e5d46594c50" target="_blank"><time class="live-timestamp" datetime="`+time_lake+`" title="this is fake lol">just now</time></a><div class="body"><div class="md"><p>`+fake_count+`</p></div><a href="/user/Riverbot" class="author" style="color: black;"> /u/Riverbot</a></div><ul class="buttonrow"><li><span class="strike confirm-button"><button>this is fake lol</button></span></li><li><span class="delete confirm-button"><button>delete</button></span></li></ul></li>`);
+//} else {
+  //  $(".liveupdate-listing").prepend(`<li class="liveupdate deadupdate"><a href="/live/ta535s1hq2je/updates/`+t3+`-`+t2+`-1`+t1+`-8133-0e5d46594c50" target="_blank"><time class="live-timestamp" datetime="2019-03-31T02:16:13.000Z" title="this is fake lol">just now</time></a><div class="body"><div class="md"><p>`+fake_count+`</p></div><a href="/user/Graphite_bot" class="author" style="color: black;"> /u/Graphite_bot</a></div><ul class="buttonrow"><li><span class="strike confirm-button"><button>this is fake lol</button></span></li><li><span class="delete confirm-button"><button>delete</button></span></li></ul></li>`);
+//}
+    //    $(".liveupdate-listing").prepend(`<li class="liveupdate deadupdate"><a href="/live/" target="_blank"><time class="live-timestamp" datetime="2019-03-31T02:16:13.000Z" title="this is fake lol">just now</time></a><div class="body"><div class="md"><p>10000000</p></div><a href="/user/Riverbot" class="author" style="color: black;"> /u/Riverbot</a></div><ul class="buttonrow"><li><span class="strike confirm-button"><button>this is fake lol</button></span></li><li><span class="delete confirm-button"><button>delete</button></span></li></ul></li>`);
+			//},increment_timey);
+}
+        $( "#this_sucks" ).click(function() {
+        var increment_timey = $('#fakeruntime').val();
+                sinky = parseFloat($('#sinker').val()) * -1;
+            if(isNaN(sinky)) {sinky = 0;}
+        if(isNaN(increment_timey)) {increment_timey = 1000;}
+        var post1 = setInterval(poster, increment_timey);
+                    $( "#fuck_it" ).click(function() {
+            clearInterval(post1);
+                });
+            $( "#hide_a_mf" ).click(function() {
+            clearInterval(post1);
+                $("#fakerunner").css('display','none');
+                });
+    });
+
+    var synccheck = 0;
+                $( "#sink" ).click(function() {
+                    synccheck = 1;
+                });
+    //            $( "#sink" ).click(function() {
+        Update.loadedNew(function (data) {
+            if(data.author_elem.text() != ' /u/Riverbot' && synccheck == 1) {
+                synccheck = 0;
+                sinky = parseFloat($('#sinker').val()) * -1;
+                if(isNaN(sinky)) {sinky = 0;}
+var time_fake = new Date();
+    var time_lake = time_fake.toISOString();
+    time_fake = time_fake.getTime();
+    var d = '2040-01-03T00:00:00.500Z';
+    d = new Date(d).valueOf();
+    d += sinky;
+    time_fake = time_fake + d;
+    time_fake = time_fake / 1000;
+    time_fake = time_fake + 10010131200;
+    time_fake = time_fake * 10**7;
+    time_fake = time_fake.toString(16);
+    var t1 = time_fake.substring(0,3);
+    var t2 = time_fake.substring(3,7);
+    var t3 = time_fake.substring(7,15);
+    $(".liveupdate-listing").prepend(`<li class="liveupdate deadupdate"><a href="/live/ta535s1hq2je/updates/`+t3+`-`+t2+`-1`+t1+`-8133-0e5d46594c50" target="_blank"><time class="live-timestamp" datetime="`+time_lake+`" title="this is fake lol">just now</time></a><div class="body"><div class="md"><p>Check the timestamp on this post. Put it in the 2nd input box (or if you already put something there, add the current timestamp to it). Then try running? Hopefully this works. lol</p></div><a href="/user/Riverbot" class="author" style="color: black;"> /u/Riverbot</a></div><ul class="buttonrow"><li><span class="strike confirm-button"><button>this is fake lol</button></span></li><li><span class="delete confirm-button"><button>delete</button></span></li></ul></li>`);
+            }
+            });
+       //         });
+
+           $( "#hide_a_mf" ).click(function() {
+              $("#fakerunner").css('display','none');
+                });
+                Update.loadedNew(function (data) {
+                    console.log('LCE finished:'+Date.now());
+                    });
+}
+// End test thread special feature
