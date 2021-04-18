@@ -1049,7 +1049,7 @@ var ReplyTimes;
             if (postauthor == specialTimes[timestamp]['user']) {var user2 = data.elem.find('.body > .author').text(); data.elem.find('.body').append("<span id=fakeauthor></span>"); document.getElementById("fakeauthor").innerHTML = user2; data.elem.find('.body > .author').css('fontSize', '0px'); document.getElementById("fakeauthor").style.cssText = 'font-size: 13px; color: transparent; background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text!important;';}
             timestamp = specialTimes[timestamp]['words'];
         }
-        var thisriver = data.elem.find('.body').prepend("<div id='"+permalink+"' style='position:absolute;background:"+colortest+";color:"+elcolor+";' onclick=window.open('"+testhref+"'); class=river>"+timestamp+"</div>");
+        var thisriver = data.elem.find('.body').prepend("<div colortest='"+colortest+"' elcolor='"+elcolor+"' id='"+permalink+"' style='position:absolute;background:"+colortest+";color:"+elcolor+";' onclick=window.open('"+testhref+"'); class=river>"+timestamp+"</div>");
         if(window.location.href.indexOf("10itx") > -1) {
             var barregexy = /\/live\/.............\/updates\//
             var barmagin = data.elem.find('.body').prev().attr('href');
@@ -1097,8 +1097,8 @@ var ReplyTimes;
             this.style.cursor = "pointer";
         });
         $(".river").mouseout(function() {
-            this.style.background = colortest;
-            this.style.color = elcolor;
+            $(this).css('background',$(this).attr('colortest'));
+            $(this).css('color',$(this).attr('elcolor'));
         });
     });
     $(window).on('load resize', function () {
