@@ -3656,9 +3656,15 @@ var DisableEmbeds;
 
 // Test thread special feature (Always at the bottom, because it will be messy lol)
 if(window.location.href.indexOf("15jj2286nsulu") > -1) {
-        if(window.location.href.indexOf("test") > -1) {
+// Experiment picker
+
+$("#liveupdate-description").append("<p style='background:#e2ffdb;color:black!important;font-size:16px;' id=experiment>Tests: <a style='color:#0258ab!important' href=https://old.reddit.com/live/15jj2286nsulu?fakerunner>Fake Runner</a> | <a style='color:#0258ab!important' href=https://old.reddit.com/live/15jj2286nsulu?test>Whiteboard</a> | <a style='color:#0258ab!important' href=https://old.reddit.com/live/15jj2286nsulu?latency>Expanded Latency (see console)</a></p>");
+
+        if(window.location.href.indexOf("test") > -1) { // Whiteboard start
         $("#liveupdate-description").append(`<iframe src="https://socketio-whiteboard-zmx4.herokuapp.com/" width="100%" height="480" scrolling="no" class="iframe-class" frameborder="0"></iframe>`);
-    }
+    } // Whiteboard end
+    if(window.location.href.indexOf("fakerunner") > -1) { // Fake runner start
+        $("#experiment").css('display','none');
     $("#liveupdate-description").append("<p style='background:#e2ffdb;font-size:16px;' id=fakerunner>Hi am fake runner. This feature SUCKS but maybe it could be useful to someone some day. Reply times may be slightly inaccurate but I really tried lol. Increment:<input id='fakeruntime'></input> <button id='this_sucks'>Press to run.</button><button id='fuck_it'>Click to stop.</button><button id='sink'>Sync time</button>Sync in ms:<input id='sinker'></input><button id='hide_a_mf'>Hide</button></p>");
 
 var fake_count = 10000000;
@@ -3771,15 +3777,27 @@ var time_fake = new Date();
            $( "#hide_a_mf" ).click(function() {
               $("#fakerunner").css('display','none');
                 });
+            } // Fake runner end 
 
                 // Latency testing stuff
+                if(window.location.href.indexOf("latency") > -1) { // Latency start
     $('#new-update-form .save-button button').click(function(){
         console.log('pressed submit:'+Date.now());
     });
-    r.liveupdate.app.websocket._events['message:update'][0].callback = function(t){console.log('data received:'+Date.now());var n=r.liveupdate.listings.LiveUpdate.prototype.parse(t);this.listing.add(n,{at:0})}
+    r.liveupdate.app.websocket._events['message:update'][0].callback = function(t){console.log('message:update start:'+Date.now());var n=r.liveupdate.listings.LiveUpdate.prototype.parse(t);this.listing.add(n,{at:0});console.log('message:update end:'+Date.now());}
+    //r.liveupdate.app.websocket._events['message:update'][0].callback = function(t){console.log('message:update start:'+Date.now());console.log('message:update end:'+Date.now());}
+    //r.liveupdate.app.websocket._events['message:update'][0].callback = function(t){console.log('message:update start:'+Date.now());var n=r.liveupdate.listings.LiveUpdate.prototype.parse(t);console.log('message:update end:'+Date.now());}
+    //r.liveupdate.app.websocket._events['message:update'][0].callback = function(t){console.log('message:update start:'+Date.now());var n=r.liveupdate.listings.LiveUpdate.prototype.parse(t);console.log('message:update parsed:'+Date.now());this.listing.add(n,{at:0});console.log('message:update end:'+Date.now());}
+    //r.liveupdate.app.websocket._events['message:update'][0].callback = function(t){console.log('message:update start:'+Date.now());var n=r.liveupdate.listings.LiveUpdate.prototype.parse(t);console.log('message:update parsed :'+Date.now());r.liveupdate.app.listing.models.unshift(n);console.log('message:update end:'+Date.now());}
+    function s(t) { return function(t) { if (t.jquery) { var n = {}; n[0] = jQuery, e.map(t.jquery, function(t) { var r = t[0] , i = t[1] , s = t[2] , o = t[3]; if (typeof o == "string") o = e.unsafe(o); else for (var u = 0; o.length && u < o.length; u++) o[u] = e.unsafe(o[u]); s == "call" ? n[i] = n[r].apply(n[r]._obj, o) : s == "attr" ? (o == "redirect" && e(window).off("beforeunload"), n[i] = n[r][o], n[i] ? n[i]._obj = n[r] : e.debug("unrecognized")) : s == "refresh" ? e.refresh() : e.debug("unrecognized") }) } } }
+    var o = "/api/";
+    $.request = function(t, u, a, f, l, c, h) { console.log('request start:'+Date.now()); var p = t , d = a; if (rate_limit(t)) { h && h("ratelimit"); return } if (window != window.top && !r.config.external_frame) return; var v = !$.with_default(f, !1) || n(p); u = $.with_default(u, {}), a = $.with_default(a, s(p)), l = $.with_default(l, "json"); var m = $("form.warn-on-unload"); typeof a != "function" && (a = s(p)); var d = function(t) { return i(p), $(m).length && t.success && $(window).off("beforeunload"), a(t) }; errorhandler_in = $.with_default(h, function() {}), h = function(e) { return i(p), errorhandler_in(e) } , c = $.with_default(c, !1), r.config.post_site && u.r === undefined && (u.r = r.config.post_site), r.config.logged && (u.uh = r.config.modhash), u.renderstyle = r.config.renderstyle, v && (t = o + t, r.commentsPreview && r.commentsPreview.visible && r.utils && (t = r.utils.replaceUrlParams(t, { comments_preview_enabled: !0 })), console.log('request ajax start:'+Date.now()), $.ajax({ type: c ? "GET" : "POST", url: t, data: u, success: d, error: h, dataType: l })); console.log('request ajax end:'+Date.now()); }
+    r.liveupdate.app.websocket._socket.onmessage = function(e){console.log('socket onmessage start:'+Date.now());var t=JSON.parse(e.data);r.debug('websocket: received "'+t.type+'" message'),r.liveupdate.app.websocket.trigger("message message:"+t.type,t.payload);console.log('socket onmessage finish:'+Date.now());}
                 Update.loadedNew(function (data) {
                     console.log('LCE finished:'+Date.now());
                     });
-                    // Latency testing stuff end
+                } // Latency testing stuff end
+
+
 }
 // End test thread special feature
