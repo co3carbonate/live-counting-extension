@@ -12,12 +12,29 @@ var VERSION = 'v1.7.0';
 
 var USER = $('#header .user a[href]').html();
 
-// Named Thread
+// Thread ID
+var THREAD = (function () {
+    var components = window.location.pathname.split('/');
+    for (var i = components.length - 1; i >= 0; i--) {
+        var component = components[i].trim();
+        if (component.length > 0)
+            return component.replace(/^.*\/([^/]*)/, "$1");
+    }
+})();
+// Named Threads
 
-var BACKWARDS = "te287u41qlnw";
-var BASE2 = "te1l2lmdxgkq";
-var BASE3 = "y29ytkycjdth";
-var BASE4 = "xnl0cyj2rdj0";
+var THREADS = {
+    MAIN : "ta535s1hq2je",
+    SLOW : "yrnkgszr6zdu",
+    BARS : "10itxw66978go",
+    BACKWARDS : "te287u41qlnw",
+    BASE2 : "te1l2lmdxgkq",
+    BASE3 : "y29ytkycjdth",
+    BASE4 : "xnl0cyj2rdj0",
+    LC_CHATS_OLD : "110t4ltqqzi35",
+    LC_CHATS : "14ny3ur3axhd4",
+    TEST  : "15jj2286nsulu"
+}
 
 //100k name information
 var specialnumber = 3;
@@ -57,7 +74,7 @@ setTimeout(function(){
 }, 1000);
 
 // Slow counting special feature
-if(window.location.href.indexOf("yrnkgszr6zdu") > -1) { $("#liveupdate-description").append("<p style='background:#e2ffdb;font-size:16px;' id=countdownslow></p>"); document.title = "[live] Slow counting (one count per hour)"; $( ".save-button button.btn" ).click(function() { var countDownDateA = new Date(); countDownDateA.setHours( countDownDateA.getHours() + 1 ); $("#countdownslow").css('background','#e2ffdb'); var tugOfWarWrongDirectionA = setInterval(function() { var nowTugA = new Date().getTime(); var distanceTugA = countDownDateA - nowTugA; var minutesTugA = Math.floor((distanceTugA % (1000 * 60 * 60)) / (1000 * 60)); var secondsTugA = Math.floor((distanceTugA % (1000 * 60)) / 1000); document.getElementById("countdownslow").innerHTML = minutesTugA + "m " + secondsTugA + "s"; document.title = "["+minutesTugA+"m] Slow counting (one count per hour)"; if (distanceTugA < 0) { clearInterval(tugOfWarWrongDirectionA); document.getElementById("countdownslow").innerHTML = "You can post now!"; $("#countdownslow").css('background','#ffaeae'); document.title = "[!!] Slow counting (one count per hour)"; } }, 1000); }); }
+if(THREAD == THREADS.SLOW) { $("#liveupdate-description").append("<p style='background:#e2ffdb;font-size:16px;' id=countdownslow></p>"); document.title = "[live] Slow counting (one count per hour)"; $( ".save-button button.btn" ).click(function() { var countDownDateA = new Date(); countDownDateA.setHours( countDownDateA.getHours() + 1 ); $("#countdownslow").css('background','#e2ffdb'); var tugOfWarWrongDirectionA = setInterval(function() { var nowTugA = new Date().getTime(); var distanceTugA = countDownDateA - nowTugA; var minutesTugA = Math.floor((distanceTugA % (1000 * 60 * 60)) / (1000 * 60)); var secondsTugA = Math.floor((distanceTugA % (1000 * 60)) / 1000); document.getElementById("countdownslow").innerHTML = minutesTugA + "m " + secondsTugA + "s"; document.title = "["+minutesTugA+"m] Slow counting (one count per hour)"; if (distanceTugA < 0) { clearInterval(tugOfWarWrongDirectionA); document.getElementById("countdownslow").innerHTML = "You can post now!"; $("#countdownslow").css('background','#ffaeae'); document.title = "[!!] Slow counting (one count per hour)"; } }, 1000); }); }
 
 //Last count vars (Temporary before I remake it)
 var current_number = '';
@@ -79,16 +96,16 @@ var all_times = {};
 function get_splits(){
     let splits;
     switch(THREAD){
-        case BACKWARDS:
+        case THREADS.BACKWARDS:
             splits = ['900','800','700','600','500','400','300','200','100','000'];
             break;
-        case BASE2:
+        case THREADS.BASE2:
             splits = ['0010000000','0100000000','0110000000','1000000000','1010000000','1100000000','1110000000','0000000000']
             break;
-        case BASE3:
+        case THREADS.BASE3:
             splits = ['010000','020000','100000','110000','120000','200000','210000','220000','000000']
             break;
-        case BASE4:
+        case THREADS.BASE4:
             splits = ['02000','10000','12000','20000','22000','30000','32000','00000']
             break;
         default:
@@ -101,13 +118,13 @@ function get_splits(){
 function get_split_digits(){
     let digits;
     switch(THREAD){
-        case BASE2:
+        case THREADS.BASE2:
             digits = 10;
             break;
-        case BASE3:
+        case THREADS.BASE3:
             digits = 6;
             break;
-        case BASE4:
+        case THREADS.BASE4:
             digits = 5;
             break;
         default:
@@ -195,16 +212,6 @@ if(window.location.href.indexOf("updates") > -1) {
     throw new Error();
 }
 
-
-// Thread ID
-var THREAD = (function () {
-    var components = window.location.pathname.split('/');
-    for (var i = components.length - 1; i >= 0; i--) {
-        var component = components[i].trim();
-        if (component.length > 0)
-            return component.replace(/^.*\/([^/]*)/, "$1");
-    }
-})();
 
 ////////////////
 // Cookies.ts //
@@ -710,16 +717,16 @@ var ReplyTimes;
                 if(last_num === '')return current_number;
                 let expected_number;
                 switch(THREAD){
-                    case BASE2:
+                    case THREADS.BASE2:
                         expected_number = get_expected_low_base(last_num, 2);
                         break;
-                    case BASE3:
+                    case THREADS.BASE3:
                         expected_number = get_expected_low_base(last_num, 3);
                         break;
-                    case BASE4:
+                    case THREADS.BASE4:
                         expected_number = get_expected_low_base(last_num, 4);
                         break;
-                    case BACKWARDS:
+                    case THREADS.BACKWARDS:
                         expected_number = last_num - 1n;
                         break;
                     default:
@@ -774,7 +781,7 @@ var ReplyTimes;
                 }
                 author_last = author_current;
                 last_number = current_number;
-                if(THREAD == 'ta535s1hq2je' && Elements.$body.attr('data-KpartAlert') == 'true') {
+                if(THREAD == THREADS.MAIN && Elements.$body.attr('data-KpartAlert') == 'true') {
                 	if (Notification.permission === "granted") {
 	    if (current_number.toString().substr(5) == '000' && !document.hasFocus()) {
      	    	showNotification(current_number);
@@ -883,7 +890,7 @@ var ReplyTimes;
             timestamp = specialTimes[timestamp]['words'];
         }
         var thisriver = data.node.find('.body').prepend("<div colortest='"+colortest+"' elcolor='"+elcolor+"' id='"+permalink+"' style='position:absolute;background:"+colortest+";color:"+elcolor+";' onclick=window.open('"+testhref+"'); class=river>"+timestamp+"</div>");
-        if(window.location.href.indexOf("10itx") > -1) {
+        if(THREAD == THREADS.BARS) {
             var barregexy = /\/live\/.............\/updates\//
             var barmagin = data.node.find('.body').prev().attr('href');
             var barmagin2 = barmagin.replace(barregexy, '');
@@ -1442,7 +1449,7 @@ data.authorNode.html(takenuser);
 
 
 
-    if(window.location.href.indexOf("110t4ltqqzi35") > -1 || window.location.href.indexOf("14ny3ur3axhd4") > -1) {
+    if([THREADS.LC_CHATS_OLD, THREADS.LC_CHATS].includes(THREAD)) {
         var lcchats = data.hrefNode.attr('href');
         lcchats = lcchats.trim().replace('/u/', '');
         data.hrefNode.css('color', userColors[lcchats]).css('fontStyle','initial').css('fontSize','13px');
@@ -1451,7 +1458,7 @@ data.authorNode.html(takenuser);
         }
     }
 });
-    if(window.location.href.indexOf("110t4ltqqzi35") > -1 || window.location.href.indexOf("14ny3ur3axhd4") > -1) {
+    if([THREADS.LC_CHATS_OLD, THREADS.LC_CHATS].includes(THREAD)) {
         $('a[href*="/u/"]').each(function() {
             var thishref = $(this).attr('href');
             thishref = thishref.trim().replace('/u/', '');
@@ -1920,7 +1927,7 @@ var TeamBarsEnabled;
     }
 
     //////////////////////////////////Daily HoC Auto-updater
-    if (window.location.href.indexOf("ta535s1hq2je") > -1) {
+    if (THREAD == THREADS.MAIN) {
         if (TeamBarsEnabled == true) {
             var hmmyy;
             var checky;
@@ -2979,7 +2986,7 @@ UPDATE_EVENTS.addListener("new", data => {
 
 })(CollapsiblePosts || (CollapsiblePosts = {}));
 
-if(window.location.href.indexOf("ta535s1hq2je") > -1) { // Main thread special feature
+if(THREAD == THREADS.MAIN) { // Main thread special feature
 
 //////////////////////
 // LC_Chats_View.ts //
@@ -3101,7 +3108,7 @@ var DisableEmbeds;
 })(DisableEmbeds || (DisableEmbeds = {}));
 
 // Test thread special feature (Always at the bottom, because it will be messy lol)
-if(window.location.href.indexOf("15jj2286nsulu") > -1 || window.location.href.indexOf("testing") > -1) {
+if(THREAD == THREADS.TEST || window.location.href.indexOf("testing") > -1) {
 // Experiment picker
 
 $("#liveupdate-description").append("<p style='background:#e2ffdb;color:black!important;font-size:16px;' id=experiment>Tests: <a style='color:#0258ab!important' href=https://old.reddit.com/live/15jj2286nsulu?fakerunner>Fake Runner</a> | <a style='color:#0258ab!important' href=https://old.reddit.com/live/15jj2286nsulu?whiteboard>Whiteboard</a> | <a style='color:#0258ab!important' href=https://old.reddit.com/live/15jj2286nsulu?latency>Expanded Latency (see console)</a></p>");
