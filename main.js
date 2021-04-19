@@ -23,18 +23,7 @@ var THREAD = (function () {
 })();
 // Named Threads
 
-var THREADS = {
-    MAIN : "ta535s1hq2je",
-    SLOW : "yrnkgszr6zdu",
-    BARS : "10itxw66978go",
-    BACKWARDS : "te287u41qlnw",
-    BASE2 : "te1l2lmdxgkq",
-    BASE3 : "y29ytkycjdth",
-    BASE4 : "xnl0cyj2rdj0",
-    LC_CHATS_OLD : "110t4ltqqzi35",
-    LC_CHATS : "14ny3ur3axhd4",
-    TEST  : "15jj2286nsulu"
-}
+const THREADS = require("./src/data/threads.json")
 
 //100k name information
 var specialnumber = 3;
