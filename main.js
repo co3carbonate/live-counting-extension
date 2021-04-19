@@ -5,6 +5,8 @@
 */
 // CONSTANTS
 
+var UPDATE_EVENTS = require("./src/events/update-events.ts").UPDATE_EVENTS;
+
 // Extension version
 var VERSION = 'v1.7.0';
 
@@ -655,70 +657,6 @@ var dailyHocColorNamesEnable;
 
 })(dailyHocColorNamesEnable || (dailyHocColorNamesEnable = {}));
 
-///////////////
-// Update.ts //
-///////////////
-var Update;
-(function (Update) {
-    var UPDATE_EVENTS = require("./src/events/update-events.ts").UPDATE_EVENTS;
-
-    // UTILITY
-    // Convert update node info format for legacy compatibility
-    function getLegacyUpdateInfo(info) {
-        return {
-            elem: info.node,
-            author: info.author,
-            body_elem: info.bodyNode,
-            author_elem: info.authorNode,
-            href_elem: info.hrefMode,
-        };
-    }
-    // METHODS
-    // Bind functions to execute in the following events:
-    // - loadedNew(): When a new update is sent
-    // - loadedOld(): When an old update is loaded
-    // - striked(): When an update is striked
-    // - TODO: deleted(): When an update is deleted
-    // loaded from top (new updates sent)
-    var funcLoadedTop = [];
-    function loadedNew(func) {
-        funcLoadedTop.push(func);
-    }
-    Update.loadedNew = loadedNew;
-    // loaded from bottom (scrolled down to load old updates)
-    var funcLoadedBottom = [];
-    function loadedOld(func) {
-        funcLoadedBottom.push(func);
-    }
-    Update.loadedOld = loadedOld;
-    // striked
-    var funcStriked = [];
-    function striked(func) {
-        funcStriked.push(func);
-    }
-    Update.striked = striked;
-    
-    // Map new events to legacy
-    UPDATE_EVENTS.addListener("new", info => {
-        var legacyInfo = getLegacyUpdateInfo(info);
-        for (var i = 0; i < funcLoadedTop.length; i++) {
-            funcLoadedTop[i](legacyInfo);
-        }
-    });
-    UPDATE_EVENTS.addListener("loaded", info => {
-        var legacyInfo = getLegacyUpdateInfo(info);
-        for (var i = 0; i < funcLoadedBottom.length; i++) {
-            funcLoadedBottom[i](legacyInfo);
-        }
-    });
-    UPDATE_EVENTS.addListener("stricken", info => {
-        var legacyInfo = getLegacyUpdateInfo(info);
-        for (var i = 0; i < funcStriked.length; i++) {
-            funcStriked[i](legacyInfo);
-        }
-    });
-})(Update || (Update = {}));
-
 ///////////////////
 // ReplyTimes.ts //
 ///////////////////
@@ -790,14 +728,14 @@ var ReplyTimes;
         '1616': {user:'VitaminB16', words:'VitaminB1616',bgcolor:'#1affa7',fontcolor:'#000000'},
         '69420': {user:'GrunfTNT', words:'(lol) 69420',bgcolor:'#bb00ff',fontcolor:'#ffff00'},
     };
-    Update.loadedNew(function (data) {
+    UPDATE_EVENTS.addListener("new", data => {
         if (!enabledrt)
             return;
-        var thisTime = data.elem.find('.body').prev().attr('href');
+        var thisTime = data.node.find('.body').prev().attr('href');
         var timestamp_current = thisTime.substring(thisTime.indexOf("updates/") + 8);
         timestamp_current = timestamp_current.substring(14, 18) + timestamp_current.substring(9, 13) + timestamp_current.substring(0, 8);
         timestamp_current = parseInt(timestamp_current, 16);
-        var thisTime2 = data.elem.find('.body').parent().nextAll('.liveupdate:first').children().first().attr('href');
+        var thisTime2 = data.node.find('.body').parent().nextAll('.liveupdate:first').children().first().attr('href');
         var timestamp_last = thisTime2.substring(thisTime2.indexOf("updates/") + 8);
         timestamp_last = timestamp_last.substring(14, 18) + timestamp_last.substring(9, 13) + timestamp_last.substring(0, 8);
         timestamp_last = parseInt(timestamp_last, 16);
@@ -840,8 +778,8 @@ var ReplyTimes;
                 }
                 return expected_number;
             }
-            update_body = data.elem.find('.body > .md').text();
-            author_current = data.elem.find('.body > .author').text();
+            update_body = data.node.find('.body > .md').text();
+            author_current = data.node.find('.body > .author').text();
             author_current = author_current.trim().replace('/u/', '');
             let current_number_string = parse_body(update_body)[0];
             current_number = current_number_string === null ? null: BigInt(current_number_string);
@@ -976,7 +914,7 @@ var ReplyTimes;
             timestamp = dimestamp;
         }
         if(timestamp in specialTimes && Elements.$body.attr('data-disableSpecialTimes') == 'false') {
-            var postauthor = data.author_elem.text().substring(3);
+            var postauthor = data.authorNode.text().substring(3);
             if (timestamp == '123') {
                 var randomtime = Math.round(Math.random());
                 if(randomtime == 1 && postauthor != 'davidjl123' || postauthor == 'dominodan123') {
@@ -991,13 +929,13 @@ var ReplyTimes;
             }
             colortest = specialTimes[timestamp]['bgcolor'];
             elcolor = specialTimes[timestamp]['fontcolor'];
-            if (postauthor == specialTimes[timestamp]['user']) {var user2 = data.elem.find('.body > .author').text(); data.elem.find('.body').append("<span id=fakeauthor></span>"); document.getElementById("fakeauthor").innerHTML = user2; data.elem.find('.body > .author').css('fontSize', '0px'); document.getElementById("fakeauthor").style.cssText = 'font-size: 13px; color: transparent; background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text!important;';}
+            if (postauthor == specialTimes[timestamp]['user']) {var user2 = data.node.find('.body > .author').text(); data.node.find('.body').append("<span id=fakeauthor></span>"); document.getElementById("fakeauthor").innerHTML = user2; data.node.find('.body > .author').css('fontSize', '0px'); document.getElementById("fakeauthor").style.cssText = 'font-size: 13px; color: transparent; background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text!important;';}
             timestamp = specialTimes[timestamp]['words'];
         }
-        var thisriver = data.elem.find('.body').prepend("<div colortest='"+colortest+"' elcolor='"+elcolor+"' id='"+permalink+"' style='position:absolute;background:"+colortest+";color:"+elcolor+";' onclick=window.open('"+testhref+"'); class=river>"+timestamp+"</div>");
+        var thisriver = data.node.find('.body').prepend("<div colortest='"+colortest+"' elcolor='"+elcolor+"' id='"+permalink+"' style='position:absolute;background:"+colortest+";color:"+elcolor+";' onclick=window.open('"+testhref+"'); class=river>"+timestamp+"</div>");
         if(window.location.href.indexOf("10itx") > -1) {
             var barregexy = /\/live\/.............\/updates\//
-            var barmagin = data.elem.find('.body').prev().attr('href');
+            var barmagin = data.node.find('.body').prev().attr('href');
             var barmagin2 = barmagin.replace(barregexy, '');
             var barmagin2p1 = barmagin2.substring(0, 8);
             var barmagin2p11 = barmagin2.substring(9, 13);
@@ -1016,7 +954,7 @@ var ReplyTimes;
             $('#'+permalink).text(dateTime3);
         }
         if(Elements.$body.attr('data-BackgroundColor') == 'Match Reply Time') {
-            data.elem.find('.body').parent().css('background', colortest);
+            data.node.find('.body').parent().css('background', colortest);
         }
 
         if (window.innerWidth >= 700) {
@@ -1541,14 +1479,14 @@ var ColoredUsernames;
     });
     // EVENTS
     // New update loaded
-    Update.loadedNew(function (data) {
+    UPDATE_EVENTS.addListener("new", data => {
 
         if (!enabled)
             return;
         // Special usernames (temp rewards for top in 100k HoC, or other contributions)
         // Bot-maker privileges
         if (data.author == 'MaybeNotWrong' || data.author == 'co3_carbonate' || data.author == 'rschaosid' || data.author == 'piyushsharma301' || data.author == 'LeinadSpoon' || data.author == 'artbn') {
-            data.author_elem.css('font-weight', 'bold');
+            data.authorNode.css('font-weight', 'bold');
         }
 
 
@@ -1556,13 +1494,13 @@ var ColoredUsernames;
             var ignoretest = document.getElementById("ignorebox2").innerHTML;
 
             if (ignoretest.includes(data.author)) {
-                var entirepost = data.body_elem.html();
-                var entireposttext = data.body_elem.text();
+                var entirepost = data.bodyNode.html();
+                var entireposttext = data.bodyNode.text();
                 var count1testlol = entireposttext.substring(0, 10);
                 count1testlol = count1testlol.replace(/[A-Za-z]/g, '');
                 entirepost = entirepost.replace(count1testlol,`<p id="counttext" style="font-size: 14px; display:inline;">`+count1testlol+` ​</p>`);
                 entirepost = entirepost.replace(`p>`, `span>`);
-                data.body_elem.html(`<span class="ignoredpost" style="font-size: 0px;">`+entirepost+`</span>`);
+                data.bodyNode.html(`<span class="ignoredpost" style="font-size: 0px;">`+entirepost+`</span>`);
             }
         }//IgnoreEnabled ending
 
@@ -1572,7 +1510,7 @@ var ColoredUsernames;
 
          if (SpecialUsernamesEnabled1 == true) {
             if (data.author == kname1) {
-                data.author_elem.html(`<span style="color:brickred;">/</span><span style="color:#a35252;">u</span><span style="color:#FFFF00;">/</span>T<span style="color:#6495ED;">O</span><span style="color:#800080;">P</span><span style="color:#0000FF;">_</span><span style="color:#000000;">20</span>`)
+                data.authorNode.html(`<span style="color:brickred;">/</span><span style="color:#a35252;">u</span><span style="color:#FFFF00;">/</span>T<span style="color:#6495ED;">O</span><span style="color:#800080;">P</span><span style="color:#0000FF;">_</span><span style="color:#000000;">20</span>`)
             }
         } // SpecialUsernamesEnabled1 ending
 
@@ -1581,7 +1519,7 @@ var ColoredUsernames;
             if (data.author == kname2) {
 
 var maybeuser = '/u/MaybeNotWrong';
-data.author_elem.addClass('blink');
+data.authorNode.addClass('blink');
 
                 let template = function(time, time2, random_iteration, text){
                     let div = `<span class="maybe" style="animation: blinkerm `;
@@ -1603,7 +1541,7 @@ data.author_elem.addClass('blink');
                     return template(rand_time,rand_time2,rand_iter,letter);
                 }).join("");
 
-data.author_elem.html(maybeuser);
+data.authorNode.html(maybeuser);
             }
         } // SpecialUsernamesEnabled2 ending
 
@@ -1612,7 +1550,7 @@ data.author_elem.html(maybeuser);
             if (data.author == kname3) {
 
 var takenuser = '/u/ItzTaken';
-data.author_elem.addClass('takenblink');
+data.authorNode.addClass('takenblink');
 
                 let template = function(time, time2, random_iteration, text){
                     let div = `<span class="taken" style="font-weight:bold; animation: takenblinkerm `;
@@ -1634,7 +1572,7 @@ data.author_elem.addClass('takenblink');
                     return template(rand_time,rand_time2,rand_iter,letter);
                 }).join("");
 
-data.author_elem.html(takenuser);
+data.authorNode.html(takenuser);
             }
         } // SpecialUsernamesEnabled3 ending
 
@@ -1647,16 +1585,16 @@ data.author_elem.html(takenuser);
             currentColor = 0;
         }
     }
-    data.author_elem.css('color', userColors[data.author]);
+    data.authorNode.css('color', userColors[data.author]);
 
 
 
     if(window.location.href.indexOf("110t4ltqqzi35") > -1 || window.location.href.indexOf("14ny3ur3axhd4") > -1) {
-        var lcchats = data.href_elem.attr('href');
+        var lcchats = data.hrefNode.attr('href');
         lcchats = lcchats.trim().replace('/u/', '');
-        data.href_elem.css('color', userColors[lcchats]).css('fontStyle','initial').css('fontSize','13px');
+        data.hrefNode.css('color', userColors[lcchats]).css('fontStyle','initial').css('fontSize','13px');
         if (lcchats == 'MaybeNotWrong' || lcchats == 'co3_carbonate' || lcchats == 'rschaosid' || lcchats == 'piyushsharma301' || lcchats == 'LeinadSpoon' || lcchats == 'artbn') {
-            data.href_elem.css('font-weight', 'bold');
+            data.hrefNode.css('font-weight', 'bold');
         }
     }
 });
@@ -1669,7 +1607,7 @@ data.author_elem.html(takenuser);
                 $(this).css('font-weight', 'bold');
             }
         });
-        Update.loadedOld(function () {
+        UPDATE_EVENTS.addListener("loaded", () => {
             $('a[href*="/u/"]').each(function() {
                 var thishref2 = $(this).attr('href');
                 thishref2 = thishref2.trim().replace('/u/', '');
@@ -1697,7 +1635,7 @@ data.author_elem.html(takenuser);
                 $(this).css('font-weight', 'bold');
             }
         });
-        Update.loadedOld(function () {
+        UPDATE_EVENTS.addListener("loaded", () => {
             $('.author').each(function() {
             var thisauthor = $(this).text().trim().replace('/u/', '');
             //$(this).css('color', userColors[thisauthor]).css('fontStyle','initial').css('fontSize','13px');
@@ -1744,7 +1682,7 @@ var ClearPastMessages;
     });
     // EVENTS
     // New update loaded
-    Update.loadedNew(function (data) {
+    UPDATE_EVENTS.addListener("new", () => {
         if(window.scrollY==0 && enTimeout==false) {
             if (!enabled) {
                 $checkbox.prop('checked', true).trigger('change');
@@ -1758,7 +1696,7 @@ var ClearPastMessages;
         }
     });
     // Old update loaded (scrolled to bottom)
-    Update.loadedOld(function (data) {
+    UPDATE_EVENTS.addListener("loaded", () => {
         // disable
         if (!enabled)
             return;
@@ -2468,10 +2406,10 @@ var StandardizeNumberFormat;
     });
     // EVENTS
     // New update loaded
-    Update.loadedNew(function (data) {
+    UPDATE_EVENTS.addListener("new", data => {
         if (!enabled)
             return;
-        var first_elem = first_node(data.body_elem.get(0));
+        var first_elem = first_node(data.bodyNode.get(0));
         var $first_elem = $(first_elem);
         var body = first_elem.textContent;
         if (!body)
@@ -2521,7 +2459,7 @@ var StandardizeNumberFormat;
         var $this;
         $parents.each(function (index, element) {
             $this = $(this);
-            if ($this.parent().is(data.body_elem)) {
+            if ($this.parent().is(data.bodyNode)) {
                 // if the direct parent is the body element,
                 // replace to p instead,
                 // since this is definitely not a p itself
@@ -2665,18 +2603,18 @@ var UnstrikeText;
             Elements.$body.attr('data-unstrikeText', this.prop('checked'));
         }
     });
-    Update.loadedNew(function (data) {
+    UPDATE_EVENTS.addListener("new", data => {
         if(Elements.$body.attr('data-unstrikeText') == 'false') {
             return;
         } else {
-            var ustHtml = data.elem.find('.body > .md').html();
-            var ustPost = data.elem.find('.body > .md').text();
+            var ustHtml = data.node.find('.body > .md').html();
+            var ustPost = data.node.find('.body > .md').text();
             var ustNumber = parse_body(ustPost)[2];
             if(ustNumber == null) {ustNumber = ''};
             var ustComment = parse_body(ustPost)[1];
             if(ustNumber.length < 1) {return;}
-            var replacedhtml = data.elem.find('.body > .md').html().replace(ustNumber,"<span class='countms'>"+ustNumber+"</span>");
-            data.elem.find('.body > .md').html(replacedhtml);
+            var replacedhtml = data.node.find('.body > .md').html().replace(ustNumber,"<span class='countms'>"+ustNumber+"</span>");
+            data.node.find('.body > .md').html(replacedhtml);
         }
     });
     // Styles
@@ -2725,12 +2663,12 @@ var LatencyCheck;
             }
         }
     });
-    Update.loadedNew(function (data) {
+    UPDATE_EVENTS.addListener("new", data => {
         if(Elements.$body.attr('data-latencyCheck') == 'false') {
             return;
         } else {
-            var latPost = data.elem.find('.body > .md').text().trim();
-            var author = data.author_elem.attr('href').substring(6);
+            var latPost = data.node.find('.body > .md').text().trim();
+            var author = data.authorNode.attr('href').substring(6);
             if(author == USER) {
                 if(latPost in latencyText) {
                     var e = new Date();
@@ -2964,10 +2902,10 @@ var stringy = '';
             }
         });
         }
-        Update.loadedOld(function (data) {
+        UPDATE_EVENTS.addListener("loaded", data => {
             if(Elements.$body.attr('data-ImageEmotes') == 'true') {
-                var emotes_post = data.body_elem.html();
-                var emotes_text = data.body_elem.text();
+                var emotes_post = data.bodyNode.html();
+                var emotes_text = data.bodyNode.text();
                 the_emote = emotes_post.match(/<code>(.*?)<\/code>/gm);
                 for(var emote in the_emote) {
                     if(the_emote[emote].toLowerCase() in emoteimages) {
@@ -2976,7 +2914,7 @@ var stringy = '';
                         emotes_post = emotes_post.replace(the_emote[emote], "<img title="+emotename+" style='height:26px;vertical-align:top;' src="+emoteimages[the_emote[emote].toLowerCase()]+"></img>");
                     }
                 }
-                data.body_elem.html(emotes_post);
+                data.bodyNode.html(emotes_post);
             }
         });
                 }
@@ -3317,11 +3255,11 @@ var stringy = '';
             emoteimages['<code>pepemeltdown</code>'] = dataUrl;
         })
 
-        Update.loadedNew(function (data) {
+        UPDATE_EVENTS.addListener("new", data => {
             if(Elements.$body.attr('data-ImageEmotes') == 'true') {
-                var emotes_post = data.body_elem.html();
-                var emote_author = data.author_elem.attr('href').substring(6);
-                var emotes_text = data.body_elem.text();
+                var emotes_post = data.bodyNode.html();
+                var emote_author = data.authorNode.attr('href').substring(6);
+                var emotes_text = data.bodyNode.text();
                 var unique_emotes = [];
                 the_emote = emotes_post.match(/<code>(.*?)<\/code>/gm);
                 for(var emote in the_emote) {
@@ -3334,7 +3272,7 @@ var stringy = '';
                      emotes_post = emotes_post.replace(the_emote[emote], "<img title="+emotename+" style='height:26px;vertical-align:top;' src="+emoteimages[the_emote[emote].toLowerCase()]+"></img>");
                     }
                 }
-                data.body_elem.html(emotes_post);
+                data.bodyNode.html(emotes_post);
                 for(var unique in unique_emotes) {
                     //finds the index of emote code by flattening
                     emoteUses[(emoteUses.flat().indexOf(unique_emotes[unique]))/2][1]++;
@@ -3446,11 +3384,11 @@ var collapseCount = 0;
             Elements.$body.attr('data-CollapsiblePosts', this.prop('checked'));
         }
     });
-Update.loadedNew(function (data) {
+UPDATE_EVENTS.addListener("new", data => {
     // steal from https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_collapsible lol
     if(Elements.$body.attr('data-CollapsiblePosts') == 'true') {
-                     var collapse_html = data.body_elem.html();
-                var collapse_text = data.body_elem.text();
+                     var collapse_html = data.bodyNode.html();
+                var collapse_text = data.bodyNode.text();
                 var regexcollapse = collapse_html.match(/<a href="#start"(.*?)<\/a>(.*?)<a href="#end"(.*?)<\/a>/gms);
                 for(var matchcol in regexcollapse) {
                     collapseCount++;
@@ -3459,7 +3397,7 @@ Update.loadedNew(function (data) {
                     newcol = newcol.replace(/<a href="#end"(.*?)<\/a>/gms, '</div>');
                     collapse_html = collapse_html.replace(regexcollapse[matchcol], newcol);
                 }
-                data.body_elem.html(collapse_html);
+                data.bodyNode.html(collapse_html);
     }
             });
     Styles.add(`.LCE_Collapse { background-color: #777; color: white; cursor: pointer; padding: 3px; border: none; text-align: left; outline: none; } .LCE_Collapse_Active, .LCE_Collapse:hover { background-color: #555; } .LCE_Content { display: none; overflow: hidden;}`);
@@ -3696,8 +3634,8 @@ var time_fake = new Date();
                     synccheck = 1;
                 });
     //            $( "#sink" ).click(function() {
-        Update.loadedNew(function (data) {
-            if(data.author_elem.text() != ' /u/Riverbot' && synccheck == 1) {
+        UPDATE_EVENTS.addListener("new", data => {
+            if(data.authorNode.text() != ' /u/Riverbot' && synccheck == 1) {
                 synccheck = 0;
                 sinky = parseFloat($('#sinker').val()) * -1;
                 if(isNaN(sinky)) {sinky = 0;}
@@ -3739,7 +3677,7 @@ var time_fake = new Date();
     var o = "/api/";
     $.request = function(t, u, a, f, l, c, h) { console.log('request start:'+Date.now()); var p = t , d = a; if (rate_limit(t)) { h && h("ratelimit"); return } if (window != window.top && !r.config.external_frame) return; var v = !$.with_default(f, !1) || n(p); u = $.with_default(u, {}), a = $.with_default(a, s(p)), l = $.with_default(l, "json"); var m = $("form.warn-on-unload"); typeof a != "function" && (a = s(p)); var d = function(t) { return i(p), $(m).length && t.success && $(window).off("beforeunload"), a(t) }; errorhandler_in = $.with_default(h, function() {}), h = function(e) { return i(p), errorhandler_in(e) } , c = $.with_default(c, !1), r.config.post_site && u.r === undefined && (u.r = r.config.post_site), r.config.logged && (u.uh = r.config.modhash), u.renderstyle = r.config.renderstyle, v && (t = o + t, r.commentsPreview && r.commentsPreview.visible && r.utils && (t = r.utils.replaceUrlParams(t, { comments_preview_enabled: !0 })), console.log('request ajax start:'+Date.now()), $.ajax({ type: c ? "GET" : "POST", url: t, data: u, success: d, error: h, dataType: l })); console.log('request ajax end:'+Date.now()); }
     r.liveupdate.app.websocket._socket.onmessage = function(e){console.log('socket onmessage start:'+Date.now());var t=JSON.parse(e.data);r.debug('websocket: received "'+t.type+'" message'),r.liveupdate.app.websocket.trigger("message message:"+t.type,t.payload);console.log('socket onmessage finish:'+Date.now());}
-                Update.loadedNew(function (data) {
+                UPDATE_EVENTS.addListener("new", () => {
                     console.log('LCE finished:'+Date.now());
                     });
                 } // Latency testing stuff end
