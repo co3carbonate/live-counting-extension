@@ -660,19 +660,18 @@ var dailyHocColorNamesEnable;
 ///////////////
 var Update;
 (function (Update) {
+    var UPDATE_EVENTS = require("./src/events/update-events.ts").UPDATE_EVENTS;
+
     // UTILITY
-    // Get information about an update node
-    function getUpdateInfo($node) {
-        var data = {
-            elem: $node,
-            author: $node.find('.body > .author').text(),
-            body_elem: $node.find('.body > .md'),
-            author_elem: $node.find('.body > .author'),
-            href_elem: $node.find('.body > .md > p > em > a')
+    // Convert update node info format for legacy compatibility
+    function getLegacyUpdateInfo(info) {
+        return {
+            elem: info.node,
+            author: info.author,
+            body_elem: info.bodyNode,
+            author_elem: info.authorNode,
+            href_elem: info.hrefMode,
         };
-        if (data.author)
-            data.author = data.author.trim().replace('/u/', '');
-        return data;
     }
     // METHODS
     // Bind functions to execute in the following events:
@@ -698,79 +697,25 @@ var Update;
         funcStriked.push(func);
     }
     Update.striked = striked;
-    // EVENTS
-    // Setup MutationObserver on Elements.$updates
-    var observer = new MutationObserver(function (mutations) {
-        // Loop through MutationRecords and call the functions in various arrays based on .type
-        // (Honestly the MutationRecord[] usually only contains one, but whatever)
-        for (var _i = 0, mutations_1 = mutations; _i < mutations_1.length; _i++) {
-            var mutation = mutations_1[_i];
-            // Addition / removal of child elements
-            // Executes loadedNew(), loadedOld(), deleted() functions accordingly
-            if (mutation.type == 'childList') {
-                // Setup variables for new updates or deleted updates
-                var $addedNodes = $(mutation.addedNodes).filter('.liveupdate');
-                var $removedNodes = $(mutation.removedNodes).filter('.liveupdate');
-                // Loop through new updates (if any)
-                $addedNodes.each(function (index, element) {
-                    var $node = $(element);
-                    if ($node.hasClass('preview'))
-                        return; // ignore preview messages (RemoveSubmissionLag.ts)
-                    // Get data about the new update
-                    var data = getUpdateInfo($node);
-                    // Check if the update was loaded from top or bottom
-                    // Execute loadedNew() or loadedOld() functions accordingly
-                    if ($node.index() == 0) {
-                        // Loaded from top
-                        // Execute loadedNew() functions
-                        for (var _i = 0, funcLoadedTop_1 = funcLoadedTop; _i < funcLoadedTop_1.length; _i++) {
-                            var func = funcLoadedTop_1[_i];
-                            func(data);
-                        }
-                    }
-                    else {
-                        // Loaded from bottom
-                        // Execute loadedOld() functions
-                        for (var _a = 0, funcLoadedBottom_1 = funcLoadedBottom; _a < funcLoadedBottom_1.length; _a++) {
-                            var func = funcLoadedBottom_1[_a];
-                            func(data);
-                        }
-                    }
-                });
-            }
-            else if (mutation.type == 'attributes') {
-                // Setup
-                var $node = $(mutation.target);
-                if (!(mutation.oldValue && $node.attr('class')))
-                    return;
-                var oldClasses = mutation.oldValue.split(' ');
-                var newClasses = $node.attr('class').split(' ');
-                // Must be a .liveupdate element
-                if (!$node.hasClass('liveupdate'))
-                    return;
-                // Get data about the update
-                var data = getUpdateInfo($node);
-                // Check if the update had only now been stricken
-                if (oldClasses.indexOf('stricken') == -1
-                    && newClasses.indexOf('stricken') > -1) {
-                    // Execute striked() functions
-                    for (var _a = 0, funcStriked_1 = funcStriked; _a < funcStriked_1.length; _a++) {
-                        var func = funcStriked_1[_a];
-                        func(data);
-                    }
-                }
-            }
+    
+    // Map new events to legacy
+    UPDATE_EVENTS.addListener("new", info => {
+        var legacyInfo = getLegacyUpdateInfo(info);
+        for (var i = 0; i < funcLoadedTop.length; i++) {
+            funcLoadedTop[i](legacyInfo);
         }
     });
-    observer.observe(Elements.$updates.get(0), {
-        // observe for insertion / removal of children updates
-        childList: true,
-        // observe for change in the 'class' attribute value
-        attributes: true,
-        attributeOldValue: true,
-        attributeFilter: ['class'],
-        // observe for these changes (particularly attributes changes) in descendants
-        subtree: true
+    UPDATE_EVENTS.addListener("loaded", info => {
+        var legacyInfo = getLegacyUpdateInfo(info);
+        for (var i = 0; i < funcLoadedBottom.length; i++) {
+            funcLoadedBottom[i](legacyInfo);
+        }
+    });
+    UPDATE_EVENTS.addListener("stricken", info => {
+        var legacyInfo = getLegacyUpdateInfo(info);
+        for (var i = 0; i < funcStriked.length; i++) {
+            funcStriked[i](legacyInfo);
+        }
     });
 })(Update || (Update = {}));
 

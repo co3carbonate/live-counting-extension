@@ -14,6 +14,8 @@
 		"resolveJsonModule": true,
 		"target": "es5",
 		"types": [
+			"@types/events",
+			"@types/jquery",
 			"@types/webpack-env"
 		]
 	}
