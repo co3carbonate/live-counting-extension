@@ -2954,6 +2954,25 @@ var ImageEmotePicker;
     });
 })(ImageEmotePicker || (ImageEmotePicker = {}));
 
+////////////////////////
+// EmoteOrder.ts      //
+////////////////////////
+
+var EmoteOrder;
+(function (EmoteOrder) {
+    // Options
+    Options.addSelect({
+        label: 'Emote Picker Order',
+        options: ['Alphabetical', 'Date Added', 'Usage'],
+        section: 'Advanced 2',
+        "default": "Alphabetical",
+        help: 'Changes the order of emotes in the Emote Picker. Changes upon refresh.',
+        onchange: function () {
+            Elements.$body.attr('data-EmoteOrder', this.val());
+        }
+    });
+})(EmoteOrder || (EmoteOrder = {}));
+
 ////////////////////
 // ImageEmotes.ts //
 ////////////////////
@@ -3406,25 +3425,6 @@ var stringy = '';
     }
 
 })(ImageEmotes || (ImageEmotes = {}));
-
-////////////////////////
-// EmoteOrder.ts      //
-////////////////////////
-
-var EmoteOrder;
-(function (EmoteOrder) {
-    // Options
-    Options.addSelect({
-        label: 'Emote Picker Order',
-        options: ['Alphabetical', 'Date Added', 'Usage'],
-        section: 'Advanced 2',
-        "default": "Alphabetical",
-        help: 'Changes the order of emotes in the Emote Picker. Changes upon refresh.',
-        onchange: function () {
-            Elements.$body.attr('data-EmoteOrder', this.val());
-        }
-    });
-})(EmoteOrder || (EmoteOrder = {}));
 
 /////////////////////
 // KpartAlert.ts //
