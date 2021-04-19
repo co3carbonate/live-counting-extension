@@ -3101,12 +3101,12 @@ var DisableEmbeds;
 })(DisableEmbeds || (DisableEmbeds = {}));
 
 // Test thread special feature (Always at the bottom, because it will be messy lol)
-if(window.location.href.indexOf("15jj2286nsulu") > -1) {
+if(window.location.href.indexOf("15jj2286nsulu") > -1 || window.location.href.indexOf("testing") > -1) {
 // Experiment picker
 
-$("#liveupdate-description").append("<p style='background:#e2ffdb;color:black!important;font-size:16px;' id=experiment>Tests: <a style='color:#0258ab!important' href=https://old.reddit.com/live/15jj2286nsulu?fakerunner>Fake Runner</a> | <a style='color:#0258ab!important' href=https://old.reddit.com/live/15jj2286nsulu?test>Whiteboard</a> | <a style='color:#0258ab!important' href=https://old.reddit.com/live/15jj2286nsulu?latency>Expanded Latency (see console)</a></p>");
+$("#liveupdate-description").append("<p style='background:#e2ffdb;color:black!important;font-size:16px;' id=experiment>Tests: <a style='color:#0258ab!important' href=https://old.reddit.com/live/15jj2286nsulu?fakerunner>Fake Runner</a> | <a style='color:#0258ab!important' href=https://old.reddit.com/live/15jj2286nsulu?whiteboard>Whiteboard</a> | <a style='color:#0258ab!important' href=https://old.reddit.com/live/15jj2286nsulu?latency>Expanded Latency (see console)</a></p>");
 
-        if(window.location.href.indexOf("test") > -1) { // Whiteboard start
+        if(window.location.href.indexOf("whiteboard") > -1) { // Whiteboard start
         $("#liveupdate-description").append(`<iframe src="https://socketio-whiteboard-zmx4.herokuapp.com/" width="100%" height="480" scrolling="no" class="iframe-class" frameborder="0"></iframe>`);
     } // Whiteboard end
     if(window.location.href.indexOf("fakerunner") > -1) { // Fake runner start
