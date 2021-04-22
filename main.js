@@ -679,11 +679,11 @@ var ReplyTimes;
             return;
         var thisTime = data.node.find('.body').prev().attr('href');
         var timestamp_current = thisTime.substring(thisTime.indexOf("updates/") + 8);
-        timestamp_current = timestamp_current.substring(14, 18) + timestamp_current.substring(9, 13) + timestamp_current.substring(0, 8);
+        timestamp_current = timestamp_current.substring(15, 18) + timestamp_current.substring(9, 13) + timestamp_current.substring(0, 8);
         timestamp_current = parseInt(timestamp_current, 16);
         var thisTime2 = data.node.find('.body').parent().nextAll('.liveupdate:first').children().first().attr('href');
         var timestamp_last = thisTime2.substring(thisTime2.indexOf("updates/") + 8);
-        timestamp_last = timestamp_last.substring(14, 18) + timestamp_last.substring(9, 13) + timestamp_last.substring(0, 8);
+        timestamp_last = timestamp_last.substring(15, 18) + timestamp_last.substring(9, 13) + timestamp_last.substring(0, 8);
         timestamp_last = parseInt(timestamp_last, 16);
         var timestamp = timestamp_current - timestamp_last;
         timestamp = timestamp / 10000;
@@ -744,8 +744,8 @@ var ReplyTimes;
                 }
                 if(splits.includes(end_of_cur_num)){
                     let index = splits.indexOf(end_of_cur_num);
-                    if(end_of_cur_num == '000' && vc_times[splits.indexOf('000')] != ''){
-                        let split_ms = timestamp_current - vc_times[splits.indexOf('000')];
+                    if(index == splits_amount - 1 && vc_times[index] != ''){
+                        let split_ms = timestamp_current - vc_times[index];
                         let split_s = split_ms / 1000;
                         let split_rounded = Math.round(split_s / 10);
                         $("#lcbot_speed").text(split_rounded);
@@ -772,14 +772,14 @@ var ReplyTimes;
                 last_number = current_number;
                 if(THREAD == THREADS.MAIN && Elements.$body.attr('data-KpartAlert') == 'true') {
                 	if (Notification.permission === "granted") {
-	    if (current_number.toString().substr(5) == '000' && !document.hasFocus()) {
-     	    	showNotification(current_number);
-	    }
-   	} else if (Notification.permission !== "denied") {
-      	    Notification.requestPermission().then(permission => {
-        	console.log(permission);
-      	    });
-   	}
+                        if (current_number.toString().substr(5) == '000' && !document.hasFocus()) {
+                            showNotification(current_number);
+                        }
+                    } else if (Notification.permission !== "denied") {
+                        Notification.requestPermission().then(permission => {
+                            console.log(permission);
+                        });
+                    }
                 }
             } else {
                 validcountwrong++;
@@ -800,6 +800,7 @@ var ReplyTimes;
         var colortest = '#7dd4fa';
         var elcolor = '#000000';
         var randomx = '0';
+        // Check for Darkmode
         darkcheck = 0;
         if (Elements.$body.attr('data-darkMode') == 'Default') {
             if ($('#lc-body').hasClass('res-nightmode')) {
@@ -812,53 +813,44 @@ var ReplyTimes;
         } else if (Elements.$body.attr('data-darkMode') == 'Off') {
                 darkcheck = 0;
         }
+        // Choose Colors
         if (timestamp <= -500) {
             colortest = 'linear-gradient(to right,red,orange,yellow,green,blue,indigo,violet)';
-        } else if (-499 <= timestamp && timestamp < 1) {
-            colortest = '#f2ee0e';
-            if (darkcheck == 1) {colortest = '#727200';}
+        } else if (timestamp < 1) {
+            colortest = darkcheck?'#727200':'#f2ee0e';
         }
         if(Elements.$body.attr('data-halfColors') == 'true') {
+            // Half reply times -> Choose color as if reply time was 2x
             var dimestamp = timestamp;
             timestamp = timestamp * 2;
         }
-        if (1 <= timestamp && timestamp < 100) {
-            colortest = '#ef7070';
-            if (darkcheck == 1) {colortest = '#4d0000';}
-        } else if (100 <= timestamp && timestamp < 200) {
-            colortest = '#ffaeae';
-            if (darkcheck == 1) {colortest = '#980000';}
-        } else if (200 <= timestamp && timestamp < 300) {
-            colortest = '#ffebba';
-            if (darkcheck == 1) {colortest = '#654700';}
-        } else if (300 <= timestamp && timestamp < 400) {
-            colortest = '#cfffba';
-            if (darkcheck == 1) {colortest = '#216e00';}
-        } else if (400 <= timestamp && timestamp < 500) {
-            colortest = '#a2e8af';
-            if (darkcheck == 1) {colortest = '#003b0b';}
-        } else if (500 <= timestamp && timestamp < 600) {
-            colortest = '#adffed';
-            if (darkcheck == 1) {colortest = '#006b53';}
-        } else if (600 <= timestamp && timestamp < 700) {
-            colortest = '#add6ff';
-            if (darkcheck == 1) {colortest = '#004183';}
-        } else if (700 <= timestamp && timestamp < 800) {
-            colortest = '#bcadff';
-            if (darkcheck == 1) {colortest = '#14006c';}
-        } else if (800 <= timestamp && timestamp < 900) {
-            colortest = '#e9adff';
-            if (darkcheck == 1) {colortest = '#460060';}
-        } else if (900 <= timestamp && timestamp < 1000) {
-            colortest = '#ffadf8';
-            if (darkcheck == 1) {colortest = '#6e0064';}
+        if (timestamp < 100) {
+            colortest = darkcheck?'#4d0000':'#ef7070';
+        } else if (timestamp < 200) {
+            colortest = darkcheck?'#980000':'#ffaeae';
+        } else if (timestamp < 300) {
+            colortest = darkcheck?'#654700':'#ffebba';
+        } else if (timestamp < 400) {
+            colortest = darkcheck?'#216e00':'#cfffba';
+        } else if (timestamp < 500) {
+            colortest = darkcheck?'#003b0b':'#a2e8af';
+        } else if (timestamp < 600) {
+            colortest = darkcheck?'#006b53':'#adffed';
+        } else if (timestamp < 700) {
+            colortest = darkcheck?'#004183':'#add6ff';
+        } else if (timestamp < 800) {
+            colortest = darkcheck?'#14006c':'#bcadff';
+        } else if (timestamp < 900) {
+            colortest = darkcheck?'#460060':'#e9adff';
+        } else if (timestamp < 1000) {
+            colortest = darkcheck?'#6e0064':'#ffadf8';
         } else if (timestamp >= 1000) {
-            colortest = '#ededed';
-            if (darkcheck == 1) {colortest = '#2a2a2a';}
+            colortest = darkcheck?'#2a2a2a':'#ededed';
         }
         if(Elements.$body.attr('data-halfColors') == 'true') {
             timestamp = dimestamp;
         }
+        // Overwrite timestamp if it is a special time
         if(timestamp in specialTimes && Elements.$body.attr('data-disableSpecialTimes') == 'false') {
             var postauthor = data.authorNode.text().substring(3);
             if (timestamp == '123') {
@@ -880,24 +872,9 @@ var ReplyTimes;
         }
         var thisriver = data.node.find('.body').prepend("<div colortest='"+colortest+"' elcolor='"+elcolor+"' id='"+permalink+"' style='position:absolute;background:"+colortest+";color:"+elcolor+";' onclick=window.open('"+testhref+"'); class=river>"+timestamp+"</div>");
         if(THREAD == THREADS.BARS) {
-            var barregexy = /\/live\/.............\/updates\//
-            var barmagin = data.node.find('.body').prev().attr('href');
-            var barmagin2 = barmagin.replace(barregexy, '');
-            var barmagin2p1 = barmagin2.substring(0, 8);
-            var barmagin2p11 = barmagin2.substring(9, 13);
-            var barmagin2p111 = barmagin2.substring(15, 18);
-            var barmagin2p1111 = barmagin2p111 + barmagin2p11 + barmagin2p1;
-            var barmagin2p2 = parseInt(barmagin2p1111, 16);
-            var mago = barmagin2p2.toString();
-            mago = mago.substring(0, 15);
-            mago = parseInt(mago);
-            mago = Math.round( mago * 10 ) / 10;
-            mago = mago / 10;
-            mago = Math.round(mago);
-            var dateTime = new Date( mago );
-            var dateTime2 = dateTime.toISOString();
-            var dateTime3 = dateTime2.substring(11, 23);
-            $('#'+permalink).text(dateTime3);
+            let mago = Math.round(timestamp_current/10000);
+            var dateTime = new Date(mago).toISOString().substring(11, 23);
+            $('#'+permalink).text(dateTime);
         }
         if(Elements.$body.attr('data-BackgroundColor') == 'Match Reply Time') {
             data.node.find('.body').parent().css('background', colortest);
