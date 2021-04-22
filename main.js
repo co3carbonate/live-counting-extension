@@ -824,7 +824,7 @@ var ReplyTimes;
             var dimestamp = timestamp;
             timestamp = timestamp * 2;
         }
-        if (timestamp < 100) {
+        if (1 <= timestamp && timestamp < 100) {
             colortest = darkcheck?'#4d0000':'#ef7070';
         } else if (timestamp < 200) {
             colortest = darkcheck?'#980000':'#ffaeae';
@@ -1344,8 +1344,8 @@ var ColoredUsernames;
             // /u/MaybeNotWrong username special
             if (data.author == kname2) {
 
-var maybeuser = '/u/MaybeNotWrong';
-data.authorNode.addClass('blink');
+                var maybeuser = '/u/MaybeNotWrong';
+                data.authorNode.addClass('blink');
 
                 let template = function(time, time2, random_iteration, text){
                     let div = `<span class="maybe" style="animation: blinkerm `;
@@ -1355,19 +1355,19 @@ data.authorNode.addClass('blink');
                         div += `;animation-timing-function: linear;animation-fill-mode: forwards;animation-delay:`
                         div += time2;
                         div += `s;`;
-                    div += `;">`
-                    div += text
-                    div += `</span>`
+                        div += `;">`
+                        div += text
+                        div += `</span>`
                     return div
                 }
+                let rand_iter = Math.round(Math.random())/2 + 2;
                 maybeuser = maybeuser.split("").map((letter)=>{
                     let rand_time = Math.floor(Math.random()*(637)+737) / 1000;
                     let rand_time2 = -Math.floor(Math.random()*(1373)) / 1000;
-                    let rand_iter = Math.round(Math.random())/2 + 2;
                     return template(rand_time,rand_time2,rand_iter,letter);
                 }).join("");
 
-data.authorNode.html(maybeuser);
+                data.authorNode.html(maybeuser);
             }
         } // SpecialUsernamesEnabled2 ending
 
@@ -1375,8 +1375,8 @@ data.authorNode.html(maybeuser);
             // /u/MaybeNotWrong username special
             if (data.author == kname3) {
 
-var takenuser = '/u/ItzTaken';
-data.authorNode.addClass('takenblink');
+                var takenuser = '/u/ItzTaken';
+                data.authorNode.addClass('takenblink');
 
                 let template = function(time, time2, random_iteration, text){
                     let div = `<span class="taken" style="font-weight:bold; animation: takenblinkerm `;
@@ -1386,9 +1386,9 @@ data.authorNode.addClass('takenblink');
                         div += `;animation-timing-function: linear;animation-fill-mode: forwards;animation-delay:`
                         div += time2;
                         div += `s;`;
-                    div += `;">`
-                    div += text
-                    div += `</span>`
+                        div += `;">`
+                        div += text
+                        div += `</span>`
                     return div
                 }
                 takenuser = takenuser.split("").map((letter)=>{
@@ -1398,7 +1398,7 @@ data.authorNode.addClass('takenblink');
                     return template(rand_time,rand_time2,rand_iter,letter);
                 }).join("");
 
-data.authorNode.html(takenuser);
+                data.authorNode.html(takenuser);
             }
         } // SpecialUsernamesEnabled3 ending
 
