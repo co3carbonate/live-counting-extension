@@ -814,41 +814,37 @@ var ReplyTimes;
                 darkcheck = 0;
         }
         // Choose Colors
+        let timestamp_positive = timestamp;
+        if(Elements.$body.attr('data-halfColors') == 'true') {
+            // Half reply times -> Choose color as if reply time was 2x
+            timestamp_positive = timestamp * 2;
+        }
         if (timestamp <= -500) {
             colortest = 'linear-gradient(to right,red,orange,yellow,green,blue,indigo,violet)';
         } else if (timestamp < 1) {
             colortest = darkcheck?'#727200':'#f2ee0e';
-        }
-        if(Elements.$body.attr('data-halfColors') == 'true') {
-            // Half reply times -> Choose color as if reply time was 2x
-            var dimestamp = timestamp;
-            timestamp = timestamp * 2;
-        }
-        if (1 <= timestamp && timestamp < 100) {
+        } else if (timestamp_positive < 100) {
             colortest = darkcheck?'#4d0000':'#ef7070';
-        } else if (timestamp < 200) {
+        } else if (timestamp_positive < 200) {
             colortest = darkcheck?'#980000':'#ffaeae';
-        } else if (timestamp < 300) {
+        } else if (timestamp_positive < 300) {
             colortest = darkcheck?'#654700':'#ffebba';
-        } else if (timestamp < 400) {
+        } else if (timestamp_positive < 400) {
             colortest = darkcheck?'#216e00':'#cfffba';
-        } else if (timestamp < 500) {
+        } else if (timestamp_positive < 500) {
             colortest = darkcheck?'#003b0b':'#a2e8af';
-        } else if (timestamp < 600) {
+        } else if (timestamp_positive < 600) {
             colortest = darkcheck?'#006b53':'#adffed';
-        } else if (timestamp < 700) {
+        } else if (timestamp_positive < 700) {
             colortest = darkcheck?'#004183':'#add6ff';
-        } else if (timestamp < 800) {
+        } else if (timestamp_positive < 800) {
             colortest = darkcheck?'#14006c':'#bcadff';
-        } else if (timestamp < 900) {
+        } else if (timestamp_positive < 900) {
             colortest = darkcheck?'#460060':'#e9adff';
-        } else if (timestamp < 1000) {
+        } else if (timestamp_positive < 1000) {
             colortest = darkcheck?'#6e0064':'#ffadf8';
-        } else if (timestamp >= 1000) {
+        } else if (timestamp_positive >= 1000) {
             colortest = darkcheck?'#2a2a2a':'#ededed';
-        }
-        if(Elements.$body.attr('data-halfColors') == 'true') {
-            timestamp = dimestamp;
         }
         // Overwrite timestamp if it is a special time
         if(timestamp in specialTimes && Elements.$body.attr('data-disableSpecialTimes') == 'false') {
