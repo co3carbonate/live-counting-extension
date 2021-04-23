@@ -3023,9 +3023,11 @@ var LC_Chats_View;
         else if(h == 'yeah bro' && lccTest == 2) {
             lccTest = 1;
             $('#lc_chats_iframe').css('display','initial');
+            $('#iframe_loader').css('display','initial');
         } else if(h == 'nuh uh bro, also does this piss you off that im using strings like this? GOOD.' && lccTest == 1) {
             lccTest = 2;
             $('#lc_chats_iframe').css('display','none');
+            $('#iframe_loader').css('display','none');
         }
     }
     Options.addCheckbox({
