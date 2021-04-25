@@ -3081,6 +3081,43 @@ var DisableEmbeds;
     }
 })(DisableEmbeds || (DisableEmbeds = {}));
 
+
+////////////////////
+// FixFavicon.ts //
+////////////////////
+var FixFavicon;
+(function (FixFavicon) {
+    // Options
+    if(Math.ceil(window.devicePixelRatio) == window.devicePixelRatio) {
+        return;
+    }
+    Elements.$body.attr('data-FixFavicon', true);
+    var faviconTest = 0;
+    function faviconFixer() {
+        faviconTest = 1; // non-compressed is here: https://pastebin.com/KLnWZmX6 lol 
+        function bruhbruh(){function i(){var e;return r&&a||(e=function(){for(var e=document.getElementsByTagName("link"),t=0,n=e.length;t<n;t++)if((e[t].getAttribute("rel")||"").match(/\bicon\b/))return e[t];return!1}(),r=e?e.getAttribute("href"):"/favicon.ico",a=a||r),a}function o(){return u||((u=document.createElement("canvas")).width=g,u.height=g),u}function e(e){!function(){for(var e=document.getElementsByTagName("link"),t=document.getElementsByTagName("head")[0],n=0,a=e.length;n<a;n++)void 0!==e[n]&&(e[n].getAttribute("rel")||"").match(/\bicon\b/)&&t.removeChild(e[n])}();var t=document.createElement("link");t.type="image/x-icon",t.rel="icon",t.href=e,document.getElementsByTagName("head")[0].appendChild(t)}var t,n={},a=null,r=null,c=null,u=null,l={},f=Math.ceil(window.devicePixelRatio)||1,g=16*f,d={width:7,height:9,font:10*f+"px arial",colour:"#ffffff",background:"#F03D25",fallback:!0,crossOrigin:!0,abbreviate:!0},s=(t=navigator.userAgent.toLowerCase(),function(e){return-1!==t.indexOf(e)}),m=s("msie"),h=(s("chrome"),s("chrome")||s("safari")),b=s("safari")&&!s("chrome"),v=s("mozilla")&&!s("chrome")&&!s("safari"),p=function(e){var t;l.fallback&&("("===(t=document.title)[0]&&(t=t.slice(t.indexOf(" "))),document.title=0<(e+"").length?"("+e+") "+t:t)},A=function(e,t,n){"number"==typeof t&&99<t&&l.abbreviate&&(t=T(t));var a=(t+"").length-1,i=l.width*f+6*f*a,o=l.height*f,r=g-o,c=g-i-f,a=16*f,o=16*f,i=2*f;e.font=(h?"bold ":"")+l.font,e.fillStyle=l.background,e.strokeStyle=l.background,e.lineWidth=f,e.beginPath(),e.moveTo(c+i,r),e.quadraticCurveTo(c,r,c,r+i),e.lineTo(c,a-i),e.quadraticCurveTo(c,a,c+i,a),e.lineTo(o-i,a),e.quadraticCurveTo(o,a,o,a-i),e.lineTo(o,r+i),e.quadraticCurveTo(o,r,o-i,r),e.closePath(),e.fill(),e.beginPath(),e.strokeStyle="rgba(0,0,0,0.3)",e.moveTo(c+i/2,a),e.lineTo(o-i/2,a),e.stroke(),e.fillStyle=l.colour,e.textAlign="right",e.textBaseline="top",e.fillText(t,2===f?29:15,v?7*f:6*f)},w=function(){o().getContext&&e(o().toDataURL())},T=function(e){for(var t=[["G",1e9],["M",1e6],["k",1e3]],n=0;n<t.length;++n)if(e>=t[n][1]){e=k(e/t[n][1])+t[n][0];break}return e},k=function(e,t){return new Number(e).toFixed(t)};n.setOptions=function(e){for(var t in l={},d)l[t]=(e.hasOwnProperty(t)?e:d)[t];return this},n.setImage=function(e){return a=e,w(),this},n.setBubble=function(e,t){return function(e,t){if(!o().getContext||m||b||"force"===l.fallback)return p(e);var n=o().getContext("2d"),t=t||"#000000",a=i();(c=document.createElement("img")).onload=function(){n.clearRect(0,0,g,g),n.drawImage(c,0,0,c.width,c.height,0,0,g,g),0<(e+"").length&&A(n,e,t),w()},!a.match(/^data/)&&l.crossOrigin&&(c.crossOrigin="anonymous"),c.src=a}(e=e||"",t),this},n.reset=function(){e(r)},n.setOptions(d),window.Tinycon=n,"function"==typeof define&&define.amd&&define(n)}bruhbruh(),favicon_data="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAA/1BMVEUpLzY+PDpGSk5HR0dKTlNSW2VTXGVVXmdWWl5bYWZdZGtfanVfbHpgXVtianNjbXhkZWdkam1lcX1nc4BpdYJqa2xscHZucHJueYRvfoxwfIhxcG93e4B3h5h4iJh5ipt7gIB8ipl+fn6BgYGImKOJh4aKjY2Mna6NobSOn7CQo7iar8Wfnp2juM6lo6Gmuc6mu8moqaqsw9etwcmurq6vrauxyN2xyN+0s7K+u7m/1u7C2vPF3fbI4PrJ4fvJ4/7Ly8vPzMnP6P7S0tLT0c/W8P/Z19Xd9/7d+P7e3Nrw8PDz9vT69/T+EA/+MjD+pqT+srD+w8H+zsz+/v7///9fla50AAAAuElEQVR42l2P2RaBUBhGT0WZ54jIPM8h0zE7SBL97/8uYoXFvtwXe30fIn8ggn94i8XMGSkFQvmPwFXvwOe/OGyx3OJYF+OUq26LcS2LMs05Xj0bPY+QDFc6k1bOnRQ8PYLiKlXW4IlWptQ4QWlxCIZ+h7tuwFBME9RgAG5XE8zrDYBpWNEEfElY0RO7Aejvzrs+wIa1xFGmp7AuFoprmNLya4fC8aP9YT/iOeX9pS1Fg1GpbZ/74wFo2jf64C4agwAAAABJRU5ErkJggg==",r.liveupdate.app.websocket._socket.onmessage=function(e){e=JSON.parse(e.data);r.debug('websocket: received "'+e.type+'" message'),r.liveupdate.app.websocket.trigger("message message:"+e.type,e.payload),Tinycon.setBubble(r.liveupdate.app.faviconUpdater.unreadItemCount),Tinycon.setImage(favicon_data)};
+    }
+    Options.addCheckbox({
+        label: 'Fix Favicon',
+        "default": true,
+        section: 'Advanced',
+        help: 'Fixes the favicon.',
+        onchange: function () {
+            Elements.$body.attr('data-FixFavicon', this.prop('checked'));
+            if(Elements.$body.attr('data-FixFavicon') == 'true') {
+                if (faviconTest == 0) {
+                    faviconFixer();
+                }
+            }
+        }
+    });
+    if(Elements.$body.attr('data-FixFavicon') == 'true') {
+        if(faviconTest == 0) {
+            faviconFixer();
+        }
+    }
+})(FixFavicon || (FixFavicon = {}));
+
 // Test thread special feature (Always at the bottom, because it will be messy lol)
 if(THREAD == THREADS.TEST || window.location.href.indexOf("testing") > -1) {
 // Experiment picker
@@ -3224,6 +3261,13 @@ var time_fake = new Date();
                     console.log('LCE finished:'+Date.now());
                     });
                 } // Latency testing stuff end
+
+                // Random tests
+                if(window.location.href.indexOf("reddit_tests") > -1) { 
+                    r.config.status_msg.submitting = "dumbass...";
+                    console.log('Your reddit account is '+r.config.user_age/1000+' seconds old. lol');
+                    console.log('are u over 18? hmm... '+r.config.over_18+'. lol');
+                                } // Latency testing stuff end
 
 
 }
