@@ -3085,7 +3085,6 @@ var DisableEmbeds;
     }
 })(DisableEmbeds || (DisableEmbeds = {}));
 
-
 ////////////////////
 // FixFavicon.ts //
 ////////////////////
@@ -3121,6 +3120,18 @@ var FixFavicon;
         }
     }
 })(FixFavicon || (FixFavicon = {}));
+
+///////////////////////
+// FixEditButtons.ts //
+///////////////////////
+var FixEditButtons;
+(function (FixEditButtons) {
+    // Options
+    if(r.liveupdate.app.permissions._permissions.all == true || r.liveupdate.app.permissions.allow("edit") == r.liveupdate.app.permissions._permissions.edit) {
+        return;
+    }
+    r.liveupdate.app.permissions.allow = function(e){return this.isSuperUser()?!0:this._permissions[e] == true} //intended feature
+})(FixEditButtons || (FixEditButtons = {})); // doesn't fix pre-loaded messages, sadly :/ 
 
 // Test thread special feature (Always at the bottom, because it will be messy lol)
 if(THREAD == THREADS.TEST || window.location.href.indexOf("testing") > -1) {
