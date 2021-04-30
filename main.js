@@ -2388,7 +2388,9 @@ var Emojis;
             return text
         }
         function Inputty() {
+            var selection = document.querySelector('textarea').selectionStart
             document.querySelector('.md textarea').value = emojiIt(regExpression, document.querySelector('.md textarea').value );
+            document.querySelector('textarea').setSelectionRange(selection, selection)
         }
         try {
             document.querySelector('.md textarea').addEventListener('input', Inputty);
