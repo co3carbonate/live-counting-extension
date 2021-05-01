@@ -727,6 +727,7 @@ var ReplyTimes;
             update_body = data.node.find('.body > .md').text();
             author_current = data.node.find('.body > .author').text();
             author_current = author_current.trim().replace('/u/', '');
+            if(THREAD == "16fidqsi3fs3s") {author_last = ''}; //ignore author logic on multiple in a row
             let current_number_string = parse_body(update_body)[0];
             current_number = current_number_string === null ? null: BigInt(current_number_string);
             expected_number = get_expected(last_number);
