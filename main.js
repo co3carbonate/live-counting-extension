@@ -25,15 +25,12 @@ var THREAD = (function () {
 
 const THREADS = require("./src/data/threads.json")
 
-//100k name information
-var specialnumber = 3;
-var kname1 = 'TOP_20';
-var kname2 = 'MaybeNotWrong';
-var kname3 = 'ItzTaken';
-var kname4 = '';
-var kname5 = '';
-var kname6 = '';
-var SpecialUsernamesEnabled;
+// 100k name information
+const knames = [
+	"TOP_20",
+	"ItzTaken",
+];
+const SpecialUsernamesEnabled = new Array(knames.length).fill(true);
 
 // Emote stuff
 const imageEmoteData = require("./src/data/image-emotes.json");
@@ -1331,48 +1328,18 @@ var ColoredUsernames;
 
         // 100K usernames
 
-         if (SpecialUsernamesEnabled1 == true) {
-            if (data.author == kname1) {
+         if (SpecialUsernamesEnabled[0]) {
+            // /u/TOP_20 username special
+            if (data.author == knames[0]) {
                 data.authorNode.html(`<span style="color:brickred;">/</span><span style="color:#a35252;">u</span><span style="color:#FFFF00;">/</span>T<span style="color:#6495ED;">O</span><span style="color:#800080;">P</span><span style="color:#0000FF;">_</span><span style="color:#000000;">20</span>`)
             }
         } // SpecialUsernamesEnabled1 ending
 
-         if (SpecialUsernamesEnabled2 == true) {
-            // /u/MaybeNotWrong username special
-            if (data.author == kname2) {
+        if (SpecialUsernamesEnabled[1]) {
+            // /u/ItzTaken username special
+            if (data.author == knames[1]) {
 
-                var maybeuser = '/u/MaybeNotWrong';
-                data.authorNode.addClass('blink');
-
-                let template = function(time, time2, random_iteration, text){
-                    let div = `<span class="maybe" style="animation: blinkerm `;
-                        div += time;
-                        div += `s `;
-                        div += random_iteration;
-                        div += `;animation-timing-function: linear;animation-fill-mode: forwards;animation-delay:`
-                        div += time2;
-                        div += `s;`;
-                        div += `;">`
-                        div += text
-                        div += `</span>`
-                    return div
-                }
-                let rand_iter = Math.round(Math.random())/2 + 2;
-                maybeuser = maybeuser.split("").map((letter)=>{
-                    let rand_time = Math.floor(Math.random()*(637)+737) / 1000;
-                    let rand_time2 = -Math.floor(Math.random()*(1373)) / 1000;
-                    return template(rand_time,rand_time2,rand_iter,letter);
-                }).join("");
-
-                data.authorNode.html(maybeuser);
-            }
-        } // SpecialUsernamesEnabled2 ending
-
-        if (SpecialUsernamesEnabled3 == true) {
-            // /u/MaybeNotWrong username special
-            if (data.author == kname3) {
-
-                var takenuser = '/u/ItzTaken';
+                let takenuser = '/u/ItzTaken';
                 data.authorNode.addClass('takenblink');
 
                 let template = function(time, time2, random_iteration, text){
@@ -1397,7 +1364,7 @@ var ColoredUsernames;
 
                 data.authorNode.html(takenuser);
             }
-        } // SpecialUsernamesEnabled3 ending
+        } // SpecialUsernamesEnabled2 ending
 
 
     // Set username color
@@ -1733,137 +1700,21 @@ var DisableShortcuts;
 //////////////////////////
 // SpecialUsernames.ts //
 //////////////////////////
-if (specialnumber > 0) {
-    var SpecialUsernames1;
-    var SpecialUsernamesEnabled1;
-    (function (SpecialUsernames1) {
-        // Options
-        var enabled1 = true;
-        var $checkbox = Options.addCheckbox({
-            label: kname1 + ' 100K USERNAME',
-            section: 'Advanced',
-            "default": true,
-            help: 'Enable or disable the special 100k usernames.',
-            onchange: function () {
-                enabled1 = this.prop('checked');
-            }
-        });
-        if (enabled1 == true) {
-            SpecialUsernamesEnabled1 = true;
-        } else {
-            SpecialUsernamesEnabled1 = false;
-        }
-    })(SpecialUsernames1 || (SpecialUsernames1 = {}));
-}
-if (specialnumber > 1) {
-    var SpecialUsernames2;
-    var SpecialUsernamesEnabled2;
-    (function (SpecialUsernames2) {
-        // Options
-        var enabled2 = true;
-        var $checkbox = Options.addCheckbox({
-            label: kname2 + ' 100K USERNAME',
-            section: 'Advanced',
-            "default": true,
-            help: 'Enable or disable the special 100k usernames.',
-            onchange: function () {
-                enabled2 = this.prop('checked');
-            }
-        });
-        if (enabled2 == true) {
-            SpecialUsernamesEnabled2 = true;
-        } else {
-            SpecialUsernamesEnabled2 = false;
-        }
-    })(SpecialUsernames2 || (SpecialUsernames2 = {}));
-}
-if (specialnumber > 2) {
-    var SpecialUsernames3;
-    var SpecialUsernamesEnabled3;
-    (function (SpecialUsernames3) {
-        // Options
-        var enabled3 = true;
-        var $checkbox = Options.addCheckbox({
-            label: kname3 + ' 100K USERNAME',
-            section: 'Advanced',
-            "default": true,
-            help: 'Enable or disable the special 100k usernames.',
-            onchange: function () {
-                enabled3 = this.prop('checked');
-            }
-        });
-        if (enabled3 == true) {
-            SpecialUsernamesEnabled3 = true;
-        } else {
-            SpecialUsernamesEnabled3 = false;
-        }
-    })(SpecialUsernames3 || (SpecialUsernames3 = {}));
-}
-if (specialnumber > 3) {
-    var SpecialUsernames4;
-    var SpecialUsernamesEnabled4;
-    (function (SpecialUsernames2) {
-        // Options
-        var enabled4 = true;
-        var $checkbox = Options.addCheckbox({
-            label: kname4 + ' 100K USERNAME',
-            section: 'Advanced',
-            "default": true,
-            help: 'Enable or disable the special 100k usernames.',
-            onchange: function () {
-                enabled4 = this.prop('checked');
-            }
-        });
-        if (enabled4 == true) {
-            SpecialUsernamesEnabled4 = true;
-        } else {
-            SpecialUsernamesEnabled4 = false;
-        }
-    })(SpecialUsernames4 || (SpecialUsernames4 = {}));
-}
-if (specialnumber > 4) {
-    var SpecialUsernames5;
-    var SpecialUsernamesEnabled5;
-    (function (SpecialUsernames5) {
-        // Options
-        var enabled5 = true;
-        var $checkbox = Options.addCheckbox({
-            label: kname5 + ' 100K USERNAME',
-            section: 'Advanced',
-            "default": true,
-            help: 'Enable or disable the special 100k usernames.',
-            onchange: function () {
-                enabled5 = this.prop('checked');
-            }
-        });
-        if (enabled5 == true) {
-            SpecialUsernamesEnabled5 = true;
-        } else {
-            SpecialUsernamesEnabled5 = false;
-        }
-    })(SpecialUsernames5 || (SpecialUsernames5 = {}));
-}
-if (specialnumber > 5) {
-    var SpecialUsernames6;
-    var SpecialUsernamesEnabled6;
-    (function (SpecialUsernames6) {
-        // Options
-        var enabled6 = true;
-        var $checkbox = Options.addCheckbox({
-            label: kname6 + ' 100K USERNAME',
-            section: 'Advanced',
-            "default": true,
-            help: 'Enable or disable the special 100k usernames.',
-            onchange: function () {
-                enabled6 = this.prop('checked');
-            }
-        });
-        if (enabled6 == true) {
-            SpecialUsernamesEnabled6 = true;
-        } else {
-            SpecialUsernamesEnabled6 = false;
-        }
-    })(SpecialUsernames6 || (SpecialUsernames6 = {}));
+for(let i = 0; i < knames.length; i++) {
+	SpecialUsernamesEnabled[i] = true;
+	(function (SpecialUsername) {
+		// Options
+		let enabled1 = true;
+		let $checkbox = Options.addCheckbox({
+			label: knames[i] + ' 100K USERNAME',
+			section: 'Advanced',
+			"default": true,
+			help: 'Enable or disable the special 100k usernames.',
+			onchange: function () {
+				SpecialUsernamesEnabled[i] = this.prop('checked');
+			}
+		});
+	})();
 }
 
 /////////////////
