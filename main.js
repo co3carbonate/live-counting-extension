@@ -30,8 +30,7 @@ const knames = [
 	"TOP_20",
 	"ItzTaken",
 ];
-const specialnumber = knames.length;
-const SpecialUsernamesEnabled = new Array(specialnumber).fill(true);
+const SpecialUsernamesEnabled = new Array(knames.length).fill(true);
 
 // Emote stuff
 const imageEmoteData = require("./src/data/image-emotes.json");
@@ -1701,7 +1700,7 @@ var DisableShortcuts;
 //////////////////////////
 // SpecialUsernames.ts //
 //////////////////////////
-for(let i = 0; i < specialnumber; i++) {
+for(let i = 0; i < knames.length; i++) {
 	SpecialUsernamesEnabled[i] = true;
 	(function (SpecialUsername) {
 		// Options
