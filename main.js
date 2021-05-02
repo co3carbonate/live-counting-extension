@@ -2225,13 +2225,14 @@ var Emojis;
         }
     });
     if(enabled) {
-        const emojiMap = require("./src/data/emoji.json");
+        const emojiLib = require("node-emoji");
         const regExpression = /:([^\s]+):/g
         const emojiIt = (re, text) => {
             if (result = re.exec(text)) {
                 var temptext = text;
-                if((result[1] in emojiMap)) {
-                    text = text.replace(result[0], emojiMap[result[1]]);
+                const emoji = emojiLib.get(result[0]);
+                if(emoji) {
+                    text = text.replace(result[0], emoji);
                 }
                 if(imageEmotes.indexOf(result[1]) > -1) {
                     text = text.replace(result[0], "`"+result[0].trim().replace(/:/g,"")+"`");
