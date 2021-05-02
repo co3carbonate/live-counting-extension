@@ -4,6 +4,9 @@
 		"build": "webpack --config webpack.config.js",
 		"lint": "eslint \"./**/*.js\" --ignore-path .gitignore"
 	},
+	"dependencies": {
+		"node-emoji": "^1.10.0"
+	},
 	"devDependencies": {
 		"@types/events": "^3.0.0",
 		"@types/jquery": "^3.5.5",
