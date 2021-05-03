@@ -1456,11 +1456,11 @@ var ClearPastMessages;
     // EVENTS
     // New update loaded
     UPDATE_EVENTS.addListener("new", () => {
-        /*if(window.scrollY==0 && enTimeout==false) {
+        if(window.scrollY==0 && enTimeout==false) {
             if (!enabled) {
                 $checkbox.prop('checked', true).trigger('change');
             }
-        }*/
+        }
         if (!enabled)
             return;
         var $screenMessages = Elements.$updates.children('.liveupdate');
