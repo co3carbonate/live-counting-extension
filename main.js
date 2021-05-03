@@ -5,34 +5,40 @@
 */
 // CONSTANTS
 
+var UPDATE_EVENTS = require("./src/events/update-events.ts").UPDATE_EVENTS;
+
 // Extension version
 var VERSION = 'v1.7.0';
 
 var USER = $('#header .user a[href]').html();
 
-// Named Thread
+// Thread ID
+var THREAD = (function () {
+    var components = window.location.pathname.split('/');
+    for (var i = components.length - 1; i >= 0; i--) {
+        var component = components[i].trim();
+        if (component.length > 0)
+            return component.replace(/^.*\/([^/]*)/, "$1");
+    }
+})();
+// Named Threads
 
-var BACKWARDS = "te287u41qlnw";
-var BASE2 = "te1l2lmdxgkq";
-var BASE3 = "y29ytkycjdth";
-var BASE4 = "xnl0cyj2rdj0";
+const THREADS = require("./src/data/threads.json")
 
-//100k name information
-var specialnumber = 3;
-var kname1 = 'TOP_20';
-var kname2 = 'MaybeNotWrong';
-var kname3 = 'ItzTaken';
-var kname4 = '';
-var kname5 = '';
-var kname6 = '';
-var SpecialUsernamesEnabled;
+// 100k name information
+const knames = [
+	"TOP_20",
+	"ItzTaken",
+];
+const SpecialUsernamesEnabled = new Array(knames.length).fill(true);
 
 // Emote stuff
-const imageEmotes = ['pog', 'god', 'monkas', 'omegalul', 'stonks', 'notstonks', 'thonk', 'jesus', 'isagod', 'pensiveloaf', 'cuteballgames', 'habubger', 'angery', 'dad', 'sadge', 'feelslagman', 'catjam', 'peped', 'fortnitecard', 'squidab', 'dab', 'lool', 'karp', 'pants', 'oooh', 'twitter', 'harold', 'david', 'taking', 'baller', 'asa', 'chu', 'respite', 'sink', 'gold', 'trollface', 'kshart', 'widepeepohappy', 'widepeeposad', '5head', 'pepog', 'poggies', 'maybelegend', 'chupixel', 'vulpez', 'sspixel', 'wtfdb', 'notlike', 'talk2hand', 'rivergod', 'whitpixel', 'hmm', 'mario_luigi_dance', 'typefaster', 'lona_dont', 'mersenne', 'daemote', 'happiness', 'facepalm', 'rick', 'byepika', 'itsok', 'thisisfine', 'uhdunno', 'toocool', 'letsgo', 'woohoo', 'bonk', 'eyeroll', 'anicake', 'watching', 'wtfdidyousay', 'letmeout', 'wtfbeek', 'yikes', 'wheredanat', 'ffff', 'gotosleep', 'shake', 'brohug', 'fthis', 'earth', 'chudance', 'spideydance', 'cube', 'gildthis', 'boom', 'oof', 'emergency', 'weeee', 'boom2', 'snipe', 'd20', 'porg', 'slime', 'jebaited', 'pepemeltdown'];
+const imageEmoteData = require("./src/data/image-emotes.json");
+const imageEmotes = Object.keys(imageEmoteData);
 
 // Ignore function vars
 var ignored = [];
-ignored.push(localStorage['ignoredppl']);
+ignored.push(localStorage.getItem('ignoredppl'));
 
 //Daily HoC vars
 var dailysize = 0;
@@ -54,7 +60,7 @@ setTimeout(function(){
 }, 1000);
 
 // Slow counting special feature
-if(window.location.href.indexOf("yrnkgszr6zdu") > -1) { $("#liveupdate-description").append("<p style='background:#e2ffdb;font-size:16px;' id=countdownslow></p>"); document.title = "[live] Slow counting (one count per hour)"; $( ".save-button button.btn" ).click(function() { var countDownDateA = new Date(); countDownDateA.setHours( countDownDateA.getHours() + 1 ); $("#countdownslow").css('background','#e2ffdb'); var tugOfWarWrongDirectionA = setInterval(function() { var nowTugA = new Date().getTime(); var distanceTugA = countDownDateA - nowTugA; var minutesTugA = Math.floor((distanceTugA % (1000 * 60 * 60)) / (1000 * 60)); var secondsTugA = Math.floor((distanceTugA % (1000 * 60)) / 1000); document.getElementById("countdownslow").innerHTML = minutesTugA + "m " + secondsTugA + "s"; document.title = "["+minutesTugA+"m] Slow counting (one count per hour)"; if (distanceTugA < 0) { clearInterval(tugOfWarWrongDirectionA); document.getElementById("countdownslow").innerHTML = "You can post now!"; $("#countdownslow").css('background','#ffaeae'); document.title = "[!!] Slow counting (one count per hour)"; } }, 1000); }); }
+if(THREAD == THREADS.SLOW) { $("#liveupdate-description").append("<p style='background:#e2ffdb;font-size:16px;' id=countdownslow></p>"); document.title = "[live] Slow counting (one count per hour)"; $( ".save-button button.btn" ).click(function() { var countDownDateA = new Date(); countDownDateA.setHours( countDownDateA.getHours() + 1 ); $("#countdownslow").css('background','#e2ffdb'); var tugOfWarWrongDirectionA = setInterval(function() { var nowTugA = new Date().getTime(); var distanceTugA = countDownDateA - nowTugA; var minutesTugA = Math.floor((distanceTugA % (1000 * 60 * 60)) / (1000 * 60)); var secondsTugA = Math.floor((distanceTugA % (1000 * 60)) / 1000); document.getElementById("countdownslow").innerHTML = minutesTugA + "m " + secondsTugA + "s"; document.title = "["+minutesTugA+"m] Slow counting (one count per hour)"; if (distanceTugA < 0) { clearInterval(tugOfWarWrongDirectionA); document.getElementById("countdownslow").innerHTML = "You can post now!"; $("#countdownslow").css('background','#ffaeae'); document.title = "[!!] Slow counting (one count per hour)"; } }, 1000); }); }
 
 //Last count vars (Temporary before I remake it)
 var current_number = '';
@@ -76,16 +82,16 @@ var all_times = {};
 function get_splits(){
     let splits;
     switch(THREAD){
-        case BACKWARDS:
+        case THREADS.BACKWARDS:
             splits = ['900','800','700','600','500','400','300','200','100','000'];
             break;
-        case BASE2:
+        case THREADS.BASE2:
             splits = ['0010000000','0100000000','0110000000','1000000000','1010000000','1100000000','1110000000','0000000000']
             break;
-        case BASE3:
+        case THREADS.BASE3:
             splits = ['010000','020000','100000','110000','120000','200000','210000','220000','000000']
             break;
-        case BASE4:
+        case THREADS.BASE4:
             splits = ['02000','10000','12000','20000','22000','30000','32000','00000']
             break;
         default:
@@ -98,13 +104,13 @@ function get_splits(){
 function get_split_digits(){
     let digits;
     switch(THREAD){
-        case BASE2:
+        case THREADS.BASE2:
             digits = 10;
             break;
-        case BASE3:
+        case THREADS.BASE3:
             digits = 6;
             break;
-        case BASE4:
+        case THREADS.BASE4:
             digits = 5;
             break;
         default:
@@ -192,16 +198,6 @@ if(window.location.href.indexOf("updates") > -1) {
     throw new Error();
 }
 
-
-// Thread ID
-var THREAD = (function () {
-    var components = window.location.pathname.split('/');
-    for (var i = components.length - 1; i >= 0; i--) {
-        var component = components[i].trim();
-        if (component.length > 0)
-            return component.replace(/^.*\/([^/]*)/, "$1");
-    }
-})();
 
 ////////////////
 // Cookies.ts //
@@ -657,125 +653,6 @@ var dailyHocColorNamesEnable;
 
 })(dailyHocColorNamesEnable || (dailyHocColorNamesEnable = {}));
 
-///////////////
-// Update.ts //
-///////////////
-var Update;
-(function (Update) {
-    // UTILITY
-    // Get information about an update node
-    function getUpdateInfo($node) {
-        var data = {
-            elem: $node,
-            author: $node.find('.body > .author').text(),
-            body_elem: $node.find('.body > .md'),
-            author_elem: $node.find('.body > .author'),
-            href_elem: $node.find('.body > .md > p > em > a')
-        };
-        if (data.author)
-            data.author = data.author.trim().replace('/u/', '');
-        return data;
-    }
-    // METHODS
-    // Bind functions to execute in the following events:
-    // - loadedNew(): When a new update is sent
-    // - loadedOld(): When an old update is loaded
-    // - striked(): When an update is striked
-    // - TODO: deleted(): When an update is deleted
-    // loaded from top (new updates sent)
-    var funcLoadedTop = [];
-    function loadedNew(func) {
-        funcLoadedTop.push(func);
-    }
-    Update.loadedNew = loadedNew;
-    // loaded from bottom (scrolled down to load old updates)
-    var funcLoadedBottom = [];
-    function loadedOld(func) {
-        funcLoadedBottom.push(func);
-    }
-    Update.loadedOld = loadedOld;
-    // striked
-    var funcStriked = [];
-    function striked(func) {
-        funcStriked.push(func);
-    }
-    Update.striked = striked;
-    // EVENTS
-    // Setup MutationObserver on Elements.$updates
-    var observer = new MutationObserver(function (mutations) {
-        // Loop through MutationRecords and call the functions in various arrays based on .type
-        // (Honestly the MutationRecord[] usually only contains one, but whatever)
-        for (var _i = 0, mutations_1 = mutations; _i < mutations_1.length; _i++) {
-            var mutation = mutations_1[_i];
-            // Addition / removal of child elements
-            // Executes loadedNew(), loadedOld(), deleted() functions accordingly
-            if (mutation.type == 'childList') {
-                // Setup variables for new updates or deleted updates
-                var $addedNodes = $(mutation.addedNodes).filter('.liveupdate');
-                var $removedNodes = $(mutation.removedNodes).filter('.liveupdate');
-                // Loop through new updates (if any)
-                $addedNodes.each(function (index, element) {
-                    var $node = $(element);
-                    if ($node.hasClass('preview'))
-                        return; // ignore preview messages (RemoveSubmissionLag.ts)
-                    // Get data about the new update
-                    var data = getUpdateInfo($node);
-                    // Check if the update was loaded from top or bottom
-                    // Execute loadedNew() or loadedOld() functions accordingly
-                    if ($node.index() == 0) {
-                        // Loaded from top
-                        // Execute loadedNew() functions
-                        for (var _i = 0, funcLoadedTop_1 = funcLoadedTop; _i < funcLoadedTop_1.length; _i++) {
-                            var func = funcLoadedTop_1[_i];
-                            func(data);
-                        }
-                    }
-                    else {
-                        // Loaded from bottom
-                        // Execute loadedOld() functions
-                        for (var _a = 0, funcLoadedBottom_1 = funcLoadedBottom; _a < funcLoadedBottom_1.length; _a++) {
-                            var func = funcLoadedBottom_1[_a];
-                            func(data);
-                        }
-                    }
-                });
-            }
-            else if (mutation.type == 'attributes') {
-                // Setup
-                var $node = $(mutation.target);
-                if (!(mutation.oldValue && $node.attr('class')))
-                    return;
-                var oldClasses = mutation.oldValue.split(' ');
-                var newClasses = $node.attr('class').split(' ');
-                // Must be a .liveupdate element
-                if (!$node.hasClass('liveupdate'))
-                    return;
-                // Get data about the update
-                var data = getUpdateInfo($node);
-                // Check if the update had only now been stricken
-                if (oldClasses.indexOf('stricken') == -1
-                    && newClasses.indexOf('stricken') > -1) {
-                    // Execute striked() functions
-                    for (var _a = 0, funcStriked_1 = funcStriked; _a < funcStriked_1.length; _a++) {
-                        var func = funcStriked_1[_a];
-                        func(data);
-                    }
-                }
-            }
-        }
-    });
-    observer.observe(Elements.$updates.get(0), {
-        // observe for insertion / removal of children updates
-        childList: true,
-        // observe for change in the 'class' attribute value
-        attributes: true,
-        attributeOldValue: true,
-        attributeFilter: ['class'],
-        // observe for these changes (particularly attributes changes) in descendants
-        subtree: true
-    });
-})(Update || (Update = {}));
-
 ///////////////////
 // ReplyTimes.ts //
 ///////////////////
@@ -794,69 +671,18 @@ var ReplyTimes;
             timestampEnable = enabledrt;
         }
     });
-    var specialTimes = {
-        '1': {user:'rschaosid', words:'(rschaosid) 1',bgcolor:'#008080',fontcolor:'#ffffff'},
-        '8': {user:'gordonpt8', words:'gordonpt8',bgcolor:'#00ff00',fontcolor:'#000000'},
-        '15': {user:'TheMatsValk', words:'(TheMatsValk) 15',bgcolor:'#00f5ff',fontcolor:'#000000'},
-        '18': {user:'Kris18', words:'Kris18',bgcolor:'#0000ff',fontcolor:'#ffffff'},
-        '36': {user:'Iamspeedy36', words:'Iamspeedy36',bgcolor:'#00BFFF',fontcolor:'#000000'},
-        '37': {user:'amazingpikachu_38', words:'amazingpikachu_37',bgcolor:'#ffff00',fontcolor:'#000000'},
-        '47': {user:'kdiuro13', words:'(kdiuro13) 47',bgcolor:'#191970',fontcolor:'#ffffff'},
-        '69': {user:'ddodd69', words:'ddodd69',bgcolor:'#a89332',fontcolor:'#000000'},
-        '100': {user:'abplows', words:'(abplows) 100',bgcolor:'#2b0090',fontcolor:'#ffffff'},
-        '123': {user:'davidjl123', words:'davidjl123',bgcolor:'#6495ED',fontcolor:'#000000'},
-        '123-2': {user:'dominodan123', words:'dominodan123',bgcolor:'#0000ff',fontcolor:'#ffffff'},
-        '151': {user:'MewDP', words:'(MewDP) 151',bgcolor:'#FFFF33',fontcolor:'#000000'},
-        '191': {user:'PaleRepresentative', words:'(PaleRepresentative) 191',bgcolor:'#8FBC8F',fontcolor:'#000000'},
-        '200': {user:'QuestoGuy', words:'(QuestoGuy) 200',bgcolor:'#800080',fontcolor:'#ffffff'},
-        '212': {user:'MrBahr12', words:'MrBahr212',bgcolor:'#CC6600',fontcolor:'#ffffff'},
-        '217': {user:'Lonadont', words:'(Lonadont) 217',bgcolor:'#a35252',fontcolor:'#ffffff'},
-        '220': {user:'Chalupa_Dad', words:'(Chalupa_Dad) 220',bgcolor:'#F08080',fontcolor:'#000000'},
-        '222': {user:'treje', words:'(treje) 222',bgcolor:'#ffc130',fontcolor:'#000000'},
-        '234': {user:'ElliottB1', words:'(ElliottB1) 234',bgcolor:'#00FFDD',fontcolor:'#000000'},
-        '301': {user:'piyushsharma301', words:'piyushsharma301',bgcolor:'#ff0000',fontcolor:'#000000'},
-        '333': {user:'Majestic_Bear', words:'(Majestic_Bear) 333',bgcolor:'#8A2BE2',fontcolor:'#ffffff'},
-        '350': {user:'funfact15', words:'(funfact15) 350',bgcolor:'#6600FF',fontcolor:'#ffffff'},
-        '360': {user:'NikinCZ', words:'(NikinCZ) 360',bgcolor:'#86D8CA',fontcolor:'#000000'},
-        '364': {user:'SecretAsianMa', words:'(SecretAsianMa) 364',bgcolor:'#373267',fontcolor:'#ffffff'},
-        '369': {user:'TOP_20', words:'(Whitney) 369',bgcolor:'#D9009C',fontcolor:'#ffffff'},
-        '373': {user:'MaybeNotWrong', words:'(MaybeNotWrong) 373',bgcolor:'#066666',fontcolor:'#ffffff'},
-        '404': {user:'Tranquilsunrise', words:'(Tranquilsunrise) 404',bgcolor:'#ffa500',fontcolor:'#000000'},
-        '404-2': {user:'KingCaspianX', words:'(KingCaspianX) 404',bgcolor:'#191970',fontcolor:'#ffffff'},
-        '420': {user:'alienth', words:'420',bgcolor:'#00ff00',fontcolor:'#000000'},
-        '471': {user:'albert471', words:'albert471',bgcolor:'#0000ff',fontcolor:'#ffffff'},
-        '500': {user:'Rajalaxo', words:'(Rajalaxo) 500',bgcolor:'#f6dec0',fontcolor:'#000000'},
-        '501': {user:'LeinadSpoon', words:'(LeinadSpoon) 501',bgcolor:'#520063',fontcolor:'#ffffff'},
-        '505': {user:'ItzTaken', words:'(ItzTaken) 505',bgcolor:'#32ff95',fontcolor:'#000000'},
-        '555': {user:'PrinceCrinkle', words:'(PrinceCrinkle) 555',bgcolor:'#00FFFF',fontcolor:'#000000'},
-        '559': {user:'iwannaplay5050', words:'(iwannaplay5050) 559',bgcolor:'#B22222',fontcolor:'#ffffff'},
-        '615': {user:'parker_cube', words:'(parker_cube) 615',bgcolor:'#71589f',fontcolor:'#ffffff'},
-        '616': {user:'DemonBurritoCat', words:'(DemonBurritoCat) 616',bgcolor:'#890003',fontcolor:'#ffffff'},
-        '639': {user:'MrUnderdawg', words:'(MrUnderdawg) 639',bgcolor:'#35e0cf',fontcolor:'#000000'},
-        '666': {user:'rideride', words:'666',bgcolor:'#ff0000',fontcolor:'#000000'},
-        '689': {user:'smarvin6689', words:'(smarvin6689) 689',bgcolor:'#060647',fontcolor:'#ffffff'},
-        '700': {user:'Noob2137', words:'(Noob2137) 700',bgcolor:'#ff69ff',fontcolor:'#000000'},
-        '777': {user:'artbn', words:'(artbn) 777',bgcolor:'#e66b00',fontcolor:'#000000'},
-        '845': {user:'noduorg', words:'(noduorg) 845',bgcolor:'#0d2d89',fontcolor:'#ffffff'},
-        '888': {user:'NobodyL0vesMe', words:'(NobodyL0vesMe) 888',bgcolor:'#BC12DD',fontcolor:'#000000'},
-        '973': {user:'Smartstocks', words:'(Smartstocks) 973',bgcolor:'#840d0d',fontcolor:'#ffffff'},
-        '998': {user:'qwertylool', words:'(qwertylool) 998',bgcolor:'#9acd32',fontcolor:'#000000'},
-        '1111': {user:'andrewtheredditor', words:'(andrewtheredditor) 1111',bgcolor:'#2cd626',fontcolor:'#ffffff'},
-        '1234': {user:'randomusername123458', words:'(randomusername123458) 1234',bgcolor:'#00cc99',fontcolor:'#000000'},
-        '1521': {user:'darthvader1521', words:'darthvader1521',bgcolor:'#ffaf47',fontcolor:'#000000'},
-        '1616': {user:'VitaminB16', words:'VitaminB1616',bgcolor:'#1affa7',fontcolor:'#000000'},
-        '69420': {user:'GrunfTNT', words:'(lol) 69420',bgcolor:'#bb00ff',fontcolor:'#ffff00'},
-    };
-    Update.loadedNew(function (data) {
+
+    var specialTimes = require("./src/data/special-times.json");
+    UPDATE_EVENTS.addListener("new", data => {
         if (!enabledrt)
             return;
-        var thisTime = data.elem.find('.body').prev().attr('href');
+        var thisTime = data.node.find('.body').prev().attr('href');
         var timestamp_current = thisTime.substring(thisTime.indexOf("updates/") + 8);
-        timestamp_current = timestamp_current.substring(14, 18) + timestamp_current.substring(9, 13) + timestamp_current.substring(0, 8);
+        timestamp_current = timestamp_current.substring(15, 18) + timestamp_current.substring(9, 13) + timestamp_current.substring(0, 8);
         timestamp_current = parseInt(timestamp_current, 16);
-        var thisTime2 = data.elem.find('.body').parent().nextAll('.liveupdate:first').children().first().attr('href');
+        var thisTime2 = data.node.find('.body').parent().nextAll('.liveupdate:first').children().first().attr('href');
         var timestamp_last = thisTime2.substring(thisTime2.indexOf("updates/") + 8);
-        timestamp_last = timestamp_last.substring(14, 18) + timestamp_last.substring(9, 13) + timestamp_last.substring(0, 8);
+        timestamp_last = timestamp_last.substring(15, 18) + timestamp_last.substring(9, 13) + timestamp_last.substring(0, 8);
         timestamp_last = parseInt(timestamp_last, 16);
         var timestamp = timestamp_current - timestamp_last;
         timestamp = timestamp / 10000;
@@ -879,16 +705,16 @@ var ReplyTimes;
                 if(last_num === '')return current_number;
                 let expected_number;
                 switch(THREAD){
-                    case BASE2:
+                    case THREADS.BASE2:
                         expected_number = get_expected_low_base(last_num, 2);
                         break;
-                    case BASE3:
+                    case THREADS.BASE3:
                         expected_number = get_expected_low_base(last_num, 3);
                         break;
-                    case BASE4:
+                    case THREADS.BASE4:
                         expected_number = get_expected_low_base(last_num, 4);
                         break;
-                    case BACKWARDS:
+                    case THREADS.BACKWARDS:
                         expected_number = last_num - 1n;
                         break;
                     default:
@@ -897,9 +723,10 @@ var ReplyTimes;
                 }
                 return expected_number;
             }
-            update_body = data.elem.find('.body > .md').text();
-            author_current = data.elem.find('.body > .author').text();
+            update_body = data.node.find('.body > .md').text();
+            author_current = data.node.find('.body > .author').text();
             author_current = author_current.trim().replace('/u/', '');
+            if(THREAD == THREADS.DOUBLE_COUNTING) {author_last = ''}; //ignore author logic on multiple in a row
             let current_number_string = parse_body(update_body)[0];
             current_number = current_number_string === null ? null: BigInt(current_number_string);
             expected_number = get_expected(last_number);
@@ -917,8 +744,8 @@ var ReplyTimes;
                 }
                 if(splits.includes(end_of_cur_num)){
                     let index = splits.indexOf(end_of_cur_num);
-                    if(end_of_cur_num == '000' && vc_times[splits.indexOf('000')] != ''){
-                        let split_ms = timestamp_current - vc_times[splits.indexOf('000')];
+                    if(index == splits_amount - 1 && vc_times[index] != ''){
+                        let split_ms = timestamp_current - vc_times[index];
                         let split_s = split_ms / 1000;
                         let split_rounded = Math.round(split_s / 10);
                         $("#lcbot_speed").text(split_rounded);
@@ -943,16 +770,16 @@ var ReplyTimes;
                 }
                 author_last = author_current;
                 last_number = current_number;
-                if(THREAD == 'ta535s1hq2je' && Elements.$body.attr('data-KpartAlert') == 'true') {
+                if(THREAD == THREADS.MAIN && Elements.$body.attr('data-KpartAlert') == 'true') {
                 	if (Notification.permission === "granted") {
-	    if (current_number.toString().substr(5) == '000' && !document.hasFocus()) {
-     	    	showNotification(current_number);
-	    }
-   	} else if (Notification.permission !== "denied") {
-      	    Notification.requestPermission().then(permission => {
-        	console.log(permission);
-      	    });
-   	}
+                        if (current_number.toString().substr(5) == '000' && !document.hasFocus()) {
+                            showNotification(current_number);
+                        }
+                    } else if (Notification.permission !== "denied") {
+                        Notification.requestPermission().then(permission => {
+                            console.log(permission);
+                        });
+                    }
                 }
             } else {
                 validcountwrong++;
@@ -973,6 +800,7 @@ var ReplyTimes;
         var colortest = '#7dd4fa';
         var elcolor = '#000000';
         var randomx = '0';
+        // Check for Darkmode
         darkcheck = 0;
         if (Elements.$body.attr('data-darkMode') == 'Default') {
             if ($('#lc-body').hasClass('res-nightmode')) {
@@ -985,55 +813,42 @@ var ReplyTimes;
         } else if (Elements.$body.attr('data-darkMode') == 'Off') {
                 darkcheck = 0;
         }
+        // Choose Colors
+        let timestamp_positive = timestamp;
+        if(Elements.$body.attr('data-halfColors') == 'true') {
+            // Half reply times -> Choose color as if reply time was 2x
+            timestamp_positive = timestamp * 2;
+        }
         if (timestamp <= -500) {
             colortest = 'linear-gradient(to right,red,orange,yellow,green,blue,indigo,violet)';
-        } else if (-499 <= timestamp && timestamp < 1) {
-            colortest = '#f2ee0e';
-            if (darkcheck == 1) {colortest = '#727200';}
+        } else if (timestamp < 1) {
+            colortest = darkcheck?'#727200':'#f2ee0e';
+        } else if (timestamp_positive < 100) {
+            colortest = darkcheck?'#4d0000':'#ef7070';
+        } else if (timestamp_positive < 200) {
+            colortest = darkcheck?'#980000':'#ffaeae';
+        } else if (timestamp_positive < 300) {
+            colortest = darkcheck?'#654700':'#ffebba';
+        } else if (timestamp_positive < 400) {
+            colortest = darkcheck?'#216e00':'#cfffba';
+        } else if (timestamp_positive < 500) {
+            colortest = darkcheck?'#003b0b':'#a2e8af';
+        } else if (timestamp_positive < 600) {
+            colortest = darkcheck?'#006b53':'#adffed';
+        } else if (timestamp_positive < 700) {
+            colortest = darkcheck?'#004183':'#add6ff';
+        } else if (timestamp_positive < 800) {
+            colortest = darkcheck?'#14006c':'#bcadff';
+        } else if (timestamp_positive < 900) {
+            colortest = darkcheck?'#460060':'#e9adff';
+        } else if (timestamp_positive < 1000) {
+            colortest = darkcheck?'#6e0064':'#ffadf8';
+        } else if (timestamp_positive >= 1000) {
+            colortest = darkcheck?'#2a2a2a':'#ededed';
         }
-        if(Elements.$body.attr('data-halfColors') == 'true') {
-            var dimestamp = timestamp;
-            timestamp = timestamp * 2;
-        }
-        if (1 <= timestamp && timestamp < 100) {
-            colortest = '#ef7070';
-            if (darkcheck == 1) {colortest = '#4d0000';}
-        } else if (100 <= timestamp && timestamp < 200) {
-            colortest = '#ffaeae';
-            if (darkcheck == 1) {colortest = '#980000';}
-        } else if (200 <= timestamp && timestamp < 300) {
-            colortest = '#ffebba';
-            if (darkcheck == 1) {colortest = '#654700';}
-        } else if (300 <= timestamp && timestamp < 400) {
-            colortest = '#cfffba';
-            if (darkcheck == 1) {colortest = '#216e00';}
-        } else if (400 <= timestamp && timestamp < 500) {
-            colortest = '#a2e8af';
-            if (darkcheck == 1) {colortest = '#003b0b';}
-        } else if (500 <= timestamp && timestamp < 600) {
-            colortest = '#adffed';
-            if (darkcheck == 1) {colortest = '#006b53';}
-        } else if (600 <= timestamp && timestamp < 700) {
-            colortest = '#add6ff';
-            if (darkcheck == 1) {colortest = '#004183';}
-        } else if (700 <= timestamp && timestamp < 800) {
-            colortest = '#bcadff';
-            if (darkcheck == 1) {colortest = '#14006c';}
-        } else if (800 <= timestamp && timestamp < 900) {
-            colortest = '#e9adff';
-            if (darkcheck == 1) {colortest = '#460060';}
-        } else if (900 <= timestamp && timestamp < 1000) {
-            colortest = '#ffadf8';
-            if (darkcheck == 1) {colortest = '#6e0064';}
-        } else if (timestamp >= 1000) {
-            colortest = '#ededed';
-            if (darkcheck == 1) {colortest = '#2a2a2a';}
-        }
-        if(Elements.$body.attr('data-halfColors') == 'true') {
-            timestamp = dimestamp;
-        }
+        // Overwrite timestamp if it is a special time
         if(timestamp in specialTimes && Elements.$body.attr('data-disableSpecialTimes') == 'false') {
-            var postauthor = data.author_elem.text().substring(3);
+            var postauthor = data.authorNode.text().substring(3);
             if (timestamp == '123') {
                 var randomtime = Math.round(Math.random());
                 if(randomtime == 1 && postauthor != 'davidjl123' || postauthor == 'dominodan123') {
@@ -1048,32 +863,17 @@ var ReplyTimes;
             }
             colortest = specialTimes[timestamp]['bgcolor'];
             elcolor = specialTimes[timestamp]['fontcolor'];
-            if (postauthor == specialTimes[timestamp]['user']) {var user2 = data.elem.find('.body > .author').text(); data.elem.find('.body').append("<span id=fakeauthor></span>"); document.getElementById("fakeauthor").innerHTML = user2; data.elem.find('.body > .author').css('fontSize', '0px'); document.getElementById("fakeauthor").style.cssText = 'font-size: 13px; color: transparent; background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text!important;';}
+            if (postauthor == specialTimes[timestamp]['user']) {var user2 = data.node.find('.body > .author').text(); data.node.find('.body').append("<span id=fakeauthor></span>"); document.getElementById("fakeauthor").innerHTML = user2; data.node.find('.body > .author').css('fontSize', '0px'); document.getElementById("fakeauthor").style.cssText = 'font-size: 13px; color: transparent; background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text!important;';}
             timestamp = specialTimes[timestamp]['words'];
         }
-        var thisriver = data.elem.find('.body').prepend("<div id='"+permalink+"' style='position:absolute;background:"+colortest+";color:"+elcolor+";' onclick=window.open('"+testhref+"'); class=river>"+timestamp+"</div>");
-        if(window.location.href.indexOf("10itx") > -1) {
-            var barregexy = /\/live\/.............\/updates\//
-            var barmagin = data.elem.find('.body').prev().attr('href');
-            var barmagin2 = barmagin.replace(barregexy, '');
-            var barmagin2p1 = barmagin2.substring(0, 8);
-            var barmagin2p11 = barmagin2.substring(9, 13);
-            var barmagin2p111 = barmagin2.substring(15, 18);
-            var barmagin2p1111 = barmagin2p111 + barmagin2p11 + barmagin2p1;
-            var barmagin2p2 = parseInt(barmagin2p1111, 16);
-            var mago = barmagin2p2.toString();
-            mago = mago.substring(0, 15);
-            mago = parseInt(mago);
-            mago = Math.round( mago * 10 ) / 10;
-            mago = mago / 10;
-            mago = Math.round(mago);
-            var dateTime = new Date( mago );
-            var dateTime2 = dateTime.toISOString();
-            var dateTime3 = dateTime2.substring(11, 23);
-            $('#'+permalink).text(dateTime3);
+        var thisriver = data.node.find('.body').prepend("<div colortest='"+colortest+"' elcolor='"+elcolor+"' id='"+permalink+"' style='position:absolute;background:"+colortest+";color:"+elcolor+";' onclick=window.open('"+testhref+"'); class=river>"+timestamp+"</div>");
+        if(THREAD == THREADS.BARS) {
+            let mago = Math.round(timestamp_current/10000);
+            var dateTime = new Date(mago).toISOString().substring(11, 23);
+            $('#'+permalink).text(dateTime);
         }
         if(Elements.$body.attr('data-BackgroundColor') == 'Match Reply Time') {
-            data.elem.find('.body').parent().css('background', colortest);
+            data.node.find('.body').parent().css('background', colortest);
         }
 
         if (window.innerWidth >= 700) {
@@ -1099,8 +899,8 @@ var ReplyTimes;
             this.style.cursor = "pointer";
         });
         $(".river").mouseout(function() {
-            this.style.background = colortest;
-            this.style.color = elcolor;
+            $(this).css('background',$(this).attr('colortest'));
+            $(this).css('color',$(this).attr('elcolor'));
         });
     });
     $(window).on('load resize', function () {
@@ -1462,112 +1262,15 @@ var ColoredUsernames;
 (function (ColoredUsernames) {
     // INITIALIZATION
     // Specified colors for known users
-    var userColors = {
-        'SolidGoldMagikarp': '#008080',
-        'rschaosid': '#008080',
-        'live_mentions': 'Black',
-        'joinlivecounting': 'Black',
-        'livecounting_sidebar': 'Black',
-        'live_lc_bot': 'Black',
-        'Riverbot': 'Black',
-        'Graphite_bot': 'Black',
-        'b66b': 'Black',
-        'piyushsharma301': '#FF0F19',
-        'Tranquilsunrise': 'Orange',
-        'dominodan123': 'Blue',
-        'smarvin6689':'#060647',
-        'rideride':'#B22222',
-        'nomaur2':'#8A2BE2',
-        'VitaminB16': '#75CEAF',
-        'LeinadSpoon': '#520063',
-        'co3_carbonate': 'Grey',
-        'artbn': '#e66b00',
-        'amazingpikachu_38': '#FFFF00',
-        'qwertylool': "YellowGreen",
-        'TOP_20': '#ff00bf',
-        '80sFan02': '#0505BB',
-        'AstroMagician': '#2d8bff',
-        'NobodyL0vesMe': '#730099',
-        'PrinceCrinkle': '#0d2d89',
-        'noduorg':'#0d2d89',
-        'MrBahr12': '#00f20a',
-        'parker_cube': '#FF69B4',
-        'QuestoGuy': 'Purple',
-        'Smartstocks': '#840d0d',
-        'DemonBurritoCat':'#890003',
-        'gordonpt8': '#00FF00',
-        'Mooraell': '#DAA520',
-        'randomusername123458': '#00CC99',
-        'TheNitromeFan': '#fb72b0',
-        'Capitanbublo' : '#ff531a',
-        'davidjl123': '#6495ED',
-        'abplows':'#2B0090',
-        'Iamspeedy36': '#00BFFF',
-        'Phoenixness': '#ff0000',
-        'jillis6': '#ffd700',
-        'Kris18': '#0000ff',
-        'Chalupa_Dad':'#F08080',
-        'Majestic_Bear':'#4682B4',
-        'Flat-Mars-Society':'#00FF7F',
-        'xHOCKEYx12': 'Lime',
-        '_ntrpy': '#FF6600',
-        'o99o99': '#2BBDFF',
-        'afaintsmellofcurry': '#6799A0',
-        'KingCaspianX': '#191970',
-        'MewDP': '#FFFF33',
-        'DaveTheDave_': '#00BFFF',
-        'Luigi86101': '#006400',
-        'thetiredlemur': '#464942',
-        'TheGlobeIsRound': '#0080ff',
-        'CarbonSpectre': '#339933',
-        'Lonadont': '#a35252',
-        'TehVulpez': '#c42c0a',
-        'LC_Chats': '#dddddd',
-        'LC-3P0': 'Black',
-        'MaybeNotWrong': '#066666',
-        'ElliottB1': '#00FFDD',
-        'treje': '#ffc130',
-        'sakima11': '#0cd1ad',
-        'amazingpiakchu_38': '#FFFF00',
-        'royalpurplesky': '#800080',
-        'Mac_cy': '#FF8C00',
-        'iwannaplay5050': '#B22222',
-        'ludrol': '#191970',
-        'thegreatestminer': '#4F9D82',
-        'dogcatcowpig': '#1162f9',
-        'ItzTaken': '#32ff95',
-        'Noob2137': '#ff69ff',
-        'PaleRepresentative': '#2F4F4F',
-        'andrewtheredditor': '#2bdb6c',
-        'Whit4You': '#ff99ff',
-        'Rajalaxo': '#485432',
-        'NikinCZ': '#86D8CA',
-        'SecretAsianMa': '#373267',
-        'srmpass': '#ffeed6',
-        'MrUnderdawg': '#35e0cf',
-        'SsPincus': '#840d0d',
-        'amazingpikachu_37': '#FFFF00',
-        'basskro': '#346cd1',
-        'Chalupa_Grandpa': '#f69220',
-        'TOP_6689': '#006689',
-        'lyeinfyer': '#ccff99',
-        'Zaajdaeon': '#1776BF',
-        'Adventium_': '#228B22',
-        'NeonL1vesMatter': '#730099',
-        'Trial-Name': '#008080',
-        'TheMatsValk': '#00f5ff',
-        'supersammy00': '#28ad3c',
-        'ddodd69': '#a89332',
-        'NeitherLi2ardMisses': '#32ff94',
-        '----Redditisgood----': '#327aff',
-        'funfact15': '#6600FF',
-    };
+    var allUserColors = require("./src/data/user-colors.json");
+
+    var userColors = allUserColors.overrides;
     if (USER == 'VitaminB16') {
         userColors.b66b = 'white';
     }
     colortransfers = userColors;
     // Possible colors for other users
-    var colors = ['Blue', 'Coral', 'DodgerBlue', 'SpringGreen', 'YellowGreen', 'Green', 'OrangeRed', 'Red', 'GoldenRod', 'CadetBlue', 'SeaGreen', 'Chocolate', 'BlueViolet', 'Firebrick'];
+    var colors = allUserColors.defaults;
     for (var i = colors.length - 1; i > 0; i--) {
         // use Durstenfeld shuffle algorithm on colors array
         var j = Math.floor(Math.random() * (i + 1));
@@ -1598,14 +1301,14 @@ var ColoredUsernames;
     });
     // EVENTS
     // New update loaded
-    Update.loadedNew(function (data) {
+    UPDATE_EVENTS.addListener("new", data => {
 
         if (!enabled)
             return;
         // Special usernames (temp rewards for top in 100k HoC, or other contributions)
         // Bot-maker privileges
         if (data.author == 'MaybeNotWrong' || data.author == 'co3_carbonate' || data.author == 'rschaosid' || data.author == 'piyushsharma301' || data.author == 'LeinadSpoon' || data.author == 'artbn') {
-            data.author_elem.css('font-weight', 'bold');
+            data.authorNode.css('font-weight', 'bold');
         }
 
 
@@ -1613,13 +1316,13 @@ var ColoredUsernames;
             var ignoretest = document.getElementById("ignorebox2").innerHTML;
 
             if (ignoretest.includes(data.author)) {
-                var entirepost = data.body_elem.html();
-                var entireposttext = data.body_elem.text();
+                var entirepost = data.bodyNode.html();
+                var entireposttext = data.bodyNode.text();
                 var count1testlol = entireposttext.substring(0, 10);
                 count1testlol = count1testlol.replace(/[A-Za-z]/g, '');
                 entirepost = entirepost.replace(count1testlol,`<p id="counttext" style="font-size: 14px; display:inline;">`+count1testlol+` ​</p>`);
                 entirepost = entirepost.replace(`p>`, `span>`);
-                data.body_elem.html(`<span class="ignoredpost" style="font-size: 0px;">`+entirepost+`</span>`);
+                data.bodyNode.html(`<span class="ignoredpost" style="font-size: 0px;">`+entirepost+`</span>`);
             }
         }//IgnoreEnabled ending
 
@@ -1627,49 +1330,19 @@ var ColoredUsernames;
 
         // 100K usernames
 
-         if (SpecialUsernamesEnabled1 == true) {
-            if (data.author == kname1) {
-                data.author_elem.html(`<span style="color:brickred;">/</span><span style="color:#a35252;">u</span><span style="color:#FFFF00;">/</span>T<span style="color:#6495ED;">O</span><span style="color:#800080;">P</span><span style="color:#0000FF;">_</span><span style="color:#000000;">20</span>`)
+         if (SpecialUsernamesEnabled[0]) {
+            // /u/TOP_20 username special
+            if (data.author == knames[0]) {
+                data.authorNode.html(`<span style="color:brickred;">/</span><span style="color:#a35252;">u</span><span style="color:#FFFF00;">/</span>T<span style="color:#6495ED;">O</span><span style="color:#800080;">P</span><span style="color:#0000FF;">_</span><span style="color:#000000;">20</span>`)
             }
         } // SpecialUsernamesEnabled1 ending
 
-         if (SpecialUsernamesEnabled2 == true) {
-            // /u/MaybeNotWrong username special
-            if (data.author == kname2) {
+        if (SpecialUsernamesEnabled[1]) {
+            // /u/ItzTaken username special
+            if (data.author == knames[1]) {
 
-var maybeuser = '/u/MaybeNotWrong';
-data.author_elem.addClass('blink');
-
-                let template = function(time, time2, random_iteration, text){
-                    let div = `<span class="maybe" style="animation: blinkerm `;
-                        div += time;
-                        div += `s `;
-                        div += random_iteration;
-                        div += `;animation-timing-function: linear;animation-fill-mode: forwards;animation-delay:`
-                        div += time2;
-                        div += `s;`;
-                    div += `;">`
-                    div += text
-                    div += `</span>`
-                    return div
-                }
-                maybeuser = maybeuser.split("").map((letter)=>{
-                    let rand_time = Math.floor(Math.random()*(637)+737) / 1000;
-                    let rand_time2 = -Math.floor(Math.random()*(1373)) / 1000;
-                    let rand_iter = Math.round(Math.random())/2 + 2;
-                    return template(rand_time,rand_time2,rand_iter,letter);
-                }).join("");
-
-data.author_elem.html(maybeuser);
-            }
-        } // SpecialUsernamesEnabled2 ending
-
-        if (SpecialUsernamesEnabled3 == true) {
-            // /u/MaybeNotWrong username special
-            if (data.author == kname3) {
-
-var takenuser = '/u/ItzTaken';
-data.author_elem.addClass('takenblink');
+                let takenuser = '/u/ItzTaken';
+                data.authorNode.addClass('takenblink');
 
                 let template = function(time, time2, random_iteration, text){
                     let div = `<span class="taken" style="font-weight:bold; animation: takenblinkerm `;
@@ -1679,9 +1352,9 @@ data.author_elem.addClass('takenblink');
                         div += `;animation-timing-function: linear;animation-fill-mode: forwards;animation-delay:`
                         div += time2;
                         div += `s;`;
-                    div += `;">`
-                    div += text
-                    div += `</span>`
+                        div += `;">`
+                        div += text
+                        div += `</span>`
                     return div
                 }
                 takenuser = takenuser.split("").map((letter)=>{
@@ -1691,9 +1364,9 @@ data.author_elem.addClass('takenblink');
                     return template(rand_time,rand_time2,rand_iter,letter);
                 }).join("");
 
-data.author_elem.html(takenuser);
+                data.authorNode.html(takenuser);
             }
-        } // SpecialUsernamesEnabled3 ending
+        } // SpecialUsernamesEnabled2 ending
 
 
     // Set username color
@@ -1704,20 +1377,20 @@ data.author_elem.html(takenuser);
             currentColor = 0;
         }
     }
-    data.author_elem.css('color', userColors[data.author]);
+    data.authorNode.css('color', userColors[data.author]);
 
 
 
-    if(window.location.href.indexOf("110t4ltqqzi35") > -1 || window.location.href.indexOf("14ny3ur3axhd4") > -1) {
-        var lcchats = data.href_elem.attr('href');
+    if([THREADS.LC_CHATS_OLD, THREADS.LC_CHATS].includes(THREAD)) {
+        var lcchats = data.hrefNode.attr('href');
         lcchats = lcchats.trim().replace('/u/', '');
-        data.href_elem.css('color', userColors[lcchats]).css('fontStyle','initial').css('fontSize','13px');
+        data.hrefNode.css('color', userColors[lcchats]).css('fontStyle','initial').css('fontSize','13px');
         if (lcchats == 'MaybeNotWrong' || lcchats == 'co3_carbonate' || lcchats == 'rschaosid' || lcchats == 'piyushsharma301' || lcchats == 'LeinadSpoon' || lcchats == 'artbn') {
-            data.href_elem.css('font-weight', 'bold');
+            data.hrefNode.css('font-weight', 'bold');
         }
     }
 });
-    if(window.location.href.indexOf("110t4ltqqzi35") > -1 || window.location.href.indexOf("14ny3ur3axhd4") > -1) {
+    if([THREADS.LC_CHATS_OLD, THREADS.LC_CHATS].includes(THREAD)) {
         $('a[href*="/u/"]').each(function() {
             var thishref = $(this).attr('href');
             thishref = thishref.trim().replace('/u/', '');
@@ -1726,7 +1399,7 @@ data.author_elem.html(takenuser);
                 $(this).css('font-weight', 'bold');
             }
         });
-        Update.loadedOld(function () {
+        UPDATE_EVENTS.addListener("loaded", () => {
             $('a[href*="/u/"]').each(function() {
                 var thishref2 = $(this).attr('href');
                 thishref2 = thishref2.trim().replace('/u/', '');
@@ -1754,7 +1427,7 @@ data.author_elem.html(takenuser);
                 $(this).css('font-weight', 'bold');
             }
         });
-        Update.loadedOld(function () {
+        UPDATE_EVENTS.addListener("loaded", () => {
             $('.author').each(function() {
             var thisauthor = $(this).text().trim().replace('/u/', '');
             //$(this).css('color', userColors[thisauthor]).css('fontStyle','initial').css('fontSize','13px');
@@ -1801,7 +1474,7 @@ var ClearPastMessages;
     });
     // EVENTS
     // New update loaded
-    Update.loadedNew(function (data) {
+    UPDATE_EVENTS.addListener("new", () => {
         if(window.scrollY==0 && enTimeout==false) {
             if (!enabled) {
                 $checkbox.prop('checked', true).trigger('change');
@@ -1815,7 +1488,7 @@ var ClearPastMessages;
         }
     });
     // Old update loaded (scrolled to bottom)
-    Update.loadedOld(function (data) {
+    UPDATE_EVENTS.addListener("loaded", () => {
         // disable
         if (!enabled)
             return;
@@ -2029,137 +1702,21 @@ var DisableShortcuts;
 //////////////////////////
 // SpecialUsernames.ts //
 //////////////////////////
-if (specialnumber > 0) {
-    var SpecialUsernames1;
-    var SpecialUsernamesEnabled1;
-    (function (SpecialUsernames1) {
-        // Options
-        var enabled1 = true;
-        var $checkbox = Options.addCheckbox({
-            label: kname1 + ' 100K USERNAME',
-            section: 'Advanced',
-            "default": true,
-            help: 'Enable or disable the special 100k usernames.',
-            onchange: function () {
-                enabled1 = this.prop('checked');
-            }
-        });
-        if (enabled1 == true) {
-            SpecialUsernamesEnabled1 = true;
-        } else {
-            SpecialUsernamesEnabled1 = false;
-        }
-    })(SpecialUsernames1 || (SpecialUsernames1 = {}));
-}
-if (specialnumber > 1) {
-    var SpecialUsernames2;
-    var SpecialUsernamesEnabled2;
-    (function (SpecialUsernames2) {
-        // Options
-        var enabled2 = true;
-        var $checkbox = Options.addCheckbox({
-            label: kname2 + ' 100K USERNAME',
-            section: 'Advanced',
-            "default": true,
-            help: 'Enable or disable the special 100k usernames.',
-            onchange: function () {
-                enabled2 = this.prop('checked');
-            }
-        });
-        if (enabled2 == true) {
-            SpecialUsernamesEnabled2 = true;
-        } else {
-            SpecialUsernamesEnabled2 = false;
-        }
-    })(SpecialUsernames2 || (SpecialUsernames2 = {}));
-}
-if (specialnumber > 2) {
-    var SpecialUsernames3;
-    var SpecialUsernamesEnabled3;
-    (function (SpecialUsernames3) {
-        // Options
-        var enabled3 = true;
-        var $checkbox = Options.addCheckbox({
-            label: kname3 + ' 100K USERNAME',
-            section: 'Advanced',
-            "default": true,
-            help: 'Enable or disable the special 100k usernames.',
-            onchange: function () {
-                enabled3 = this.prop('checked');
-            }
-        });
-        if (enabled3 == true) {
-            SpecialUsernamesEnabled3 = true;
-        } else {
-            SpecialUsernamesEnabled3 = false;
-        }
-    })(SpecialUsernames3 || (SpecialUsernames3 = {}));
-}
-if (specialnumber > 3) {
-    var SpecialUsernames4;
-    var SpecialUsernamesEnabled4;
-    (function (SpecialUsernames2) {
-        // Options
-        var enabled4 = true;
-        var $checkbox = Options.addCheckbox({
-            label: kname4 + ' 100K USERNAME',
-            section: 'Advanced',
-            "default": true,
-            help: 'Enable or disable the special 100k usernames.',
-            onchange: function () {
-                enabled4 = this.prop('checked');
-            }
-        });
-        if (enabled4 == true) {
-            SpecialUsernamesEnabled4 = true;
-        } else {
-            SpecialUsernamesEnabled4 = false;
-        }
-    })(SpecialUsernames4 || (SpecialUsernames4 = {}));
-}
-if (specialnumber > 4) {
-    var SpecialUsernames5;
-    var SpecialUsernamesEnabled5;
-    (function (SpecialUsernames5) {
-        // Options
-        var enabled5 = true;
-        var $checkbox = Options.addCheckbox({
-            label: kname5 + ' 100K USERNAME',
-            section: 'Advanced',
-            "default": true,
-            help: 'Enable or disable the special 100k usernames.',
-            onchange: function () {
-                enabled5 = this.prop('checked');
-            }
-        });
-        if (enabled5 == true) {
-            SpecialUsernamesEnabled5 = true;
-        } else {
-            SpecialUsernamesEnabled5 = false;
-        }
-    })(SpecialUsernames5 || (SpecialUsernames5 = {}));
-}
-if (specialnumber > 5) {
-    var SpecialUsernames6;
-    var SpecialUsernamesEnabled6;
-    (function (SpecialUsernames6) {
-        // Options
-        var enabled6 = true;
-        var $checkbox = Options.addCheckbox({
-            label: kname6 + ' 100K USERNAME',
-            section: 'Advanced',
-            "default": true,
-            help: 'Enable or disable the special 100k usernames.',
-            onchange: function () {
-                enabled6 = this.prop('checked');
-            }
-        });
-        if (enabled6 == true) {
-            SpecialUsernamesEnabled6 = true;
-        } else {
-            SpecialUsernamesEnabled6 = false;
-        }
-    })(SpecialUsernames6 || (SpecialUsernames6 = {}));
+for(let i = 0; i < knames.length; i++) {
+	SpecialUsernamesEnabled[i] = true;
+	(function (SpecialUsername) {
+		// Options
+		let enabled1 = true;
+		let $checkbox = Options.addCheckbox({
+			label: knames[i] + ' 100K USERNAME',
+			section: 'Advanced',
+			"default": true,
+			help: 'Enable or disable the special 100k usernames.',
+			onchange: function () {
+				SpecialUsernamesEnabled[i] = this.prop('checked');
+			}
+		});
+	})();
 }
 
 /////////////////
@@ -2186,7 +1743,7 @@ var TeamBarsEnabled;
     }
 
     //////////////////////////////////Daily HoC Auto-updater
-    if (window.location.href.indexOf("ta535s1hq2je") > -1) {
+    if (THREAD == THREADS.MAIN) {
         if (TeamBarsEnabled == true) {
             var hmmyy;
             var checky;
@@ -2525,10 +2082,10 @@ var StandardizeNumberFormat;
     });
     // EVENTS
     // New update loaded
-    Update.loadedNew(function (data) {
+    UPDATE_EVENTS.addListener("new", data => {
         if (!enabled)
             return;
-        var first_elem = first_node(data.body_elem.get(0));
+        var first_elem = first_node(data.bodyNode.get(0));
         var $first_elem = $(first_elem);
         var body = first_elem.textContent;
         if (!body)
@@ -2578,7 +2135,7 @@ var StandardizeNumberFormat;
         var $this;
         $parents.each(function (index, element) {
             $this = $(this);
-            if ($this.parent().is(data.body_elem)) {
+            if ($this.parent().is(data.bodyNode)) {
                 // if the direct parent is the body element,
                 // replace to p instead,
                 // since this is definitely not a p itself
@@ -2640,7 +2197,7 @@ var IgnoreEnabled;
         }
     });
 
-    $(`<script>var ignored = []; ignored.push(localStorage['ignoredppl']); function addIgnore() {var ignoreinp = document.getElementById('ignorebox');ignored.push(ignoreinp.value);ignoreinp.value = "";document.getElementById("ignorebox2").innerHTML = ignored;localStorage['ignoredppl'] = ignored;}function displayIgnore() {document.getElementById("ignorebox2").innerHTML = ignored;}function deleteIgnore() {ignored = []; localStorage['ignoredppl'] = []; document.getElementById("ignorebox2").innerHTML = '';}</script><span id=ignorestuff><input id=ignorebox style="position: absolute;margin-top: -25px;margin-left: 65px;"></input><span style="position: absolute;margin-top: -26px;margin-left: 210px;font-size: 9px !important;"><button type="button" id="ignoreadd" onclick="addIgnore()" style="font-size: 12px;padding: 0;margin-right: 3px;">ADD</button><button type="button" id="ignoredelete" onclick="deleteIgnore()" style="font-size: 12px;padding: 0;">DELETE ALL</button></span><div>Ignored users: <span id=ignorebox2></span></div></span><script>document.getElementById('ignorebox2').innerHTML = ignored;</script>`).insertAfter(`#live-counting-extension div div:nth-child(4) label:nth-last-child(1)`);
+    $(`<script>var ignored = []; ignored.push(localStorage.getItem('ignoredppl')); function addIgnore() {var ignoreinp = document.getElementById('ignorebox');ignored.push(ignoreinp.value);ignoreinp.value = "";document.getElementById("ignorebox2").innerHTML = ignored;localStorage.setItem('ignoredppl', ignored);}function displayIgnore() {document.getElementById("ignorebox2").innerHTML = ignored;}function deleteIgnore() {ignored = []; localStorage.setItem('ignoredppl', []); document.getElementById("ignorebox2").innerHTML = '';}</script><span id=ignorestuff><input id=ignorebox style="position: absolute;margin-top: -25px;margin-left: 65px;"></input><span style="position: absolute;margin-top: -26px;margin-left: 210px;font-size: 9px !important;"><button type="button" id="ignoreadd" onclick="addIgnore()" style="font-size: 12px;padding: 0;margin-right: 3px;">ADD</button><button type="button" id="ignoredelete" onclick="deleteIgnore()" style="font-size: 12px;padding: 0;">DELETE ALL</button></span><div>Ignored users: <span id=ignorebox2></span></div></span><script>document.getElementById('ignorebox2').innerHTML = ignored;</script>`).insertAfter(`#live-counting-extension div div:nth-child(4) label:nth-last-child(1)`);
     if (enabled7 == true) {
         IgnoreEnabled = true;
         $('#ignorestuff').css('display','initial');
@@ -2670,22 +2227,14 @@ var Emojis;
         }
     });
     if(enabled) {
-        const emojiMap = { //source: https://github.com/lifmus/emoji/blob/gh-pages/emoji_dictionary.json
-            100:"💯",1234:"🔢",smile:"😄",grinning:"😀",smiley:"😃",blush:"😊",relaxed:"☺",wink:"😉",heart_eyes:"😍",kissing_heart:"😘",kissing_closed_eyes:"😚",kissing:"😗",kissing_smiling_eyes:"😙",stuck_out_tongue_winking_eye:"😜",stuck_out_tongue_closed_eyes:"😝",stuck_out_tongue:"😛",flushed:"😳",grin:"😁",pensive:"😔",relieved:"😥",unamused:"😒",disappointed:"😞",persevere:"😣",cry:"😢",joy:"😂",sob:"😭",sleepy:"😪",disappointed_relieved:"",cold_sweat:"😰",sweat_smile:"😅",sweat:"😓",weary:"😩",tired_face:"😫",fearful:"😨",scream:"😱",angry:"😠",triumph:"😤",confounded:"😖",satisfied:"😌",yum:"😋",mask:"😷",sunglasses:"😎",sleeping:"😴",dizzy_face:"😵",astonished:"😲",worried:"😟",frowning:"😦",anguished:"😧",smiling_imp:"😈",imp:"👿",open_mouth:"😮",grimacing:"😬",neutral_face:"😐",confused:"😕",hushed:"😯",no_mouth:"😶",innocent:"😇",smirk:"😏",expressionless:"😑",man_with_gua_pi_mao:"👲",man_with_turban:"👳",cop:"👮",construction_worker:"👷",guardsman:"💂",baby:"👶",boy:"👦",girl:"👧",man:"👨",woman:"👩",older_man:"👴",older_woman:"👵",person_with_blond_hair:"👱",angel:"👼",princess:"👸",smile_cat:"😸",heart_eyes_cat:"😻",kissing_cat:"😽",smirk_cat:"😼",scream_cat:"🙀",crying_cat_face:"😿",joy_cat:"😹",pouting_cat:"😾",smiley_cat:"😺",japanese_goblin:"👺",see_no_evil:"🙈",hear_no_evil:"🙉",speak_no_evil:"🙊",skull:"💀",alien:"👽",hankey:"💩",poop:"💩",shit:"💩",fire:"🔥",sparkles:"✨",star2:"🌟",dizzy:"💫",boom:"💥",collision:"💥",anger:"💢",sweat_drops:"💦",droplet:"💧",zzz:"💤",ear:"👂",eyes:"👀",nose:"👃",tongue:"👅",lips:"👄",plusone:"👍",thumbsup:"👍",minusone:"👎",thumbsdown:"👎",ok_hand:"👌",punch:"👊",facepunch:"👊",fist:"✊",v:"✌",wave:"👋",hand:"✋",open_hands:"👐",point_up:"☝",
-            point_down:"👇",point_right:"👉",point_left:"👈",raised_hands:"🙌",pray:"🙏",point_up_2:"👆",clap:"👏",muscle:"💪",walking:"🚶",runner:"🏃",running:"🏃",dancer:"💃",couple:"👫",family:"👪",two_men_holding_hands:"👬",two_women_holding_hands:"👭",couplekiss:"💏",couple_with_heart:"💑",dancers:"👯",ok_woman:"🙆",no_good:"🙅",information_desk_person:"💁",raised_hand:"🙋",massage:"💆",haircut:"💇",nail_care:"💅",bride_with_veil:"👰",person_with_pouting_face:"🙎",person_frowning:"🙍",bow:"🙇",tophat:"🎩",crown:"👑",womans_hat:"👒",athletic_shoe:"",shoe:"👞",mans_shoe:"👞",sandal:"👡",high_heel:"👠",boot:"👢",tshirt:"👕",shirt:"👕",necktie:"👔",womans_clothes:"👚",dress:"👗",running_shirt_with_sash:"🎽",jeans:"👖",kimono:"👘",bikini:"👙",briefcase:"💼",handbag:"👜",pouch:"👝",purse:"👛",eyeglasses:"👓",ribbon:"🎀",closed_umbrella:"🌂",lipstick:"💄",yellow_heart:"💛",blue_heart:"💙",purple_heart:"💜",green_heart:"💚",heart:"❤",broken_heart:"💔",heartpulse:"💗",heartbeat:"💓",two_hearts:"💕",sparkling_heart:"💖",revolving_hearts:"💞",cupid:"💘",love_letter:"💌",kiss:"💋",ring:"💍",gem:"💎",bust_in_silhouette:"👤",busts_in_silhouette:"👥",speech_balloon:"💬",footprints:"",thought_balloon:"💭",dog:"🐶",wolf:"🐺",cat:"🐱",mouse:"🐭",hamster:"🐹",rabbit:"🐰",frog:"🐸",tiger:"🐯",koala:"🐨",bear:"🐻",pig:"🐷",pig_nose:"🐽",cow:"🐮",boar:"🐗",monkey:"🐒",monkey_face:"🐵",horse:"🐴",sheep:"🐑",elephant:"🐘",panda_face:"🐼",penguin:"🐧",bird:"🐦",baby_chick:"🐤",hatched_chick:"🐥",hatching_chick:"🐣",chicken:"🐔",snake:"🐍",turtle:"🐢",bug:"🐛",honeybee:"🐝",bee:"",ant:"🐜",beetle:"🐞",snail:"🐌",octopus:"🐙",shell:"🐚",tropical_fish:"🐠",fish:"🐟",dolphin:"🐬",whale:"🐳",whale2:"🐋",cow2:"🐄",ram:"🐏",rat:"🐀",
-            water_buffalo:"🐃",tiger2:"🐅",rabbit2:"🐇",dragon:"🐉",racehorse:"🐎",goat:"🐐",rooster:"🐓",dog2:"🐕",pig2:"🐖",mouse2:"🐁",ox:"🐂",dragon_face:"🐲",blowfish:"🐡",crocodile:"🐊",camel:"🐫",dromedary_camel:"🐪",leopard:"🐆",cat2:"🐈",poodle:"🐩",paw_prints:"🐾",bouquet:"💐",cherry_blossom:"🌸",tulip:"🌷",four_leaf_clover:"🍀",rose:"🌹",sunflower:"🌻",hibiscus:"🌺",maple_leaf:"🍁",leaves:"🍃",fallen_leaf:"🍂",herb:"🌿",ear_of_rice:"🌾",mushroom:"🍄",cactus:"🌵",palm_tree:"🌴",evergreen_tree:"🌲",deciduous_tree:"🌳",chestnut:"🌰",seedling:"🌱",blossom:"🌼",globe_with_meridians:"🌐",sun_with_face:"🌞",full_moon_with_face:"🌝",new_moon_with_face:"🌚",new_moon:"🌑",waxing_crescent_moon:"🌒",first_quarter_moon:"🌓",moon:"🌙",full_moon:"🌕",waning_gibbous_moon:"🌖",last_quarter_moon:"🌗",waning_crescent_moon:"🌘",last_quarter_moon_with_face:"🌜",first_quarter_moon_with_face:"🌛",crescent_moon:"",earth_africa:"🌍",earth_americas:"🌎",earth_asia:"🌏",volcano:"🌋",milky_way:"🌌",stars:"🌃",star:"⭐",sunny:"☀",partly_sunny:"⛅",cloud:"☁",zap:"⚡",umbrella:"☔",snowflake:"❄",snowman:"⛄",cyclone:"🌀",foggy:"🌁",rainbow:"🌈",ocean:"🌊",eightball:"🎱",a:"🅰",ab:"🆎",abc:"🔤",abcd:"🔡",accept:"🉑",aerial_tramway:"🚡",airplane:"✈",alarm_clock:"⏰",ambulance:"🚑",anchor:"⚓",clock7:"🕖",clock730:"🕢",clock8:"🕗",clock830:"🕣",clock9:"🕘",clock930:"🕤",closed_book:"📕",closed_lock_with_key:"🔐",clubs:"♣",cn:"🇨🇳",cocktail:"🍸",coffee:"☕",computer:"💻",confetti_ball:"🎊",hash:"#️⃣",headphones:"🎧",heart_decoration:"💟",hearts:"♥",heavy_check_mark:"✔",heavy_division_sign:"➗",heavy_dollar_sign:"💲",heavy_exclamation_mark:"",heavy_minus_sign:"➖",heavy_multiplication_x:"✖",notes:"🎶",nut_and_bolt:"🔩",o:"⭕",o2:"🅾",
-            octocat:"",oden:"🍢",office:"🏢",ok:"🆗",on:"🔛",oncoming_automobile:"🚘",oncoming_bus:"🚍",oncoming_police_car:"🚔",oncoming_taxi:"🚖",one:"1️⃣",smoking:"🚬",snowboarder:"🏂",soccer:"⚽",soon:"🔜",sos:"🆘",sound:"🔉",space_invader:"👾",spades:"♠",spaghetti:"🍝",sparkle:"",sparkler:"🎇",congratulations:"㊗",heavy_plus_sign:"➕",open_book:"",apple:"🍎",construction:"🚧",helicopter:"🚁",open_file_folder:"📂",speaker:"🔊",aquarius:"♒",aries:"♈",convenience_store:"🏪",speedboat:"🚤",arrow_backward:"◀",cookie:"🍪",high_brightness:"🔆",ophiuchus:"⛎",squirrel:"",arrow_double_down:"⏬",cool:"🆒",orange_book:"📙",arrow_double_up:"⏫",hocho:"🔪",outbox_tray:"📤",arrow_down:"⬇",copyright:"©",honey_pot:"🍯",arrow_down_small:"🔽",corn:"🌽",package:"",station:"🚉",arrow_forward:"▶",page_facing_up:"📄",statue_of_liberty:"🗽",arrow_heading_down:"⤵",page_with_curl:"📃",steam_locomotive:"🚂",arrow_heading_up:"⤴",hospital:"🏥",pager:"📟",stew:"🍲",arrow_left:"⬅",hotel:"🏨",straight_ruler:"📏",arrow_lower_left:"↙",hotsprings:"♨",strawberry:"🍓",arrow_lower_right:"↘",credit_card:"💳",hourglass:"⌛",paperclip:"📎",arrow_right:"➡",hourglass_flowing_sand:"⏳",parking:"🅿",arrow_right_hook:"↪",house:"🏠",part_alternation_mark:"〽",arrow_up:"⬆",crossed_flags:"🎌",house_with_garden:"🏡",arrow_up_down:"↕",hurtrealbad:"",passport_control:"🛂",arrow_up_small:"🔼",arrow_upper_left:"↖",ice_cream:"🍨",peach:"🍑",arrow_upper_right:"↗",crystal_ball:"🔮",icecream:"🍦",pear:"🍐",sunrise:"🌅",arrows_clockwise:"🔃",id:"🆔",pencil:"📝",sunrise_over_mountains:"🌄",arrows_counterclockwise:"🔄",curly_loop:"➰",ideograph_advantage:"🉐",pencil2:"✏",surfer:"🏄",art:"🎨",currency_exchange:"💱",sushi:"🍣",articulated_lorry:"🚛",curry:"🍛",
-            inbox_tray:"📥",crab:"🦀",custard:"🍮",flan:"🍮",incoming_envelope:"📨",performing_arts:"🎭",suspension_railway:"🚟",customs:"🛃",atm:"🏧",information_source:"ℹ",b:"🅱",interrobang:"⁉",sweet_potato:"🍠",baby_bottle:"🍼",dango:"🍡",iphone:"📱",phone:"☎",swimmer:"🏊",dart:"🎯",it:"🇮🇹",symbols:"🔣",baby_symbol:"🚼",dash:"💨",izakaya_lantern:"",syringe:"💉",back:"",date:"📅",jack_o_lantern:"🎃",tada:"🎉",baggage_claim:"🛄",de:"🇩🇪",japan:"🗾",pill:"💊",tanabata_tree:"🎋",balloon:"🎈",japanese_castle:"🏯",pineapple:"🍍",tangerine:"🍊",ballot_box_with_check:"☑",department_store:"🏬",pisces:"♓",taurus:"♉",bamboo:"🎍",diamond_shape_with_a_dot_inside:"💠",japanese_ogre:"👹",pizza:"🍕",taxi:"🚕",banana:"🍌",diamonds:"♦",tea:"🍵",bangbang:"‼",telephone:"☎",bank:"🏦",telephone_receiver:"📞",bar_chart:"📊",jp:"🇯🇵",telescope:"🔭",barber:"💈",key:"🔑",tennis:"🎾",baseball:"⚾",do_not_litter:"🚯",keycap_ten:"🔟",police_car:"🚓",tent:"⛺",basketball:"🏀",bath:"🛀",three:"3️⃣",bathtub:"🛁",dollar:"💵",post_office:"🏣",battery:"🔋",dolls:"🎎",postal_horn:"📯",postbox:"📮",ticket:"🎫",door:"🚪",potable_water:"🚰",beer:"🍺",doughnut:"🍩",beers:"🍻",poultry_leg:"🍗",koko:"🈁",pound:"💷",tm:"™",beginner:"🔰",kr:"🇰🇷",toilet:"🚽",bell:"🔔",lantern:"",tokyo_tower:"🗼",bento:"🍱",large_blue_circle:"🔵",tomato:"🍅",bicyclist:"🚴",dvd:"📀",large_blue_diamond:"🔷",bike:"🚲",email:"📧",large_orange_diamond:"🔶",top:"🔝",pushpin:"📌",tractor:"🚜",birthday:"🎂",laughing:"😆",put_litter_in_its_place:"🚮",traffic_light:"🚥",black_circle:"⚫",question:"❓",train:"🚃",black_joker:"🃏",ledger:"📒",train2:"🚆",black_large_square:"",egg:"🍳",left_luggage:"🛅",tram:"🚊",black_medium_small_square:"",eggplant:"🍆",left_right_arrow:"↔",triangular_flag_on_post:"🚩",
-            black_medium_square:"",eight:"8️⃣",leftwards_arrow_with_hook:"↩",radio:"📻",triangular_ruler:"📐",black_nib:"✒",eight_pointed_black_star:"✴",lemon:"🍋",radio_button:"🔘",trident:"🔱",black_small_square:"",eight_spoked_asterisk:"✳",leo:"♌",rage:"😡",black_square_button:"🔲",electric_plug:"🔌",rage1:"",trolleybus:"🚎",libra:"♎",rage2:"",email:"✉",light_rail:"🚈",rage3:"",trophy:"🏆",blue_book:"📘",end:"🔚",link:"🔗",rage4:"",tropical_drink:"🍹",blue_car:"🚙",envelope:"✉",railway_car:"🚃",envelope_with_arrow:"",truck:"🚚",es:"🇪🇸",lock:"🔒",trumpet:"🎺",euro:"💶",lock_with_ink_pen:"🔏",boat:"⛵",european_castle:"🏰",lollipop:"🍭",raising_hand:"",bomb:"💣",european_post_office:"🏤",loop:"➿",book:"",loudspeaker:"📢",ramen:"🍜",tv:"📺",bookmark:"🔖",exclamation:"❗",love_hotel:"🏩",twisted_rightwards_arrows:"🔀",bookmark_tabs:"📑",recycle:"♻",two:"2️⃣",books:"📚",low_brightness:"🔅",red_car:"🚗",m:"Ⓜ",red_circle:"🔴",mag:"🔍",registered:"®",factory:"🏭",mag_right:"🔎",u5272:"🈹",mahjong:"🀄",u5408:"🈴",bowling:"🎳",mailbox:"📫",repeat:"🔁",u55b6:"🈺",bowtie:"",fast_forward:"⏩",mailbox_closed:"📪",repeat_one:"🔂",u6307:"🈯",fax:"📠",mailbox_with_mail:"📬",restroom:"🚻",u6708:"🈷",bread:"🍞",mailbox_with_no_mail:"📭",u6709:"🈶",feelsgood:"",rewind:"⏪",u6e80:"🈵",bridge_at_night:"🌉",feet:"👣",u7121:"🈚",ferris_wheel:"🎡",rice:"🍚",u7533:"🈸",file_folder:"📁",rice_ball:"🍙",u7981:"🈲",finnadie:"",rice_cracker:"🍘",u7a7a:"🈳",bulb:"💡",rice_scene:"🎑",uk:"🇬🇧",bullettrain_front:"🚅",fire_engine:"🚒",bullettrain_side:"🚄",fireworks:"🎆",meat_on_bone:"🍖",rocket:"🚀",bus:"🚌",mega:"📣",roller_coaster:"🎢",underage:"🔞",busstop:"🚏",melon:"🍈",memo:"📝",unlock:"🔓",fish_cake:"🍥",mens:"🚹",rotating_light:"🚨",
-            up:"🆙",fishing_pole_and_fish:"🎣",metal:"",round_pushpin:"📍",us:"🇺🇸",cake:"🍰",metro:"🚇",rowboat:"🚣",calendar:"📆",five:"5️⃣",microphone:"🎤",ru:"🇷🇺",vertical_traffic_light:"🚦",calling:"📲",flags:"🎏",microscope:"🔬",rugby_football:"🏉",vhs:"📼",flashlight:"🔦",vibration_mode:"📳",camera:"📷",floppy_disk:"💾",minibus:"🚐",video_camera:"📹",cancer:"♋",flower_playing_cards:"🎴",minidisc:"💽",video_game:"🎮",candy:"🍬",mobile_phone_off:"📴",sa:"🈂",violin:"🎻",capital_abcd:"🔠",money_with_wings:"💸",sagittarius:"♐",virgo:"♍",capricorn:"♑",football:"🏈",moneybag:"💰",sailboat:"⛵",car:"🚗",sake:"🍶",vs:"🆚",card_index:"📇",fork_and_knife:"🍴",carousel_horse:"🎠",fountain:"⛲",monorail:"🚝",santa:"🎅",four:"4️⃣",satellite:"📡",mortar_board:"🎓",warning:"⚠",cd:"💿",fr:"🇫🇷",mount_fuji:"🗻",saxophone:"🎷",watch:"⌚",chart:"💹",free:"🆓",mountain_bicyclist:"🚵",school:"🏫",chart_with_downwards_trend:"📉",fried_shrimp:"🍤",mountain_cableway:"🚠",school_satchel:"🎒",watermelon:"🍉",chart_with_upwards_trend:"📈",fries:"🍟",mountain_railway:"🚞",scissors:"✂",checkered_flag:"🏁",scorpius:"♏",wavy_dash:"〰",cherries:"🍒",fuelpump:"⛽",movie_camera:"🎥",waxing_gibbous_moon:"🌔",moyai:"🗿",scroll:"📜",wc:"🚾",seat:"💺",children_crossing:"🚸",game_die:"🎲",secret:"㊙",wedding:"💒",chocolate_bar:"🍫",gb:"🇬🇧",musical_keyboard:"🎹",musical_note:"🎵",church:"⛪",gemini:"♊",musical_score:"🎼",seven:"7️⃣",wheelchair:"♿",cinema:"🎦",ghost:"👻",mute:"🔇",shaved_ice:"🍧",white_check_mark:"✅",circus_tent:"🎪",gift:"🎁",white_circle:"⚪",city_sunrise:"🌇",gift_heart:"💝",name_badge:"📛",white_flower:"💮",city_sunset:"🌆",neckbeard:"",ship:"🚢",white_large_square:"",cl:"🆑",shipit:"",white_medium_small_square:"",
-            negative_squared_cross_mark:"❎",thinking:"🤔",clapper:"🎬",goberserk:"",tag:"🏷️",clipboard:"📋",godmode:"",new:"🆕",white_square_button:"🔳",clock1:"🕐",golf:"⛳",shower:"🚿",wind_chime:"🎐",clock10:"🕙",grapes:"🍇",signal_strength:"📶",wine_glass:"🍷",clock1030:"🕥",green_apple:"🍏",newspaper:"📰",six:"6️⃣",clock11:"🕚",green_book:"📗",ng:"🆖",six_pointed_star:"🔯",clock1130:"🕦",nine:"9️⃣",ski:"🎿",clock12:"🕛",grey_exclamation:"❕",no_bell:"🔕",clock1230:"🕧",grey_question:"❔",no_bicycles:"🚳",clock130:"🕜",no_entry:"⛔",womens:"🚺",clock2:"🕑",no_entry_sign:"🚫",slot_machine:"🎰",clock230:"🕝",small_blue_diamond:"🔹",wrench:"🔧",clock3:"🕒",no_mobile_phones:"📵",small_orange_diamond:"🔸",x:"❌",clock330:"🕞",guitar:"🎸",small_red_triangle:"🔺",clock4:"🕓",gun:"🔫",no_pedestrians:"🚷",small_red_triangle_down:"🔻",yen:"💴",clock430:"🕟",no_smoking:"🚭",clock5:"🕔",hamburger:"🍔",nonpotable_water:"🚱",clock530:"🕠",hammer:"🔨",zero:"0️⃣",clock6:"🕕",notebook:"📓",clock630:"🕡",notebook_with_decorative_cover:"📔",horse_racing:"🏇",christmas_tree:"🎄"
-        }
+        const emojiLib = require("node-emoji");
         const regExpression = /:([^\s]+):/g
         const emojiIt = (re, text) => {
             if (result = re.exec(text)) {
                 var temptext = text;
-                if((result[1] in emojiMap)) {
-                    text = text.replace(result[0], emojiMap[result[1]]);
+                const emoji = emojiLib.get(result[0]);
+                if(emoji) {
+                    text = text.replace(result[0], emoji);
                 }
                 if(imageEmotes.indexOf(result[1]) > -1) {
                     text = text.replace(result[0], "`"+result[0].trim().replace(/:/g,"")+"`");
@@ -2694,7 +2243,9 @@ var Emojis;
             return text
         }
         function Inputty() {
+            var selection = document.querySelector('textarea').selectionStart
             document.querySelector('.md textarea').value = emojiIt(regExpression, document.querySelector('.md textarea').value );
+            document.querySelector('textarea').setSelectionRange(selection, selection)
         }
         try {
             document.querySelector('.md textarea').addEventListener('input', Inputty);
@@ -2722,18 +2273,18 @@ var UnstrikeText;
             Elements.$body.attr('data-unstrikeText', this.prop('checked'));
         }
     });
-    Update.loadedNew(function (data) {
+    UPDATE_EVENTS.addListener("new", data => {
         if(Elements.$body.attr('data-unstrikeText') == 'false') {
             return;
         } else {
-            var ustHtml = data.elem.find('.body > .md').html();
-            var ustPost = data.elem.find('.body > .md').text();
+            var ustHtml = data.node.find('.body > .md').html();
+            var ustPost = data.node.find('.body > .md').text();
             var ustNumber = parse_body(ustPost)[2];
             if(ustNumber == null) {ustNumber = ''};
             var ustComment = parse_body(ustPost)[1];
             if(ustNumber.length < 1) {return;}
-            var replacedhtml = data.elem.find('.body > .md').html().replace(ustNumber,"<span class='countms'>"+ustNumber+"</span>");
-            data.elem.find('.body > .md').html(replacedhtml);
+            var replacedhtml = data.node.find('.body > .md').html().replace(ustNumber,"<span class='countms'>"+ustNumber+"</span>");
+            data.node.find('.body > .md').html(replacedhtml);
         }
     });
     // Styles
@@ -2782,12 +2333,12 @@ var LatencyCheck;
             }
         }
     });
-    Update.loadedNew(function (data) {
+    UPDATE_EVENTS.addListener("new", data => {
         if(Elements.$body.attr('data-latencyCheck') == 'false') {
             return;
         } else {
-            var latPost = data.elem.find('.body > .md').text().trim();
-            var author = data.author_elem.attr('href').substring(6);
+            var latPost = data.node.find('.body > .md').text().trim();
+            var author = data.authorNode.attr('href').substring(6);
             if(author == USER) {
                 if(latPost in latencyText) {
                     var e = new Date();
@@ -2938,460 +2489,13 @@ var RateLimitView;
     });
 })(RateLimitView || (RateLimitView = {}));
 
-
-////////////////////
-// ImageEmotes.ts //
-////////////////////
-var ImageEmotes;
-var emoteCount = 0;
-var stringy = '';
-(function (ImageEmotes) {
-    // INITIALIZATION
-    Elements.$body.attr('data-ImageEmotes', false);
-    var emoteimages = {};
-    var emotefunccheck = 0;
-    var the_emote = "";
-    var emoteUses = [];
-    if (localStorage['emoteUses'] != null) {
-    if (JSON.parse(localStorage['emoteUses']).length < imageEmotes.length) {
-        // Add new emote ids to emoteUses and localStorage when new ones are added
-        emoteUses = JSON.parse(localStorage['emoteUses']);
-        for (var id = JSON.parse(localStorage['emoteUses']).length; id < (imageEmotes.length); id++){
-            emoteUses[id] = [id, 0]
-        }
-        localStorage['emoteUses'] = JSON.stringify(emoteUses);
-    } else {
-        emoteUses = JSON.parse(localStorage['emoteUses']);
-    }
-    } else {
-	for (var id = 0; id < (imageEmotes.length); id++) {
-		emoteUses.push([id, 0])
-	}
-	localStorage['emoteUses'] = JSON.stringify(emoteUses)
-    }
-    // Options
-    Options.addCheckbox({
-        label: 'IMAGE EMOTES',
-        "default": false,
-        section: 'Advanced 2',
-        help: 'Enables image emotes. Requires refresh probably',
-        onchange: function () {
-            Elements.$body.attr('data-ImageEmotes', this.prop('checked'));
-            if(Elements.$body.attr('data-ImageEmotes') == 'true') {
-                emotes_load();
-            }
-        }
-    });
-
-    function toDataURL(url, callback) {
-        var xhr = new XMLHttpRequest();
-        xhr.onload = function() {
-            var reader = new FileReader();
-            reader.onloadend = function() {
-                callback(reader.result);
-                if(Object.keys(emoteimages).length == imageEmotes.length) {
-                    if(Elements.$body.attr('data-ImageEmotes') == 'true') {
-        $('code').each(function() {
-            var thistext = $(this).text();
-            if(imageEmotes.indexOf(thistext.toLowerCase()) > -1) {
-                var this_new_html = "<img title="+thistext+" style='height:26px;vertical-align:top;' src="+emoteimages['<code>'+thistext.toLowerCase()+'</code>']+"></img>";
-                $(this).replaceWith(this_new_html);
-            }
-        });
-        }
-        Update.loadedOld(function () {
-            if(Elements.$body.attr('data-ImageEmotes') == 'true') {
-                var emotes_post = data.body_elem.html();
-                var emotes_text = data.body_elem.text();
-                the_emote = emotes_post.match(/<code>(.*?)<\/code>/gm);
-                for(var emote in the_emote) {
-                    if(the_emote[emote].toLowerCase() in emoteimages) {
-                        var emotename = the_emote[emote];
-                        emotename = emotename.replace('<code>','').replace('</code>','');
-                        emotes_post = emotes_post.replace(the_emote[emote], "<img title="+emotename+" style='height:26px;vertical-align:top;' src="+emoteimages[the_emote[emote].toLowerCase()]+"></img>");
-                    }
-                }
-                data.body_elem.html(emotes_post);
-            }
-        });
-                }
-                if(Object.keys(emoteimages).length == imageEmotes.length && Elements.$body.attr('data-ImageEmotePicker') == 'true') {
-                    var sorted = [];
-                    if(Elements.$body.attr('data-EmoteOrder') == 'Alphabetical' || Elements.$body.attr('data-EmoteOrder') == undefined) {
-                        sorted = [...imageEmotes].sort()
-                    } else if (Elements.$body.attr('data-EmoteOrder') == 'Date Added') {
-                        sorted = [...imageEmotes]
-                    } else if (Elements.$body.attr('data-EmoteOrder') == 'Usage') {
-                        emoteUses = JSON.parse(localStorage['emoteUses'])
-                        var sortedUses = [...emoteUses]
-                        sortedUses.sort(function(a,b) {
-                            return b[1]-a[1]
-                        });
-                        sortedUses.forEach(emote => sorted.push(imageEmotes[emote[0]]))
-                    }
-
-                                                for(var i=0;i < Object.keys(sorted).length;i++) {
-  stringy = stringy.concat('<img src="'+emoteimages["<code>"+sorted[i]+"</code>"]+'" class="img img-responsive emoji-btn" id="'+sorted[i]+'" style="height:26px;vertical-align:top;">');
-}
-    $('.bottom-area').append('<script>function myFunction() {var x = document.querySelectorAll(".emoji-picker")[0];if (x.style.display == "block") {$("#emotespicker").text(" Emotes [+]"); x.style.display = "none";} else {$("#emotespicker").text(" Emotes [-]");x.style.display = "block";}}</script>');
-                    $(`.error`).wrap(`<span class="muherror"></span>`);
-                    Styles.add(`.muherror {display:block;text-align: right;width: 480px;position: absolute;} .NO_TEXT{margin-left: -230px;margin-top: 20px;}`);
-    $('.usertext-buttons').before('<span id="emotespicker" onclick="myFunction()" style="font-size:smaller;float: right; margin-top: 5px;cursor:pointer;"> Emotes [+]</span>')
-    $('<div style="display: none;max-width:480px;" class="emoji-picker"></div>').insertAfter('.save-button .btn');
-    $('.emoji-picker').append(stringy);
-                       $('.emoji-btn').click(function() {
-			   // find selection range and insert emote text into the selection
-                           var select_start = document.querySelector('textarea').selectionStart
-                           var select_end = document.querySelector('textarea').selectionEnd
-                           document.querySelector('textarea').value = document.querySelector('textarea').value.substring(0, select_start) + "`" + this.id + "`" + document.querySelector('textarea').value.substring(select_end);
-                           document.querySelector('textarea').setSelectionRange(select_end + this.id.length + 2, select_end + this.id.length + 2)
-                           document.querySelector('textarea').focus();
-                       });
-                }
-            }
-            reader.readAsDataURL(xhr.response);
-        };
-        xhr.open('GET', url);
-        xhr.responseType = 'blob';
-        xhr.send();
-        emoteCount++;
-    }
-    function emotes_load() {
-        emotefunccheck++;
-        if(emotefunccheck > 1)
-            return;
-        toDataURL('https://cdn.frankerfacez.com/emoticon/210748/1', function(dataUrl) {
-            emoteimages['<code>pog</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/Q5MeKh3.png', function(dataUrl) {
-            emoteimages['<code>god</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/9DMJWrS.png', function(dataUrl) {
-            emoteimages['<code>monkas</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/cRiGdb9.png', function(dataUrl) {
-            emoteimages['<code>omegalul</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/NdcmxXi.png', function(dataUrl) {
-            emoteimages['<code>stonks</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/lAkxroK.png', function(dataUrl) {
-            emoteimages['<code>notstonks</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/nivf93z.png', function(dataUrl) {
-            emoteimages['<code>thonk</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/PM2ExKS.png', function(dataUrl) {
-            emoteimages['<code>jesus</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/lyazIO3.png', function(dataUrl) {
-            emoteimages['<code>isagod</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/hqemSbF.png', function(dataUrl) {
-            emoteimages['<code>pensiveloaf</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/m2DVbIn.png', function(dataUrl) {
-            emoteimages['<code>cuteballgames</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/5pRiH59.png', function(dataUrl) {
-            emoteimages['<code>habubger</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/lfKGTik.png', function(dataUrl) {
-            emoteimages['<code>angery</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/b2dbpI7.png', function(dataUrl) {
-            emoteimages['<code>dad</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/8nEZcC5.png', function(dataUrl) {
-            emoteimages['<code>sadge</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/nsQOa63.gif', function(dataUrl) {
-            emoteimages['<code>feelslagman</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/nZVYFFr.gif', function(dataUrl) {
-            emoteimages['<code>catjam</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/PxwMgsk.gif', function(dataUrl) {
-            emoteimages['<code>peped</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/ijKqqHa.gif', function(dataUrl) {
-            emoteimages['<code>fortnitecard</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/Wj1pxHY.png', function(dataUrl) {
-            emoteimages['<code>squidab</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/pvkuV6V.png', function(dataUrl) {
-            emoteimages['<code>dab</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/j7JMdUI.png', function(dataUrl) {
-            emoteimages['<code>lool</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/2Xpecxt.png', function(dataUrl) {
-            emoteimages['<code>karp</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/YDNriLs.gif', function(dataUrl) {
-            emoteimages['<code>pants</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/t3WIdOs.jpg', function(dataUrl) {
-            emoteimages['<code>oooh</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/Ou8bqZz.png', function(dataUrl) {
-            emoteimages['<code>twitter</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/0pTsciz.png', function(dataUrl) {
-            emoteimages['<code>harold</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/bq5Y3Ik.png', function(dataUrl) {
-            emoteimages['<code>david</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/GtSEKSA.png', function(dataUrl) {
-            emoteimages['<code>taking</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/nyMBdj0.gif', function(dataUrl) {
-            emoteimages['<code>baller</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/B8C4ooW.png', function(dataUrl) {
-            emoteimages['<code>asa</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/ddmEh3J.png', function(dataUrl) {
-            emoteimages['<code>chu</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/r2ysQSj.png', function(dataUrl) {
-            emoteimages['<code>respite</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/H8fyjWw.png', function(dataUrl) {
-            emoteimages['<code>sink</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/YFYEpAV.png', function(dataUrl) {
-            emoteimages['<code>gold</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/Gj363IU.png', function(dataUrl) {
-            emoteimages['<code>trollface</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/X42KsOb.png', function(dataUrl) {
-            emoteimages['<code>kshart</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/3fr9M0n.png', function(dataUrl) {
-            emoteimages['<code>widepeepohappy</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/qoNYaHj.png', function(dataUrl) {
-            emoteimages['<code>widepeeposad</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/PdlFz24.png', function(dataUrl) {
-            emoteimages['<code>5head</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/QPhZRMm.png', function(dataUrl) {
-            emoteimages['<code>pepog</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/iCt7LEW.png', function(dataUrl) {
-            emoteimages['<code>poggies</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/6G7CKqJ.png', function(dataUrl) {
-            emoteimages['<code>maybelegend</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/cGeuJpL.png', function(dataUrl) {
-            emoteimages['<code>chupixel</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/VWh5qJc.png', function(dataUrl) {
-            emoteimages['<code>vulpez</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/AYhoI48.png', function(dataUrl) {
-            emoteimages['<code>sspixel</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/1MhfdJK.png', function(dataUrl) {
-            emoteimages['<code>wtfdb</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/AN0pJBv.png', function(dataUrl) {
-            emoteimages['<code>notlike</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/oXKv3jo.png', function(dataUrl) {
-            emoteimages['<code>talk2hand</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/MkMaG2g.png', function(dataUrl) {
-            emoteimages['<code>rivergod</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/PQn8Kyd.png', function(dataUrl) {
-            emoteimages['<code>whitpixel</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/h9C2kA8.png', function(dataUrl) {
-            emoteimages['<code>hmm</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/Ar2kwD3.gif', function(dataUrl) {
-            emoteimages['<code>mario_luigi_dance</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/XVzyN4r.gif', function(dataUrl) {
-            emoteimages['<code>typefaster</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/EOp5edi.png', function(dataUrl) {
-            emoteimages['<code>lona_dont</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/9XgmFLB.png', function(dataUrl) {
-            emoteimages['<code>mersenne</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/KgjFXN2.png', function(dataUrl) {
-            emoteimages['<code>daemote</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/kc7PIRu.gif', function(dataUrl) {
-            emoteimages['<code>happiness</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/tpNMYMn.gif', function(dataUrl) {
-            emoteimages['<code>facepalm</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/tck38bm.gif', function(dataUrl) {
-            emoteimages['<code>rick</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/d1WX4wa.gif', function(dataUrl) {
-            emoteimages['<code>byepika</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/tFo3RDF.gif', function(dataUrl) {
-            emoteimages['<code>itsok</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/lIhn2jQ.gif', function(dataUrl) {
-            emoteimages['<code>thisisfine</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/w7AxAaY.gif', function(dataUrl) {
-            emoteimages['<code>uhdunno</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/SdrEJxi.gif', function(dataUrl) {
-            emoteimages['<code>toocool</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/eKvKaSh.gif', function(dataUrl) {
-            emoteimages['<code>letsgo</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/YaRoHKs.gif', function(dataUrl) {
-            emoteimages['<code>woohoo</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/EcHB23J.gif', function(dataUrl) {
-            emoteimages['<code>bonk</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/yIzUyLY.gif', function(dataUrl) {
-            emoteimages['<code>eyeroll</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/LYMjUFG.gif', function(dataUrl) {
-            emoteimages['<code>anicake</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/DzorFPT.gif', function(dataUrl) {
-            emoteimages['<code>watching</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/2v84XUV.png', function(dataUrl) {
-            emoteimages['<code>wtfdidyousay</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/VIgstwm.gif', function(dataUrl) {
-            emoteimages['<code>letmeout</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/abXyvkn.gif', function(dataUrl) {
-            emoteimages['<code>wtfbeek</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/jyHNUsl.png', function(dataUrl) {
-            emoteimages['<code>yikes</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/7BEIsXJ.gif', function(dataUrl) {
-            emoteimages['<code>wheredanat</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/GU7Iz4X.png', function(dataUrl) {
-            emoteimages['<code>ffff</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/pwPWT4N.png', function(dataUrl) {
-            emoteimages['<code>gotosleep</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/SrfFgpz.png', function(dataUrl) {
-            emoteimages['<code>shake</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/nTSxFGt.png', function(dataUrl) {
-            emoteimages['<code>brohug</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/oxWcf3e.png', function(dataUrl) {
-            emoteimages['<code>fthis</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/wqEOmyc.png', function(dataUrl) {
-            emoteimages['<code>earth</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/WMR7Uwq.gif', function(dataUrl) {
-            emoteimages['<code>chudance</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/HVf2M9j.gif', function(dataUrl) {
-            emoteimages['<code>spideydance</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/VFxjXSl.png', function(dataUrl) {
-            emoteimages['<code>cube</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/CuoMlVM.png', function(dataUrl) {
-            emoteimages['<code>gildthis</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/pQcgaQX.gif', function(dataUrl) {
-            emoteimages['<code>boom</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/BlkDC5c.png', function(dataUrl) {
-            emoteimages['<code>oof</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/jQJk1Kv.gif', function(dataUrl) {
-            emoteimages['<code>emergency</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/64JkvEm.png', function(dataUrl) {
-            emoteimages['<code>weeee</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/UOuLbBV.png', function(dataUrl) {
-            emoteimages['<code>boom2</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/FqTrDtK.png', function(dataUrl) {
-            emoteimages['<code>snipe</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/WNb50Nm.png', function(dataUrl) {
-            emoteimages['<code>d20</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/EY5CUlu.png', function(dataUrl) {
-            emoteimages['<code>porg</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/J7fzDTG.png', function(dataUrl) {
-            emoteimages['<code>slime</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/NyxERLp.png', function(dataUrl) {
-            emoteimages['<code>jebaited</code>'] = dataUrl;
-        })
-        toDataURL('https://i.imgur.com/wiHrESi.gif', function(dataUrl) {
-            emoteimages['<code>pepemeltdown</code>'] = dataUrl;
-        })
-
-        Update.loadedNew(function (data) {
-            if(Elements.$body.attr('data-ImageEmotes') == 'true') {
-                var emotes_post = data.body_elem.html();
-                var emote_author = data.author_elem.attr('href').substring(6);
-                var emotes_text = data.body_elem.text();
-                var unique_emotes = [];
-                the_emote = emotes_post.match(/<code>(.*?)<\/code>/gm);
-                for(var emote in the_emote) {
-                    if(the_emote[emote].toLowerCase() in emoteimages) {
-                        var emotename = the_emote[emote];
-                        emotename = emotename.replace('<code>','').replace('</code>','');
-                        if (emote_author == USER && unique_emotes.includes(imageEmotes.indexOf(emotename)) == false){
-                            unique_emotes.push(imageEmotes.indexOf(emotename))
-                        }
-                     emotes_post = emotes_post.replace(the_emote[emote], "<img title="+emotename+" style='height:26px;vertical-align:top;' src="+emoteimages[the_emote[emote].toLowerCase()]+"></img>");
-                    }
-                }
-                data.body_elem.html(emotes_post);
-                for(var unique in unique_emotes) {
-                    emoteUses[unique_emotes[unique]][1]++;
-                }
-            }
-            if (unique_emotes.length > 0){
-                localStorage['emoteUses'] = JSON.stringify(emoteUses)
-            }
-        });
-    }
-
-    if(Elements.$body.attr('data-ImageEmotes') == 'true') {
-        emotes_load();
-    }
-
-})(ImageEmotes || (ImageEmotes = {}));
 /////////////////////////
 // ImageEmotePicker.ts //
 /////////////////////////
 var ImageEmotePicker;
 (function (ImageEmotePicker) {
-    // Options
     Elements.$body.attr('data-ImageEmotePicker', true);
+    // Options
     Options.addCheckbox({
         label: 'Image Emote Picker',
         "default": true,
@@ -3422,6 +2526,177 @@ var EmoteOrder;
     });
 })(EmoteOrder || (EmoteOrder = {}));
 
+////////////////////
+// ImageEmotes.ts //
+////////////////////
+var ImageEmotes;
+var emoteCount = 0;
+var stringy = '';
+(function (ImageEmotes) {
+    // INITIALIZATION
+    Elements.$body.attr('data-ImageEmotes', true);
+    var emoteimages = {};
+    var emotefunccheck = 0;
+    var the_emote = "";
+    var emoteUses = [];
+    // Check/Update emoteUses when emotes are added or removed
+    if (localStorage.getItem('emoteUses') != null) {
+	    emoteUses = JSON.parse(localStorage.getItem('emoteUses'));
+		    // Check for old emote ids
+	    if (emoteUses[0][0] == 0) {
+		for (var emote in emoteUses) {
+		    emoteUses[emote][0] = imageEmotes[emote]
+		}
+	    }
+    }
+    for (var emote in emoteUses) {
+        if (imageEmotes.includes(emoteUses[emote][0]) == false) {
+            emoteUses.splice(emote, 1);
+        }
+    }
+    for (var emote in imageEmotes) {
+        if (emoteUses.flat().includes(imageEmotes[emote]) == false) {
+            emoteUses.push([imageEmotes[emote], 0])
+        }
+    }
+    localStorage.setItem('emoteUses', JSON.stringify(emoteUses))
+    // Options
+    Options.addCheckbox({
+        label: 'IMAGE EMOTES',
+        "default": true,
+        section: 'Advanced 2',
+        help: 'Enables image emotes. Requires refresh probably',
+        onchange: function () {
+            Elements.$body.attr('data-ImageEmotes', this.prop('checked'));
+            if(Elements.$body.attr('data-ImageEmotes') == 'true') {
+                emotes_load();
+            }
+        }
+    });
+
+    function toDataURL(url, callback) {
+        //var xhr = new XMLHttpRequest();
+        //xhr.onload = function() {
+            //var reader = new FileReader();
+            //reader.onloadend = function() {
+                //callback(reader.result);
+                callback(url);
+                if(Object.keys(emoteimages).length == imageEmotes.length) {
+                    if(Elements.$body.attr('data-ImageEmotes') == 'true') {
+        $('code').each(function() {
+            var thistext = $(this).text();
+            if(imageEmotes.indexOf(thistext.toLowerCase()) > -1) {
+                var this_new_html = "<img title="+thistext+" style='height:26px;vertical-align:top;' src="+emoteimages['<code>'+thistext.toLowerCase()+'</code>']+"></img>";
+                $(this).replaceWith(this_new_html);
+            }
+        });
+        }
+        UPDATE_EVENTS.addListener("loaded", data => {
+            if(Elements.$body.attr('data-ImageEmotes') == 'true') {
+                var emotes_post = data.bodyNode.html();
+                var emotes_text = data.bodyNode.text();
+                the_emote = emotes_post.match(/<code>(.*?)<\/code>/gm);
+                for(var emote in the_emote) {
+                    if(the_emote[emote].toLowerCase() in emoteimages) {
+                        var emotename = the_emote[emote];
+                        emotename = emotename.replace('<code>','').replace('</code>','');
+                        emotes_post = emotes_post.replace(the_emote[emote], "<img title="+emotename+" style='height:26px;vertical-align:top;' src="+emoteimages[the_emote[emote].toLowerCase()]+"></img>");
+                    }
+                }
+                data.bodyNode.html(emotes_post);
+            }
+        });
+                }
+                if(Object.keys(emoteimages).length == imageEmotes.length && Elements.$body.attr('data-ImageEmotePicker') == 'true') {
+                    var sorted = [];
+                    if(Elements.$body.attr('data-EmoteOrder') == 'Alphabetical' || Elements.$body.attr('data-EmoteOrder') == undefined) {
+                        sorted = [...imageEmotes].sort()
+                    } else if (Elements.$body.attr('data-EmoteOrder') == 'Date Added') {
+                        sorted = [...imageEmotes]
+                    } else if (Elements.$body.attr('data-EmoteOrder') == 'Usage') {
+                        emoteUses = JSON.parse(localStorage.getItem('emoteUses'))
+                        var sortedUses = [...emoteUses]
+                        sortedUses.sort(function(a,b) {
+                            return b[1]-a[1]
+                        });
+                        sortedUses.forEach(emote => sorted.push(emote[0]))
+                    }
+
+                                                for(var i=0;i < Object.keys(sorted).length;i++) {
+  stringy = stringy.concat('<img src="'+emoteimages["<code>"+sorted[i]+"</code>"]+'" class="img img-responsive emoji-btn" id="'+sorted[i]+'" style="height:26px;vertical-align:top;">');
+}
+    $('.bottom-area').append('<script>function myFunction() {var x = document.querySelectorAll(".emoji-picker")[0];if (x.style.display == "block") {$("#emotespicker").text(" Emotes [+]"); x.style.display = "none";} else {$("#emotespicker").text(" Emotes [-]");x.style.display = "block";}}</script>');
+                    $(`.error`).wrap(`<span class="muherror"></span>`);
+                    Styles.add(`.muherror {display:block;text-align: right;width: 480px;position: absolute;} .NO_TEXT{margin-left: -230px;margin-top: 20px;}`);
+    $('.usertext-buttons').before('<span id="emotespicker" onclick="myFunction()" style="font-size:smaller;float: right; margin-top: 5px;cursor:pointer;"> Emotes [+]</span>')
+    $('<div style="display: none;max-width:480px;" class="emoji-picker"></div>').insertAfter('.save-button .btn');
+    $('.emoji-picker').append(stringy);
+                       $('.emoji-btn').click(function() {
+			   // find selection range and insert emote text into the selection
+                           var select_start = document.querySelector('textarea').selectionStart
+                           var select_end = document.querySelector('textarea').selectionEnd
+                           document.querySelector('textarea').value = document.querySelector('textarea').value.substring(0, select_start) + "`" + this.id + "`" + document.querySelector('textarea').value.substring(select_end);
+                           document.querySelector('textarea').setSelectionRange(select_end + this.id.length + 2, select_end + this.id.length + 2)
+                           document.querySelector('textarea').focus();
+                       });
+                }
+            //}
+            //reader.readAsDataURL(xhr.response);
+        //};
+        //xhr.open('GET', url);
+        //xhr.responseType = 'blob';
+        //xhr.send();
+        emoteCount++;
+    }
+    function emotes_load() {
+        emotefunccheck++;
+        if(emotefunccheck > 1)
+            return;
+
+        for (var i = 0; i < imageEmotes.length; i++) {
+            var code = imageEmotes[i];
+            var url = imageEmoteData[code];
+
+            toDataURL(url, function(dataUrl) {
+                emoteimages['<code>' + code + '</code>'] = dataUrl;
+            })
+        }
+
+        UPDATE_EVENTS.addListener("new", data => {
+            if(Elements.$body.attr('data-ImageEmotes') == 'true') {
+                var emotes_post = data.bodyNode.html();
+                var emote_author = data.authorNode.attr('href').substring(6);
+                var emotes_text = data.bodyNode.text();
+                var unique_emotes = [];
+                the_emote = emotes_post.match(/<code>(.*?)<\/code>/gm);
+                for(var emote in the_emote) {
+                    if(the_emote[emote].toLowerCase() in emoteimages) {
+                        var emotename = the_emote[emote];
+                        emotename = emotename.replace('<code>','').replace('</code>','');
+                        if (emote_author == USER && unique_emotes.includes(emotename) == false){
+                            unique_emotes.push(emotename)
+                        }
+                     emotes_post = emotes_post.replace(the_emote[emote], "<img title="+emotename+" style='height:26px;vertical-align:top;' src="+emoteimages[the_emote[emote].toLowerCase()]+"></img>");
+                    }
+                }
+                data.bodyNode.html(emotes_post);
+                for(var unique in unique_emotes) {
+                    //finds the index of emote code by flattening
+                    emoteUses[(emoteUses.flat().indexOf(unique_emotes[unique]))/2][1]++;
+                }
+            }
+            if (unique_emotes.length > 0){
+                localStorage.setItem('emoteUses', JSON.stringify(emoteUses))
+            }
+        });
+    }
+
+    if(Elements.$body.attr('data-ImageEmotes') == 'true') {
+        emotes_load();
+    }
+
+})(ImageEmotes || (ImageEmotes = {}));
+
 /////////////////////
 // KpartAlert.ts //
 /////////////////////
@@ -3441,11 +2716,289 @@ var KpartAlert;
     });
 })(KpartAlert || (KpartAlert = {}));
 
-// Test thread special feature
-if(window.location.href.indexOf("15jj2286nsulu") > -1) {
-    if(window.location.href.indexOf("test") > -1) {
-        $("#liveupdate-description").append(`<iframe src="https://socketio-whiteboard-zmx4.herokuapp.com/" width="100%" height="480" scrolling="no" class="iframe-class" frameborder="0"></iframe>`);
+////////////////////
+// RESDarkMode.ts //
+////////////////////
+var RESDarkMode;
+(function (RESDarkMode) {
+    // Options
+    Elements.$body.attr('data-RESDarkMode', false);
+    var resTest = 0;
+    function resAdda() {
+        resTest = 1;
+        Styles.add(`.res-nightmode #fakerunner {color:black;} .res-nightmode #liveupdate-resources h5 {color: #ccc;} .res-nightmode #liveupdate-resources h3 {color: #ccc;} .res-nightmode #dailyenabler2 {color: #ccc;} .res-nightmode #dailyenabler {color: #ccc;} .res-nightmode .toggle-trigger {color: #ccc;} .res-nightmode #live-counting-extension h2 {color: #ccc;} .res-nightmode #liveupdate-options {color:#ccc;} body.res-nightmode {background-color: #262626!important} html.res-nightmode, .res-nightmode body, .res-nightmode body .content, .res-nightmode .modal-body, .res-nightmode .side, .res-nightmode .icon-menu a, .res-nightmode .side .leavemoderator, .res-nightmode .side .leavecontributor-button, .res-nightmode .side .titlebox, .res-nightmode .side .spacer .titlebox .redditname, .res-nightmode .side .titlebox .flairtoggle, .res-nightmode .side .usertext-body .md ol, .res-nightmode .side .usertext-body .md ol ol, .res-nightmode .side .usertext-body .md ol ol li, .res-nightmode .modactionlisting table *, .res-nightmode .side .recommend-box .rec-item, .res-nightmode .crosspost-preview, .res-nightmode .crosspost-thing-preview, .res-nightmode .admin_takedown, .res-nightmode .happening-now {   background-color: #262626!important;   border-color: #777!important; } .res-nightmode .embedded-page .content > .sitetable, .res-nightmode .embedded-page.helpcenter-page .content, .res-nightmode .embedded-page.compose-page .content, .res-nightmode .embedded-page .content > .sitetable > div:nth-of-type(4n+1), .res-nightmode .embedded-page.helpcenter-page .content > div:nth-of-type(4n+1), .res-nightmode .embedded-page.compose-page .content > div:nth-of-type(4n+1) {   background-color: #262626;   color: #aaa; } .res-nightmode .link, .res-nightmode .helpcenter-form .section-content {   background-color: #262626; } .res-nightmode .helpcenter-form .helpcenter-bottom-panel .helpcenter-content-policy p {   color: #aaa; } .res-nightmode .popup, .res-nightmode .guider, .res-nightmode .guider p {   background-color: #262626;   color: #aaa; } .res-nightmode #login_login {   background-color: #333;   color: #bbb; } .res-nightmode .RESCloseButton::after, .res-nightmode .message.new > .entry, .res-nightmode .read-next, .res-nightmode .drop-choices {   border-color: #4d4d4d;   background-color: #333; } .res-nightmode .drop-choices {   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3); } .res-nightmode .read-next .read-next-header, .res-nightmode .flairselector h2, .res-nightmode .flairselector li:hover {   border-color: transparent;   background-color: #3e3e3e; } .res-nightmode .flairselector li.selected, .res-nightmode .RESNotification {   border-color: #787878; } .res-nightmode .RESCloseButton:hover::after {   background-color: #333; } .res-nightmode #RESHoverContainer::after {   border-color: transparent #262626; } .res-nightmode.liveupdate-app .content {   background-color: #161616; } .res-nightmode .entry .morecomments .gray, .res-nightmode .markdownEditor .RESCharCounter {   color: rgba(221, 221, 221, 0.8); } .res-nightmode #BigEditor .markdownEditor .RESMacroDropdownList li:hover a {   color: #bbb; } .res-nightmode .trophy-info .trophy-name {   color: #eee !important; } .res-nightmode .sidecontentbox .content {   border-color: rgba(234, 234, 234, 0.1); } .res-nightmode .RESUserTagImage::after {   color: #758ea8; } .res-nightmode #DonateRES {   background: #ccc; } .res-nightmode #progressIndicator, .res-nightmode .hover-bubble, .res-nightmode .side .side-message, .res-nightmode #editShortcutDialog, .res-nightmode #RESShortcutsAddFormContainer {   color: #ddd;   border-color: #4d4d4d;   background-color: #333; } .res-nightmode .login-form-side {   background-color: #888;   color: #eee; } .res-nightmode .login-form-side .error {   color: #cd5a5a; } .res-nightmode #header, .res-nightmode .liveupdate-home .content {   background-color: dimgrey; } .res-nightmode #jumpToContent {   color: #ddd;   border: 1px solid;   padding: 0 2px; } .res-nightmode #sr-header-area, .res-nightmode #sr-more-link {   background-color: #ccc;   color: #000; } .res-nightmode .usertable tr .user .userkarma {   color: #aa9; } .res-nightmode .thing.spam {   background-color: #3d2929; } .res-nightmode .content .pretty-form * {   box-shadow: none; } .res-nightmode .RESDashboardComponentContainer {   padding: 0; } .res-nightmode .RESDashboardComponentContainer .linklisting {   padding: 5px; } .res-nightmode .new-comment .usertext-body {   border-color: #242b3f;   background-color: #1a2135; } .res-nightmode .RESDropdownList.RESMacroDropdownList a:hover, .res-nightmode .RESDropdownList.RESMacroDropdownList li:hover {   background-color: #777;   color: #aaa; } .res-nightmode .wiki-page .pageactions .wikiaction-current {   background-color: #777; } .res-nightmode .contact-us-page .button {   background: #777;   color: #ddd; } .res-nightmode .contact-us-page .button:hover {   background: #666; } .res-nightmode .message .subject .correspondent {   background: #212f46;   color: #1496dc; } .res-nightmode .moderator .linefield {   background: #1a1a1a; } .res-nightmode .wiki-page .wiki-page-content .md.wiki > .toc ul, .res-nightmode .tabmenu li a, .res-nightmode .tabmenu li.selected a, .res-nightmode #report form {   background-color: #262626; } .res-nightmode .tabmenu li.selected a {   color: #d25a32;   border-bottom-color: #262626; } .res-nightmode .tabmenu.formtab a {   color: white;   border-color: #505050; } .res-nightmode .tabmenu.formtab .selected a {   color: white;   background-color: #5f99cf; } .res-nightmode #RESDashboardAddComponent, .res-nightmode .dashboardPane > .RESDashboardComponent {   background-color: gray; } .res-nightmode #RESDashboard .RESDashboardComponentHeader {   background-color: #848484; } .res-nightmode .RESDashboardComponent .RESDashboardComponentHeader ul li.active, .res-nightmode .RESDashboardComponent .RESDashboardComponentHeader ul li:hover {   background-color: #ccc; } .res-nightmode .side .titlebox form.flairtoggle, .res-nightmode .trophy-area .content, .res-nightmode .side .md ol, .res-nightmode .side .md ul {   background-color: #262626;   color: #ddd; } .res-nightmode .organic-listing {   border-color: #505050;   background-color: transparent !important; } .res-nightmode .organic-listing .nextprev {   opacity: 0.5; } .res-nightmode .organic-listing .link, .res-nightmode .link.promotedlink {   background-color: transparent;   border-color: #505050; } .res-nightmode .arrow.up, .res-nightmode .arrow.upmod, .res-nightmode .arrow.down, .res-nightmode .arrow.downmod {   background-image: url('../images/nightmode/arrows.png');   background-repeat: no-repeat; } .res-nightmode .arrow.up {   background-position: -15px 0; } .res-nightmode .arrow.up:hover {   background-position: -30px 0; } .res-nightmode .arrow.upmod {   background-position: 0 0; } .res-nightmode .arrow.down {   background-position: -15px -14px; } .res-nightmode .arrow.down:hover {   background-position: -30px -14px; } .res-nightmode .arrow.downmod {   background-position: 0 -14px; } .res-nightmode .subredditbox li {   font-weight: 700;   text-transform: lowercase; } .res-nightmode .subredditbox li a::before {   content: '#'; } .res-nightmode .dropdown.lightdrop a.choice:hover {   background-color: #1a1a1a; } .res-nightmode .sidebox, .res-nightmode .subreddit-info, .res-nightmode .raisedbox, .res-nightmode .login-form-side, .res-nightmode .interstitial-subreddit-description {   background-color: #393939;   border-color: #151515;   color: #aaa; } .res-nightmode .subreddit-info .spacer a {   background-color: #262626; } .res-nightmode .morelink {   background: #444;   border-color: #444; } .res-nightmode .morelink:hover {   border-color: #333;   background: #333; } .res-nightmode .morelink:hover a {   color: #1496dc; } .res-nightmode .morelink .nub {   display: none; } .res-nightmode .sidebox .spacer, .res-nightmode .side .linkinfo {   background-color: #393939; } .res-nightmode .commentbody.border {   background-color: #369; } .res-nightmode input[type='number'], .res-nightmode input[type='text'], .res-nightmode input[type='password'], .res-nightmode .c-form-control {   color: #ccc;   border: 1px solid #4d4d4d;   background-color: #333; } .res-nightmode .content textarea {   background-color: #333;   color: #eee; } .res-nightmode .rulespage .example, .res-nightmode #userTaggerTable th, .res-nightmode #newCommentsTable th, .res-nightmode .RESDashboardComponent .RESDashboardComponentHeader ul .updateTime:hover, .res-nightmode .instructions .preftable th, .res-nightmode .instructions .pretty-form, .res-nightmode .remove-self .option, .res-nightmode .unfriend-button .option, .res-nightmode .RESDashboardComponent .widgetPath, .res-nightmode .entry .buttons li.reported-stamp, .res-nightmode .pretty-button, .res-nightmode .report-reasons {   color: #000; } .res-nightmode .viewSource textarea[readonly] {   background: #666; } .res-nightmode .reported {   border-color: #daa520; } .res-nightmode .nextprev a {   background: #777;   border-color: #333;   color: #ddd; } .res-nightmode .nextprev img:hover {   opacity: 0.85; } .res-nightmode #ad-frame {   opacity: 0.8; } .res-nightmode .comment.unread {   background-color: #4a473b; } .res-nightmode .raisedbox .flat-list a {   background-color: #262626; } .res-nightmode .raisedbox .flat-list a:hover {   background-color: #369;   color: #fff; } .res-nightmode .instructions {   background: #fff; } .res-nightmode #siteTable .link .title.loggedin.click, .res-nightmode #BigEditor .markdownEditor .RESMacroDropdownList a {   color: gray; } .res-nightmode .markhelp.md tr td {   background-color: #36c; } .res-nightmode .mail .havemail img, .res-nightmode .mail .nohavemail img {   visibility: hidden; } .res-nightmode .expando-button {   background-color: transparent; } .res-nightmode #sr-autocomplete-area {   z-index: 1; } .res-nightmode button, .res-nightmode input[type='button'], .res-nightmode input[type='submit'], .res-nightmode input[type='reset'] {   color: #fff;   border: 1px outset grey;   background-color: #4d4d4d; } .res-nightmode .create-reddit .title {   background-color: rgba(24, 24, 24, 0.2);   color: #8AD; } .res-nightmode .linefield, .res-nightmode .linefield .linefield-content, .res-nightmode .linefield.mobile {   border-color: #1a1a1a;   background-color: #4d4d4d; } .res-nightmode #RESShortcutsEditContainer, .res-nightmode #RESShortcutsSort, .res-nightmode #RESShortcutsRight, .res-nightmode #RESShortcutsLeft, .res-nightmode #RESShortcutsAdd {   background: #ccc; } .res-nightmode .content .roundfield, .res-nightmode .content.submit .roundfield, .res-nightmode .traffic-table tr:nth-of-type(even) {   background-color: #181818; } .res-nightmode .traffic-table tr:nth-of-type(odd).promo-traffic-live {   color: #181818; } .res-nightmode .traffic-table.promocampaign-table tr.active {   background-color: #6d2f39;   border: 2px dotted #a70000; } .res-nightmode .sponsored-page .dashboard {   color: #dedede; } .res-nightmode .sponsored-page .campaign-editor .editor-group, .res-nightmode .sponsored-page .editor-group {   background-color: #151515; } .res-nightmode .sponsored-page .campaign-editor .campaign-set {   background-color: #666; } .res-nightmode .sponsored-page .linefield-content textarea, .res-nightmode .sponsored-page .linefield-content input {   color: #181818; } .res-nightmode .linefield .markhelp table {   background-color: inherit; } .res-nightmode .content .sponsored-page textarea, .res-nightmode .content .sponsored-page input {   background-color: #fcfcfc; } .res-nightmode .md code, .res-nightmode .md pre, .res-nightmode .link .md pre, .res-nightmode .content .md pre, .res-nightmode .new-comment .md pre, .res-nightmode .usertext.border .md pre, .res-nightmode .link .md :not(pre) > code, .res-nightmode .new-comment .md :not(pre) > code, .res-nightmode .usertext.border .md :not(pre) > code {   color: inherit;   border-color: #58697b;   background-color: #2a3340; } .res-nightmode .comment .md p a[href='/spoiler'], .res-nightmode .comment .md p a[href='#spoiler'] {   background-color: #000;   color: #000; } .res-nightmode .usertable tr:hover, .res-nightmode .moderator-table tr:hover, .res-nightmode .usertext.border .usertext-body, .res-nightmode .usertext.grayed .usertext-body {   background-color: #444; } .res-nightmode .login-form, .res-nightmode .login-form-side .submit, .res-nightmode #header-bottom-right, .res-nightmode #srList, .res-nightmode .dropdown.lightdrop .drop-choices {   background-color: #333; } .res-nightmode #srList tr {   border-bottom-color: #646464; } .res-nightmode #srList tr:hover {   background-color: #3e3e3e; } .res-nightmode #quickMessage textarea, .res-nightmode #quickMessage select {   background-color: #aaa; } .res-nightmode #search input[type='text'] {   color: white !important; } .res-nightmode #search select, .res-nightmode #search option {   color: #1a1a1a; } .res-nightmode ul.res-search-tabs li a {   background-color: #393939; } .res-nightmode.res-searchHelper-searchPageTabs ul.res-search-tabs li.res-search-tab-active a, .res-nightmode.res-searchHelper-searchPageTabs .combined-search-page #previoussearch .res-search-pane, .res-nightmode #RESConsoleContainer, .res-nightmode #SearchRES-results-container li, .res-nightmode #SearchRES-results-container li:hover, .res-nightmode #REScommentSubToggle {   background-color: #222; } .res-nightmode #searchexpando, .res-nightmode .post-sharing {   background: #303030;   border-color: #444; } .res-nightmode.res-searchHelper-searchPageTabs .combined-search-page .search-result .search-expando.collapsed::before {   background: linear-gradient(to bottom, rgba(34, 34, 34, 0) 0%, #222 100%); } .res-nightmode.res-searchHelper-searchPageTabs .combined-search-page .search-result-group .search-result-group-header {   border-bottom-color: grey; } .res-nightmode a, .res-nightmode .md a, .res-nightmode .share-button .option, .res-nightmode #subscribe a, .res-nightmode .share .option, .res-nightmode .wired a, .res-nightmode .side a, .res-nightmode .link .score.dislikes, .res-nightmode .linkcompressed .score.dislikes, .res-nightmode a[rel='tag'], .res-nightmode .dsq-help, .res-nightmode #authorInfoToolTip h3 a, .res-nightmode .reddiquette, .res-nightmode .parent .author, .res-nightmode .parent .subreddit, .res-nightmode .combined-search-page .search-result a, .res-nightmode .combined-search-page .search-result a > mark, .res-nightmode .hoverHelp, .res-nightmode .deepthread a, .res-nightmode .policy-page .md h1 a, .res-nightmode .policy-page .md h3 a {   color: #8cb3d9; } .res-nightmode .flairselector li a {   color: #85b3e0 !important; } .res-nightmode .thing .title {   color: #dedede; } .res-nightMode-coloredLinks .res-nightmode .thing .title {   color: #5c99d6; } .res-nightmode .thing .source-url {   color: #ccc; } .res-nightMode-coloredLinks .res-nightmode .thing .source-url {   color: #3380cc; } .res-nightmode .tagline a {   color: #6a98af; } .res-nightmode .morecomments a {   color: #999; } .res-nightmode .thing .title:visited, .res-nightmode .thing.visited .title, .res-nightmode .combined-search-page .search-result.visited a, .res-nightmode .combined-search-page .search-result a:visited, .res-nightmode .combined-search-page .search-result a:visited > mark {   color: #a6a6a6; } .res-nightMode-coloredLinks .res-nightmode .thing .title:visited, .res-nightMode-coloredLinks .res-nightmode .thing.visited .title, .res-nightMode-coloredLinks .res-nightmode .combined-search-page .search-result.visited a, .res-nightMode-coloredLinks .res-nightmode .combined-search-page .search-result a:visited, .res-nightMode-coloredLinks .res-nightmode .combined-search-page .search-result a:visited > mark {   color: #a679d2; } .res-nightmode .thing .source-url:visited {   color: #999; } .res-nightMode-coloredLinks .res-nightmode .thing .source-url:visited {   color: #945ec9; } .res-nightmode .flair-settings ~ .tabpane-content {   border-color: #1a1a1a; } .res-nightmode .flaircell input[type='text'] {   border: 1px solid #555; } .res-nightmode .md blockquote {   color: #a0a0a0;   border-left-color: #646464; } .res-nightmode .infobar:not(.newsletterbar), .res-nightmode .reddit-infobar {   border-color: #2966a3;   background-color: #264d73; } .res-nightmode .infobar:not(.newsletterbar) .md, .res-nightmode .reddit-infobar .md {   color: white; } .res-nightmode .rank .star, .res-nightmode .link .score.likes, .res-nightmode .linkcompressed .score.likes {   color: #ff4500; } .res-nightmode .linkcompressed .entry .buttons li a, .res-nightmode .link .usertext-body .md, .res-nightmode .thing .compressed, .res-nightmode .link.promotedlink, .res-nightmode .link.promotedlink.promoted, .res-nightmode .subreddit .usertext .md, .res-nightmode .commentreply .help tr {   background: none; } .res-nightmode .link .usertext-body .md, .res-nightmode .side .linkinfo {   border-color: #666; } .res-nightmode .subreddit-info .label, .res-nightmode .sidebox .subtitle, .res-nightmode .modactionlisting .description, .res-nightmode .modactionlisting .timestamp time, .res-nightmode .modactionlisting .timestamp {   color: #aaa; } .res-nightmode .submit textarea, .res-nightmode .submit #url, .res-nightmode .submit #sr-autocomplete, .res-nightmode .usertext-edit textarea, .res-nightmode .RESDialogSmall, .res-nightmode .c-close, .res-nightmode #BigEditor #BigText, .res-nightmode #liveupdate-statusbar, .res-nightmode #liveupdate-statusbar.complete, .res-nightmode #alert_message input {   color: #ccc;   border-color: #4d4d4d;   background-color: #333; } .res-nightmode #liveupdate-statusbar.live.connected {   background-color: #344b4e;   border: 1px solid #38585f;   color: inherit; } .res-nightmode .RESHoverInfoCard::before {   border-right-color: #4d4d4d; } .res-nightmode .RESHoverInfoCard::after {   border-right-color: #333; } .res-nightmode .RESHoverInfoCard.right::before {   border-left-color: #4d4d4d; } .res-nightmode .RESHoverInfoCard.right::after {   border-left-color: #333; } .res-nightmode .RESDialogSmall > h3, .res-nightmode .NERPageMarker {   color: inherit;   border-color: #4d4d4d;   background-color: transparent; } .res-nightmode.res-commentBoxes .comment, .res-nightmode.res-commentBoxes .comment .comment .comment, .res-nightmode.res-commentBoxes .comment .comment .comment .comment .comment, .res-nightmode.res-commentBoxes .comment .comment .comment .comment .comment .comment .comment, .res-nightmode.res-commentBoxes .comment .comment .comment .comment .comment .comment .comment .comment .comment {   background-color: #161616 !important; } .res-nightmode.res-commentBoxes .comment .comment, .res-nightmode.res-commentBoxes .comment .comment .comment .comment, .res-nightmode.res-commentBoxes .comment .comment .comment .comment .comment .comment, .res-nightmode.res-commentBoxes .comment .comment .comment .comment .comment .comment .comment .comment, .res-nightmode.res-commentBoxes .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {   background-color: #121212 !important; } .res-nightmode.res-commentBoxes .comment {   border-color: #333 !important; } .res-nightmode.res-commentBoxes .comment.spam {   background-image: linear-gradient(#633636, #633636); } .res-nightmode.res-commentBoxes.res-commentHoverBorder .comment:hover {   border-color: #555 !important; } .res-nightmode .RESDropdownList, .res-nightmode #RESPrefsDropdown {   border-color: gray; } .res-nightmode .RESDropdownList li, .res-nightmode .RESDropdownList li a {   background: #444;   color: gray; } .res-nightmode .RESDropdownList li {   border-bottom-color: gray; } .res-nightmode .RESDropdownList li:hover, .res-nightmode .RESDropdownList li:hover a {   background-color: #555;   color: #bbb; } .res-nightmode > .content > .spacer > .sitetable::before, .res-nightmode > .content > .sharelink ~ .sitetable::before, .res-nightmode .side .age, .res-nightmode .trophy-info *, .res-nightmode .golddvertisement, .res-nightmode .flair-jump .title, .res-nightmode .savedComment, .res-nightmode .md, .res-nightmode .md h2, .res-nightmode .content .sitetable .thing .md, .res-nightmode .side .usertext-body ol, .res-nightmode .side .redditname a, .res-nightmode .side h1, .res-nightmode .side h2, .res-nightmode .side h3, .res-nightmode .side h4, .res-nightmode .side h5, .res-nightmode .side h6, .res-nightmode .content .wiki-page-content .md.wiki h1, .res-nightmode .content .wiki-page-content .md.wiki h2, .res-nightmode .content .wiki-page-content .md.wiki h3, .res-nightmode .content .wiki-page-content .md.wiki h4, .res-nightmode .content .wiki-page-content .md.wiki h5, .res-nightmode .content .wiki-page-content .md.wiki h6, .res-nightmode .content .wiki-page-content .md.wiki p, .res-nightmode .wiki-page .wiki-page-content .pagelisting, .res-nightmode .RESUserTag, .res-nightmode .sidebar h1, .res-nightmode .sidebar h2, .res-nightmode .sidebar h3, .res-nightmode .sidebar h4, .res-nightmode .sidebar h5, .res-nightmode .sidebar h6, .res-nightmode .flairselector h2, .res-nightmode .wiki-page .wiki-page-content .description h2 {   color: #ddd; } .res-nightmode .voteWeight, .res-nightmode .nextprev img {   opacity: 0.7; } .res-nightmode .searchfacets {   background-color: #2c2c2c;   box-shadow: none; } .res-nightmode .combined-search-page .search-result .search-result-body, .res-nightmode .generic-table, .res-nightmode .message.message-reply.recipient > .entry .head, .res-nightmode .message.message-parent.recipient > .entry .head, .res-nightmode .linefield .title, .res-nightmode .liveupdate-listing li.liveupdate:hover time, .res-nightmode .spam .domain, .res-nightmode .spam .domain a, .res-nightmode .hover-bubble.multi-selector strong, .res-nightmode .subreddit-rules-page .md-container .md .subreddit-rule-description {   color: inherit; } .res-nightmode .comment.spam > .child, .res-nightmode .message.spam > .child {   background-color: transparent; } .res-nightmode .nextprev a:hover, .res-nightmode .next-suggestions a:hover {   border-color: transparent;   background-color: #777; } .res-nightmode .modactionlisting + #progressIndicator {   width: auto;   margin: 20px 310px 0 0; } .res-nightmode body.with-listing-chooser .listing-chooser, .res-nightmode body.with-listing-chooser.listing-chooser-collapsed .listing-chooser {   background-color: #262626; } .res-nightmode body.with-listing-chooser .listing-chooser .grippy, .res-nightmode body.with-listing-chooser.listing-chooser-collapsed .listing-chooser .grippy, .res-nightmode body.with-listing-chooser .listing-chooser.initialized .grippy, .res-nightmode body.with-listing-chooser.listing-chooser-collapsed .listing-chooser.initialized .grippy {   background-color: #262626;   border: none;   outline: none; } .res-nightmode body.with-listing-chooser .listing-chooser .grippy::after, .res-nightmode body.with-listing-chooser.listing-chooser-collapsed .listing-chooser .grippy::after, .res-nightmode body.with-listing-chooser .listing-chooser.initialized .grippy::after, .res-nightmode body.with-listing-chooser.listing-chooser-collapsed .listing-chooser.initialized .grippy::after {   background-color: #2f2f2f;   border-right-color: #444; } .res-nightmode body.with-listing-chooser .listing-chooser .grippy:hover, .res-nightmode body.with-listing-chooser.listing-chooser-collapsed .listing-chooser .grippy:hover, .res-nightmode body.with-listing-chooser .listing-chooser.initialized .grippy:hover, .res-nightmode body.with-listing-chooser.listing-chooser-collapsed .listing-chooser.initialized .grippy:hover {   background-color: #262626;   border-left-color: #333; } .res-nightmode body.with-listing-chooser .listing-chooser .grippy:hover::before, .res-nightmode body.with-listing-chooser.listing-chooser-collapsed .listing-chooser .grippy:hover::before, .res-nightmode body.with-listing-chooser .listing-chooser.initialized .grippy:hover::before, .res-nightmode body.with-listing-chooser.listing-chooser-collapsed .listing-chooser.initialized .grippy:hover::before {   background-color: #262626; } .res-nightmode body.with-listing-chooser .listing-chooser .grippy:hover::after, .res-nightmode body.with-listing-chooser.listing-chooser-collapsed .listing-chooser .grippy:hover::after, .res-nightmode body.with-listing-chooser .listing-chooser.initialized .grippy:hover::after, .res-nightmode body.with-listing-chooser.listing-chooser-collapsed .listing-chooser.initialized .grippy:hover::after {   border-right-color: #777; } .res-nightmode .listing-chooser li, .res-nightmode .listing-chooser li.selected {   background-color: #393939;   color: #ccc;   border-color: #000;   box-shadow: none; } .res-nightmode .listing-chooser li a, .res-nightmode .listing-chooser li.selected a {   color: #8AD; } .res-nightmode .listing-chooser .intro {   background-color: #444;   border-color: #262626;   color: #ccc; } .res-nightmode .listing-chooser .create button {   color: #eee;   background-color: #777; } .res-nightmode .subreddits .remove-sr, .res-nightmode .add-sr .add {   filter: invert(80%); } .res-nightmode .with-listing-chooser.multi-page .footer-parent {   background: url('../images/nightmode/snooBalloons.png') no-repeat 49% 0; } .res-nightmode #about-main #history .events.timeline .event:hover .event-content {   box-shadow: 1px 0 3px 2px #aaa; } .res-nightmode #about-main .statsgrid .stat .value {   text-shadow: 0 3px 5px #1a1a1a; } .res-nightmode .about-page .abouttitle h1, .res-nightmode .create .morelink, .res-nightmode .permission-summary, .res-nightmode .flairselector li, .res-nightmode .subreddit .usertext .md {   border-color: transparent; } .res-nightmode .about-page .about-menu {   background: #ddd; } .res-nightmode .about-page h2, .res-nightmode .md del {   color: #777; } .res-nightmode .about-page .about-menu li.selected a, .res-nightmode .about-page .about-menu li:hover a, .res-nightmode #about-main #history .events.timeline .event-content {   background: #aaa; } .res-nightmode .about-page .abouttitle {   background-image: url('../images/nightmode/aboutHeader.png'); } .res-nightmode .policy-page .md p {   color: #eee; } .res-nightmode .policy-page .md p em {   background-color: #dad0b3;   color: #000; } .res-nightmode body, .res-nightmode .sidebar .md, .res-nightmode .side, .res-nightmode .side *, .res-nightmode .side .spacer, .res-nightmode .content, .res-nightmode .traffic-tables .traffic-table tr, .res-nightmode .parentComment .md, .res-nightmode .post-body.entry-content, .res-nightmode .dsq-auth-header, .res-nightmode .instructions .preftable th, .res-nightmode #BigEditor .markdownEditor a, .res-nightmode #BigEditor .markdownEditor .RESMacroDropdownTitle, .res-nightmode #REScommentSubToggle, .res-nightmode #alert_message, .res-nightmode #report-action-form {   color: #ccc; } .res-nightmode .titlebox form.toggle, .res-nightmode .leavemoderator {   background-color: inherit; } .res-nightmode .server-seconds {   background: #333;   border-color: #1a1a1a; } .res-nightmode .snoovatar-page footer .inputs, .res-nightmode .guider, .res-nightmode aside.sidebar #discussions li {   background: #262626; } .res-nightmode .snoovatar-page .checkbox-label [type='checkbox'] + .proxy-checkbox {   background: #f00; } .res-nightmode .snoovatar-page .checkbox-label [type='checkbox']:checked + .proxy-checkbox {   background: #0a802e; } .res-nightmode .tagline .friend {   color: #d25a32; } .res-nightmode .tagline .submitter {   color: #0af; } .res-nightmode .tagline .moderator {   color: #282; } .res-nightmode .tagline .admin, .res-nightmode .user-distinction .admin {   color: #c81414; } .res-nightmode hr, .res-nightmode .md hr, .res-nightmode .message.gold-auto blockquote {   border-color: #3c3c3c;   background-color: #3c3c3c; } .res-nightmode #RESSubredditGroupDropdown {   background-color: #ccc; } .res-nightmode #RESSubredditGroupDropdown a, .res-nightmode .RESNotificationContent, .res-nightmode .RESNotificationFooter, .res-nightmode .sr-bar a {   color: black; } .res-nightmode .goldvertisement, .res-nightmode .goldvertisement .inner {   border-color: rgba(196, 180, 135, 0.5); } .res-nightmode .goldvertisement .inner h2, .res-nightmode .goldvertisement .progress p {   color: #c4b487; } .res-nightmode .goldvertisement a, .res-nightmode .goldvertisement a:hover {   background-color: #4d4d4d;   border-color: black;   color: white; } .res-nightmode .letter-body p, .res-nightmode #gold-letter h1, .res-nightmode #about-gold h1, .res-nightmode #about-gold footer > p, .res-nightmode .RESDashboardComponentScrim span, .res-nightmode .RESDashboardComponent .RESDashboardComponentHeader ul .updateTime, .res-nightmode .remove-self .option, .res-nightmode .moderator.remove-self .option, .res-nightmode .message-count, .res-nightmode .usertable > .toggle {   color: #262626; } .res-nightmode .gold-accent {   color: #e6daae;   background-color: #837854;   border-color: #ac9c68; } .res-nightmode .side .gold-accent *, .res-nightmode .gold-accent .details, .res-nightmode .gold-accent h1, .res-nightmode .gold-accent th {   color: #e6daae; } .res-nightmode .hover-bubble.anchor-top-centered::after, .res-nightmode #about-main #history .events.timeline .event-marker.top, .res-nightmode #about-main #history .events.timeline .event-marker.bottom {   border-bottom-color: #aaa; } .res-nightmode .guiders_arrow {   opacity: 0.5; } .res-nightmode .white-field, .res-nightmode .delete-field, .res-nightmode .RESDialogSmall.livePreview .md.RESDialogContents, .res-nightmode .moderator .traffic-table tbody tr:nth-child(even), .res-nightmode .instructions, .res-nightmode .linefield .delete-field, .res-nightmode #pref-delete .delete-field, .res-nightmode .contact-us-page .details li, .res-nightmode .subreddit-report-form input:disabled, .res-nightmode .action-form input:disabled {   background-color: transparent; } .res-nightmode .message.message-reply .entry, .res-nightmode .message.message-parent .entry, .res-nightmode .flairselector.drop-choices.active, .res-nightmode .message.threaded .child, .res-nightmode .comment .child, .res-nightmode .comment .showreplies, .res-nightmode .message.message-reply:not(.threaded) .entry, .res-nightmode .message.message-parent:not(.threaded) .entry, .res-nightmode.liveupdate-app .content, .res-nightmode .liveupdate-listing li.separator::before, .res-nightmode .md td, .res-nightmode .md th, .res-nightmode .footer, .res-nightmode .footer .col, .res-nightmode .userTagLink.hasTag, .res-nightmode #userTaggerPreview {   border-color: #4d4d4d; } .res-nightmode .comment .md p a[href='/spoiler']:hover, .res-nightmode .comment .md p a[href='/spoiler']:active, .res-nightmode .comment .md p a[href='#spoiler']:hover, .res-nightmode .comment .md p a[href='#spoiler']:active, .res-nightmode .addNewWidget, .res-nightmode .editWidget, .res-nightmode #authorInfoToolTip .option, .res-nightmode .updateTime, .res-nightmode #RESSubmitOptions ~ div a, .res-nightmode #shortlink-text, .res-nightmode .guiders_button, .res-nightmode .blueButton, .res-nightmode .gold-accent a, .res-nightmode .snoovatar-page .gold-accent a, .res-nightmode .combined-search-page .search-result-subreddit .search-subscribe-button .add.active, .res-nightmode .combined-search-page .search-result-subreddit .search-subscribe-button .remove.active, .res-nightmode .fancy-toggle-button a, .res-nightmode .fancy-toggle-button .multi-count {   color: white; } .res-nightmode .markhelp table tr:first-child {   background-color: #4d4d4d !important; } .res-nightmode .usertext .markhelp .spaces, .res-nightmode .liveupdate-listing li.separator time, .res-nightmode .diff_header, .res-nightmode .diff_next, .res-nightmode .hover-bubble.multi-selector label:hover {   background-color: #4d4d4d; } .res-nightmode .flair, .res-nightmode .linkflairlabel {   color: #c8c8c8;   background-color: #404040;   border-color: #4d4d4d; } .res-nightmode .flairrichtext[style*='color'] {   color: #c8c8c8 !important;   background-color: #404040 !important;   border-color: #4d4d4d; } .res-nightmode #NERContent {   background-color: #a0a0a0; } .res-nightmode .RESNotification {   background-color: #d2d2d2; } .res-nightmode .RESNotificationContent {   border-color: #b4b4b4; } .res-nightmode #modalOverlay.fadeIn {   background-color: rgba(0, 0, 0, 0.7); } .res-nightmode #RESConsoleTopBar, .res-nightmode .RESDonateButton {   color: #e6e6e6;   border-color: #4d4d4d;   background-color: #3c3c3c; } .res-nightmode .res-logo {   filter: invert(79%) grayscale(100%); } .res-nightmode .optionContainer {   border-color: transparent;   background-color: #282828; } .res-nightmode .optionContainer:not(.table):not(.specialOptionType) .optionSetting, .res-nightmode #SearchRES-results-container li, .res-nightmode #RESConfigPanelModulesList > ul, .res-nightmode #RESConfigPanelModulesList li h3, .res-nightmode #RESConfigPanelModulesList li.active h3 {   border-color: #3c3c3c; } .res-nightmode #RESConsoleContainer input[type='text'], .res-nightmode #RESConsoleContainer input[type='password'], .res-nightmode #RESConsoleContainer .c-form-control, .res-nightmode ul.token-input-list-facebook, .res-nightmode #RESConsoleContainer textarea {   padding: 2px 3px;   border: 1px solid #3c3c3c;   background-color: #222;   color: #ddd; } .res-nightmode #RESConfigPanelModulesList {   color: #a0a0a0; } .res-nightmode #RESConfigPanelModulesList li.active h3 {   background-color: #141414; } .res-nightmode #RESConsoleContainer, .res-nightmode .moduleButton.enabled, .res-nightmode .optionsTable th, .res-nightmode .tagline .score {   color: #b4b4b4; } .res-nightmode #moduleOptionsScrim {   background-color: rgba(34, 34, 34, 0.7); } .res-nightmode .optionsTable th {   background-color: #3c3c3c; } .res-nightmode .optionsTable tr:nth-child(2n) {   background-color: #1d1d1d; } .res-nightmode #moduleOptionsSaveStatus {   background-color: #323232;   color: #969696; } .res-nightmode .toggleButton .toggleOff, .res-nightmode .toggleButton .toggleOn, .res-nightmode .toggleButton.reverseToggleButton:not(.enabled) .toggleOff, .res-nightmode .toggleButton.reverseToggleButton:not(.enabled) .toggleOn {   color: rgba(255, 255, 255, 0.8);   border-color: #3c3c3c; } .res-nightmode .toggleButton:not(.enabled) .toggleOn, .res-nightmode .toggleButton.enabled .toggleOff, .res-nightmode .toggleButton.reverseToggleButton.enabled .toggleOn, .res-nightmode .toggleButton.reverseToggleButton:not(.enabled) .toggleOff {   color: #3c3c3c;   border-color: #3c3c3c;   background: #282828; } .res-nightmode .toggleButton.enabled .toggleOn, .res-nightmode .toggleButton.reverseToggleButton:not(.enabled) .toggleOn {   background: linear-gradient(to right, #25456b, #282828); } .res-nightmode .toggleButton:not(.enabled) .toggleOff, .res-nightmode .toggleButton.reverseToggleButton.enabled .toggleOff {   background: linear-gradient(to left, #882626, #282828); } .res-nightmode .link .rank {   color: #505050; } .res-nightmode .midcol .score, .res-nightmode .moduleButton:not(.enabled) {   color: #646464; } .res-nightmode .tagline, .res-nightmode .entry .buttons li a, .res-nightmode .trending-subreddits strong {   color: #828282; } .res-nightmode .res-hasNewComments .newComments {   color: #d25a32; } .res-nightmode .nsfw-stamp {   color: #bf4040; } .res-nightmode .spoiler-stamp {   color: #ff8200; } .res-nightmode .diff_sub {   background-color: rgba(240, 128, 128, 0.5); } .res-nightmode .diff_add {   background-color: rgba(144, 238, 144, 0.4); } .res-nightmode .diff_chg {   background-color: rgba(255, 255, 0, 0.4); } .res-nightmode .hover-bubble.multi-selector .create-multi input[type='text'] {   color: #c04e51;   background-color: inherit; } .res-nightmode #alert_message, .res-nightmode #report-action-form {   border-color: #404040;   background-color: #262626; } .res-nightmode .sr-interest-bar {   border-color: transparent;   background-color: #29333d; } .res-nightmode .sr-interest-bar .bubble {   background-color: black; } .res-nightmode .sr-interest-bar .bubble::after {   border-right-color: black; } .res-nightmode .subreddit-rule-item:hover {   background-color: #2b2b2b; } .res-nightmode #keyHelp {   border-color: #999;   background-color: #aaa;   color: #333; } .res-nightmode #keyHelp td {   border-color: #999; } .res-nightmode .res-filterline {   background-color: rgba(38, 38, 38, 0.9); } .res-nightmode .res-filterline-filter {   border-bottom-color: #383838; } .res-nightmode .res-filterline-filter-hiding, .res-nightmode .res-filterline-filter-hiding:hover {   border-bottom-color: #e4e4e4;   color: #e4e4e4; } .res-nightmode .res-filterline-dropdown {   background-color: #313131;   box-shadow: #3c3c3c 2px 2px 2px; } .res-nightmode .res-filterline-dropdown-action {   border-bottom-color: #404040; } .res-nightmode #REScommentNavBox #commentNavUp, .res-nightmode #REScommentNavBox #commentNavDown {   color: #434343; } .res-nightmode #REScommentNavBox #commentNavPostCount {   color: #9f9f9f; } .res-nightmode .res-commentNavToggle-choices {   background-color: rgba(0, 0, 0, 0.9);   box-shadow: #313131 1px 2px 4px; } .res-nightmode .subreddit .usertext .md {   background-color: #333;   border-color: #777; } .res-nightmode .user-subreddit .path {   color: #8cb3d9; } .res-nightmode .modal .modal-header-title {   color: #aaa; } .res-nightmode .modal .modal-header, .res-nightmode .modal .field-otp, .res-nightmode .modal .modal-content {   background-color: #333;   border-color: #777;   color: #aaa; } .res-nightmode .modal .c-close {   background-color: inherit;   filter: invert(100%); } .res-nightmode .report-modal .report-form-bottom-panel .report-form-content-policy a, .res-nightmode .report-modal .report-form-action-desc {   color: #8cb3d9; } .res-nightmode .report-modal .report-form-bottom-panel .report-form-content-policy p, .res-nightmode .report-modal .report-reason-item .report-reason-display, .res-nightmode .report-modal .report-form-last-step-text, .res-nightmode .report-modal .report-form-last-step-text-custom-rules, .res-nightmode .report-modal .report-form-big-content-policy {   color: #aaa; } .res-nightmode .report-modal .c-close {   background-color: inherit; } .res-nightmode .report-modal .report-form-block-user img, .res-nightmode .report-modal .report-form-blocked-user img {   filter: invert(100%); } .res-nightmode .crossposting-modal .crosspost-header-title, .res-nightmode .crossposting-modal .crosspost-label, .res-nightmode .crossposting-modal .crosspost-sublabel {   color: #aaa; } .res-nightmode .crossposting-modal .crosspost-description {   background-color: #333;   border-color: #777; } .res-nightmode .crossposting-modal .modal-body, .res-nightmode .crossposting-modal .modal-content, .res-nightmode .crossposting-modal .crosspost-field, .res-nightmode .crossposting-modal .crosspost-preview, .res-nightmode .crossposting-modal .crosspost-thing-preview {   background-color: #262626;   color: #aaa; } .res-nightmode .tfa-login-modal .tfa-login-caption {   color: #aaa; } .res-nightmode .tfa-login-modal .tfa-switch-type-of-code {   color: #8cb3d9; } .res-nightmode .tfa-login-modal .tfa-login-bottom-panel .tfa-login-having-trouble a {   color: #8cb3d9; } .res-nightmode .enable-tfa-modal .enable-tfa-caption, .res-nightmode .enable-tfa-modal .pref-otp-qr li {   color: #aaa; } .res-nightmode .enable-tfa-modal .otp-secret-info canvas {   border: solid 5mm white; } .res-nightmode .enable-tfa-modal .switch-barcode-and-code {   color: #8cb3d9; } .res-nightmode .enable-tfa-modal .enable-tfa-bottom-panel .enable-tfa-learn-more a, .res-nightmode .enable-tfa-modal .enable-tfa-bottom-panel .switch-barcode-and-code a {   color: #8cb3d9; } .res-nightmode .disable-tfa-modal .disable-tfa-caption {   color: #aaa; } .res-nightmode .disable-tfa-modal .disable-tfa-bottom-panel .disable-tfa-learn-more a {   color: #8cb3d9; } .res-nightmode .backup-codes-modal .backup-codes-caption {   color: #aaa; } .res-nightmode .pinnable-content.pinned {   background-color: #262626 !important; } .res-nightmode .pinnable-content.pinned .c-close {   background-color: dimgrey; } .res-nightmode .author-tooltip__head {   background-color: #262626;   border-color: #777; } .res-nightmode .author-tooltip__credentials-list strong, .res-nightmode .author-tooltip__head h3, .res-nightmode .author-tooltip__description {   color: #aaa; } .res-nightmode .author-tooltip__link-list a, .res-nightmode .author-tooltip__head a {   color: #8cb3d9; } .res-nightmode .author-tooltip__link-list a:hover, .res-nightmode .author-tooltip__head a:hover {   color: #8cb3d9; } .res-nightmode .desktop-onboarding__description, .res-nightmode .desktop-onboarding-sign-up__form-note, .res-nightmode .desktop-onboarding-step_sign-up footer, .res-nightmode .subreddit-picker__subreddit-name strong {   color: #aaa; } .res-nightmode .desktop-onboarding-step_sign-up footer a {   color: #8cb3d9; } .res-nightmode .desktop-onboarding__col_sign-up_image {   opacity: 0.7; } .res-nightmode .subreddit-picker, .res-nightmode .c-username-picker-shown .desktop-onboarding__col_username_picker {   background-color: #262626;   border-color: #777; } .res-nightmode .subreddit-picker__category_selected {   background-color: #333; } .res-nightmode .api-help .overview h2, .res-nightmode .api-help .contents .introduction strong {   color: #aaa; } .res-nightmode .api-help .contents .overview code, .res-nightmode .api-help .parameters {   background-color: #333; } .res-d2x-nightmode #container > .App .ProfileTemplate.m-updated, .res-d2x-nightmode #container > .App .ProfileBarDropdown__list, .res-d2x-nightmode #container > .App .ProfileSidebar__counterInfo, .res-d2x-nightmode #container > .App .ProfileBetaConfirmationPage {   background-color: #262626;   border-color: #777;   color: #aaa; } .res-d2x-nightmode #container > .App .SubredditListExpander__more, .res-d2x-nightmode #container > .App .SubredditListItem__subredditLink, .res-d2x-nightmode #container > .App .TrendingProfilesSidebar__profileName, .res-d2x-nightmode #container > .App .TrendingProfilesSidebar__link, .res-d2x-nightmode #container > .App .TrendingProfilesSidebar__more, .res-d2x-nightmode #container > .App .BlueBar__logout, .res-d2x-nightmode #container > .App .BlueBar__username, .res-d2x-nightmode #container > .App .BlueBar__prefs, .res-d2x-nightmode #container > .App .TabMenu__tab.m-active, .res-d2x-nightmode #container > .App .TabMenu__tab, .res-d2x-nightmode #container > .App .ProfileBarDropdown__title.m-opened, .res-d2x-nightmode #container > .App .ProfileBarDropdown__title, .res-d2x-nightmode #container > .App .ProfileBarDropdown__listItem, .res-d2x-nightmode #container > .App .ProfileSidebar__reportUserLink, .res-d2x-nightmode #container > .App .ProfileSidebar__nameTitleLink, .res-d2x-nightmode #container > .App .Footer__link, .res-d2x-nightmode #container > .App .Footer__userAgreementLink, .res-d2x-nightmode #container > .App .Footer__privacyLink, .res-d2x-nightmode #container > .App .Post__origin .Post__username, .res-d2x-nightmode #container > .App .Post__authorComment .Post__username, .res-d2x-nightmode #container > .App .Post__subredditLink, .res-d2x-nightmode #container > .App .CommentTitle__postAuthor, .res-d2x-nightmode #container > .App .CommentTitle__subredditName, .res-d2x-nightmode #container > .App .Comment.m-op .Comment__author {   color: #8cb3d9; } .res-d2x-nightmode #container > .App .Post__titleLink, .res-d2x-nightmode #container > .App .CommentTitle__postTitle {   color: #dedede; } .res-d2x-nightmode #container > .App .Post__flatListItem, .res-d2x-nightmode #container > .App .Post__titleLink:visited, .res-d2x-nightmode #container > .App .CommentTitle__postTitle {   color: #a6a6a6; } .res-d2x-nightmode #container > .App .ProfileBarDropdown__list:hover, .res-d2x-nightmode #container > .App .ProfileBarDropdown__listItem:hover {   background-color: dimgrey; } .res-d2x-nightmode #container > .App .UserTopSubredditsSidebar__header, .res-d2x-nightmode #container > .App .SubredditListItem__subscribers, .res-d2x-nightmode #container > .App .UserModeratedSubredditsSidebar__header, .res-d2x-nightmode #container > .App .UserSpecialsListSidebar__header, .res-d2x-nightmode #container > .App .UserSpecialsListSidebar__title, .res-d2x-nightmode #container > .App .UserSpecialsListSidebar__date, .res-d2x-nightmode #container > .App .TrophyCaseSidebar__header, .res-d2x-nightmode #container > .App .TrophyCaseSidebar__trophyTitle, .res-d2x-nightmode #container > .App .TrophyCaseSidebar__trophyDescription, .res-d2x-nightmode #container > .App .TrendingProfilesSidebar__header, .res-d2x-nightmode #container > .App .BlueBar__karma, .res-d2x-nightmode #container > .App .ProfileSidebar__displayName, .res-d2x-nightmode #container > .App .ProfileSidebar__description, .res-d2x-nightmode #container > .App .ProfileSidebar__counters, .res-d2x-nightmode #container > .App .ProfileSidebar__followDescription, .res-d2x-nightmode #container > .App .Post__score, .res-d2x-nightmode #container > .App .StyledHtml, .res-d2x-nightmode #container > .App .Post__authorComment .StyledHtml, .res-d2x-nightmode #container > .App .Post__prominentComment .StyledHtml, .res-d2x-nightmode #container > .App .Post__commentContainer, .res-d2x-nightmode #container > .App .ProfileVoiceAd__title, .res-d2x-nightmode #container > .App .ProfileVoiceAd__description, .res-d2x-nightmode #container > .App .ProfileVoiceAd__button {   color: #aaa; } .res-d2x-nightmode #container > .App .BlueBar {   background: dimgrey; } .res-d2x-nightmode #container > .App .BlueBar__account, .res-d2x-nightmode #container > .App .ProfileSidebar__titleContainer, .res-d2x-nightmode #container > .App .Post, .res-d2x-nightmode #container > .App .CommentListing__comment {   background-color: #333;   border-color: #777;   color: #aaa; } .res-d2x-nightmode #container > .App .SubscriptionBar {   background-color: #ccc; } .res-d2x-nightmode #container > .App .SubscriptionBar__subredditListTarget {   color: #000 !important; } .res-d2x-nightmode #container > .App .SubredditListItem__subscribe, .res-d2x-nightmode #container > .App .SubredditListItem__unsubscribe, .res-d2x-nightmode #container > .App .Post__crosspostExpando .Media.m-embed, .res-d2x-nightmode #container > .App .Post__crosspostExpando .Media.m-image, .res-d2x-nightmode #container > .App .Post__crosspostExpando .Media.m-video, .res-d2x-nightmode #container > .App .Media.m-profile.m-embed, .res-d2x-nightmode #container > .App .Media.m-profile.m-image, .res-d2x-nightmode #container > .App .Media.m-profile.m-video, .res-d2x-nightmode #container > .App .StyledHtml pre {   background-color: #262626; } .res-d2x-nightmode #container > .App .SubredditListDropdown, .res-d2x-nightmode #container > .App .SubredditListDropdown__listItem, .res-d2x-nightmode #container > .App .SubredditListDropdown__listMore {   background-color: #333;   color: #aaa;   border-color: #777; } .res-d2x-nightmode #container > .App .SubredditListDropdown__listItem:hover, .res-d2x-nightmode #container > .App .Post__comment:hover {   background-color: #3e3e3e; } .res-d2x-nightmode #container > .App .ProfileVoiceAd {   background-color: #202020; } `);
     }
+    Options.addCheckbox({
+        label: 'RES Night Mode',
+        "default": false,
+        section: 'Advanced',
+        help: 'RES Night Mode.',
+        onchange: function () {
+            Elements.$body.attr('data-RESDarkMode', this.prop('checked'));
+            if(Elements.$body.attr('data-RESDarkMode') == 'true') {
+                document.body.classList.add("res-nightmode");
+                if (resTest == 0) {
+                    resAdda();
+                }
+            }
+            if (Elements.$body.attr('data-RESDarkMode') == 'false') {
+                document.body.classList.remove("res-nightmode");
+            }
+        }
+    });
+    if(Elements.$body.attr('data-RESDarkMode') == 'true') {
+        if(resTest == 0) {
+            resAdda();
+        }
+        document.body.classList.add("res-nightmode");
+    }
+})(RESDarkMode || (RESDarkMode = {}));
+
+/////////////////////////
+// CollapsiblePosts.ts //
+/////////////////////////
+var CollapsiblePosts;
+var collapseCount = 0;
+(function (CollapsiblePosts) {
+    // Options
+    Elements.$body.attr('data-CollapsiblePosts', true);
+
+    Options.addCheckbox({
+        label: 'Collapsible Posts',
+        "default": true,
+        section: 'Advanced 2',
+        help: 'yeah.',
+        onchange: function () {
+            Elements.$body.attr('data-CollapsiblePosts', this.prop('checked'));
+        }
+    });
+UPDATE_EVENTS.addListener("new", data => {
+    // steal from https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_collapsible lol
+    if(Elements.$body.attr('data-CollapsiblePosts') == 'true') {
+                     var collapse_html = data.bodyNode.html();
+                var collapse_text = data.bodyNode.text();
+                var regexcollapse = collapse_html.match(/<a href="#start"(.*?)<\/a>(.*?)<a href="#end"(.*?)<\/a>/gms);
+                for(var matchcol in regexcollapse) {
+                    collapseCount++;
+                    var newcol = regexcollapse[matchcol].trim();
+                    newcol = newcol.replace(/<a href="#start"(.*?)<\/a>/gms, '<button type="button" id="LCE_Collapse_'+collapseCount+'" class="LCE_Collapse">[+] Toggle</button><div class="LCE_Content" id="LCE_Content_'+collapseCount+'">');
+                    newcol = newcol.replace(/<a href="#end"(.*?)<\/a>/gms, '</div>');
+                    collapse_html = collapse_html.replace(regexcollapse[matchcol], newcol);
+                }
+                data.bodyNode.html(collapse_html);
+    }
+            });
+    Styles.add(`.LCE_Collapse { background-color: #777; color: white; cursor: pointer; padding: 3px; border: none; text-align: left; outline: none; } .LCE_Collapse_Active, .LCE_Collapse:hover { background-color: #555; } .LCE_Content { display: none; overflow: hidden;}`);
+
+    $(document).on('click', '.LCE_Collapse', function(){
+        var collapse_id = $(this).attr('id').replace('LCE_Collapse_','');
+    this.classList.toggle("LCE_Collapse_Active");
+        var content = $('#LCE_Content_'+collapse_id);
+    if (content.css('display') === 'block') {
+      content.css('display','none');
+        $(this).text('[+] Toggle');
+    } else {
+      content.css('display','block');
+        $(this).text('[-] Toggle');
+    }
+    });
+
+})(CollapsiblePosts || (CollapsiblePosts = {}));
+
+if(THREAD == THREADS.MAIN) { // Main thread special feature
+
+//////////////////////
+// LC_Chats_View.ts //
+//////////////////////
+var LC_Chats_View;
+(function (LC_Chats_View) {
+    // Options
+    Elements.$body.attr('data-LC_Chats_View', false);
+    var lccTest = 0;
+    function lccAdda(h, thread) {
+        if(h == 'yeah bro' && lccTest < 1) {
+            if(lccTest == 0) {
+                var resversion = $('#RESConsoleVersion');
+                Styles.add(`#lc-body[data-LC_Chats_View='true'] div.content { padding-left: 19%; } #lc_chats_iframe #idlecontainer {display:none!important;}`);
+                $(`<iframe class="lciframe" id="lc_chats_iframe" src="/live/14ny3ur3axhd4" style="border:none; position: absolute; left: 1%; width: 18%; top: 12%; height: 85%; "></iframe>`).insertAfter('.main-content');
+                $(`<select style="position: absolute;left: 9%;width: 10%;top: 97%;border: none;max-width: 10%;" id="iframe_loader"></select>`).insertAfter('#lc_chats_iframe');
+                $(`#iframe_loader`).append(new Option("LC_CHATS", THREADS["LC_CHATS"]));
+                for(var threadname in THREADS) {
+                    if(threadname == "MAIN") {
+                        continue;
+                    } else if(threadname == "LC_CHATS") {
+                        continue;
+                    } else {
+                    $(`#iframe_loader`).append(new Option(threadname, THREADS[threadname]));
+                    }
+                }
+                $(document).on('change', '#iframe_loader', function (e) {
+                    lccTest = -1;
+                    lccAdda('yeah bro', document.getElementById("iframe_loader").value);
+                });
+                $(`<div class="prettyform lciframe" style="display:none;position: absolute;left: 1%;width: 18%;top: 91%;border: none;max-width: 18%;" id="sidebar-update-form"><div class="usertext"><input type="hidden" name="thing_id" value=""><div style="" class=""><div class="md"><textarea rows="1" cols="1" name="body" class="" data-textboxposition="Default" style="height:22px!important; width: 90%;"></textarea></div></div></div><div class="save-button"><button id="sidebar_submit" class="btn" type="button" onclick="return post_pseudo_form('#sidebar-update-form', 'live/14ny3ur3axhd4/update')">make update</button> <span class="status error" style="display: none;"></span></div></div>`).insertAfter('#lc_chats_iframe');
+                                $('#sidebar-update-form textarea').on('keydown', function (e) {
+            if(Elements.$body.attr('data-submitShortcut') == "Off") {
+                return;
+            }
+            if(Elements.$body.attr('data-submitShortcut') == "Ctrl+Enter") {
+                if (resversion.length > 0 && +(resversion.text().replace(/\D/g, '')) >= 478) {
+                    return;
+                }
+                if (e.keyCode == 13 && (e.ctrlKey || e.metaKey)) {
+                    e.preventDefault();
+                    $('#sidebar-update-form .save-button button').trigger('click');
+                }
+            }
+            if(Elements.$body.attr('data-submitShortcut') == "Enter") {
+                if (e.keyCode == 13) {
+                    e.preventDefault();
+                    $('#sidebar-update-form .save-button button').trigger('click');
+                }
+            }
+        });
+            } else {
+                document.getElementById('lc_chats_iframe').src = `/live/`+thread;
+                document.getElementById('sidebar_submit').setAttribute( "onClick", `return post_pseudo_form('#sidebar-update-form', 'live/`+thread+`/update');`);
+                $('#sidebar-update-form').css('display','none');
+            }
+            $('#lc_chats_iframe').on('load', (function(){
+                var embed = $('#lc_chats_iframe').contents();
+                embed.find("#idlecontainercontainer").css('display','none');
+                embed.find("#header").css('display','none');
+                embed.find("#liveupdate-statusbar").css('display','none');
+                embed.find("#new-update-form").css('display','none');
+                if(embed.find("#new-update-form").length > 0) {
+                    $('#sidebar-update-form').css('display','initial');
+                } else {
+                    $('#sidebar-update-form').css('display','none');
+                }
+                embed.find(".sidebar").css('display','none');
+            }));
+            lccTest = 1;
+        }
+        else if(h == 'yeah bro' && lccTest == 2) {
+            lccTest = 1;
+            $('#lc_chats_iframe').css('display','initial');
+            $('#iframe_loader').css('display','initial');
+            $('#sidebar-update-form').css('display','initial');
+        } else if(h == 'nuh uh bro, also does this piss you off that im using strings like this? GOOD.' && lccTest == 1) {
+            lccTest = 2;
+            $('#lc_chats_iframe').css('display','none');
+            $('#iframe_loader').css('display','none');
+            $('#sidebar-update-form').css('display','none');
+        }
+    }
+    Options.addCheckbox({
+        label: 'LC Chats View',
+        "default": false,
+        section: 'Advanced',
+        help: 'Puts a small lil lc chats on da left side {:}',
+        onchange: function () {
+            Elements.$body.attr('data-LC_Chats_View', this.prop('checked'));
+            if(Elements.$body.attr('data-LC_Chats_View') == 'true') {
+                lccAdda('yeah bro');
+            }
+            if (Elements.$body.attr('data-LC_Chats_View') == 'false') {
+                lccAdda('nuh uh bro, also does this piss you off that im using strings like this? GOOD.');
+            }
+        }
+    });
+})(LC_Chats_View || (LC_Chats_View = {}));
+} // End main thread special feature.
+
+//////////////////////
+// DisableEmbeds.ts //
+//////////////////////
+var DisableEmbeds;
+(function (DisableEmbeds) {
+    // Options
+    Elements.$body.attr('data-DisableEmbeds', true);
+    var embedTest = 0;
+    function embedKiller() {
+        embedTest = 1;
+        r.liveupdate.embeds.EmbedViewer.prototype.update = function(){return;}
+    }
+    Options.addCheckbox({
+        label: 'Disable Embeds',
+        "default": true,
+        section: 'Advanced',
+        help: 'Stops LC from automatically embedding images, videos, etc.',
+        onchange: function () {
+            Elements.$body.attr('data-DisableEmbeds', this.prop('checked'));
+            if(Elements.$body.attr('data-DisableEmbeds') == 'true') {
+                if (embedTest == 0) {
+                    embedKiller();
+                }
+            }
+        }
+    });
+    if(Elements.$body.attr('data-DisableEmbeds') == 'true') {
+        if(embedTest == 0) {
+            embedKiller();
+        }
+    }
+})(DisableEmbeds || (DisableEmbeds = {}));
+
+////////////////////
+// FixFavicon.ts //
+////////////////////
+var FixFavicon;
+(function (FixFavicon) {
+    // Options
+    if(Math.ceil(window.devicePixelRatio) == window.devicePixelRatio) {
+        return;
+    }
+    Elements.$body.attr('data-FixFavicon', true);
+    var faviconTest = 0;
+    function faviconFixer() {
+        faviconTest = 1; // non-compressed is here: https://pastebin.com/KLnWZmX6 lol 
+        function bruhbruh(){function i(){var e;return r&&a||(e=function(){for(var e=document.getElementsByTagName("link"),t=0,n=e.length;t<n;t++)if((e[t].getAttribute("rel")||"").match(/\bicon\b/))return e[t];return!1}(),r=e?e.getAttribute("href"):"/favicon.ico",a=a||r),a}function o(){return u||((u=document.createElement("canvas")).width=g,u.height=g),u}function e(e){!function(){for(var e=document.getElementsByTagName("link"),t=document.getElementsByTagName("head")[0],n=0,a=e.length;n<a;n++)void 0!==e[n]&&(e[n].getAttribute("rel")||"").match(/\bicon\b/)&&t.removeChild(e[n])}();var t=document.createElement("link");t.type="image/x-icon",t.rel="icon",t.href=e,document.getElementsByTagName("head")[0].appendChild(t)}var t,n={},a=null,r=null,c=null,u=null,l={},f=Math.ceil(window.devicePixelRatio)||1,g=16*f,d={width:7,height:9,font:10*f+"px arial",colour:"#ffffff",background:"#F03D25",fallback:!0,crossOrigin:!0,abbreviate:!0},s=(t=navigator.userAgent.toLowerCase(),function(e){return-1!==t.indexOf(e)}),m=s("msie"),h=(s("chrome"),s("chrome")||s("safari")),b=s("safari")&&!s("chrome"),v=s("mozilla")&&!s("chrome")&&!s("safari"),p=function(e){var t;l.fallback&&("("===(t=document.title)[0]&&(t=t.slice(t.indexOf(" "))),document.title=0<(e+"").length?"("+e+") "+t:t)},A=function(e,t,n){"number"==typeof t&&99<t&&l.abbreviate&&(t=T(t));var a=(t+"").length-1,i=l.width*f+6*f*a,o=l.height*f,r=g-o,c=g-i-f,a=16*f,o=16*f,i=2*f;e.font=(h?"bold ":"")+l.font,e.fillStyle=l.background,e.strokeStyle=l.background,e.lineWidth=f,e.beginPath(),e.moveTo(c+i,r),e.quadraticCurveTo(c,r,c,r+i),e.lineTo(c,a-i),e.quadraticCurveTo(c,a,c+i,a),e.lineTo(o-i,a),e.quadraticCurveTo(o,a,o,a-i),e.lineTo(o,r+i),e.quadraticCurveTo(o,r,o-i,r),e.closePath(),e.fill(),e.beginPath(),e.strokeStyle="rgba(0,0,0,0.3)",e.moveTo(c+i/2,a),e.lineTo(o-i/2,a),e.stroke(),e.fillStyle=l.colour,e.textAlign="right",e.textBaseline="top",e.fillText(t,2===f?29:15,v?7*f:6*f)},w=function(){o().getContext&&e(o().toDataURL())},T=function(e){for(var t=[["G",1e9],["M",1e6],["k",1e3]],n=0;n<t.length;++n)if(e>=t[n][1]){e=k(e/t[n][1])+t[n][0];break}return e},k=function(e,t){return new Number(e).toFixed(t)};n.setOptions=function(e){for(var t in l={},d)l[t]=(e.hasOwnProperty(t)?e:d)[t];return this},n.setImage=function(e){return a=e,w(),this},n.setBubble=function(e,t){return function(e,t){if(!o().getContext||m||b||"force"===l.fallback)return p(e);var n=o().getContext("2d"),t=t||"#000000",a=i();(c=document.createElement("img")).onload=function(){n.clearRect(0,0,g,g),n.drawImage(c,0,0,c.width,c.height,0,0,g,g),0<(e+"").length&&A(n,e,t),w()},!a.match(/^data/)&&l.crossOrigin&&(c.crossOrigin="anonymous"),c.src=a}(e=e||"",t),this},n.reset=function(){e(r)},n.setOptions(d),window.Tinycon=n,"function"==typeof define&&define.amd&&define(n)}bruhbruh(),favicon_data="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAA/1BMVEUpLzY+PDpGSk5HR0dKTlNSW2VTXGVVXmdWWl5bYWZdZGtfanVfbHpgXVtianNjbXhkZWdkam1lcX1nc4BpdYJqa2xscHZucHJueYRvfoxwfIhxcG93e4B3h5h4iJh5ipt7gIB8ipl+fn6BgYGImKOJh4aKjY2Mna6NobSOn7CQo7iar8Wfnp2juM6lo6Gmuc6mu8moqaqsw9etwcmurq6vrauxyN2xyN+0s7K+u7m/1u7C2vPF3fbI4PrJ4fvJ4/7Ly8vPzMnP6P7S0tLT0c/W8P/Z19Xd9/7d+P7e3Nrw8PDz9vT69/T+EA/+MjD+pqT+srD+w8H+zsz+/v7///9fla50AAAAuElEQVR42l2P2RaBUBhGT0WZ54jIPM8h0zE7SBL97/8uYoXFvtwXe30fIn8ggn94i8XMGSkFQvmPwFXvwOe/OGyx3OJYF+OUq26LcS2LMs05Xj0bPY+QDFc6k1bOnRQ8PYLiKlXW4IlWptQ4QWlxCIZ+h7tuwFBME9RgAG5XE8zrDYBpWNEEfElY0RO7Aejvzrs+wIa1xFGmp7AuFoprmNLya4fC8aP9YT/iOeX9pS1Fg1GpbZ/74wFo2jf64C4agwAAAABJRU5ErkJggg==",r.liveupdate.app.websocket._socket.onmessage=function(e){e=JSON.parse(e.data);r.debug('websocket: received "'+e.type+'" message'),r.liveupdate.app.websocket.trigger("message message:"+e.type,e.payload),Tinycon.setBubble(r.liveupdate.app.faviconUpdater.unreadItemCount),Tinycon.setImage(favicon_data)};
+    }
+    Options.addCheckbox({
+        label: 'Fix Favicon',
+        "default": true,
+        section: 'Advanced',
+        help: 'Fixes the favicon.',
+        onchange: function () {
+            Elements.$body.attr('data-FixFavicon', this.prop('checked'));
+            if(Elements.$body.attr('data-FixFavicon') == 'true') {
+                if (faviconTest == 0) {
+                    faviconFixer();
+                }
+            }
+        }
+    });
+    if(Elements.$body.attr('data-FixFavicon') == 'true') {
+        if(faviconTest == 0) {
+            faviconFixer();
+        }
+    }
+})(FixFavicon || (FixFavicon = {}));
+
+///////////////////////
+// FixEditButtons.ts //
+///////////////////////
+var FixEditButtons;
+(function (FixEditButtons) {
+    // Options
+    if(r.liveupdate.app.permissions._permissions.all == true || r.liveupdate.app.permissions.allow("edit") == r.liveupdate.app.permissions._permissions.edit) {
+        return;
+    }
+    r.liveupdate.app.permissions.allow = function(e){return this.isSuperUser()?!0:this._permissions[e] == true} //intended feature
+})(FixEditButtons || (FixEditButtons = {})); // doesn't fix pre-loaded messages, sadly :/ 
+
+// Test thread special feature (Always at the bottom, because it will be messy lol)
+if(THREAD == THREADS.TEST || window.location.href.indexOf("testing") > -1) {
+// Experiment picker
+
+$("#liveupdate-description").append("<p style='background:#e2ffdb;color:black!important;font-size:16px;' id=experiment>Tests: <a style='color:#0258ab!important' href=https://old.reddit.com/live/15jj2286nsulu?fakerunner>Fake Runner</a> | <a style='color:#0258ab!important' href=https://old.reddit.com/live/15jj2286nsulu?whiteboard>Whiteboard</a> | <a style='color:#0258ab!important' href=https://old.reddit.com/live/15jj2286nsulu?latency>Expanded Latency (see console)</a></p>");
+
+        if(window.location.href.indexOf("whiteboard") > -1) { // Whiteboard start
+        $("#liveupdate-description").append(`<iframe src="https://socketio-whiteboard-zmx4.herokuapp.com/" width="100%" height="480" scrolling="no" class="iframe-class" frameborder="0"></iframe>`);
+    } // Whiteboard end
+    if(window.location.href.indexOf("fakerunner") > -1) { // Fake runner start
+        $("#experiment").css('display','none');
     $("#liveupdate-description").append("<p style='background:#e2ffdb;font-size:16px;' id=fakerunner>Hi am fake runner. This feature SUCKS but maybe it could be useful to someone some day. Reply times may be slightly inaccurate but I really tried lol. Increment:<input id='fakeruntime'></input> <button id='this_sucks'>Press to run.</button><button id='fuck_it'>Click to stop.</button><button id='sink'>Sync time</button>Sync in ms:<input id='sinker'></input><button id='hide_a_mf'>Hide</button></p>");
 
 var fake_count = 10000000;
@@ -3531,8 +3084,8 @@ var time_fake = new Date();
                     synccheck = 1;
                 });
     //            $( "#sink" ).click(function() {
-        Update.loadedNew(function (data) {
-            if(data.author_elem.text() != ' /u/Riverbot' && synccheck == 1) {
+        UPDATE_EVENTS.addListener("new", data => {
+            if(data.authorNode.text() != ' /u/Riverbot' && synccheck == 1) {
                 synccheck = 0;
                 sinky = parseFloat($('#sinker').val()) * -1;
                 if(isNaN(sinky)) {sinky = 0;}
@@ -3558,185 +3111,37 @@ var time_fake = new Date();
            $( "#hide_a_mf" ).click(function() {
               $("#fakerunner").css('display','none');
                 });
+            } // Fake runner end 
+
+                // Latency testing stuff
+                if(window.location.href.indexOf("latency") > -1) { // Latency start
+    $('#new-update-form .save-button button').click(function(){
+        console.log('pressed submit:'+Date.now());
+    });
+    r.liveupdate.app.websocket._events['message:update'][0].callback = function(t){console.log('message:update start:'+Date.now());var n=r.liveupdate.listings.LiveUpdate.prototype.parse(t);this.listing.add(n,{at:0});console.log('message:update end:'+Date.now());}
+    //r.liveupdate.app.websocket._events['message:update'][0].callback = function(t){console.log('message:update start:'+Date.now());console.log('message:update end:'+Date.now());}
+    //r.liveupdate.app.websocket._events['message:update'][0].callback = function(t){console.log('message:update start:'+Date.now());var n=r.liveupdate.listings.LiveUpdate.prototype.parse(t);console.log('message:update end:'+Date.now());}
+    //r.liveupdate.app.websocket._events['message:update'][0].callback = function(t){console.log('message:update start:'+Date.now());var n=r.liveupdate.listings.LiveUpdate.prototype.parse(t);console.log('message:update parsed:'+Date.now());this.listing.add(n,{at:0});console.log('message:update end:'+Date.now());}
+    //r.liveupdate.app.websocket._events['message:update'][0].callback = function(t){console.log('message:update start:'+Date.now());var n=r.liveupdate.listings.LiveUpdate.prototype.parse(t);console.log('message:update parsed :'+Date.now());r.liveupdate.app.listing.models.unshift(n);console.log('message:update end:'+Date.now());}
+    function s(t) { return function(t) { if (t.jquery) { var n = {}; n[0] = jQuery, e.map(t.jquery, function(t) { var r = t[0] , i = t[1] , s = t[2] , o = t[3]; if (typeof o == "string") o = e.unsafe(o); else for (var u = 0; o.length && u < o.length; u++) o[u] = e.unsafe(o[u]); s == "call" ? n[i] = n[r].apply(n[r]._obj, o) : s == "attr" ? (o == "redirect" && e(window).off("beforeunload"), n[i] = n[r][o], n[i] ? n[i]._obj = n[r] : e.debug("unrecognized")) : s == "refresh" ? e.refresh() : e.debug("unrecognized") }) } } }
+    var o = "/api/";
+    $.request = function(t, u, a, f, l, c, h) { console.log('request start:'+Date.now()); var p = t , d = a; if (rate_limit(t)) { h && h("ratelimit"); return } if (window != window.top && !r.config.external_frame) return; var v = !$.with_default(f, !1) || n(p); u = $.with_default(u, {}), a = $.with_default(a, s(p)), l = $.with_default(l, "json"); var m = $("form.warn-on-unload"); typeof a != "function" && (a = s(p)); var d = function(t) { return i(p), $(m).length && t.success && $(window).off("beforeunload"), a(t) }; errorhandler_in = $.with_default(h, function() {}), h = function(e) { return i(p), errorhandler_in(e) } , c = $.with_default(c, !1), r.config.post_site && u.r === undefined && (u.r = r.config.post_site), r.config.logged && (u.uh = r.config.modhash), u.renderstyle = r.config.renderstyle, v && (t = o + t, r.commentsPreview && r.commentsPreview.visible && r.utils && (t = r.utils.replaceUrlParams(t, { comments_preview_enabled: !0 })), console.log('request ajax start:'+Date.now()), $.ajax({ type: c ? "GET" : "POST", url: t, data: u, success: d, error: h, dataType: l })); console.log('request ajax end:'+Date.now()); }
+    r.liveupdate.app.websocket._socket.onmessage = function(e){console.log('socket onmessage start:'+Date.now());var t=JSON.parse(e.data);r.debug('websocket: received "'+t.type+'" message'),r.liveupdate.app.websocket.trigger("message message:"+t.type,t.payload);console.log('socket onmessage finish:'+Date.now());}
+                UPDATE_EVENTS.addListener("new", () => {
+                    console.log('LCE finished:'+Date.now());
+                    });
+                } // Latency testing stuff end
+
+                // Random tests
+                if(window.location.href.indexOf("reddit_tests") > -1) { 
+                    r.config.status_msg.submitting = "dumbass...";
+                    console.log('Your reddit account is '+r.config.user_age/1000+' seconds old. lol');
+                    console.log('are u over 18? hmm... '+r.config.over_18+'. lol');
+                                } // Latency testing stuff end
+
+
 }
 // End test thread special feature
-
-////////////////////
-// RESDarkMode.ts //
-////////////////////
-var RESDarkMode;
-(function (RESDarkMode) {
-    // Options
-    Elements.$body.attr('data-RESDarkMode', false);
-    var resTest = 0;
-    function resAdda() {
-        resTest = 1;
-        Styles.add(`.res-nightmode #fakerunner {color:black;} .res-nightmode #liveupdate-resources h5 {color: #ccc;} .res-nightmode #liveupdate-resources h3 {color: #ccc;} .res-nightmode #dailyenabler2 {color: #ccc;} .res-nightmode #dailyenabler {color: #ccc;} .res-nightmode .toggle-trigger {color: #ccc;} .res-nightmode #live-counting-extension h2 {color: #ccc;} .res-nightmode #liveupdate-options {color:#ccc;} body.res-nightmode {background-color: #262626!important} html.res-nightmode, .res-nightmode body, .res-nightmode body .content, .res-nightmode .modal-body, .res-nightmode .side, .res-nightmode .icon-menu a, .res-nightmode .side .leavemoderator, .res-nightmode .side .leavecontributor-button, .res-nightmode .side .titlebox, .res-nightmode .side .spacer .titlebox .redditname, .res-nightmode .side .titlebox .flairtoggle, .res-nightmode .side .usertext-body .md ol, .res-nightmode .side .usertext-body .md ol ol, .res-nightmode .side .usertext-body .md ol ol li, .res-nightmode .modactionlisting table *, .res-nightmode .side .recommend-box .rec-item, .res-nightmode .crosspost-preview, .res-nightmode .crosspost-thing-preview, .res-nightmode .admin_takedown, .res-nightmode .happening-now {   background-color: #262626!important;   border-color: #777!important; } .res-nightmode .embedded-page .content > .sitetable, .res-nightmode .embedded-page.helpcenter-page .content, .res-nightmode .embedded-page.compose-page .content, .res-nightmode .embedded-page .content > .sitetable > div:nth-of-type(4n+1), .res-nightmode .embedded-page.helpcenter-page .content > div:nth-of-type(4n+1), .res-nightmode .embedded-page.compose-page .content > div:nth-of-type(4n+1) {   background-color: #262626;   color: #aaa; } .res-nightmode .link, .res-nightmode .helpcenter-form .section-content {   background-color: #262626; } .res-nightmode .helpcenter-form .helpcenter-bottom-panel .helpcenter-content-policy p {   color: #aaa; } .res-nightmode .popup, .res-nightmode .guider, .res-nightmode .guider p {   background-color: #262626;   color: #aaa; } .res-nightmode #login_login {   background-color: #333;   color: #bbb; } .res-nightmode .RESCloseButton::after, .res-nightmode .message.new > .entry, .res-nightmode .read-next, .res-nightmode .drop-choices {   border-color: #4d4d4d;   background-color: #333; } .res-nightmode .drop-choices {   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3); } .res-nightmode .read-next .read-next-header, .res-nightmode .flairselector h2, .res-nightmode .flairselector li:hover {   border-color: transparent;   background-color: #3e3e3e; } .res-nightmode .flairselector li.selected, .res-nightmode .RESNotification {   border-color: #787878; } .res-nightmode .RESCloseButton:hover::after {   background-color: #333; } .res-nightmode #RESHoverContainer::after {   border-color: transparent #262626; } .res-nightmode.liveupdate-app .content {   background-color: #161616; } .res-nightmode .entry .morecomments .gray, .res-nightmode .markdownEditor .RESCharCounter {   color: rgba(221, 221, 221, 0.8); } .res-nightmode #BigEditor .markdownEditor .RESMacroDropdownList li:hover a {   color: #bbb; } .res-nightmode .trophy-info .trophy-name {   color: #eee !important; } .res-nightmode .sidecontentbox .content {   border-color: rgba(234, 234, 234, 0.1); } .res-nightmode .RESUserTagImage::after {   color: #758ea8; } .res-nightmode #DonateRES {   background: #ccc; } .res-nightmode #progressIndicator, .res-nightmode .hover-bubble, .res-nightmode .side .side-message, .res-nightmode #editShortcutDialog, .res-nightmode #RESShortcutsAddFormContainer {   color: #ddd;   border-color: #4d4d4d;   background-color: #333; } .res-nightmode .login-form-side {   background-color: #888;   color: #eee; } .res-nightmode .login-form-side .error {   color: #cd5a5a; } .res-nightmode #header, .res-nightmode .liveupdate-home .content {   background-color: dimgrey; } .res-nightmode #jumpToContent {   color: #ddd;   border: 1px solid;   padding: 0 2px; } .res-nightmode #sr-header-area, .res-nightmode #sr-more-link {   background-color: #ccc;   color: #000; } .res-nightmode .usertable tr .user .userkarma {   color: #aa9; } .res-nightmode .thing.spam {   background-color: #3d2929; } .res-nightmode .content .pretty-form * {   box-shadow: none; } .res-nightmode .RESDashboardComponentContainer {   padding: 0; } .res-nightmode .RESDashboardComponentContainer .linklisting {   padding: 5px; } .res-nightmode .new-comment .usertext-body {   border-color: #242b3f;   background-color: #1a2135; } .res-nightmode .RESDropdownList.RESMacroDropdownList a:hover, .res-nightmode .RESDropdownList.RESMacroDropdownList li:hover {   background-color: #777;   color: #aaa; } .res-nightmode .wiki-page .pageactions .wikiaction-current {   background-color: #777; } .res-nightmode .contact-us-page .button {   background: #777;   color: #ddd; } .res-nightmode .contact-us-page .button:hover {   background: #666; } .res-nightmode .message .subject .correspondent {   background: #212f46;   color: #1496dc; } .res-nightmode .moderator .linefield {   background: #1a1a1a; } .res-nightmode .wiki-page .wiki-page-content .md.wiki > .toc ul, .res-nightmode .tabmenu li a, .res-nightmode .tabmenu li.selected a, .res-nightmode #report form {   background-color: #262626; } .res-nightmode .tabmenu li.selected a {   color: #d25a32;   border-bottom-color: #262626; } .res-nightmode .tabmenu.formtab a {   color: white;   border-color: #505050; } .res-nightmode .tabmenu.formtab .selected a {   color: white;   background-color: #5f99cf; } .res-nightmode #RESDashboardAddComponent, .res-nightmode .dashboardPane > .RESDashboardComponent {   background-color: gray; } .res-nightmode #RESDashboard .RESDashboardComponentHeader {   background-color: #848484; } .res-nightmode .RESDashboardComponent .RESDashboardComponentHeader ul li.active, .res-nightmode .RESDashboardComponent .RESDashboardComponentHeader ul li:hover {   background-color: #ccc; } .res-nightmode .side .titlebox form.flairtoggle, .res-nightmode .trophy-area .content, .res-nightmode .side .md ol, .res-nightmode .side .md ul {   background-color: #262626;   color: #ddd; } .res-nightmode .organic-listing {   border-color: #505050;   background-color: transparent !important; } .res-nightmode .organic-listing .nextprev {   opacity: 0.5; } .res-nightmode .organic-listing .link, .res-nightmode .link.promotedlink {   background-color: transparent;   border-color: #505050; } .res-nightmode .arrow.up, .res-nightmode .arrow.upmod, .res-nightmode .arrow.down, .res-nightmode .arrow.downmod {   background-image: url('../images/nightmode/arrows.png');   background-repeat: no-repeat; } .res-nightmode .arrow.up {   background-position: -15px 0; } .res-nightmode .arrow.up:hover {   background-position: -30px 0; } .res-nightmode .arrow.upmod {   background-position: 0 0; } .res-nightmode .arrow.down {   background-position: -15px -14px; } .res-nightmode .arrow.down:hover {   background-position: -30px -14px; } .res-nightmode .arrow.downmod {   background-position: 0 -14px; } .res-nightmode .subredditbox li {   font-weight: 700;   text-transform: lowercase; } .res-nightmode .subredditbox li a::before {   content: '#'; } .res-nightmode .dropdown.lightdrop a.choice:hover {   background-color: #1a1a1a; } .res-nightmode .sidebox, .res-nightmode .subreddit-info, .res-nightmode .raisedbox, .res-nightmode .login-form-side, .res-nightmode .interstitial-subreddit-description {   background-color: #393939;   border-color: #151515;   color: #aaa; } .res-nightmode .subreddit-info .spacer a {   background-color: #262626; } .res-nightmode .morelink {   background: #444;   border-color: #444; } .res-nightmode .morelink:hover {   border-color: #333;   background: #333; } .res-nightmode .morelink:hover a {   color: #1496dc; } .res-nightmode .morelink .nub {   display: none; } .res-nightmode .sidebox .spacer, .res-nightmode .side .linkinfo {   background-color: #393939; } .res-nightmode .commentbody.border {   background-color: #369; } .res-nightmode input[type='number'], .res-nightmode input[type='text'], .res-nightmode input[type='password'], .res-nightmode .c-form-control {   color: #ccc;   border: 1px solid #4d4d4d;   background-color: #333; } .res-nightmode .content textarea {   background-color: #333;   color: #eee; } .res-nightmode .rulespage .example, .res-nightmode #userTaggerTable th, .res-nightmode #newCommentsTable th, .res-nightmode .RESDashboardComponent .RESDashboardComponentHeader ul .updateTime:hover, .res-nightmode .instructions .preftable th, .res-nightmode .instructions .pretty-form, .res-nightmode .remove-self .option, .res-nightmode .unfriend-button .option, .res-nightmode .RESDashboardComponent .widgetPath, .res-nightmode .entry .buttons li.reported-stamp, .res-nightmode .pretty-button, .res-nightmode .report-reasons {   color: #000; } .res-nightmode .viewSource textarea[readonly] {   background: #666; } .res-nightmode .reported {   border-color: #daa520; } .res-nightmode .nextprev a {   background: #777;   border-color: #333;   color: #ddd; } .res-nightmode .nextprev img:hover {   opacity: 0.85; } .res-nightmode #ad-frame {   opacity: 0.8; } .res-nightmode .comment.unread {   background-color: #4a473b; } .res-nightmode .raisedbox .flat-list a {   background-color: #262626; } .res-nightmode .raisedbox .flat-list a:hover {   background-color: #369;   color: #fff; } .res-nightmode .instructions {   background: #fff; } .res-nightmode #siteTable .link .title.loggedin.click, .res-nightmode #BigEditor .markdownEditor .RESMacroDropdownList a {   color: gray; } .res-nightmode .markhelp.md tr td {   background-color: #36c; } .res-nightmode .mail .havemail img, .res-nightmode .mail .nohavemail img {   visibility: hidden; } .res-nightmode .expando-button {   background-color: transparent; } .res-nightmode #sr-autocomplete-area {   z-index: 1; } .res-nightmode button, .res-nightmode input[type='button'], .res-nightmode input[type='submit'], .res-nightmode input[type='reset'] {   color: #fff;   border: 1px outset grey;   background-color: #4d4d4d; } .res-nightmode .create-reddit .title {   background-color: rgba(24, 24, 24, 0.2);   color: #8AD; } .res-nightmode .linefield, .res-nightmode .linefield .linefield-content, .res-nightmode .linefield.mobile {   border-color: #1a1a1a;   background-color: #4d4d4d; } .res-nightmode #RESShortcutsEditContainer, .res-nightmode #RESShortcutsSort, .res-nightmode #RESShortcutsRight, .res-nightmode #RESShortcutsLeft, .res-nightmode #RESShortcutsAdd {   background: #ccc; } .res-nightmode .content .roundfield, .res-nightmode .content.submit .roundfield, .res-nightmode .traffic-table tr:nth-of-type(even) {   background-color: #181818; } .res-nightmode .traffic-table tr:nth-of-type(odd).promo-traffic-live {   color: #181818; } .res-nightmode .traffic-table.promocampaign-table tr.active {   background-color: #6d2f39;   border: 2px dotted #a70000; } .res-nightmode .sponsored-page .dashboard {   color: #dedede; } .res-nightmode .sponsored-page .campaign-editor .editor-group, .res-nightmode .sponsored-page .editor-group {   background-color: #151515; } .res-nightmode .sponsored-page .campaign-editor .campaign-set {   background-color: #666; } .res-nightmode .sponsored-page .linefield-content textarea, .res-nightmode .sponsored-page .linefield-content input {   color: #181818; } .res-nightmode .linefield .markhelp table {   background-color: inherit; } .res-nightmode .content .sponsored-page textarea, .res-nightmode .content .sponsored-page input {   background-color: #fcfcfc; } .res-nightmode .md code, .res-nightmode .md pre, .res-nightmode .link .md pre, .res-nightmode .content .md pre, .res-nightmode .new-comment .md pre, .res-nightmode .usertext.border .md pre, .res-nightmode .link .md :not(pre) > code, .res-nightmode .new-comment .md :not(pre) > code, .res-nightmode .usertext.border .md :not(pre) > code {   color: inherit;   border-color: #58697b;   background-color: #2a3340; } .res-nightmode .comment .md p a[href='/spoiler'], .res-nightmode .comment .md p a[href='#spoiler'] {   background-color: #000;   color: #000; } .res-nightmode .usertable tr:hover, .res-nightmode .moderator-table tr:hover, .res-nightmode .usertext.border .usertext-body, .res-nightmode .usertext.grayed .usertext-body {   background-color: #444; } .res-nightmode .login-form, .res-nightmode .login-form-side .submit, .res-nightmode #header-bottom-right, .res-nightmode #srList, .res-nightmode .dropdown.lightdrop .drop-choices {   background-color: #333; } .res-nightmode #srList tr {   border-bottom-color: #646464; } .res-nightmode #srList tr:hover {   background-color: #3e3e3e; } .res-nightmode #quickMessage textarea, .res-nightmode #quickMessage select {   background-color: #aaa; } .res-nightmode #search input[type='text'] {   color: white !important; } .res-nightmode #search select, .res-nightmode #search option {   color: #1a1a1a; } .res-nightmode ul.res-search-tabs li a {   background-color: #393939; } .res-nightmode.res-searchHelper-searchPageTabs ul.res-search-tabs li.res-search-tab-active a, .res-nightmode.res-searchHelper-searchPageTabs .combined-search-page #previoussearch .res-search-pane, .res-nightmode #RESConsoleContainer, .res-nightmode #SearchRES-results-container li, .res-nightmode #SearchRES-results-container li:hover, .res-nightmode #REScommentSubToggle {   background-color: #222; } .res-nightmode #searchexpando, .res-nightmode .post-sharing {   background: #303030;   border-color: #444; } .res-nightmode.res-searchHelper-searchPageTabs .combined-search-page .search-result .search-expando.collapsed::before {   background: linear-gradient(to bottom, rgba(34, 34, 34, 0) 0%, #222 100%); } .res-nightmode.res-searchHelper-searchPageTabs .combined-search-page .search-result-group .search-result-group-header {   border-bottom-color: grey; } .res-nightmode a, .res-nightmode .md a, .res-nightmode .share-button .option, .res-nightmode #subscribe a, .res-nightmode .share .option, .res-nightmode .wired a, .res-nightmode .side a, .res-nightmode .link .score.dislikes, .res-nightmode .linkcompressed .score.dislikes, .res-nightmode a[rel='tag'], .res-nightmode .dsq-help, .res-nightmode #authorInfoToolTip h3 a, .res-nightmode .reddiquette, .res-nightmode .parent .author, .res-nightmode .parent .subreddit, .res-nightmode .combined-search-page .search-result a, .res-nightmode .combined-search-page .search-result a > mark, .res-nightmode .hoverHelp, .res-nightmode .deepthread a, .res-nightmode .policy-page .md h1 a, .res-nightmode .policy-page .md h3 a {   color: #8cb3d9; } .res-nightmode .flairselector li a {   color: #85b3e0 !important; } .res-nightmode .thing .title {   color: #dedede; } .res-nightMode-coloredLinks .res-nightmode .thing .title {   color: #5c99d6; } .res-nightmode .thing .source-url {   color: #ccc; } .res-nightMode-coloredLinks .res-nightmode .thing .source-url {   color: #3380cc; } .res-nightmode .tagline a {   color: #6a98af; } .res-nightmode .morecomments a {   color: #999; } .res-nightmode .thing .title:visited, .res-nightmode .thing.visited .title, .res-nightmode .combined-search-page .search-result.visited a, .res-nightmode .combined-search-page .search-result a:visited, .res-nightmode .combined-search-page .search-result a:visited > mark {   color: #a6a6a6; } .res-nightMode-coloredLinks .res-nightmode .thing .title:visited, .res-nightMode-coloredLinks .res-nightmode .thing.visited .title, .res-nightMode-coloredLinks .res-nightmode .combined-search-page .search-result.visited a, .res-nightMode-coloredLinks .res-nightmode .combined-search-page .search-result a:visited, .res-nightMode-coloredLinks .res-nightmode .combined-search-page .search-result a:visited > mark {   color: #a679d2; } .res-nightmode .thing .source-url:visited {   color: #999; } .res-nightMode-coloredLinks .res-nightmode .thing .source-url:visited {   color: #945ec9; } .res-nightmode .flair-settings ~ .tabpane-content {   border-color: #1a1a1a; } .res-nightmode .flaircell input[type='text'] {   border: 1px solid #555; } .res-nightmode .md blockquote {   color: #a0a0a0;   border-left-color: #646464; } .res-nightmode .infobar:not(.newsletterbar), .res-nightmode .reddit-infobar {   border-color: #2966a3;   background-color: #264d73; } .res-nightmode .infobar:not(.newsletterbar) .md, .res-nightmode .reddit-infobar .md {   color: white; } .res-nightmode .rank .star, .res-nightmode .link .score.likes, .res-nightmode .linkcompressed .score.likes {   color: #ff4500; } .res-nightmode .linkcompressed .entry .buttons li a, .res-nightmode .link .usertext-body .md, .res-nightmode .thing .compressed, .res-nightmode .link.promotedlink, .res-nightmode .link.promotedlink.promoted, .res-nightmode .subreddit .usertext .md, .res-nightmode .commentreply .help tr {   background: none; } .res-nightmode .link .usertext-body .md, .res-nightmode .side .linkinfo {   border-color: #666; } .res-nightmode .subreddit-info .label, .res-nightmode .sidebox .subtitle, .res-nightmode .modactionlisting .description, .res-nightmode .modactionlisting .timestamp time, .res-nightmode .modactionlisting .timestamp {   color: #aaa; } .res-nightmode .submit textarea, .res-nightmode .submit #url, .res-nightmode .submit #sr-autocomplete, .res-nightmode .usertext-edit textarea, .res-nightmode .RESDialogSmall, .res-nightmode .c-close, .res-nightmode #BigEditor #BigText, .res-nightmode #liveupdate-statusbar, .res-nightmode #liveupdate-statusbar.complete, .res-nightmode #alert_message input {   color: #ccc;   border-color: #4d4d4d;   background-color: #333; } .res-nightmode #liveupdate-statusbar.live.connected {   background-color: #344b4e;   border: 1px solid #38585f;   color: inherit; } .res-nightmode .RESHoverInfoCard::before {   border-right-color: #4d4d4d; } .res-nightmode .RESHoverInfoCard::after {   border-right-color: #333; } .res-nightmode .RESHoverInfoCard.right::before {   border-left-color: #4d4d4d; } .res-nightmode .RESHoverInfoCard.right::after {   border-left-color: #333; } .res-nightmode .RESDialogSmall > h3, .res-nightmode .NERPageMarker {   color: inherit;   border-color: #4d4d4d;   background-color: transparent; } .res-nightmode.res-commentBoxes .comment, .res-nightmode.res-commentBoxes .comment .comment .comment, .res-nightmode.res-commentBoxes .comment .comment .comment .comment .comment, .res-nightmode.res-commentBoxes .comment .comment .comment .comment .comment .comment .comment, .res-nightmode.res-commentBoxes .comment .comment .comment .comment .comment .comment .comment .comment .comment {   background-color: #161616 !important; } .res-nightmode.res-commentBoxes .comment .comment, .res-nightmode.res-commentBoxes .comment .comment .comment .comment, .res-nightmode.res-commentBoxes .comment .comment .comment .comment .comment .comment, .res-nightmode.res-commentBoxes .comment .comment .comment .comment .comment .comment .comment .comment, .res-nightmode.res-commentBoxes .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {   background-color: #121212 !important; } .res-nightmode.res-commentBoxes .comment {   border-color: #333 !important; } .res-nightmode.res-commentBoxes .comment.spam {   background-image: linear-gradient(#633636, #633636); } .res-nightmode.res-commentBoxes.res-commentHoverBorder .comment:hover {   border-color: #555 !important; } .res-nightmode .RESDropdownList, .res-nightmode #RESPrefsDropdown {   border-color: gray; } .res-nightmode .RESDropdownList li, .res-nightmode .RESDropdownList li a {   background: #444;   color: gray; } .res-nightmode .RESDropdownList li {   border-bottom-color: gray; } .res-nightmode .RESDropdownList li:hover, .res-nightmode .RESDropdownList li:hover a {   background-color: #555;   color: #bbb; } .res-nightmode > .content > .spacer > .sitetable::before, .res-nightmode > .content > .sharelink ~ .sitetable::before, .res-nightmode .side .age, .res-nightmode .trophy-info *, .res-nightmode .golddvertisement, .res-nightmode .flair-jump .title, .res-nightmode .savedComment, .res-nightmode .md, .res-nightmode .md h2, .res-nightmode .content .sitetable .thing .md, .res-nightmode .side .usertext-body ol, .res-nightmode .side .redditname a, .res-nightmode .side h1, .res-nightmode .side h2, .res-nightmode .side h3, .res-nightmode .side h4, .res-nightmode .side h5, .res-nightmode .side h6, .res-nightmode .content .wiki-page-content .md.wiki h1, .res-nightmode .content .wiki-page-content .md.wiki h2, .res-nightmode .content .wiki-page-content .md.wiki h3, .res-nightmode .content .wiki-page-content .md.wiki h4, .res-nightmode .content .wiki-page-content .md.wiki h5, .res-nightmode .content .wiki-page-content .md.wiki h6, .res-nightmode .content .wiki-page-content .md.wiki p, .res-nightmode .wiki-page .wiki-page-content .pagelisting, .res-nightmode .RESUserTag, .res-nightmode .sidebar h1, .res-nightmode .sidebar h2, .res-nightmode .sidebar h3, .res-nightmode .sidebar h4, .res-nightmode .sidebar h5, .res-nightmode .sidebar h6, .res-nightmode .flairselector h2, .res-nightmode .wiki-page .wiki-page-content .description h2 {   color: #ddd; } .res-nightmode .voteWeight, .res-nightmode .nextprev img {   opacity: 0.7; } .res-nightmode .searchfacets {   background-color: #2c2c2c;   box-shadow: none; } .res-nightmode .combined-search-page .search-result .search-result-body, .res-nightmode .generic-table, .res-nightmode .message.message-reply.recipient > .entry .head, .res-nightmode .message.message-parent.recipient > .entry .head, .res-nightmode .linefield .title, .res-nightmode .liveupdate-listing li.liveupdate:hover time, .res-nightmode .spam .domain, .res-nightmode .spam .domain a, .res-nightmode .hover-bubble.multi-selector strong, .res-nightmode .subreddit-rules-page .md-container .md .subreddit-rule-description {   color: inherit; } .res-nightmode .comment.spam > .child, .res-nightmode .message.spam > .child {   background-color: transparent; } .res-nightmode .nextprev a:hover, .res-nightmode .next-suggestions a:hover {   border-color: transparent;   background-color: #777; } .res-nightmode .modactionlisting + #progressIndicator {   width: auto;   margin: 20px 310px 0 0; } .res-nightmode body.with-listing-chooser .listing-chooser, .res-nightmode body.with-listing-chooser.listing-chooser-collapsed .listing-chooser {   background-color: #262626; } .res-nightmode body.with-listing-chooser .listing-chooser .grippy, .res-nightmode body.with-listing-chooser.listing-chooser-collapsed .listing-chooser .grippy, .res-nightmode body.with-listing-chooser .listing-chooser.initialized .grippy, .res-nightmode body.with-listing-chooser.listing-chooser-collapsed .listing-chooser.initialized .grippy {   background-color: #262626;   border: none;   outline: none; } .res-nightmode body.with-listing-chooser .listing-chooser .grippy::after, .res-nightmode body.with-listing-chooser.listing-chooser-collapsed .listing-chooser .grippy::after, .res-nightmode body.with-listing-chooser .listing-chooser.initialized .grippy::after, .res-nightmode body.with-listing-chooser.listing-chooser-collapsed .listing-chooser.initialized .grippy::after {   background-color: #2f2f2f;   border-right-color: #444; } .res-nightmode body.with-listing-chooser .listing-chooser .grippy:hover, .res-nightmode body.with-listing-chooser.listing-chooser-collapsed .listing-chooser .grippy:hover, .res-nightmode body.with-listing-chooser .listing-chooser.initialized .grippy:hover, .res-nightmode body.with-listing-chooser.listing-chooser-collapsed .listing-chooser.initialized .grippy:hover {   background-color: #262626;   border-left-color: #333; } .res-nightmode body.with-listing-chooser .listing-chooser .grippy:hover::before, .res-nightmode body.with-listing-chooser.listing-chooser-collapsed .listing-chooser .grippy:hover::before, .res-nightmode body.with-listing-chooser .listing-chooser.initialized .grippy:hover::before, .res-nightmode body.with-listing-chooser.listing-chooser-collapsed .listing-chooser.initialized .grippy:hover::before {   background-color: #262626; } .res-nightmode body.with-listing-chooser .listing-chooser .grippy:hover::after, .res-nightmode body.with-listing-chooser.listing-chooser-collapsed .listing-chooser .grippy:hover::after, .res-nightmode body.with-listing-chooser .listing-chooser.initialized .grippy:hover::after, .res-nightmode body.with-listing-chooser.listing-chooser-collapsed .listing-chooser.initialized .grippy:hover::after {   border-right-color: #777; } .res-nightmode .listing-chooser li, .res-nightmode .listing-chooser li.selected {   background-color: #393939;   color: #ccc;   border-color: #000;   box-shadow: none; } .res-nightmode .listing-chooser li a, .res-nightmode .listing-chooser li.selected a {   color: #8AD; } .res-nightmode .listing-chooser .intro {   background-color: #444;   border-color: #262626;   color: #ccc; } .res-nightmode .listing-chooser .create button {   color: #eee;   background-color: #777; } .res-nightmode .subreddits .remove-sr, .res-nightmode .add-sr .add {   filter: invert(80%); } .res-nightmode .with-listing-chooser.multi-page .footer-parent {   background: url('../images/nightmode/snooBalloons.png') no-repeat 49% 0; } .res-nightmode #about-main #history .events.timeline .event:hover .event-content {   box-shadow: 1px 0 3px 2px #aaa; } .res-nightmode #about-main .statsgrid .stat .value {   text-shadow: 0 3px 5px #1a1a1a; } .res-nightmode .about-page .abouttitle h1, .res-nightmode .create .morelink, .res-nightmode .permission-summary, .res-nightmode .flairselector li, .res-nightmode .subreddit .usertext .md {   border-color: transparent; } .res-nightmode .about-page .about-menu {   background: #ddd; } .res-nightmode .about-page h2, .res-nightmode .md del {   color: #777; } .res-nightmode .about-page .about-menu li.selected a, .res-nightmode .about-page .about-menu li:hover a, .res-nightmode #about-main #history .events.timeline .event-content {   background: #aaa; } .res-nightmode .about-page .abouttitle {   background-image: url('../images/nightmode/aboutHeader.png'); } .res-nightmode .policy-page .md p {   color: #eee; } .res-nightmode .policy-page .md p em {   background-color: #dad0b3;   color: #000; } .res-nightmode body, .res-nightmode .sidebar .md, .res-nightmode .side, .res-nightmode .side *, .res-nightmode .side .spacer, .res-nightmode .content, .res-nightmode .traffic-tables .traffic-table tr, .res-nightmode .parentComment .md, .res-nightmode .post-body.entry-content, .res-nightmode .dsq-auth-header, .res-nightmode .instructions .preftable th, .res-nightmode #BigEditor .markdownEditor a, .res-nightmode #BigEditor .markdownEditor .RESMacroDropdownTitle, .res-nightmode #REScommentSubToggle, .res-nightmode #alert_message, .res-nightmode #report-action-form {   color: #ccc; } .res-nightmode .titlebox form.toggle, .res-nightmode .leavemoderator {   background-color: inherit; } .res-nightmode .server-seconds {   background: #333;   border-color: #1a1a1a; } .res-nightmode .snoovatar-page footer .inputs, .res-nightmode .guider, .res-nightmode aside.sidebar #discussions li {   background: #262626; } .res-nightmode .snoovatar-page .checkbox-label [type='checkbox'] + .proxy-checkbox {   background: #f00; } .res-nightmode .snoovatar-page .checkbox-label [type='checkbox']:checked + .proxy-checkbox {   background: #0a802e; } .res-nightmode .tagline .friend {   color: #d25a32; } .res-nightmode .tagline .submitter {   color: #0af; } .res-nightmode .tagline .moderator {   color: #282; } .res-nightmode .tagline .admin, .res-nightmode .user-distinction .admin {   color: #c81414; } .res-nightmode hr, .res-nightmode .md hr, .res-nightmode .message.gold-auto blockquote {   border-color: #3c3c3c;   background-color: #3c3c3c; } .res-nightmode #RESSubredditGroupDropdown {   background-color: #ccc; } .res-nightmode #RESSubredditGroupDropdown a, .res-nightmode .RESNotificationContent, .res-nightmode .RESNotificationFooter, .res-nightmode .sr-bar a {   color: black; } .res-nightmode .goldvertisement, .res-nightmode .goldvertisement .inner {   border-color: rgba(196, 180, 135, 0.5); } .res-nightmode .goldvertisement .inner h2, .res-nightmode .goldvertisement .progress p {   color: #c4b487; } .res-nightmode .goldvertisement a, .res-nightmode .goldvertisement a:hover {   background-color: #4d4d4d;   border-color: black;   color: white; } .res-nightmode .letter-body p, .res-nightmode #gold-letter h1, .res-nightmode #about-gold h1, .res-nightmode #about-gold footer > p, .res-nightmode .RESDashboardComponentScrim span, .res-nightmode .RESDashboardComponent .RESDashboardComponentHeader ul .updateTime, .res-nightmode .remove-self .option, .res-nightmode .moderator.remove-self .option, .res-nightmode .message-count, .res-nightmode .usertable > .toggle {   color: #262626; } .res-nightmode .gold-accent {   color: #e6daae;   background-color: #837854;   border-color: #ac9c68; } .res-nightmode .side .gold-accent *, .res-nightmode .gold-accent .details, .res-nightmode .gold-accent h1, .res-nightmode .gold-accent th {   color: #e6daae; } .res-nightmode .hover-bubble.anchor-top-centered::after, .res-nightmode #about-main #history .events.timeline .event-marker.top, .res-nightmode #about-main #history .events.timeline .event-marker.bottom {   border-bottom-color: #aaa; } .res-nightmode .guiders_arrow {   opacity: 0.5; } .res-nightmode .white-field, .res-nightmode .delete-field, .res-nightmode .RESDialogSmall.livePreview .md.RESDialogContents, .res-nightmode .moderator .traffic-table tbody tr:nth-child(even), .res-nightmode .instructions, .res-nightmode .linefield .delete-field, .res-nightmode #pref-delete .delete-field, .res-nightmode .contact-us-page .details li, .res-nightmode .subreddit-report-form input:disabled, .res-nightmode .action-form input:disabled {   background-color: transparent; } .res-nightmode .message.message-reply .entry, .res-nightmode .message.message-parent .entry, .res-nightmode .flairselector.drop-choices.active, .res-nightmode .message.threaded .child, .res-nightmode .comment .child, .res-nightmode .comment .showreplies, .res-nightmode .message.message-reply:not(.threaded) .entry, .res-nightmode .message.message-parent:not(.threaded) .entry, .res-nightmode.liveupdate-app .content, .res-nightmode .liveupdate-listing li.separator::before, .res-nightmode .md td, .res-nightmode .md th, .res-nightmode .footer, .res-nightmode .footer .col, .res-nightmode .userTagLink.hasTag, .res-nightmode #userTaggerPreview {   border-color: #4d4d4d; } .res-nightmode .comment .md p a[href='/spoiler']:hover, .res-nightmode .comment .md p a[href='/spoiler']:active, .res-nightmode .comment .md p a[href='#spoiler']:hover, .res-nightmode .comment .md p a[href='#spoiler']:active, .res-nightmode .addNewWidget, .res-nightmode .editWidget, .res-nightmode #authorInfoToolTip .option, .res-nightmode .updateTime, .res-nightmode #RESSubmitOptions ~ div a, .res-nightmode #shortlink-text, .res-nightmode .guiders_button, .res-nightmode .blueButton, .res-nightmode .gold-accent a, .res-nightmode .snoovatar-page .gold-accent a, .res-nightmode .combined-search-page .search-result-subreddit .search-subscribe-button .add.active, .res-nightmode .combined-search-page .search-result-subreddit .search-subscribe-button .remove.active, .res-nightmode .fancy-toggle-button a, .res-nightmode .fancy-toggle-button .multi-count {   color: white; } .res-nightmode .markhelp table tr:first-child {   background-color: #4d4d4d !important; } .res-nightmode .usertext .markhelp .spaces, .res-nightmode .liveupdate-listing li.separator time, .res-nightmode .diff_header, .res-nightmode .diff_next, .res-nightmode .hover-bubble.multi-selector label:hover {   background-color: #4d4d4d; } .res-nightmode .flair, .res-nightmode .linkflairlabel {   color: #c8c8c8;   background-color: #404040;   border-color: #4d4d4d; } .res-nightmode .flairrichtext[style*='color'] {   color: #c8c8c8 !important;   background-color: #404040 !important;   border-color: #4d4d4d; } .res-nightmode #NERContent {   background-color: #a0a0a0; } .res-nightmode .RESNotification {   background-color: #d2d2d2; } .res-nightmode .RESNotificationContent {   border-color: #b4b4b4; } .res-nightmode #modalOverlay.fadeIn {   background-color: rgba(0, 0, 0, 0.7); } .res-nightmode #RESConsoleTopBar, .res-nightmode .RESDonateButton {   color: #e6e6e6;   border-color: #4d4d4d;   background-color: #3c3c3c; } .res-nightmode .res-logo {   filter: invert(79%) grayscale(100%); } .res-nightmode .optionContainer {   border-color: transparent;   background-color: #282828; } .res-nightmode .optionContainer:not(.table):not(.specialOptionType) .optionSetting, .res-nightmode #SearchRES-results-container li, .res-nightmode #RESConfigPanelModulesList > ul, .res-nightmode #RESConfigPanelModulesList li h3, .res-nightmode #RESConfigPanelModulesList li.active h3 {   border-color: #3c3c3c; } .res-nightmode #RESConsoleContainer input[type='text'], .res-nightmode #RESConsoleContainer input[type='password'], .res-nightmode #RESConsoleContainer .c-form-control, .res-nightmode ul.token-input-list-facebook, .res-nightmode #RESConsoleContainer textarea {   padding: 2px 3px;   border: 1px solid #3c3c3c;   background-color: #222;   color: #ddd; } .res-nightmode #RESConfigPanelModulesList {   color: #a0a0a0; } .res-nightmode #RESConfigPanelModulesList li.active h3 {   background-color: #141414; } .res-nightmode #RESConsoleContainer, .res-nightmode .moduleButton.enabled, .res-nightmode .optionsTable th, .res-nightmode .tagline .score {   color: #b4b4b4; } .res-nightmode #moduleOptionsScrim {   background-color: rgba(34, 34, 34, 0.7); } .res-nightmode .optionsTable th {   background-color: #3c3c3c; } .res-nightmode .optionsTable tr:nth-child(2n) {   background-color: #1d1d1d; } .res-nightmode #moduleOptionsSaveStatus {   background-color: #323232;   color: #969696; } .res-nightmode .toggleButton .toggleOff, .res-nightmode .toggleButton .toggleOn, .res-nightmode .toggleButton.reverseToggleButton:not(.enabled) .toggleOff, .res-nightmode .toggleButton.reverseToggleButton:not(.enabled) .toggleOn {   color: rgba(255, 255, 255, 0.8);   border-color: #3c3c3c; } .res-nightmode .toggleButton:not(.enabled) .toggleOn, .res-nightmode .toggleButton.enabled .toggleOff, .res-nightmode .toggleButton.reverseToggleButton.enabled .toggleOn, .res-nightmode .toggleButton.reverseToggleButton:not(.enabled) .toggleOff {   color: #3c3c3c;   border-color: #3c3c3c;   background: #282828; } .res-nightmode .toggleButton.enabled .toggleOn, .res-nightmode .toggleButton.reverseToggleButton:not(.enabled) .toggleOn {   background: linear-gradient(to right, #25456b, #282828); } .res-nightmode .toggleButton:not(.enabled) .toggleOff, .res-nightmode .toggleButton.reverseToggleButton.enabled .toggleOff {   background: linear-gradient(to left, #882626, #282828); } .res-nightmode .link .rank {   color: #505050; } .res-nightmode .midcol .score, .res-nightmode .moduleButton:not(.enabled) {   color: #646464; } .res-nightmode .tagline, .res-nightmode .entry .buttons li a, .res-nightmode .trending-subreddits strong {   color: #828282; } .res-nightmode .res-hasNewComments .newComments {   color: #d25a32; } .res-nightmode .nsfw-stamp {   color: #bf4040; } .res-nightmode .spoiler-stamp {   color: #ff8200; } .res-nightmode .diff_sub {   background-color: rgba(240, 128, 128, 0.5); } .res-nightmode .diff_add {   background-color: rgba(144, 238, 144, 0.4); } .res-nightmode .diff_chg {   background-color: rgba(255, 255, 0, 0.4); } .res-nightmode .hover-bubble.multi-selector .create-multi input[type='text'] {   color: #c04e51;   background-color: inherit; } .res-nightmode #alert_message, .res-nightmode #report-action-form {   border-color: #404040;   background-color: #262626; } .res-nightmode .sr-interest-bar {   border-color: transparent;   background-color: #29333d; } .res-nightmode .sr-interest-bar .bubble {   background-color: black; } .res-nightmode .sr-interest-bar .bubble::after {   border-right-color: black; } .res-nightmode .subreddit-rule-item:hover {   background-color: #2b2b2b; } .res-nightmode #keyHelp {   border-color: #999;   background-color: #aaa;   color: #333; } .res-nightmode #keyHelp td {   border-color: #999; } .res-nightmode .res-filterline {   background-color: rgba(38, 38, 38, 0.9); } .res-nightmode .res-filterline-filter {   border-bottom-color: #383838; } .res-nightmode .res-filterline-filter-hiding, .res-nightmode .res-filterline-filter-hiding:hover {   border-bottom-color: #e4e4e4;   color: #e4e4e4; } .res-nightmode .res-filterline-dropdown {   background-color: #313131;   box-shadow: #3c3c3c 2px 2px 2px; } .res-nightmode .res-filterline-dropdown-action {   border-bottom-color: #404040; } .res-nightmode #REScommentNavBox #commentNavUp, .res-nightmode #REScommentNavBox #commentNavDown {   color: #434343; } .res-nightmode #REScommentNavBox #commentNavPostCount {   color: #9f9f9f; } .res-nightmode .res-commentNavToggle-choices {   background-color: rgba(0, 0, 0, 0.9);   box-shadow: #313131 1px 2px 4px; } .res-nightmode .subreddit .usertext .md {   background-color: #333;   border-color: #777; } .res-nightmode .user-subreddit .path {   color: #8cb3d9; } .res-nightmode .modal .modal-header-title {   color: #aaa; } .res-nightmode .modal .modal-header, .res-nightmode .modal .field-otp, .res-nightmode .modal .modal-content {   background-color: #333;   border-color: #777;   color: #aaa; } .res-nightmode .modal .c-close {   background-color: inherit;   filter: invert(100%); } .res-nightmode .report-modal .report-form-bottom-panel .report-form-content-policy a, .res-nightmode .report-modal .report-form-action-desc {   color: #8cb3d9; } .res-nightmode .report-modal .report-form-bottom-panel .report-form-content-policy p, .res-nightmode .report-modal .report-reason-item .report-reason-display, .res-nightmode .report-modal .report-form-last-step-text, .res-nightmode .report-modal .report-form-last-step-text-custom-rules, .res-nightmode .report-modal .report-form-big-content-policy {   color: #aaa; } .res-nightmode .report-modal .c-close {   background-color: inherit; } .res-nightmode .report-modal .report-form-block-user img, .res-nightmode .report-modal .report-form-blocked-user img {   filter: invert(100%); } .res-nightmode .crossposting-modal .crosspost-header-title, .res-nightmode .crossposting-modal .crosspost-label, .res-nightmode .crossposting-modal .crosspost-sublabel {   color: #aaa; } .res-nightmode .crossposting-modal .crosspost-description {   background-color: #333;   border-color: #777; } .res-nightmode .crossposting-modal .modal-body, .res-nightmode .crossposting-modal .modal-content, .res-nightmode .crossposting-modal .crosspost-field, .res-nightmode .crossposting-modal .crosspost-preview, .res-nightmode .crossposting-modal .crosspost-thing-preview {   background-color: #262626;   color: #aaa; } .res-nightmode .tfa-login-modal .tfa-login-caption {   color: #aaa; } .res-nightmode .tfa-login-modal .tfa-switch-type-of-code {   color: #8cb3d9; } .res-nightmode .tfa-login-modal .tfa-login-bottom-panel .tfa-login-having-trouble a {   color: #8cb3d9; } .res-nightmode .enable-tfa-modal .enable-tfa-caption, .res-nightmode .enable-tfa-modal .pref-otp-qr li {   color: #aaa; } .res-nightmode .enable-tfa-modal .otp-secret-info canvas {   border: solid 5mm white; } .res-nightmode .enable-tfa-modal .switch-barcode-and-code {   color: #8cb3d9; } .res-nightmode .enable-tfa-modal .enable-tfa-bottom-panel .enable-tfa-learn-more a, .res-nightmode .enable-tfa-modal .enable-tfa-bottom-panel .switch-barcode-and-code a {   color: #8cb3d9; } .res-nightmode .disable-tfa-modal .disable-tfa-caption {   color: #aaa; } .res-nightmode .disable-tfa-modal .disable-tfa-bottom-panel .disable-tfa-learn-more a {   color: #8cb3d9; } .res-nightmode .backup-codes-modal .backup-codes-caption {   color: #aaa; } .res-nightmode .pinnable-content.pinned {   background-color: #262626 !important; } .res-nightmode .pinnable-content.pinned .c-close {   background-color: dimgrey; } .res-nightmode .author-tooltip__head {   background-color: #262626;   border-color: #777; } .res-nightmode .author-tooltip__credentials-list strong, .res-nightmode .author-tooltip__head h3, .res-nightmode .author-tooltip__description {   color: #aaa; } .res-nightmode .author-tooltip__link-list a, .res-nightmode .author-tooltip__head a {   color: #8cb3d9; } .res-nightmode .author-tooltip__link-list a:hover, .res-nightmode .author-tooltip__head a:hover {   color: #8cb3d9; } .res-nightmode .desktop-onboarding__description, .res-nightmode .desktop-onboarding-sign-up__form-note, .res-nightmode .desktop-onboarding-step_sign-up footer, .res-nightmode .subreddit-picker__subreddit-name strong {   color: #aaa; } .res-nightmode .desktop-onboarding-step_sign-up footer a {   color: #8cb3d9; } .res-nightmode .desktop-onboarding__col_sign-up_image {   opacity: 0.7; } .res-nightmode .subreddit-picker, .res-nightmode .c-username-picker-shown .desktop-onboarding__col_username_picker {   background-color: #262626;   border-color: #777; } .res-nightmode .subreddit-picker__category_selected {   background-color: #333; } .res-nightmode .api-help .overview h2, .res-nightmode .api-help .contents .introduction strong {   color: #aaa; } .res-nightmode .api-help .contents .overview code, .res-nightmode .api-help .parameters {   background-color: #333; } .res-d2x-nightmode #container > .App .ProfileTemplate.m-updated, .res-d2x-nightmode #container > .App .ProfileBarDropdown__list, .res-d2x-nightmode #container > .App .ProfileSidebar__counterInfo, .res-d2x-nightmode #container > .App .ProfileBetaConfirmationPage {   background-color: #262626;   border-color: #777;   color: #aaa; } .res-d2x-nightmode #container > .App .SubredditListExpander__more, .res-d2x-nightmode #container > .App .SubredditListItem__subredditLink, .res-d2x-nightmode #container > .App .TrendingProfilesSidebar__profileName, .res-d2x-nightmode #container > .App .TrendingProfilesSidebar__link, .res-d2x-nightmode #container > .App .TrendingProfilesSidebar__more, .res-d2x-nightmode #container > .App .BlueBar__logout, .res-d2x-nightmode #container > .App .BlueBar__username, .res-d2x-nightmode #container > .App .BlueBar__prefs, .res-d2x-nightmode #container > .App .TabMenu__tab.m-active, .res-d2x-nightmode #container > .App .TabMenu__tab, .res-d2x-nightmode #container > .App .ProfileBarDropdown__title.m-opened, .res-d2x-nightmode #container > .App .ProfileBarDropdown__title, .res-d2x-nightmode #container > .App .ProfileBarDropdown__listItem, .res-d2x-nightmode #container > .App .ProfileSidebar__reportUserLink, .res-d2x-nightmode #container > .App .ProfileSidebar__nameTitleLink, .res-d2x-nightmode #container > .App .Footer__link, .res-d2x-nightmode #container > .App .Footer__userAgreementLink, .res-d2x-nightmode #container > .App .Footer__privacyLink, .res-d2x-nightmode #container > .App .Post__origin .Post__username, .res-d2x-nightmode #container > .App .Post__authorComment .Post__username, .res-d2x-nightmode #container > .App .Post__subredditLink, .res-d2x-nightmode #container > .App .CommentTitle__postAuthor, .res-d2x-nightmode #container > .App .CommentTitle__subredditName, .res-d2x-nightmode #container > .App .Comment.m-op .Comment__author {   color: #8cb3d9; } .res-d2x-nightmode #container > .App .Post__titleLink, .res-d2x-nightmode #container > .App .CommentTitle__postTitle {   color: #dedede; } .res-d2x-nightmode #container > .App .Post__flatListItem, .res-d2x-nightmode #container > .App .Post__titleLink:visited, .res-d2x-nightmode #container > .App .CommentTitle__postTitle {   color: #a6a6a6; } .res-d2x-nightmode #container > .App .ProfileBarDropdown__list:hover, .res-d2x-nightmode #container > .App .ProfileBarDropdown__listItem:hover {   background-color: dimgrey; } .res-d2x-nightmode #container > .App .UserTopSubredditsSidebar__header, .res-d2x-nightmode #container > .App .SubredditListItem__subscribers, .res-d2x-nightmode #container > .App .UserModeratedSubredditsSidebar__header, .res-d2x-nightmode #container > .App .UserSpecialsListSidebar__header, .res-d2x-nightmode #container > .App .UserSpecialsListSidebar__title, .res-d2x-nightmode #container > .App .UserSpecialsListSidebar__date, .res-d2x-nightmode #container > .App .TrophyCaseSidebar__header, .res-d2x-nightmode #container > .App .TrophyCaseSidebar__trophyTitle, .res-d2x-nightmode #container > .App .TrophyCaseSidebar__trophyDescription, .res-d2x-nightmode #container > .App .TrendingProfilesSidebar__header, .res-d2x-nightmode #container > .App .BlueBar__karma, .res-d2x-nightmode #container > .App .ProfileSidebar__displayName, .res-d2x-nightmode #container > .App .ProfileSidebar__description, .res-d2x-nightmode #container > .App .ProfileSidebar__counters, .res-d2x-nightmode #container > .App .ProfileSidebar__followDescription, .res-d2x-nightmode #container > .App .Post__score, .res-d2x-nightmode #container > .App .StyledHtml, .res-d2x-nightmode #container > .App .Post__authorComment .StyledHtml, .res-d2x-nightmode #container > .App .Post__prominentComment .StyledHtml, .res-d2x-nightmode #container > .App .Post__commentContainer, .res-d2x-nightmode #container > .App .ProfileVoiceAd__title, .res-d2x-nightmode #container > .App .ProfileVoiceAd__description, .res-d2x-nightmode #container > .App .ProfileVoiceAd__button {   color: #aaa; } .res-d2x-nightmode #container > .App .BlueBar {   background: dimgrey; } .res-d2x-nightmode #container > .App .BlueBar__account, .res-d2x-nightmode #container > .App .ProfileSidebar__titleContainer, .res-d2x-nightmode #container > .App .Post, .res-d2x-nightmode #container > .App .CommentListing__comment {   background-color: #333;   border-color: #777;   color: #aaa; } .res-d2x-nightmode #container > .App .SubscriptionBar {   background-color: #ccc; } .res-d2x-nightmode #container > .App .SubscriptionBar__subredditListTarget {   color: #000 !important; } .res-d2x-nightmode #container > .App .SubredditListItem__subscribe, .res-d2x-nightmode #container > .App .SubredditListItem__unsubscribe, .res-d2x-nightmode #container > .App .Post__crosspostExpando .Media.m-embed, .res-d2x-nightmode #container > .App .Post__crosspostExpando .Media.m-image, .res-d2x-nightmode #container > .App .Post__crosspostExpando .Media.m-video, .res-d2x-nightmode #container > .App .Media.m-profile.m-embed, .res-d2x-nightmode #container > .App .Media.m-profile.m-image, .res-d2x-nightmode #container > .App .Media.m-profile.m-video, .res-d2x-nightmode #container > .App .StyledHtml pre {   background-color: #262626; } .res-d2x-nightmode #container > .App .SubredditListDropdown, .res-d2x-nightmode #container > .App .SubredditListDropdown__listItem, .res-d2x-nightmode #container > .App .SubredditListDropdown__listMore {   background-color: #333;   color: #aaa;   border-color: #777; } .res-d2x-nightmode #container > .App .SubredditListDropdown__listItem:hover, .res-d2x-nightmode #container > .App .Post__comment:hover {   background-color: #3e3e3e; } .res-d2x-nightmode #container > .App .ProfileVoiceAd {   background-color: #202020; } `);
-    }
-    Options.addCheckbox({
-        label: 'RES Night Mode',
-        "default": false,
-        section: 'Advanced',
-        help: 'RES Night Mode.',
-        onchange: function () {
-            Elements.$body.attr('data-RESDarkMode', this.prop('checked'));
-            if(Elements.$body.attr('data-RESDarkMode') == 'true') {
-                document.body.classList.add("res-nightmode");
-                if (resTest == 0) {
-                    resAdda();
-                }
-            }
-            if (Elements.$body.attr('data-RESDarkMode') == 'false') {
-                document.body.classList.remove("res-nightmode");
-            }
-        }
-    });
-    if(Elements.$body.attr('data-RESDarkMode') == 'true') {
-        if(resTest == 0) {
-            resAdda();
-        }
-        document.body.classList.add("res-nightmode");
-    }
-})(RESDarkMode || (RESDarkMode = {}));
-
-/////////////////////////
-// CollapsiblePosts.ts //
-/////////////////////////
-var CollapsiblePosts;
-var collapseCount = 0;
-(function (CollapsiblePosts) {
-    // Options
-    Elements.$body.attr('data-CollapsiblePosts', true);
-
-    Options.addCheckbox({
-        label: 'Collapsible Posts',
-        "default": true,
-        section: 'Advanced 2',
-        help: 'yeah.',
-        onchange: function () {
-            Elements.$body.attr('data-CollapsiblePosts', this.prop('checked'));
-        }
-    });
-Update.loadedNew(function (data) {
-    // steal from https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_collapsible lol
-    if(Elements.$body.attr('data-CollapsiblePosts') == 'true') {
-                     var collapse_html = data.body_elem.html();
-                var collapse_text = data.body_elem.text();
-                var regexcollapse = collapse_html.match(/<a href="#start"(.*?)<\/a>(.*?)<a href="#end"(.*?)<\/a>/gms);
-                for(var matchcol in regexcollapse) {
-                    collapseCount++;
-                    var newcol = regexcollapse[matchcol].trim();
-                    newcol = newcol.replace(/<a href="#start"(.*?)<\/a>/gms, '<button type="button" id="LCE_Collapse_'+collapseCount+'" class="LCE_Collapse">[+] Toggle</button><div class="LCE_Content" id="LCE_Content_'+collapseCount+'">');
-                    newcol = newcol.replace(/<a href="#end"(.*?)<\/a>/gms, '</div>');
-                    collapse_html = collapse_html.replace(regexcollapse[matchcol], newcol);
-                }
-                data.body_elem.html(collapse_html);
-    }
-            });
-    Styles.add(`.LCE_Collapse { background-color: #777; color: white; cursor: pointer; padding: 3px; border: none; text-align: left; outline: none; } .LCE_Collapse_Active, .LCE_Collapse:hover { background-color: #555; } .LCE_Content { display: none; overflow: hidden;}`);
-
-    $(document).on('click', '.LCE_Collapse', function(){
-        var collapse_id = $(this).attr('id').replace('LCE_Collapse_','');
-    this.classList.toggle("LCE_Collapse_Active");
-        var content = $('#LCE_Content_'+collapse_id);
-    if (content.css('display') === 'block') {
-      content.css('display','none');
-        $(this).text('[+] Toggle');
-    } else {
-      content.css('display','block');
-        $(this).text('[-] Toggle');
-    }
-    });
-
-})(CollapsiblePosts || (CollapsiblePosts = {}));
-
-if(window.location.href.indexOf("ta535s1hq2je") > -1) { // Main thread special feature
-
-//////////////////////
-// LC_Chats_View.ts //
-//////////////////////
-var LC_Chats_View;
-(function (LC_Chats_View) {
-    // Options
-    Elements.$body.attr('data-LC_Chats_View', false);
-    var lccTest = 0;
-    function lccAdda(h, thread) {
-        if(h == 'yeah bro' && lccTest < 1) {
-            if(lccTest == 0) {
-                var resversion = $('#RESConsoleVersion');
-                Styles.add(`#lc-body[data-LC_Chats_View='true'] div.content { padding-left: 19%; } #lc_chats_iframe #idlecontainer {display:none!important;}`);
-                $(`<iframe class="lciframe" id="lc_chats_iframe" src="/live/14ny3ur3axhd4" style="border:none; position: absolute; left: 1%; width: 18%; top: 12%; height: 85%; "></iframe>`).insertAfter('.main-content');
-                $(`<select style="position: absolute;left: 1%;width: 18%;top: 97%;border: none;max-width: 18%;" id="iframe_loader"> <option value="14ny3ur3axhd4">LC Chats</option> <option value="15jj2286nsulu">Test Thread</option> <option value="10itxw66978go">Bars</option> <option value="yrnkgszr6zdu">Slow</option> </select>`).insertAfter('#lc_chats_iframe');
-                $(document).on('change', '#iframe_loader', function (e) {
-                    lccTest = -1;
-                    lccAdda('yeah bro', document.getElementById("iframe_loader").value);
-                });
-                $(`<div class="prettyform lciframe" style="display:none;position: absolute;left: 1%;width: 18%;top: 100%;height: 88%;border: none;max-width: 18%;" id="sidebar-update-form"><div class="usertext"><input type="hidden" name="thing_id" value=""><div style="" class=""><div class="md"><textarea rows="1" cols="1" name="body" class="" data-textboxposition="Default" style=" width: 90%;"></textarea></div></div></div><div class="save-button"><button id="sidebar_submit" class="btn" type="button" onclick="return post_pseudo_form('#sidebar-update-form', 'live/14ny3ur3axhd4/update')">make update</button> <span class="status error" style="display: none;"></span></div></div>`).insertAfter('#lc_chats_iframe');
-                                $('#sidebar-update-form textarea').on('keydown', function (e) {
-            if(Elements.$body.attr('data-submitShortcut') == "Off") {
-                return;
-            }
-            if(Elements.$body.attr('data-submitShortcut') == "Ctrl+Enter") {
-                if (resversion.length > 0 && +(resversion.text().replace(/\D/g, '')) >= 478) {
-                    return;
-                }
-                if (e.keyCode == 13 && (e.ctrlKey || e.metaKey)) {
-                    e.preventDefault();
-                    $('#sidebar-update-form .save-button button').trigger('click');
-                }
-            }
-            if(Elements.$body.attr('data-submitShortcut') == "Enter") {
-                if (e.keyCode == 13) {
-                    e.preventDefault();
-                    $('#sidebar-update-form .save-button button').trigger('click');
-                }
-            }
-        });
-            } else {
-                document.getElementById('lc_chats_iframe').src = `/live/`+thread;
-                document.getElementById('sidebar_submit').setAttribute( "onClick", `return post_pseudo_form('#sidebar-update-form', 'live/`+thread+`/update');`);
-                $('#sidebar-update-form').css('display','none');
-            }
-            $('#lc_chats_iframe').on('load', (function(){
-                var embed = $('#lc_chats_iframe').contents();
-                embed.find("#idlecontainercontainer").css('display','none');
-                embed.find("#header").css('display','none');
-                embed.find("#liveupdate-statusbar").css('display','none');
-                embed.find("#new-update-form").css('display','none');
-                if(embed.find("#new-update-form").length > 0) {
-                    $('#sidebar-update-form').css('display','initial');
-                } else {
-                    $('#sidebar-update-form').css('display','none');
-                }
-                embed.find(".sidebar").css('display','none');
-            }));
-            lccTest = 1;
-        }
-        else if(h == 'yeah bro' && lccTest == 2) {
-            lccTest = 1;
-            $('#lc_chats_iframe').css('display','initial');
-        } else if(h == 'nuh uh bro, also does this piss you off that im using strings like this? GOOD.' && lccTest == 1) {
-            lccTest = 2;
-            $('#lc_chats_iframe').css('display','none');
-        }
-    }
-    Options.addCheckbox({
-        label: 'LC Chats View',
-        "default": false,
-        section: 'Advanced',
-        help: 'Puts a small lil lc chats on da left side {:}',
-        onchange: function () {
-            Elements.$body.attr('data-LC_Chats_View', this.prop('checked'));
-            if(Elements.$body.attr('data-LC_Chats_View') == 'true') {
-                lccAdda('yeah bro');
-            }
-            if (Elements.$body.attr('data-LC_Chats_View') == 'false') {
-                lccAdda('nuh uh bro, also does this piss you off that im using strings like this? GOOD.');
-            }
-        }
-    });
-})(LC_Chats_View || (LC_Chats_View = {}));
-} // End main thread special feature.
 
 const React = require("react");
 const ReactDOM = require("react-dom");

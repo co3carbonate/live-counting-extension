@@ -16,6 +16,7 @@
 		"target": "es5",
 		"types": [
 			"@types/events",
+			"@types/jquery",
 			"@types/react",
 			"@types/react-dom",
 			"@types/webpack-env"
