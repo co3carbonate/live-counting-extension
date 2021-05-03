@@ -117,3 +117,7 @@ dist
 
 # Webpack output
 dist/
+
+# Lockfiles
+package-lock.json
+npm-shrinkwrap.json
