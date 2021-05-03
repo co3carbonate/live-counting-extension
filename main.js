@@ -452,6 +452,7 @@ var Options;
     var $options_advanced_toggle = $("<span class=\"toggle-trigger\">[-]</span>");
     var $options_advanced2_toggle = $("<span class=\"toggle-trigger\">[-]</span>");
     var $all = $("<div id='live-counting-extension'></div>");
+    var $sidebar_entrypoint = $("<div id='lce-sidebar-entrypoint'></div>");
     var $options = $("<div></div>");
     var $options_basic = $("<div></div>");
     var $options_advanced = $("<div></div>");
@@ -464,6 +465,7 @@ var Options;
     $options_advanced2_heading.append($options_advanced2_toggle);
     $options.append($options_basic_heading, $options_basic, $options_advanced_heading, $options_advanced, $options_advanced2_heading, $options_advanced2);
     Elements.$options.append($all_heading, $all);
+    Elements.$options.append($sidebar_entrypoint);
     var all_innerWidth = $all.innerWidth();
     var all_offsetLeft = $all.offset().left;
     // Handling toggle buttons ([-] and [+])
@@ -3140,3 +3142,9 @@ var time_fake = new Date();
 
 }
 // End test thread special feature
+
+const React = require("react");
+const ReactDOM = require("react-dom");
+
+const { PreferencesEditor } = require("./src/components/preferences-editor.tsx");
+ReactDOM.render(React.createElement(PreferencesEditor), document.getElementById("lce-sidebar-entrypoint"));
