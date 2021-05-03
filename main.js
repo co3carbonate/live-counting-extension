@@ -134,8 +134,8 @@ function parse_body(text){
     let separator = null;
     if(text === "")return number;
     var body = tokenize(text);
-    var tokens = body['tokens']; // body['comment'] would have the text
-    var comment = body['comment']; // body['comment'] would have the text
+    var tokens = body['tokens'];
+    var comment = body['comment']; 
     if(tokens.length > 0 && !(tokens[0]['is_digit_group'])){
         tokens = tokens.slice(1);
     }
@@ -1309,23 +1309,6 @@ var ColoredUsernames;
             data.authorNode.css('font-weight', 'bold');
         }
 
-
-        if (IgnoreEnabled == true) {
-            var ignoretest = document.getElementById("ignorebox2").innerHTML;
-
-            if (ignoretest.includes(data.author)) {
-                var entirepost = data.bodyNode.html();
-                var entireposttext = data.bodyNode.text();
-                var count1testlol = entireposttext.substring(0, 10);
-                count1testlol = count1testlol.replace(/[A-Za-z]/g, '');
-                entirepost = entirepost.replace(count1testlol,`<p id="counttext" style="font-size: 14px; display:inline;">`+count1testlol+` ​</p>`);
-                entirepost = entirepost.replace(`p>`, `span>`);
-                data.bodyNode.html(`<span class="ignoredpost" style="font-size: 0px;">`+entirepost+`</span>`);
-            }
-        }//IgnoreEnabled ending
-
-
-
         // 100K usernames
 
          if (SpecialUsernamesEnabled[0]) {
@@ -1473,11 +1456,11 @@ var ClearPastMessages;
     // EVENTS
     // New update loaded
     UPDATE_EVENTS.addListener("new", () => {
-        if(window.scrollY==0 && enTimeout==false) {
+        /*if(window.scrollY==0 && enTimeout==false) {
             if (!enabled) {
                 $checkbox.prop('checked', true).trigger('change');
             }
-        }
+        }*/
         if (!enabled)
             return;
         var $screenMessages = Elements.$updates.children('.liveupdate');
@@ -1989,54 +1972,6 @@ var StandardizeNumberFormat;
     function delimit(str, char) {
         return str.replace(/\B(?=(\d{3})+(?!\d))/g, char);
     }
-    // Trim specified leading and trailing characters in a string
-    function trim(str, chars) {
-        var i = 0;
-        var l = str.length;
-        var start = 0;
-        var end = l - 1;
-        for (i = 0; i < l; i++) {
-            if (chars.indexOf(str.charAt(i)) == -1) {
-                start = i;
-                break;
-            }
-        }
-        for (i = l - 1; i >= 0; i--) {
-            if (chars.indexOf(str.charAt(i)) == -1) {
-                end = i;
-                break;
-            }
-        }
-        return str.slice(start, end + 1);
-    }
-    /**
- * Get the first element in the body that is either
-    * a text node
-    * a node that does not have any children
- */
-    function first_node(parent) {
-        var contents = parent.childNodes;
-        var i = 0;
-        for (var l = contents.length; i < l; i++) {
-            if (contents[i].nodeType == 3) {
-                // text node
-                // check if empty
-                if (contents[i].textContent.trim().length > 0)
-                    return contents[i];
-            }
-            if (contents[i].nodeType == 1) {
-                // element node
-                var elem = contents[i];
-                if (elem.children.length == 0) {
-                    // no more children
-                    break;
-                }
-                // parent node - recurse to return its first node
-                return first_node(elem);
-            }
-        }
-        return contents[i];
-    }
     // INITIALIZATION
     var enabled = false;
     var format = function (str) { return str; };
@@ -2057,15 +1992,19 @@ var StandardizeNumberFormat;
         }
         FormatFuncs.Periods = Periods;
         function None(str) {
-            return str;
+            return delimit(str, '');
         }
         FormatFuncs.None = None;
+        function CommaSpaces(str) {
+            return delimit(str, ', ');
+        }
+        FormatFuncs.CommaSpaces = CommaSpaces;
     })(FormatFuncs || (FormatFuncs = {}));
     ;
     // Options
     Options.addSelect({
-        label: 'STANDARDIZE NUMBER FORMAT',
-        options: ['Disabled', 'Spaces', 'Periods', 'Commas', 'None'],
+        label: 'STANDARDIZE FORMAT',
+        options: ['Disabled', 'Spaces', 'Periods', 'Commas', 'CommaSpaces', 'None'],
         section: 'Advanced',
         help: 'Standardizes the number count in each message to a format of your choice. Also removes special formatting on the number.',
         onchange: function () {
@@ -2083,65 +2022,14 @@ var StandardizeNumberFormat;
     UPDATE_EVENTS.addListener("new", data => {
         if (!enabled)
             return;
-        var first_elem = first_node(data.bodyNode.get(0));
-        var $first_elem = $(first_elem);
-        var body = first_elem.textContent;
-        if (!body)
-            return;
-        // Detect number from string
-        // (This algorithm has a few problems, such as "2,000 2 GETS today"
-        //  producing a detected number of "20002".)
-        var l = body.length;
-        var num = '';
-        var original_num = '';
-        var c;
-        for (var i = 0; i < l; i++) {
-            c = body.charAt(i);
-            if (c == '0' || c == '1' || c == '2' || c == '3' || c == '4' ||
-                c == '5' || c == '6' || c == '7' || c == '8' || c == '9') {
-                num += c;
-                original_num += c;
-                continue;
-            }
-            else if (c == ' ' || c == ',' || c == '.') {
-                // part of number styling preference
-                original_num += c;
-                continue;
-            }
-            else {
-                break;
-            }
-        }
-        if (num.length == 0)
-            num = null;
-        // Replace original_num in first_elem with num
-        if (num == null)
-            return;
-        first_elem.textContent = body.replace(trim(original_num, [' ', ',', '.']), format(num));
-        // Remove formatting of parents of first_elem by changing into span
-        // Also, headers are not wrapped in p, so replace those with p
-        var $parents = $first_elem.parentsUntil('p, div.md');
-        var parentsLen = $parents.length;
-        if (first_elem.nodeType == 1 && !$first_elem.is('p, div.md')) {
-            $parents = $parents.add($first_elem);
-            if (parentsLen == 0) {
-                // not a paragraph, but still no parent? must be a header (h1)
-                // convert to p
-                $first_elem.replaceWith('<p>' + first_elem.textContent + '</p>');
-            }
-        }
-        var $this;
-        $parents.each(function (index, element) {
-            $this = $(this);
-            if ($this.parent().is(data.bodyNode)) {
-                // if the direct parent is the body element,
-                // replace to p instead,
-                // since this is definitely not a p itself
-                $this.replaceWith('<p>' + this.textContent + '</p>');
-                return;
-            }
-            $this.replaceWith('<span>' + this.textContent + '</span>');
-        });
+        var ustHtml = data.node.find('.body > .md').html();
+        var ustPost = data.node.find('.body > .md').text();
+        var ustNumber = parse_body(ustPost)[0];
+        var ustNumberOriginal = parse_body(ustPost)[2];
+        if(ustNumber == null) {ustNumber = ''};
+        if(ustNumber.length < 1) {return;}
+        var replacedhtml = ustHtml.replace(ustNumberOriginal,format(ustNumber));
+        data.node.find('.body > .md').html(replacedhtml);
     });
 })(StandardizeNumberFormat || (StandardizeNumberFormat = {}));
 ////////////////////////
@@ -2203,6 +2091,24 @@ var IgnoreEnabled;
         IgnoreEnabled = false;
         $('#ignorestuff').css('display','none');
     }
+    UPDATE_EVENTS.addListener("new", data => {
+        if (IgnoreEnabled == true) {
+            var ignoretest = document.getElementById("ignorebox2").innerHTML;
+
+            if (ignoretest.includes(data.author)) {
+                var entirepost = data.node.find('.body > .md').html();
+                var entireposttext = data.node.find('.body > .md').text();
+                var count1testlol = parse_body(entireposttext)[2];
+                if(count1testlol == null) {count1testlol = ''};
+                var count1testcomment = parse_body(entireposttext)[1];
+                if(count1testcomment == null) {count1testcomment = ''};
+                if(count1testcomment.length < 1) {return;}
+                entirepost = "<p>"+count1testlol+"</p>";
+                data.node.find('.body > .md').html(entirepost);
+            }
+        }//IgnoreEnabled ending
+    });
+
 })(Ignore || (Ignore= {}));
 ///////////////
 // Emojis.ts //
@@ -2225,12 +2131,13 @@ var Emojis;
         }
     });
     if(enabled) {
-        const emojiLib = require("node-emoji");
+        const emojiLib = require("./src/data/emojis.json");
         const regExpression = /:([^\s]+):/g
         const emojiIt = (re, text) => {
             if (result = re.exec(text)) {
                 var temptext = text;
-                const emoji = emojiLib.get(result[0]);
+                const emoji = emojiLib[result[1]];
+                console.log(result);
                 if(emoji) {
                     text = text.replace(result[0], emoji);
                 }
@@ -2279,9 +2186,8 @@ var UnstrikeText;
             var ustPost = data.node.find('.body > .md').text();
             var ustNumber = parse_body(ustPost)[2];
             if(ustNumber == null) {ustNumber = ''};
-            var ustComment = parse_body(ustPost)[1];
             if(ustNumber.length < 1) {return;}
-            var replacedhtml = data.node.find('.body > .md').html().replace(ustNumber,"<span class='countms'>"+ustNumber+"</span>");
+            var replacedhtml = ustHtml.replace(ustNumber,"<span class='countms'>"+ustNumber+"</span>");
             data.node.find('.body > .md').html(replacedhtml);
         }
     });
