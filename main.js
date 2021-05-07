@@ -2114,12 +2114,11 @@ var Emojis;
         const emojiIt = (re, text) => {
             if (result = re.exec(text)) {
                 var temptext = text;
-                const emoji = emojiLib[result[1]];
-                console.log(result);
+                const emoji = emojiLib[result[1].toLowerCase()];
                 if(emoji) {
                     text = text.replace(result[0], emoji);
                 }
-                if(imageEmotes.indexOf(result[1]) > -1) {
+                if(imageEmotes.includes(result[1].toLowerCase())) {
                     text = text.replace(result[0], "`"+result[0].trim().replace(/:/g,"")+"`");
                 }
             }
@@ -2127,7 +2126,7 @@ var Emojis;
         }
         function Inputty() {
             var selection = document.querySelector('textarea').selectionStart
-            document.querySelector('.md textarea').value = emojiIt(regExpression, document.querySelector('.md textarea').value );
+            document.querySelector('.md textarea').value = emojiIt(regExpression, document.querySelector('.md textarea').value);
             document.querySelector('textarea').setSelectionRange(selection, selection)
         }
         try {
