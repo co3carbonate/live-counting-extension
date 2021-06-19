@@ -46,6 +46,8 @@ var dailysizereal = '90px';
 var dailysize2 = -1;
 var dailysizereal2 = '90px';
 var colortransfers = '';
+var currentColor = 0;
+var colors = '';
 var dailyHocColorNamesEnable2 = true;
 
 //Timestamp vars
@@ -1268,7 +1270,7 @@ var ColoredUsernames;
     }
     colortransfers = userColors;
     // Possible colors for other users
-    var colors = allUserColors.defaults;
+    colors = allUserColors.defaults;
     for (var i = colors.length - 1; i > 0; i--) {
         // use Durstenfeld shuffle algorithm on colors array
         var j = Math.floor(Math.random() * (i + 1));
@@ -1806,6 +1808,13 @@ var TeamBarsEnabled;
                         if (dailyHocColorNamesEnable2 == true) {
                             var thishref = $(this).attr('href');
                             thishref = thishref.trim().replace('https://reddit.com/u/', '');
+                            if (!colortransfers.hasOwnProperty(thishref)) {
+                                colortransfers[thishref] = colors[currentColor];
+                                currentColor++;
+                                if (currentColor == colors.length) {
+                                    currentColor = 0;
+                                }
+                            }
                             $(this).css('color', colortransfers[thishref]);
                             if ($(this).text() == `/u/` + USER) {
                                 $(this).parent().parent().css('font-weight', 'bold');
