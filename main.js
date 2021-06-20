@@ -45,9 +45,8 @@ var dailysize = 0;
 var dailysizereal = '90px';
 var dailysize2 = -1;
 var dailysizereal2 = '90px';
-var colortransfers = '';
-var currentColor = 0;
-var colors = '';
+var userColors = {};
+var colors = [''];
 var dailyHocColorNamesEnable2 = true;
 
 //Timestamp vars
@@ -123,7 +122,6 @@ function get_split_digits(){
 }
 
 // Global Functions
-// from https://pastebin.com/KD6gFhAK thanks MNW {:}
 
 function showNotification(number) {
    const notification = new Notification("New K Alert!", {
@@ -131,6 +129,23 @@ function showNotification(number) {
    });
 }
 
+let getNextColor = (function(){
+    let index = 0;
+    return function(){
+        let currentColor = colors[index];
+        index = (index + 1) % colors.length;
+        return currentColor;
+    }
+})()
+
+function addColorIfMissing(username){
+    if (!userColors.hasOwnProperty(username)) {
+        userColors[username] = getNextColor();
+    }
+}
+
+
+// from https://pastebin.com/KD6gFhAK thanks MNW {:}
 function parse_body(text){
     let number = null;
     let separator = null;
@@ -1264,11 +1279,15 @@ var ColoredUsernames;
     // Specified colors for known users
     var allUserColors = require("./src/data/user-colors.json");
 
-    var userColors = allUserColors.overrides;
+    if(window.parent != window && window.parent.lce.userColors){ // Grab colors from main window if in lc chats view
+        userColors = window.parent.lce.userColors;
+    } else {
+        userColors = allUserColors.overrides;
+        unsafeWindow.lce = {userColors:userColors}; // Expose colors to the outside so lc chats view can get them
+    }
     if (USER == 'VitaminB16') {
         userColors.b66b = 'white';
     }
-    colortransfers = userColors;
     // Possible colors for other users
     colors = allUserColors.defaults;
     for (var i = colors.length - 1; i > 0; i--) {
@@ -1284,10 +1303,6 @@ var ColoredUsernames;
         return o;
     };
 
-    // index of next color to assign from colors array
-    var currentColor = 0;
-
-
 
     // Options
     var enabled = true;
@@ -1299,6 +1314,22 @@ var ColoredUsernames;
             enabled = this.prop('checked');
         }
     });
+
+    let hasBoldName = function(username){
+        let boldUsernames = ['MaybeNotWrong','co3_carbonate','rschaosid','piyushsharma301','LeinadSpoon','artbn'];
+        return boldUsernames.includes(username);
+    }
+
+    let lcchatsStyling = function(node){
+        let href = node.attr('href');
+        let author = href.trim().replace('/u/', '');
+        addColorIfMissing(author);
+        node.css('color', userColors[author]).css('fontStyle','initial').css('fontSize','13px');
+        if (hasBoldName(author)) {
+            node.css('font-weight', 'bold');
+        }
+    }
+
     // EVENTS
     // New update loaded
     UPDATE_EVENTS.addListener("new", data => {
@@ -1307,13 +1338,12 @@ var ColoredUsernames;
             return;
         // Special usernames (temp rewards for top in 100k HoC, or other contributions)
         // Bot-maker privileges
-        if (data.author == 'MaybeNotWrong' || data.author == 'co3_carbonate' || data.author == 'rschaosid' || data.author == 'piyushsharma301' || data.author == 'LeinadSpoon' || data.author == 'artbn') {
+        if (hasBoldName(data.author)) {
             data.authorNode.css('font-weight', 'bold');
         }
 
         // 100K usernames
-
-         if (SpecialUsernamesEnabled[0]) {
+        if (SpecialUsernamesEnabled[0]) {
             // /u/TOP_20 username special
             if (data.author == knames[0]) {
                 data.authorNode.html(`<span style="color:brickred;">/</span><span style="color:#a35252;">u</span><span style="color:#FFFF00;">/</span>T<span style="color:#6495ED;">O</span><span style="color:#800080;">P</span><span style="color:#0000FF;">_</span><span style="color:#000000;">20</span>`)
@@ -1351,82 +1381,40 @@ var ColoredUsernames;
             }
         } // SpecialUsernamesEnabled2 ending
 
+        // Set username color
+        addColorIfMissing(data.author);
+        data.authorNode.css('color', userColors[data.author]);
 
-    // Set username color
-    if (!userColors.hasOwnProperty(data.author)) {
-        userColors[data.author] = colors[currentColor];
-        currentColor++;
-        if (currentColor == colors.length) {
-            currentColor = 0;
+        if([THREADS.LC_CHATS_OLD, THREADS.LC_CHATS].includes(THREAD)) {
+            let node = data.hrefNode;
+            lcchatsStyling(node);    
         }
-    }
-    data.authorNode.css('color', userColors[data.author]);
-
-
-
-    if([THREADS.LC_CHATS_OLD, THREADS.LC_CHATS].includes(THREAD)) {
-        var lcchats = data.hrefNode.attr('href');
-        lcchats = lcchats.trim().replace('/u/', '');
-        data.hrefNode.css('color', userColors[lcchats]).css('fontStyle','initial').css('fontSize','13px');
-        if (lcchats == 'MaybeNotWrong' || lcchats == 'co3_carbonate' || lcchats == 'rschaosid' || lcchats == 'piyushsharma301' || lcchats == 'LeinadSpoon' || lcchats == 'artbn') {
-            data.hrefNode.css('font-weight', 'bold');
-        }
-    }
-});
+    });
     if([THREADS.LC_CHATS_OLD, THREADS.LC_CHATS].includes(THREAD)) {
         $('a[href*="/u/"]').each(function() {
-            var thishref = $(this).attr('href');
-            thishref = thishref.trim().replace('/u/', '');
-            $(this).css('color', userColors[thishref]).css('fontStyle','initial').css('fontSize','13px');
-            if (thishref == 'MaybeNotWrong' || thishref == 'co3_carbonate' || thishref == 'rschaosid' || thishref == 'piyushsharma301' || thishref == 'LeinadSpoon' || thishref == 'artbn') {
-                $(this).css('font-weight', 'bold');
-            }
+            var node = $(this);
+            lcchatsStyling(node);
         });
         UPDATE_EVENTS.addListener("loaded", () => {
             $('a[href*="/u/"]').each(function() {
-                var thishref2 = $(this).attr('href');
-                thishref2 = thishref2.trim().replace('/u/', '');
-                $(this).css('color', userColors[thishref2]).css('fontStyle','initial').css('fontSize','13px');
-                if (thishref2 == 'MaybeNotWrong' || thishref2 == 'co3_carbonate' || thishref2 == 'rschaosid' || thishref2 == 'piyushsharma301' || thishref2 == 'LeinadSpoon' || thishref2 == 'artbn') {
-                    $(this).css('font-weight', 'bold');
-                }
+                var node = $(this);
+                lcchatsStyling(node);
             });
         });
-    }
-
-    var burrentbolor = 0;
-        $('.author').each(function() {
-            var thisauthor = $(this).text().trim().replace('/u/', '');
-            //$(this).css('color', userColors[thisauthor]).css('fontStyle','initial').css('fontSize','13px');
-            if (!userColors.hasOwnProperty(thisauthor)) {
-        userColors[thisauthor] = colors[burrentbolor];
-        burrentbolor++;
-        if (burrentbolor == colors.length) {
-            burrentbolor = 0;
+    }    
+    function applyAuthorStyle(){
+        var author = $(this).text().trim().replace('/u/', '');
+        //$(this).css('color', userColors[author]).css('fontStyle','initial').css('fontSize','13px');
+        addColorIfMissing(author);
+        $(this).css('color', userColors[author]);
+        if (hasBoldName(author)) {
+            $(this).css('font-weight', 'bold');
         }
     }
-    $(this).css('color', userColors[thisauthor]);
-            if (thisauthor == 'MaybeNotWrong' || thisauthor == 'co3_carbonate' || thisauthor == 'rschaosid' || thisauthor == 'piyushsharma301' || thisauthor == 'LeinadSpoon' || thisauthor == 'artbn') {
-                $(this).css('font-weight', 'bold');
-            }
-        });
-        UPDATE_EVENTS.addListener("loaded", () => {
-            $('.author').each(function() {
-            var thisauthor = $(this).text().trim().replace('/u/', '');
-            //$(this).css('color', userColors[thisauthor]).css('fontStyle','initial').css('fontSize','13px');
-            if (!userColors.hasOwnProperty(thisauthor)) {
-        userColors[thisauthor] = colors[burrentbolor];
-        burrentbolor++;
-        if (burrentbolor == colors.length) {
-            burrentbolor = 0;
-        }
-    }
-    $(this).css('color', userColors[thisauthor]);
-            if (thisauthor == 'MaybeNotWrong' || thisauthor == 'co3_carbonate' || thisauthor == 'rschaosid' || thisauthor == 'piyushsharma301' || thisauthor == 'LeinadSpoon' || thisauthor == 'artbn') {
-                $(this).css('font-weight', 'bold');
-            }
-        });
-        });
+    $('.author').each(applyAuthorStyle);
+    UPDATE_EVENTS.addListener("loaded", () => {
+        $('.author').each(applyAuthorStyle);
+    });
 
     //Styles
     Styles.add(`li > div > a[href="/user/MaybeNotWrong"].author.blink {animation: blinkerm linear 2;} @keyframes blinkerm {50% { opacity:0; } 100%{ opacity:1; } }`);
@@ -1806,16 +1794,10 @@ var TeamBarsEnabled;
                     $(".authoro").each(function () {
                         $(this).attr("href", "https://reddit.com" + $(this).text());
                         if (dailyHocColorNamesEnable2 == true) {
-                            var thishref = $(this).attr('href');
-                            thishref = thishref.trim().replace('https://reddit.com/u/', '');
-                            if (!colortransfers.hasOwnProperty(thishref)) {
-                                colortransfers[thishref] = colors[currentColor];
-                                currentColor++;
-                                if (currentColor == colors.length) {
-                                    currentColor = 0;
-                                }
-                            }
-                            $(this).css('color', colortransfers[thishref]);
+                            let thishref = $(this).attr('href');
+                            let author = thishref.trim().replace('https://reddit.com/u/', '');
+                            addColorIfMissing(author);
+                            $(this).css('color', userColors[author]);
                             if ($(this).text() == `/u/` + USER) {
                                 $(this).parent().parent().css('font-weight', 'bold');
                             }
