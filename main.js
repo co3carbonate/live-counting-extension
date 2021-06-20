@@ -1359,23 +1359,24 @@ var ColoredUsernames;
                 Over N updates the username cycles through the colors of the rainbow.
                 Each individual update has a fixed color.
             */
+            if(data.author == knames[2]){
+                // how many counts does it take to go through the rainbow
+                let countsPerCycle = 176; 
 
-            // how many counts does it take to go through the rainbow
-            let countsPerCycle = 176; 
+                // Initialize randomly
+                if(specialUsernamesThematsvalkIndex === undefined){
+                    specialUsernamesThematsvalkIndex = Math.floor(Math.random() * countsPerCycle);
+                }
 
-            // Initialize randomly
-            if(specialUsernamesThematsvalkIndex === undefined){
-                specialUsernamesThematsvalkIndex = Math.floor(Math.random() * countsPerCycle);
+                // Get Color from current index
+                let deg = specialUsernamesThematsvalkIndex / countsPerCycle * 360;
+                let colorText = "hsl("+deg+"deg, 100%, 50%)"
+                userColors["TheMatsValk"] = colorText;
+
+                // Update index
+                specialUsernamesThematsvalkIndex+=1
+                specialUsernamesThematsvalkIndex%=countsPerCycle
             }
-
-            // Get Color from current index
-            let deg = specialUsernamesThematsvalkIndex / countsPerCycle * 360;
-            let colorText = "hsl("+deg+"deg, 100%, 50%)"
-            userColors["TheMatsValk"] = colorText;
-
-            // Update index
-            specialUsernamesThematsvalkIndex+=1
-            specialUsernamesThematsvalkIndex%=countsPerCycle
         } // /u/TheMatsValk username special ending
 
 
