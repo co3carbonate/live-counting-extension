@@ -29,10 +29,8 @@ const THREADS = require("./src/data/threads.json")
 const knames = [
 	"TOP_20",
 	"ItzTaken",
-    "TheMatsValk",
 ];
 const SpecialUsernamesEnabled = new Array(knames.length).fill(true);
-let specialUsernamesThematsvalkIndex;
 
 // Emote stuff
 const imageEmoteData = require("./src/data/image-emotes.json");
@@ -1352,33 +1350,6 @@ var ColoredUsernames;
                 data.authorNode.html(takenuser);
             }
         } // /u/ItzTaken username special ending
-
-        if (SpecialUsernamesEnabled[2]) {
-            // /u/TheMatsValk username special
-            /* Description:
-                Over N updates the username cycles through the colors of the rainbow.
-                Each individual update has a fixed color.
-            */
-            if(data.author == knames[2]){
-                // how many counts does it take to go through the rainbow
-                let countsPerCycle = 176; 
-
-                // Initialize randomly
-                if(specialUsernamesThematsvalkIndex === undefined){
-                    specialUsernamesThematsvalkIndex = Math.floor(Math.random() * countsPerCycle);
-                }
-
-                // Get Color from current index
-                let deg = specialUsernamesThematsvalkIndex / countsPerCycle * 360;
-                let colorText = "hsl("+deg+"deg, 100%, 50%)"
-                userColors["TheMatsValk"] = colorText;
-
-                // Update index
-                specialUsernamesThematsvalkIndex+=1
-                specialUsernamesThematsvalkIndex%=countsPerCycle
-            }
-        } // /u/TheMatsValk username special ending
-
 
     // Set username color
     if (!userColors.hasOwnProperty(data.author)) {
