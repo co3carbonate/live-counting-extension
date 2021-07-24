@@ -28,11 +28,10 @@ const THREADS = require("./src/data/threads.json")
 // 100k name information
 const knames = [
 	"TOP_20",
-	"ItzTaken",
-    "TheMatsValk",
+	"amazingpikachu_38",
 ];
 const SpecialUsernamesEnabled = new Array(knames.length).fill(true);
-let specialUsernamesThematsvalkIndex;
+let specialUsernamesChuInit = false;
 
 // Emote stuff
 const imageEmoteData = require("./src/data/image-emotes.json");
@@ -1315,70 +1314,27 @@ var ColoredUsernames;
 
         // 100K usernames
 
-         if (SpecialUsernamesEnabled[0]) {
+        if (SpecialUsernamesEnabled[0]) {
             // /u/TOP_20 username special
             if (data.author == knames[0]) {
                 data.authorNode.html(`<span style="color:brickred;">/</span><span style="color:#a35252;">u</span><span style="color:#FFFF00;">/</span>T<span style="color:#6495ED;">O</span><span style="color:#800080;">P</span><span style="color:#0000FF;">_</span><span style="color:#000000;">20</span>`)
             }
         } // /u/TOP_20 username special ending
 
-        if (SpecialUsernamesEnabled[1]) {
-            // /u/ItzTaken username special
-            if (data.author == knames[1]) {
-
-                let takenuser = '/u/ItzTaken';
-                data.authorNode.addClass('takenblink');
-
-                let template = function(time, time2, random_iteration, text){
-                    let div = `<span class="taken" style="font-weight:bold; animation: takenblinkerm `;
-                        div += time/random_iteration;
-                        div += `s `;
-                        div += random_iteration;
-                        div += `;animation-timing-function: linear;animation-fill-mode: forwards;animation-delay:`
-                        div += time2;
-                        div += `s;`;
-                        div += `;">`
-                        div += text
-                        div += `</span>`
-                    return div
-                }
-                takenuser = takenuser.split("").map((letter)=>{
-                    let rand_time = (Math.random()* 4.5) + 0.5;
-                    let rand_time2 = -(Math.random()*0.5);
-                    let rand_iter = Math.floor(Math.random() * 3) + 1;
-                    return template(rand_time,rand_time2,rand_iter,letter);
-                }).join("");
-
-                data.authorNode.html(takenuser);
-            }
-        } // /u/ItzTaken username special ending
-
-        if (SpecialUsernamesEnabled[2]) {
-            // /u/TheMatsValk username special
-            /* Description:
-                Over N updates the username cycles through the colors of the rainbow.
-                Each individual update has a fixed color.
-            */
-            if(data.author == knames[2]){
-                // how many counts does it take to go through the rainbow
-                let countsPerCycle = 176; 
-
-                // Initialize randomly
-                if(specialUsernamesThematsvalkIndex === undefined){
-                    specialUsernamesThematsvalkIndex = Math.floor(Math.random() * countsPerCycle);
-                }
-
-                // Get Color from current index
-                let deg = specialUsernamesThematsvalkIndex / countsPerCycle * 360;
-                let colorText = "hsl("+deg+"deg, 100%, 50%)"
-                userColors["TheMatsValk"] = colorText;
-
-                // Update index
-                specialUsernamesThematsvalkIndex+=1
-                specialUsernamesThematsvalkIndex%=countsPerCycle
-            }
-        } // /u/TheMatsValk username special ending
-
+		if (SpecialUsernamesEnabled[1]) {
+			// /u/amazingpikachu_38 username special
+			/* Description:
+				Removes forced username color -> fallback to a random default
+				Changes Username to the shorter form "chu"
+			*/
+			if(data.author == knames[1]){
+				data.authorNode.html('/u/chu');
+				if(!specialUsernamesChuInit){
+					delete userColors[knames[1]];
+					specialUsernamesChuInit = true;
+				}
+			}
+		} // /u/amazingpikachu_38 username special ending
 
     // Set username color
     if (!userColors.hasOwnProperty(data.author)) {
