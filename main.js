@@ -1963,76 +1963,8 @@ var ContentPosition;
     // Styles
     Styles.add("\n\n\t#lc-body[data-ContentPosition='Left'] div.content {\n\t\tmargin: 0;\n\t}\n\t#lc-body[data-ContentPosition='Center'] div.content {\n\t\tmargin: 0 auto;\n\t}\n\t#lc-body[data-ContentPosition='Right'] div.content {\n\t\tfloat: right;\n\t}\n\n\t");
 })(ContentPosition || (ContentPosition = {}));
-////////////////////////////////
-// StandardizeNumberFormat.ts //
-////////////////////////////////
-var StandardizeNumberFormat;
-(function (StandardizeNumberFormat) {
-    // UTILITY
-    // Format a number string with a character separator (e.g. 1,000,000)
-    function delimit(str, char) {
-        return str.replace(/\B(?=(\d{3})+(?!\d))/g, char);
-    }
-    // INITIALIZATION
-    var enabled = false;
-    var format = function (str) { return str; };
-    // Possible format functions
-    // (this is to avoid the use of anonymous functions, improving performance)
-    var FormatFuncs;
-    (function (FormatFuncs) {
-        function Commas(str) {
-            return delimit(str, ',');
-        }
-        FormatFuncs.Commas = Commas;
-        function Spaces(str) {
-            return delimit(str, ' ');
-        }
-        FormatFuncs.Spaces = Spaces;
-        function Periods(str) {
-            return delimit(str, '.');
-        }
-        FormatFuncs.Periods = Periods;
-        function None(str) {
-            return delimit(str, '');
-        }
-        FormatFuncs.None = None;
-        function CommaSpaces(str) {
-            return delimit(str, ', ');
-        }
-        FormatFuncs.CommaSpaces = CommaSpaces;
-    })(FormatFuncs || (FormatFuncs = {}));
-    ;
-    // Options
-    Options.addSelect({
-        label: 'STANDARDIZE FORMAT',
-        options: ['Disabled', 'Spaces', 'Periods', 'Commas', 'CommaSpaces', 'None'],
-        section: 'Advanced',
-        help: 'Standardizes the number count in each message to a format of your choice. Also removes special formatting on the number.',
-        onchange: function () {
-            var val = this.val();
-            if (val == 'Disabled') {
-                enabled = false;
-                return;
-            }
-            enabled = true;
-            format = FormatFuncs[val];
-        }
-    });
-    // EVENTS
-    // New update loaded
-    UPDATE_EVENTS.addListener("new", data => {
-        if (!enabled)
-            return;
-        var ustHtml = data.node.find('.body > .md').html();
-        var ustPost = data.node.find('.body > .md').text();
-        var ustNumber = parse_body(ustPost)[0];
-        var ustNumberOriginal = parse_body(ustPost)[2];
-        if(ustNumber == null) {ustNumber = ''};
-        if(ustNumber.length < 1) {return;}
-        var replacedhtml = ustHtml.replace(ustNumberOriginal,format(ustNumber));
-        data.node.find('.body > .md').html(replacedhtml);
-    });
-})(StandardizeNumberFormat || (StandardizeNumberFormat = {}));
+
+const STANDARDIZE_NUMBER_FORMAT = new require("./src/standardize-number-format/standardize-number-format").StandardizeNumberFormat(Options);
 
 ////////////////
 // Ignore.ts //
