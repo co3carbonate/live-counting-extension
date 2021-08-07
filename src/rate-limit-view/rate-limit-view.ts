@@ -32,7 +32,6 @@ export class RateLimitView {
 		let fontColor = "";
 		let isDelta = false;
 		let isEnabled = false;
-		let didInit = false;
 		Options.addSelect({
 			default: 0,
 			help: "Rate limit viewer by post. Not real, just estimate lol",
@@ -52,37 +51,35 @@ export class RateLimitView {
 					isEnabled = false;
 				}
 				isDelta = val == "Delta";
-				if(didInit)return;
-
-				$("#new-update-form .save-button button").on("click", function() {
-					// Set times in any case to ensure correct values after turning it on
-					oldtime = newtime;
-					newtime = Date.now();
-					if(!isEnabled)return;
-					// Compute relevant time differences
-					const selfReplyTime = newtime - oldtime;
-					const delta = selfReplyTime - RATE_LIMIT;
-					// Set Background Color
-					if(delta < 0) {
-						bgColor = RATE_LIMIT_COLORS.negative;
-					} else if (delta < COLOR_MAX_MS) {
-						const index = Math.floor(delta / COLOR_INTERVALL);
-						bgColor = RATE_LIMIT_COLORS.positive[index];
-					} else {
-						bgColor = "transparent";
-					}
-					// Set Font Color
-					fontColor = delta < COLOR_MAX_MS ? "#000" : "";
-					// Update UI
-					const value = isDelta ? delta : selfReplyTime;
-					$("#rate").text(value + "ms");
-					$(".bottom-area").css("background", bgColor);
-					$(".bottom-area").css("color", fontColor);
-				});
-				didInit = true;
 			},
 			options: ["Disabled", "Normal", "Delta"],
 			section: "Advanced 2",
+		});
+
+		$("#new-update-form .save-button button").on("click", function() {
+			// Set times in any case to ensure correct values after turning it on
+			oldtime = newtime;
+			newtime = Date.now();
+			if(!isEnabled)return;
+			// Compute relevant time differences
+			const selfReplyTime = newtime - oldtime;
+			const delta = selfReplyTime - RATE_LIMIT;
+			// Set Background Color
+			if(delta < 0) {
+				bgColor = RATE_LIMIT_COLORS.negative;
+			} else if (delta < COLOR_MAX_MS) {
+				const index = Math.floor(delta / COLOR_INTERVALL);
+				bgColor = RATE_LIMIT_COLORS.positive[index];
+			} else {
+				bgColor = "transparent";
+			}
+			// Set Font Color
+			fontColor = delta < COLOR_MAX_MS ? "#000" : "";
+			// Update UI
+			const value = isDelta ? delta : selfReplyTime;
+			$("#rate").text(value + "ms");
+			$(".bottom-area").css("background", bgColor);
+			$(".bottom-area").css("color", fontColor);
 		});
 	}
 }
