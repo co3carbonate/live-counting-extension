@@ -2201,7 +2201,7 @@ var TextboxPosition;
 })(TextboxPosition || (TextboxPosition = {}));
 
 const RATE_LIMIT_VIEW = require("./src/rate-limit-view/rate-limit-view").RateLimitView;
-new RATE_LIMIT_VIEW(Elements, Options);
+new RATE_LIMIT_VIEW(Options);
 
 /////////////////////////
 // ImageEmotePicker.ts //

@@ -7,12 +7,11 @@ interface RateLimitColors {
 
 const RATE_LIMIT_COLORS: RateLimitColors = COLORS;
 const RATE_LIMIT = 333;
-const COLOR_INTERVALL = 20;
-const COLOR_MAX_MS = RATE_LIMIT_COLORS.positive.length * COLOR_INTERVALL;
+const COLOR_INTERVAL = 20;
+const COLOR_MAX_MS = RATE_LIMIT_COLORS.positive.length * COLOR_INTERVAL;
 
 export class RateLimitView {
-	constructor(Elements: any, Options: any) {
-		Elements.$body.attr("data-RateLimitView", "Disabled");
+	constructor(Options: any) {
 		$("<span id=ratelim class=ratelimit>RL: <span id=rate></span></span>").insertBefore(".CANT_REPLY");
 		$(".ratelimit").css({
 			background: "transparent",
@@ -22,10 +21,10 @@ export class RateLimitView {
 			"margin-left": "10px",
 			"margin-top": "5px",
 		});
-		this.initOptions(Elements, Options);
+		this.initOptions(Options);
 	}
 
-	initOptions(Elements: any, Options: any): void {
+	initOptions(Options: any): void {
 		let oldtime = Date.now();
 		let newtime = Date.now();
 		let bgColor = "";
@@ -38,8 +37,6 @@ export class RateLimitView {
 			label: "RATE LIMIT VIEW",
 			onchange: function() {
 				const val = this.val();
-				Elements.$body.attr("data-RateLimitView", val);
-
 				if(val == "Normal" || val == "Delta") {
 					$(".ratelimit").css("display", "initial");
 					$(".help-toggle").css("display", "none");
@@ -70,7 +67,7 @@ export class RateLimitView {
 			if(delta < 0) {
 				bgColor = RATE_LIMIT_COLORS.negative;
 			} else if (delta < COLOR_MAX_MS) {
-				const index = Math.floor(delta / COLOR_INTERVALL);
+				const index = Math.floor(delta / COLOR_INTERVAL);
 				bgColor = RATE_LIMIT_COLORS.positive[index];
 			} else {
 				bgColor = "transparent";
