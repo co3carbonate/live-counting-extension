@@ -1964,7 +1964,8 @@ var ContentPosition;
     Styles.add("\n\n\t#lc-body[data-ContentPosition='Left'] div.content {\n\t\tmargin: 0;\n\t}\n\t#lc-body[data-ContentPosition='Center'] div.content {\n\t\tmargin: 0 auto;\n\t}\n\t#lc-body[data-ContentPosition='Right'] div.content {\n\t\tfloat: right;\n\t}\n\n\t");
 })(ContentPosition || (ContentPosition = {}));
 
-const STANDARDIZE_NUMBER_FORMAT = new require("./src/standardize-number-format/standardize-number-format").StandardizeNumberFormat(Options);
+const STANDARDIZE_NUMBER_FORMAT = require("./src/standardize-number-format/standardize-number-format").StandardizeNumberFormat;
+new STANDARDIZE_NUMBER_FORMAT(Options);
 
 ////////////////
 // Ignore.ts //
@@ -2199,109 +2200,8 @@ var TextboxPosition;
     Styles.add("\n\n\t.usertext-edit textarea[data-TextboxPosition='Lower'] {padding-top: 76px;}\n\n\t");
 })(TextboxPosition || (TextboxPosition = {}));
 
-//////////////////////
-// RateLimitView.ts //
-//////////////////////
-var RateLimitView;
-(function (RateLimitView) {
-    // INITIALIZATION
-    Elements.$body.attr('data-RateLimitView', 'Disabled');
-    $("<span id=ratelim class=ratelimit>RL: <span id=rate></span><span id=ratedelta></span></span>").insertBefore('.CANT_REPLY');
-    $('.ratelimit').css({'display': 'none', 'font-size': 'smaller', 'float': 'right', 'margin-top': '5px', 'margin-left': '10px', 'background': 'transparent'});
-    var oldtime = new Date();
-    var newtime = new Date();
-    var oldtimea = new Date();
-    var newtimea = new Date();
-    var egregious_dumbassery = 0;
-    var egregious_dumbassery_2 = 0;
-    var ratecolor = "";
-    var ratetext = "";
-    // Options
-    Options.addSelect({
-        label: 'RATE LIMIT VIEW',
-        section: 'Advanced 2',
-        options: ['Disabled', 'Normal', 'Delta'],
-        "default": 0,
-        help: 'Rate limit viewer by post. Not real, just estimate lol',
-        onchange: function () {
-            Elements.$body.attr('data-RateLimitView', this.val());
-            if(Elements.$body.attr('data-RateLimitView') == 'Normal') {
-                egregious_dumbassery++;
-                $('.ratelimit').css('display','initial');
-                $('#ratedelta').css('display','none');
-                $('#rate').css('display','initial');
-                $(".help-toggle").css('display','none');
-                if(egregious_dumbassery > 1)
-                    return;
-                $('#new-update-form .save-button button').click(function(){
-                    oldtime = newtime
-                    newtime = new Date();
-                    ratetext = "#000";
-                    if(newtime - oldtime - 333 < 0) {
-                        ratecolor = '#f2ee0e';
-                    } else if(newtime - oldtime - 333 < 20) {
-                        ratecolor = '#ef7070';
-                    } else if(newtime - oldtime - 333 < 40) {
-                        ratecolor = '#ffaeae';
-                    } else if(newtime - oldtime - 333 < 60) {
-                        ratecolor = '#ffebba';
-                    } else if(newtime - oldtime - 333 < 80) {
-                        ratecolor = '#cfffba';
-                    } else if(newtime - oldtime - 333 < 100) {
-                        ratecolor = '#a2e8af';
-                    } else if(newtime - oldtime - 333 < 120) {
-                        ratecolor = '#adffed';
-                    } else {
-                        ratecolor = 'transparent';
-                        ratetext = "";
-                    }
-                    $('#rate').text(newtime - oldtime + "ms");
-                    $('.bottom-area').css('background',ratecolor);
-                    $('.bottom-area').css('color',ratetext);
-                });
-            }
-            if(Elements.$body.attr('data-RateLimitView') == 'Delta') {
-                egregious_dumbassery_2++;
-                $('.ratelimit').css('display','initial');
-                $('#ratedelta').css('display','initial');
-                $('#rate').css('display','none');
-                $(".help-toggle").css('display','none');
-                if(egregious_dumbassery_2 > 1)
-                    return;
-                $('#new-update-form .save-button button').click(function(){
-                    oldtimea = newtimea
-                    newtimea = new Date();
-                    ratetext = "#000";
-                    if(newtimea - oldtimea - 333 < 0) {
-                        ratecolor = '#f2ee0e';
-                    } else if(newtimea - oldtimea - 333 < 20) {
-                        ratecolor = '#ef7070';
-                    } else if(newtimea - oldtimea - 333 < 40) {
-                        ratecolor = '#ffaeae';
-                    } else if(newtimea - oldtimea - 333 < 60) {
-                        ratecolor = '#ffebba';
-                    } else if(newtimea - oldtimea - 333 < 80) {
-                        ratecolor = '#cfffba';
-                    } else if(newtimea - oldtimea - 333 < 100) {
-                        ratecolor = '#a2e8af';
-                    } else if(newtimea - oldtimea - 333 < 120) {
-                        ratecolor = '#adffed';
-                    } else {
-                        ratecolor = 'transparent';
-                        ratetext = "";
-                    }
-                    $('#ratedelta').text(newtimea - oldtimea - 333 + "ms");
-                    $('.bottom-area').css('background',ratecolor);
-                    $('.bottom-area').css('color',ratetext);
-                });
-            }
-            if(Elements.$body.attr('data-RateLimitView') == 'Disabled') {
-                $('.ratelimit').css('display','none');
-                $(".help-toggle").css('display','initial');
-            }
-        }
-    });
-})(RateLimitView || (RateLimitView = {}));
+const RATE_LIMIT_VIEW = require("./src/rate-limit-view/rate-limit-view").RateLimitView;
+new RATE_LIMIT_VIEW(Elements, Options);
 
 /////////////////////////
 // ImageEmotePicker.ts //
