@@ -48,6 +48,8 @@ export class RateLimitView {
 				if(val == "Disabled") {
 					$(".ratelimit").css("display", "none");
 					$(".help-toggle").css("display", "initial");
+					$(".bottom-area").css("background", "transparent");
+					$(".bottom-area").css("color", "");
 					isEnabled = false;
 				}
 				isDelta = val == "Delta";
