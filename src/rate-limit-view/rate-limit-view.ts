@@ -1,4 +1,5 @@
 import { RATE_LIMIT_COLORS } from "./rate-limit-colors";
+import { SUBMIT_BUTTON } from "../utils/elements";
 const RATE_LIMIT = 333;
 const COLOR_INTERVAL = 20;
 const COLOR_MAX_MS = RATE_LIMIT_COLORS.positive.length * COLOR_INTERVAL;
@@ -51,10 +52,10 @@ export class RateLimitView {
 			section: "Advanced 2",
 		});
 
-		$("#new-update-form .save-button button").on("click", this.onMakeUpdate.bind(this));
+		SUBMIT_BUTTON.on("click", this.onSubmit.bind(this));
 	}
 
-	private onMakeUpdate(): void {
+	private onSubmit(): void {
 		// Set times in any case to ensure correct values after turning it on
 		this.oldtime = this.newtime;
 		this.newtime = Date.now();
