@@ -4,10 +4,10 @@ const COLOR_INTERVAL = 20;
 const COLOR_MAX_MS = RATE_LIMIT_COLORS.positive.length * COLOR_INTERVAL;
 
 export class RateLimitView {
-	oldtime = Date.now();
-	newtime = Date.now();
-	isDelta = false;
-	isEnabled = false;
+	private oldtime = Date.now();
+	private newtime = Date.now();
+	private isDelta = false;
+	private isEnabled = false;
 
 	constructor(Options: any) {
 		$("<span id=ratelim class=ratelimit>RL: <span id=rate></span></span>")
