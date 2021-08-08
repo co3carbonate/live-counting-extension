@@ -62,7 +62,16 @@ export class RateLimitView {
 		// Compute relevant time differences
 		const selfReplyTime = this.newtime - this.oldtime;
 		const delta = selfReplyTime - RATE_LIMIT;
-		// Set Background Color
+		// Update UI
+		const value = this.isDelta ? delta : selfReplyTime;
+		$("#rate").text(value + "ms");
+		$(".bottom-area").css({
+			background: this.getBackgroundColor(delta),
+			color: this.getFontColor(delta),
+		});
+	}
+
+	private getBackgroundColor(delta: number): string {
 		let bgColor: string;
 		if(delta < 0) {
 			bgColor = RATE_LIMIT_COLORS.negative;
@@ -72,14 +81,10 @@ export class RateLimitView {
 		} else {
 			bgColor = "transparent";
 		}
-		// Set Font Color
-		const fontColor = delta < COLOR_MAX_MS ? "#000" : "";
-		// Update UI
-		const value = this.isDelta ? delta : selfReplyTime;
-		$("#rate").text(value + "ms");
-		$(".bottom-area").css({
-			background: bgColor,
-			color: fontColor,
-		});
+		return bgColor;
+	}
+
+	private getFontColor(delta: number): string {
+		return delta < COLOR_MAX_MS ? "#000" : "";
 	}
 }
