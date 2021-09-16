@@ -19,6 +19,13 @@ class UpdateEvents extends EventEmitter {
 		this.observer = new MutationObserver(this.handleMutations);
 	}
 
+	handleExisting(): void {
+		$(".liveupdate").each((index, element) => {
+			const info = UpdateEvents.getUpdateInfo($(element));
+			this.emit("all", info);
+		});
+	}
+
 	handleMutations(mutations: MutationRecord[]): void {
 		// Loop through MutationRecords and call the functions in various arrays based on .type
 		// (Honestly the MutationRecord[] usually only contains one, but whatever)
@@ -44,6 +51,7 @@ class UpdateEvents extends EventEmitter {
 			}
 
 			const info = UpdateEvents.getUpdateInfo(node);
+			this.emit("all", info);
 
 			// Determine whether the inserted update is new or loaded
 			// This is based on whether it was inserted at the top or the bottom

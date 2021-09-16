@@ -2856,3 +2856,5 @@ var time_fake = new Date();
 
 }
 // End test thread special feature
+
+UPDATE_EVENTS.handleExisting();
