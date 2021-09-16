@@ -23,7 +23,7 @@ export class StandardizeNumberFormat {
 			section: "Advanced",
 		});
 
-		UPDATE_EVENTS.addListener("new", data => {
+		UPDATE_EVENTS.addListener("all", data => {
 			if(!this.enabled)return;
 			const bodyNode = data.bodyNode;
 			const { number, numberOriginalFormat } = parseBody(bodyNode.text());
