@@ -31,7 +31,7 @@ const knames = [
 	"TheMatsValk",
 ];
 const SpecialUsernamesEnabled = new Array(knames.length).fill(true);
-let specialUsernamesThematsvalkIndex = false;
+let specialUsernamesThematsvalkIndex;
 
 // Emote stuff
 const imageEmoteData = require("./src/data/image-emotes.json");
