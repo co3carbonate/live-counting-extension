@@ -123,6 +123,14 @@ function get_split_digits(){
     return digits;
 }
 
+// Fix console error on striking deleted posts
+r.liveupdate.app.websocket._events["message:strike"][0]["callback"] = function(e) {
+    var t = this.listing.get(e);
+    if (typeof t !== 'undefined') {
+        t.set("stricken", !0)
+    }
+}
+
 // Global Functions
 // from https://pastebin.com/KD6gFhAK thanks MNW {:}
 
