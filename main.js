@@ -2858,10 +2858,10 @@ var time_fake = new Date();
                 if(window.location.href.indexOf("websocket") > -1) { // Latency start
                     window.idList = [];
                     r.liveupdate.app.websocket._events['message:update'][0].callback = function(t){if(window.idList.includes(t["data"]['id'])) { return; } else { window.idList.push(t["data"]['id']); var n = r.liveupdate.listings.LiveUpdate.prototype.parse(t); this.listing.add(n, { at: 0 }) }}
-                    new r.liveupdate.LiveUpdateApp;
-                    r.liveupdate.app.websocket._events['message:update'][0].callback = function(t){if(window.idList.includes(t["data"]['id'])) { return; } else { window.idList.push(t["data"]['id']); var n = r.liveupdate.listings.LiveUpdate.prototype.parse(t); this.listing.add(n, { at: 0 }) }}
-                    new r.liveupdate.LiveUpdateApp;
-                    r.liveupdate.app.websocket._events['message:update'][0].callback = function(t){if(window.idList.includes(t["data"]['id'])) { return; } else { window.idList.push(t["data"]['id']); var n = r.liveupdate.listings.LiveUpdate.prototype.parse(t); this.listing.add(n, { at: 0 }) }}
+                    var imposty = new r.liveupdate.LiveUpdateApp;
+                    imposty.websocket._events['message:update'][0].callback = function(t){if(window.idList.includes(t["data"]['id'])) { return; } else { window.idList.push(t["data"]['id']); var n = r.liveupdate.listings.LiveUpdate.prototype.parse(t); this.listing.add(n, { at: 0 }) }}
+                    var sussy = new r.liveupdate.LiveUpdateApp;
+                    sussy.websocket._events['message:update'][0].callback = function(t){if(window.idList.includes(t["data"]['id'])) { return; } else { window.idList.push(t["data"]['id']); var n = r.liveupdate.listings.LiveUpdate.prototype.parse(t); this.listing.add(n, { at: 0 }) }}
                 } // Websocket testing stuff end
 
                 // Random tests
