@@ -2857,8 +2857,10 @@ var time_fake = new Date();
                 // Websocket testing stuff
                 if(window.location.href.indexOf("websocket") > -1) { // Latency start
                     window.idList = [];
+                    r.liveupdate.app.websocket._events['message:update'][0].callback = function(t){if(window.idList.includes(t["data"]['id'])) { return; } else { window.idList.push(t["data"]['id']); var n = r.liveupdate.listings.LiveUpdate.prototype.parse(t); this.listing.add(n, { at: 0 }) }}
                     new r.liveupdate.LiveUpdateApp;
-                    new r.liveupdate.LiveUpdateApp; // open two new websockets lol
+                    r.liveupdate.app.websocket._events['message:update'][0].callback = function(t){if(window.idList.includes(t["data"]['id'])) { return; } else { window.idList.push(t["data"]['id']); var n = r.liveupdate.listings.LiveUpdate.prototype.parse(t); this.listing.add(n, { at: 0 }) }}
+                    new r.liveupdate.LiveUpdateApp;
                     r.liveupdate.app.websocket._events['message:update'][0].callback = function(t){if(window.idList.includes(t["data"]['id'])) { return; } else { window.idList.push(t["data"]['id']); var n = r.liveupdate.listings.LiveUpdate.prototype.parse(t); this.listing.add(n, { at: 0 }) }}
                 } // Websocket testing stuff end
 
