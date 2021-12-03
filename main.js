@@ -5,6 +5,7 @@
 */
 // CONSTANTS
 
+var ELEMENTS = require("./src/utils/elements.ts");
 var UPDATE_EVENTS = require("./src/events/update-events.ts").UPDATE_EVENTS;
 
 // Extension version
@@ -390,16 +391,16 @@ var Elements;
 (function (Elements) {
     // PROPERTIES
     // Important elements
-    Elements.$head = $('head');
-    Elements.$body = $('body');
-    Elements.$content = $('div.content');
-    Elements.$updates = $('.liveupdate-listing');
-    Elements.$options = $('#liveupdate-options');
-    Elements.$sidebar = $('aside.sidebar');
-    Elements.$form = $('#new-update-form');
-    Elements.$textarea = Elements.$form.find('textarea');
-    Elements.$submitBtn = Elements.$form.find('.save-button button');
-    Elements.$submitError = Elements.$form.find('.save-button .error');
+    Elements.$head = ELEMENTS.HEAD_ELEMENT;
+    Elements.$body = ELEMENTS.BODY_ELEMENT;
+    Elements.$content = ELEMENTS.CONTENT_ELEMENT;
+    Elements.$updates = ELEMENTS.UPDATES_ELEMENT;
+    Elements.$options = ELEMENTS.OPTIONS_ELEMENT;
+    Elements.$sidebar = ELEMENTS.SIDEBAR_ELEMENT;
+    Elements.$form = ELEMENTS.UPDATE_FORM;
+    Elements.$textarea = ELEMENTS.UPDATE_TEXTAREA;
+    Elements.$submitBtn = ELEMENTS.SUBMIT_BUTTON;
+    Elements.$submitError = ELEMENTS.SUBMIT_ERROR;
     // INITIALIZATION
     Elements.$body.attr('id', 'lc-body');
     // Make the submitError display default to none (important in RemoveSubmissionLag)
