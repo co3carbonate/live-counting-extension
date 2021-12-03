@@ -389,22 +389,10 @@ var Cookie;
 /////////////////
 var Elements;
 (function (Elements) {
-    // PROPERTIES
-    // Important elements
-    Elements.$head = ELEMENTS.HEAD_ELEMENT;
-    Elements.$body = ELEMENTS.BODY_ELEMENT;
-    Elements.$content = ELEMENTS.CONTENT_ELEMENT;
-    Elements.$updates = ELEMENTS.UPDATES_ELEMENT;
-    Elements.$options = ELEMENTS.OPTIONS_ELEMENT;
-    Elements.$sidebar = ELEMENTS.SIDEBAR_ELEMENT;
-    Elements.$form = ELEMENTS.UPDATE_FORM;
-    Elements.$textarea = ELEMENTS.UPDATE_TEXTAREA;
-    Elements.$submitBtn = ELEMENTS.SUBMIT_BUTTON;
-    Elements.$submitError = ELEMENTS.SUBMIT_ERROR;
     // INITIALIZATION
-    Elements.$body.attr('id', 'lc-body');
+    ELEMENTS.BODY_ELEMENT.attr('id', 'lc-body');
     // Make the submitError display default to none (important in RemoveSubmissionLag)
-    Elements.$submitError.css('display', 'none');
+    ELEMENTS.SUBMIT_ERROR.css('display', 'none');
 })(Elements || (Elements = {}));
 ///////////////
 // Styles.ts //
@@ -459,10 +447,10 @@ var Options;
     $options_advanced_heading.append($options_advanced_toggle);
     $options_advanced2_heading.append($options_advanced2_toggle);
     $options.append($options_basic_heading, $options_basic, $options_advanced_heading, $options_advanced, $options_advanced2_heading, $options_advanced2);
-    Elements.$options.append($all_heading, $all);
-    Elements.$options.detach().prependTo(Elements.$sidebar);
-    Elements.$sidebar.insertAfter('#new-update-form');
-    Elements.$sidebar.addClass('large-sidebar');
+    ELEMENTS.OPTIONS_ELEMENT.append($all_heading, $all);
+    ELEMENTS.OPTIONS_ELEMENT.detach().prependTo(ELEMENTS.SIDEBAR_ELEMENT);
+    ELEMENTS.SIDEBAR_ELEMENT.insertAfter('#new-update-form');
+    ELEMENTS.SIDEBAR_ELEMENT.addClass('large-sidebar');
     var all_innerWidth = $all.innerWidth();
     var all_offsetLeft = $all.offset().left;
     // Handling toggle buttons ([-] and [+])
@@ -608,11 +596,11 @@ var Options;
     var $section = $("<section>\n\t\t<h2>options</h2>\n\t\t<div class='md'></div>\n\t</section>");
     var $section_md = $section.children('.md');
     $section.css('display', 'none').css('margin-top', '20px');
-    Elements.$sidebar.children('.sidebar-expand').after($section);
+    ELEMENTS.SIDEBAR_ELEMENT.children('.sidebar-expand').after($section);
     // Window resized
     $(window).on('load resize', function () {
         if (window.innerWidth <= 700) {
-            Elements.$sidebar.removeClass('large-sidebar');
+            ELEMENTS.SIDEBAR_ELEMENT.removeClass('large-sidebar');
             // add the options to '[+] more about this live thread'
             if ($section.css('display') == 'none') {
                 $section.css('display', '');
@@ -620,7 +608,7 @@ var Options;
             }
         }
         else {
-            Elements.$sidebar.addClass('large-sidebar');
+            ELEMENTS.SIDEBAR_ELEMENT.addClass('large-sidebar');
             // remove the options from '[+] more about this live thread'
             if ($section.css('display') != 'none') {
                 $section.css('display', 'none');
@@ -690,7 +678,7 @@ var ReplyTimes;
         timestamp = timestamp / 10000;
         timestamp = Math.round(timestamp);
         //////////Last Count (messy for now)
-        if(Elements.$body.attr('data-LastCount') != 'Off') {
+        if(ELEMENTS.BODY_ELEMENT.attr('data-LastCount') != 'Off') {
             if ( isNaN(Number(expected_number)) == true ) {
                 last_number = current_number;
             }
@@ -772,7 +760,7 @@ var ReplyTimes;
                 }
                 author_last = author_current;
                 last_number = current_number;
-                if(THREAD == THREADS.MAIN && Elements.$body.attr('data-KpartAlert') == 'true') {
+                if(THREAD == THREADS.MAIN && ELEMENTS.BODY_ELEMENT.attr('data-KpartAlert') == 'true') {
                 	if (Notification.permission === "granted") {
                         if (current_number.toString().substr(5) == '000' && !document.hasFocus()) {
                             showNotification(current_number);
@@ -804,20 +792,20 @@ var ReplyTimes;
         var randomx = '0';
         // Check for Darkmode
         darkcheck = 0;
-        if (Elements.$body.attr('data-darkMode') == 'Default') {
+        if (ELEMENTS.BODY_ELEMENT.attr('data-darkMode') == 'Default') {
             if ($('#lc-body').hasClass('res-nightmode')) {
                 darkcheck = 1;
                 elcolor = '#ddd';
             }
-        } else if (Elements.$body.attr('data-darkMode') == 'On') {
+        } else if (ELEMENTS.BODY_ELEMENT.attr('data-darkMode') == 'On') {
             darkcheck = 1;
             elcolor = '#ddd';
-        } else if (Elements.$body.attr('data-darkMode') == 'Off') {
+        } else if (ELEMENTS.BODY_ELEMENT.attr('data-darkMode') == 'Off') {
                 darkcheck = 0;
         }
         // Choose Colors
         let timestamp_positive = timestamp;
-        if(Elements.$body.attr('data-halfColors') == 'true') {
+        if(ELEMENTS.BODY_ELEMENT.attr('data-halfColors') == 'true') {
             // Half reply times -> Choose color as if reply time was 2x
             timestamp_positive = timestamp * 2;
         }
@@ -849,7 +837,7 @@ var ReplyTimes;
             colortest = darkcheck?'#2a2a2a':'#ededed';
         }
         // Overwrite timestamp if it is a special time
-        if(timestamp in specialTimes && Elements.$body.attr('data-disableSpecialTimes') == 'false') {
+        if(timestamp in specialTimes && ELEMENTS.BODY_ELEMENT.attr('data-disableSpecialTimes') == 'false') {
             var postauthor = data.authorNode.text().substring(3);
             if (timestamp == '123') {
                 var randomtime = Math.round(Math.random());
@@ -874,7 +862,7 @@ var ReplyTimes;
             var dateTime = new Date(mago).toISOString().substring(11, 23);
             $('#'+permalink).text(dateTime);
         }
-        if(Elements.$body.attr('data-BackgroundColor') == 'Match Reply Time') {
+        if(ELEMENTS.BODY_ELEMENT.attr('data-BackgroundColor') == 'Match Reply Time') {
             data.node.find('.body').parent().css('background', colortest);
         }
 
@@ -887,11 +875,11 @@ var ReplyTimes;
         if ( $('#lc-body[data-DisplayMode="Minimal"] #liveupdate-statusbar').css('display') == 'none') {
             $( '.river' ).css('margin-left', '-141px');
         }
-        if (Elements.$body.attr('data-automaticallyClearTime') != 'Off') {
-            if (Elements.$body.attr('data-automaticallyClearTime') == 'After 60s') {
+        if (ELEMENTS.BODY_ELEMENT.attr('data-automaticallyClearTime') != 'Off') {
+            if (ELEMENTS.BODY_ELEMENT.attr('data-automaticallyClearTime') == 'After 60s') {
                 customClearTime = 60000;
             } else {
-                customClearTime = Elements.$body.attr('data-customClearTime');
+                customClearTime = ELEMENTS.BODY_ELEMENT.attr('data-customClearTime');
             }
             $('.river').delay(customClearTime).hide(500);
         }
@@ -924,7 +912,7 @@ var ReplyTimes;
 var HalfColors;
 (function (HalfColors) {
     // INITIALIZATION
-    Elements.$body.attr('data-halfColors', false);
+    ELEMENTS.BODY_ELEMENT.attr('data-halfColors', false);
     // Options
     Options.addCheckbox({
         label: 'HALF REPLY TIME COLORS',
@@ -932,7 +920,7 @@ var HalfColors;
         section: 'Advanced 2',
         help: 'Halves the reply time colors, so they increase by increments of 50 rather than 100.',
         onchange: function () {
-            Elements.$body.attr('data-halfColors', this.prop('checked'));
+            ELEMENTS.BODY_ELEMENT.attr('data-halfColors', this.prop('checked'));
         }
     });
 })(HalfColors || (HalfColors = {}));
@@ -942,7 +930,7 @@ var HalfColors;
 var ReplyTimesDarkMode;
 (function (ReplyTimesDarkMode) {
     // INITIALIZATION
-    Elements.$body.attr('data-darkMode', 'Default');
+    ELEMENTS.BODY_ELEMENT.attr('data-darkMode', 'Default');
     // Options
     Options.addSelect({
         label: 'NIGHT MODE REPLY TIMES',
@@ -951,7 +939,7 @@ var ReplyTimesDarkMode;
         "default": 0,
         help: 'Changes the background of reply times to better match RES night mode. Default = looks at RES, On = forced on, Off = forced off, even if RES night mode enabled',
         onchange: function () {
-            Elements.$body.attr('data-darkMode', this.val());
+            ELEMENTS.BODY_ELEMENT.attr('data-darkMode', this.val());
         }
     });
 })(ReplyTimesDarkMode || (ReplyTimesDarkMode = {}));
@@ -961,8 +949,8 @@ var ReplyTimesDarkMode;
 var AutomaticallyClearTime;
 (function (AutomaticallyClearTime) {
     // INITIALIZATION
-    Elements.$body.attr('data-automaticallyClearTime', 'Off');
-    Elements.$body.attr('data-customClearTime', Cookie.save.customClearTime);
+    ELEMENTS.BODY_ELEMENT.attr('data-automaticallyClearTime', 'Off');
+    ELEMENTS.BODY_ELEMENT.attr('data-customClearTime', Cookie.save.customClearTime);
     // Options
     Options.addSelect({
         label: 'CLEAR REPLY TIMES',
@@ -975,13 +963,13 @@ var AutomaticallyClearTime;
             $(this).click(function(){
                 $(this).data('clicked', true);
             });
-            Elements.$body.attr('data-automaticallyClearTime', this.val());
+            ELEMENTS.BODY_ELEMENT.attr('data-automaticallyClearTime', this.val());
             //if (this.val() == 'Custom' && $(this).data('clicked') == true) {
             if (this.val() == 'Custom' && timeCheck == 1) {
                 customClearTime = parseInt(window.prompt('Enter your custom time in milliseconds. 60 seconds = 60000 for example'), 10);
                 if ( /^[0-9.,]+$/.test(customClearTime)) {
                     Cookie.save.customClearTime = customClearTime;
-                    Elements.$body.attr('data-customClearTime', customClearTime);
+                    ELEMENTS.BODY_ELEMENT.attr('data-customClearTime', customClearTime);
                     Cookie.update();
                 }
             }
@@ -994,8 +982,8 @@ var AutomaticallyClearTime;
 var CustomStricken;
 (function (CustomStricken) {
     // INITIALIZATION
-    Elements.$body.attr('data-customStricken', 'Off');
-    Elements.$body.attr('data-customStrickenColor', Cookie.save.customStrickenColor);
+    ELEMENTS.BODY_ELEMENT.attr('data-customStricken', 'Off');
+    ELEMENTS.BODY_ELEMENT.attr('data-customStrickenColor', Cookie.save.customStrickenColor);
     // Options
     Options.addSelect({
         label: 'CUSTOM STRICKEN',
@@ -1007,21 +995,21 @@ var CustomStricken;
             $(this).click(function(){
                 $(this).data('clicked', true);
             });
-            Elements.$body.attr('data-customStricken', this.val());
+            ELEMENTS.BODY_ELEMENT.attr('data-customStricken', this.val());
             //if (this.val() != 'Off' && $(this).data('clicked') == true) {
             if (this.val() != 'Off' && timeCheck == 1) {
-                var oldStricken = Elements.$body.attr('data-customStrickenColor');
+                var oldStricken = ELEMENTS.BODY_ELEMENT.attr('data-customStrickenColor');
                 customStrickenColor = window.prompt('Enter your custom background color.','#ddd');
                 Cookie.save.customStrickenColor = customStrickenColor;
-                Elements.$body.attr('data-customStrickenColor', customStrickenColor);
+                ELEMENTS.BODY_ELEMENT.attr('data-customStrickenColor', customStrickenColor);
                 Cookie.update();
-                //Styles.add("\n\n\t/* Custom Stricken */\n\t#lc-body[data-customStricken='No Inverse'] .liveupdate.stricken{\n\tbackground:"  + Elements.$body.attr('data-customStrickenColor') + "!important;\n\t}\n#lc-body[data-customStricken='Inverse'] .liveupdate.stricken{\n\tbackground:"  + Elements.$body.attr('data-customStrickenColor') + "!important;-webkit-filter: invert(100%);filter: invert(100%);\n\t}");
-                Styles.replace("\n\n\t/* Custom Stricken */\n\t#lc-body[data-customStricken='No Inverse'] .liveupdate.stricken{\n\tbackground:"  + oldStricken + "!important;\n\t}\n#lc-body[data-customStricken='Inverse'] .liveupdate.stricken{\n\tbackground:"  + oldStricken + "!important;-webkit-filter: invert(100%);filter: invert(100%);\n\t}","\n\n\t/* Custom Stricken */\n\t#lc-body[data-customStricken='No Inverse'] .liveupdate.stricken{\n\tbackground:"  + Elements.$body.attr('data-customStrickenColor') + "!important;\n\t}\n#lc-body[data-customStricken='Inverse'] .liveupdate.stricken{\n\tbackground:"  + Elements.$body.attr('data-customStrickenColor') + "!important;-webkit-filter: invert(100%);filter: invert(100%);\n\t}");
+                //Styles.add("\n\n\t/* Custom Stricken */\n\t#lc-body[data-customStricken='No Inverse'] .liveupdate.stricken{\n\tbackground:"  + ELEMENTS.BODY_ELEMENT.attr('data-customStrickenColor') + "!important;\n\t}\n#lc-body[data-customStricken='Inverse'] .liveupdate.stricken{\n\tbackground:"  + ELEMENTS.BODY_ELEMENT.attr('data-customStrickenColor') + "!important;-webkit-filter: invert(100%);filter: invert(100%);\n\t}");
+                Styles.replace("\n\n\t/* Custom Stricken */\n\t#lc-body[data-customStricken='No Inverse'] .liveupdate.stricken{\n\tbackground:"  + oldStricken + "!important;\n\t}\n#lc-body[data-customStricken='Inverse'] .liveupdate.stricken{\n\tbackground:"  + oldStricken + "!important;-webkit-filter: invert(100%);filter: invert(100%);\n\t}","\n\n\t/* Custom Stricken */\n\t#lc-body[data-customStricken='No Inverse'] .liveupdate.stricken{\n\tbackground:"  + ELEMENTS.BODY_ELEMENT.attr('data-customStrickenColor') + "!important;\n\t}\n#lc-body[data-customStricken='Inverse'] .liveupdate.stricken{\n\tbackground:"  + ELEMENTS.BODY_ELEMENT.attr('data-customStrickenColor') + "!important;-webkit-filter: invert(100%);filter: invert(100%);\n\t}");
             }
         }
     });
     // Styles
-    Styles.add("\n\n\t/* Custom Stricken */\n\t#lc-body[data-customStricken='No Inverse'] .liveupdate.stricken{\n\tbackground:"  + Elements.$body.attr('data-customStrickenColor') + "!important;\n\t}\n#lc-body[data-customStricken='Inverse'] .liveupdate.stricken{\n\tbackground:"  + Elements.$body.attr('data-customStrickenColor') + "!important;-webkit-filter: invert(100%);filter: invert(100%);\n\t}");
+    Styles.add("\n\n\t/* Custom Stricken */\n\t#lc-body[data-customStricken='No Inverse'] .liveupdate.stricken{\n\tbackground:"  + ELEMENTS.BODY_ELEMENT.attr('data-customStrickenColor') + "!important;\n\t}\n#lc-body[data-customStricken='Inverse'] .liveupdate.stricken{\n\tbackground:"  + ELEMENTS.BODY_ELEMENT.attr('data-customStrickenColor') + "!important;-webkit-filter: invert(100%);filter: invert(100%);\n\t}");
 })(CustomStricken || (CustomStricken = {}));
 ////////////////////////////
 // DisableSpecialTimes.ts //
@@ -1029,7 +1017,7 @@ var CustomStricken;
 var DisableSpecialTimes;
 (function (DisableSpecialTimes) {
     // INITIALIZATION
-    Elements.$body.attr('data-disableSpecialTimes', false);
+    ELEMENTS.BODY_ELEMENT.attr('data-disableSpecialTimes', false);
     // Options
     Options.addCheckbox({
         label: 'DISABLE SPECIAL TIMES',
@@ -1037,7 +1025,7 @@ var DisableSpecialTimes;
         section: 'Advanced 2',
         help: 'Disables special reply times, and only shows the exact millisecond time.',
         onchange: function () {
-            Elements.$body.attr('data-disableSpecialTimes', this.prop('checked'));
+            ELEMENTS.BODY_ELEMENT.attr('data-disableSpecialTimes', this.prop('checked'));
         }
     });
 })(DisableSpecialTimes || (DisableSpecialTimes = {}));
@@ -1047,8 +1035,8 @@ var DisableSpecialTimes;
 var BackgroundColor;
 (function (BackgroundColor) {
     // INITIALIZATION
-    Elements.$body.attr('data-BackgroundColor', 'Off');
-    Elements.$body.attr('data-customBackgroundColor', Cookie.save.customBackgroundColor);
+    ELEMENTS.BODY_ELEMENT.attr('data-BackgroundColor', 'Off');
+    ELEMENTS.BODY_ELEMENT.attr('data-customBackgroundColor', Cookie.save.customBackgroundColor);
     // Options
     Options.addSelect({
         label: 'BACKGROUND COLOR',
@@ -1060,21 +1048,21 @@ var BackgroundColor;
             $(this).click(function(){
                 $(this).data('clicked', true);
             });
-            Elements.$body.attr('data-BackgroundColor', this.val());
+            ELEMENTS.BODY_ELEMENT.attr('data-BackgroundColor', this.val());
             //if (this.val() == 'Custom' && $(this).data('clicked') == true) {
             if (this.val() == 'Custom' && timeCheck == 1) {
-                var oldBgColor = Elements.$body.attr('data-customBackgroundColor');
+                var oldBgColor = ELEMENTS.BODY_ELEMENT.attr('data-customBackgroundColor');
                 customBackgroundColor = window.prompt('Enter your custom background color.','#ddd');
                 Cookie.save.customBackgroundColor = customBackgroundColor;
-                Elements.$body.attr('data-customBackgroundColor', customBackgroundColor);
-                //Styles.add("\n\n\t/* Custom Background */\n\t#lc-body[data-BackgroundColor='Custom'] .liveupdate{\n\tbackground:"  + Elements.$body.attr('data-customBackgroundColor') + "!important;\n\t}\n}");
-                Styles.replace("\n\n\t/* Custom Background */\n\t#lc-body[data-BackgroundColor='Custom'] .liveupdate{\n\tbackground:"  + oldBgColor + "!important;\n\t}\n}","\n\n\t/* Custom Background */\n\t#lc-body[data-BackgroundColor='Custom'] .liveupdate{\n\tbackground:"  + Elements.$body.attr('data-customBackgroundColor') + "!important;\n\t}\n}");
+                ELEMENTS.BODY_ELEMENT.attr('data-customBackgroundColor', customBackgroundColor);
+                //Styles.add("\n\n\t/* Custom Background */\n\t#lc-body[data-BackgroundColor='Custom'] .liveupdate{\n\tbackground:"  + ELEMENTS.BODY_ELEMENT.attr('data-customBackgroundColor') + "!important;\n\t}\n}");
+                Styles.replace("\n\n\t/* Custom Background */\n\t#lc-body[data-BackgroundColor='Custom'] .liveupdate{\n\tbackground:"  + oldBgColor + "!important;\n\t}\n}","\n\n\t/* Custom Background */\n\t#lc-body[data-BackgroundColor='Custom'] .liveupdate{\n\tbackground:"  + ELEMENTS.BODY_ELEMENT.attr('data-customBackgroundColor') + "!important;\n\t}\n}");
                 Cookie.update();
             }
         }
     });
     // Styles
-    Styles.add("\n\n\t/* Custom Background */\n\t#lc-body[data-BackgroundColor='Custom'] .liveupdate{\n\tbackground:"  + Elements.$body.attr('data-customBackgroundColor') + "!important;\n\t}\n}");
+    Styles.add("\n\n\t/* Custom Background */\n\t#lc-body[data-BackgroundColor='Custom'] .liveupdate{\n\tbackground:"  + ELEMENTS.BODY_ELEMENT.attr('data-customBackgroundColor') + "!important;\n\t}\n}");
 })(BackgroundColor || (BackgroundColor = {}));
 //////////////////
 // LastCount.ts //
@@ -1082,7 +1070,7 @@ var BackgroundColor;
 var LastCount;
 (function (LastCount) {
     // INITIALIZATION
-    Elements.$body.attr('data-LastCount', 'Off');
+    ELEMENTS.BODY_ELEMENT.attr('data-LastCount', 'Off');
     var dumpy = 0;
     // Gets the splits for the current thread
     let splits = get_splits();
@@ -1138,26 +1126,26 @@ var LastCount;
         "default": 0,
         help: 'Tracks recent counts and can show speedrun splits by hundreds. Not perfectly accurate.',
         onchange: function () {
-            Elements.$body.attr('data-LastCount', this.val());
-            if(Elements.$body.attr('data-LastCount') == 'On') {
+            ELEMENTS.BODY_ELEMENT.attr('data-LastCount', this.val());
+            if(ELEMENTS.BODY_ELEMENT.attr('data-LastCount') == 'On') {
                 $('#idlecontainer').css('display','initial');
                 $('#splits').css('display','none');
             }
-            if(Elements.$body.attr('data-LastCount') == 'On + Splits') {
+            if(ELEMENTS.BODY_ELEMENT.attr('data-LastCount') == 'On + Splits') {
                 $('#idlecontainer').css('display','initial');
                 $('#splits').css('display','initial');
             }
-            if(Elements.$body.attr('data-LastCount') == 'Off') {
+            if(ELEMENTS.BODY_ELEMENT.attr('data-LastCount') == 'Off') {
                 $('#idlecontainer').css('display','none');
             }
         }
     });
 
-    if(Elements.$body.attr('data-LastCount') == 'On') {
+    if(ELEMENTS.BODY_ELEMENT.attr('data-LastCount') == 'On') {
         $('#idlecontainer').css('display','initial');
         $('#splits').css('display','none');
     }
-    if(Elements.$body.attr('data-LastCount') == 'On + Splits') {
+    if(ELEMENTS.BODY_ELEMENT.attr('data-LastCount') == 'On + Splits') {
         $('#idlecontainer').css('display','initial');
     }
 })(BackgroundColor || (BackgroundColor = {}));
@@ -1167,7 +1155,7 @@ var LastCount;
 var CtrlEnter;
 (function (CtrlEnter) {
     // INITIALIZATION
-    Elements.$body.attr('data-submitShortcut', 'Ctrl+Enter');
+    ELEMENTS.BODY_ELEMENT.attr('data-submitShortcut', 'Ctrl+Enter');
     var $textarea = $('#new-update-form textarea');
     var $resVersion = $('#RESConsoleVersion');
     var $submitBtn = $('#new-update-form .save-button button');
@@ -1180,18 +1168,18 @@ var CtrlEnter;
         "default": 1,
         help: 'Changes the submit shortcut. May not work well with RES.',
         onchange: function () {
-            Elements.$body.attr('data-submitShortcut', this.val());
-            /*if(Elements.$body.attr('data-submitShortcut') == "Custom") {
+            ELEMENTS.BODY_ELEMENT.attr('data-submitShortcut', this.val());
+            /*if(ELEMENTS.BODY_ELEMENT.attr('data-submitShortcut') == "Custom") {
                 var customShortcut = window.prompt('Enter the js keycodes, separated by a comma Go to keycode.info to see keycodes easily.','13,17');
-                Elements.$body.attr('data-submitShortcut', customShortcut);
+                ELEMENTS.BODY_ELEMENT.attr('data-submitShortcut', customShortcut);
             }*/
         }
     });
         $textarea.on('keydown', function (e) {
-            if(Elements.$body.attr('data-submitShortcut') == "Off") {
+            if(ELEMENTS.BODY_ELEMENT.attr('data-submitShortcut') == "Off") {
                 return;
             }
-            if(Elements.$body.attr('data-submitShortcut') == "Ctrl+Enter") {
+            if(ELEMENTS.BODY_ELEMENT.attr('data-submitShortcut') == "Ctrl+Enter") {
                 if ($resVersion.length > 0 && +($resVersion.text().replace(/\D/g, '')) >= 478) {
                     return;
                 }
@@ -1200,7 +1188,7 @@ var CtrlEnter;
                     $submitBtn.trigger('click');
                 }
             }
-            if(Elements.$body.attr('data-submitShortcut') == "Enter") {
+            if(ELEMENTS.BODY_ELEMENT.attr('data-submitShortcut') == "Enter") {
                 if (e.keyCode == 13) {
                     e.preventDefault();
                     $submitBtn.trigger('click');
@@ -1208,7 +1196,7 @@ var CtrlEnter;
             }
             /*
             else {
-                var keycodeArray = Elements.$body.attr('data-submitShortcut').split(",");
+                var keycodeArray = ELEMENTS.BODY_ELEMENT.attr('data-submitShortcut').split(",");
                 var keycodeCheck = keycodeArray.length;
                 var keycodeIncrement = 0;
                 for(keycode in keycodeArray) {
@@ -1458,7 +1446,7 @@ var ClearPastMessages;
         }
         if (!enabled)
             return;
-        var $screenMessages = Elements.$updates.children('.liveupdate');
+        var $screenMessages = ELEMENTS.UPDATES_ELEMENT.children('.liveupdate');
         if ($screenMessages.length > maxMessages) {
             $screenMessages.slice(maxMessages).remove();
         }
@@ -1477,7 +1465,7 @@ var ClearPastMessages;
 var DisplayMode;
 (function (DisplayMode) {
     // INITIALIZATION
-    Elements.$body.attr('data-DisplayMode', 'Normal');
+    ELEMENTS.BODY_ELEMENT.attr('data-DisplayMode', 'Normal');
     // "Return to Normal Display" button
     var $returnBtn = $('<input type="button" value="Return to Normal Display"/>');
     $returnBtn.on('click', function () {
@@ -1488,7 +1476,7 @@ var DisplayMode;
         display: 'none',
         margin: '0 auto'
     });
-    Elements.$content.prepend($returnBtn);
+    ELEMENTS.CONTENT_ELEMENT.prepend($returnBtn);
 
     // Options
     var $select = Options.addSelect({
@@ -1498,7 +1486,7 @@ var DisplayMode;
         onchange: function () {
             var display = this.val();
             $returnBtn.css('display', (display == 'Normal' ? 'none' : 'block'));
-            Elements.$body.attr('data-DisplayMode', display);
+            ELEMENTS.BODY_ELEMENT.attr('data-DisplayMode', display);
         }
     });
     // Styles
@@ -1550,24 +1538,24 @@ $.ajaxSetup({
     Styles.add("\n\n\t.liveupdate-listing li.liveupdate.preview {\n\t\topacity: 0.75;\n\t}\n\t.liveupdate-listing li.liveupdate.preview .live-timestamp {\n\t\tvisibility: hidden;\n\t}\n\n\t");
     // EVENTS
     // When message is submitted
-    Elements.$submitBtn.on('click', function (e) {
+    ELEMENTS.SUBMIT_BUTTON.on('click', function (e) {
         if (!enabled)
             return;
         setTimeout(function () {
-            var val = Elements.$textarea.val();
+            var val = ELEMENTS.UPDATE_TEXTAREA.val();
             if (val.length == 0)
                 return;
             // Clear textbox
-            Elements.$textarea.val('');
+            ELEMENTS.UPDATE_TEXTAREA.val('');
             // This is a way to work around the issue where Reddit automatically clears the textbox
             // when the update had been successfully delivered, although we just cleared it here.
             // Call backupInput() whenever the textarea content is changed
-            Elements.$textarea.on('keydown keyup input', backupInput);
+            ELEMENTS.UPDATE_TEXTAREA.on('keydown keyup input', backupInput);
         }, 0);
     });
     // In backupInput(), keep track of the last backed up textarea content, by storing in lastInput
     function backupInput() {
-        lastInput = Elements.$textarea.val();
+        lastInput = ELEMENTS.UPDATE_TEXTAREA.val();
     }
     // Use MutationObserver on the 'error message' to detect when Reddit had cleared the textbox.
     // When the error message's style changes from 'display: inline;' to 'display: none;', it
@@ -1581,15 +1569,15 @@ $.ajaxSetup({
         // Exit if we think that Reddit had not cleared the textbox
         var mutation = mutations[0];
         if (!(mutation.oldValue == 'display: inline;' &&
-              Elements.$submitError.attr('style') == 'display: none;'))
+              ELEMENTS.SUBMIT_ERROR.attr('style') == 'display: none;'))
             return;
         // Use the last backed-up input
-        Elements.$textarea.off('keydown keyup input', backupInput);
-        Elements.$textarea.val(lastInput);
+        ELEMENTS.UPDATE_TEXTAREA.off('keydown keyup input', backupInput);
+        ELEMENTS.UPDATE_TEXTAREA.val(lastInput);
         lastInput = '';
     });
-    if (Elements.$submitError.length > 0) {
-        observer.observe(Elements.$submitError.get(0), {
+    if (ELEMENTS.SUBMIT_ERROR.length > 0) {
+        observer.observe(ELEMENTS.SUBMIT_ERROR.get(0), {
             // observe for change in 'style' attribute value
             attributes: true,
             attributeOldValue: true,
@@ -1603,14 +1591,14 @@ $.ajaxSetup({
 var DisableUsernameLinks;
 (function (DisableUsernameLinks) {
     // INITIALIZATION
-    Elements.$body.attr('data-DisableUsernameLinks', 'false');
+    ELEMENTS.BODY_ELEMENT.attr('data-DisableUsernameLinks', 'false');
     // Options
     Options.addCheckbox({
         label: 'DISABLE USERNAME LINKS',
         section: 'Advanced',
         help: 'Disables the redirection to a user\'s profile upon clicking on his/her username. This is convenient to prevent yourself from accidentally going to one\'s profile page when trying to strike or delete a message.',
         onchange: function () {
-            Elements.$body.attr('data-DisableUsernameLinks', this.prop('checked').toString());
+            ELEMENTS.BODY_ELEMENT.attr('data-DisableUsernameLinks', this.prop('checked').toString());
         }
     });
     // Styles
@@ -1623,7 +1611,7 @@ var LinksOpenNewTab;
 (function (LinksOpenNewTab) {
     // INITIALIZATION
     var $base = $('<base target="_blank">');
-    Elements.$head.append($base);
+    ELEMENTS.HEAD_ELEMENT.append($base);
     // Options
     var enabled = true;
     Options.addCheckbox({
@@ -1949,7 +1937,7 @@ var TeamBarsEnabled;
 var ContentPosition;
 (function (ContentPosition) {
     // INITIALIZATION
-    Elements.$body.attr('data-ContentPosition', 'Center');
+    ELEMENTS.BODY_ELEMENT.attr('data-ContentPosition', 'Center');
     // Options
     Options.addSelect({
         label: 'CONTENT POSITION',
@@ -1958,7 +1946,7 @@ var ContentPosition;
         "default": 1,
         help: 'Adjusts the position of the main content section.',
         onchange: function () {
-            Elements.$body.attr('data-ContentPosition', this.val());
+            ELEMENTS.BODY_ELEMENT.attr('data-ContentPosition', this.val());
         }
     });
     // Styles
@@ -2079,7 +2067,7 @@ var Emojis;
 var UnstrikeText;
 (function (UnstrikeText) {
     // INITIALIZATION
-    Elements.$body.attr('data-unstrikeText', false);
+    ELEMENTS.BODY_ELEMENT.attr('data-unstrikeText', false);
     // Options
     Options.addCheckbox({
         label: 'UNSTRIKE TEXT',
@@ -2087,11 +2075,11 @@ var UnstrikeText;
         section: 'Advanced 2',
         help: 'Makes striken posts only strike the number rather than the accompanying text.',
         onchange: function () {
-            Elements.$body.attr('data-unstrikeText', this.prop('checked'));
+            ELEMENTS.BODY_ELEMENT.attr('data-unstrikeText', this.prop('checked'));
         }
     });
     UPDATE_EVENTS.addListener("new", data => {
-        if(Elements.$body.attr('data-unstrikeText') == 'false') {
+        if(ELEMENTS.BODY_ELEMENT.attr('data-unstrikeText') == 'false') {
             return;
         } else {
             var ustHtml = data.node.find('.body > .md').html();
@@ -2114,7 +2102,7 @@ var UnstrikeText;
 var LatencyCheck;
 (function (LatencyCheck) {
     // INITIALIZATION
-    Elements.$body.attr('data-latencyCheck', false);
+    ELEMENTS.BODY_ELEMENT.attr('data-latencyCheck', false);
     $("<span id=latencymed class=latency>Median: <span id=latmed></span></span><span id=latency class=latency>Latency: <span id=lat></span></span>").insertAfter('.reddiquette');
     $('.latency').css({'display': 'none', 'font-size': 'smaller', 'float': 'right', 'margin-top': '5px', 'margin-left': '10px', 'background': 'transparent'});
     var latencyText = {};
@@ -2134,8 +2122,8 @@ var LatencyCheck;
         section: 'Advanced 2',
         help: 'Latency Check. Median is last 50 posts.',
         onchange: function () {
-            Elements.$body.attr('data-latencyCheck', this.prop('checked'));
-            if(Elements.$body.attr('data-latencyCheck') == 'true') {
+            ELEMENTS.BODY_ELEMENT.attr('data-latencyCheck', this.prop('checked'));
+            if(ELEMENTS.BODY_ELEMENT.attr('data-latencyCheck') == 'true') {
                 $('.latency').css('display','initial');
                 $("a[href$='/help/contentpolicy']").css('display','none');
                 $('#new-update-form .save-button button').click(function(){
@@ -2143,14 +2131,14 @@ var LatencyCheck;
                     latencyText[document.querySelector('.md textarea').value.trim()] = d.getTime();
                 });
             }
-            if(Elements.$body.attr('data-latencyCheck') == 'false') {
+            if(ELEMENTS.BODY_ELEMENT.attr('data-latencyCheck') == 'false') {
                 $('.latency').css('display','none');
                 $("a[href$='/help/contentpolicy']").css('display','initial');
             }
         }
     });
     UPDATE_EVENTS.addListener("new", data => {
-        if(Elements.$body.attr('data-latencyCheck') == 'false') {
+        if(ELEMENTS.BODY_ELEMENT.attr('data-latencyCheck') == 'false') {
             return;
         } else {
             var latPost = data.node.find('.body > .md').text().trim();
@@ -2170,7 +2158,7 @@ var LatencyCheck;
             }
         }
     });
-    if(Elements.$body.attr('data-latencyCheck') == 'true') {
+    if(ELEMENTS.BODY_ELEMENT.attr('data-latencyCheck') == 'true') {
         $('.latency').css('display','initial');
         $('#lat').css('display','initial');
         $('#latmed').css('display','initial');
@@ -2209,7 +2197,7 @@ new RATE_LIMIT_VIEW(Options);
 /////////////////////////
 var ImageEmotePicker;
 (function (ImageEmotePicker) {
-    Elements.$body.attr('data-ImageEmotePicker', true);
+    ELEMENTS.BODY_ELEMENT.attr('data-ImageEmotePicker', true);
     // Options
     Options.addCheckbox({
         label: 'Image Emote Picker',
@@ -2217,7 +2205,7 @@ var ImageEmotePicker;
         section: 'Advanced 2',
         help: 'Adds a selector for image emotes.',
         onchange: function () {
-            Elements.$body.attr('data-ImageEmotePicker', this.prop('checked'));
+            ELEMENTS.BODY_ELEMENT.attr('data-ImageEmotePicker', this.prop('checked'));
         }
     });
 })(ImageEmotePicker || (ImageEmotePicker = {}));
@@ -2236,7 +2224,7 @@ var EmoteOrder;
         "default": "Alphabetical",
         help: 'Changes the order of emotes in the Emote Picker. Changes upon refresh.',
         onchange: function () {
-            Elements.$body.attr('data-EmoteOrder', this.val());
+            ELEMENTS.BODY_ELEMENT.attr('data-EmoteOrder', this.val());
         }
     });
 })(EmoteOrder || (EmoteOrder = {}));
@@ -2249,7 +2237,7 @@ var emoteCount = 0;
 var stringy = '';
 (function (ImageEmotes) {
     // INITIALIZATION
-    Elements.$body.attr('data-ImageEmotes', true);
+    ELEMENTS.BODY_ELEMENT.attr('data-ImageEmotes', true);
     var emoteimages = {};
     var emotefunccheck = 0;
     var the_emote = "";
@@ -2282,8 +2270,8 @@ var stringy = '';
         section: 'Advanced 2',
         help: 'Enables image emotes. Requires refresh probably',
         onchange: function () {
-            Elements.$body.attr('data-ImageEmotes', this.prop('checked'));
-            if(Elements.$body.attr('data-ImageEmotes') == 'true') {
+            ELEMENTS.BODY_ELEMENT.attr('data-ImageEmotes', this.prop('checked'));
+            if(ELEMENTS.BODY_ELEMENT.attr('data-ImageEmotes') == 'true') {
                 emotes_load();
             }
         }
@@ -2297,7 +2285,7 @@ var stringy = '';
                 //callback(reader.result);
                 callback(url);
                 if(Object.keys(emoteimages).length == imageEmotes.length) {
-                    if(Elements.$body.attr('data-ImageEmotes') == 'true') {
+                    if(ELEMENTS.BODY_ELEMENT.attr('data-ImageEmotes') == 'true') {
         $('code').each(function() {
             var thistext = $(this).text();
             if(imageEmotes.indexOf(thistext.toLowerCase()) > -1) {
@@ -2307,7 +2295,7 @@ var stringy = '';
         });
         }
         UPDATE_EVENTS.addListener("loaded", data => {
-            if(Elements.$body.attr('data-ImageEmotes') == 'true') {
+            if(ELEMENTS.BODY_ELEMENT.attr('data-ImageEmotes') == 'true') {
                 var emotes_post = data.bodyNode.html();
                 var emotes_text = data.bodyNode.text();
                 the_emote = emotes_post.match(/<code>(.*?)<\/code>/gm);
@@ -2322,13 +2310,13 @@ var stringy = '';
             }
         });
                 }
-                if(Object.keys(emoteimages).length == imageEmotes.length && Elements.$body.attr('data-ImageEmotePicker') == 'true') {
+                if(Object.keys(emoteimages).length == imageEmotes.length && ELEMENTS.BODY_ELEMENT.attr('data-ImageEmotePicker') == 'true') {
                     var sorted = [];
-                    if(Elements.$body.attr('data-EmoteOrder') == 'Alphabetical' || Elements.$body.attr('data-EmoteOrder') == undefined) {
+                    if(ELEMENTS.BODY_ELEMENT.attr('data-EmoteOrder') == 'Alphabetical' || ELEMENTS.BODY_ELEMENT.attr('data-EmoteOrder') == undefined) {
                         sorted = [...imageEmotes].sort()
-                    } else if (Elements.$body.attr('data-EmoteOrder') == 'Date Added') {
+                    } else if (ELEMENTS.BODY_ELEMENT.attr('data-EmoteOrder') == 'Date Added') {
                         sorted = [...imageEmotes]
-                    } else if (Elements.$body.attr('data-EmoteOrder') == 'Usage') {
+                    } else if (ELEMENTS.BODY_ELEMENT.attr('data-EmoteOrder') == 'Usage') {
                         emoteUses = JSON.parse(localStorage.getItem('emoteUses'))
                         var sortedUses = [...emoteUses]
                         sortedUses.sort(function(a,b) {
@@ -2378,7 +2366,7 @@ var stringy = '';
         }
 
         UPDATE_EVENTS.addListener("new", data => {
-            if(Elements.$body.attr('data-ImageEmotes') == 'true') {
+            if(ELEMENTS.BODY_ELEMENT.attr('data-ImageEmotes') == 'true') {
                 var emotes_post = data.bodyNode.html();
                 var emote_author = data.authorNode.attr('href').substring(6);
                 var emotes_text = data.bodyNode.text();
@@ -2406,7 +2394,7 @@ var stringy = '';
         });
     }
 
-    if(Elements.$body.attr('data-ImageEmotes') == 'true') {
+    if(ELEMENTS.BODY_ELEMENT.attr('data-ImageEmotes') == 'true') {
         emotes_load();
     }
 
@@ -2418,7 +2406,7 @@ var stringy = '';
 var KpartAlert;
 (function (KpartAlert) {
     // INITIALIZATION
-    Elements.$body.attr('data-KpartAlert', false);
+    ELEMENTS.BODY_ELEMENT.attr('data-KpartAlert', false);
     // Options
     Options.addCheckbox({
         label: 'KPART ALERT',
@@ -2426,7 +2414,7 @@ var KpartAlert;
         section: 'Advanced 2',
         help: 'Sends a notification when a new K is reached. Last count must be on for this to work.',
         onchange: function () {
-            Elements.$body.attr('data-KpartAlert', this.prop('checked'));
+            ELEMENTS.BODY_ELEMENT.attr('data-KpartAlert', this.prop('checked'));
         }
     });
 })(KpartAlert || (KpartAlert = {}));
@@ -2437,7 +2425,7 @@ var KpartAlert;
 var RESDarkMode;
 (function (RESDarkMode) {
     // Options
-    Elements.$body.attr('data-RESDarkMode', false);
+    ELEMENTS.BODY_ELEMENT.attr('data-RESDarkMode', false);
     var resTest = 0;
     function resAdda() {
         resTest = 1;
@@ -2449,19 +2437,19 @@ var RESDarkMode;
         section: 'Advanced',
         help: 'RES Night Mode.',
         onchange: function () {
-            Elements.$body.attr('data-RESDarkMode', this.prop('checked'));
-            if(Elements.$body.attr('data-RESDarkMode') == 'true') {
+            ELEMENTS.BODY_ELEMENT.attr('data-RESDarkMode', this.prop('checked'));
+            if(ELEMENTS.BODY_ELEMENT.attr('data-RESDarkMode') == 'true') {
                 document.body.classList.add("res-nightmode");
                 if (resTest == 0) {
                     resAdda();
                 }
             }
-            if (Elements.$body.attr('data-RESDarkMode') == 'false') {
+            if (ELEMENTS.BODY_ELEMENT.attr('data-RESDarkMode') == 'false') {
                 document.body.classList.remove("res-nightmode");
             }
         }
     });
-    if(Elements.$body.attr('data-RESDarkMode') == 'true') {
+    if(ELEMENTS.BODY_ELEMENT.attr('data-RESDarkMode') == 'true') {
         if(resTest == 0) {
             resAdda();
         }
@@ -2476,7 +2464,7 @@ var CollapsiblePosts;
 var collapseCount = 0;
 (function (CollapsiblePosts) {
     // Options
-    Elements.$body.attr('data-CollapsiblePosts', true);
+    ELEMENTS.BODY_ELEMENT.attr('data-CollapsiblePosts', true);
 
     Options.addCheckbox({
         label: 'Collapsible Posts',
@@ -2484,12 +2472,12 @@ var collapseCount = 0;
         section: 'Advanced 2',
         help: 'yeah.',
         onchange: function () {
-            Elements.$body.attr('data-CollapsiblePosts', this.prop('checked'));
+            ELEMENTS.BODY_ELEMENT.attr('data-CollapsiblePosts', this.prop('checked'));
         }
     });
 UPDATE_EVENTS.addListener("new", data => {
     // steal from https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_collapsible lol
-    if(Elements.$body.attr('data-CollapsiblePosts') == 'true') {
+    if(ELEMENTS.BODY_ELEMENT.attr('data-CollapsiblePosts') == 'true') {
                      var collapse_html = data.bodyNode.html();
                 var collapse_text = data.bodyNode.text();
                 var regexcollapse = collapse_html.match(/<a href="#start"(.*?)<\/a>(.*?)<a href="#end"(.*?)<\/a>/gms);
@@ -2528,7 +2516,7 @@ if(THREAD == THREADS.MAIN) { // Main thread special feature
 var LC_Chats_View;
 (function (LC_Chats_View) {
     // Options
-    Elements.$body.attr('data-LC_Chats_View', false);
+    ELEMENTS.BODY_ELEMENT.attr('data-LC_Chats_View', false);
     var lccTest = 0;
     function lccAdda(h, thread) {
         if(h == 'yeah bro' && lccTest < 1) {
@@ -2553,10 +2541,10 @@ var LC_Chats_View;
                 });
                 $(`<div class="prettyform lciframe" style="display:none;position: absolute;left: 1%;width: 18%;top: 91%;border: none;max-width: 18%;" id="sidebar-update-form"><div class="usertext"><input type="hidden" name="thing_id" value=""><div style="" class=""><div class="md"><textarea rows="1" cols="1" name="body" class="" data-textboxposition="Default" style="height:22px!important; width: 90%;"></textarea></div></div></div><div class="save-button"><button id="sidebar_submit" class="btn" type="button" onclick="return post_pseudo_form('#sidebar-update-form', 'live/14ny3ur3axhd4/update')">make update</button> <span class="status error" style="display: none;"></span></div></div>`).insertAfter('#lc_chats_iframe');
                                 $('#sidebar-update-form textarea').on('keydown', function (e) {
-            if(Elements.$body.attr('data-submitShortcut') == "Off") {
+            if(ELEMENTS.BODY_ELEMENT.attr('data-submitShortcut') == "Off") {
                 return;
             }
-            if(Elements.$body.attr('data-submitShortcut') == "Ctrl+Enter") {
+            if(ELEMENTS.BODY_ELEMENT.attr('data-submitShortcut') == "Ctrl+Enter") {
                 if (resversion.length > 0 && +(resversion.text().replace(/\D/g, '')) >= 478) {
                     return;
                 }
@@ -2565,7 +2553,7 @@ var LC_Chats_View;
                     $('#sidebar-update-form .save-button button').trigger('click');
                 }
             }
-            if(Elements.$body.attr('data-submitShortcut') == "Enter") {
+            if(ELEMENTS.BODY_ELEMENT.attr('data-submitShortcut') == "Enter") {
                 if (e.keyCode == 13) {
                     e.preventDefault();
                     $('#sidebar-update-form .save-button button').trigger('click');
@@ -2610,11 +2598,11 @@ var LC_Chats_View;
         section: 'Advanced',
         help: 'Puts a small lil lc chats on da left side {:}',
         onchange: function () {
-            Elements.$body.attr('data-LC_Chats_View', this.prop('checked'));
-            if(Elements.$body.attr('data-LC_Chats_View') == 'true') {
+            ELEMENTS.BODY_ELEMENT.attr('data-LC_Chats_View', this.prop('checked'));
+            if(ELEMENTS.BODY_ELEMENT.attr('data-LC_Chats_View') == 'true') {
                 lccAdda('yeah bro');
             }
-            if (Elements.$body.attr('data-LC_Chats_View') == 'false') {
+            if (ELEMENTS.BODY_ELEMENT.attr('data-LC_Chats_View') == 'false') {
                 lccAdda('nuh uh bro, also does this piss you off that im using strings like this? GOOD.');
             }
         }
@@ -2628,7 +2616,7 @@ var LC_Chats_View;
 var DisableEmbeds;
 (function (DisableEmbeds) {
     // Options
-    Elements.$body.attr('data-DisableEmbeds', true);
+    ELEMENTS.BODY_ELEMENT.attr('data-DisableEmbeds', true);
     var embedTest = 0;
     function embedKiller() {
         embedTest = 1;
@@ -2640,15 +2628,15 @@ var DisableEmbeds;
         section: 'Advanced',
         help: 'Stops LC from automatically embedding images, videos, etc.',
         onchange: function () {
-            Elements.$body.attr('data-DisableEmbeds', this.prop('checked'));
-            if(Elements.$body.attr('data-DisableEmbeds') == 'true') {
+            ELEMENTS.BODY_ELEMENT.attr('data-DisableEmbeds', this.prop('checked'));
+            if(ELEMENTS.BODY_ELEMENT.attr('data-DisableEmbeds') == 'true') {
                 if (embedTest == 0) {
                     embedKiller();
                 }
             }
         }
     });
-    if(Elements.$body.attr('data-DisableEmbeds') == 'true') {
+    if(ELEMENTS.BODY_ELEMENT.attr('data-DisableEmbeds') == 'true') {
         if(embedTest == 0) {
             embedKiller();
         }
@@ -2664,7 +2652,7 @@ var FixFavicon;
     if(Math.ceil(window.devicePixelRatio) == window.devicePixelRatio) {
         return;
     }
-    Elements.$body.attr('data-FixFavicon', true);
+    ELEMENTS.BODY_ELEMENT.attr('data-FixFavicon', true);
     var faviconTest = 0;
     function faviconFixer() {
         faviconTest = 1; // non-compressed is here: https://pastebin.com/KLnWZmX6 lol 
@@ -2676,15 +2664,15 @@ var FixFavicon;
         section: 'Advanced',
         help: 'Fixes the favicon.',
         onchange: function () {
-            Elements.$body.attr('data-FixFavicon', this.prop('checked'));
-            if(Elements.$body.attr('data-FixFavicon') == 'true') {
+            ELEMENTS.BODY_ELEMENT.attr('data-FixFavicon', this.prop('checked'));
+            if(ELEMENTS.BODY_ELEMENT.attr('data-FixFavicon') == 'true') {
                 if (faviconTest == 0) {
                     faviconFixer();
                 }
             }
         }
     });
-    if(Elements.$body.attr('data-FixFavicon') == 'true') {
+    if(ELEMENTS.BODY_ELEMENT.attr('data-FixFavicon') == 'true') {
         if(faviconTest == 0) {
             faviconFixer();
         }
