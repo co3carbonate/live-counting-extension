@@ -10,6 +10,7 @@ export class RateLimitView {
 	private isDelta = false;
 	private isEnabled = false;
 
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
 	constructor(Options: any) {
 		$("<span id=ratelim class=ratelimit>RL: <span id=rate></span></span>")
 			.insertBefore(".CANT_REPLY")
@@ -24,7 +25,9 @@ export class RateLimitView {
 		this.initOptions(Options);
 	}
 
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
 	initOptions(Options: any): void {
+		/* eslint-disable-next-line @typescript-eslint/no-this-alias */
 		const self = this;
 		Options.addSelect({
 			default: 0,

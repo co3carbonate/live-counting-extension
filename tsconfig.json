@@ -16,6 +16,7 @@
 		"types": [
 			"@types/events",
 			"@types/jquery",
+			"@types/node",
 			"@types/webpack-env"
 		]
 	}
