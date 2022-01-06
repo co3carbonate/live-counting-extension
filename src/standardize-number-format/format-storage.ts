@@ -19,21 +19,35 @@ export class FormatStorage {
 	private formatFunctions: FormatFunctions = {};
 	private formatList: string[] = [];
 
+	/**
+	 * Adds a format to the storage.
+	 * @param name the name of the format
+	 * @param func the function to apply for formatting
+	 */
 	addFormat(name: string, func: FormatFunc): void {
-		if(!this.formatList.includes(name)) {
+		if (!this.formatList.includes(name)) {
 			this.formatFunctions[name] = func;
 			this.formatList.push(name);
 		}
 	}
 
+	/**
+	 * Gets a format by its name.
+	 * @param name the name of the format
+	 * @returns the specified format, or an identity format if one was not present
+	 */
 	getFormat(name: string): FormatFunc {
-		if(this.formatList.includes(name)) {
+		if (this.formatList.includes(name)) {
 			return this.formatFunctions[name];
 		} else {
 			return str => str;
 		}
 	}
 
+	/**
+	 * Gets the names of all stored formats.
+	 * @returns an array of format names
+	 */
 	getAllFormats(): string[] {
 		return this.formatList;
 	}
