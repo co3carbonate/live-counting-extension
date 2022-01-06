@@ -76,7 +76,7 @@ export function parseBody(text: string): BodyInfo {
 	if(tokens.length > 0 && !(tokens[0].isDigitGroup)) {
 		tokens = tokens.slice(1);
 	}
-	if(tokens.length > 0 && !(tokens[tokens.length - 1].isDigitGroup)) {
+	if(tokens.length > 0 && !(tokens.at(-1).isDigitGroup)) {
 		tokens = tokens.slice(0, -1);
 	}
 
