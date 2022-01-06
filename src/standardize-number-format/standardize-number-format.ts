@@ -7,6 +7,10 @@ export class StandardizeNumberFormat {
 	private formatFunc: FormatFunc;
 	private enabled = false;
 
+	/**
+	 * Constructs the standardize number format module.
+	 * @param Options legacy options
+	 */
 	// TODO: Import Options instead when those are ported to typescript
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
 	constructor(Options: any) {
@@ -26,11 +30,11 @@ export class StandardizeNumberFormat {
 		});
 
 		UPDATE_EVENTS.addListener("all", data => {
-			if(!this.enabled)return;
+			if (!this.enabled) return;
 			const bodyNode = data.bodyNode;
 			const { number, numberOriginalFormat } = parseBody(bodyNode.text());
 			const numberString = number === null ? "" : number.toString();
-			if(numberString.length === 0)return;
+			if (numberString.length === 0) return;
 			const newHTML = bodyNode.html().replace(numberOriginalFormat, this.formatFunc(numberString));
 			bodyNode.html(newHTML);
 		});

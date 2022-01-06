@@ -20,16 +20,16 @@ interface BodyInfo {
  */
 function tokenize(text: string): TokenInfo {
 	text = text.trim();
-	if(text[0] == "v") {
+	if (text[0] == "v") {
 		text = text.slice(1);
 	}
 	const tokens: Token[] = [];
 	let token = "";
 	let isDigitGroup = false;
 	let index = 0;
-	while(index <= text.length) {
-		if(index == text.length || /[A-Za-z]/.test(text[index]) || text[index] === "\n" || /\d/.test(text[index]) != isDigitGroup) {
-			if(token.length > 0) {
+	while (index <= text.length) {
+		if (index == text.length || /[A-Za-z]/.test(text[index]) || text[index] === "\n" || /\d/.test(text[index]) != isDigitGroup) {
+			if (token.length > 0) {
 				tokens.push({
 					isDigitGroup: isDigitGroup,
 					token: token,
@@ -38,7 +38,7 @@ function tokenize(text: string): TokenInfo {
 			}
 			isDigitGroup = !isDigitGroup;
 		}
-		if(index == text.length) {
+		if (index == text.length) {
 			return {
 				comment: null,
 				tokens: tokens,
@@ -50,7 +50,7 @@ function tokenize(text: string): TokenInfo {
 			};
 		}
 		token += text[index];
-		index++;
+		index += 1;
 	}
 }
 /**
@@ -62,7 +62,7 @@ export function parseBody(text: string): BodyInfo {
 	let originalNumber = null;
 	let separator = null;
 
-	if(text === "") {
+	if (text === "") {
 		return {
 			comment: null,
 			number: null,
@@ -73,22 +73,22 @@ export function parseBody(text: string): BodyInfo {
 	const { tokens: numberTokens, comment } = tokenize(text);
 	let tokens = numberTokens;
 
-	if(tokens.length > 0 && !(tokens[0].isDigitGroup)) {
+	if (tokens.length > 0 && !(tokens[0].isDigitGroup)) {
 		tokens = tokens.slice(1);
 	}
-	if(tokens.length > 0 && !(tokens.at(-1).isDigitGroup)) {
+	if (tokens.length > 0 && !(tokens.at(-1).isDigitGroup)) {
 		tokens = tokens.slice(0, -1);
 	}
 
-	for(let i = 1; i < tokens.length; i += 2) {
-		if(separator == null) {
+	for (let i = 1; i < tokens.length; i += 2) {
+		if (separator == null) {
 			separator = tokens[i].token;
 		}
 	}
 
-	if(tokens.length > 0 && [null, ".", ",", ", ", " "].includes(separator)) {
+	if (tokens.length > 0 && [null, ".", ",", ", ", " "].includes(separator)) {
 		let num = "";
-		for(let i = 0; i < tokens.length; i += 2) {
+		for (let i = 0; i < tokens.length; i += 2) {
 			num += tokens[i].token;
 		}
 		originalNumber = tokens.map(e=>e.token).join("");
