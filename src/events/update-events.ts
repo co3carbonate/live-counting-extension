@@ -1,4 +1,4 @@
-import { EventEmitter } from "events";
+import { EventEmitter } from "node:events";
 import { UPDATES_ELEMENT } from "../utils/elements";
 
 export interface UpdateInfo {
