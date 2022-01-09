@@ -12,9 +12,6 @@ export interface UpdateInfo {
 class UpdateEvents extends EventEmitter {
 	private readonly observer: MutationObserver;
 
-	/**
-	 * Constructs an event emitter for handling update events.
-	 */
 	constructor() {
 		super();
 
@@ -32,10 +29,6 @@ class UpdateEvents extends EventEmitter {
 		});
 	}
 
-	/**
-	 * Handles DOM mutations.
-	 * @param mutations the mutations to handle
-	 */
 	handleMutations(mutations: MutationRecord[]): void {
 		// Loop through MutationRecords and call the functions in various arrays based on .type
 		// (Honestly the MutationRecord[] usually only contains one, but whatever)
@@ -50,10 +43,6 @@ class UpdateEvents extends EventEmitter {
 		}
 	}
 
-	/**
-	 * Handles a child list DOM mutation.
-	 * @param mutation the mutation to handle
-	 */
 	handleChildListMutation(mutation: MutationRecord): void {
 		const addedNodes = $(mutation.addedNodes).filter(".liveupdate");
 		addedNodes.each((index, element) => {
@@ -77,10 +66,6 @@ class UpdateEvents extends EventEmitter {
 		});
 	}
 
-	/**
-	 * Handles an attributes DOM mutation.
-	 * @param mutation the mutation to handle
-	 */
 	handleAttributesMutation(mutation: MutationRecord): void {
 		const node = $(mutation.target);
 		if (!(mutation.oldValue && node.attr("class"))) {

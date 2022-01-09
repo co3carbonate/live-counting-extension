@@ -7,10 +7,6 @@ export class StandardizeNumberFormat {
 	private formatFunc: FormatFunc;
 	private enabled = false;
 
-	/**
-	 * Constructs the standardize number format module.
-	 * @param Options legacy options
-	 */
 	// TODO: Import Options instead when those are ported to typescript
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
 	constructor(Options: any) {
