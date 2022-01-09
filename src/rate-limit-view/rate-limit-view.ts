@@ -10,10 +10,6 @@ export class RateLimitView {
 	private isDelta = false;
 	private isEnabled = false;
 
-	/**
-	 * Constructs the rate limit view module.
-	 * @param Options legacy options
-	 */
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
 	constructor(Options: any) {
 		$("<span id=ratelim class=ratelimit>RL: <span id=rate></span></span>")
@@ -29,10 +25,6 @@ export class RateLimitView {
 		this.initOptions(Options);
 	}
 
-	/**
-	 * Initializes options for the module.
-	 * @param Options legacy options
-	 */
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
 	initOptions(Options: any): void {
 		/* eslint-disable-next-line @typescript-eslint/no-this-alias */
@@ -66,9 +58,6 @@ export class RateLimitView {
 		SUBMIT_BUTTON.on("click", this.onSubmit.bind(this));
 	}
 
-	/**
-	 * Handles an update submission.
-	 */
 	private onSubmit(): void {
 		// Set times in any case to ensure correct values after turning it on
 		this.oldtime = this.newtime;
