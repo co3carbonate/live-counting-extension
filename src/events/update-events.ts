@@ -1,4 +1,4 @@
-import { EventEmitter } from "events";
+import { EventEmitter } from "node:events";
 import { UPDATES_ELEMENT } from "../utils/elements";
 
 export interface UpdateInfo {
@@ -19,6 +19,9 @@ class UpdateEvents extends EventEmitter {
 		this.observer = new MutationObserver(this.handleMutations);
 	}
 
+	/**
+	 * Emits an `all` event for each existing update.
+	 */
 	handleExisting(): void {
 		$(".liveupdate").each((index, element) => {
 			const info = UpdateEvents.getUpdateInfo($(element));
@@ -83,6 +86,9 @@ class UpdateEvents extends EventEmitter {
 		}
 	}
 
+	/**
+	 * Starts observing for DOM mutations.
+	 */
 	observe() {
 		this.observer.observe(UPDATES_ELEMENT.get(0), {
 			attributeFilter: [
@@ -98,6 +104,11 @@ class UpdateEvents extends EventEmitter {
 		});
 	}
 
+	/**
+	 * Parses update info from a DOM node.
+	 * @param node the node of the update
+	 * @returns the update info
+	 */
 	static getUpdateInfo(node: JQuery<Node | NodeList>): UpdateInfo {
 		const info: UpdateInfo = {
 			author: node.find(".body > .author").text(),
