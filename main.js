@@ -857,7 +857,7 @@ var ReplyTimes;
             timestamp = specialTimes[timestamp]['words'];
         }
         var thisriver = data.node.find('.body').prepend("<div colortest='"+colortest+"' elcolor='"+elcolor+"' id='"+permalink+"' style='position:absolute;background:"+colortest+";color:"+elcolor+";' onclick=window.open('"+testhref+"'); class=river>"+timestamp+"</div>");
-        if(THREAD == THREADS.BARS) {
+        if(THREAD == THREADS.BARS || THREADS.ONE_PER_MINUTE) {
             let mago = Math.round(timestamp_current/10000);
             var dateTime = new Date(mago).toISOString().substring(11, 23);
             $('#'+permalink).text(dateTime);
