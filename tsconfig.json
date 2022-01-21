@@ -12,7 +12,7 @@
 		"noImplicitAny": true,
 		"outDir": "./dist",
 		"resolveJsonModule": true,
-		"target": "es5",
+		"target": "es2015",
 		"types": [
 			"@types/events",
 			"@types/jquery",
