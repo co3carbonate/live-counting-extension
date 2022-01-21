@@ -10,6 +10,7 @@ export class RateLimitView {
 	private isDelta = false;
 	private isEnabled = false;
 
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
 	constructor(Options: any) {
 		$("<span id=ratelim class=ratelimit>RL: <span id=rate></span></span>")
 			.insertBefore(".CANT_REPLY")
@@ -24,7 +25,9 @@ export class RateLimitView {
 		this.initOptions(Options);
 	}
 
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
 	initOptions(Options: any): void {
+		/* eslint-disable-next-line @typescript-eslint/no-this-alias */
 		const self = this;
 		Options.addSelect({
 			default: 0,
@@ -32,12 +35,12 @@ export class RateLimitView {
 			label: "RATE LIMIT VIEW",
 			onchange: function() {
 				const val = this.val();
-				if(val == "Normal" || val == "Delta") {
+				if (val == "Normal" || val == "Delta") {
 					$(".ratelimit").css("display", "initial");
 					$(".help-toggle").css("display", "none");
 					self.isEnabled = true;
 				}
-				if(val == "Disabled") {
+				if (val == "Disabled") {
 					$(".ratelimit").css("display", "none");
 					$(".help-toggle").css("display", "initial");
 					$(".bottom-area").css({
@@ -59,7 +62,7 @@ export class RateLimitView {
 		// Set times in any case to ensure correct values after turning it on
 		this.oldtime = this.newtime;
 		this.newtime = Date.now();
-		if(!this.isEnabled)return;
+		if (!this.isEnabled) return;
 		// Compute relevant time differences
 		const selfReplyTime = this.newtime - this.oldtime;
 		const delta = selfReplyTime - RATE_LIMIT;
@@ -72,9 +75,14 @@ export class RateLimitView {
 		});
 	}
 
+	/**
+	 * Gets a rate limit view background color for a given message delta.
+	 * @param delta the time delta between update submission and propagation.
+	 * @returns the background color for the rate limit view
+	 */
 	private getBackgroundColor(delta: number): string {
 		let bgColor: string;
-		if(delta < 0) {
+		if (delta < 0) {
 			bgColor = RATE_LIMIT_COLORS.negative;
 		} else if (delta < COLOR_MAX_MS) {
 			const index = Math.floor(delta / COLOR_INTERVAL);
@@ -85,6 +93,11 @@ export class RateLimitView {
 		return bgColor;
 	}
 
+	/**
+	 * Gets a rate limit view font color for a given message delta.
+	 * @param delta the time delta between update submission and propagation.
+	 * @returns the font color for the rate limit view
+	 */
 	private getFontColor(delta: number): string {
 		return delta < COLOR_MAX_MS ? "#000" : "";
 	}
