@@ -2,7 +2,7 @@
 	"name": "live-counting-extension",
 	"scripts": {
 		"build": "webpack --config webpack.config.js",
-		"lint": "eslint \"./**/*.js\" --ignore-path .gitignore"
+		"lint": "eslint \"./**/*.js\" \"./**/*.ts\" --ignore-path .gitignore"
 	},
 	"dependencies": {
 		"node-emoji": "^1.10.0"
@@ -10,18 +10,12 @@
 	"devDependencies": {
 		"@types/events": "^3.0.0",
 		"@types/jquery": "^3.5.5",
+		"@types/node": "^17.0.8",
 		"@types/webpack-env": "^1.16.0",
-		"@typescript-eslint/eslint-plugin": "^4.22.0",
-		"@typescript-eslint/parser": "^4.22.0",
-		"eslint": "^7.24.0",
-		"eslint-config-haykam": "^1.10.0",
-		"eslint-plugin-extra-rules": "^0.0.0-development",
-		"eslint-plugin-html": "^6.1.2",
-		"eslint-plugin-jsdoc": "^32.3.0",
-		"eslint-plugin-json": "^2.1.2",
-		"eslint-plugin-markdown": "^2.0.1",
-		"eslint-plugin-node": "^11.1.0",
-		"eslint-plugin-unicorn": "^28.0.2",
+		"@typescript-eslint/eslint-plugin": "^5.9.0",
+		"@typescript-eslint/parser": "^5.9.0",
+		"eslint": "^8.6.0",
+		"eslint-config-haykam": "^1.14.0",
 		"file-loader": "^6.2.0",
 		"fork-ts-checker-webpack-plugin": "^6.2.1",
 		"html-minify-loader": "^1.4.0",
