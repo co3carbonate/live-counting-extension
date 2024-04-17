@@ -30,6 +30,7 @@ const THREADS = require("./src/data/threads.json")
 const knames = [
 	"TOP_20",
 	"greenpeppercat",
+	"naimagawa",
 ];
 const SpecialUsernamesEnabled = new Array(knames.length).fill(true);
 
@@ -1338,6 +1339,13 @@ var ColoredUsernames;
             // /u/greenpeppercat username special
             if (data.author == knames[1]) {
 				data.authorNode.html(`Kailee`)
+			}
+        } // /u/greenpeppercat username special ending
+
+	if (SpecialUsernamesEnabled[2]) {
+            // /u/greenpeppercat username special
+            if (data.author == knames[2]) {
+				data.authorNode.html(`nai`)
 			}
         } // /u/greenpeppercat username special ending
 
