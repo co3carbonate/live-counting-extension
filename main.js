@@ -1563,6 +1563,8 @@ $.ajaxSetup({
                 return;
             // Clear textbox
             ELEMENTS.UPDATE_TEXTAREA.val('');
+	    // leinpilled
+	    lastInput = '';
             // This is a way to work around the issue where Reddit automatically clears the textbox
             // when the update had been successfully delivered, although we just cleared it here.
             // Call backupInput() whenever the textarea content is changed
