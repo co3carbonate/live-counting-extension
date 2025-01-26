@@ -31,6 +31,7 @@ const knames = [
 	"TOP_20",
 	"greenpeppercat",
 	"naimagawa",
+    "TheMatsValk"
 ];
 const SpecialUsernamesEnabled = new Array(knames.length).fill(true);
 
@@ -1287,20 +1288,19 @@ var ColoredUsernames;
 	* @param update Object for update
 	* @param {string} username User whose username color should cycle
 	*/
-	function specialUsernameRainbowCycle(countsPerCycle, update, username) {
-		if(update.author == knames[1]) {
-			// Initialize randomly
-			if(specialUsernamesRainbowCycleIndex === undefined) {
-				specialUsernamesRainbowCycleIndex = Math.floor(Math.random() * countsPerCycle);
-			}
-			// Get Color from current index
-			const deg = specialUsernamesRainbowCycleIndex / countsPerCycle * 360;
-			const colorText = "hsl(" + deg + "deg, 100%, 50%)";
-			userColors[username] = colorText;
-			// Update index
-			specialUsernamesRainbowCycleIndex += 1;
-			specialUsernamesRainbowCycleIndex %= countsPerCycle;
-		}
+	function specialUsernameRainbowCycle(countsPerCycle, username) {
+        // Initialize randomly
+        if(specialUsernamesRainbowCycleIndex === undefined) {
+            specialUsernamesRainbowCycleIndex = Math.floor(Math.random() * countsPerCycle);
+        }
+        // Get Color from current index
+        const deg = specialUsernamesRainbowCycleIndex / countsPerCycle * 360;
+        const colorText = "hsl(" + deg + "deg, 100%, 50%)";
+        userColors[username] = colorText;
+        // Update index
+        specialUsernamesRainbowCycleIndex += 1;
+        specialUsernamesRainbowCycleIndex %= countsPerCycle;
+		
 	}
 
 
@@ -1338,16 +1338,25 @@ var ColoredUsernames;
         if (SpecialUsernamesEnabled[1]) {
             // /u/greenpeppercat username special
             if (data.author == knames[1]) {
-				data.authorNode.html(`Kailee`)
+                if (Math.random() * 2000 < 1) {
+                    data.authorNode.html(`<span class="gpc" style="animation: blinkerm cubic-bezier(0,1,0,1) 1s infinite;font-size: 100px;animation-delay:-1s">meow!</span>`)
+                }
 			}
         } // /u/greenpeppercat username special ending
 
-	if (SpecialUsernamesEnabled[2]) {
-            // /u/greenpeppercat username special
+        if (SpecialUsernamesEnabled[2]) {
+            // /u/naiwagama username special
             if (data.author == knames[2]) {
-				data.authorNode.html(`nai`)
-			}
-        } // /u/greenpeppercat username special ending
+                data.authorNode.html(`nai`)
+            }
+        } // /u/naiwagama username special ending
+
+        if (SpecialUsernamesEnabled[3]) {
+            // /u/TheMatsValk username special
+            if (data.author == knames[3]) {
+                specialUsernameRainbowCycle(176, "TheMatsValk");
+            }
+        } // /u/TheMatsValk username special ending
 
     // Set username color
     if (!userColors.hasOwnProperty(data.author)) {
@@ -1426,7 +1435,7 @@ var ColoredUsernames;
         });
 
     //Styles
-    Styles.add(`li > div > a[href="/user/MaybeNotWrong"].author.blink {animation: blinkerm linear 2;} @keyframes blinkerm {50% { opacity:0; } 100%{ opacity:1; } }`);
+    Styles.add(`li > div > a[href="/user/greenpeppercat"].author.blink {animation: blinkerm linear 2;} @keyframes blinkerm {50% { opacity:0; } 100%{ opacity:1; } }`);
     Styles.add(`li > div > a[href="/user/ItzTaken"].author.takenblink {animation: takenblinkerm linear 2;} @keyframes takenblinkerm {50% { opacity:0; } 100%{ opacity:1; } }`);
 
 })(ColoredUsernames || (ColoredUsernames = {}));
