@@ -1,24 +1,21 @@
 {
-	"compilerOptions": {
-		"allowJs": true,
-		"downlevelIteration": true,
-		"esModuleInterop": true,
-		"lib": [
-			"es2020",
-			"dom"
-		],
-		"module": "es2020",
-		"moduleResolution": "node",
-		"noImplicitAny": true,
-		"outDir": "./dist",
-		"resolveJsonModule": true,
-		"target": "es2015",
-		"types": [
-			"@types/events",
-			"jquery",
-			"@types/jquery",
-			"@types/node",
-			"@types/webpack-env"
-		]
-	}
+  "compilerOptions": {
+    "allowJs": true,
+    "downlevelIteration": true,
+    "esModuleInterop": true,
+    "lib": ["es2020", "dom"],
+    "module": "es2020",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "outDir": "./dist",
+    "resolveJsonModule": true,
+    "target": "es2015",
+    "types": [
+      "@types/events",
+      "jquery",
+      "@types/jquery",
+      "@types/node",
+      "@types/webpack-env"
+    ]
+  }
 }

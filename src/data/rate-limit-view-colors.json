@@ -1,11 +1,4 @@
 {
-	"negative": "#f2ee0e",
-	"positive": [
-		"#ef7070",
-		"#ffaeae",
-		"#ffebba",
-		"#cfffba",
-		"#a2e8af",
-		"#adffed"
-	]
+  "negative": "#f2ee0e",
+  "positive": ["#ef7070", "#ffaeae", "#ffebba", "#cfffba", "#a2e8af", "#adffed"]
 }

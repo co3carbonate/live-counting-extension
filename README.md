@@ -2,9 +2,9 @@
 
 Live Counting Extension (LCE) provides various additional client-side features and functionalities for [Live Counting](https://www.reddit.com/live/ta535s1hq2je) to enhance your overall counting experience and performance. It was created by [/u/co3_carbonate](https://www.reddit.com/user/co3_carbonate/) and maintained by [/u/rideride](https://www.reddit.com/user/rideride/).
 
-![Preview Image](https://co3carbonate.github.io/live-counting-extension/preview.png?v=2 "Preview Image")
+![Preview Image](https://co3carbonate.github.io/live-counting-extension/preview.png?v=2 'Preview Image')
 
-All the features are displayed on the top-right corner of the page. You can always hide sections of the display by using the collapse button [-]. 
+All the features are displayed on the top-right corner of the page. You can always hide sections of the display by using the collapse button [-].
 
 ## Features
 
@@ -16,7 +16,7 @@ Here is a list of features. Besides the 'hidden' features, all of them can be di
   - Display Mode: Changes the display interface of the page to your preference
   - Remove Submission Lag: Upon submitting a message, the textbox is immediately cleared to allow you to enter new contents without waiting for your previous submission to be processed. No Clear stops Reddit from clearing the textbox.
 
-- Advanced 
+- Advanced
   - Submit Shortcut: Enables the use of a shortcut (Ctrl+Enter or Enter) to conveniently send a message
   - Disable Username Links: Disables the redirection to a user's profile upon clicking on his/her username
   - Make All Links Open In A New Tab: Makes all links on the page open in a new tab
@@ -30,7 +30,6 @@ Here is a list of features. Besides the 'hidden' features, all of them can be di
   - Emojis: Turns :emojiname: into an emoji. Also turns :emotename: into `emotename` to more easily type image emotes.
   - Textbox Position: An option to change where the text in the textbox is positioned
   - RES Night Mode: An option to enable Night Mode as featured in RES
-  
 - Advanced 2
   - Enable Daily HoC Colored Names: Makes the names in the Daily HoC sidebar colored
   - Enable Reply Times: Displays how much time has pasted between messages, in ms
@@ -49,25 +48,22 @@ Here is a list of features. Besides the 'hidden' features, all of them can be di
   - Kpart Alert: Sends a notification when a new K is reached. Last Count must be enabled for this to work
   - Collapsible Posts: Displays collapsible posts
 
- 
 - Hidden
   - Keep Focus: Keeps focus on the textbox when clicking the 'make update' button
   - Bars & Slow Time: Shows absolute time on reply times on the Bars sidethread, and displays a 1-hour timer from your last count on the Slow sidethread
   - Test Thread Practice Runner (Experimental): Run with a fake runner with a custom speed on the test thread
 
-
 ## Installation
 
 1. Install any userscript extension for your browser, as listed below:
+   - Firefox - install [Tampermonkey](https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/).
+   - Chrome - install [Tampermonkey](https://tampermonkey.net/?ext=dhdg&browser=chrome).
+   - Opera - install [Tampermonkey](https://tampermonkey.net/?ext=dhdg&browser=opera).
+   - Safari - install [Tampermonkey](https://tampermonkey.net/?ext=dhdg&browser=safari).
+   - Dolphin - install [Tampermonkey](https://tampermonkey.net/?ext=dhdg&browser=dolphin).
+   - UC Browser - install [Tampermonkey](https://tampermonkey.net/?ext=dhdg&browser=ucweb).
 
-	* Firefox - install [Tampermonkey](https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/).
-	* Chrome - install [Tampermonkey](https://tampermonkey.net/?ext=dhdg&browser=chrome).
-	* Opera - install [Tampermonkey](https://tampermonkey.net/?ext=dhdg&browser=opera).
-	* Safari - install [Tampermonkey](https://tampermonkey.net/?ext=dhdg&browser=safari).
-	* Dolphin - install [Tampermonkey](https://tampermonkey.net/?ext=dhdg&browser=dolphin).
-	* UC Browser - install [Tampermonkey](https://tampermonkey.net/?ext=dhdg&browser=ucweb).
-
-2. **Once you have downloaded one of those extensions, you can install the script through [this link](https://gist.github.com/co3carbonate/cbf781758d12717721dc125a80a5c785/raw/e5eb842297cc76ef66b6b9afca3f02b80b1a701a/client.user.js).** That's it! The latest version of the script will also be fetched and used each time the page is loaded, so there is no need for you to frequently update it manually. If you do not want an automatically updating version, you can make a copy from the current source code [here](https://github.com/co3carbonate/live-counting-extension/blob/master/main.js) or check out [LCE Lite](https://old.reddit.com/r/livecounting/comments/943mv0/live_counting_discussion_thread_23/e4ydisf/) which has all the essential features of LCE in a relatively simple script. 
+2. **Once you have downloaded one of those extensions, you can install the script through [this link](https://gist.github.com/co3carbonate/cbf781758d12717721dc125a80a5c785/raw/e5eb842297cc76ef66b6b9afca3f02b80b1a701a/client.user.js).** That's it! The latest version of the script will also be fetched and used each time the page is loaded, so there is no need for you to frequently update it manually. If you do not want an automatically updating version, you can make a copy from the current source code [here](https://github.com/co3carbonate/live-counting-extension/blob/master/main.js) or check out [LCE Lite](https://old.reddit.com/r/livecounting/comments/943mv0/live_counting_discussion_thread_23/e4ydisf/) which has all the essential features of LCE in a relatively simple script.
 
 ## Changelog
 
@@ -115,11 +111,11 @@ Here is a list of features. Besides the 'hidden' features, all of them can be di
   - v1.7.0 Added night mode reply time settings (from Response Times Extension)
   - v1.7.0 Added clear reply times setting (from Response Times Extension)
   - v1.7.0 Added custom striken setting (from Response Times Extension)
-  - v1.7.0 Added setting to disable custom reply times  (from Response Times Extension)
+  - v1.7.0 Added setting to disable custom reply times (from Response Times Extension)
   - v1.7.0 Added post background color feature (from Response Times Extension)
   - v1.7.0 Added last count feature (from Response Times Extension)
   - v1.7.0 Added emojis - enable and type :emoji_name: in the textbox
-  - v1.7.0 Added Ctrl+Space shortcut to focus on textbox 
+  - v1.7.0 Added Ctrl+Space shortcut to focus on textbox
   - v1.7.0 Clicking "make update" now maintains focus on textbox
   - v1.7.0 Made "disable obstructive shortcuts" feature work on Macs
   - v1.7.0 Temporarily (?) removed ghost messages
