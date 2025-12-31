@@ -1792,20 +1792,20 @@ var ColoredUsernames;
         var testArray = ['t', 'r', 'e', 'j', 'e'];
         Shuffle(testArray);
 
-        data.author_elem.css({
+        data.authorNode.css({
           'font-weight': 'bold',
           display: 'inline-block',
           'font-size': '15px',
         });
 
-        data.author_elem.html(
+        data.authorNode.html(
           `<div style='color:#ffc130'>¡<span id=shuffled>` +
             testArray.join('') +
             `</span>!</div>`
         );
         var testArray2 = testArray.join('');
         if (testArray2 == 'treje') {
-          data.author_elem.html(
+          data.authorNode.html(
             `<span id="rainbowtext" style="color: transparent; background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text!important;">¡ t r e j e !</span>`
           );
         }
