@@ -26,14 +26,14 @@ var THREAD = (function () {
 const THREADS = require('./src/data/threads.json');
 
 // 100k name information
-const knames = [
+const SPECIAL_USERNAMES = [
   'TOP_20',
   'greenpeppercat',
   'naimagawa',
   'TheMatsValk',
   'cuteballgames',
 ];
-const SpecialUsernamesEnabled = new Array(knames.length).fill(true);
+const SpecialUsernamesEnabled = new Array(SPECIAL_USERNAMES.length).fill(true);
 
 // Bold usernames
 const BOLD_USERS = new Set([
@@ -1617,7 +1617,7 @@ var ColoredUsernames;
 
     if (SpecialUsernamesEnabled[0]) {
       // /u/TOP_20 username special
-      if (data.author == knames[0]) {
+      if (data.author == SPECIAL_USERNAMES[0]) {
         data.authorNode.html(
           `<span style="color:brickred;">/</span><span style="color:#a35252;">u</span><span style="color:#FFFF00;">/</span>T<span style="color:#6495ED;">O</span><span style="color:#800080;">P</span><span style="color:#0000FF;">_</span><span style="color:#000000;">20</span>`
         );
@@ -1626,7 +1626,7 @@ var ColoredUsernames;
 
     if (SpecialUsernamesEnabled[1]) {
       // /u/greenpeppercat username special
-      if (data.author == knames[1]) {
+      if (data.author == SPECIAL_USERNAMES[1]) {
         if (Math.random() * 2000 < 1) {
           data.authorNode.html(
             `<span class="gpc" style="animation: blinkerm cubic-bezier(0,1,0,1) 1s infinite;font-size: 100px;animation-delay:-1s">meow!</span>`
@@ -1637,21 +1637,21 @@ var ColoredUsernames;
 
     if (SpecialUsernamesEnabled[2]) {
       // /u/naiwagama username special
-      if (data.author == knames[2]) {
+      if (data.author == SPECIAL_USERNAMES[2]) {
         data.authorNode.html(`nai`);
       }
     } // /u/naiwagama username special ending
 
     if (SpecialUsernamesEnabled[3]) {
       // /u/TheMatsValk username special
-      if (data.author == knames[3]) {
+      if (data.author == SPECIAL_USERNAMES[3]) {
         specialUsernameRainbowCycle(176, 'TheMatsValk');
       }
     } // /u/TheMatsValk username special ending
 
     if (SpecialUsernamesEnabled[4]) {
       // /u/cuteballgames username special
-      if (data.author == knames[4]) {
+      if (data.author == SPECIAL_USERNAMES[4]) {
         data.authorNode.html(`134`);
       }
     } // /u/cuteballgames username special ending
@@ -1998,12 +1998,12 @@ var DisableShortcuts;
 //////////////////////////
 // SpecialUsernames.ts //
 //////////////////////////
-for (let i = 0; i < knames.length; i++) {
+for (let i = 0; i < SPECIAL_USERNAMES.length; i++) {
   SpecialUsernamesEnabled[i] = true;
   (function (SpecialUsername) {
     // Options
     Options.addCheckbox({
-      label: knames[i] + ' 100K USERNAME',
+      label: SPECIAL_USERNAMES[i] + ' 100K USERNAME',
       section: 'Advanced',
       default: true,
       help: 'Enable or disable the special 100k usernames.',
