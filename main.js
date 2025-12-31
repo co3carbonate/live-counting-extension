@@ -32,6 +32,7 @@ const SPECIAL_USERNAMES = [
   'naimagawa',
   'TheMatsValk',
   'cuteballgames',
+  'treje',
 ];
 const SpecialUsernamesEnabled = new Array(SPECIAL_USERNAMES.length).fill(true);
 
@@ -1653,6 +1654,32 @@ var ColoredUsernames;
         data.authorNode.html(`134`);
       }
     } // /u/cuteballgames username special ending
+
+    if (SpecialUsernamesEnabled[5]) {
+      // /u/treje username special
+      if (data.author == SPECIAL_USERNAMES[5]) {
+        var testArray = ['t', 'r', 'e', 'j', 'e'];
+        Shuffle(testArray);
+
+        data.author_elem.css({
+          'font-weight': 'bold',
+          display: 'inline-block',
+          'font-size': '15px',
+        });
+
+        data.author_elem.html(
+          `<div style='color:#ffc130'>¡<span id=shuffled>` +
+            testArray.join('') +
+            `</span>!</div>`
+        );
+        var testArray2 = testArray.join('');
+        if (testArray2 == 'treje') {
+          data.author_elem.html(
+            `<span id="rainbowtext" style="color: transparent; background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text!important;">¡ t r e j e !</span>`
+          );
+        }
+      }
+    } // /u/treje username special ending
 
     // Set username color
     if (!userColors.hasOwnProperty(data.author)) {
