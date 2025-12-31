@@ -2048,12 +2048,11 @@ var Emojis;
         const regExpression = /:([^\s]+):/g
         const emojiIt = (re, text) => {
             if (result = re.exec(text)) {
-                var temptext = text;
-                const emoji = emojiLib[result[1].toLowerCase()];
+                const emoji = emojiLib[result[1]];
                 if(emoji) {
                     text = text.replace(result[0], emoji);
                 }
-                if(imageEmotes.includes(result[1].toLowerCase())) {
+                if(imageEmotes.includes(result[1])) {
                     text = text.replace(result[0], "`"+result[0].trim().replace(/:/g,"")+"`");
                 }
             }
