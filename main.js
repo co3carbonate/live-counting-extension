@@ -31,7 +31,8 @@ const knames = [
 	"TOP_20",
 	"greenpeppercat",
 	"naimagawa",
-    "TheMatsValk"
+    "TheMatsValk",
+    "cuteballgames",
 ];
 const SpecialUsernamesEnabled = new Array(knames.length).fill(true);
 
@@ -1336,6 +1337,13 @@ var ColoredUsernames;
             }
         } // /u/TheMatsValk username special ending
 
+        if (SpecialUsernamesEnabled[4]) {
+            // /u/cuteballgames username special
+            if (data.author == knames[4]) {
+                data.authorNode.html(`134`)
+            }
+        } // /u/cuteballgames username special ending
+
     // Set username color
     if (!userColors.hasOwnProperty(data.author)) {
         userColors[data.author] = colors[currentColor];
@@ -1675,8 +1683,7 @@ for(let i = 0; i < knames.length; i++) {
 	SpecialUsernamesEnabled[i] = true;
 	(function (SpecialUsername) {
 		// Options
-		let enabled1 = true;
-		let $checkbox = Options.addCheckbox({
+		Options.addCheckbox({
 			label: knames[i] + ' 100K USERNAME',
 			section: 'Advanced',
 			"default": true,
