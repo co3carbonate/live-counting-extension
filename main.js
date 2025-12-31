@@ -55,9 +55,7 @@ ignored.push(localStorage.getItem('ignoredppl'));
 
 //Daily HoC vars
 var dailysize = 0;
-var dailysizereal = '90px';
 var dailysize2 = -1;
-var dailysizereal2 = '90px';
 var colortransfers = '';
 var currentColor = 0;
 var colors = '';
@@ -106,7 +104,7 @@ if (THREAD == THREADS.SLOW) {
   });
 }
 
-//Last count vars (Temporary before I remake it)
+//Last count vars ("Temporary" (🙄) before I remake it)
 var current_number = '';
 var last_number = '';
 var expected_number = '';
