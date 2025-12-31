@@ -15,6 +15,7 @@
 		"target": "es2015",
 		"types": [
 			"@types/events",
+			"jquery",
 			"@types/jquery",
 			"@types/node",
 			"@types/webpack-env"
