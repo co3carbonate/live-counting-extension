@@ -1611,7 +1611,7 @@ var ColoredUsernames;
     if (!enabled) return;
     // Special usernames (temp rewards for top in 100k HoC, or other contributions)
     // Bot-maker privileges
-    if (BOLD_USERS.has(thisauthor)) $(this).css('font-weight', 'bold');
+    if (BOLD_USERS.has(data.author)) $(this).css('font-weight', 'bold');
 
     // 100K usernames
 
