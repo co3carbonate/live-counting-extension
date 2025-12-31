@@ -782,6 +782,175 @@ var dailyHocColorNamesEnable;
 ///////////////////
 // ReplyTimes.ts //
 ///////////////////
+
+const THEMES = {
+  light: {
+    fontDefault: '#000000',
+    bands: {
+      neg: '#f2ee0e',
+      t100: '#ef7070',
+      t200: '#ffaeae',
+      t300: '#ffebba',
+      t400: '#cfffba',
+      t500: '#a2e8af',
+      t600: '#adffed',
+      t700: '#add6ff',
+      t800: '#bcadff',
+      t900: '#e9adff',
+      t1000: '#ffadf8',
+      ge1000: '#ededed',
+    },
+  },
+
+  dark: {
+    fontDefault: '#ddd',
+    bands: {
+      neg: '#727200',
+      t100: '#4d0000',
+      t200: '#980000',
+      t300: '#654700',
+      t400: '#216e00',
+      t500: '#003b0b',
+      t600: '#006b53',
+      t700: '#004183',
+      t800: '#14006c',
+      t900: '#460060',
+      t1000: '#6e0064',
+      ge1000: '#2a2a2a',
+    },
+  },
+
+  oled: {
+    fontDefault: '#f2f2f2',
+    bands: {
+      neg: '#9a8b00',
+      t100: '#2b0000',
+      t200: '#4a0000',
+      t300: '#3a2a00',
+      t400: '#0f2a00',
+      t500: '#001a05',
+      t600: '#003226',
+      t700: '#001c3a',
+      t800: '#12003d',
+      t900: '#2b0036',
+      t1000: '#3d0034',
+      ge1000: '#000000',
+    },
+  },
+
+  nord: {
+    fontDefault: '#e5e9f0',
+    bands: {
+      neg: '#b48ead',
+      t100: '#bf616a',
+      t200: '#d08770',
+      t300: '#ebcb8b',
+      t400: '#a3be8c',
+      t500: '#8fbcbb',
+      t600: '#88c0d0',
+      t700: '#81a1c1',
+      t800: '#5e81ac',
+      t900: '#4c566a',
+      t1000: '#434c5e',
+      ge1000: '#2e3440',
+    },
+  },
+
+  dracula: {
+    fontDefault: '#f8f8f2',
+    bands: {
+      neg: '#f1fa8c',
+      t100: '#ff5555',
+      t200: '#ffb86c',
+      t300: '#f1fa8c',
+      t400: '#50fa7b',
+      t500: '#8be9fd',
+      t600: '#6272a4',
+      t700: '#bd93f9',
+      t800: '#ff79c6',
+      t900: '#ff92df',
+      t1000: '#a6a6ff',
+      ge1000: '#282a36',
+    },
+  },
+
+  solarizedDark: {
+    fontDefault: '#eee8d5',
+    bands: {
+      neg: '#b58900',
+      t100: '#dc322f',
+      t200: '#cb4b16',
+      t300: '#b58900',
+      t400: '#859900',
+      t500: '#2aa198',
+      t600: '#268bd2',
+      t700: '#6c71c4',
+      t800: '#d33682',
+      t900: '#7c6f64',
+      t1000: '#586e75',
+      ge1000: '#002b36',
+    },
+  },
+
+  gruvbox: {
+    fontDefault: '#ebdbb2',
+    bands: {
+      neg: '#d79921',
+      t100: '#cc241d',
+      t200: '#d65d0e',
+      t300: '#d79921',
+      t400: '#98971a',
+      t500: '#689d6a',
+      t600: '#458588',
+      t700: '#83a598',
+      t800: '#b16286',
+      t900: '#8f3f71',
+      t1000: '#928374',
+      ge1000: '#282828',
+    },
+  },
+};
+
+function getThemeKey() {
+  const choice = ELEMENTS.BODY_ELEMENT.attr('data-replyTheme') || 'Default';
+  const isNightmode = $('#lc-body').hasClass('res-nightmode');
+
+  if (choice === 'Default') return isNightmode ? 'dark' : 'light';
+
+  const map = {
+    Light: 'light',
+    Dark: 'dark',
+    OLED: 'oled',
+    Nord: 'nord',
+    Dracula: 'dracula',
+    'Solarized Dark': 'solarizedDark',
+    Gruvbox: 'gruvbox',
+  };
+
+  const key = map[choice] || 'light';
+  return THEMES[key] ? key : 'light';
+}
+
+function getTimestampBg(timestamp, halfColors, themeKey) {
+  const t = halfColors ? timestamp * 2 : timestamp;
+  const bands = THEMES[themeKey].bands;
+
+  if (timestamp <= -500)
+    return 'linear-gradient(to right,red,orange,yellow,green,blue,indigo,violet)';
+  if (timestamp < 1) return bands.neg;
+  if (t < 100) return bands.t100;
+  if (t < 200) return bands.t200;
+  if (t < 300) return bands.t300;
+  if (t < 400) return bands.t400;
+  if (t < 500) return bands.t500;
+  if (t < 600) return bands.t600;
+  if (t < 700) return bands.t700;
+  if (t < 800) return bands.t800;
+  if (t < 900) return bands.t900;
+  if (t < 1000) return bands.t1000;
+  return bands.ge1000;
+}
+
 var ReplyTimes;
 (function (ReplyTimes) {
   // INITIALIZATION
@@ -949,118 +1118,71 @@ var ReplyTimes;
     var permalink = thisTime.substring(thisTime.indexOf('updates/') + 8);
     var testhref =
       'https://old.reddit.com/live/' + THREAD + '/updates/' + permalink;
-    var colortest = '#7dd4fa';
-    var elcolor = '#000000';
-    var randomx = '0';
-    // Check for Darkmode
-    darkcheck = 0;
-    if (ELEMENTS.BODY_ELEMENT.attr('data-darkMode') == 'Default') {
-      if ($('#lc-body').hasClass('res-nightmode')) {
-        darkcheck = 1;
-        elcolor = '#ddd';
-      }
-    } else if (ELEMENTS.BODY_ELEMENT.attr('data-darkMode') == 'On') {
-      darkcheck = 1;
-      elcolor = '#ddd';
-    } else if (ELEMENTS.BODY_ELEMENT.attr('data-darkMode') == 'Off') {
-      darkcheck = 0;
-    }
-    // Choose Colors
-    let timestamp_positive = timestamp;
-    if (ELEMENTS.BODY_ELEMENT.attr('data-halfColors') == 'true') {
-      // Half reply times -> Choose color as if reply time was 2x
-      timestamp_positive = timestamp * 2;
-    }
-    if (timestamp <= -500) {
-      colortest =
-        'linear-gradient(to right,red,orange,yellow,green,blue,indigo,violet)';
-    } else if (timestamp < 1) {
-      colortest = darkcheck ? '#727200' : '#f2ee0e';
-    } else if (timestamp_positive < 100) {
-      colortest = darkcheck ? '#4d0000' : '#ef7070';
-    } else if (timestamp_positive < 200) {
-      colortest = darkcheck ? '#980000' : '#ffaeae';
-    } else if (timestamp_positive < 300) {
-      colortest = darkcheck ? '#654700' : '#ffebba';
-    } else if (timestamp_positive < 400) {
-      colortest = darkcheck ? '#216e00' : '#cfffba';
-    } else if (timestamp_positive < 500) {
-      colortest = darkcheck ? '#003b0b' : '#a2e8af';
-    } else if (timestamp_positive < 600) {
-      colortest = darkcheck ? '#006b53' : '#adffed';
-    } else if (timestamp_positive < 700) {
-      colortest = darkcheck ? '#004183' : '#add6ff';
-    } else if (timestamp_positive < 800) {
-      colortest = darkcheck ? '#14006c' : '#bcadff';
-    } else if (timestamp_positive < 900) {
-      colortest = darkcheck ? '#460060' : '#e9adff';
-    } else if (timestamp_positive < 1000) {
-      colortest = darkcheck ? '#6e0064' : '#ffadf8';
-    } else if (timestamp_positive >= 1000) {
-      colortest = darkcheck ? '#2a2a2a' : '#ededed';
-    }
-    // Overwrite timestamp if it is a special time
+    let colortest = '#7dd4fa';
+    let elcolor = '#000000';
+    let randomx = '0';
+
+    const themeKey = getThemeKey();
+    elcolor = THEMES[themeKey].fontDefault;
+
+    const halfColors = ELEMENTS.BODY_ELEMENT.attr('data-halfColors') === 'true';
+    colortest = getTimestampBg(Number(timestamp), halfColors, themeKey);
+
     if (
       timestamp in specialTimes &&
-      ELEMENTS.BODY_ELEMENT.attr('data-disableSpecialTimes') == 'false'
+      ELEMENTS.BODY_ELEMENT.attr('data-disableSpecialTimes') === 'false'
     ) {
-      var postauthor = data.authorNode.text().substring(3);
-      if (timestamp == '123') {
-        var randomtime = Math.round(Math.random());
+      const postauthor = data.authorNode.text().substring(3);
+
+      if (timestamp === '123') {
+        const randomtime = Math.round(Math.random());
         if (
-          (randomtime == 1 && postauthor != 'davidjl123') ||
-          postauthor == 'dominodan123'
+          (randomtime === 1 && postauthor !== 'davidjl123') ||
+          postauthor === 'dominodan123'
         ) {
           timestamp = '123-2';
         }
       }
-      if (timestamp == '404') {
-        var randomtime = Math.round(Math.random());
+
+      if (timestamp === '404') {
+        const randomtime = Math.round(Math.random());
         if (
-          (randomtime == 1 && postauthor != 'Tranquilsunrise') ||
-          postauthor == 'KingCaspianX'
+          (randomtime === 1 && postauthor !== 'Tranquilsunrise') ||
+          postauthor === 'KingCaspianX'
         ) {
           timestamp = '404-2';
         }
       }
-      colortest = specialTimes[timestamp]['bgcolor'];
-      elcolor = specialTimes[timestamp]['fontcolor'];
-      if (postauthor == specialTimes[timestamp]['user']) {
-        var user2 = data.node.find('.body > .author').text();
+
+      colortest = specialTimes[timestamp].bgcolor;
+      elcolor = specialTimes[timestamp].fontcolor;
+
+      if (postauthor === specialTimes[timestamp].user) {
+        const user2 = data.node.find('.body > .author').text();
         data.node.find('.body').append('<span id=fakeauthor></span>');
         document.getElementById('fakeauthor').innerHTML = user2;
         data.node.find('.body > .author').css('fontSize', '0px');
         document.getElementById('fakeauthor').style.cssText =
           'font-size: 13px; color: transparent; background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text!important;';
       }
-      timestamp = specialTimes[timestamp]['words'];
+
+      timestamp = specialTimes[timestamp].words;
     }
-    var thisriver = data.node
-      .find('.body')
-      .prepend(
-        "<div colortest='" +
-          colortest +
-          "' elcolor='" +
-          elcolor +
-          "' id='" +
-          permalink +
-          "' style='position:absolute;background:" +
-          colortest +
-          ';color:' +
-          elcolor +
-          ";' onclick=window.open('" +
-          testhref +
-          "'); class=river>" +
-          timestamp +
-          '</div>'
-      );
-    if (THREAD == THREADS.BARS || THREAD == THREADS.ONE_PER_MINUTE) {
-      let mago = Math.round(timestamp_current / 10000);
-      var dateTime = new Date(mago).toISOString().substring(11, 23);
+
+    data.node.find('.body').prepend(
+      `<div colortest="${colortest}" elcolor="${elcolor}" id="${permalink}"
+     style="position:absolute;background:${colortest};color:${elcolor};"
+     onclick="window.open('${testhref}');" class="river">${timestamp}</div>`
+    );
+
+    if (THREAD === THREADS.BARS || THREAD === THREADS.ONE_PER_MINUTE) {
+      const mago = Math.round(timestamp_current / 10000);
+      const dateTime = new Date(mago).toISOString().substring(11, 23);
       $('#' + permalink).text(dateTime);
     }
+
     if (
-      ELEMENTS.BODY_ELEMENT.attr('data-BackgroundColor') == 'Match Reply Time'
+      ELEMENTS.BODY_ELEMENT.attr('data-BackgroundColor') === 'Match Reply Time'
     ) {
       data.node.find('.body').parent().css('background', colortest);
     }
@@ -1154,24 +1276,33 @@ var HalfColors;
   });
 })(HalfColors || (HalfColors = {}));
 ///////////////////////////
-// ReplyTimesDarkMode.ts //
+// ReplyTimesTheme.ts    //
 ///////////////////////////
-var ReplyTimesDarkMode;
-(function (ReplyTimesDarkMode) {
-  // INITIALIZATION
-  ELEMENTS.BODY_ELEMENT.attr('data-darkMode', 'Default');
-  // Options
+var ReplyTimesTheme;
+(function (ReplyTimesTheme) {
+  // Default to "Default" behavior (follow RES nightmode)
+  ELEMENTS.BODY_ELEMENT.attr('data-replyTheme', 'Default');
+
   Options.addSelect({
-    label: 'NIGHT MODE REPLY TIMES',
-    options: ['Default', 'On', 'Off'],
+    label: 'REPLY TIME THEME',
+    options: [
+      'Default', // follow RES nightmode (light/dark)
+      'Light',
+      'Dark',
+      'OLED', // near-black, high contrast
+      'Nord', // cool muted
+      'Dracula', // purple/teal vibe
+      'Solarized Dark', // classic
+      'Gruvbox', // warm earthy
+    ],
     section: 'Advanced 2',
     default: 0,
-    help: 'Changes the background of reply times to better match RES night mode. Default = looks at RES, On = forced on, Off = forced off, even if RES night mode enabled',
+    help: 'Default = Light unless RES night mode is enabled (then Dark). Other options force a theme regardless of RES.',
     onchange: function () {
-      ELEMENTS.BODY_ELEMENT.attr('data-darkMode', this.val());
+      ELEMENTS.BODY_ELEMENT.attr('data-replyTheme', this.val());
     },
   });
-})(ReplyTimesDarkMode || (ReplyTimesDarkMode = {}));
+})(ReplyTimesTheme || (ReplyTimesTheme = {}));
 ///////////////////////////////
 // AutomaticallyClearTime.ts //
 ///////////////////////////////

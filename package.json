@@ -10,8 +10,8 @@
   "devDependencies": {
     "@types/events": "^3.0.0",
     "@types/jquery": "^3.5.33",
-    "@types/node": "^17.0.8",
-    "@types/webpack-env": "^1.16.0",
+    "@types/node": "^17.0.45",
+    "@types/webpack-env": "^1.18.8",
     "@typescript-eslint/eslint-plugin": "^5.9.0",
     "@typescript-eslint/parser": "^5.9.0",
     "eslint": "^8.6.0",
