@@ -2119,7 +2119,6 @@ var LatencyCheck;
     var latencyText = {};
     var lat50 = [];
     function calcMedian(ar1) {
-        var half = Math.floor(ar1.length / 2);
         var temporary = ar1.slice(0).sort(function(a, b) { return a - b;});
         let lowMiddle = Math.floor( (temporary.length - 1) / 2);
         let highMiddle = Math.ceil( (temporary.length - 1) / 2);
@@ -2303,7 +2302,6 @@ var stringy = '';
         UPDATE_EVENTS.addListener("loaded", data => {
             if(ELEMENTS.BODY_ELEMENT.attr('data-ImageEmotes') == 'true') {
                 var emotes_post = data.bodyNode.html();
-                var emotes_text = data.bodyNode.text();
                 the_emote = emotes_post.match(/<code>(.*?)<\/code>/gm);
                 for(var emote in the_emote) {
                     if(the_emote[emote].toLowerCase() in emoteimages) {
@@ -2479,7 +2477,6 @@ UPDATE_EVENTS.addListener("new", data => {
     // steal from https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_collapsible lol
     if(ELEMENTS.BODY_ELEMENT.attr('data-CollapsiblePosts') == 'true') {
                      var collapse_html = data.bodyNode.html();
-                var collapse_text = data.bodyNode.text();
                 var regexcollapse = collapse_html.match(/<a href="#start"(.*?)<\/a>(.*?)<a href="#end"(.*?)<\/a>/gms);
                 for(var matchcol in regexcollapse) {
                     collapseCount++;
@@ -2705,7 +2702,6 @@ $("#liveupdate-description").append(`<p style='background:#e2ffdb;color:black!im
     $("#liveupdate-description").append("<p style='background:#e2ffdb;font-size:16px;' id=fakerunner>Hi am fake runner. This feature SUCKS but maybe it could be useful to someone some day. Reply times may be slightly inaccurate but I really tried lol. Increment:<input id='fakeruntime'></input> <button id='this_sucks'>Press to run.</button><button id='fuck_it'>Click to stop.</button><button id='sink'>Sync time</button>Sync in ms:<input id='sinker'></input><button id='hide_a_mf'>Hide</button></p>");
 
 var fake_count = 10000000;
-    var fake_lol = 0;
     var fake_count_2 = 0;
     var fake_count_author = '';
     var strikechecky = '';
