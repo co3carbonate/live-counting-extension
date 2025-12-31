@@ -997,14 +997,12 @@ var CustomStricken;
                 $(this).data('clicked', true);
             });
             ELEMENTS.BODY_ELEMENT.attr('data-customStricken', this.val());
-            //if (this.val() != 'Off' && $(this).data('clicked') == true) {
             if (this.val() != 'Off' && timeCheck == 1) {
                 var oldStricken = ELEMENTS.BODY_ELEMENT.attr('data-customStrickenColor');
                 customStrickenColor = window.prompt('Enter your custom background color.','#ddd');
                 Cookie.save.customStrickenColor = customStrickenColor;
                 ELEMENTS.BODY_ELEMENT.attr('data-customStrickenColor', customStrickenColor);
                 Cookie.update();
-                //Styles.add("\n\n\t/* Custom Stricken */\n\t#lc-body[data-customStricken='No Inverse'] .liveupdate.stricken{\n\tbackground:"  + ELEMENTS.BODY_ELEMENT.attr('data-customStrickenColor') + "!important;\n\t}\n#lc-body[data-customStricken='Inverse'] .liveupdate.stricken{\n\tbackground:"  + ELEMENTS.BODY_ELEMENT.attr('data-customStrickenColor') + "!important;-webkit-filter: invert(100%);filter: invert(100%);\n\t}");
                 Styles.replace("\n\n\t/* Custom Stricken */\n\t#lc-body[data-customStricken='No Inverse'] .liveupdate.stricken{\n\tbackground:"  + oldStricken + "!important;\n\t}\n#lc-body[data-customStricken='Inverse'] .liveupdate.stricken{\n\tbackground:"  + oldStricken + "!important;-webkit-filter: invert(100%);filter: invert(100%);\n\t}","\n\n\t/* Custom Stricken */\n\t#lc-body[data-customStricken='No Inverse'] .liveupdate.stricken{\n\tbackground:"  + ELEMENTS.BODY_ELEMENT.attr('data-customStrickenColor') + "!important;\n\t}\n#lc-body[data-customStricken='Inverse'] .liveupdate.stricken{\n\tbackground:"  + ELEMENTS.BODY_ELEMENT.attr('data-customStrickenColor') + "!important;-webkit-filter: invert(100%);filter: invert(100%);\n\t}");
             }
         }
@@ -1050,13 +1048,11 @@ var BackgroundColor;
                 $(this).data('clicked', true);
             });
             ELEMENTS.BODY_ELEMENT.attr('data-BackgroundColor', this.val());
-            //if (this.val() == 'Custom' && $(this).data('clicked') == true) {
             if (this.val() == 'Custom' && timeCheck == 1) {
                 var oldBgColor = ELEMENTS.BODY_ELEMENT.attr('data-customBackgroundColor');
                 customBackgroundColor = window.prompt('Enter your custom background color.','#ddd');
                 Cookie.save.customBackgroundColor = customBackgroundColor;
                 ELEMENTS.BODY_ELEMENT.attr('data-customBackgroundColor', customBackgroundColor);
-                //Styles.add("\n\n\t/* Custom Background */\n\t#lc-body[data-BackgroundColor='Custom'] .liveupdate{\n\tbackground:"  + ELEMENTS.BODY_ELEMENT.attr('data-customBackgroundColor') + "!important;\n\t}\n}");
                 Styles.replace("\n\n\t/* Custom Background */\n\t#lc-body[data-BackgroundColor='Custom'] .liveupdate{\n\tbackground:"  + oldBgColor + "!important;\n\t}\n}","\n\n\t/* Custom Background */\n\t#lc-body[data-BackgroundColor='Custom'] .liveupdate{\n\tbackground:"  + ELEMENTS.BODY_ELEMENT.attr('data-customBackgroundColor') + "!important;\n\t}\n}");
                 Cookie.update();
             }
@@ -1080,9 +1076,7 @@ var LastCount;
         live_update_header_text+="<p>"+splits[i]+":<span id=split"+i+"></span></p>"
     }
     live_update_header_text+="<p>Last K:<span id=lcbot_speed></span></p><p><span id=dumptoggle>Dump [+]:</span><div id=split69></div></p></div></div></div>"
-    //$('#liveupdate-header').prepend(live_update_header_text);
     $('<div id="idlecontainercontainer" style="position:relative;">'+live_update_header_text+'</div>').insertBefore('#liveupdate-header');
-    //$('#idlecontainer').css({'display': 'none', 'position': 'absolute', 'left': '1%', 'top': '20%', 'width': '115px', 'background': 'transparent'});
     $('#idlecontainer').css({'display': 'none', 'position': 'absolute', 'left': '1%', 'width': '115px', 'background': 'transparent'});
     $("#split69").css({'display': 'none',});
     $( "#lastcountdesc" ).hover(function() {
@@ -1195,22 +1189,6 @@ var CtrlEnter;
                     $submitBtn.trigger('click');
                 }
             }
-            /*
-            else {
-                var keycodeArray = ELEMENTS.BODY_ELEMENT.attr('data-submitShortcut').split(",");
-                var keycodeCheck = keycodeArray.length;
-                var keycodeIncrement = 0;
-                for(keycode in keycodeArray) {
-                    if(e.keyCode == keycodeArray[keycode].toString()) {
-                        keycodeIncrement++;
-                    }
-                }
-                if (keycodeIncrement == keycodeCheck) {
-                    e.preventDefault();
-                    $submitBtn.trigger('click');
-                }
-            }
-            */
         });
 })(CtrlEnter || (CtrlEnter = {}));
 //////////////////
@@ -2305,11 +2283,6 @@ var stringy = '';
     });
 
     function toDataURL(url, callback) {
-        //var xhr = new XMLHttpRequest();
-        //xhr.onload = function() {
-            //var reader = new FileReader();
-            //reader.onloadend = function() {
-                //callback(reader.result);
                 callback(url);
                 if(Object.keys(emoteimages).length == imageEmotes.length) {
                     if(ELEMENTS.BODY_ELEMENT.attr('data-ImageEmotes') == 'true') {
@@ -2370,12 +2343,6 @@ var stringy = '';
                            document.querySelector('textarea').focus();
                        });
                 }
-            //}
-            //reader.readAsDataURL(xhr.response);
-        //};
-        //xhr.open('GET', url);
-        //xhr.responseType = 'blob';
-        //xhr.send();
         emoteCount++;
     }
     function emotes_load() {
@@ -2737,20 +2704,15 @@ var fake_count = 10000000;
     var fake_count_author = '';
     var strikechecky = '';
     var sinky = 0;
-//var post1 = setInterval(function(){
 function poster(){
-    //fake_lol++;
     try{
         fake_count_2 = $('#lastcountcount').text();
         fake_count_author = $('#lastcountuser').text();
-                    //fake_count = $('#lastcountcount').text();
-            //fake_count = parseFloat(fake_count.replace(/,/g, ''));
                 fake_count_2 = fake_count_2.replace(/[A-Za-z]/g, '');
     fake_count_2 = fake_count_2.replace(/,/g, '');
     fake_count_2 = fake_count_2.replace(/ /g, '');
 fake_count_2 = fake_count_2.replace(/\./g, '');
             fake_count_2 = parseFloat(fake_count_2);
-        //if(fake_lol % 2 == 0) {
         if(fake_count_author != 'Riverbot') {
             fake_count = fake_count_2 + 1;
             strikechecky = '';
@@ -2758,13 +2720,6 @@ fake_count_2 = fake_count_2.replace(/\./g, '');
             fake_count = fake_count_2 + 2;
             strikechecky = ' stricken';
         }
-        //} else {
-        //            if(fake_count_author != 'Graphite_bot') {
-       //     fake_count = fake_count_2 + 1;
-       // } else {
-       //     fake_count = fake_count_2 + 2;
-      //  }
-      // }
     }
     catch(err) {
         fake_count = 10000000;
@@ -2773,9 +2728,7 @@ fake_count_2 = fake_count_2.replace(/\./g, '');
 var time_fake = new Date();
     var time_lake = time_fake.toISOString();
     time_fake = time_fake.getTime();
-    //var d = '2040-01-03T00:00:00.500Z';
     var d = '2040-01-03T00:00:00.500Z';
-    //d = new Date(d).valueOf();
     d = new Date(d).valueOf();
     d += sinky;
     time_fake = time_fake + d;
@@ -2786,13 +2739,7 @@ var time_fake = new Date();
     var t1 = time_fake.substring(0,3);
     var t2 = time_fake.substring(3,7);
     var t3 = time_fake.substring(7,15);
-//if(fake_lol % 2 == 0) {
     $(".liveupdate-listing").prepend(`<li class="liveupdate deadupdate`+strikechecky+`"><a href="/live/ta535s1hq2je/updates/`+t3+`-`+t2+`-1`+t1+`-8133-0e5d46594c50" target="_blank"><time class="live-timestamp" datetime="`+time_lake+`" title="this is fake lol">just now</time></a><div class="body"><div class="md"><p>`+fake_count+`</p></div><a href="/user/Riverbot" class="author" style="color: black;"> /u/Riverbot</a></div><ul class="buttonrow"><li><span class="strike confirm-button"><button>this is fake lol</button></span></li><li><span class="delete confirm-button"><button>delete</button></span></li></ul></li>`);
-//} else {
-  //  $(".liveupdate-listing").prepend(`<li class="liveupdate deadupdate"><a href="/live/ta535s1hq2je/updates/`+t3+`-`+t2+`-1`+t1+`-8133-0e5d46594c50" target="_blank"><time class="live-timestamp" datetime="2019-03-31T02:16:13.000Z" title="this is fake lol">just now</time></a><div class="body"><div class="md"><p>`+fake_count+`</p></div><a href="/user/Graphite_bot" class="author" style="color: black;"> /u/Graphite_bot</a></div><ul class="buttonrow"><li><span class="strike confirm-button"><button>this is fake lol</button></span></li><li><span class="delete confirm-button"><button>delete</button></span></li></ul></li>`);
-//}
-    //    $(".liveupdate-listing").prepend(`<li class="liveupdate deadupdate"><a href="/live/" target="_blank"><time class="live-timestamp" datetime="2019-03-31T02:16:13.000Z" title="this is fake lol">just now</time></a><div class="body"><div class="md"><p>10000000</p></div><a href="/user/Riverbot" class="author" style="color: black;"> /u/Riverbot</a></div><ul class="buttonrow"><li><span class="strike confirm-button"><button>this is fake lol</button></span></li><li><span class="delete confirm-button"><button>delete</button></span></li></ul></li>`);
-			//},increment_timey);
 }
         $( "#this_sucks" ).click(function() {
         var increment_timey = $('#fakeruntime').val();
@@ -2849,10 +2796,6 @@ var time_fake = new Date();
         console.log('pressed submit:'+Date.now());
     });
     r.liveupdate.app.websocket._events['message:update'][0].callback = function(t){console.log('message:update start:'+Date.now());var n=r.liveupdate.listings.LiveUpdate.prototype.parse(t);this.listing.add(n,{at:0});console.log('message:update end:'+Date.now());}
-    //r.liveupdate.app.websocket._events['message:update'][0].callback = function(t){console.log('message:update start:'+Date.now());console.log('message:update end:'+Date.now());}
-    //r.liveupdate.app.websocket._events['message:update'][0].callback = function(t){console.log('message:update start:'+Date.now());var n=r.liveupdate.listings.LiveUpdate.prototype.parse(t);console.log('message:update end:'+Date.now());}
-    //r.liveupdate.app.websocket._events['message:update'][0].callback = function(t){console.log('message:update start:'+Date.now());var n=r.liveupdate.listings.LiveUpdate.prototype.parse(t);console.log('message:update parsed:'+Date.now());this.listing.add(n,{at:0});console.log('message:update end:'+Date.now());}
-    //r.liveupdate.app.websocket._events['message:update'][0].callback = function(t){console.log('message:update start:'+Date.now());var n=r.liveupdate.listings.LiveUpdate.prototype.parse(t);console.log('message:update parsed :'+Date.now());r.liveupdate.app.listing.models.unshift(n);console.log('message:update end:'+Date.now());}
     function s(t) { return function(t) { if (t.jquery) { var n = {}; n[0] = jQuery, e.map(t.jquery, function(t) { var r = t[0] , i = t[1] , s = t[2] , o = t[3]; if (typeof o == "string") o = e.unsafe(o); else for (var u = 0; o.length && u < o.length; u++) o[u] = e.unsafe(o[u]); s == "call" ? n[i] = n[r].apply(n[r]._obj, o) : s == "attr" ? (o == "redirect" && e(window).off("beforeunload"), n[i] = n[r][o], n[i] ? n[i]._obj = n[r] : e.debug("unrecognized")) : s == "refresh" ? e.refresh() : e.debug("unrecognized") }) } } }
     var o = "/api/";
     $.request = function(t, u, a, f, l, c, h) { console.log('request start:'+Date.now()); var p = t , d = a; if (rate_limit(t)) { h && h("ratelimit"); return } if (window != window.top && !r.config.external_frame) return; var v = !$.with_default(f, !1) || n(p); u = $.with_default(u, {}), a = $.with_default(a, s(p)), l = $.with_default(l, "json"); var m = $("form.warn-on-unload"); typeof a != "function" && (a = s(p)); var d = function(t) { return i(p), $(m).length && t.success && $(window).off("beforeunload"), a(t) }; errorhandler_in = $.with_default(h, function() {}), h = function(e) { return i(p), errorhandler_in(e) } , c = $.with_default(c, !1), r.config.post_site && u.r === undefined && (u.r = r.config.post_site), r.config.logged && (u.uh = r.config.modhash), u.renderstyle = r.config.renderstyle, v && (t = o + t, r.commentsPreview && r.commentsPreview.visible && r.utils && (t = r.utils.replaceUrlParams(t, { comments_preview_enabled: !0 })), console.log('request ajax start:'+Date.now()), $.ajax({ type: c ? "GET" : "POST", url: t, data: u, success: d, error: h, dataType: l })); console.log('request ajax end:'+Date.now()); }
