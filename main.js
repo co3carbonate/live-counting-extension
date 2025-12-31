@@ -36,6 +36,16 @@ const knames = [
 ];
 const SpecialUsernamesEnabled = new Array(knames.length).fill(true);
 
+// Bold usernames
+const BOLD_USERS = new Set([
+  'MaybeNotWrong',
+  'co3_carbonate',
+  'rschaosid',
+  'piyushsharma301',
+  'LeinadSpoon',
+  'artbn',
+]);
+
 // Emote stuff
 const imageEmoteData = require("./src/data/image-emotes.json");
 const imageEmotes = Object.keys(imageEmoteData);
@@ -73,15 +83,12 @@ var current_number = '';
 var last_number = '';
 var expected_number = '';
 var end_of_cur_num = '';
-var validtimestamp = '';
 var vc_times = null;
 var vc_splits = null;
 var update_body = '';
 var author_current = '';
 var author_last = '';
-var authorme = $('#header .user a[href]').html();
 var validcountwrong = 0;
-var validcountnotme = 0;
 var all_times = {};
 // Last count functions
 // Get the Splits for the current thread
@@ -130,7 +137,7 @@ function get_split_digits(){
 // from https://pastebin.com/KD6gFhAK thanks MNW {:}
 
 function showNotification(number) {
-   const notification = new Notification("New K Alert!", {
+   new Notification("New K Alert!", {
       body: "New K: " + number
    });
 }
@@ -755,11 +762,6 @@ var ReplyTimes;
                     }
                 }
                 validcountwrong = 0;
-                if (author_current == authorme) {
-                    validcountnotme = 0;
-                } else {
-                    validcountnotme = 1;
-                }
                 author_last = author_current;
                 last_number = current_number;
                 if(THREAD == THREADS.MAIN && ELEMENTS.BODY_ELEMENT.attr('data-KpartAlert') == 'true') {
@@ -1301,9 +1303,7 @@ var ColoredUsernames;
             return;
         // Special usernames (temp rewards for top in 100k HoC, or other contributions)
         // Bot-maker privileges
-        if (data.author == 'MaybeNotWrong' || data.author == 'co3_carbonate' || data.author == 'rschaosid' || data.author == 'piyushsharma301' || data.author == 'LeinadSpoon' || data.author == 'artbn') {
-            data.authorNode.css('font-weight', 'bold');
-        }
+        if (BOLD_USERS.has(thisauthor)) $(this).css('font-weight', 'bold');
 
         // 100K usernames
 
@@ -1360,9 +1360,7 @@ var ColoredUsernames;
         var lcchats = data.hrefNode.attr('href');
         lcchats = lcchats.trim().replace('/u/', '');
         data.hrefNode.css('color', userColors[lcchats]).css('fontStyle','initial').css('fontSize','13px');
-        if (lcchats == 'MaybeNotWrong' || lcchats == 'co3_carbonate' || lcchats == 'rschaosid' || lcchats == 'piyushsharma301' || lcchats == 'LeinadSpoon' || lcchats == 'artbn') {
-            data.hrefNode.css('font-weight', 'bold');
-        }
+        if (BOLD_USERS.has(lcchats)) data.hrefNode.css('font-weight', 'bold');
     }
 });
     if([THREADS.LC_CHATS_OLD, THREADS.LC_CHATS].includes(THREAD)) {
@@ -1370,18 +1368,14 @@ var ColoredUsernames;
             var thishref = $(this).attr('href');
             thishref = thishref.trim().replace('/u/', '');
             $(this).css('color', userColors[thishref]).css('fontStyle','initial').css('fontSize','13px');
-            if (thishref == 'MaybeNotWrong' || thishref == 'co3_carbonate' || thishref == 'rschaosid' || thishref == 'piyushsharma301' || thishref == 'LeinadSpoon' || thishref == 'artbn') {
-                $(this).css('font-weight', 'bold');
-            }
+            if (BOLD_USERS.has(thishref)) $(this).css('font-weight', 'bold');
         });
         UPDATE_EVENTS.addListener("loaded", () => {
             $('a[href*="/u/"]').each(function() {
                 var thishref2 = $(this).attr('href');
                 thishref2 = thishref2.trim().replace('/u/', '');
                 $(this).css('color', userColors[thishref2]).css('fontStyle','initial').css('fontSize','13px');
-                if (thishref2 == 'MaybeNotWrong' || thishref2 == 'co3_carbonate' || thishref2 == 'rschaosid' || thishref2 == 'piyushsharma301' || thishref2 == 'LeinadSpoon' || thishref2 == 'artbn') {
-                    $(this).css('font-weight', 'bold');
-                }
+                if (BOLD_USERS.has(thishref2)) $(this).css('font-weight', 'bold');
             });
         });
     }
@@ -1389,7 +1383,6 @@ var ColoredUsernames;
     var burrentbolor = 0;
         $('.author').each(function() {
             var thisauthor = $(this).text().trim().replace('/u/', '');
-            //$(this).css('color', userColors[thisauthor]).css('fontStyle','initial').css('fontSize','13px');
             if (!userColors.hasOwnProperty(thisauthor)) {
         userColors[thisauthor] = colors[burrentbolor];
         burrentbolor++;
@@ -1398,14 +1391,11 @@ var ColoredUsernames;
         }
     }
     $(this).css('color', userColors[thisauthor]);
-            if (thisauthor == 'MaybeNotWrong' || thisauthor == 'co3_carbonate' || thisauthor == 'rschaosid' || thisauthor == 'piyushsharma301' || thisauthor == 'LeinadSpoon' || thisauthor == 'artbn') {
-                $(this).css('font-weight', 'bold');
-            }
+    if (BOLD_USERS.has(thisauthor)) $(this).css('font-weight', 'bold');
         });
         UPDATE_EVENTS.addListener("loaded", () => {
             $('.author').each(function() {
             var thisauthor = $(this).text().trim().replace('/u/', '');
-            //$(this).css('color', userColors[thisauthor]).css('fontStyle','initial').css('fontSize','13px');
             if (!userColors.hasOwnProperty(thisauthor)) {
         userColors[thisauthor] = colors[burrentbolor];
         burrentbolor++;
@@ -1414,9 +1404,7 @@ var ColoredUsernames;
         }
     }
     $(this).css('color', userColors[thisauthor]);
-            if (thisauthor == 'MaybeNotWrong' || thisauthor == 'co3_carbonate' || thisauthor == 'rschaosid' || thisauthor == 'piyushsharma301' || thisauthor == 'LeinadSpoon' || thisauthor == 'artbn') {
-                $(this).css('font-weight', 'bold');
-            }
+    if (BOLD_USERS.has(thisauthor)) $(this).css('font-weight', 'bold');
         });
         });
 
