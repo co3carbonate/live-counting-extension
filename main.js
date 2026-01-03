@@ -31,7 +31,6 @@ const SPECIAL_USERNAMES = [
   'greenpeppercat',
   'naimagawa',
   'TheMatsValk',
-  'cuteballgames',
   'treje',
 ];
 const SpecialUsernamesEnabled = new Array(SPECIAL_USERNAMES.length).fill(true);
@@ -1780,15 +1779,8 @@ var ColoredUsernames;
     } // /u/TheMatsValk username special ending
 
     if (SpecialUsernamesEnabled[4]) {
-      // /u/cuteballgames username special
-      if (data.author == SPECIAL_USERNAMES[4]) {
-        data.authorNode.html(`134`);
-      }
-    } // /u/cuteballgames username special ending
-
-    if (SpecialUsernamesEnabled[5]) {
       // /u/treje username special
-      if (data.author == SPECIAL_USERNAMES[5]) {
+      if (data.author == SPECIAL_USERNAMES[4]) {
         var testArray = ['t', 'r', 'e', 'j', 'e'];
         Shuffle(testArray);
 
