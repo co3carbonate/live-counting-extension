@@ -1975,7 +1975,6 @@ var RemoveSubmissionLag;
 var clearCount = 0;
 function noClear() {
   if (clearCount == 0) {
-    //$('.status').remove();
     $.ajaxSetup({
       dataFilter: function (data, type) {
         if (
@@ -1994,34 +1993,84 @@ function noClear() {
   // INITIALIZATION
   var lastInput = '';
   var enabled = true;
-  var ghostEnabled = false;
-  var previews = [];
-  var display = '';
+
+  var autoPasteEnabled = false;
+  var $autoPasteBox = null;
+
+  function ensureAutoPasteUI() {
+    const hasUpdateTextarea =
+      ELEMENTS.UPDATE_TEXTAREA && ELEMENTS.UPDATE_TEXTAREA.length > 0;
+    if (($autoPasteBox && $autoPasteBox.length) || !hasUpdateTextarea) return;
+
+    var $wrap = $('<div class="rsl-autopaste-wrap"></div>');
+    $autoPasteBox = $(
+      '<textarea id="rsl-autopaste-box" rows="1" placeholder="Enter auto-paste here..."></textarea>'
+    );
+
+    $autoPasteBox.on('input', function () {
+      ELEMENTS.UPDATE_TEXTAREA.val(this.value);
+    });
+
+    $wrap.append($autoPasteBox);
+    $wrap.insertBefore(ELEMENTS.STATUSBAR_ELEMENT);
+  }
+
+  function removeAutoPasteUI() {
+    if ($autoPasteBox && $autoPasteBox.length) {
+      $autoPasteBox.closest('.rsl-autopaste-wrap').remove();
+    }
+    $autoPasteBox = null;
+  }
+
   // Options
   Options.addSelect({
     label: 'REMOVE SUBMISSION LAG',
-    options: ['Enabled', 'No Clear', 'Disabled'],
+    options: ['Enabled', 'No Clear', 'Auto Paste', 'Disabled'],
     default: 0,
     help: 'Upon submitting a message, the textbox is immediately cleared to allow you to enter new contents without waiting for your previous submission to be processed.\n\nYou can also stop Reddit from clearing the textbox.',
     onchange: function () {
-      display = this.val();
+      var display = this.val();
       enabled = display == 'Enabled';
-      if (display == 'No Clear') {
+      autoPasteEnabled = display == 'Auto Paste';
+
+      if (display == 'No Clear' || display == 'Auto Paste') {
         noClear();
+      }
+
+      if (autoPasteEnabled) {
+        ensureAutoPasteUI();
+      } else {
+        removeAutoPasteUI();
       }
     },
   });
   // Styles
   Styles.add(
-    '\n\n\t.liveupdate-listing li.liveupdate.preview {\n\t\topacity: 0.75;\n\t}\n\t.liveupdate-listing li.liveupdate.preview .live-timestamp {\n\t\tvisibility: hidden;\n\t}\n\n\t'
+    '\n\n\t.liveupdate-listing li.liveupdate.preview {\n\t\topacity: 0.75;\n\t}\n\t.liveupdate-listing li.liveupdate.preview .live-timestamp {\n\t\tvisibility: hidden;\n\t}\n' +
+      '\n\t.rsl-autopaste-wrap{ margin-top:8px; }\n\t#rsl-autopaste-box{ height: auto; width:100%; box-sizing:border-box; }\n\n\t'
   );
   // EVENTS
   // When message is submitted
-  ELEMENTS.SUBMIT_BUTTON.on('click', function (e) {
-    if (!enabled) return;
+  ELEMENTS.SUBMIT_BUTTON.on('click', function () {
+    if (!enabled && !autoPasteEnabled) return;
+
     setTimeout(function () {
       var val = ELEMENTS.UPDATE_TEXTAREA.val();
       if (val.length == 0) return;
+
+      if (autoPasteEnabled) {
+        ensureAutoPasteUI();
+        ELEMENTS.UPDATE_TEXTAREA.val(
+          $autoPasteBox && $autoPasteBox.length ? $autoPasteBox.val() : ''
+        );
+
+        // do NOT enable the "restore last input" workaround in this mode
+        // and do not update lastInput
+        lastInput = '';
+        ELEMENTS.UPDATE_TEXTAREA.off('keydown keyup input', backupInput);
+        return;
+      }
+
       // Clear textbox
       ELEMENTS.UPDATE_TEXTAREA.val('');
       // leinpilled
@@ -2050,8 +2099,9 @@ function noClear() {
         mutation.oldValue == 'display: inline;' &&
         ELEMENTS.SUBMIT_ERROR.attr('style') == 'display: none;'
       )
-    )
+    ) {
       return;
+    }
     // Use the last backed-up input
     ELEMENTS.UPDATE_TEXTAREA.off('keydown keyup input', backupInput);
     ELEMENTS.UPDATE_TEXTAREA.val(lastInput);

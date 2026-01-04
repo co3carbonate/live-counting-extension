@@ -4,6 +4,7 @@ export const BODY_ELEMENT = $('body');
 export const CONTENT_ELEMENT = $('div.content');
 export const UPDATES_ELEMENT = $('.liveupdate-listing');
 export const OPTIONS_ELEMENT = $('#liveupdate-options');
+export const STATUSBAR_ELEMENT = $('#liveupdate-statusbar');
 
 export const SIDEBAR_ELEMENT = $('aside.sidebar');
 
