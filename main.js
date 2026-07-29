@@ -1781,26 +1781,7 @@ var ColoredUsernames;
     if (SpecialUsernamesEnabled[4]) {
       // /u/treje username special
       if (data.author == SPECIAL_USERNAMES[4]) {
-        var testArray = ['t', 'r', 'e', 'j', 'e'];
-        Shuffle(testArray);
-
-        data.authorNode.css({
-          'font-weight': 'bold',
-          display: 'inline-block',
-          'font-size': '15px',
-        });
-
-        data.authorNode.html(
-          `<div style='color:#ffc130'>¡<span id=shuffled>` +
-            testArray.join('') +
-            `</span>!</div>`
-        );
-        var testArray2 = testArray.join('');
-        if (testArray2 == 'jeter') {
-          data.authorNode.html(
-            `<span id="rainbowtext" style="color: transparent; background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text!important;">¡ j e t e r !</span>`
-          );
-        }
+        data.authorNode.html(`treje`);
       }
     } // /u/treje username special ending
 
