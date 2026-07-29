@@ -1796,9 +1796,9 @@ var ColoredUsernames;
             `</span>!</div>`
         );
         var testArray2 = testArray.join('');
-        if (testArray2 == 'treje') {
+        if (testArray2 == 'jeter') {
           data.authorNode.html(
-            `<span id="rainbowtext" style="color: transparent; background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text!important;">¡ t r e j e !</span>`
+            `<span id="rainbowtext" style="color: transparent; background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text!important;">¡ j e t e r !</span>`
           );
         }
       }
