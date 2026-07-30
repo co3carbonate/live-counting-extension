@@ -32,6 +32,7 @@ const SPECIAL_USERNAMES = [
   'naimagawa',
   'TheMatsValk',
   'treje',
+  'Both_Owl_1909',
 ];
 const SpecialUsernamesEnabled = new Array(SPECIAL_USERNAMES.length).fill(true);
 
@@ -1724,6 +1725,30 @@ var ColoredUsernames;
     specialUsernamesRainbowCycleIndex %= countsPerCycle;
   }
 
+  function hashUUID(uuid) {
+      let hash = 2166136261;
+      for (let i = 0; i < uuid.length; i++) {
+          hash ^= uuid.charCodeAt(i);
+          hash = Math.imul(hash, 16777619);
+      }
+      return hash >>> 0;
+  }
+
+  function bothOwl100kUsername(postUuid) {
+    const chance = 5000;
+    let isCrimson = localStorage.getItem('owl_is_crimson') === 'true';
+
+    if((hashUUID(postUuid) % chance) === 0) {
+        isCrimson = !isCrimson;
+        localStorage.setItem('owl_is_crimson', isCrimson.toString());
+    }
+
+    return {
+        name: isCrimson ? "Neither Owl 1909" : "Both Owl 1909",
+        color: isCrimson ? "#DC143C" : "#000080",
+    };
+}
+
   // Options
   var enabled = true;
   Options.addCheckbox({
@@ -1784,6 +1809,17 @@ var ColoredUsernames;
         data.authorNode.html(`treje`);
       }
     } // /u/treje username special ending
+
+    if (SpecialUsernamesEnabled[5]) {
+      // /u/Both_Owl_1909 username special
+      if (data.author == SPECIAL_USERNAMES[5]) {
+        var post_href_both_owl = data.node.find('.body').prev().attr('href');
+    var uuid_both_owl = post_href_both_owl.substring(
+      post_href_both_owl.indexOf('updates/') + 8
+    );
+        bothOwl100kUsername(uuid_both_owl);
+      }
+    } // /u/Both_Owl_1909 username special ending
 
     // Set username color
     if (!userColors.hasOwnProperty(data.author)) {
