@@ -1814,10 +1814,14 @@ var ColoredUsernames;
       // /u/Both_Owl_1909 username special
       if (data.author == SPECIAL_USERNAMES[5]) {
         var post_href_both_owl = data.node.find('.body').prev().attr('href');
-    var uuid_both_owl = post_href_both_owl.substring(
-      post_href_both_owl.indexOf('updates/') + 8
-    );
-        bothOwl100kUsername(uuid_both_owl);
+        if (post_href_both_owl) {
+          var uuid_both_owl = post_href_both_owl.substring(
+            post_href_both_owl.indexOf('updates/') + 8
+          );
+          var both_owl_style = bothOwl100kUsername(uuid_both_owl);
+          data.authorNode.html(both_owl_style.name);
+          userColors[SPECIAL_USERNAMES[5]] = both_owl_style.color;
+        }
       }
     } // /u/Both_Owl_1909 username special ending
 
