@@ -1734,20 +1734,30 @@ var ColoredUsernames;
       return hash >>> 0;
   }
 
-  function bothOwl100kUsername(postUuid) {
-    const chance = 5000;
-    let isCrimson = localStorage.getItem('owl_is_crimson') === 'true';
+  function bothOwl100kUsername() {
+    const TIMEZONE = null;
 
-    if((hashUUID(postUuid) % chance) === 0) {
-        isCrimson = !isCrimson;
-        localStorage.setItem('owl_is_crimson', isCrimson.toString());
+    let hour;
+    if (TIMEZONE) {
+      hour = parseInt(
+        new Intl.DateTimeFormat('en-US', {
+          timeZone: TIMEZONE,
+          hour: '2-digit',
+          hourCycle: 'h23',
+        }).format(new Date()),
+        10
+      );
+    } else {
+      hour = new Date().getHours();
     }
 
+    const isCrimson = hour >= 14 || hour < 2;
+
     return {
-        name: isCrimson ? "Neither Owl 1909" : "Both Owl 1909",
-        color: isCrimson ? "#DC143C" : "#000080",
+      name: isCrimson ? 'Neither Owl 1909' : 'Both Owl 1909',
+      color: isCrimson ? '#DC143C' : '#000080',
     };
-}
+  }
 
   // Options
   var enabled = true;
@@ -1813,15 +1823,9 @@ var ColoredUsernames;
     if (SpecialUsernamesEnabled[5]) {
       // /u/Both_Owl_1909 username special
       if (data.author == SPECIAL_USERNAMES[5]) {
-        var post_href_both_owl = data.node.find('.body').prev().attr('href');
-        if (post_href_both_owl) {
-          var uuid_both_owl = post_href_both_owl.substring(
-            post_href_both_owl.indexOf('updates/') + 8
-          );
-          var both_owl_style = bothOwl100kUsername(uuid_both_owl);
-          data.authorNode.html(both_owl_style.name);
-          userColors[SPECIAL_USERNAMES[5]] = both_owl_style.color;
-        }
+        var both_owl_style = bothOwl100kUsername();
+        data.authorNode.html(both_owl_style.name);
+        userColors[SPECIAL_USERNAMES[5]] = both_owl_style.color;
       }
     } // /u/Both_Owl_1909 username special ending
 
