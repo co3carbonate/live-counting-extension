@@ -33,6 +33,7 @@ const SPECIAL_USERNAMES = [
   'TheMatsValk',
   'treje',
   'Both_Owl_1909',
+  'MrGally75',
 ];
 const SpecialUsernamesEnabled = new Array(SPECIAL_USERNAMES.length).fill(true);
 
@@ -1828,6 +1829,13 @@ var ColoredUsernames;
         userColors[SPECIAL_USERNAMES[5]] = both_owl_style.color;
       }
     } // /u/Both_Owl_1909 username special ending
+
+    if (SpecialUsernamesEnabled[6]) {
+      // /u/treje username special
+      if (data.author == SPECIAL_USERNAMES[6]) {
+        data.authorNode.html(`/u/quintessence`);
+      }
+    } // /u/MrGally75 username special ending
 
     // Set username color
     if (!userColors.hasOwnProperty(data.author)) {
