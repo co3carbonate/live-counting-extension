@@ -2884,11 +2884,14 @@ var EmoteOrder;
 var BigEmotes;
 (function (BigEmotes) {
   var MAX_EMOTES = 4;
-  var EMOTE_HEIGHT = 52;
+  var MIN_EMOTE_HEIGHT = 26;
+  var MAX_EMOTE_HEIGHT = 52;
   Styles.add(
-    '.liveupdate .md .big-emotes img.lce-emote {height: ' +
-      EMOTE_HEIGHT +
-      'px !important;}'
+    '.liveupdate .md .big-emotes img.lce-emote {height: auto !important; min-height: ' +
+      MIN_EMOTE_HEIGHT +
+      'px; max-height: ' +
+      MAX_EMOTE_HEIGHT +
+      'px;}'
   );
   function splitLines(container) {
     var result = [];
