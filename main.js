@@ -2880,6 +2880,97 @@ var EmoteOrder;
   });
 })(EmoteOrder || (EmoteOrder = {}));
 
+///////////////////
+// BigEmotes.ts  //
+///////////////////
+
+var BigEmotes;
+(function (BigEmotes) {
+  var MAX_EMOTES = 4;
+  var EMOTE_HEIGHT = 52;
+  Styles.add(
+    '.liveupdate .md .big-emotes img.lce-emote {height: ' +
+      EMOTE_HEIGHT +
+      'px !important;}'
+  );
+  function splitLines(container) {
+    var result = [];
+    var current = [];
+    container.contents().each(function () {
+      if (this.nodeName === 'BR') {
+        result.push(current);
+        current = [];
+      } else {
+        current.push(this);
+      }
+    });
+    result.push(current);
+    return result;
+  }
+  function countEmotes(nodes) {
+    var count = 0;
+    for (var n = 0; n < nodes.length; n++) {
+      var node = nodes[n];
+      if (node.nodeType === 3) {
+        if (node.nodeValue.trim().length > 0) return 0;
+      } else if (node.nodeName === 'IMG' && $(node).hasClass('lce-emote')) {
+        count++;
+      } else {
+        return 0;
+      }
+    }
+    return count;
+  }
+  function fits($wrapper) {
+    var container = $wrapper.parent()[0];
+    var rects = $wrapper[0].getClientRects();
+    if (rects.length < 1 || !container) return true;
+    if (rects.length > 1) return false;
+    return rects[0].width <= container.clientWidth;
+  }
+  function enlarge($wrapper) {
+    $wrapper.addClass('big-emotes');
+    var pending = 0;
+    var check = function () {
+      if (!fits($wrapper)) $wrapper.removeClass('big-emotes');
+    };
+    $wrapper.children('img.lce-emote').each(function () {
+      if (this.complete) return;
+      pending++;
+      $(this).one('load error', function () {
+        pending--;
+        if (pending < 1) check();
+      });
+    });
+    if (pending < 1) check();
+  }
+  function update(bodyNode) {
+    bodyNode.find('span.big-emotes-line').each(function () {
+      $(this).replaceWith($(this).contents());
+    });
+    var containers = bodyNode.find('p');
+    if (containers.length < 1) containers = bodyNode;
+    containers.each(function () {
+      var lines = splitLines($(this));
+      for (var line = 0; line < lines.length; line++) {
+        var count = countEmotes(lines[line]);
+        if (count < 1 || count > MAX_EMOTES) continue;
+        var $wrapper = $('<span></span>').addClass('big-emotes-line');
+        $(lines[line][0]).before($wrapper);
+        $wrapper.append(lines[line]);
+        enlarge($wrapper);
+      }
+    });
+  }
+  function updateAll() {
+    $('.liveupdate .body > .md').each(function () {
+      update($(this));
+    });
+  }
+  BigEmotes.update = update;
+  BigEmotes.updateAll = updateAll;
+})(BigEmotes || (BigEmotes = {}));
+
 ////////////////////
 // ImageEmotes.ts //
 ////////////////////
@@ -2938,12 +3029,13 @@ var stringy = '';
             var this_new_html =
               '<img title=' +
               thistext +
-              " style='height:26px;vertical-align:top;' src=" +
+              " class='lce-emote' style='height:26px;vertical-align:top;' src=" +
               emoteimages['<code>' + thistext.toLowerCase() + '</code>'] +
               '></img>';
             $(this).replaceWith(this_new_html);
           }
         });
+        BigEmotes.updateAll();
       }
       UPDATE_EVENTS.addListener('loaded', (data) => {
         if (ELEMENTS.BODY_ELEMENT.attr('data-ImageEmotes') == 'true') {
@@ -2959,13 +3051,14 @@ var stringy = '';
                 the_emote[emote],
                 '<img title=' +
                   emotename +
-                  " style='height:26px;vertical-align:top;' src=" +
+                  " class='lce-emote' style='height:26px;vertical-align:top;' src=" +
                   emoteimages[the_emote[emote].toLowerCase()] +
                   '></img>'
               );
             }
           }
           data.bodyNode.html(emotes_post);
+          BigEmotes.update(data.bodyNode);
         }
       });
     }
@@ -3070,13 +3163,14 @@ var stringy = '';
               the_emote[emote],
               '<img title=' +
                 emotename +
-                " style='height:26px;vertical-align:top;' src=" +
+                " class='lce-emote' style='height:26px;vertical-align:top;' src=" +
                 emoteimages[the_emote[emote].toLowerCase()] +
                 '></img>'
             );
           }
         }
         data.bodyNode.html(emotes_post);
+        BigEmotes.update(data.bodyNode);
         for (var unique in unique_emotes) {
           //finds the index of emote code by flattening
           emoteUses[emoteUses.flat().indexOf(unique_emotes[unique]) / 2][1]++;
