@@ -1624,7 +1624,7 @@ var CtrlEnter;
       }
     }
     if (ELEMENTS.BODY_ELEMENT.attr('data-submitShortcut') == 'Enter') {
-      if (e.keyCode == 13) {
+      if (e.keyCode == 13 && !e.shiftKey) {
         e.preventDefault();
         $submitBtn.trigger('click');
       }
@@ -3370,7 +3370,7 @@ if (THREAD == THREADS.MAIN) {
               }
             }
             if (ELEMENTS.BODY_ELEMENT.attr('data-submitShortcut') == 'Enter') {
-              if (e.keyCode == 13) {
+              if (e.keyCode == 13 && !e.shiftKey) {
                 e.preventDefault();
                 $('#sidebar-update-form .save-button button').trigger('click');
               }
