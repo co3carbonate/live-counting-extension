@@ -2673,14 +2673,11 @@ var Emojis;
       return text;
     };
     function Inputty() {
-      var selection = document.querySelector('textarea').selectionStart;
-      document.querySelector('.md textarea').value = emojiIt(
-        regExpression,
-        document.querySelector('.md textarea').value
-      );
-      document
-        .querySelector('textarea')
-        .setSelectionRange(selection, selection);
+      var textarea = ELEMENTS.UPDATE_TEXTAREA.get(0);
+      if (!textarea) return;
+      var selection = textarea.selectionStart;
+      textarea.value = emojiIt(regExpression, textarea.value);
+      textarea.setSelectionRange(selection, selection);
     }
     try {
       document.querySelector('.md textarea').addEventListener('input', Inputty);
@@ -3110,21 +3107,18 @@ var stringy = '';
       $('.emoji-picker').append(stringy);
       $('.emoji-btn').click(function () {
         // find selection range and insert emote text into the selection
-        var select_start = document.querySelector('textarea').selectionStart;
-        var select_end = document.querySelector('textarea').selectionEnd;
-        document.querySelector('textarea').value =
-          document.querySelector('textarea').value.substring(0, select_start) +
-          '`' +
-          this.id +
-          '`' +
-          document.querySelector('textarea').value.substring(select_end);
-        document
-          .querySelector('textarea')
-          .setSelectionRange(
-            select_end + this.id.length + 2,
-            select_end + this.id.length + 2
-          );
-        document.querySelector('textarea').focus();
+        var textarea = ELEMENTS.UPDATE_TEXTAREA.get(0);
+        if (!textarea) return;
+        var select_start = textarea.selectionStart;
+        var select_end = textarea.selectionEnd;
+        var emote = '`' + this.id + '`';
+        textarea.value =
+          textarea.value.substring(0, select_start) +
+          emote +
+          textarea.value.substring(select_end);
+        var caret = select_start + emote.length;
+        textarea.setSelectionRange(caret, caret);
+        textarea.focus();
       });
     }
     emoteCount++;
