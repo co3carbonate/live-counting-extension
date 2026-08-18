@@ -1,0 +1,1531 @@
+{
+  "scopes": {
+    "global": "no thread",
+    "threads": "thread list",
+    "single": "one thread"
+  },
+  "argTypes": {
+    "context": {
+      "help": "Number from 1-10. Shows a range of positions around the position occupied by <username> or <position>. Omitting it entirely uses 3.",
+      "values": [
+        {
+          "value": "3",
+          "label": "default"
+        },
+        {
+          "value": "1"
+        },
+        {
+          "value": "2"
+        },
+        {
+          "value": "4"
+        },
+        {
+          "value": "5"
+        },
+        {
+          "value": "6"
+        },
+        {
+          "value": "7"
+        },
+        {
+          "value": "8"
+        },
+        {
+          "value": "9"
+        },
+        {
+          "value": "10"
+        }
+      ]
+    },
+    "alts_combined": {
+      "help": "Integer. 0 calculates the stat normally, anything else combines alts.",
+      "values": [
+        {
+          "value": "0",
+          "label": "default - separate alts"
+        },
+        {
+          "value": "1",
+          "label": "combine alts"
+        }
+      ]
+    },
+    "is_current": {
+      "help": "Integer, for streak stats. 0 calculates normally, anything else only outputs current streaks.",
+      "values": [
+        {
+          "value": "0",
+          "label": "default - all streaks"
+        },
+        {
+          "value": "1",
+          "label": "current streaks only"
+        }
+      ]
+    },
+    "day_counts_combined": {
+      "help": "Integer. Non-zero combines daily counts across threads before calculating (default). 0 calculates each thread separately, then combines.",
+      "values": [
+        {
+          "value": "1",
+          "label": "default - combine first"
+        },
+        {
+          "value": "0",
+          "label": "per thread, then combine"
+        }
+      ]
+    },
+    "mode": {
+      "help": "Exacta type. 0 (default) is any type.",
+      "values": [
+        {
+          "value": "0",
+          "label": "default - any exacta"
+        },
+        {
+          "value": "1",
+          "label": "chalupa"
+        },
+        {
+          "value": "2",
+          "label": "poonxacta"
+        },
+        {
+          "value": "3",
+          "label": "trejexacta"
+        }
+      ]
+    },
+    "username": {
+      "help": "Counter to calculate the stat for. Defaults to you.",
+      "source": "usernames"
+    },
+    "username1": {
+      "help": "First counter.",
+      "source": "usernames"
+    },
+    "username2": {
+      "help": "Second counter. Defaults to you.",
+      "source": "usernames"
+    },
+    "user": {
+      "help": "Counter name.",
+      "source": "usernames"
+    },
+    "thread": {
+      "help": "Thread name.",
+      "source": "threads"
+    },
+    "size": {
+      "help": "How many gets there are per k. 1 means every get.",
+      "values": [
+        {
+          "value": "1",
+          "label": "default - every get"
+        },
+        {
+          "value": "10",
+          "label": "10k"
+        },
+        {
+          "value": "100",
+          "label": "100k"
+        },
+        {
+          "value": "1000",
+          "label": "1000k"
+        }
+      ]
+    },
+    "offset": {
+      "help": "Subtracted from every count before ranking.",
+      "values": [
+        {
+          "value": "0",
+          "label": "default for gets"
+        },
+        {
+          "value": "1",
+          "label": "assists"
+        },
+        {
+          "value": "2",
+          "label": "second assists"
+        }
+      ]
+    },
+    "position": {
+      "help": "Position in the ranking to centre the results on.",
+      "values": [
+        {
+          "value": "1",
+          "label": "default - the top"
+        },
+        {
+          "value": "2"
+        },
+        {
+          "value": "3"
+        },
+        {
+          "value": "5"
+        },
+        {
+          "value": "10"
+        },
+        {
+          "value": "25"
+        }
+      ]
+    },
+    "min_counts": {
+      "help": "Users with fewer counts than this are excluded.",
+      "values": [
+        {
+          "value": "0",
+          "label": "default - no minimum"
+        },
+        {
+          "value": "100"
+        },
+        {
+          "value": "1000"
+        },
+        {
+          "value": "10000"
+        }
+      ]
+    },
+    "min_day_parts": {
+      "help": "Users with fewer day parts than this are excluded.",
+      "values": [
+        {
+          "value": "5",
+          "label": "default"
+        },
+        {
+          "value": "1"
+        },
+        {
+          "value": "10"
+        },
+        {
+          "value": "25"
+        }
+      ]
+    },
+    "day_hoc_position": {
+      "help": "Which day HoC position to measure.",
+      "values": [
+        {
+          "value": "1",
+          "label": "gold"
+        },
+        {
+          "value": "2",
+          "label": "silver"
+        },
+        {
+          "value": "3",
+          "label": "bronze"
+        }
+      ]
+    },
+    "counts_between_replies": {
+      "help": "How many counts must fall between two counts by the same person.",
+      "values": [
+        {
+          "value": "2",
+          "label": "default"
+        },
+        {
+          "value": "1"
+        },
+        {
+          "value": "3"
+        },
+        {
+          "value": "4"
+        },
+        {
+          "value": "5"
+        }
+      ]
+    },
+    "users_tagging": {
+      "help": "How many people are involved in the tag.",
+      "values": [
+        {
+          "value": "2",
+          "label": "pair"
+        },
+        {
+          "value": "3",
+          "label": "trio"
+        },
+        {
+          "value": "4"
+        },
+        {
+          "value": "5"
+        }
+      ]
+    },
+    "duration_seconds": {
+      "help": "Length of each part in seconds. Must divide 3600.",
+      "values": [
+        {
+          "value": "3600",
+          "label": "default - one hour"
+        },
+        {
+          "value": "1800",
+          "label": "half hour"
+        },
+        {
+          "value": "900",
+          "label": "quarter hour"
+        },
+        {
+          "value": "600",
+          "label": "10 minutes"
+        },
+        {
+          "value": "300",
+          "label": "5 minutes"
+        },
+        {
+          "value": "60",
+          "label": "one minute"
+        }
+      ]
+    },
+    "weight": {
+      "help": "Minimum counts every pair in the clique must share.",
+      "values": [
+        {
+          "value": "1",
+          "label": "default"
+        },
+        {
+          "value": "5"
+        },
+        {
+          "value": "10"
+        },
+        {
+          "value": "50"
+        },
+        {
+          "value": "100"
+        }
+      ]
+    },
+    "percentage": {
+      "help": "Share of counts required, as a decimal. The default depends on the command.",
+      "values": [
+        {
+          "value": "0.48",
+          "label": "speed_n_counts default"
+        },
+        {
+          "value": "0.49",
+          "label": "sum_of_best default"
+        },
+        {
+          "value": "0.96",
+          "label": "speed_tag default"
+        },
+        {
+          "value": "0.02",
+          "label": "daily_photo_finish default"
+        },
+        {
+          "value": "0.5"
+        },
+        {
+          "value": "0.9"
+        }
+      ]
+    },
+    "n": {
+      "help": "Integer parameter for this stat. Its meaning depends on the command.",
+      "values": [
+        {
+          "value": "2"
+        },
+        {
+          "value": "3"
+        },
+        {
+          "value": "4"
+        },
+        {
+          "value": "5"
+        },
+        {
+          "value": "10"
+        },
+        {
+          "value": "100"
+        }
+      ]
+    },
+    "force": {
+      "help": "Pass the literal word force to skip the struck or deleted check.",
+      "values": [
+        {
+          "value": "force",
+          "label": "skip the check"
+        }
+      ]
+    },
+    "range_start": {
+      "help": "Start of the range, replacing the default 10k.",
+      "values": [
+        {
+          "value": "10000",
+          "label": "default"
+        },
+        {
+          "value": "1000"
+        },
+        {
+          "value": "100000"
+        }
+      ]
+    },
+    "range_end": {
+      "help": "End of the range, replacing the default 100k.",
+      "values": [
+        {
+          "value": "100000",
+          "label": "default"
+        },
+        {
+          "value": "10000"
+        },
+        {
+          "value": "1000000"
+        }
+      ]
+    },
+    "k": {
+      "help": "Which k to report on, as a number.",
+      "values": [
+        {
+          "value": "1"
+        },
+        {
+          "value": "10"
+        },
+        {
+          "value": "100"
+        },
+        {
+          "value": "1000"
+        }
+      ]
+    },
+    "language": {
+      "help": "Language as written in the languages thread. Languages with spaces in the name cannot be reached.",
+      "example": "english"
+    },
+    "start_uuid": {
+      "help": "Update uuid to start from. Inclusive. Defaults to the first count. Rarely needed.",
+      "example": "26bf2c4e-9abc-11f1-9cdd-ee96a519794e"
+    },
+    "end_uuid": {
+      "help": "Update uuid to stop at. Exclusive. Defaults to the last count. Rarely needed.",
+      "example": "26bf2c4e-9abc-11f1-9cdd-ee96a519794e"
+    },
+    "update_id": {
+      "help": "The uuid of a single update.",
+      "example": "26bf2c4e-9abc-11f1-9cdd-ee96a519794e"
+    },
+    "start_count": {
+      "help": "Count to start from. Inclusive. Defaults to the first count.",
+      "example": "1000000"
+    },
+    "end_count": {
+      "help": "Count to stop at. Exclusive. Defaults to the last count.",
+      "example": "2000000"
+    },
+    "start_num": {
+      "help": "Number to start from. Inclusive. Defaults to the first count.",
+      "example": "1000000"
+    },
+    "end_num": {
+      "help": "Number to stop at. Exclusive. Defaults to the last count.",
+      "example": "2000000"
+    },
+    "start_k": {
+      "help": "K to start from. Inclusive. Defaults to the first count.",
+      "example": "1000"
+    },
+    "end_k": {
+      "help": "K to stop at. Exclusive. Defaults to the last count.",
+      "example": "2000"
+    },
+    "start_get": {
+      "help": "Get to start from. Inclusive. Defaults to the first count.",
+      "example": "1000"
+    },
+    "ending_get": {
+      "help": "Get to stop at. Exclusive. Defaults to the last count.",
+      "example": "2000"
+    },
+    "number": {
+      "help": "A count as it appears in the thread.",
+      "example": "11000000"
+    },
+    "url": {
+      "help": "Permalink to a single update.",
+      "example": "https://www.reddit.com/live/ta535s1hq2je/updates/26bf2c4e-9abc-11f1-9cdd-ee96a519794e"
+    },
+    "start_date": {
+      "help": "Start date. Use yyyy-mm-dd, yyyy-mm or yyyy depending on whether the stat is daily, monthly or yearly. Inclusive.",
+      "example": "2024-03-15"
+    },
+    "end_date": {
+      "help": "End date. Use yyyy-mm-dd, yyyy-mm or yyyy depending on whether the stat is daily, monthly or yearly. Exclusive.",
+      "example": "2024-04-01"
+    },
+    "yyyy-mm-dd": {
+      "help": "The day to report on.",
+      "example": "2024-03-15"
+    }
+  },
+  "bots": [
+    {
+      "name": "pikabot1000",
+      "prefix": "!{:}",
+      "threads": [
+        "main",
+        "slow",
+        "multipleinarow",
+        "backwards",
+        "bars",
+        "letters",
+        "senary",
+        "ternary",
+        "quaternary",
+        "binary",
+        "norepeatingdigits",
+        "quinary",
+        "undecimal",
+        "romannumerals",
+        "money",
+        "septenary",
+        "teamevens",
+        "stones",
+        "wait2",
+        "heptadecimal",
+        "word",
+        "mayan",
+        "mobile",
+        "onceperminute",
+        "nonary",
+        "empire",
+        "md5sum",
+        "dates2017",
+        "gridiron",
+        "dontrollaone",
+        "teamnone",
+        "teamodds",
+        "languages",
+        "veryexponential",
+        "unary",
+        "metric",
+        "hexadecimal",
+        "dates0001",
+        "repdigits",
+        "octal",
+        "tugofwar",
+        "time",
+        "inches",
+        "base64",
+        "12054",
+        "irregular",
+        "alt",
+        "primes",
+        "shift",
+        "noctrl",
+        "pincus",
+        "cardinal",
+        "series",
+        "pokemon",
+        "digitsum",
+        "story",
+        "all_threads",
+        "all_sides",
+        "living_sides",
+        "expired_sides"
+      ],
+      "commands": [
+        {
+          "name": "help",
+          "args": "",
+          "help": "Links to the command reference post.",
+          "scope": "global",
+          "keywords": [
+            "docs",
+            "reference",
+            "commands"
+          ]
+        },
+        {
+          "name": "thread_list",
+          "args": "(<thread>)",
+          "help": "Lists all threads. With the argument, displays aliases for that thread.",
+          "scope": "global",
+          "keywords": [
+            "threads",
+            "aliases",
+            "names"
+          ]
+        },
+        {
+          "name": "update_all",
+          "args": "",
+          "help": "Downloads new updates for all threads.",
+          "scope": "global",
+          "admin": true,
+          "keywords": [
+            "refresh",
+            "download",
+            "sync"
+          ]
+        },
+        {
+          "name": "trifecta",
+          "args": "(<username>)(<context>)(<alts_combined>)(<start_uuid>)(<end_uuid>)",
+          "help": "Total trifectas for the specified user.",
+          "scope": "global",
+          "keywords": [
+            "three",
+            "triple"
+          ]
+        },
+        {
+          "name": "trifecta_day_parts",
+          "args": "(<username>)(<context>)(<alts_combined>)(<start_date>)(<end_date>)",
+          "help": "Total trifecta day parts for the specified user.",
+          "scope": "global",
+          "keywords": [
+            "three",
+            "triple",
+            "daily"
+          ]
+        },
+        {
+          "name": "trifecta_day_streak",
+          "args": "(<username>)(<context>)(<is_current>)(<alts_combined>)(<start_date>)(<end_date>)",
+          "help": "Record trifecta day streak for the specified user.",
+          "scope": "global",
+          "keywords": [
+            "three",
+            "triple",
+            "consecutive"
+          ]
+        },
+        {
+          "name": "non_unique_trifecta_day_streak",
+          "args": "(<position>)(<context>)(<alts_combined>)(<start_date>)(<end_date>)",
+          "help": "All trifecta day streaks around a specified position.",
+          "scope": "global",
+          "keywords": [
+            "three",
+            "triple",
+            "leaderboard"
+          ]
+        },
+        {
+          "name": "exacta",
+          "args": "(<username>)(<context>)(<alts_combined>)(<start_uuid>)(<end_uuid>)",
+          "help": "Total exactas for the specified user.",
+          "scope": "global",
+          "keywords": [
+            "two",
+            "pair",
+            "double"
+          ]
+        },
+        {
+          "name": "exacta_day_parts",
+          "args": "(<username>)(<context>)(<alts_combined>)(<start_date>)(<end_date>)",
+          "help": "Total exacta day parts for the specified user.",
+          "scope": "global",
+          "keywords": [
+            "two",
+            "pair",
+            "daily"
+          ]
+        },
+        {
+          "name": "exacta_day_streak",
+          "args": "(<mode>)(<username>)(<context>)(<is_current>)(<alts_combined>)(<start_date>)(<end_date>)",
+          "help": "Record exacta day streak. mode 1 = chalupa, 2 = poonxacta, 3 = trejexacta, anything else = any type (default 0).",
+          "scope": "global",
+          "keywords": [
+            "two",
+            "pair",
+            "consecutive",
+            "chalupa",
+            "poonxacta",
+            "trejexacta"
+          ]
+        },
+        {
+          "name": "non_unique_exacta_day_streak",
+          "args": "(<mode>)(<position>)(<context>)(<alts_combined>)(<start_date>)(<end_date>)",
+          "help": "All exacta day streaks around a specified position.",
+          "scope": "global",
+          "keywords": [
+            "two",
+            "pair",
+            "leaderboard"
+          ]
+        },
+        {
+          "name": "wrc",
+          "aliases": [
+            "well_rounded_counter"
+          ],
+          "args": "(<username>)(<context>)(<alts_combined>)(<start_date>)(<end_date>)",
+          "help": "Days the user has achieved WRC in the main thread.",
+          "scope": "global",
+          "keywords": [
+            "well rounded",
+            "allrounder",
+            "balanced"
+          ]
+        },
+        {
+          "name": "notd",
+          "aliases": [
+            "number_of_the_day"
+          ],
+          "args": "(<username>)(<context>)(<alts_combined>)(<start_date>)(<end_date>)",
+          "help": "Total NoTDs for the user in the main thread.",
+          "scope": "global",
+          "keywords": [
+            "number of the day",
+            "daily number"
+          ]
+        },
+        {
+          "name": "language_hoc",
+          "args": "(<language>)(<context>)(<start_uuid>)(<end_uuid>)",
+          "help": "Times a language has been used in the languages thread. Languages with spaces in the name are not reachable.",
+          "scope": "global",
+          "keywords": [
+            "languages",
+            "lang",
+            "translation"
+          ]
+        },
+        {
+          "name": "the_story",
+          "args": "",
+          "help": "Links the story made in the story thread.",
+          "scope": "global",
+          "keywords": [
+            "story",
+            "narrative"
+          ]
+        },
+        {
+          "name": "hoc",
+          "args": "(<username>)(<context>)(<alts_combined>)",
+          "help": "HoC for the specified user.",
+          "scope": "threads",
+          "keywords": [
+            "hall of counters",
+            "leaderboard",
+            "ranking",
+            "total",
+            "counts",
+            "top"
+          ]
+        },
+        {
+          "name": "hoc_time",
+          "args": "(<username>)(<context>)(<alts_combined>)(<start_uuid>)(<end_uuid>)",
+          "help": "HoC for the specified user between timestamps.",
+          "scope": "threads",
+          "keywords": [
+            "leaderboard",
+            "between",
+            "timestamps",
+            "range",
+            "period"
+          ]
+        },
+        {
+          "name": "gets",
+          "args": "(<username>)(<context>)(<size>)(<offset>)(<alts_combined>)(<start_get>)(<ending_get>)",
+          "help": "Hall of gets. The offset is subtracted from every count (default 0; offset 1 gives hall of assists).",
+          "scope": "threads",
+          "keywords": [
+            "get",
+            "milestone",
+            "thousand",
+            "round number"
+          ]
+        },
+        {
+          "name": "assists",
+          "args": "(<username>)(<context>)(<offset>)(<alts_combined>)(<start_k>)(<end_k>)",
+          "help": "Hall of assists. Same as gets, but the default offset is 1.",
+          "scope": "threads",
+          "keywords": [
+            "assist",
+            "second",
+            "setup"
+          ]
+        },
+        {
+          "name": "day",
+          "args": "(<yyyy-mm-dd>)(<username>)(<context>)(<alts_combined>)",
+          "help": "Day HoC for the specified day.",
+          "scope": "threads",
+          "keywords": [
+            "daily",
+            "today",
+            "date",
+            "leaderboard"
+          ]
+        },
+        {
+          "name": "day_parts",
+          "args": "(<username>)(<context>)(<day_counts_combined>)(<alts_combined>)(<start_date>)(<end_date>)",
+          "help": "Day parts for the specified user.",
+          "scope": "threads",
+          "keywords": [
+            "daily",
+            "sessions",
+            "participation"
+          ]
+        },
+        {
+          "name": "counts_per_day",
+          "args": "(<username>)(<context>)(<alts_combined>)(<start_date>)(<end_date>)",
+          "help": "Counts per day for the specified user.",
+          "scope": "threads",
+          "keywords": [
+            "cpd",
+            "average",
+            "rate",
+            "daily average"
+          ]
+        },
+        {
+          "name": "peak_counts_per_day",
+          "args": "(<username>)(<context>)(<min_day_parts>)(<alts_combined>)(<start_date>)(<end_date>)",
+          "help": "Record counts per day. Users below min_day_parts (default 5) are excluded.",
+          "scope": "threads",
+          "keywords": [
+            "best day",
+            "record",
+            "peak",
+            "maximum"
+          ]
+        },
+        {
+          "name": "day_streak",
+          "args": "(<username>)(<context>)(<min_counts>)(<is_current>)(<alts_combined>)(<start_date>)(<end_date>)",
+          "help": "Record day streak. min_counts defaults to 1.",
+          "scope": "threads",
+          "keywords": [
+            "consecutive",
+            "days",
+            "in a row"
+          ]
+        },
+        {
+          "name": "non_unique_day_streak",
+          "args": "(<position>)(<context>)(<min_counts>)(<alts_combined>)(<start_date>)(<end_date>)",
+          "help": "All day streaks around a specified position.",
+          "scope": "threads",
+          "keywords": [
+            "consecutive",
+            "leaderboard",
+            "in a row"
+          ]
+        },
+        {
+          "name": "hourparts",
+          "args": "(<username>)(<context>)(<duration_seconds>)(<alts_combined>)(<start_uuid>)(<end_uuid>)",
+          "help": "Hour parts. duration_seconds gives x-second parts instead, if x divides 3600 (default 3600).",
+          "scope": "threads",
+          "keywords": [
+            "hourly",
+            "hours",
+            "sessions"
+          ]
+        },
+        {
+          "name": "kparts",
+          "args": "(<size>)(<username>)(<context>)(<alts_combined>)(<start_k>)(<end_k>)",
+          "help": "K parts. size is how many gets there are between k parts (default 1).",
+          "scope": "threads",
+          "keywords": [
+            "thousand",
+            "sessions",
+            "milestone"
+          ]
+        },
+        {
+          "name": "hop",
+          "aliases": [
+            "participation"
+          ],
+          "args": "(<username>)(<context>)(<alts_combined>)(<start_uuid>)(<end_uuid>)",
+          "help": "Hop score for the specified user.",
+          "scope": "threads",
+          "keywords": [
+            "participation",
+            "activity",
+            "involvement"
+          ]
+        },
+        {
+          "name": "hop_full",
+          "aliases": [
+            "participation_full"
+          ],
+          "args": "(<username>)(<context>)(<alts_combined>)(<start_uuid>)(<end_uuid>)",
+          "help": "Full hop data for the specified user.",
+          "scope": "threads",
+          "keywords": [
+            "participation",
+            "detailed",
+            "breakdown"
+          ]
+        },
+        {
+          "name": "first_count",
+          "args": "(<username>)(<start_uuid>)",
+          "help": "The first count for the specified user.",
+          "scope": "threads",
+          "keywords": [
+            "earliest",
+            "debut",
+            "started"
+          ]
+        },
+        {
+          "name": "last_count",
+          "args": "(<username>)(<end_uuid>)",
+          "help": "The last count for the specified user.",
+          "scope": "threads",
+          "keywords": [
+            "latest",
+            "recent",
+            "newest"
+          ]
+        },
+        {
+          "name": "day_medals",
+          "aliases": [
+            "cotd"
+          ],
+          "args": "(<username>)(<context>)(<day_counts_combined>)(<alts_combined>)(<start_date>)(<end_date>)",
+          "help": "Day medals for the specified user.",
+          "scope": "threads",
+          "keywords": [
+            "podium",
+            "gold",
+            "silver",
+            "bronze",
+            "counter of the day"
+          ]
+        },
+        {
+          "name": "k_medals",
+          "args": "(<size>)(<username>)(<context>)(<alts_combined>)(<start_k>)(<end_k>)",
+          "help": "K medals for the specified user.",
+          "scope": "threads",
+          "keywords": [
+            "podium",
+            "gold",
+            "silver",
+            "bronze",
+            "thousand"
+          ]
+        },
+        {
+          "name": "daily_counts",
+          "args": "(<position>)(<context>)(<start_date>)(<end_date>)",
+          "help": "The days with the most counts.",
+          "scope": "threads",
+          "keywords": [
+            "busiest",
+            "most active",
+            "biggest days"
+          ]
+        },
+        {
+          "name": "palindromes",
+          "aliases": [
+            "dromes"
+          ],
+          "args": "(<username>)(<context>)(<alts_combined>)(<start_uuid>)(<end_uuid>)",
+          "help": "Total palindromes between numbers. Does not work with all threads.",
+          "scope": "threads",
+          "keywords": [
+            "drome",
+            "palindrome",
+            "mirror"
+          ]
+        },
+        {
+          "name": "repdigits",
+          "args": "(<username>)(<context>)(<alts_combined>)(<start_uuid>)(<end_uuid>)",
+          "help": "Total repdigits between numbers. Does not work with all threads.",
+          "scope": "threads",
+          "keywords": [
+            "repdigit",
+            "repeating",
+            "same digit"
+          ]
+        },
+        {
+          "name": "n_rep",
+          "args": "<n>(<username>)(<context>)(<alts_combined>)(<start_uuid>)(<end_uuid>)",
+          "help": "Total n-reps between numbers (n = 3 gives trips). Does not work with all threads.",
+          "scope": "threads",
+          "keywords": [
+            "trips",
+            "quads",
+            "repeating",
+            "doubles",
+            "triples"
+          ]
+        },
+        {
+          "name": "base_n",
+          "args": "<n>(<username>)(<context>)(<alts_combined>)(<start_uuid>)(<end_uuid>)",
+          "help": "Total counts in base n between numbers. Does not work with all threads.",
+          "scope": "threads",
+          "keywords": [
+            "radix",
+            "binary",
+            "hex",
+            "octal",
+            "base"
+          ]
+        },
+        {
+          "name": "days_over_n_counts",
+          "args": "<n>(<username>)(<context>)(<day_counts_combined>)(<alts_combined>)(<start_date>)(<end_date>)",
+          "help": "Total days over n counts. n = 5000 returns total HoEs.",
+          "scope": "threads",
+          "keywords": [
+            "hoe",
+            "hall of examples",
+            "threshold",
+            "big days"
+          ]
+        },
+        {
+          "name": "day_record",
+          "args": "(<username>)(<context>)(<day_counts_combined>)(<alts_combined>)(<start_date>)(<end_date>)",
+          "help": "Record counts in a day for the specified user.",
+          "scope": "threads",
+          "keywords": [
+            "record",
+            "best day",
+            "maximum",
+            "personal best"
+          ]
+        },
+        {
+          "name": "non_unique_day_record",
+          "args": "(<position>)(<context>)(<day_counts_combined>)(<alts_combined>)(<start_date>)(<end_date>)",
+          "help": "All day HoC amounts around a specified position.",
+          "scope": "threads",
+          "keywords": [
+            "record",
+            "leaderboard",
+            "best days"
+          ]
+        },
+        {
+          "name": "fastest_n_counts",
+          "args": "<n>(<username>)(<context>)(<alts_combined>)(<start_uuid>)(<end_uuid>)",
+          "help": "Fastest n-count increase in the HoC. Calculated thread by thread.",
+          "scope": "threads",
+          "keywords": [
+            "fastest",
+            "speed",
+            "record",
+            "quickest"
+          ]
+        },
+        {
+          "name": "counting_pairs",
+          "args": "<username1>(<username2>)(<context>)(<alts_combined>)(<start_uuid>)(<end_uuid>)",
+          "help": "How many counts two users have together. username2 defaults to you.",
+          "scope": "threads",
+          "keywords": [
+            "together",
+            "with",
+            "partner",
+            "duo"
+          ]
+        },
+        {
+          "name": "counting_pairs_specific_user",
+          "args": "<username1>(<username2>)(<context>)(<alts_combined>)(<start_uuid>)(<end_uuid>)",
+          "help": "Counting pairs for username1. username2 defaults to you.",
+          "scope": "threads",
+          "keywords": [
+            "together",
+            "partners",
+            "duos"
+          ]
+        },
+        {
+          "name": "percent_of_counts_with_user",
+          "args": "<username1>(<username2>)(<context>)(<min_counts>)(<alts_combined>)(<start_uuid>)(<end_uuid>)",
+          "help": "Percent of username2 counts made with username1. min_counts defaults to 0.",
+          "scope": "threads",
+          "keywords": [
+            "percent",
+            "share",
+            "together",
+            "proportion"
+          ]
+        },
+        {
+          "name": "favorite_counter",
+          "aliases": [
+            "favourite_counter"
+          ],
+          "args": "(<username>)(<context>)(<alts_combined>)(<start_uuid>)(<end_uuid>)",
+          "help": "Who the user has the most counts with.",
+          "scope": "threads",
+          "keywords": [
+            "partner",
+            "buddy",
+            "most counts with",
+            "friend"
+          ]
+        },
+        {
+          "name": "time_spent_having_last_count",
+          "args": "(<username>)(<context>)(<alts_combined>)(<start_uuid>)(<end_uuid>)",
+          "help": "How long the user has had the last count, summed per thread.",
+          "scope": "threads",
+          "keywords": [
+            "holding",
+            "last count",
+            "waiting",
+            "idle"
+          ]
+        },
+        {
+          "name": "odd_ratio",
+          "args": "(<username>)(<context>)(<min_counts>)(<alts_combined>)(<start_uuid>)(<end_uuid>)",
+          "help": "Percent of the counts made that were odd. min_counts defaults to 0.",
+          "scope": "threads",
+          "keywords": [
+            "odd",
+            "parity",
+            "evens and odds"
+          ]
+        },
+        {
+          "name": "even_ratio",
+          "args": "(<username>)(<context>)(<min_counts>)(<alts_combined>)(<start_uuid>)(<end_uuid>)",
+          "help": "Percent of the counts made that were even. min_counts defaults to 0.",
+          "scope": "threads",
+          "keywords": [
+            "even",
+            "parity",
+            "evens and odds"
+          ]
+        },
+        {
+          "name": "unique_hour_parts_in_day",
+          "args": "(<username>)(<context>)(<duration_seconds>)(<alts_combined>)(<start_uuid>)(<end_uuid>)",
+          "help": "Unique hours participated in, out of 24. Users below half the maximum are excluded.",
+          "scope": "threads",
+          "keywords": [
+            "coverage",
+            "hours",
+            "24",
+            "clock"
+          ]
+        },
+        {
+          "name": "unique_hour_parts_in_week",
+          "args": "(<username>)(<context>)(<duration_seconds>)(<alts_combined>)(<start_uuid>)(<end_uuid>)",
+          "help": "Unique hours participated in, out of 168. Users below half the maximum are excluded.",
+          "scope": "threads",
+          "keywords": [
+            "coverage",
+            "hours",
+            "168",
+            "week",
+            "clock"
+          ]
+        },
+        {
+          "name": "daily_percent_of_counts",
+          "args": "(<position>)(<context>)(<alts_combined>)(<start_date>)(<end_date>)",
+          "help": "What percentage of daily counts users have achieved. Day counts are combined.",
+          "scope": "threads",
+          "keywords": [
+            "percent",
+            "share",
+            "proportion",
+            "dominance"
+          ]
+        },
+        {
+          "name": "medalist_daily_percent_of_counts",
+          "args": "(<day_hoc_position>)(<position>)(<context>)(<alts_combined>)(<start_date>)(<end_date>)",
+          "help": "Percentage of daily counts at a given day HoC position. Day counts are combined.",
+          "scope": "threads",
+          "keywords": [
+            "percent",
+            "share",
+            "podium",
+            "medal"
+          ]
+        },
+        {
+          "name": "daily_photo_finish",
+          "args": "(<percentage>)(<position>)(<context>)(<alts_combined>)(<start_date>)(<end_date>)",
+          "help": "Days where a top 3 position was decided by less than percentage (default 0.02).",
+          "scope": "threads",
+          "keywords": [
+            "close",
+            "photo finish",
+            "tight",
+            "narrow"
+          ]
+        },
+        {
+          "name": "largest_cliques",
+          "args": "(<username>)(<context>)(<weight>)(<alts_combined>)(<start_uuid>)(<end_uuid>)",
+          "help": "Largest clique the user belongs to, where everyone has at least weight counts with each other (default 1).",
+          "scope": "threads",
+          "keywords": [
+            "clique",
+            "group",
+            "network",
+            "circle"
+          ]
+        },
+        {
+          "name": "perfect_ks",
+          "aliases": [
+            "p500"
+          ],
+          "args": "(<size>)(<username>)(<context>)(<alts_combined>)(<start_k>)(<end_k>)",
+          "help": "Total perfect ks. size is how many gets there are per k.",
+          "scope": "threads",
+          "keywords": [
+            "p500",
+            "perfect",
+            "clean",
+            "flawless"
+          ]
+        },
+        {
+          "name": "about",
+          "args": "",
+          "help": "Various metadata for the thread.",
+          "scope": "single",
+          "keywords": [
+            "info",
+            "metadata",
+            "details"
+          ]
+        },
+        {
+          "name": "hoc_num",
+          "args": "(<username>)(<context>)(<alts_combined>)(<start_num>)(<end_num>)",
+          "help": "HoC for the specified user between numbers.",
+          "scope": "single",
+          "keywords": [
+            "between",
+            "numbers",
+            "range",
+            "leaderboard"
+          ]
+        },
+        {
+          "name": "k",
+          "args": "(<k>)(<size>)(<username>)(<context>)(<alts_combined>)",
+          "help": "Size-k HoC for a specific k (size 100 gives 100k HoC).",
+          "scope": "single",
+          "keywords": [
+            "thousand",
+            "milestone",
+            "leaderboard"
+          ]
+        },
+        {
+          "name": "10k_to_100k",
+          "args": "(<username>)(<context>)(<range_start>)(<range_end>)(<alts_combined>)(<start_uuid>)(<end_uuid>)",
+          "help": "10k to 100k for the specified user. The range can be changed to any range.",
+          "scope": "single",
+          "keywords": [
+            "range",
+            "progression",
+            "span"
+          ]
+        },
+        {
+          "name": "k_streak",
+          "args": "(<size>)(<username>)(<context>)(<is_current>)(<alts_combined>)(<start_k>)(<end_k>)",
+          "help": "Record k streak. size is how many gets there are per k (default 1).",
+          "scope": "single",
+          "keywords": [
+            "consecutive",
+            "thousand",
+            "in a row"
+          ]
+        },
+        {
+          "name": "non_unique_k_streak",
+          "args": "(<size>)(<position>)(<context>)(<alts_combined>)(<start_k>)(<end_k>)",
+          "help": "All k streaks around a specified position.",
+          "scope": "single",
+          "keywords": [
+            "consecutive",
+            "leaderboard",
+            "thousand"
+          ]
+        },
+        {
+          "name": "sum_of_counts",
+          "args": "(<username>)(<context>)(<alts_combined>)(<start_num>)(<end_num>)",
+          "help": "Sum of the numbers a user has counted.",
+          "scope": "single",
+          "keywords": [
+            "sum",
+            "total",
+            "added",
+            "aggregate"
+          ]
+        },
+        {
+          "name": "sum_of_reciprocals",
+          "args": "(<username>)(<context>)(<alts_combined>)(<start_num>)(<end_num>)",
+          "help": "Sum of the reciprocals of the numbers a user has counted.",
+          "scope": "single",
+          "keywords": [
+            "reciprocal",
+            "harmonic",
+            "sum"
+          ]
+        },
+        {
+          "name": "unique_counts_mod_n",
+          "args": "<n>(<username>)(<context>)(<alts_combined>)(<start_num>)(<end_num>)",
+          "help": "Unique counts a user has mod n. Users below n/2 counts are excluded.",
+          "scope": "single",
+          "keywords": [
+            "modulo",
+            "mod",
+            "remainder",
+            "unique"
+          ]
+        },
+        {
+          "name": "perfect_streak",
+          "args": "(<username>)(<context>)(<counts_between_replies>)(<alts_combined>)(<start_num>)(<end_num>)",
+          "help": "Longest perfect streak. counts_between_replies defaults to 2.",
+          "scope": "single",
+          "keywords": [
+            "perfect",
+            "clean",
+            "flawless",
+            "in a row"
+          ]
+        },
+        {
+          "name": "non_unique_perfect_streak",
+          "args": "(<position>)(<context>)(<counts_between_replies>)(<alts_combined>)(<start_num>)(<end_num>)",
+          "help": "All perfect streaks around a specified position.",
+          "scope": "single",
+          "keywords": [
+            "perfect",
+            "leaderboard",
+            "clean"
+          ]
+        },
+        {
+          "name": "rotation_streak",
+          "aliases": [
+            "double_perfect_streak"
+          ],
+          "args": "(<position>)(<context>)(<counts_between_replies>)(<alts_combined>)(<start_num>)(<end_num>)",
+          "help": "All perfect streaks around a position where everyone involved keeps a perfect streak.",
+          "scope": "single",
+          "keywords": [
+            "rotation",
+            "double perfect",
+            "alternating"
+          ]
+        },
+        {
+          "name": "speed_n_counts",
+          "args": "<n>(<username>)(<context>)(<percentage>)(<alts_combined>)(<start_uuid>)(<end_uuid>)",
+          "help": "Record n-count speed. percentage is the share of counts needed (default 0.48). Alts combined by default.",
+          "scope": "single",
+          "keywords": [
+            "fastest",
+            "speed",
+            "record",
+            "quickest"
+          ]
+        },
+        {
+          "name": "speed_tag",
+          "args": "<users_tagging>(<position>)(<context>)(<percentage>)(<alts_combined>)(<start_k>)(<end_k>)",
+          "help": "Speed tags around a position. users_tagging is how many people are involved. percentage defaults to 0.96.",
+          "scope": "single",
+          "keywords": [
+            "tag",
+            "speed",
+            "pair",
+            "partner"
+          ]
+        },
+        {
+          "name": "sum_of_best",
+          "aliases": [
+            "sob"
+          ],
+          "args": "(<username>)(<percentage>)(<alts_combined>)(<start_count>)(<end_count>)",
+          "help": "Sum of best splits. percentage is the share needed per split (default 0.49). Not available on every thread.",
+          "scope": "single",
+          "keywords": [
+            "sob",
+            "splits",
+            "best",
+            "theoretical"
+          ]
+        },
+        {
+          "name": "splits",
+          "args": "<k>",
+          "help": "Splits for a specific k. Not available on every thread.",
+          "scope": "single",
+          "keywords": [
+            "split",
+            "times",
+            "segments"
+          ]
+        },
+        {
+          "name": "speed",
+          "args": "<k>(<size>)",
+          "help": "Speed of the specified k. size is how many gets there are per k.",
+          "scope": "single",
+          "keywords": [
+            "pace",
+            "time",
+            "how fast"
+          ]
+        },
+        {
+          "name": "update",
+          "args": "<update_id>",
+          "help": "The specified update for the thread.",
+          "scope": "single",
+          "keywords": [
+            "uuid",
+            "permalink",
+            "lookup"
+          ]
+        },
+        {
+          "name": "number",
+          "aliases": [
+            "count"
+          ],
+          "args": "<number>",
+          "help": "All updates with the specified number.",
+          "scope": "single",
+          "keywords": [
+            "count",
+            "lookup",
+            "find",
+            "search"
+          ]
+        },
+        {
+          "name": "update_db",
+          "args": "",
+          "help": "Downloads counts for this thread.",
+          "scope": "single",
+          "admin": true,
+          "keywords": [
+            "refresh",
+            "download",
+            "sync"
+          ]
+        },
+        {
+          "name": "set",
+          "args": "<number><url>",
+          "help": "Sets the specified number to the given link.",
+          "scope": "single",
+          "admin": true,
+          "keywords": [
+            "assign",
+            "fix"
+          ]
+        },
+        {
+          "name": "reset",
+          "args": "<number><url>",
+          "help": "Moves an incorrectly placed number to a new number.",
+          "scope": "single",
+          "admin": true,
+          "keywords": [
+            "move",
+            "fix",
+            "correct"
+          ]
+        },
+        {
+          "name": "remove",
+          "args": "<number>(<force>)",
+          "help": "Removes a number from the database if all its counts are struck or deleted.",
+          "scope": "single",
+          "admin": true,
+          "keywords": [
+            "delete",
+            "drop"
+          ]
+        },
+        {
+          "name": "fix_deleted",
+          "args": "<url><user>",
+          "help": "Sets the author of a deleted update.",
+          "scope": "single",
+          "admin": true,
+          "keywords": [
+            "author",
+            "deleted",
+            "repair"
+          ]
+        }
+      ]
+    }
+  ]
+}

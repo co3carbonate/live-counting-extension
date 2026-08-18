@@ -2920,6 +2920,1025 @@ var EmoteOrder;
   });
 })(EmoteOrder || (EmoteOrder = {}));
 
+/////////////////////////
+// BotAutocomplete.ts  //
+/////////////////////////
+
+var BotAutocomplete;
+(function (BotAutocomplete) {
+  var BOT_DATA = require('./src/data/bot-commands.json');
+  var BOTS = BOT_DATA.bots;
+  var SCOPES = BOT_DATA.scopes;
+  var ARG_TYPES = BOT_DATA.argTypes;
+  var USES_KEY = 'lce_bot_command_uses';
+  var USERS_KEY = 'lce_bot_usernames';
+  var USERS_WIKI = '/r/livecounting/wiki/hall_of_counters.json';
+  var USERS_TTL = 7 * 24 * 60 * 60 * 1000;
+  var USERS_VERSION = 2;
+  var USERS_SHOWN = 50;
+  var SIDE_WIDTH = 420;
+  var SIDE_MIN_WIDTH = 260;
+  var enabled = true;
+  var uses = {};
+  var usernames = [];
+  var usernameSeen = {};
+  var usernameRank = {};
+  var usernameRanked = [];
+  var usernamesDirty = false;
+  var usernamesFetched = 0;
+  var current = null;
+  var matches = [];
+  var selected = 0;
+  var suppressed = false;
+  var flow = { key: null, phase: 'args' };
+  var $picker = null;
+
+  Options.addCheckbox({
+    label: 'BOT COMMAND AUTOCOMPLETE',
+    default: true,
+    section: 'Advanced 2',
+    help: 'Suggests bot commands, arguments and counter names as you type a bot prefix. Your most used entries are listed first.',
+    onchange: function () {
+      enabled = this.prop('checked');
+      if (!enabled) close();
+    },
+  });
+
+  Styles.add(
+    '#lce-bot-autocomplete {position:absolute; z-index:9001; box-sizing:border-box;' +
+      ' overflow:hidden; background:#fff; color:#222;' +
+      ' border:1px solid #b6b6b6; border-radius:4px; box-shadow:0 2px 10px rgba(0,0,0,0.25);' +
+      ' font-size:12px; line-height:1.35;}' +
+      '#lce-bot-autocomplete .lce-bot-list {max-height:340px; overflow-y:auto;' +
+      ' overscroll-behavior:contain;}' +
+      '#lce-bot-autocomplete .lce-bot-title {padding:5px 8px; color:#555; background:#f4f4f4;' +
+      ' border-bottom:1px solid #e2e2e2;}' +
+      '#lce-bot-autocomplete .lce-bot-group {padding:3px 8px; color:#888; background:#fafafa;' +
+      ' border-bottom:1px solid #eee; text-transform:uppercase; font-size:10px;' +
+      ' letter-spacing:0.5px;}' +
+      '#lce-bot-autocomplete .lce-bot-item {padding:5px 8px; cursor:pointer;' +
+      ' border-bottom:1px solid #f2f2f2;}' +
+      '#lce-bot-autocomplete .lce-bot-item.lce-bot-active {background:#e8f1fb;}' +
+      '#lce-bot-autocomplete .lce-bot-name {font-weight:bold; color:#1a1a1b;}' +
+      '#lce-bot-autocomplete .lce-bot-args {color:#7c7c7c; margin-left:6px;' +
+      ' word-break:break-all;}' +
+      '#lce-bot-autocomplete .lce-bot-optional {opacity:0.45;}' +
+      '#lce-bot-autocomplete .lce-bot-arg-active {color:#1a1a1b; font-weight:bold;' +
+      ' background:#ffeaa7; border-radius:2px;}' +
+      '#lce-bot-autocomplete .lce-bot-scope {float:right; color:#999; font-size:10px;' +
+      ' margin-left:8px;}' +
+      '#lce-bot-autocomplete .lce-bot-help {display:block; color:#666; margin-top:2px;}' +
+      '#lce-bot-autocomplete .lce-bot-label {color:#3a7d3a; margin-left:6px;}' +
+      '#lce-bot-autocomplete .lce-bot-star {color:#c8a415; margin-right:4px;}' +
+      '#lce-bot-autocomplete .lce-bot-skip {display:block; clear:both; color:#999;' +
+      ' font-size:10px; margin-top:3px;}' +
+      '#lce-bot-autocomplete .lce-bot-example {font-family:monospace; color:#333;'
+      + ' background:#f0f0f0; padding:0 3px; border-radius:2px; word-break:break-all;}'
+  );
+
+  function textarea() {
+    return ELEMENTS.UPDATE_TEXTAREA.get(0);
+  }
+
+  function escapeHtml(text) {
+    return $('<div></div>').text(text).html();
+  }
+
+  function readStore(key) {
+    try {
+      return JSON.parse(localStorage.getItem(key));
+    } catch (err) {
+      return null;
+    }
+  }
+
+  function writeStore(key, value) {
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+    } catch (err) {
+      return;
+    }
+  }
+
+  function useKey(bot, kind, name) {
+    return bot.prefix + '|' + kind + '|' + name;
+  }
+
+  function useCount(bot, kind, name) {
+    return uses[useKey(bot, kind, name)] || 0;
+  }
+
+  function recordUse(bot, kind, name) {
+    var key = useKey(bot, kind, name);
+    uses[key] = (uses[key] || 0) + 1;
+    writeStore(USES_KEY, uses);
+  }
+
+  function addUsername(name) {
+    if (!name) return false;
+    var clean = String(name).trim().replace(/^\/?u\//, '');
+    if (!/^[A-Za-z0-9_-]{3,20}$/.test(clean)) return false;
+    var lower = clean.toLowerCase();
+    if (usernameSeen[lower]) return false;
+    usernameSeen[lower] = true;
+    usernames.push(clean);
+    return true;
+  }
+
+  function applyRanks(list) {
+    usernameRanked = [];
+    usernameRank = {};
+    for (var i = 0; i < list.length; i++) {
+      var lower = String(list[i]).toLowerCase();
+      if (usernameRank[lower] !== undefined) continue;
+      usernameRank[lower] = usernameRanked.length;
+      usernameRanked.push(list[i]);
+      addUsername(list[i]);
+    }
+  }
+
+  function hocRank(name) {
+    var at = usernameRank[String(name).toLowerCase()];
+    return at === undefined ? Infinity : at;
+  }
+
+  function isSelf(name) {
+    return (
+      typeof USER == 'string' &&
+      USER.length > 0 &&
+      String(name).toLowerCase() === USER.toLowerCase()
+    );
+  }
+
+  function saveUsernames() {
+    if (!usernamesDirty) return;
+    usernamesDirty = false;
+    writeStore(USERS_KEY, {
+      version: USERS_VERSION,
+      fetched: usernamesFetched,
+      names: usernames,
+      ranked: usernameRanked,
+    });
+  }
+
+  function loadUsernames() {
+    var stored = readStore(USERS_KEY);
+    if (stored && stored.version !== USERS_VERSION) stored = null;
+    if (stored) {
+      usernamesFetched = stored.fetched || 0;
+      applyRanks(stored.ranked || []);
+      var names = stored.names || [];
+      for (var i = 0; i < names.length; i++) addUsername(names[i]);
+      if (usernameRanked.length < 1) usernamesFetched = 0;
+    }
+    if (addUsername(typeof USER == 'string' ? USER : '')) usernamesDirty = true;
+    for (var s = 0; s < SPECIAL_USERNAMES.length; s++) {
+      if (addUsername(SPECIAL_USERNAMES[s])) usernamesDirty = true;
+    }
+    var overrides = require('./src/data/user-colors.json').overrides;
+    for (var name in overrides) {
+      if (addUsername(name)) usernamesDirty = true;
+    }
+  }
+
+  function fetchUsernames() {
+    $.getJSON(USERS_WIKI)
+      .done(function (response) {
+        var markdown =
+          response && response.data ? response.data.content_md : null;
+        if (!markdown) return;
+        var rows = markdown.split('\n');
+        var ranked = [];
+        var seen = {};
+        for (var r = 0; r < rows.length; r++) {
+          var row = /^[^A-Za-z0-9]*(\d+)\D*?\/?u\/([A-Za-z0-9_-]{3,20})/.exec(
+            rows[r]
+          );
+          if (!row) continue;
+          var rank = parseInt(row[1], 10);
+          var lower = row[2].toLowerCase();
+          if (!(rank > 0) || seen[lower]) continue;
+          seen[lower] = true;
+          ranked.push({ rank: rank, name: row[2] });
+        }
+        ranked.sort(function (a, b) {
+          return a.rank - b.rank;
+        });
+        ranked = ranked.map(function (entry) {
+          return entry.name;
+        });
+        if (ranked.length < 1) {
+          console.warn('LCE: no ranked counters found in ' + USERS_WIKI);
+          return;
+        }
+        applyRanks(ranked);
+        usernamesFetched = Date.now();
+        usernamesDirty = true;
+        saveUsernames();
+      })
+      .fail(function (xhr) {
+        console.warn(
+          'LCE: could not load ' +
+            USERS_WIKI +
+            ' (' +
+            (xhr && xhr.status) +
+            '), counter ranking unavailable'
+        );
+        usernamesFetched = Date.now() - USERS_TTL + 60 * 60 * 1000;
+        usernamesDirty = true;
+        saveUsernames();
+      });
+  }
+
+  function parseArgs(args) {
+    var result = [];
+    var pattern = /\(<([^>]+)>\)|<([^>]+)>/g;
+    var match;
+    while ((match = pattern.exec(args)) !== null) {
+      result.push({
+        name: match[1] || match[2],
+        optional: match[1] != null,
+        text: match[0],
+      });
+    }
+    return result;
+  }
+
+  function visibleCommands(bot) {
+    return bot.commands.filter(function (command) {
+      return !command.admin;
+    });
+  }
+
+  function findCommand(bot, token) {
+    var lower = token.toLowerCase().replace(/^-/, '');
+    var commands = visibleCommands(bot);
+    for (var i = 0; i < commands.length; i++) {
+      var names = [commands[i].name].concat(commands[i].aliases || []);
+      for (var n = 0; n < names.length; n++) {
+        if (names[n].toLowerCase() === lower) return commands[i];
+      }
+    }
+    return null;
+  }
+
+  function isThread(bot, token) {
+    var lower = token.toLowerCase().replace(/^-/, '');
+    var threads = bot.threads || [];
+    for (var i = 0; i < threads.length; i++) {
+      if (threads[i].toLowerCase() === lower) return true;
+    }
+    return false;
+  }
+
+  function needsThreads(command) {
+    return command.scope == 'threads' || command.scope == 'single';
+  }
+
+  function tokenize(text, base) {
+    var tokens = [];
+    var pattern = /\S+/g;
+    var match;
+    while ((match = pattern.exec(text)) !== null) {
+      tokens.push({ text: match[0], start: base + match.index });
+    }
+    return tokens;
+  }
+
+  function context() {
+    var element = textarea();
+    if (!element) return null;
+    var caret = element.selectionStart;
+    var before = element.value.substring(0, caret);
+    var found = null;
+    for (var i = 0; i < BOTS.length; i++) {
+      var at = before.lastIndexOf(BOTS[i].prefix);
+      if (at < 0) continue;
+      if (found && at <= found.at) continue;
+      found = { bot: BOTS[i], at: at };
+    }
+    if (!found) return null;
+    var base = found.at + found.bot.prefix.length;
+    var rest = before.substring(base);
+    if (rest.indexOf('\n') > -1) return null;
+    var tokens = tokenize(rest, base);
+    var open = rest.length > 0 && !/\s$/.test(rest);
+    var query = open ? tokens[tokens.length - 1].text : '';
+    var start = open ? tokens[tokens.length - 1].start : caret;
+    var done = open ? tokens.slice(0, -1) : tokens;
+    var bot = found.bot;
+    var command = null;
+    var commandToken = null;
+    var argIndex = 0;
+    var threads = [];
+    for (var d = 0; d < done.length; d++) {
+      var token = done[d];
+      if (command) {
+        argIndex++;
+        continue;
+      }
+      var match = findCommand(bot, token.text);
+      if (match) {
+        command = match;
+        commandToken = token;
+      } else if (isThread(bot, token.text)) {
+        threads.push(token.text.replace(/^-/, '').toLowerCase());
+      }
+    }
+    return {
+      bot: bot,
+      query: query,
+      start: start,
+      command: command,
+      commandToken: commandToken,
+      argIndex: argIndex,
+      threads: threads,
+    };
+  }
+
+  function fuzzyScore(name, query) {
+    if (query.length < 1) return { tier: 0, spread: 0 };
+    var lower = name.toLowerCase();
+    var at = lower.indexOf(query);
+    if (at === 0) return { tier: 0, spread: 0 };
+    if (at > 0) return { tier: 1, spread: at };
+    var cursor = 0;
+    var first = -1;
+    var last = -1;
+    var gaps = 0;
+    for (var i = 0; i < query.length; i++) {
+      cursor = lower.indexOf(query.charAt(i), cursor);
+      if (cursor < 0) return null;
+      if (first < 0) first = cursor;
+      if (last >= 0) gaps += cursor - last - 1;
+      last = cursor;
+      cursor++;
+    }
+    return { tier: 2, spread: first + gaps };
+  }
+
+  function priority(bot, kind, a, b) {
+    if (kind == 'thread') {
+      if (a == 'main') return -1;
+      if (b == 'main') return 1;
+    }
+    if (kind == 'username') {
+      if (isSelf(a)) return -1;
+      if (isSelf(b)) return 1;
+    }
+    var used = useCount(bot, kind, b) - useCount(bot, kind, a);
+    if (used) return used;
+    if (kind == 'username') return hocRank(a) - hocRank(b);
+    return 0;
+  }
+
+  function filterRank(bot, kind, query, list, nameOf) {
+    var lower = query.toLowerCase();
+    var scored = [];
+    for (var i = 0; i < list.length; i++) {
+      var names = nameOf(list[i]);
+      var best = null;
+      for (var n = 0; n < names.length; n++) {
+        var score = fuzzyScore(names[n], lower);
+        if (!score) continue;
+        if (
+          !best ||
+          score.tier < best.tier ||
+          (score.tier == best.tier && score.spread < best.spread)
+        ) {
+          best = score;
+        }
+      }
+      if (!best) continue;
+      scored.push({ item: list[i], tier: best.tier, spread: best.spread, at: i });
+    }
+    scored.sort(function (a, b) {
+      if (a.tier != b.tier) return a.tier - b.tier;
+      var rank = priority(bot, kind, nameOf(a.item)[0], nameOf(b.item)[0]);
+      if (rank) return rank;
+      if (a.spread != b.spread) return a.spread - b.spread;
+      return a.at - b.at;
+    });
+    return scored.map(function (entry) {
+      return entry.item;
+    });
+  }
+
+  function commandEntries(bot, query, threadScopedOnly) {
+    var list = visibleCommands(bot).filter(function (command) {
+      return !threadScopedOnly || needsThreads(command);
+    });
+    return filterRank(bot, 'command', query, list, function (command) {
+      return [command.name]
+        .concat(command.aliases || [])
+        .concat(command.keywords || []);
+    }).map(function (command) {
+      return { kind: 'command', name: command.name, command: command };
+    });
+  }
+
+  function threadEntries(bot, query, options) {
+    var settings = options || {};
+    var used = {};
+    (settings.used || []).forEach(function (name) {
+      used[name.toLowerCase()] = true;
+    });
+    var list = (bot.threads || []).filter(function (name) {
+      return !used[name.toLowerCase()];
+    });
+    return filterRank(bot, 'thread', query, list, function (name) {
+      return [name];
+    }).map(function (name) {
+      return {
+        kind: 'thread',
+        name: settings.exclude ? '-' + name : name,
+        thread: name,
+        before: settings.before === true,
+      };
+    });
+  }
+
+  function usernameEntries(bot, query) {
+    return filterRank(bot, 'username', query, usernames, function (name) {
+      return [name];
+    })
+      .slice(0, USERS_SHOWN)
+      .map(function (name) {
+        return { kind: 'username', name: name };
+      });
+  }
+
+  function valueEntries(bot, query, type) {
+    return filterRank(bot, 'value', query, type.values, function (option) {
+      return [option.value];
+    }).map(function (option) {
+      return { kind: 'value', name: option.value, label: option.label };
+    });
+  }
+
+  function activeArg(found) {
+    if (!found.command) return null;
+    var args = parseArgs(found.command.args);
+    return args[found.argIndex] || null;
+  }
+
+  function flowKey(found) {
+    return found.command ? found.bot.prefix + '|' + found.command.name : null;
+  }
+
+  function step(found) {
+    if (!found.command) return 'command';
+    if (needsThreads(found.command) && flow.phase == 'included') return 'included';
+    if (flow.phase == 'finished') return 'none';
+    var args = parseArgs(found.command.args);
+    if (found.argIndex < args.length) return 'arg';
+    return needsThreads(found.command) ? 'excluded' : 'none';
+  }
+
+  function autoSelect(found) {
+    if (found.query.length > 0) return true;
+    var phase = step(found);
+    if (phase == 'command' || phase == 'included') return true;
+    if (phase == 'arg') {
+      var arg = activeArg(found);
+      return arg ? !arg.optional : false;
+    }
+    return false;
+  }
+
+  function threadStep(found, exclude) {
+    return threadEntries(found.bot, found.query, {
+      used: found.threads,
+      exclude: exclude,
+      before: true,
+    });
+  }
+
+  function entriesFor(found) {
+    var bot = found.bot;
+    var phase = step(found);
+    if (phase == 'command') {
+      var threadScoped = found.threads.length > 0;
+      var commands = commandEntries(bot, found.query, threadScoped);
+      if (!threadScoped) return commands;
+      return threadEntries(bot, found.query, { used: found.threads }).concat(
+        commands
+      );
+    }
+    if (phase == 'included') return threadStep(found, false);
+    if (phase == 'excluded') return threadStep(found, true);
+    if (phase == 'none') return [];
+    var arg = activeArg(found);
+    var type = arg ? ARG_TYPES[arg.name] : null;
+    if (!type) return [];
+    if (type.source == 'threads') {
+      return threadEntries(bot, found.query, { used: found.threads });
+    }
+    if (type.source == 'usernames') return usernameEntries(bot, found.query);
+    if (type.values) return valueEntries(bot, found.query, type);
+    return [];
+  }
+
+  function signature(found) {
+    var command = found.command;
+    var args = parseArgs(command.args);
+    var phase = step(found);
+    var html =
+      '<span class="lce-bot-name">' + escapeHtml(command.name) + '</span>';
+    if (needsThreads(command)) {
+      html +=
+        ' <span class="lce-bot-args' +
+        (phase == 'included' ? ' lce-bot-arg-active' : '') +
+        '">' +
+        (found.threads.length > 0
+          ? escapeHtml(found.threads.join(' '))
+          : '&lt;threads&gt;') +
+        '</span>';
+    }
+    for (var i = 0; i < args.length; i++) {
+      html +=
+        ' <span class="lce-bot-args' +
+        (args[i].optional ? ' lce-bot-optional' : '') +
+        (phase == 'arg' && i === found.argIndex ? ' lce-bot-arg-active' : '') +
+        '">' +
+        escapeHtml('<' + args[i].name + '>') +
+        '</span>';
+    }
+    if (args.length < 1 && !needsThreads(command)) {
+      html += ' <span class="lce-bot-args">no arguments</span>';
+    }
+    var help = command.help;
+    var example = null;
+    if (phase == 'included') {
+      help =
+        'Pick the thread this runs on. Shift+enter to add more than one.';
+    } else if (phase == 'excluded') {
+      help =
+        'Optionally exclude a thread. Shift+enter to exclude more than one.';
+    } else if (phase == 'arg') {
+      var arg = activeArg(found);
+      var type = arg ? ARG_TYPES[arg.name] : null;
+      if (type && type.help) help = type.help;
+      if (type && type.example) example = type.example;
+    }
+    html += '<span class="lce-bot-help">' + escapeHtml(help) + '</span>';
+    if (example) {
+      html +=
+        '<span class="lce-bot-help">e.g. <span class="lce-bot-example">' +
+        escapeHtml(example) +
+        '</span></span>';
+    }
+    return html;
+  }
+
+  function close() {
+    if ($picker) $picker.remove();
+    $picker = null;
+    current = null;
+    matches = [];
+    selected = 0;
+  }
+
+  function isOpen() {
+    return $picker != null;
+  }
+
+  function groupLabel(kind) {
+    if (kind == 'thread') return 'threads';
+    if (kind == 'username') return 'counters';
+    if (kind == 'value') return 'values';
+    return 'commands';
+  }
+
+  function render() {
+    if (!$picker) {
+      $picker = $('<div id="lce-bot-autocomplete"></div>').appendTo('body');
+      $picker.on('mousedown', '.lce-bot-item', function (event) {
+        event.preventDefault();
+        accept(matches[$(this).data('index')], event.shiftKey === true);
+      });
+      $picker.on('mouseenter', '.lce-bot-item', function () {
+        selected = $(this).data('index');
+        highlight();
+      });
+    }
+    var html = '<div class="lce-bot-title">';
+    html += current.command
+      ? signature(current)
+      : escapeHtml(current.bot.name) + ': ' + matches.length + ' commands';
+    if (selected < 0 && matches.length > 0) {
+      html += '<div class="lce-bot-skip">down arrow to pick, enter to send</div>';
+    }
+    html += '</div><div class="lce-bot-list">';
+    var group = null;
+    for (var i = 0; i < matches.length; i++) {
+      var entry = matches[i];
+      if (entry.kind != group) {
+        group = entry.kind;
+        html +=
+          '<div class="lce-bot-group">' + groupLabel(group) + '</div>';
+      }
+      var star =
+        useCount(current.bot, entry.kind, entry.name) > 0 ? '&#9733;' : '';
+      html += '<div class="lce-bot-item" data-index="' + i + '">';
+      if (entry.kind == 'command') {
+        html +=
+          '<span class="lce-bot-scope">' +
+          escapeHtml(SCOPES[entry.command.scope] || entry.command.scope) +
+          '</span>';
+      }
+      html +=
+        '<span class="lce-bot-star">' +
+        star +
+        '</span><span class="lce-bot-name">' +
+        escapeHtml(entry.name) +
+        '</span>';
+      if (entry.kind == 'command') {
+        html +=
+          '<span class="lce-bot-args">' +
+          escapeHtml(entry.command.args) +
+          '</span><span class="lce-bot-help">' +
+          escapeHtml(entry.command.help) +
+          '</span>';
+      } else if (entry.label) {
+        html += '<span class="lce-bot-label">' + escapeHtml(entry.label) + '</span>';
+      }
+      html += '</div>';
+    }
+    $picker.html(html + '</div>');
+    position();
+    highlight();
+  }
+
+  function position() {
+    var $box = ELEMENTS.UPDATE_TEXTAREA;
+    var offset = $box.offset();
+    if (!offset) return;
+    var gap = 8;
+    var height = $picker.outerHeight();
+    var scrolled = $(window).scrollTop();
+    var viewHeight = $(window).height();
+    var viewWidth = $(window).width();
+    var boxRight = offset.left + $box.outerWidth();
+    var beside = viewWidth - boxRight - gap * 2;
+    if (beside >= SIDE_MIN_WIDTH) {
+      var top = offset.top;
+      var lowest = scrolled + viewHeight - height - gap;
+      if (top > lowest) top = Math.max(scrolled + gap, lowest);
+      $picker.css({
+        left: boxRight + gap + 'px',
+        top: top + 'px',
+        width: Math.min(SIDE_WIDTH, beside) + 'px',
+      });
+      return;
+    }
+    var below = offset.top + $box.outerHeight() + gap;
+    var stacked = below;
+    if (below + height > scrolled + viewHeight) {
+      var roomBelow = scrolled + viewHeight - (offset.top + $box.outerHeight());
+      var roomAbove = offset.top - scrolled;
+      if (roomAbove > roomBelow && offset.top - height - gap >= scrolled) {
+        stacked = offset.top - height - gap;
+      }
+    }
+    $picker.css({
+      left: offset.left + 'px',
+      top: stacked + 'px',
+      width: $box.outerWidth() + 'px',
+    });
+  }
+
+  function highlight() {
+    if (!$picker) return;
+    $picker.find('.lce-bot-item').removeClass('lce-bot-active');
+    var $active = $picker.find('.lce-bot-item[data-index="' + selected + '"]');
+    $active.addClass('lce-bot-active');
+    if ($active.length < 1) return;
+    var $list = $picker.find('.lce-bot-list');
+    if ($list.length < 1) return;
+    var offset = $list.offset();
+    var spot = $active.offset();
+    if (!offset || !spot) return;
+    var top = spot.top - offset.top;
+    var bottom = top + $active.outerHeight();
+    var view = $list.height();
+    if (top < 0) $list.scrollTop($list.scrollTop() + top);
+    else if (bottom > view) $list.scrollTop($list.scrollTop() + bottom - view);
+  }
+
+  function refresh() {
+    if (!enabled) return close();
+    var found = context();
+    if (!found) {
+      suppressed = false;
+      return close();
+    }
+    if (suppressed) return close();
+    var key = flowKey(found);
+    if (key !== flow.key) {
+      flow.key = key;
+      flow.phase =
+        found.command &&
+        needsThreads(found.command) &&
+        found.threads.length < 1 &&
+        found.argIndex < 1
+          ? 'included'
+          : 'args';
+    }
+    if (
+      found.command &&
+      needsThreads(found.command) &&
+      found.threads.length < 1 &&
+      found.argIndex < 1
+    ) {
+      flow.phase = 'included';
+    }
+    var entries = entriesFor(found);
+    if (entries.length < 1 && !found.command) return close();
+    current = found;
+    matches = entries;
+    selected = autoSelect(found) && matches.length > 0 ? 0 : -1;
+    render();
+  }
+
+  function accept(entry, keepOpen) {
+    if (!entry || !current) return;
+    var element = textarea();
+    if (!element) return;
+    var bot = current.bot;
+    var phase = step(current);
+    if (entry.kind == 'thread' && entry.before && !keepOpen) {
+      flow.phase = phase == 'included' ? 'args' : 'finished';
+    }
+    var caret = element.selectionStart;
+    var insert = entry.name + ' ';
+    var at = entry.before && current.commandToken
+      ? current.commandToken.start
+      : current.start;
+    var tail = entry.before && current.commandToken ? at : caret;
+    if (at > 0 && !/\s/.test(element.value.charAt(at - 1))) {
+      insert = ' ' + insert;
+    }
+    element.value =
+      element.value.substring(0, at) + insert + element.value.substring(tail);
+    var position = entry.before && current.commandToken
+      ? caret + insert.length
+      : at + insert.length;
+    element.setSelectionRange(position, position);
+    element.focus();
+    recordUse(bot, entry.kind, entry.thread || entry.name);
+    paint();
+    close();
+    refresh();
+  }
+
+  var highlightEnabled = true;
+  var $overlay = null;
+
+  Options.addCheckbox({
+    label: 'HIGHLIGHT BOT COMMANDS',
+    default: true,
+    section: 'Advanced 2',
+    help: 'Shades bot commands, threads and arguments inside the textbox as you type. Only engages once a bot prefix is present.',
+    onchange: function () {
+      highlightEnabled = this.prop('checked');
+      paint();
+    },
+  });
+
+  Styles.add(
+    '#lce-bot-highlight {position:absolute; pointer-events:none; overflow:hidden;' +
+      ' z-index:9000; color:transparent; background:transparent;}' +
+      '#lce-bot-highlight span {border-radius:2px;}' +
+      '#lce-bot-highlight .lce-hl-prefix {background:rgba(176,47,176,0.22);}' +
+      '#lce-bot-highlight .lce-hl-command {background:rgba(26,111,181,0.22);}' +
+      '#lce-bot-highlight .lce-hl-thread {background:rgba(46,139,61,0.22);}' +
+      '#lce-bot-highlight .lce-hl-exclude {background:rgba(181,101,26,0.09);}' +
+      '#lce-bot-highlight .lce-hl-arg {background:rgba(122,79,181,0.20);}' +
+      '#lce-bot-highlight .lce-hl-arg-optional {background:rgba(122,79,181,0.08);}'
+  );
+
+  var COPIED = [
+    'fontFamily',
+    'fontSize',
+    'fontWeight',
+    'fontStyle',
+    'letterSpacing',
+    'lineHeight',
+    'textIndent',
+    'textTransform',
+    'paddingTop',
+    'paddingRight',
+    'paddingBottom',
+    'paddingLeft',
+    'borderTopWidth',
+    'borderRightWidth',
+    'borderBottomWidth',
+    'borderLeftWidth',
+    'boxSizing',
+  ];
+
+  function syncOverlay() {
+    var element = textarea();
+    if (!element || !$overlay) return;
+    var $box = ELEMENTS.UPDATE_TEXTAREA;
+    var offset = $box.offset();
+    if (!offset) return;
+    var computed = window.getComputedStyle(element);
+    for (var i = 0; i < COPIED.length; i++) {
+      $overlay.css(COPIED[i], computed[COPIED[i]]);
+    }
+    $overlay.css({
+      left: offset.left + 'px',
+      top: offset.top + 'px',
+      width: $box.outerWidth() + 'px',
+      height: $box.outerHeight() + 'px',
+      borderStyle: 'solid',
+      borderColor: 'transparent',
+      whiteSpace: 'pre-wrap',
+      wordWrap: 'break-word',
+      overflowWrap: 'break-word',
+    });
+    $overlay.scrollTop(element.scrollTop);
+    $overlay.scrollLeft(element.scrollLeft);
+  }
+
+  function botAt(value, index) {
+    for (var i = 0; i < BOTS.length; i++) {
+      if (value.substr(index, BOTS[i].prefix.length) === BOTS[i].prefix) {
+        return BOTS[i];
+      }
+    }
+    return null;
+  }
+
+  function markup(value, caret) {
+    var html = '';
+    var index = 0;
+    var plain = '';
+    while (index < value.length) {
+      var bot = botAt(value, index);
+      if (!bot) {
+        plain += value.charAt(index);
+        index++;
+        continue;
+      }
+      html += escapeHtml(plain);
+      plain = '';
+      html += '<span class="lce-hl-prefix">' + escapeHtml(bot.prefix) + '</span>';
+      index += bot.prefix.length;
+      var stop = value.indexOf('\n', index);
+      if (stop < 0) stop = value.length;
+      var segment = value.substring(index, stop);
+      var tokens = tokenize(segment, 0);
+      var command = null;
+      var args = null;
+      var argAt = 0;
+      var cursor = 0;
+      for (var t = 0; t < tokens.length; t++) {
+        var token = tokens[t];
+        html += escapeHtml(segment.substring(cursor, token.start));
+        cursor = token.start + token.text.length;
+        var from = index + token.start;
+        var to = from + token.text.length;
+        var typing = caret >= from && caret <= to;
+        var css = null;
+        var hit = command ? null : findCommand(bot, token.text);
+        if (hit) {
+          command = hit;
+          args = parseArgs(command.args);
+          argAt = 0;
+          css = 'lce-hl-command';
+        } else if (!command && isThread(bot, token.text)) {
+          css = token.text.charAt(0) == '-' ? 'lce-hl-exclude' : 'lce-hl-thread';
+        } else if (command) {
+          var spec = args ? args[argAt] : null;
+          argAt++;
+          css = !spec || spec.optional ? 'lce-hl-arg-optional' : 'lce-hl-arg';
+        }
+        if (css && !typing) {
+          html +=
+            '<span class="' + css + '">' + escapeHtml(token.text) + '</span>';
+        } else {
+          html += escapeHtml(token.text);
+        }
+      }
+      html += escapeHtml(segment.substring(cursor));
+      index = stop;
+    }
+    return html + escapeHtml(plain) + '<br>';
+  }
+
+  function paint() {
+    var element = textarea();
+    if (!element) return;
+    var value = element.value;
+    var wanted = false;
+    if (highlightEnabled) {
+      for (var i = 0; i < BOTS.length; i++) {
+        if (value.indexOf(BOTS[i].prefix) > -1) {
+          wanted = true;
+          break;
+        }
+      }
+    }
+    if (!wanted) {
+      if ($overlay) $overlay.hide().empty();
+      return;
+    }
+    try {
+      if (!$overlay) {
+        $overlay = $('<div id="lce-bot-highlight"></div>').appendTo('body');
+      }
+      $overlay.html(markup(value, element.selectionStart)).show();
+      syncOverlay();
+    } catch (err) {
+      if ($overlay) $overlay.hide().empty();
+    }
+  }
+
+  function repaintSoon() {
+    setTimeout(paint, 0);
+    setTimeout(paint, 300);
+  }
+
+  ELEMENTS.UPDATE_TEXTAREA.on('input scroll click keyup', paint);
+  ELEMENTS.SUBMIT_BUTTON.on('click', repaintSoon);
+  ELEMENTS.UPDATE_FORM.on('submit', repaintSoon);
+  $(window).on('resize scroll', function () {
+    if ($overlay && $overlay.is(':visible')) syncOverlay();
+  });
+  paint();
+
+  loadUsernames();
+  saveUsernames();
+  if (Date.now() - usernamesFetched > USERS_TTL) {
+    setTimeout(fetchUsernames, 5000);
+  }
+  setInterval(saveUsernames, 20000);
+  $(window).on('beforeunload', saveUsernames);
+
+  ELEMENTS.UPDATE_TEXTAREA.on('input click keyup', function (event) {
+    if (event.type == 'keyup' && isOpen()) {
+      if ([38, 40, 13, 9, 27].indexOf(event.keyCode) > -1) return;
+    }
+    refresh();
+  });
+
+  ELEMENTS.UPDATE_TEXTAREA.on('blur', function () {
+    setTimeout(close, 150);
+  });
+
+  $(window).on('resize scroll', function () {
+    if (isOpen()) position();
+  });
+
+  document.addEventListener(
+    'keydown',
+    function (event) {
+      if (event.target !== textarea()) return;
+      if ((event.keyCode == 37 || event.keyCode == 8) && suppressed) {
+        suppressed = false;
+        setTimeout(refresh, 0);
+        return;
+      }
+      if (!isOpen()) return;
+      if (event.keyCode == 27) {
+        suppressed = true;
+        close();
+      } else if (event.keyCode == 38 && matches.length > 0) {
+        selected =
+          selected < 0
+            ? matches.length - 1
+            : (selected - 1 + matches.length) % matches.length;
+        highlight();
+      } else if (event.keyCode == 40 && matches.length > 0) {
+        selected = selected < 0 ? 0 : (selected + 1) % matches.length;
+        highlight();
+      } else if (event.keyCode == 9 && matches.length > 0 && selected < 0) {
+        selected = 0;
+        highlight();
+      } else if (
+        (event.keyCode == 13 || event.keyCode == 9) &&
+        matches.length > 0 &&
+        selected >= 0
+      ) {
+        accept(matches[selected], event.shiftKey === true);
+      } else if (event.keyCode == 13 || event.keyCode == 39) {
+        suppressed = true;
+        close();
+        if (event.keyCode == 13) repaintSoon();
+        return;
+      } else {
+        return;
+      }
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    },
+    true
+  );
+})(BotAutocomplete || (BotAutocomplete = {}));
+
 ///////////////////
 // BigEmotes.ts  //
 ///////////////////
