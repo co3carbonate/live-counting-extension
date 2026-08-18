@@ -2,6 +2,8 @@
   "name": "live-counting-extension",
   "scripts": {
     "build": "webpack --config webpack.config.js",
+    "dev": "webpack --config webpack.config.js --mode development --devtool source-map --watch",
+    "serve": "http-server dist -p 8080 --cors -c-1",
     "lint": "eslint \"./**/*.js\" \"./**/*.ts\" --ignore-path .gitignore"
   },
   "dependencies": {
@@ -19,6 +21,7 @@
     "file-loader": "^6.2.0",
     "fork-ts-checker-webpack-plugin": "^6.2.1",
     "html-minify-loader": "^1.4.0",
+    "http-server": "^14.1.1",
     "prettier": "^3.7.4",
     "ts-loader": "^8.1.0",
     "typescript": "^4.2.4",
