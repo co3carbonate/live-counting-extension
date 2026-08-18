@@ -1940,6 +1940,32 @@ var ClearPastMessages;
       enTimeout = false;
     }, 5000);
   });
+  function redditListing() {
+    var app = window.r && window.r.liveupdate && window.r.liveupdate.app;
+    var listing = app && app.listing;
+    return listing && typeof listing.remove == 'function' ? listing : null;
+  }
+  function forget(keep) {
+    var listing = redditListing();
+    if (!listing || listing.length <= keep) return;
+    listing.remove(listing.models.slice(keep));
+  }
+  function oldestFullname() {
+    var listing = redditListing();
+    if (listing && listing.length > 0) {
+      var model = listing.at(listing.length - 1);
+      if (model && model.id) return model.id;
+    }
+    var $oldest = ELEMENTS.UPDATES_ELEMENT.children(
+      '.liveupdate[data-fullname]'
+    ).last();
+    if ($oldest.length < 1) return null;
+    var fullname = $oldest.attr('data-fullname');
+    if (!fullname) return null;
+    return fullname.indexOf('LiveUpdate_') === 0
+      ? fullname
+      : 'LiveUpdate_' + fullname;
+  }
   // EVENTS
   // New update loaded
   UPDATE_EVENTS.addListener('new', () => {
@@ -1951,6 +1977,7 @@ var ClearPastMessages;
     if (!enabled) return;
     var $screenMessages = ELEMENTS.UPDATES_ELEMENT.children('.liveupdate');
     if ($screenMessages.length > maxMessages) {
+      forget(maxMessages);
       $screenMessages.slice(maxMessages).remove();
     }
   });
@@ -1959,6 +1986,22 @@ var ClearPastMessages;
     // disable
     if (!enabled) return;
     $checkbox.prop('checked', false).trigger('change');
+  });
+  $.ajaxPrefilter(function (options) {
+    var url = options.url || '';
+    if (url.indexOf('/live/') < 0) return;
+    var hasUrlCursor = url.indexOf('after=') > -1;
+    var hasDataCursor =
+      typeof options.data == 'string' && options.data.indexOf('after=') > -1;
+    if (!hasUrlCursor && !hasDataCursor) return;
+    var fullname = oldestFullname();
+    if (!fullname) return;
+    if (hasUrlCursor) {
+      options.url = url.replace(/after=[^&]*/, 'after=' + fullname);
+    }
+    if (hasDataCursor) {
+      options.data = options.data.replace(/after=[^&]*/, 'after=' + fullname);
+    }
   });
 })(ClearPastMessages || (ClearPastMessages = {}));
 ////////////////////
