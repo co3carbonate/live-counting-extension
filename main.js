@@ -4320,7 +4320,7 @@ var collapseCount = 0;
       ELEMENTS.BODY_ELEMENT.attr('data-CollapsiblePosts', this.prop('checked'));
     },
   });
-  UPDATE_EVENTS.addListener('new', (data) => {
+  UPDATE_EVENTS.addListener('all', (data) => {
     // steal from https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_collapsible lol
     if (ELEMENTS.BODY_ELEMENT.attr('data-CollapsiblePosts') == 'true') {
       var collapse_html = data.bodyNode.html();
