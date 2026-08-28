@@ -4362,6 +4362,185 @@ var collapseCount = 0;
   });
 })(CollapsiblePosts || (CollapsiblePosts = {}));
 
+////////////////////
+// BotCollapse.ts //
+////////////////////
+var BotCollapse;
+(function (BotCollapse) {
+  var enabled = false;
+
+  var BOT_COLLAPSE_USERNAMES = ['LC-3P0'];
+  var MIRROR_USERNAMES = ['b66b'];
+
+  var bots = BOT_COLLAPSE_USERNAMES.map(function (name) {
+    return String(name).trim().replace(/^\/?u\//i, '').toLowerCase();
+  });
+
+  var mirrors = MIRROR_USERNAMES.map(function (name) {
+    return String(name).trim().replace(/^\/?u\//i, '').toLowerCase();
+  });
+
+  function normalise(author) {
+    return String(author || '')
+      .trim()
+      .replace(/^\/?u\//i, '')
+      .toLowerCase();
+  }
+
+  function isBot(author) {
+    if (!author) return false;
+    return bots.indexOf(normalise(author)) > -1;
+  }
+
+  function isMirror(author) {
+    if (!author) return false;
+    return mirrors.indexOf(normalise(author)) > -1;
+  }
+
+  function mirroredAuthor($md) {
+    var $link = $md.find('em > a[href*="/u/"]').last();
+    if (!$link.length) return '';
+    var match = ($link.attr('href') || '').match(/\/u\/([^/?#]+)/);
+    return match ? match[1] : '';
+  }
+
+  function shouldCollapse($md, author) {
+    if (isBot(author)) return true;
+    if (isMirror(author)) return isBot(mirroredAuthor($md));
+    return false;
+  }
+
+  Options.addCheckbox({
+    label: 'COLLAPSE BOT POSTS',
+    default: false,
+    section: 'Advanced 2',
+    help: 'Collapses bot posts.',
+    onchange: function () {
+      enabled = this.prop('checked');
+      ELEMENTS.BODY_ELEMENT.attr('data-BotCollapse', enabled ? 'true' : 'false');
+      if (enabled) sweep();
+    },
+  });
+
+  Styles.add(
+    '#lc-body[data-BotCollapse="true"] .lce-bot-rest {display:block;}' +
+      '#lc-body[data-BotCollapse="true"] .lce-bot-clipped {' +
+      ' max-height:3.4em; overflow:hidden; cursor:pointer;' +
+      ' -webkit-mask-image:linear-gradient(to bottom, rgba(0,0,0,0.55) 0%,' +
+      ' rgba(0,0,0,0.3) 45%, rgba(0,0,0,0) 100%);' +
+      ' mask-image:linear-gradient(to bottom, rgba(0,0,0,0.55) 0%,' +
+      ' rgba(0,0,0,0.3) 45%, rgba(0,0,0,0) 100%);}' +
+      '#lc-body[data-BotCollapse="true"] .lce-bot-open .lce-bot-clipped' +
+      ' {max-height:none; cursor:auto; -webkit-mask-image:none;' +
+      ' mask-image:none;}' +
+      '#lc-body:not([data-BotCollapse="true"]) .lce-bot-clipped' +
+      ' {max-height:none; -webkit-mask-image:none; mask-image:none;}' +
+      '.lce-bot-more {display:inline-block; font-size:x-small; color:#369;' +
+      ' cursor:pointer; margin-top:2px;}' +
+      '.lce-bot-more:hover {text-decoration:underline;}' +
+      '#lc-body:not([data-BotCollapse="true"]) .lce-bot-more {display:none;}' +
+      '.res-nightmode .lce-bot-more {color:#8cb3d9;}'
+  );
+
+  function restOf($md) {
+    var kids = $md.children();
+    if (kids.length > 1) {
+      var $div = $('<div class="lce-bot-rest"></div>');
+      kids.eq(0).after($div);
+      $div.append(kids.slice(1));
+      return $div;
+    }
+    var block = kids.length === 1 ? kids[0] : $md[0];
+    if (!block) return null;
+    var nodes = block.childNodes;
+    var brAt = -1;
+    for (var i = 0; i < nodes.length; i++) {
+      if (nodes[i].nodeName === 'BR') {
+        brAt = i;
+        break;
+      }
+    }
+    if (brAt < 0) return null;
+    var move = [];
+    for (var j = brAt + 1; j < nodes.length; j++) move.push(nodes[j]);
+    if (!move.length) return null;
+    var $span = $('<span class="lce-bot-rest"></span>');
+    block.appendChild($span[0]);
+    for (var k = 0; k < move.length; k++) $span[0].appendChild(move[k]);
+    return $span;
+  }
+
+  function collapse($node, author) {
+    if (!enabled) return;
+    if (!$node || !$node.find) return;
+    var $md = $node.find('.body > .md');
+    if (!$md.length) return;
+    if (!shouldCollapse($md, author)) return;
+    if ($md.find('.lce-bot-rest').length > 0) return;
+    var $rest = restOf($md);
+    if (!$rest) return;
+    $rest.css('display', 'block');
+    var el = $rest[0];
+    var natural = el.scrollHeight;
+    var fontPx = 13;
+    try {
+      fontPx = parseFloat(window.getComputedStyle(el).fontSize) || 13;
+    } catch (err) {
+      fontPx = 13;
+    }
+    var clipPx = fontPx * 3.4;
+    if (natural > 0 && natural <= clipPx + 4) return;
+    $rest.addClass('lce-bot-clipped');
+    $md.removeClass('lce-bot-open');
+    $md.append($('<span class="lce-bot-more">[+] show more</span>'));
+  }
+
+  function setOpen($md, open) {
+    $md.toggleClass('lce-bot-open', open);
+    $md.find('.lce-bot-more').text(open ? '[-] show less' : '[+] show more');
+  }
+
+  $(document).on('click', '.lce-bot-more', function () {
+    var $md = $(this).closest('.md');
+    setOpen($md, !$md.hasClass('lce-bot-open'));
+  });
+
+  $(document).on('click', '.lce-bot-rest', function () {
+    var $md = $(this).closest('.md');
+    if (!$md.hasClass('lce-bot-open')) setOpen($md, true);
+  });
+
+  function authorOf($node) {
+    var text = $node.find('.author').first().text();
+    return text ? text.replace(/^\/?u\//i, '').trim() : '';
+  }
+
+  function sweep() {
+    $('.liveupdate').each(function () {
+      var $n = $(this);
+      collapse($n, authorOf($n));
+    });
+  }
+
+  UPDATE_EVENTS.addListener('all', (data) => {
+    collapse(data.node, data.author);
+  });
+
+  UPDATE_EVENTS.addListener('new', (data) => {
+    if (!enabled || !data || !data.node || !data.node.find) return;
+    if (!USER) return;
+    var $md = data.node.find('.body > .md');
+    if (!$md.length) return;
+    if ($md.find('.lce-bot-clipped').length === 0) return;
+    var $below = data.node.next('.liveupdate');
+    if (!$below.length) return;
+    if (authorOf($below) !== normalise(USER)) return;
+    setOpen($md, true);
+  });
+
+  BotCollapse.sweep = sweep;
+})(BotCollapse || (BotCollapse = {}));
+
 if (THREAD == THREADS.MAIN) {
   // Main thread special feature
 
