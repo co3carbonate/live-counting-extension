@@ -2,7 +2,7 @@
 
 Live Counting Extension (LCE) provides various additional client-side features and functionalities for [Live Counting](https://www.reddit.com/live/ta535s1hq2je) to enhance your overall counting experience and performance. It was created by [/u/co3_carbonate](https://www.reddit.com/user/co3_carbonate/) and maintained by [/u/rideride](https://www.reddit.com/user/rideride/).
 
-![Preview Image](https://co3carbonate.github.io/live-counting-extension/preview.png?v=2 'Preview Image')
+![Preview Image]([https://co3carbonate.github.io/live-counting-extension/preview.png?v=2](https://raw.githubusercontent.com/co3carbonate/live-counting-extension/refs/heads/master/preview.png) 'Preview Image')
 
 All the features are displayed on the top-right corner of the page. You can always hide sections of the display by using the collapse button [-].
 
@@ -23,7 +23,7 @@ All the features are displayed on the top-right corner of the page. You can alwa
 javascript:$(document).ready(function()%20%7B%20%20%20%20%20$.ajax(%7B%20%20%20%20%20%20%20%20%20method:%20'GET',%20%20%20%20%20%20%20%20%20dataType:%20'script',%20%20%20%20%20%20%20%20%20cache:%20false,%20%20%20%20%20%20%20%20%20url:%20'https://co3carbonate.github.io/live-counting-extension/main.js',%20%20%20%20%20%20%20%20%20success:%20function()%20%7B%20%20%20%20%20%20%20%20%20%20%20%20%20console.log('Live%20Counting%20Extension%20loaded%20successfully');%20%20%20%20%20%20%20%20%20%7D,%20%20%20%20%20%20%20%20%20error:%20function(data)%20%7B%20%20%20%20%20%20%20%20%20%20%20%20%20alert('Error%20'%20+data.status+%20'%20while%20loading%20Live%20Counting%20Extension:%20'%20+data.statusText+%20'%5Cn%5CnPlease%20refresh%20to%20try%20again.');%20%20%20%20%20%20%20%20%20%7D%20%20%20%20%20%7D);%20%7D);
 ```
 and save it as a bookmark:
-![Bookmarklet preview](https://co3carbonate.github.io/live-counting-extension/bookmarklet.png?v=2 'Bookmarklet preview')
+![Bookmarklet preview]([https://co3carbonate.github.io/live-counting-extension/bookmarklet.png?v=2](https://raw.githubusercontent.com/co3carbonate/live-counting-extension/refs/heads/master/bookmarklet.png) 'Bookmarklet preview')
 
 ## Features
 
