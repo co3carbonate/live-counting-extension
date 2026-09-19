@@ -65,6 +65,13 @@ Here is a list of features. Besides the 'hidden' features, all of them can be di
 
 2. **Once you have downloaded one of those extensions, you can install the script through [this link](https://gist.github.com/co3carbonate/cbf781758d12717721dc125a80a5c785/raw/e5eb842297cc76ef66b6b9afca3f02b80b1a701a/client.user.js).** That's it! The latest version of the script will also be fetched and used each time the page is loaded, so there is no need for you to frequently update it manually. If you do not want an automatically updating version, you can make a copy from the current source code [here](https://github.com/co3carbonate/live-counting-extension/blob/master/main.js) or check out [LCE Lite](https://old.reddit.com/r/livecounting/comments/943mv0/live_counting_discussion_thread_23/e4ydisf/) which has all the essential features of LCE in a relatively simple script.
 
+3. Safari iOS users can install through a bookmarlet. Copy this:
+```
+javascript:$(document).ready(function()%20%7B%20%20%20%20%20$.ajax(%7B%20%20%20%20%20%20%20%20%20method:%20'GET',%20%20%20%20%20%20%20%20%20dataType:%20'script',%20%20%20%20%20%20%20%20%20cache:%20false,%20%20%20%20%20%20%20%20%20url:%20'https://co3carbonate.github.io/live-counting-extension/main.js',%20%20%20%20%20%20%20%20%20success:%20function()%20%7B%20%20%20%20%20%20%20%20%20%20%20%20%20console.log('Live%20Counting%20Extension%20loaded%20successfully');%20%20%20%20%20%20%20%20%20%7D,%20%20%20%20%20%20%20%20%20error:%20function(data)%20%7B%20%20%20%20%20%20%20%20%20%20%20%20%20alert('Error%20'%20+data.status+%20'%20while%20loading%20Live%20Counting%20Extension:%20'%20+data.statusText+%20'%5Cn%5CnPlease%20refresh%20to%20try%20again.');%20%20%20%20%20%20%20%20%20%7D%20%20%20%20%20%7D);%20%7D);
+```
+and save it as a bookmark:
+![Bookmarklet preview](https://co3carbonate.github.io/live-counting-extension/bookmarklet.png?v=2 'Bookmarklet preview')
+
 ## Changelog
 
 - v1.0
