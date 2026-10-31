@@ -4541,6 +4541,124 @@ var BotCollapse;
   BotCollapse.sweep = sweep;
 })(BotCollapse || (BotCollapse = {}));
 
+////////////////////
+// ImageEmbeds.ts //
+////////////////////
+var ImageEmbeds;
+(function (ImageEmbeds) {
+  var enabled = true;
+
+  var IMAGE_URL_REGEX =
+    /^https?:\/\/[^\s"'<>]+\.(?:png|jpe?g|gif|webp|avif|bmp)(?:[?#][^\s"'<>]*)?$/i;
+  var TEXT_IMAGE_REGEX =
+    /!\[[^\]]*\]\((https?:\/\/[^\s)]+)\)|(https?:\/\/[^\s"'<>]+\.(?:png|jpe?g|gif|webp|avif|bmp)(?:[?#][^\s"'<>]*)?)/gi;
+
+  Options.addCheckbox({
+    label: 'EMBED IMAGE LINKS',
+    default: true,
+    section: 'Advanced 2',
+    help: 'Shows image links in posts as images.',
+    onchange: function () {
+      enabled = this.prop('checked');
+      ELEMENTS.BODY_ELEMENT.attr('data-ImageEmbeds', enabled ? 'true' : 'false');
+      if (enabled) sweep();
+    },
+  });
+  ELEMENTS.BODY_ELEMENT.attr('data-ImageEmbeds', enabled ? 'true' : 'false');
+
+  Styles.add(
+    '.lce-embed {display:block; margin:4px 0; width:fit-content;}' +
+      '.lce-embed img {display:block; max-width:100%; max-height:300px;' +
+      ' border-radius:4px;}' +
+      '#lc-body[data-ImageEmbeds="false"] .lce-embed img {display:none;}' +
+      '.lce-embed-url {display:none;}' +
+      '#lc-body[data-ImageEmbeds="false"] .lce-embed-url {display:inline;}'
+  );
+
+  function embed(url, text) {
+    var $a = $('<a class="lce-embed" target="_blank" rel="noopener noreferrer"></a>')
+      .attr('href', url);
+    var $img = $('<img loading="lazy" referrerpolicy="no-referrer">')
+      .attr('src', url)
+      .attr('alt', text || '');
+    var $url = $('<span class="lce-embed-url"></span>').text(text || url);
+    $img.one('error', function () {
+      $a.removeClass('lce-embed');
+      $url.removeClass('lce-embed-url');
+      $img.remove();
+    });
+    return $a.append($img, $url);
+  }
+
+  function removeExclamationPoint(node) {
+    var prev = node.previousSibling;
+    if (prev && prev.nodeType === 3 && /!$/.test(prev.nodeValue)) {
+      prev.nodeValue = prev.nodeValue.slice(0, -1);
+    }
+  }
+
+  function embedLinks($md) {
+    $md.find('a[href]').each(function () {
+      var $link = $(this);
+      if ($link.hasClass('lce-embed') || $link.closest('.lce-embed').length) return;
+      if ($link.find('img').length) return;
+      var url = $link.attr('href');
+      if (!IMAGE_URL_REGEX.test(url)) return;
+      removeExclamationPoint(this);
+      $link.replaceWith(embed(url, $link.text()));
+    });
+  }
+
+  function embedText($md) {
+    var walker = document.createTreeWalker($md[0], NodeFilter.SHOW_TEXT);
+    var nodes = [];
+    while (walker.nextNode()) {
+      if ($(walker.currentNode).closest('a, code, pre').length) continue;
+      nodes.push(walker.currentNode);
+    }
+    nodes.forEach(function (node) {
+      var text = node.nodeValue;
+      TEXT_IMAGE_REGEX.lastIndex = 0;
+      if (!TEXT_IMAGE_REGEX.test(text)) return;
+      TEXT_IMAGE_REGEX.lastIndex = 0;
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      var match;
+      while ((match = TEXT_IMAGE_REGEX.exec(text))) {
+        if (match.index > last) {
+          frag.appendChild(document.createTextNode(text.slice(last, match.index)));
+        }
+        frag.appendChild(embed(match[1] || match[2])[0]);
+        last = TEXT_IMAGE_REGEX.lastIndex;
+      }
+      if (last < text.length) {
+        frag.appendChild(document.createTextNode(text.slice(last)));
+      }
+      node.parentNode.replaceChild(frag, node);
+    });
+  }
+
+  function update($node) {
+    if (!enabled || !$node || !$node.find) return;
+    var $md = $node.find('.body > .md');
+    if (!$md.length) return;
+    embedLinks($md);
+    embedText($md);
+  }
+
+  function sweep() {
+    $('.liveupdate').each(function () {
+      update($(this));
+    });
+  }
+
+  UPDATE_EVENTS.addListener('all', (data) => {
+    update(data.node);
+  });
+
+  ImageEmbeds.sweep = sweep;
+})(ImageEmbeds || (ImageEmbeds = {}));
+
 if (THREAD == THREADS.MAIN) {
   // Main thread special feature
 
