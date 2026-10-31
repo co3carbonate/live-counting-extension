@@ -4570,7 +4570,7 @@ var ImageEmbeds;
 
   Styles.add(
     '.lce-embed {display:inline;}' +
-      '.lce-embed img {display:inline; max-width:100%; max-height:300px;' +
+      '.lce-embed img {display:inline; vertical-align:top; max-width:100%; max-height:300px;' +
       ' border-radius:4px;}' +
       '#lc-body[data-ImageEmbeds="false"] .lce-embed img {display:none;}' +
       '.lce-embed-url {display:none;}' +
