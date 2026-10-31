@@ -1982,7 +1982,9 @@ var ClearPastMessages;
     }
   });
   // Old update loaded (scrolled to bottom)
-  UPDATE_EVENTS.addListener('loaded', () => {
+  UPDATE_EVENTS.addListener('loaded', (data) => {
+    // Backfilled updates arrive at the top; only scrolling down should disable.
+    if (data && data.backfill) return;
     // disable
     if (!enabled) return;
     $checkbox.prop('checked', false).trigger('change');
@@ -5069,6 +5071,189 @@ var FixEditButtons;
     return this.isSuperUser() ? !0 : this._permissions[e] == true;
   }; //intended feature
 })(FixEditButtons || (FixEditButtons = {})); // doesn't fix pre-loaded messages, sadly :/
+
+/////////////////////
+// Backfill.ts     //
+/////////////////////
+var Backfill;
+(function (Backfill) {
+  var enabled = true;
+  var POLL_MS = 5000;
+  var SLOW_POLL_MS = 15000;
+  var SLOW_AFTER_MS = 60000;
+
+  Options.addCheckbox({
+    label: 'BACKFILL AFTER RECONNECT',
+    default: true,
+    section: 'Advanced 2',
+    help: 'Backfills messages when the websocket reconnects after disconnecting.',
+    onchange: function () {
+      enabled = this.prop('checked');
+    },
+  });
+
+  var app = window.r && r.liveupdate && r.liveupdate.app;
+  var socket = app && app.websocket;
+  if (!socket) return;
+
+  var down = false;
+  var downSince = 0;
+  var pollTimer = null;
+  var inFlight = false;
+
+  function bare(fullname) {
+    return String(fullname || '').replace(/^LiveUpdate_/, '');
+  }
+
+  function findLi(id) {
+    var found = null;
+    ELEMENTS.UPDATES_ELEMENT.children('.liveupdate').each(function () {
+      if (UPDATE_EVENTS.idOf($(this)) === id) {
+        found = $(this);
+        return false;
+      }
+    });
+    return found;
+  }
+
+  function shown(name) {
+    if (app.listing && app.listing.get && app.listing.get(name)) return true;
+    return !!findLi(bare(name));
+  }
+
+  function timeOf($li) {
+    var t = Date.parse($li.find('time.live-timestamp').attr('datetime'));
+    return isNaN(t) ? null : t;
+  }
+
+  function oldestShownTime() {
+    var t = timeOf(ELEMENTS.UPDATES_ELEMENT.children('.liveupdate:not(.preview)').last());
+    return t == null ? 0 : t;
+  }
+
+  function settle(name, created) {
+    var $li = findLi(bare(name));
+    if (!$li) return;
+    var $after = null;
+    var $next = $li.next('.liveupdate');
+    while ($next.length) {
+      var t = timeOf($next);
+      if (t == null || t <= created) break;
+      $after = $next;
+      $next = $next.next('.liveupdate');
+    }
+    if ($after) $li.insertAfter($after);
+  }
+
+  Styles.add('.liveupdate.lce-backfill-pending {display:none !important;}');
+
+  function reveal(missed) {
+    var pending = {};
+    missed.forEach(function (child) {
+      pending[bare(child.data.name)] = true;
+    });
+    var $hidden = $();
+    var observer = new MutationObserver(function (mutations) {
+      mutations.forEach(function (m) {
+        $(m.addedNodes).filter('.liveupdate').each(function () {
+          if (pending[UPDATE_EVENTS.idOf($(this))]) {
+            $(this).addClass('lce-backfill-pending');
+            $hidden = $hidden.add(this);
+          }
+        });
+      });
+    });
+    observer.observe(ELEMENTS.UPDATES_ELEMENT[0], { childList: true });
+    var started = Date.now();
+    (function check() {
+      if ($hidden.length < missed.length && Date.now() - started < 1000) {
+        return requestAnimationFrame(check);
+      }
+      observer.disconnect();
+      missed.forEach(function (child) {
+        UPDATE_EVENTS.backfilling.delete(bare(child.data.name));
+        settle(child.data.name, child.data.created_utc * 1000);
+      });
+      $hidden.removeClass('lce-backfill-pending');
+    })();
+  }
+
+  function backfill() {
+    if (!enabled || inFlight) return;
+    inFlight = true;
+    $.ajax({
+      url: '/live/' + THREAD + '.json',
+      data: { limit: 100, raw_json: 1, _: Date.now() },
+      dataType: 'json',
+      cache: false,
+      timeout: 4000,
+    })
+      .done(function (res) {
+        var children = (res && res.data && res.data.children) || [];
+        var floor = oldestShownTime();
+        var missed = children.filter(function (child) {
+          var d = child && child.data;
+          if (!d || !d.name) return false;
+          if (d.created_utc * 1000 < floor) return false;
+          return !shown(d.name);
+        });
+        if (!missed.length) return;
+        reveal(missed);
+        missed.forEach(function (child) {
+          UPDATE_EVENTS.backfilling.add(bare(child.data.name));
+        });
+        missed.reverse().forEach(function (child) {
+          socket.trigger('message message:update', child);
+        });
+        console.log('Live Counting Extension: backfilled ' + missed.length + ' updates');
+      })
+      .always(function () {
+        inFlight = false;
+      });
+  }
+
+  function schedule() {
+    clearTimeout(pollTimer);
+    if (!down) return;
+    var wait = Date.now() - downSince > SLOW_AFTER_MS ? SLOW_POLL_MS : POLL_MS;
+    pollTimer = setTimeout(function () {
+      backfill();
+      schedule();
+    }, wait);
+  }
+
+  function goDown() {
+    if (down) return;
+    down = true;
+    downSince = Date.now();
+    backfill();
+    schedule();
+  }
+
+  function goUp() {
+    if (!down) return;
+    down = false;
+    clearTimeout(pollTimer);
+    backfill();
+  }
+
+  function isOpen() {
+    var ws = socket._socket;
+    return !!ws && ws.readyState === 1;
+  }
+
+  socket.on('disconnected reconnecting', goDown);
+  socket.on('connected', goUp);
+  setInterval(function () {
+    if (isOpen()) goUp();
+    else goDown();
+  }, 250);
+
+  $(window).on('online', backfill);
+  $(document).on('visibilitychange', function () {
+    if (document.visibilityState === 'visible') backfill();
+  });
+})(Backfill || (Backfill = {}));
 
 // Test thread special feature (Always at the bottom, because it will be messy lol)
 if (THREAD == THREADS.TEST || window.location.href.indexOf('testing') > -1) {

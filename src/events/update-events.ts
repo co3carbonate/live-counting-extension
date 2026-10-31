@@ -4,6 +4,7 @@ import { UPDATES_ELEMENT } from '../utils/elements';
 export interface UpdateInfo {
   author: string;
   authorNode: JQuery<HTMLElement>;
+  backfill?: boolean;
   bodyNode: JQuery<HTMLElement>;
   hrefNode: JQuery<HTMLElement>;
   node: JQuery<Node | NodeList>;
@@ -11,6 +12,15 @@ export interface UpdateInfo {
 
 class UpdateEvents extends EventEmitter {
   private readonly observer: MutationObserver;
+  readonly idsToBackfill = new Set<string>();
+  readonly idOf = UpdateEvents.idOf;
+
+  static idOf(node: JQuery<Node | NodeList>): string {
+    const href = $(node).find('a[href*="/updates/"]').first().attr('href') || '';
+    const match = href.match(/\/updates\/([0-9a-f-]+)/i);
+    if (match) return match[1];
+    return ($(node).attr('data-fullname') || '').replace(/^LiveUpdate_/, '');
+  }
 
   constructor() {
     super();
@@ -54,6 +64,14 @@ class UpdateEvents extends EventEmitter {
       }
 
       const info = UpdateEvents.getUpdateInfo(node);
+
+      if (this.idsToBackfill.delete(UpdateEvents.idOf(node))) {
+        info.backfill = true;
+        this.emit('all', info);
+        this.emit('loaded', info);
+        return;
+      }
+
       this.emit('all', info);
 
       // Determine whether the inserted update is new or loaded
