@@ -4592,6 +4592,88 @@ var ImageEmbeds;
     return $a.append($img, $url);
   }
 
+  var resizing = null;
+  var dragged = false;
+
+  function cornerDistance(e) {
+    var w = Math.max(1, e.clientX - resizing.left);
+    var h = Math.max(1, e.clientY - resizing.top);
+    return Math.hypot(w, h);
+  }
+
+  function unclip(img) {
+    $(img).css({ position: 'relative', zIndex: 1000 });
+    for (var el = img.parentElement; el && el !== document.body; el = el.parentElement) {
+      var style = getComputedStyle(el);
+      if (style.overflowX === 'visible' && style.overflowY === 'visible') continue;
+      if (el.scrollHeight > el.clientHeight + 1) continue; // a real scroller; leave it
+      if (style.display === 'block') el.style.display = 'flow-root';
+      el.style.overflow = 'visible';
+    }
+  }
+
+  function glue(img) {
+    var a = img.parentElement;
+    if (!a || $(a).parent().hasClass('lce-embed-glue')) return;
+    var prev = a.previousSibling;
+    if (!prev) return;
+
+    var $glue = $('<span class="lce-embed-glue" style="white-space:nowrap;"></span>');
+    var range = document.createRange();
+    if (prev.nodeType === 3) {
+      var tail = prev.nodeValue.match(/\S*\s*$/)[0];
+      if (!tail) return;
+      range.setStart(prev, prev.nodeValue.length - tail.length);
+      range.setEnd(prev, prev.nodeValue.length);
+    } else {
+      range.selectNode(prev);
+    }
+    if (range.getBoundingClientRect().bottom <= img.getBoundingClientRect().top + 1) return;
+
+    if (prev.nodeType === 3) {
+      var tailNode = prev.splitText(prev.nodeValue.length - tail.length);
+      $glue.insertBefore(tailNode).append(tailNode, a);
+    } else {
+      $glue.insertBefore(prev).append(prev, a);
+    }
+  }
+
+  $(document).on('mousedown', '.lce-embed img', function (e) {
+    if (e.button !== 0) return;
+    e.preventDefault();
+    unclip(this);
+    glue(this);
+    var rect = this.getBoundingClientRect();
+    resizing = {
+      img: this,
+      left: rect.left,
+      top: rect.top,
+      width: rect.width,
+      x: e.clientX,
+      y: e.clientY,
+    };
+    resizing.distance = cornerDistance(e);
+    dragged = false;
+  });
+
+  $(document).on('mousemove', function (e) {
+    if (!resizing) return;
+    if (!dragged && Math.hypot(e.clientX - resizing.x, e.clientY - resizing.y) < 3) return;
+    dragged = true;
+    var width = (resizing.width * cornerDistance(e)) / resizing.distance;
+    if (width < 20) return;
+    $(resizing.img).css({ width: width + 'px', height: 'auto', maxWidth: 'none', maxHeight: 'none' });
+  });
+
+  $(document).on('mouseup', function () {
+    resizing = null;
+  });
+
+  $(document).on('click', '.lce-embed', function (e) {
+    if (dragged) e.preventDefault();
+    dragged = false;
+  });
+
   function removeExclamationPoint(node) {
     var prev = node.previousSibling;
     if (prev && prev.nodeType === 3 && /!$/.test(prev.nodeValue)) {
