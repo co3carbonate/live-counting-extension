@@ -4569,8 +4569,8 @@ var ImageEmbeds;
   ELEMENTS.BODY_ELEMENT.attr('data-ImageEmbeds', enabled ? 'true' : 'false');
 
   Styles.add(
-    '.lce-embed {display:block; margin:4px 0; width:fit-content;}' +
-      '.lce-embed img {display:block; max-width:100%; max-height:300px;' +
+    '.lce-embed {display:inline;}' +
+      '.lce-embed img {display:inline; max-width:100%; max-height:300px;' +
       ' border-radius:4px;}' +
       '#lc-body[data-ImageEmbeds="false"] .lce-embed img {display:none;}' +
       '.lce-embed-url {display:none;}' +
