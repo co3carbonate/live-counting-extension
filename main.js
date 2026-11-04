@@ -1700,6 +1700,33 @@ var ColoredUsernames;
   // index of next color to assign from colors array
   var currentColor = 0;
 
+  var IS_LC_CHATS = [THREADS.LC_CHATS_OLD, THREADS.LC_CHATS].includes(THREAD);
+  var USER_LINK_REGEX = /\/u(?:ser)?\/([A-Za-z0-9_-]+)\/?(?:[?#].*)?$/;
+
+  function colorOf(name) {
+    if (userColors.hasOwnProperty(name)) return userColors[name];
+    var lower = name.toLowerCase();
+    for (var known in userColors) {
+      if (known.toLowerCase() === lower) return userColors[known];
+    }
+    userColors[name] = colors[currentColor];
+    currentColor = (currentColor + 1) % colors.length;
+    return userColors[name];
+  }
+
+  function colorUserLinks($md) {
+    $md.find('a[href]').each(function () {
+      var match = ($(this).attr('href') || '').trim().match(USER_LINK_REGEX);
+      if (!match) return;
+      var name = match[1];
+      $(this).css({ color: colorOf(name), fontStyle: 'initial', fontSize: '13px' });
+      var bold = Array.from(BOLD_USERS).some(function (user) {
+        return user.toLowerCase() === name.toLowerCase();
+      });
+      if (bold) $(this).css('font-weight', 'bold');
+    });
+  }
+
   // 100k name functions
   let specialUsernamesRainbowCycleIndex;
   /**
@@ -1847,38 +1874,8 @@ var ColoredUsernames;
     }
     data.authorNode.css('color', userColors[data.author]);
 
-    if ([THREADS.LC_CHATS_OLD, THREADS.LC_CHATS].includes(THREAD)) {
-      var lcchats = data.hrefNode.attr('href');
-      lcchats = lcchats.trim().replace('/u/', '');
-      data.hrefNode
-        .css('color', userColors[lcchats])
-        .css('fontStyle', 'initial')
-        .css('fontSize', '13px');
-      if (BOLD_USERS.has(lcchats)) data.hrefNode.css('font-weight', 'bold');
-    }
-  });
-  if ([THREADS.LC_CHATS_OLD, THREADS.LC_CHATS].includes(THREAD)) {
-    $('a[href*="/u/"]').each(function () {
-      var thishref = $(this).attr('href');
-      thishref = thishref.trim().replace('/u/', '');
-      $(this)
-        .css('color', userColors[thishref])
-        .css('fontStyle', 'initial')
-        .css('fontSize', '13px');
-      if (BOLD_USERS.has(thishref)) $(this).css('font-weight', 'bold');
-    });
-    UPDATE_EVENTS.addListener('loaded', () => {
-      $('a[href*="/u/"]').each(function () {
-        var thishref2 = $(this).attr('href');
-        thishref2 = thishref2.trim().replace('/u/', '');
-        $(this)
-          .css('color', userColors[thishref2])
-          .css('fontStyle', 'initial')
-          .css('fontSize', '13px');
-        if (BOLD_USERS.has(thishref2)) $(this).css('font-weight', 'bold');
+    if (IS_LC_CHATS) colorUserLinks(data.bodyNode);
       });
-    });
-  }
 
   var burrentbolor = 0;
   $('.author').each(function () {
@@ -1907,6 +1904,13 @@ var ColoredUsernames;
       if (BOLD_USERS.has(thisauthor)) $(this).css('font-weight', 'bold');
     });
   });
+
+  if (IS_LC_CHATS) {
+    colorUserLinks($('.liveupdate .body > .md'));
+    UPDATE_EVENTS.addListener('loaded', (data) => {
+      colorUserLinks(data.bodyNode);
+    });
+  }
 
   //Styles
   Styles.add(
