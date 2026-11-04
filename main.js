@@ -5349,7 +5349,7 @@ var Backfill;
       }
       observer.disconnect();
       missed.forEach(function (child) {
-        UPDATE_EVENTS.backfilling.delete(bare(child.data.name));
+        UPDATE_EVENTS.idsToBackfill.delete(bare(child.data.name));
         settle(child.data.name, child.data.created_utc * 1000);
       });
       $hidden.removeClass('lce-backfill-pending');
@@ -5378,7 +5378,7 @@ var Backfill;
         if (!missed.length) return;
         reveal(missed);
         missed.forEach(function (child) {
-          UPDATE_EVENTS.backfilling.add(bare(child.data.name));
+          UPDATE_EVENTS.idsToBackfill.add(bare(child.data.name));
         });
         missed.reverse().forEach(function (child) {
           socket.trigger('message message:update', child);
