@@ -4066,6 +4066,93 @@ var stringy = '';
     }
   }
   localStorage.setItem('emoteUses', JSON.stringify(emoteUses));
+  var SEVENTV_NAME_REGEX = /^(?=.*[A-Za-z])[A-Za-z0-9_]{2,40}$/;
+  var SEVENTV_CACHE_KEY = 'lce7tvEmotes';
+  var SEVENTV_TTL_MS = 24 * 60 * 60 * 1000;
+
+  function sevenTvEnabled() {
+    return ELEMENTS.BODY_ELEMENT.attr('data-ImageEmotes') == 'true';
+  }
+
+  var sevenTvCache = {};
+  try {
+    sevenTvCache = JSON.parse(localStorage.getItem(SEVENTV_CACHE_KEY)) || {};
+  } catch (e) {}
+  var sevenTvPending = {};
+
+  function saveSevenTv() {
+    try {
+      localStorage.setItem(SEVENTV_CACHE_KEY, JSON.stringify(sevenTvCache));
+    } catch (e) {}
+  }
+
+  function lookupSevenTv(name) {
+    var hit = sevenTvCache[name];
+    if (hit && (hit.id || Date.now() - hit.t < SEVENTV_TTL_MS)) {
+      return $.Deferred().resolve(hit.id).promise();
+    }
+    if (sevenTvPending[name]) return sevenTvPending[name];
+    sevenTvPending[name] = $.ajax({
+      url: 'https://7tv.io/v3/gql',
+      method: 'POST',
+      contentType: 'application/json',
+      dataType: 'json',
+      timeout: 10000,
+      data: JSON.stringify({
+        query:
+          'query($q:String!){emotes(query:$q,limit:20,filter:{exact_match:true},' +
+          'sort:{value:"popularity",order:DESCENDING}){items{id name}}}',
+        variables: { q: name },
+      }),
+    })
+      .then(function (res) {
+        var items = (res && res.data && res.data.emotes && res.data.emotes.items) || [];
+        var best =
+          items.filter(function (item) {
+            return item.name === name;
+          })[0] || items[0];
+        sevenTvCache[name] = { id: best ? best.id : '', t: Date.now() };
+        saveSevenTv();
+        return sevenTvCache[name].id;
+      })
+      .always(function () {
+        delete sevenTvPending[name];
+      });
+    return sevenTvPending[name];
+  }
+
+  function updateSevenTv($md) {
+    if (!sevenTvEnabled() || !$md || !$md.length) return;
+    $md.find('code').each(function () {
+      var $code = $(this);
+      if ($code.closest('pre').length) return;
+      var name = $code.text();
+      if (!SEVENTV_NAME_REGEX.test(name)) return;
+      // use lce emote if we have oen
+      if (imageEmotes.includes(name.toLowerCase())) return;
+      lookupSevenTv(name).done(function (id) {
+        if (!id || !sevenTvEnabled() || !$code.parent().length) return;
+        $code.replaceWith(
+          $('<img class="lce-emote" style="height:26px;vertical-align:top;">')
+            .attr('title', name)
+            .attr('alt', name)
+            .attr('src', sevenTvUrl(id))
+        );
+        BigEmotes.update($md);
+      });
+    });
+  }
+
+  function sweepSevenTv() {
+    $('.liveupdate .body > .md').each(function () {
+      updateSevenTv($(this));
+    });
+  }
+
+  function sevenTvUrl(id) {
+    return 'https://cdn.7tv.app/emote/' + id + '/1x.webp';
+  }
+
   // Options
   Options.addCheckbox({
     label: 'IMAGE EMOTES',
@@ -4076,6 +4163,7 @@ var stringy = '';
       ELEMENTS.BODY_ELEMENT.attr('data-ImageEmotes', this.prop('checked'));
       if (ELEMENTS.BODY_ELEMENT.attr('data-ImageEmotes') == 'true') {
         emotes_load();
+        sweepSevenTv();
       }
     },
   });
@@ -4243,6 +4331,14 @@ var stringy = '';
   if (ELEMENTS.BODY_ELEMENT.attr('data-ImageEmotes') == 'true') {
     emotes_load();
   }
+
+  UPDATE_EVENTS.addListener('new', function (data) {
+    updateSevenTv(data.bodyNode);
+  });
+  UPDATE_EVENTS.addListener('loaded', function (data) {
+    updateSevenTv(data.bodyNode);
+  });
+  sweepSevenTv();
 })(ImageEmotes || (ImageEmotes = {}));
 
 /////////////////////
