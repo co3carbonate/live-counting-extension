@@ -1875,7 +1875,7 @@ var ColoredUsernames;
     data.authorNode.css('color', userColors[data.author]);
 
     if (IS_LC_CHATS) colorUserLinks(data.bodyNode);
-      });
+  });
 
   var burrentbolor = 0;
   $('.author').each(function () {
@@ -5264,15 +5264,16 @@ var Backfill;
   var SLOW_POLL_MS = 15000;
   var SLOW_AFTER_MS = 60000;
 
-  Options.addCheckbox({
-    label: 'BACKFILL AFTER RECONNECT',
-    default: true,
-    section: 'Advanced 2',
-    help: 'Backfills messages when the websocket reconnects after disconnecting.',
-    onchange: function () {
-      enabled = this.prop('checked');
-    },
-  });
+  // Options.addCheckbox({
+  //   label: 'BACKFILL AFTER RECONNECT',
+  //   default: true,
+  //   section: 'Advanced 2',
+  //   help: 'Backfills messages when the websocket reconnects after disconnecting.',
+  //   onchange: function () {
+  //     enabled = this.prop('checked');
+  //   },
+  // });
+  return;
 
   var app = window.r && r.liveupdate && r.liveupdate.app;
   var socket = app && app.websocket;
