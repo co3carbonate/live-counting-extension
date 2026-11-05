@@ -4095,34 +4095,72 @@ var stringy = '';
     if (hit && (hit.id || Date.now() - hit.t < SEVENTV_TTL_MS)) {
       return $.Deferred().resolve(hit.id).promise();
     }
-    if (sevenTvPending[name]) return sevenTvPending[name];
-    sevenTvPending[name] = $.ajax({
+    if (!sevenTvPending[name]) {
+      sevenTvPending[name] = $.Deferred();
+      sevenTvQueue.push(name);
+      if (!sevenTvFlushTimer) sevenTvFlushTimer = setTimeout(flushSevenTv, 0);
+    }
+    return sevenTvPending[name].promise();
+  }
+
+  var SEVENTV_BATCH = 20;
+  var sevenTvQueue = [];
+  var sevenTvFlushTimer = null;
+
+  function flushSevenTv() {
+    sevenTvFlushTimer = null;
+    while (sevenTvQueue.length) requestSevenTv(sevenTvQueue.splice(0, SEVENTV_BATCH));
+  }
+
+  function requestSevenTv(names) {
+    var params = [];
+    var fields = [];
+    var variables = {};
+    names.forEach(function (name, i) {
+      params.push('$q' + i + ':String!');
+      fields.push(
+        'e' + i + ':emotes(query:$q' + i + ',limit:20,filter:{exact_match:true},' +
+          'sort:{value:"popularity",order:DESCENDING}){items{id name}}'
+      );
+      variables['q' + i] = name;
+    });
+    $.ajax({
       url: 'https://7tv.io/v3/gql',
       method: 'POST',
       contentType: 'application/json',
       dataType: 'json',
       timeout: 10000,
-      data: JSON.stringify({
-        query:
-          'query($q:String!){emotes(query:$q,limit:20,filter:{exact_match:true},' +
-          'sort:{value:"popularity",order:DESCENDING}){items{id name}}}',
-        variables: { q: name },
-      }),
+      data: JSON.stringify({ query: 'query(' + params.join(',') + '){' + fields.join(' ') + '}', variables: variables }),
     })
-      .then(function (res) {
-        var items = (res && res.data && res.data.emotes && res.data.emotes.items) || [];
-        var best =
-          items.filter(function (item) {
-            return item.name === name;
-          })[0] || items[0];
-        sevenTvCache[name] = { id: best ? best.id : '', t: Date.now() };
+      .done(function (res) {
+        var data = res && res.data;
+        if (!data) return rejectSevenTv(names);
+        names.forEach(function (name, i) {
+          var items = (data['e' + i] && data['e' + i].items) || [];
+          var best =
+            items.filter(function (item) {
+              return item.name === name;
+            })[0] || items[0];
+          sevenTvCache[name] = { id: best ? best.id : '', t: Date.now() };
+        });
         saveSevenTv();
-        return sevenTvCache[name].id;
+        names.forEach(function (name) {
+          var pending = sevenTvPending[name];
+          delete sevenTvPending[name];
+          pending.resolve(sevenTvCache[name].id);
+        });
       })
-      .always(function () {
-        delete sevenTvPending[name];
+      .fail(function () {
+        rejectSevenTv(names);
       });
-    return sevenTvPending[name];
+  }
+
+  function rejectSevenTv(names) {
+    names.forEach(function (name) {
+      var pending = sevenTvPending[name];
+      delete sevenTvPending[name];
+      pending.reject();
+    });
   }
 
   function updateSevenTv($md) {
